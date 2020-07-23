@@ -1,0 +1,81 @@
+{
+  "name": "@frontegg/react",
+  "version": "0.0.19",
+  "author": "FrontEgg LTD",
+  "scripts": {
+    "build-init": "rm -rf ./dist && yarn build",
+    "build": "export PACKAGE='core'; rollup -c ../../conf/react-rollup.config.js && echo DONE",
+    "build-watch": "export PACKAGE='core'; rollup --watch -c ../../conf/react-rollup.config.js && echo DONE",
+    "test": "jest --runInBand --passWithNoTests -c ../../conf/react-jest.config.json --rootDir . && echo DONE"
+  },
+  "pkg": "core",
+  "main": "./dist/cjs/index.js",
+  "typings": "./dist/cjs/index.d.ts",
+  "browser": "./dist/umd/index.js",
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "rc-util": "^4.20.5",
+    "react": "^16.13.1",
+    "react-dom": "16.13.1",
+    "underscore": "^1.10.2",
+    "react-redux": "^7.2.0",
+    "redux-saga": "^1.1.3",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "@reduxjs/toolkit": "^1.4.0",
+    "moment": "^2.27.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "16.9.5",
+    "@types/react-redux": "^7.1.9",
+    "@types/redux-saga": "^0.10.5",
+    "@types/redux": "^3.6.0",
+    "@types/redux-devtools-extension": "^2.13.2",
+    "@types/moment": "^2.13.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "all",
+    "jsxBracketSameLine": true,
+    "endOfLine": "lf",
+    "tabWidth": 2
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/",
+      "dist/"
+    ],
+    "globals": [
+      "describe",
+      "it",
+      "test",
+      "expect",
+      "afterAll",
+      "jest"
+    ]
+  }
+}
