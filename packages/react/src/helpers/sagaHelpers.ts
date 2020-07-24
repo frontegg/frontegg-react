@@ -98,7 +98,7 @@ export const defaultLoadDataType = (p: Partial<LoadDataType<any>> = {}) => ({
 export function* getContextFromRedux() {
   let result;
   do {
-    const { context } = yield select();
+    const context = yield select(state => state.context);
     if (!context) {
       yield delay(50);
     } else {

@@ -1,19 +1,17 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { createStore, applyMiddleware } from 'redux';
-import { ContextConsumer, ContextOptions } from './context';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 interface ICommonProvider {
   reducer: any;
   initialState: any;
   rootSaga: any;
-  children: (context: ContextOptions) => React.ReactElement;
 }
 
+const devTools = process.env.NODE_ENV === 'development';
 const sagaMiddleware = createSagaMiddleware();
-const storeMiddleware = composeWithDevTools(applyMiddleware(sagaMiddleware));
+const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
 
 export class CommonProvider extends React.Component<ICommonProvider> {
   store: any;
@@ -21,8 +19,8 @@ export class CommonProvider extends React.Component<ICommonProvider> {
 
   constructor(props: ICommonProvider) {
     super(props);
-    const { reducer, initialState, rootSaga } = this.props;
-    this.store = createStore(reducer, initialState, storeMiddleware);
+    const { reducer, initialState: preloadedState, rootSaga } = this.props;
+    this.store = configureStore({ reducer, preloadedState, middleware, devTools });
     this.task = sagaMiddleware.run(rootSaga);
   }
 
@@ -33,7 +31,7 @@ export class CommonProvider extends React.Component<ICommonProvider> {
   render() {
     const { children } = this.props;
     return <Provider store={this.store}>
-      <ContextConsumer>{children}</ContextConsumer>
+      {children}
     </Provider>;
 
   }

@@ -1,29 +1,38 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
-import { initialState, reducer } from './saga';
-import { sagaActions, sagaState, rootSaga } from './saga';
-import { CommonProvider } from '../CommonProvider';
+import { sagaActions, sagaState } from './saga';
 import { CommonApi } from '../CommonApi';
-import { ContextOptions } from '../context';
-import { StateContext, StateConsumer, IStateMapper } from './StateContext';
-import { FronteggPluginTypes } from './interfaces';
+import { memoEqual } from '../DynamicComponent';
 
-export interface IStateProvider {
-  rootDir?: string;
-  plugins: FronteggPluginTypes[]
-}
+export type IFronteggMapper = ReturnType<typeof sagaState> & ReturnType<typeof sagaActions>;
 
-const StateConnector = connect(sagaState, sagaActions)(CommonApi<IStateMapper>(StateContext));
+const { Provider: StateContextProvider, Consumer: StateContextConsumer } = React.createContext<IFronteggMapper>({} as IFronteggMapper);
 
-class StateProvider extends React.Component<IStateProvider> {
-  render() {
-    return <CommonProvider reducer={reducer} initialState={initialState} rootSaga={rootSaga}>
-      {(context: ContextOptions) => <StateConnector context={context} {...this.props}/>}
-    </CommonProvider>;
-  }
-}
+const StateConnector = connect(sagaState, sagaActions)(CommonApi<IFronteggMapper>(StateContextProvider));
 
-export {
-  StateProvider,
-  StateConsumer,
+export const PluginConsumer = <T extends {}>(Component: React.ComponentType<T>) => (props: T) => <StateConnector>
+  <Component {...props}/>
+</StateConnector>;
+
+
+export const connectFrontegg = <P extends {}, X>(
+  Component: React.ComponentType<P>,
+  selectors: (selectors: IFronteggMapper) => X,
+) => {
+  const MemoComponent = React.memo(Component as ComponentType<any>, memoEqual);
+  return class ConnectFrontegg extends React.Component<Omit<P, keyof X>> {
+    render() {
+      return <StateContextConsumer>
+        {(api: IFronteggMapper | null) => {
+          if (api == null) {
+            const error = `Frontegg Provider must be configured`;
+            console.error(error);
+            return <div>{error}</div>;
+          }
+          const props: P = { ...selectors(api), ...this.props } as any;
+          return <MemoComponent {...props}/>;
+        }}
+      </StateContextConsumer>;
+    }
+  };
 };

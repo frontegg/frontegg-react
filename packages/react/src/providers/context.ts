@@ -1,4 +1,3 @@
-import React from 'react';
 
 export interface KeyValuePair {
   key: string;
@@ -94,13 +93,7 @@ export interface ContextOptions {
   urlPrefix?: string;
 }
 
-const initContext: ContextOptions = {
+export const initialState: ContextOptions = {
   baseUrl: '',
   tokenResolver: () => '',
 };
-
-const ctx = React.createContext<ContextOptions>(initContext);
-
-export const ContextProvider = ctx.Provider;
-
-export const ContextConsumer = ctx.Consumer;

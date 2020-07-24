@@ -1,38 +1,44 @@
-import { combineReducers } from 'redux';
+import { Dispatch } from 'redux';
 import { call } from 'redux-saga/effects';
-import { ContextOptions } from '../context';
+import {
+  initialState as contextInitialState,
+  ContextOptions,
+} from '../context';
 import {
   ReportState,
   initialState as reportsInitialState,
   actions as reportsActions,
-  reducer as reportsReducer,
+  reducers as reportsReducer,
   rootSaga as reportsSaga,
 } from '../../plugins/reports/reducer';
+import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
+import { ActionPrefix } from '../contstants';
 
 
-export interface FronteggState {
-  context: ContextOptions | null;
-  reports: ReportState;
+export interface FronteggState extends ReportState {
+  context?: ContextOptions | null;
 }
 
-
 const initialState: FronteggState = {
-  context: null,
-  reports: reportsInitialState,
+  context: contextInitialState,
+  ...reportsInitialState,
 };
 
-
-const reducer = combineReducers({
-  reports: reportsReducer,
+const { reducer, actions } = createSlice({
+  name: ActionPrefix,
+  initialState,
+  reducers: {
+    ...reportsReducer,
+  },
 });
+
+const mapperActions = {
+  ...reportsActions,
+};
 
 function* rootSaga() {
   yield call(reportsSaga);
 }
-
-const actions = {
-  reports: reportsActions,
-};
 
 export {
   initialState,
@@ -40,3 +46,9 @@ export {
   actions,
   rootSaga,
 };
+
+
+export const sagaState = (state: FronteggState) => ({ state });
+
+export const sagaActions = (dispatch: Dispatch) => ({ actions: bindActionCreators(mapperActions, dispatch) });
+

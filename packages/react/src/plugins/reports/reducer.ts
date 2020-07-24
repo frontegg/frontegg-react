@@ -1,5 +1,7 @@
-import { createSlice, createAction } from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 import { takeEvery, takeLatest, debounce } from 'redux-saga/effects';
+import { ActionPrefix } from '../../providers';
+
 import {
   ILoadReportsConfig,
   IRenderReportResult,
@@ -11,7 +13,6 @@ import {
 import {
   createDataTypeReducerAction,
   defaultLoadDataType,
-  defaultReducerActions,
   LoadDataType,
 } from '../../helpers/sagaHelpers';
 import { ReportsApi } from '../../api';
@@ -25,8 +26,7 @@ export interface ReportState {
   sendingReportById: LoadDataType,
 }
 
-
-const initialState: ReportState = {
+export const initialState: ReportState = {
   reports: defaultLoadDataType({ data: [] }),
   reportById: defaultLoadDataType(),
   renderedReportById: defaultLoadDataType(),
@@ -35,42 +35,21 @@ const initialState: ReportState = {
   sendingReportById: defaultLoadDataType(),
 };
 
-const { name, actions: slicedActions, reducer } = createSlice({
-  name: 'reports',
-  initialState,
-  reducers: {
-    ...defaultReducerActions<ReportState>(),
-    setReports: createDataTypeReducerAction<ReportState, IReportRecord[]>('reports'),
-    setReportById: createDataTypeReducerAction<ReportState, IReportRecord>('reportById'),
-    setRenderReportById: createDataTypeReducerAction<ReportState, IRenderReportResult>('renderedReportById'),
-  },
-});
-
-const loadReports = createAction(`${name}/loadReport`, (payload: ILoadReportsConfig = {}) => ({ payload }));
-const loadReportById = createAction(`${name}/loadReportById`, (payload: string) => ({ payload }));
-const renderReportById = createAction(`${name}/renderReportById`, (payload: IRenderReportsConfig) => ({ payload }));
-const debounceRenderReportById = createAction(`${name}/debounceRenderReportById`, (payload: IRenderReportsConfig) => ({ payload }));
-const updateReportById = createAction(`${name}/updateReportById`, (payload: IUpdateReportsConfig) => ({ payload }));
-const generateReportById = createAction(`${name}/generateReportById`, (payload: IRenderReportsConfig) => ({ payload }));
-const sendReportById = createAction(`${name}/sendReportById`, (payload: ISendReportConfig) => ({ payload }));
-
-const actions = {
-  ...slicedActions,
-  loadReports,
-  loadReportById,
-  renderReportById,
-  debounceRenderReportById,
-  updateReportById,
-  generateReportById,
-  sendReportById,
+export const reducers = {
+  setReports: createDataTypeReducerAction<ReportState, IReportRecord[]>('reports'),
+  setReportById: createDataTypeReducerAction<ReportState, IReportRecord>('reportById'),
+  setRenderReportById: createDataTypeReducerAction<ReportState, IRenderReportResult>('renderedReportById'),
 };
 
-export {
-  initialState,
-  reducer,
-  actions,
+export const actions = {
+  loadReports: createAction(`${ActionPrefix}/loadReport`, (payload: ILoadReportsConfig = {}) => ({ payload })),
+  loadReportById: createAction(`${ActionPrefix}/loadReportById`, (payload: string) => ({ payload })),
+  renderReportById: createAction(`${ActionPrefix}/renderReportById`, (payload: IRenderReportsConfig) => ({ payload })),
+  debounceRenderReportById: createAction(`${ActionPrefix}/debounceRenderReportById`, (payload: IRenderReportsConfig) => ({ payload })),
+  updateReportById: createAction(`${ActionPrefix}/updateReportById`, (payload: IUpdateReportsConfig) => ({ payload })),
+  generateReportById: createAction(`${ActionPrefix}/generateReportById`, (payload: IRenderReportsConfig) => ({ payload })),
+  sendReportById: createAction(`${ActionPrefix}/sendReportById`, (payload: ISendReportConfig) => ({ payload })),
 };
-
 
 export function* rootSaga() {
   yield takeLatest(actions.loadReports, ReportsApi.loadReports);

@@ -1,8 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, select } from 'redux-saga/effects';
-import { Get, Post } from '../../helpers/fetch';
-import { actions, ReportState } from '../../plugins/reports/state/reducer';
-import Logger from '../../helpers/logger';
+import { Logger, Get, Post } from '../../helpers';
+import { actions, ReportState } from '../../plugins/reports/reducer';
 import { getContextFromRedux } from '../../helpers/sagaHelpers';
 import { ILoadReportsConfig, IRenderReportsConfig, ISendReportConfig, IUpdateReportsConfig } from './interfaces';
 
