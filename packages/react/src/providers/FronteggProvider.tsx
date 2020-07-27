@@ -1,32 +1,59 @@
 import React from 'react';
 import { UILibrary, UILibraryProvider } from './UILibraryProvider';
 import { ContextOptions } from './context';
-import { FronteggPluginTypes } from './StateProvider';
-import { initialState, reducer, rootSaga } from './StateProvider/saga';
-import { CommonProvider } from './CommonProvider';
+import { IFronteggPlugins } from './StateProvider';
+import { FronteggState, initialState, reducer } from './StateProvider/saga';
 import ContextRefresher from './ContextRefresher';
-
+import createSagaMiddleware, { Task } from 'redux-saga';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { Provider as ReduxProvider } from 'react-redux';
+import { defaultConfig } from './contstants';
+import { call } from 'redux-saga/effects';
+import { reportsRootSaga } from '../api/ReportsApi';
 
 export interface IFronteggProvider {
   contextOptions: ContextOptions;
-  plugins: FronteggPluginTypes[];
+  pluginsOptions: IFronteggPlugins;
   uiLibrary: UILibrary;
 }
 
+const devTools = process.env.NODE_ENV === 'development';
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
+
 export class FronteggProvider extends React.Component<IFronteggProvider> {
   static defaultProps = {
-    plugins: [],
+    pluginsOptions: {},
     uiLibrary: 'semantic',
     routes: {},
   };
+  store: any;
+  task: Task;
+
+  constructor(props: IFronteggProvider) {
+    super(props);
+    const { contextOptions, pluginsOptions } = this.props;
+    const preloadedState: FronteggState = { ...initialState, context: contextOptions, ...defaultConfig(pluginsOptions) };
+    this.store = configureStore({ reducer, preloadedState, middleware, devTools });
+
+    function* rootSaga() {
+      yield call(reportsRootSaga);
+    }
+
+    this.task = sagaMiddleware.run(rootSaga);
+  }
+
+  componentWillUnmount() {
+    this.task.cancel();
+  }
 
   render() {
-    const { children, plugins, uiLibrary, contextOptions } = this.props;
+    const { children, uiLibrary, contextOptions } = this.props;
     return <UILibraryProvider value={uiLibrary || 'semantic'}>
-      <CommonProvider reducer={reducer} initialState={{ ...initialState, contextOptions }} rootSaga={rootSaga}>
-        <ContextRefresher context={contextOptions} plugins={plugins}/>
+      <ReduxProvider store={this.store}>
+        <ContextRefresher context={contextOptions}/>
         {children}
-      </CommonProvider>
+      </ReduxProvider>
     </UILibraryProvider>;
   }
 }

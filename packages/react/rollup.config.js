@@ -32,7 +32,20 @@ const plugins = [
   }),
   postcss({ extensions: ["scss", "sass"], minimize: true, extract: "style.css" }),
   commonjs(),
-  isProduction ? terser() : progress()
+  isProduction ? terser() : progress(),
+  ts({
+    typescript,
+    clean: true,
+    check: true,
+    abortOnError: false
+  }),
+  // alias({
+  //   entries: [
+  //     { find: 'elements', replacement: path.resolve(projectRootDir, 'src/elements') },
+  //     { find: 'components', replacement: path.resolve(projectRootDir, 'src/components') },
+  //     { find: 'helpers', replacement: path.resolve(projectRootDir, 'src/helpers') },
+  //   ]
+  // })
 ];
 
 const commonConfig = {
@@ -44,12 +57,7 @@ export default [{
   ...commonConfig,
   plugins: [
     ...plugins,
-    ts({
-      typescript,
-      clean: true,
-      check: true,
-      abortOnError: false
-    })
+
   ],
   output: {
     ...commonOutput,

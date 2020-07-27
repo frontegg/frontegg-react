@@ -1,9 +1,9 @@
-import { IReportsPlugin } from '../../plugins/reports';
+import { IReportsPluginConfig } from '../../plugins/reports';
 
-export type FronteggPlugin<K, T> = {
-  type: K;
-  props?: T
+export type IFronteggPlugins = {
+  reportsConfig: IReportsPluginConfig
 }
-export type FronteggPluginTypes =
-  | FronteggPlugin<'reports', IReportsPlugin>
-// | FronteggPlugin<'webhooks', IWebhooks>
+
+export type IPluginConfigs = {
+  config: IFronteggPlugins
+}

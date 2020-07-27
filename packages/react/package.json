@@ -4,30 +4,41 @@
   "author": "FrontEgg LTD",
   "scripts": {
     "build-init": "rm -rf ./dist && yarn build",
-    "build": "export PACKAGE='core'; rollup -c ../../conf/react-rollup.config.js && echo DONE",
-    "build-watch": "export PACKAGE='core'; rollup --watch -c ../../conf/react-rollup.config.js && echo DONE",
+    "build": "export PACKAGE='core'; rollup -c ./rollup.config.js && echo DONE",
+    "build-watch": "export PACKAGE='react'; rollup --watch -c ./rollup.config.js && echo DONE",
     "test": "jest --runInBand --passWithNoTests -c ../../conf/react-jest.config.json --rootDir . && echo DONE"
   },
   "pkg": "core",
   "main": "./dist/cjs/index.js",
   "typings": "./dist/cjs/index.d.ts",
   "browser": "./dist/umd/index.js",
+  "peerDependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "optionalDependencies": {
+    "semantic-ui-react": "^1.0.0"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
+    "underscore": "^1.10.2",
     "rc-util": "^4.20.5",
     "react": "^16.13.1",
     "react-dom": "16.13.1",
-    "underscore": "^1.10.2",
     "react-redux": "^7.2.0",
     "redux-saga": "^1.1.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "@reduxjs/toolkit": "^1.4.0",
     "moment": "^2.27.0",
-    "loglevel": "^1.6.8"
+    "loglevel": "^1.6.8",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "cron-parser": "^2.15.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
+    "@types/underscore": "^1.10.2",
     "@types/react": "^16.9.19",
     "@types/react-dom": "16.9.5",
     "@types/react-redux": "^7.1.9",
@@ -35,7 +46,9 @@
     "@types/redux": "^3.6.0",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/moment": "^2.13.0",
-    "@types/loglevel": "^1.6.3"
+    "@types/loglevel": "^1.6.3",
+    "@types/react-router": "^5.1.2",
+    "@types/react-router-dom": "^5.1.2"
   },
   "jest": {
     "preset": "ts-jest",

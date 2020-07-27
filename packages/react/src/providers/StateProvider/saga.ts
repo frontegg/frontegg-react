@@ -1,54 +1,47 @@
 import { Dispatch } from 'redux';
-import { call } from 'redux-saga/effects';
-import {
-  initialState as contextInitialState,
-  ContextOptions,
-} from '../context';
-import {
-  ReportState,
-  initialState as reportsInitialState,
-  actions as reportsActions,
-  reducers as reportsReducer,
-  rootSaga as reportsSaga,
-} from '../../plugins/reports/reducer';
+import { initialState as contextInitialState, ContextOptions } from '../context';
+import * as Reports from '../../plugins/reports/reducer';
 import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
-import { ActionPrefix } from '../contstants';
+import { IPluginConfigs } from './interfaces';
+import { defaultReducerActions } from '../../helpers/sagaHelpers';
 
-
-export interface FronteggState extends ReportState {
-  context?: ContextOptions | null;
-}
+export type FronteggState = {
+    context?: ContextOptions | null;
+  }
+  & IPluginConfigs
+  & Reports.ReportState
 
 const initialState: FronteggState = {
   context: contextInitialState,
-  ...reportsInitialState,
+  config: { reportsConfig: { rootDir: '/reports' } },
+  ...Reports.initialState,
 };
 
 const { reducer, actions } = createSlice({
-  name: ActionPrefix,
+  name: 'frontegg',
   initialState,
   reducers: {
-    ...reportsReducer,
+    ...defaultReducerActions<FronteggState>(),
+    ...Reports.reducers,
   },
 });
 
 const mapperActions = {
-  ...reportsActions,
+  ...Reports.actions,
 };
 
-function* rootSaga() {
-  yield call(reportsSaga);
-}
+const reducerActions = {
+  ...actions,
+  ...Reports.actions,
+};
 
 export {
   initialState,
   reducer,
-  actions,
-  rootSaga,
+  reducerActions,
 };
 
 
-export const sagaState = (state: FronteggState) => ({ state });
+export const sagaState = ({ config, ...state }: FronteggState) => ({ config, state });
 
 export const sagaActions = (dispatch: Dispatch) => ({ actions: bindActionCreators(mapperActions, dispatch) });
-

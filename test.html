@@ -7,6 +7,18 @@
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
+    <style type="text/css" rel="stylesheet">
+        .testing-transition {
+            transition: all 300ms;
+            padding: 8px;
+            background: #aaa;
+        }
+
+        .testing-transition.active {
+            padding: 20px;
+            background: #666;
+        }
+    </style>
 </head>
 <body>
 
@@ -46,18 +58,33 @@
       };
 
       render() {
-        return React.createElement("div", null, React.createElement(
-          React.Fragment, null,
-          React.createElement("button", { onClick: () => this.setState({ clicked: !this.state.clicked }) }, this.state.clicked ? "ON" : "OFF"),
+        return React.createElement("div", null,
+          React.createElement("div", null, `Reports`),
+          React.createElement("button", {
+            className: "testing-transition active",
+            key: "david",
+            onClick: () => this.setState({ clicked: !this.state.clicked })
+          }, this.state.clicked ? "ON" : "OFF"),
           React.createElement("div", null, `Button Toggle: ${this.state.clicked}`),
           React.createElement("div", null, `Context Value: ${this.props.baseUrl}`)
-        ));
+        );
       }
     }
 
     class Webhooks extends React.Component {
+      state = {
+        clicked: false
+      };
+
       render() {
-        return "Webhooks";
+        return React.createElement("div", null,
+          React.createElement("div", null, `Webhooks`),
+          React.createElement("button", {
+            className: "testing-transition",
+            key: "david",
+            onClick: () => this.setState({ clicked: !this.state.clicked })
+          }, this.state.clicked ? "ON" : "OFF")
+        );
       }
     }
 

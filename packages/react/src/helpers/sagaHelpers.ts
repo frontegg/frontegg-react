@@ -1,6 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ContextOptions } from '../providers/context';
 import { delay, select } from 'redux-saga/effects';
+import { IPluginConfigs } from '../providers/StateProvider';
 
 export interface LoadDataType<T = null> {
   loading?: boolean;
@@ -10,17 +11,13 @@ export interface LoadDataType<T = null> {
 }
 
 export type LoadingTypes<T> = {
-  name: keyof Omit<T, 'context'>;
+  name: keyof Omit<T, 'context' | 'config'>;
   value: any;
-}
-
-
-export interface CommonPluginState {
-  context: ContextOptions | null;
 }
 
 export const defaultReducerActions = <S>() => ({
   setContext: (state: S, { payload: context }: PayloadAction<ContextOptions | null>) => ({ ...state, context }),
+  setConfig: (state: S, { payload: config }: PayloadAction<IPluginConfigs>) => ({ ...state, config }),
 
   setFailed: {
     prepare: (payload: LoadingTypes<S>) => ({ payload }),

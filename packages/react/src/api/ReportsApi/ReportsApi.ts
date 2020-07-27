@@ -1,7 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest, debounce, takeEvery } from 'redux-saga/effects';
 import { Logger, Get, Post } from '../../helpers';
-import { actions, ReportState } from '../../plugins/reports/reducer';
+import { ReportState } from '../../plugins/reports/reducer';
+import { reducerActions as actions } from '../../providers/StateProvider/saga';
 import { getContextFromRedux } from '../../helpers/sagaHelpers';
 import { ILoadReportsConfig, IRenderReportsConfig, ISendReportConfig, IUpdateReportsConfig } from './interfaces';
 
@@ -89,4 +90,14 @@ export function* sendReportById({ payload }: PayloadAction<ISendReportConfig>) {
     const context = yield call(getContextFromRedux);
     yield Post(context, `/reports/engine/resources/triggers/v1/tenant-reports`, payload);
   });
+}
+
+export function* reportsRootSaga() {
+  yield takeLatest(actions.loadReports, loadReports);
+  yield takeLatest(actions.loadReportById, loadReportById);
+  yield takeLatest(actions.renderReportById, renderReportById);
+  yield debounce(1000, actions.debounceRenderReportById, renderReportById);
+  yield takeEvery(actions.updateReportById, updateReportById);
+  yield takeEvery(actions.generateReportById, generateReportById);
+  yield takeEvery(actions.sendReportById, sendReportById);
 }

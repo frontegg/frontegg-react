@@ -1,23 +1,29 @@
-import React from 'react';
-import { connectFrontegg } from '../../providers/StateProvider';
+import React, { CSSProperties } from 'react';
+import classNames from 'classnames';
+import { connectFrontegg, IFronteggMapper, RegisterPlugin } from '../../providers';
+import { IReportsRouter, ReportsRouter } from './ReportsRouter';
 
-export interface IReports {
-
+export interface IReports extends IReportsRouter {
+  className?: string
+  style?: CSSProperties;
 }
 
-export class Reports extends React.Component<Reports> {
+const mapper = ({ config: { reportsConfig } }: IFronteggMapper) => ({ reportsConfig });
+type MapperProps = ReturnType<typeof mapper>
+
+class _Reports extends React.Component<IReports & MapperProps> {
+
+  buildCssVariable = (): CSSProperties => {
+    const { style = {}, reportsConfig: { cssVariables = {} } } = this.props;
+    return { ...cssVariables, ...style };
+  };
 
   render() {
-    return 'Reports';
+    const { className, reportsConfig } = this.props;
+    return <div className={classNames('frontegg', 'fe-reports', reportsConfig?.className, className)} style={this.buildCssVariable()}>
+      <ReportsRouter {...this.props}/>
+    </div>;
   }
 }
 
-
-connectFrontegg(Reports,
-  ({
-     state: { reports },
-     actions: { loadReports },
-   }) => ({
-    reports,
-    loadReports,
-  }));
+export const Reports = RegisterPlugin(connectFrontegg(_Reports, mapper));
