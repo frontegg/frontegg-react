@@ -6,10 +6,7 @@ export default class Page extends React.Component {
 
   render() {
     return <div>
-      <Reports components={{
-        ReportsListPage: {
-        },
-      }}/>
+      <Reports />
     </div>;
   }
 }

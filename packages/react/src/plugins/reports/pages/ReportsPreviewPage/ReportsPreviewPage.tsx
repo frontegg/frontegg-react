@@ -3,8 +3,8 @@ import { IPageHeader, PageHeader } from '../../../../components/PageHeader';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { IReportGenerateTab, ReportGenerateTab } from './ReportGenerateTab';
 import { IReportScheduleTab, ReportScheduleTab } from './ReportScheduleTab';
-import { buildPropsComponents, ComponentsTypes, ComponentsTypesWithProps, connectFrontegg, IFronteggMapper } from '../../../../providers';
-import { Loader, ITabsProps, Iframe, IframeProps } from '../../../../elements';
+import { buildPropsComponents, ComponentsTypes, ComponentsTypesWithProps, connectFrontegg, IFronteggMapper } from '@providers';
+import { Loader, ITabsProps, Iframe, IframeProps } from '@elements';
 
 type Components = {
   PageHeader: IPageHeader,

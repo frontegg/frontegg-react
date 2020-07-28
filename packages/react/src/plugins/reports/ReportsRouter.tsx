@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { connectFrontegg, IFronteggMapper } from '@providers';
-import { IReportsListPage, ReportsListPage } from './pages/ReportsListPage/ReportsListPage';
+import { IReportsListPage, ReportsListPage } from './pages/ReportsListPage';
 import { IReportsPreviewPage, ReportsPreviewPage } from './pages/ReportsPreviewPage';
 import { ComponentsTypesWithProps, ComponentsTypes, buildPropsComponents } from '@providers';
 
@@ -54,7 +54,7 @@ class _ReportsRouter extends React.Component<IReportsRouter & MapperProps> {
   defaultRenderer = (props: Omit<IReportsRouterProps, 'renderer'>, components: ComponentsTypes<IReportsRouterComponents>) => {
     return <BrowserRouter basename={props.rootDir}>
       <Switch>
-        <Route path='/' component={components.ReportsListPage}/>
+        <Route path='/' exact={true} component={components.ReportsListPage}/>
         <Route path='/report/:id' component={components.ReportsPreviewPage}/>
         <Route path='*' component={() => <Redirect to='/'/>}/>
       </Switch>

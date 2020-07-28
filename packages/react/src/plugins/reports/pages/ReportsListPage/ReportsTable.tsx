@@ -37,7 +37,9 @@ export class _ReportsTable extends React.Component<IReportsTable & ReturnType<ty
         displayName: 'Title',
         sortable: true,
         filterable: true,
-        Cell: components?.TitleCell ?? TableTitleCell(data => data.description, data => data.id),
+        Cell: components?.TitleCell ?? TableTitleCell(
+          ({ description }) => description,
+          ({ id }) => `/report/${id}`),
       },
       {
         name: 'schedule',
