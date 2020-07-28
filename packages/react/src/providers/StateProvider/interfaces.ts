@@ -1,4 +1,4 @@
-import { IReportsPluginConfig } from '../../plugins/reports';
+import { IReportsPluginConfig } from '@plugins/reports';
 
 export type IFronteggPlugins = {
   reportsConfig: IReportsPluginConfig

@@ -8,12 +8,6 @@ export default class Page extends React.Component {
     return <div>
       <Reports components={{
         ReportsListPage: {
-          renderer: (props, components) => {
-            const { PageHeader } = components;
-            return <div>
-              <PageHeader title={"tttt"}/>
-            </div>;
-          },
         },
       }}/>
     </div>;

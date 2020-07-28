@@ -6,7 +6,7 @@ export default class App extends React.Component {
 
   render() {
     return <FronteggProvider contextOptions={{
-      baseUrl: `http://localhost:8080`,
+      baseUrl: `http://localhost:8081`,
       tokenResolver: () => 'my-authentication-token',
     }}>
       <Page/>

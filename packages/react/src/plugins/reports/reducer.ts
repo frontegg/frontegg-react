@@ -3,19 +3,10 @@ import { createAction } from '@reduxjs/toolkit';
 export const ActionPrefix = 'frontegg';
 
 import {
-  ILoadReportsConfig,
-  IRenderReportResult,
-  IRenderReportsConfig,
-  IReportRecord,
-  ISendReportConfig,
-  IUpdateReportsConfig,
-} from '../../api/ReportsApi';
-import {
-  createDataTypeReducerAction,
-  defaultLoadDataType,
-  LoadDataType,
-} from '../../helpers/sagaHelpers';
-import { FronteggState } from '../../providers/StateProvider/saga';
+  ILoadReportsConfig, IRenderReportResult, IRenderReportsConfig, IReportRecord, ISendReportConfig, IUpdateReportsConfig,
+} from '@api/ReportsApi';
+import { createDataTypeReducerAction, defaultLoadDataType, LoadDataType } from '@helpers/sagaHelpers';
+import { FronteggState } from '@providers/StateProvider/saga';
 
 export interface ReportState {
   reports: LoadDataType<IReportRecord[]>;

@@ -6,11 +6,6 @@ export const defaultConfig = (plugins: IFronteggPlugins): IPluginConfigs => ({
     reportsConfig: {
       rootDir: '/reports',
 
-      ReportsListPage: {
-        PageHeader: {
-          subtitle: "TTTTTT"
-        }
-      },
       ...(plugins.reportsConfig || {}),
     },
   },

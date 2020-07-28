@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
-import { connectFrontegg, IFronteggMapper } from '../../providers/StateProvider';
-import { IReportsListPage, ReportsListPage } from './pages/ReportsListPage';
+import { connectFrontegg, IFronteggMapper } from '@providers';
+import { IReportsListPage, ReportsListPage } from './pages/ReportsListPage/ReportsListPage';
 import { IReportsPreviewPage, ReportsPreviewPage } from './pages/ReportsPreviewPage';
-import { ComponentsTypesWithProps, ComponentsTypes, buildPropsComponents } from '../../providers';
+import { ComponentsTypesWithProps, ComponentsTypes, buildPropsComponents } from '@providers';
 
 export type IReportsRouterComponents = {
   ReportsListPage: IReportsListPage;

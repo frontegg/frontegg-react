@@ -3,7 +3,7 @@ import { initialState as contextInitialState, ContextOptions } from '../context'
 import * as Reports from '../../plugins/reports/reducer';
 import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
 import { IPluginConfigs } from './interfaces';
-import { defaultReducerActions } from '../../helpers/sagaHelpers';
+import { defaultReducerActions } from '@helpers/sagaHelpers';
 
 export type FronteggState = {
     context?: ContextOptions | null;

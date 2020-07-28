@@ -1,4 +1,4 @@
-import { UILibrary, UILibraryConsumer } from '../providers';
+import { UILibrary, UILibraryConsumer } from '@providers';
 import React, { FunctionComponent } from 'react';
 
 export function LibraryBasedElement<P>(components: { [T in UILibrary]: any }): FunctionComponent<P & { library?: UILibrary }> {

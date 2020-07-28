@@ -1,12 +1,12 @@
 import React from 'react';
 import cronParser from 'cron-parser';
-import * as cronUtils from '../../../../helpers/cronUtils';
+import * as cronUtils from "@helpers/cronUtils";
 import moment from 'moment';
 import { Form } from 'semantic-ui-react';
-import { Input } from '../../../../elements';
-import { CalendarSVG, SettingSVG } from '../../../../components/Icons';
-import { Logger } from '../../../../helpers';
-import { connectFrontegg, IFronteggMapper } from '../../../../providers/StateProvider';
+import { Input } from '@elements';
+import { CalendarSVG, SettingSVG } from '@components/Icons';
+import { Logger } from '@helpers';
+import { connectFrontegg, IFronteggMapper } from '@providers/StateProvider';
 
 const mapper = ({ state: { reportById, updatingReportById }, actions: { updateReportById } }: IFronteggMapper) => ({
   updateLoading: updatingReportById?.loading ?? false,
@@ -190,10 +190,11 @@ class _ReportScheduleTab extends React.Component<IReportScheduleTab & ReturnType
   };
 
   render() {
-    const { active } = this.state;
+    // const { active } = this.state;
     const { reportById: { data: report } } = this.props;
     if (report == null) {
       return null;
+
     }
 
     return <div>

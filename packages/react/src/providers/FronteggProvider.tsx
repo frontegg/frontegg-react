@@ -9,7 +9,9 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider as ReduxProvider } from 'react-redux';
 import { defaultConfig } from './contstants';
 import { call } from 'redux-saga/effects';
-import { reportsRootSaga } from '../api/ReportsApi';
+import { reportsRootSaga } from '@api/ReportsApi';
+import { i18n } from './I18nInitializer';
+import { I18nextProvider } from 'react-i18next';
 
 export interface IFronteggProvider {
   contextOptions: ContextOptions;
@@ -50,10 +52,12 @@ export class FronteggProvider extends React.Component<IFronteggProvider> {
   render() {
     const { children, uiLibrary, contextOptions } = this.props;
     return <UILibraryProvider value={uiLibrary || 'semantic'}>
-      <ReduxProvider store={this.store}>
-        <ContextRefresher context={contextOptions}/>
-        {children}
-      </ReduxProvider>
+      <I18nextProvider i18n={i18n}>
+        <ReduxProvider store={this.store}>
+          <ContextRefresher context={contextOptions}/>
+          {children}
+        </ReduxProvider>
+      </I18nextProvider>
     </UILibraryProvider>;
   }
 }

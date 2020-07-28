@@ -2,7 +2,6 @@ import React from 'react';
 import { Tab, TabProps } from 'semantic-ui-react';
 import { ITabsProps } from './interfaces';
 
-
 const mapper = ({ activeIndex, tabs, onTabChange }: ITabsProps): TabProps => ({
   activeIndex,
   panes: tabs.map((tab) => ({ menuItem: tab })),

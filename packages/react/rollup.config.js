@@ -6,6 +6,7 @@ import replace from "@rollup/plugin-replace";
 import ts from "rollup-plugin-typescript2";
 import progress from "rollup-plugin-progress";
 import postcss from "rollup-plugin-postcss";
+import clear from "rollup-plugin-clear";
 import typescript from "typescript";
 import fs from "fs";
 
@@ -24,12 +25,12 @@ const plugins = [
     "process.env.NODE_ENV": JSON.stringify(isProduction ? "production" : "development")
   }),
   json(),
-  resolve({
-    jsnext: true,
-    browser: true,
-    main: true,
-    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"]
-  }),
+  // resolve({
+  //   jsnext: true,
+  //   browser: true,
+  //   main: true,
+  //   extensions: [".js", ".jsx", ".ts", ".tsx", ".json"]
+  // }),
   postcss({ extensions: ["scss", "sass"], minimize: true, extract: "style.css" }),
   commonjs(),
   isProduction ? terser() : progress(),
@@ -39,13 +40,6 @@ const plugins = [
     check: true,
     abortOnError: false
   }),
-  // alias({
-  //   entries: [
-  //     { find: 'elements', replacement: path.resolve(projectRootDir, 'src/elements') },
-  //     { find: 'components', replacement: path.resolve(projectRootDir, 'src/components') },
-  //     { find: 'helpers', replacement: path.resolve(projectRootDir, 'src/helpers') },
-  //   ]
-  // })
 ];
 
 const commonConfig = {
@@ -55,10 +49,8 @@ const commonConfig = {
 
 export default [{
   ...commonConfig,
-  plugins: [
-    ...plugins,
-
-  ],
+  inlineDynamicImports: !isProduction,
+  plugins,
   output: {
     ...commonOutput,
     dir: "./dist/cjs",

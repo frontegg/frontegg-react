@@ -2,7 +2,8 @@ import React, { FC, ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
 import './style.scss';
 import { ArrowSVG } from '../Icons';
-import { ITabsProps, Tabs } from '../../elements/Tabs';
+import { ITabsProps, Tabs } from '@elements';
+import { RendererFunction } from '@providers';
 
 
 interface IPageHeaderProps {
@@ -22,11 +23,10 @@ interface IPageHeaderProps {
 }
 
 export interface IPageHeader extends IPageHeaderProps {
-  renderer?: (props: IPageHeaderProps) => ReactElement<any, any> | null
+  renderer?: RendererFunction<IPageHeaderProps, null, ReactElement>
 }
 
 export const PageHeader: FC<IPageHeader> = ({ renderer, ...props }) => {
-  debugger
   if (renderer) {
     return renderer(props);
   }

@@ -13,8 +13,8 @@
   "typings": "./dist/cjs/index.d.ts",
   "browser": "./dist/umd/index.js",
   "peerDependencies": {
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "optionalDependencies": {
     "semantic-ui-react": "^1.0.0"
@@ -34,7 +34,9 @@
     "loglevel": "^1.6.8",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "cron-parser": "^2.15.0"
+    "cron-parser": "^2.15.0",
+    "i18next": "^19.6.3",
+    "react-i18next": "^11.7.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
@@ -48,7 +50,8 @@
     "@types/moment": "^2.13.0",
     "@types/loglevel": "^1.6.3",
     "@types/react-router": "^5.1.2",
-    "@types/react-router-dom": "^5.1.2"
+    "@types/react-router-dom": "^5.1.2",
+    "@types/react-i18next": "^8.1.0"
   },
   "jest": {
     "preset": "ts-jest",

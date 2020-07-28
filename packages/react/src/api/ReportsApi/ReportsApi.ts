@@ -1,9 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, select, takeLatest, debounce, takeEvery } from 'redux-saga/effects';
-import { Logger, Get, Post } from '../../helpers';
-import { ReportState } from '../../plugins/reports/reducer';
-import { reducerActions as actions } from '../../providers/StateProvider/saga';
-import { getContextFromRedux } from '../../helpers/sagaHelpers';
+import { Logger, Get, Post } from '@helpers';
+import { ReportState } from '@plugins/reports/reducer';
+import { reducerActions as actions } from '@providers/StateProvider/saga';
+import { getContextFromRedux } from '@helpers/sagaHelpers';
 import { ILoadReportsConfig, IRenderReportsConfig, ISendReportConfig, IUpdateReportsConfig } from './interfaces';
 
 export type ReportStateKeys = keyof Omit<ReportState, 'context'>

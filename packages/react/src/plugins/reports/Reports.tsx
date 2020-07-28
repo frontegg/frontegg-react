@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import classNames from 'classnames';
-import { connectFrontegg, IFronteggMapper, RegisterPlugin } from '../../providers';
+import { connectFrontegg, IFronteggMapper, RegisterPlugin } from '@providers';
 import { IReportsRouter, ReportsRouter } from './ReportsRouter';
 
 export interface IReports extends IReportsRouter {
