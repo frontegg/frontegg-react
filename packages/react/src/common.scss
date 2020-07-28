@@ -1,12 +1,12 @@
 .frontegg {
-  --fe-spacing: 1rem;
+  --fe-spacing: .5rem;
   --fe-icon-button-color: #aaa;
   --fe-icon-button-hover-color: #3c4a5a;
 
   position: relative;
 
   .fe-page-content {
-    padding: var(--fe-spacing) calc(3 * var(--fe-spacing));
+    padding: var(--fe-spacing) calc(2 * var(--fe-spacing));
   }
 
   .fe-search-component {

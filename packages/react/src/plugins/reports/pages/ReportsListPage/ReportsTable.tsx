@@ -78,6 +78,7 @@ export class _ReportsTable extends React.Component<IReportsTable & ReturnType<ty
       columns: this.buildColumns(),
       rows: reports.data,
       classes,
+      loading: reports.loading,
     };
     return <Table {...tableProps}/>;
   }
