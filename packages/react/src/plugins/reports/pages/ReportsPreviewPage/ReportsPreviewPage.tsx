@@ -24,7 +24,7 @@ const mapper =
    }: IFronteggMapper) => ({ reportById, renderedReportById, loadReportById, renderReportById });
 type MapperProps = ReturnType<typeof mapper>
 
-class _ReportsPreviewPage extends React.Component<IReportsPreviewPage & MapperProps & RouteComponentProps<{ idx: string }>> {
+class _ReportsPreviewPage extends React.Component<IReportsPreviewPage & MapperProps & RouteComponentProps<{ id: string }>> {
   components: ComponentsTypes<Components>;
 
   state = {
@@ -42,9 +42,9 @@ class _ReportsPreviewPage extends React.Component<IReportsPreviewPage & MapperPr
   }
 
   componentDidMount(): void {
-    const { loadReportById, renderReportById, match: { params: { idx } } } = this.props;
-    loadReportById(idx);
-    renderReportById({ id: idx, responseType: 'html' });
+    const { loadReportById, renderReportById, match: { params: { id } } } = this.props;
+    loadReportById(id);
+    renderReportById({ id, responseType: 'html' });
   }
 
   render() {

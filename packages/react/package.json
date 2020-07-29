@@ -4,7 +4,7 @@
   "author": "FrontEgg LTD",
   "scripts": {
     "build-init": "rm -rf ./dist && yarn build",
-    "build": "export PACKAGE='core'; rollup -c ./rollup.config.js && echo DONE",
+    "build": "export PACKAGE='react'; export NODE_ENV='production'; rollup -c ./rollup.config.js && echo DONE",
     "build-watch": "export PACKAGE='react'; rollup --watch -c ./rollup.config.js && echo DONE",
     "test": "jest --runInBand --passWithNoTests -c ../../conf/react-jest.config.json --rootDir . && echo DONE"
   },

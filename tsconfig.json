@@ -16,6 +16,7 @@
     "inlineSources": true,
     "sourceMap": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true
   },
   "include": [

@@ -1,9 +1,9 @@
 import { IReportsPluginConfig } from '@plugins/reports';
 
 export type IFronteggPlugins = {
-  reportsConfig: IReportsPluginConfig
+  reportsConfig?: IReportsPluginConfig
 }
 
 export type IPluginConfigs = {
-  config: IFronteggPlugins
+  config: Required<IFronteggPlugins>
 }

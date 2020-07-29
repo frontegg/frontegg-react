@@ -15,8 +15,8 @@ import { I18nextProvider } from 'react-i18next';
 
 export interface IFronteggProvider {
   contextOptions: ContextOptions;
-  pluginsOptions: IFronteggPlugins;
-  uiLibrary: UILibrary;
+  pluginsOptions?: IFronteggPlugins;
+  uiLibrary?: UILibrary;
 }
 
 const devTools = process.env.NODE_ENV === 'development';
@@ -35,7 +35,7 @@ export class FronteggProvider extends React.Component<IFronteggProvider> {
   constructor(props: IFronteggProvider) {
     super(props);
     const { contextOptions, pluginsOptions } = this.props;
-    const preloadedState: FronteggState = { ...initialState, context: contextOptions, ...defaultConfig(pluginsOptions) };
+    const preloadedState: FronteggState = { ...initialState, context: contextOptions, ...defaultConfig(pluginsOptions || {}) };
     this.store = configureStore({ reducer, preloadedState, middleware, devTools });
 
     function* rootSaga() {

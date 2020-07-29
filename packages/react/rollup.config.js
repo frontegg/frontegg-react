@@ -22,7 +22,8 @@ const plugins = [
   replace({
     __BUILD_ENV__: isProduction ? "prod" : "dev",
     __BUILD_DATE__: () => new Date(),
-    "process.env.NODE_ENV": JSON.stringify(isProduction ? "production" : "development")
+    "process.env.NODE_ENV": JSON.stringify(isProduction ? "production" : "development"),
+    "process.env.FRONTEGG_DEBUG_LEVEL": JSON.stringify(isProduction ? "error" : "debug")
   }),
   json(),
   // resolve({
@@ -49,13 +50,14 @@ const commonConfig = {
 
 export default [{
   ...commonConfig,
-  inlineDynamicImports: !isProduction,
+  inlineDynamicImports: false,
   plugins,
   output: {
     ...commonOutput,
     dir: "./dist/cjs",
-    format: "cjs"
+    format: "es"
   }
+
 }
 // , ...(isWatching ? [] : [{
 //   input: "src/index.ts",
