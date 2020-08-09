@@ -4,6 +4,7 @@
     "strictNullChecks": true,
     "removeComments": true,
     "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "sourceMap": true,
@@ -43,14 +44,8 @@
       "@helpers/*": [
         "./helpers/*"
       ],
-      "@components": [
-        "./components"
-      ],
       "@components/*": [
         "./components/*"
-      ],
-      "@api": [
-        "./api"
       ],
       "@api/*": [
         "./api/*"
@@ -67,11 +62,11 @@
       "@providers/*": [
         "./providers/*"
       ],
-      "@plugins": [
-        "./plugins"
-      ],
       "@plugins/*": [
         "./plugins/*"
+      ],
+      "@reducers/*": [
+        "./reducers/*"
       ]
     }
   },

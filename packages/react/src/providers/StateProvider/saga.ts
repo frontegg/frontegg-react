@@ -13,7 +13,10 @@ export type FronteggState = {
 
 const initialState: FronteggState = {
   context: contextInitialState,
-  config: { reportsConfig: { rootDir: '/reports' } },
+  config: {
+    uiLibrary: 'semantic',
+    reportsConfig: { rootDir: '/reports' },
+  },
   ...Reports.initialState,
 };
 

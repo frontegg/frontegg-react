@@ -3,7 +3,47 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+
+      "@helpers": [
+        "../../node_modules/@frontegg/react/dist/cjs/helpers"
+      ],
+      "@helpers/*": [
+        "../../node_modules/@frontegg/react/dist/cjs/helpers/*"
+      ],
+      "@components": [
+        "../../node_modules/@frontegg/react/dist/cjs/components"
+      ],
+      "@components/*": [
+        "../../node_modules/@frontegg/react/dist/cjs/components/*"
+      ],
+      "@api": [
+        "../../node_modules/@frontegg/react/dist/cjs/api"
+      ],
+      "@api/*": [
+        "../../node_modules/@frontegg/react/dist/cjs/api/*"
+      ],
+      "@elements": [
+        "../../node_modules/@frontegg/react/dist/cjs/elements"
+      ],
+      "@elements/*": [
+        "../../node_modules/@frontegg/react/dist/cjs/elements/*"
+      ],
+      "@providers": [
+        "../../node_modules/@frontegg/react/dist/cjs/providers"
+      ],
+      "@providers/*": [
+        "../../node_modules/@frontegg/react/dist/cjs/providers/*"
+      ],
+      "@plugins": [
+        "../../node_modules/@frontegg/react/dist/cjs/plugins"
+      ],
+      "@plugins/*": [
+        "../../node_modules/@frontegg/react/dist/cjs/plugins/*"
+      ]
+    }
   },
   "files": [
     "src/main.ts",

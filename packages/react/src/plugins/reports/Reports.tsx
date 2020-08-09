@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import classNames from 'classnames';
-import { connectFrontegg, IFronteggMapper, RegisterPlugin } from '@providers';
 import { IReportsRouter, ReportsRouter } from './ReportsRouter';
+import { connectFrontegg, IFronteggMapper, RegisterPlugin } from '@providers';
 
 export interface IReports extends IReportsRouter {
   className?: string

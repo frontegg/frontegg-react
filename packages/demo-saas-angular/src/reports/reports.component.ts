@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'reports-page',
-  template: `
-    <frontegg-reports></frontegg-reports>`,
+  template: `<button mat-button>Button</button>`,
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ReportsComponent {
+  reportsProps = {};
 }
+

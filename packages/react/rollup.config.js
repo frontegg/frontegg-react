@@ -6,9 +6,11 @@ import replace from "@rollup/plugin-replace";
 import ts from "rollup-plugin-typescript2";
 import progress from "rollup-plugin-progress";
 import postcss from "rollup-plugin-postcss";
-import clear from "rollup-plugin-clear";
+import visualizer from "rollup-plugin-visualizer";
 import typescript from "typescript";
 import fs from "fs";
+import transformTypesAlias from "../../conf/transfomTypesAlias";
+import loadClassByLibrary from "../../conf/loadClassByLibrary";
 
 const pkg = JSON.parse(fs.readFileSync("./package.json"));
 const isProduction = process.env.NODE_ENV === "production";
@@ -26,21 +28,22 @@ const plugins = [
     "process.env.FRONTEGG_DEBUG_LEVEL": JSON.stringify(isProduction ? "error" : "debug")
   }),
   json(),
-  // resolve({
-  //   jsnext: true,
-  //   browser: true,
-  //   main: true,
-  //   extensions: [".js", ".jsx", ".ts", ".tsx", ".json"]
-  // }),
+  resolve({
+    jsnext: true,
+    browser: true
+  }),
   postcss({ extensions: ["scss", "sass"], minimize: true, extract: "style.css" }),
-  commonjs(),
+  commonjs({
+    include: [/node_modules/],
+    sourceMap: false
+  }),
   isProduction ? terser() : progress(),
   ts({
     typescript,
     clean: true,
     check: true,
     abortOnError: false
-  }),
+  })
 ];
 
 const commonConfig = {
@@ -48,36 +51,22 @@ const commonConfig = {
   external: [...Object.keys(pkg.dependencies || [])]
 };
 
-export default [{
+export default {
   ...commonConfig,
-  inlineDynamicImports: false,
-  plugins,
+  input: "src/index.ts",
+  plugins: [
+    ...plugins,
+    transformTypesAlias(),
+    // loadClassByLibrary({ uiLibrary: "semantic" }),
+    visualizer()
+  ],
+  external: [...Object.keys(pkg.dependencies || [])],
+  inlineDynamicImports: true,
   output: {
     ...commonOutput,
     dir: "./dist/cjs",
-    format: "es"
+    format: "cjs",
+    name: "FronteggWeb"
   }
 
-}
-// , ...(isWatching ? [] : [{
-//   input: "src/index.ts",
-//   plugins: [
-//     ...plugins,
-//     ts({
-//       typescript,
-//       clean: true,
-//       check: true,
-//       abortOnError: false
-//     }),
-//     analyze({ summaryOnly: true })
-//   ],
-//   output: {
-//     file: "./dist/umd/index.js",
-//     name: pkg.name,
-//     sourcemap: !isProduction,
-//     format: "umd",
-//     globals: [],
-//     exports: "named"
-//   }
-// }])
-];
+};
