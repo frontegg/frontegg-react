@@ -1,0 +1,66 @@
+.frontegg {
+
+  &.fe-login-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fe-login-container {
+    width: 400px;
+    max-width: 90%;
+    min-height: 300px;
+    border-radius: .5rem;
+    padding: 2rem;
+    box-shadow: 0 0 3rem 0 rgba(0, 0, 0, .1);
+  }
+
+  .fe-login-header {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 3rem;
+    align-items: center;
+    overflow-x: hidden;
+
+    > * {
+      max-width: 100%;
+    }
+  }
+
+  .fe-login-sso-redirect {
+    text-align: center;
+    font-weight: bold;
+
+    .ui.loader.inline {
+      display: block;
+      margin: 2rem auto 1rem;
+    }
+  }
+
+  .fe-form-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2rem;
+
+    .ui.primary.button {
+      background-color: #6960d1;
+      color: white;
+      border-radius: 0.5rem;
+    }
+  }
+
+  .fe-login-error-message {
+    font-weight: bold;
+    color: #9a0000;
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
