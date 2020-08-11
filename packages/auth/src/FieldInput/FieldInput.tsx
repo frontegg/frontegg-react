@@ -3,27 +3,41 @@ import { Field, FieldProps, ErrorMessage } from 'formik';
 import { Input, InputProps } from 'semantic-ui-react';
 
 import './FieldInput.scss';
+import { InputOnChangeData } from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
+import classNames from 'classnames';
 
 export interface IFieldInput extends InputProps {
   name: string;
+  enterAnimation?: boolean;
+  visible?: boolean;
+  forwardRef?: any;
+  wrapperClassName?: string;
 }
 
-export const FieldInput: FC<IFieldInput> = ({ name, label, ...inputProps }) => (
-  <Field>
-    {({ form: { values, handleBlur, handleChange, errors, touched } }: FieldProps) => (
-      <div className='frontegg-form-row frontegg-form-input'>
-        {label && <label>{label}</label>}
-        <Input
-          {...inputProps}
-          fluid
-          name={name}
-          values={values[name]}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={!!touched[name] && !!errors[name]}
-        />
-        <ErrorMessage name={name} className='frontegg-form-error' component='div' />
-      </div>
-    )}
-  </Field>
-);
+export const FieldInput: FC<IFieldInput> =
+  ({
+     wrapperClassName, forwardRef, enterAnimation,
+     visible, name, label, onChange, ...inputProps
+   }) => (
+    <Field>
+      {({ form: { values, handleBlur, handleChange, errors, touched } }: FieldProps) => (
+        <div className={classNames('frontegg-form-row', 'frontegg-form-input', wrapperClassName)}>
+          {label && <label>{label}</label>}
+          <Input
+            {...inputProps}
+            ref={forwardRef}
+            fluid
+            name={name}
+            values={values[name]}
+            onChange={onChange ? (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+              onChange(event, data);
+              handleChange(name)(event);
+            } : handleChange(name)}
+            onBlur={handleBlur}
+            error={!!touched[name] && !!errors[name]}
+          />
+          <ErrorMessage name={name} className='frontegg-form-error' component='div'/>
+        </div>
+      )}
+    </Field>
+  );

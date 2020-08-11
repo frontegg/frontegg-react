@@ -1,6 +1,5 @@
 import React, { ComponentType, ContextType, FC } from 'react';
-import { IAuthContext } from './interfaces';
-import { AuthContext } from './AuthContext';
+import { AuthContext, IAuthContext } from './AuthContext';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 import { Redirect } from 'react-router';
 import { useAuth, useIsAuthenticated } from './hooks';

@@ -6,10 +6,8 @@ import replace from "@rollup/plugin-replace";
 import ts from "rollup-plugin-typescript2";
 import progress from "rollup-plugin-progress";
 import postcss from "rollup-plugin-postcss";
-import visualizer from "rollup-plugin-visualizer";
 import typescript from "typescript";
 import fs from "fs";
-import transformTypesAlias from "../../conf/transfomTypesAlias";
 import movePackageJson from "../../conf/movePackageJson";
 
 const pkg = JSON.parse(fs.readFileSync("./package.json"));
@@ -32,9 +30,13 @@ const plugins = [
     jsnext: true,
     browser: true
   }),
-  postcss({ extensions: ["scss", "sass"], minimize: true, extract: "style.css" }),
+  postcss({
+    extensions: ["scss", "sass"],
+    minimize: true,
+    // extract: "style.css"
+  }),
   commonjs({
-    exclude: [/node_modules/],
+    include: [/node_modules/],
     sourceMap: false
   }),
   isProduction ? terser() : progress(),
@@ -48,7 +50,12 @@ const plugins = [
 
 const commonConfig = {
   input: "src/index.ts",
-  external: [...Object.keys(pkg.dependencies || [])]
+  external: [
+    "react",
+    "react-dom",
+    "react-router",
+    "react-router-dom"
+  ]
 };
 
 export default {

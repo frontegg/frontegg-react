@@ -1,40 +1,13 @@
 import React from 'react';
-import { AuthProviderState, IAuthContext, LoginStep } from './interfaces';
-
-/**
- * @ignore
- */
-const undeclared = (): never => {
-  throw new Error('You forgot to wrap your component in <FronteggAuthProvider>.');
-};
+import { bindActionCreators } from '@reduxjs/toolkit';
+import { Dispatch } from 'redux';
+import { actions, authInitialState, AuthProviderState } from '../Api';
 
 
-// The initial auth provider state.
-export const initialAuthProviderState: AuthProviderState = {
-  context: {
-    baseUrl: '',
-    tokenResolver: () => '',
-  },
-  // public context state
-  isAuthenticated: false,
-  isLoading: true,
-  loginUrl: '/login',
-  authorizationUrl: '/',
-  isSSOAuth: false,
-  // private context state
-  loginState: {
-    step: LoginStep.preLogin,
-    loading: false,
-  },
-  // forgetPasswordState: {},
-  // signUpState: {},
-};
-export const initialAuthContext: IAuthContext = {
-  ...initialAuthProviderState,
-  // public auth functions
-  logout: undeclared,
-  preLogin: undeclared,
-  login: undeclared,
-};
+export const sagaState = (state: AuthProviderState) => state;
 
-export const AuthContext = React.createContext<IAuthContext>(initialAuthContext);
+export const sagaActions = (dispatch: Dispatch) => bindActionCreators(actions, dispatch);
+
+export type IAuthContext = { onRedirectTo: (path: string) => void } & ReturnType<typeof sagaActions> & ReturnType<typeof sagaState>
+
+export const AuthContext = React.createContext<IAuthContext>(authInitialState as IAuthContext);

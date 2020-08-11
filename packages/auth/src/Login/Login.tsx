@@ -1,21 +1,24 @@
-import React, { ContextType, ReactNode } from 'react';
+import React, { ContextType } from 'react';
 import ReactDOM from 'react-dom';
-import { AuthContext, LoginStep } from '../AuthContext';
+import { AuthContext } from '../AuthContext';
 import { Loader } from 'semantic-ui-react';
-import { LoginSuccessRedirect } from '../components/LoginSuccessRedirect';
+import { LoginSuccessRedirect } from './LoginSuccessRedirect';
 import { RedirectToSSOComponent } from './RedirectToSSOComponent';
 import { LoginWithPasswordComponent } from './LoginWithPasswordComponent';
+import { LoginWithTwoFactorComponent } from './LoginWithTwoFactorComponent';
+import { LoginStep } from '../Api';
+import { AuthPageProps } from '../interfaces';
 
 export class Login extends React.Component {
   static contextType = AuthContext;
   context: ContextType<typeof AuthContext> | null = null;
 
   render() {
-    const { isLoading, isAuthenticated, loginState: { step } } = this.context!;
+    const { isLoading, isAuthenticated, loginState: { step, ssoRedirectUrl } } = this.context!;
     if (isLoading) {
       return <Loader active={true}/>;
     }
-    if (isAuthenticated) {
+    if (isAuthenticated || step === LoginStep.success) {
       return <LoginSuccessRedirect/>;
     }
 
@@ -24,12 +27,13 @@ export class Login extends React.Component {
       components = <LoginWithPasswordComponent/>;
     }
 
-    // if (step === LoginStep.loginWithTwoFactor) {
-    //   components = <LoginWithTwoFactorComponent/>;
-    // }
+
+    if (step === LoginStep.loginWithTwoFactor) {
+      components = <LoginWithTwoFactorComponent/>;
+    }
 
     if (step === LoginStep.redirectToSSO) {
-      components = <RedirectToSSOComponent/>;
+      components = <RedirectToSSOComponent ssoAddress={ssoRedirectUrl}/>;
     }
 
     return <div className='fe-login-component'>
@@ -38,15 +42,7 @@ export class Login extends React.Component {
   }
 }
 
-
-export interface LoginPageProps {
-  header?: ReactNode;
-  backgroundImage?: string;
-  backgroundColor?: string;
-
-}
-
-export class LoginPage extends React.Component<LoginPageProps> {
+export class LoginPage extends React.Component<AuthPageProps> {
   static defaultProps = {
     header: <img src='http://acmelogos.com/images/logo-1.svg' alt='logo'/>,
   };

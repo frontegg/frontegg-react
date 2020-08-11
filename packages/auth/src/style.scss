@@ -1,7 +1,7 @@
 .frontegg {
 
   &.fe-login-page {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     background: white;
@@ -11,15 +11,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 500px;
+    overflow: auto;
   }
 
   .fe-login-container {
+    display: flex;
+    flex-direction: column;
     width: 400px;
     max-width: 90%;
     min-height: 300px;
     border-radius: .5rem;
     padding: 2rem;
-    box-shadow: 0 0 3rem 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 1.4px 4.5px rgba(0, 0, 0, 0.016),
+    0 4.3px 12.5px rgba(0, 0, 0, 0.032),
+    0 10.3px 30.1px rgba(0, 0, 0, 0.055),
+    0 29px 100px rgba(0, 0, 0, 0.14);
   }
 
   .fe-login-header {
@@ -34,13 +41,23 @@
     }
   }
 
-  .fe-login-sso-redirect {
+  .fe-login-sso-redirect, .fe-login-success, .fe-activation-success, .fe-activation-failed {
     text-align: center;
     font-weight: bold;
 
     .ui.loader.inline {
       display: block;
       margin: 2rem auto 1rem;
+    }
+  }
+
+  .fe-activation-failed {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .fe-login-error-message {
+      flex: 1;
     }
   }
 
@@ -62,5 +79,33 @@
     color: #9a0000;
     margin-top: 1rem;
     text-align: center;
+  }
+
+  .ui.button.fe-field-button {
+    float: initial;
+    font-size: 0.9rem;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    color: #666;
+    text-transform: initial;
+    font-weight: initial;
+    text-decoration: underline;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .frontegg {
+    &.fe-login-page {
+      padding-top: 10vh;
+      justify-content: flex-start;
+
+      .fe-login-container {
+        box-shadow: none;
+      }
+    }
   }
 }

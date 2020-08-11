@@ -1,5 +1,7 @@
 import './style.scss';
 
 export * from './AuthContext';
+export * from './DefaultAuthRoutes';
 export * from './Login';
-export * from './SignUp';
+export * from './Activate';
+export * from './ForgotPassword';

@@ -4,10 +4,15 @@
       position: relative;
       margin-bottom: 1.5rem;
 
+      label {
+        display: block;
+        position: relative;
+      }
       input {
         border-radius: 0.5rem !important;
       }
     }
+
     &-error {
       left: .5rem;
       bottom: 0;
@@ -16,5 +21,16 @@
       transform: translateY(100%);
       color: #9a0000;
     }
+  }
+
+  .fe-enter-animation {
+    transition: margin-bottom 300ms, max-height 300ms;
+    max-height: 100px;
+  }
+
+  .fe-enter-animation-hidden {
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
   }
 }

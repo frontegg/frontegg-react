@@ -1,0 +1,20 @@
+import React, { ContextType } from 'react';
+import { AuthContext } from '../AuthContext';
+import { Loader } from 'semantic-ui-react';
+
+export class ActivateSuccessRedirect extends React.Component {
+  static contextType = AuthContext;
+  context: ContextType<typeof AuthContext> | null = null;
+
+  render() {
+    let { loginUrl, onRedirectTo, resetActivateState } = this.context!;
+    setTimeout(() => {
+      resetActivateState()
+      onRedirectTo(loginUrl)
+    }, 1000);
+    return <div className='fe-activation-success'>
+      Activation Succeeded
+      <Loader active={true} inline={true}/>
+    </div>;
+  }
+}

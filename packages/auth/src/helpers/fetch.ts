@@ -1,53 +1,5 @@
 import { ContextOptions, KeyValuePair } from './context';
 
-interface RequestOptions {
-  url: string;
-  method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
-  body?: any;
-  params?: any;
-  contentType?: string;
-  responseType?: 'json' | 'plain' | 'blob';
-  redirect?: RequestRedirect;
-}
-
-async function request(context: ContextOptions, opts: RequestOptions) {
-  const headers = await buildRequestHeaders(context, opts.contentType);
-  const url = await prepareUrl(context, opts.url, opts.params);
-
-  const response = await fetch(url, {
-    body: opts.body ? JSON.stringify(opts.body) : null,
-    method: 'POST',
-    headers,
-    redirect: opts.redirect,
-    credentials: context.requestCredentials || 'same-origin',
-  });
-
-  if (!response.ok) {
-    throw new Error(`Error ${response.status} - ${response.statusText}`);
-  }
-
-  if (opts.responseType === 'json') {
-    return await response.json();
-  } else if (opts.responseType === 'blob') {
-    return await response.blob();
-  } else {
-    return await response.text();
-  }
-}
-
-function getBaseUrl(context: ContextOptions): string {
-  let baseUrl = context.baseUrl;
-  const prefix = context.urlPrefix || 'frontegg';
-  // Append everything we need to the base url
-  if (!baseUrl.endsWith('/')) {
-    baseUrl += '/';
-  }
-  if (!baseUrl.endsWith(prefix)) {
-    baseUrl += prefix;
-  }
-  return baseUrl;
-}
-
 async function prepareUrl(context: ContextOptions, url: string, params?: any): Promise<string> {
   const baseUrl = await getBaseUrl(context);
   const paramsToSend = await buildQueryParams(context, params);
@@ -62,21 +14,168 @@ async function prepareUrl(context: ContextOptions, url: string, params?: any): P
   return finalUrl;
 }
 
-async function buildRequestHeaders(context: ContextOptions, contentType: string = 'application/json'): Promise<Record<string, string>> {
-  const authToken = await context.tokenResolver();
-  const headers: Record<string, string> = {};
+export async function Get(context: ContextOptions, url: string, params?: any, resType: 'text' | 'blob' | 'json' = 'json') {
+  const headers = await getRequestHeaders(context);
+  const finalUrl = await prepareUrl(context, url, params);
 
-  if (authToken) {
-    headers['Authorization'] = `Bearer ${authToken}`;
+  try {
+    const response = await fetch(finalUrl, {
+      // @ts-ignore
+      headers,
+      credentials: context.requestCredentials || 'same-origin',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status} - ${response.statusText}`);
+    }
+    if (resType === 'json') {
+      return response.json();
+    } else if (resType === 'blob') {
+      return response.blob();
+    } else { // (resType === 'text')
+      return response.text();
+    }
+  } catch (e) {
+    console.error(`Failed to GET url - ${url} - `, e.message);
+    throw e;
   }
-  if (contentType) {
-    headers['Content-Type'] = contentType;
+}
+
+export async function Post(context: ContextOptions, url: string, body?: any, params?: any) {
+  const headersToSend = await getRequestHeaders(context);
+  const finalUrl = await prepareUrl(context, url, params);
+
+  try {
+    const response = await fetch(finalUrl, {
+      body: body ? JSON.stringify(body) : null,
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      // @ts-ignore
+      headers: {
+        ...headersToSend,
+        'Content-Type': 'application/json',
+      },
+      credentials: context.requestCredentials || 'same-origin',
+    });
+    if (!response.ok) {
+      const errorMessage = `Error ${response.status} - ${response.statusText}`
+      throw new Error(await response.json() || errorMessage);
+    }
+
+    return response.json().catch(() => { });
+  } catch (e) {
+    console.error(`Failed to fetch url - ${url} - `, e);
+    throw e;
   }
-  for (const additionalHeader of await getAdditionalHeaders(context)) {
-    headers[`${additionalHeader.key}`] = `${additionalHeader.value}`;
+}
+
+export async function Patch(context: ContextOptions, url: string, body?: any, params?: any) {
+  const headersToSend = await getRequestHeaders(context);
+  const finalUrl = await prepareUrl(context, url, params);
+
+  try {
+    const response = await fetch(finalUrl, {
+      body: body ? JSON.stringify(body) : null,
+      method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+      // @ts-ignore
+      headers: {
+        ...headersToSend,
+        'Content-Type': 'application/json',
+      },
+      credentials: context.requestCredentials || 'same-origin',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status} - ${response.statusText}`);
+    }
+
+    return response.json().catch(() => { });
+  } catch (e) {
+    console.error(`Failed to fetch url - ${url} - `, e);
+    throw e;
   }
-  headers['x-frontegg-source'] = 'frontegg-react';
-  return headers;
+}
+
+export async function Download(context: ContextOptions, url: string, body?: any, params?: any) {
+  const headersToSend = await getRequestHeaders(context);
+  const finalUrl = await prepareUrl(context, url, params);
+
+  let response: any;
+  try {
+    response = await fetch(finalUrl, {
+      body: JSON.stringify(body),
+      method: 'POST',
+      // @ts-ignore
+      headers: {
+        ...headersToSend,
+        'Content-Type': 'application/json',
+      },
+      credentials: context.requestCredentials || 'same-origin',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status} - ${response.statusText}`);
+    }
+
+    return response.blob();
+  } catch (e) {
+    console.error(`Failed to fetch url - ${url} - `, e);
+    throw e;
+  }
+}
+
+export async function Put(context: ContextOptions, url: string, body?: any, params?: any) {
+  const headersToSend = await getRequestHeaders(context);
+  const finalUrl = await prepareUrl(context, url, params);
+
+  let response: any;
+  try {
+    response = await fetch(finalUrl, {
+      body: JSON.stringify(body),
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      // @ts-ignore
+      headers: {
+        ...headersToSend,
+        'Content-Type': 'application/json',
+      },
+      credentials: context.requestCredentials || 'same-origin',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status} - ${response.statusText}`);
+    }
+
+    return response.json().catch(() => { });
+  } catch (e) {
+    console.error(`Failed to fetch url - ${url} - `, e);
+    throw e;
+  }
+}
+
+export async function Delete(context: ContextOptions, url: string, params?: any) {
+  const headersToSend = await getRequestHeaders(context);
+  const finalUrl = await prepareUrl(context, url, params);
+
+  let response: any;
+  try {
+    response = await fetch(finalUrl, {
+      method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+      // @ts-ignore
+      headers: {
+        ...headersToSend,
+        'Content-Type': 'application/json',
+      },
+      credentials: context.requestCredentials || 'same-origin',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status} - ${response.statusText}`);
+    }
+
+    return response.json().catch(() => { });
+  } catch (e) {
+    console.error(`Failed to fetch url - ${url} - `, e);
+    throw e;
+  }
 }
 
 async function buildQueryParams(context: ContextOptions, params?: any) {
@@ -99,78 +198,52 @@ async function buildQueryParams(context: ContextOptions, params?: any) {
 }
 
 async function getAdditionalQueryParams(context: ContextOptions): Promise<KeyValuePair[]> {
-  let output: KeyValuePair[] = [];
+  // @ts-ignore
+  let output = [];
   if (context.additionalQueryParamsResolver) {
     output = await context.additionalQueryParamsResolver();
   }
+
+  // @ts-ignore
   return output;
 }
 
 async function getAdditionalHeaders(context: ContextOptions): Promise<KeyValuePair[]> {
-  let output: KeyValuePair[] = [];
+  // @ts-ignore
+  let output = [];
   if (context.additionalHeadersResolver) {
     output = await context.additionalHeadersResolver();
   }
+
+  // @ts-ignore
   return output;
 }
 
+function getBaseUrl(context: ContextOptions): string {
+  let baseUrl = context.baseUrl;
+  const prefix = context.urlPrefix || 'frontegg';
+  // Append everything we need to the base url
+  if (!baseUrl.endsWith('/')) {
+    baseUrl += '/';
+  }
+  if (!baseUrl.endsWith(prefix)) {
+    baseUrl += prefix;
+  }
+  return baseUrl;
+}
 
-export const Get = async (context: ContextOptions, url: string, params?: any, responseType?: any) =>
-  request(context, {
-    url,
-    method: 'GET',
-    params,
-    responseType,
-  });
+async function getRequestHeaders(context: ContextOptions) {
+  const authToken = await context.tokenResolver();
+  const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
 
-export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any, redirect?: RequestRedirect) =>
-  request(context, {
-    url,
-    method: 'POST',
-    contentType: 'application/json',
-    body,
-    params,
-    responseType,
-    redirect
-  });
+  const additionalHeaders = await getAdditionalHeaders(context);
+  for (const additionalHeader of additionalHeaders) {
+    // @ts-ignore
+    headers[additionalHeader.key] = additionalHeader.value;
+  }
 
-export const Patch = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
-    url,
-    method: 'PATCH',
-    contentType: 'application/json',
-    body,
-    params,
-    responseType,
-  });
+  // @ts-ignore
+  headers['x-frontegg-source'] = 'frontegg-react';
 
-
-export const Put = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
-    url,
-    method: 'PUT',
-    contentType: 'application/json',
-    body,
-    params,
-    responseType,
-  });
-
-export const Delete = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
-    url,
-    method: 'DELETE',
-    contentType: 'application/json',
-    body,
-    params,
-    responseType,
-  });
-
-export const Download = async (context: ContextOptions, url: string, body?: any, params?: any) =>
-  request(context, {
-    url,
-    method: 'POST',
-    contentType: 'application/json',
-    body,
-    params,
-    responseType: 'blob',
-  });
+  return headers;
+}

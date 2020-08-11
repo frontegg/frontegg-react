@@ -1,6 +1,6 @@
-import { IAuthContext, User } from './interfaces';
 import { useContext } from 'react';
-import { AuthContext } from './AuthContext';
+import { IAuthContext, AuthContext } from './AuthContext';
+import { User } from '../Api/interfaces';
 
 /**
  * ```jsx

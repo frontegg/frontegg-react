@@ -1,96 +1,58 @@
 import React from 'react';
-import { AuthProviderProps, AuthProviderState, LoginStep } from './interfaces';
-import { AuthContext, initialAuthProviderState } from './AuthContext';
-import { Get } from '../helpers';
-import * as Api from '../Api';
+import createSagaMiddleware, { Task } from 'redux-saga';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { AuthProviderProps, authRootSaga, authInitialState, AuthProviderState, reducer } from '../Api';
+import AuthStateConnector from './AuthStateConnector';
+import { Provider as ReduxProvider } from 'react-redux';
+import { Router } from 'react-router';
 
-export class AuthProvider extends React.Component<AuthProviderProps, AuthProviderState> {
-  private timer?: NodeJS.Timeout;
-  state = initialAuthProviderState;
+// @ts-ignore
+const devTools = process.env.NODE_ENV === 'development';
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
+
+export class AuthProvider extends React.Component<AuthProviderProps> {
+  static defaultProps = {
+    injectRoutes: true,
+  };
+  store: any;
+  task: Task;
 
   constructor(props: AuthProviderProps) {
     super(props);
-    this.requestAuthorize(true);
+    const { context, loginUrl, authorizationUrl } = this.props;
+    const preloadedState: AuthProviderState = { ...authInitialState, context, loginUrl, authorizationUrl };
+    this.store = configureStore({ reducer, preloadedState, middleware, devTools });
+
+    this.task = sagaMiddleware.run(authRootSaga);
+
   }
 
-  private getMetadata = async () => {
-    this.setState({ isSSOAuth: await Api.checkIfIsSSOAuth(this.props.context) });
-  };
+  onRedirectTo = (path: string, opts?: {
+    refresh?: boolean;
+    replace?: boolean
+  }) => {
+    const { history } = this.props;
 
-  private requestAuthorize = async (metadata?: boolean) => {
-    const { context } = this.props;
-    try {
-      metadata && (await this.getMetadata());
-      await Get(context, '/user/token/refresh');
-      this.setState({ isLoading: false, isAuthenticated: true });
-      this.startRefreshWaiting(20000);
-    } catch (e) {
-      this.setState({ isLoading: false });
+    if (opts?.refresh) {
+      window.location.href = path;
+      return;
     }
-  };
-
-  private startRefreshWaiting = (expired: number) => {
-    this.timer = setTimeout(() => this.requestAuthorize(), expired - 1000);
-  };
-
-
-  private reduceState = <T extends keyof AuthProviderState>(key: T, state: Partial<AuthProviderState[T]>) => {
-    this.setState({ [key]: { ...this.state[key], ...state } } as any);
-  };
-
-  preLogin = async (email: string) => {
-    this.reduceState('loginState', { loading: true });
-    const isSSOAuth = await Api.preLogin(this.props.context, email);
-    this.reduceState('loginState', { loading: false, step: isSSOAuth ? LoginStep.redirectToSSO : LoginStep.loginWithPassword });
-  };
-
-
-  login = async (email: string, password: string) => {
-    this.reduceState('loginState', { loading: true });
-    let res;
-    try {
-      // res = await Api.login(this.props.context, email, password);
-      // const user = { mfaRequired: true, mfaToken: undefined } as a;
-      // const { mfaRequired, mfaToken } = res;
-      // if (mfaRequired) {
-      this.reduceState('loginState', {
-        loading: false,
-        mfaRequired:true,
-        mfaToken:"asdasd",
-        step: LoginStep.loginWithTwoFactor,
-      });
-      // } else {
-      //   this.setState({
-      //     ...initialAuthProviderState,
-      //     isLoading: false,
-      //     isAuthenticated: true,
-      //     user: res,
-      //   });
-      // }
-    } catch (e) {
-      console.log(e);
-      this.reduceState('loginState', { loading: false, error: e.message });
+    if (opts?.replace) {
+      history.replace(path);
+    } else {
+      history.push(path);
     }
-
-  };
-
-  logout = async () => {
-    await Api.logout(this.props.context);
-    this.timer && clearTimeout(this.timer);
-    this.setState(initialAuthProviderState);
   };
 
   render() {
-    const { children, ...props } = this.props;
-    const { logout, preLogin, login } = this;
-    return <AuthContext.Provider value={{
-      ...this.state,
-      ...props,
-      logout,
-      preLogin,
-      login,
-    }}>
-      {children}
-    </AuthContext.Provider>;
+    const { children, history, injectRoutes } = this.props;
+    return <Router history={history as any}>
+      <ReduxProvider store={this.store}>
+        <AuthStateConnector onRedirectTo={this.onRedirectTo} injectRoutes={!!injectRoutes}>
+          {children}
+        </AuthStateConnector>
+      </ReduxProvider>
+    </Router>;
   }
 }
