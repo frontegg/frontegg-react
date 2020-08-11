@@ -8,6 +8,13 @@ export const sagaState = (state: AuthProviderState) => state;
 
 export const sagaActions = (dispatch: Dispatch) => bindActionCreators(actions, dispatch);
 
-export type IAuthContext = { onRedirectTo: (path: string) => void } & ReturnType<typeof sagaActions> & ReturnType<typeof sagaState>
+export type RedirectOptions = {
+  refresh?: boolean;
+  replace?: boolean
+}
+export type IAuthContext = {
+    onRedirectTo: (path: string, opts?: RedirectOptions) => void
+  }
+  & ReturnType<typeof sagaActions> & ReturnType<typeof sagaState>
 
 export const AuthContext = React.createContext<IAuthContext>(authInitialState as IAuthContext);

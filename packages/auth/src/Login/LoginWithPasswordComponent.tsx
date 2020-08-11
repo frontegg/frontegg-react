@@ -1,5 +1,5 @@
 import React, { ContextType, createRef } from 'react';
-import { Form, Formik } from 'formik';
+import { Field, FieldProps, Form, Formik } from 'formik';
 import { AuthContext } from '../AuthContext';
 import { validateEmail, validatePassword, validateSchema } from '../helpers/validates';
 import { FieldInput } from '../FieldInput';
@@ -24,17 +24,23 @@ export class LoginWithPasswordComponent extends React.Component {
 
   render() {
     const {
-      loginState: { loading, step, error }, isSSOAuth, preLogin, login, setLoginState, resetLoginState,
+      loginState: { loading, step, error }, isSSOAuth, preLogin, login,
+      setLoginState, resetLoginState, setForgotPasswordState,
       onRedirectTo, forgetPasswordUrl,
     } = this.context!;
 
     const displayPassword = !isSSOAuth || step == LoginStep.loginWithPassword;
     const passwordLabel = <>
       Password
-      <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
-        resetLoginState();
-        onRedirectTo(forgetPasswordUrl);
-      }}>Forgot Password?</Button>
+      <Field>
+        {({ form: { values } }: FieldProps) => (
+          <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
+            setForgotPasswordState({ email: values['email'] });
+            resetLoginState();
+            onRedirectTo(forgetPasswordUrl);
+          }}>Forgot Password?</Button>
+        )}
+      </Field>
     </>;
     return <Formik
       initialValues={{ email: '', password: '' }}

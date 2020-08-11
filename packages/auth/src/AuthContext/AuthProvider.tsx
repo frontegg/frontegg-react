@@ -5,6 +5,7 @@ import { AuthProviderProps, authRootSaga, authInitialState, AuthProviderState, r
 import AuthStateConnector from './AuthStateConnector';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from 'react-router';
+import { RedirectOptions } from './AuthContext';
 
 // @ts-ignore
 const devTools = process.env.NODE_ENV === 'development';
@@ -20,18 +21,15 @@ export class AuthProvider extends React.Component<AuthProviderProps> {
 
   constructor(props: AuthProviderProps) {
     super(props);
-    const { context, loginUrl, authorizationUrl } = this.props;
-    const preloadedState: AuthProviderState = { ...authInitialState, context, loginUrl, authorizationUrl };
+    const { context, routes } = this.props;
+    const preloadedState: AuthProviderState = { ...authInitialState, context, ...routes };
     this.store = configureStore({ reducer, preloadedState, middleware, devTools });
 
     this.task = sagaMiddleware.run(authRootSaga);
 
   }
 
-  onRedirectTo = (path: string, opts?: {
-    refresh?: boolean;
-    replace?: boolean
-  }) => {
+  onRedirectTo = (path: string, opts?: RedirectOptions) => {
     const { history } = this.props;
 
     if (opts?.refresh) {
@@ -46,10 +44,10 @@ export class AuthProvider extends React.Component<AuthProviderProps> {
   };
 
   render() {
-    const { children, history, injectRoutes } = this.props;
+    const { children, history } = this.props;
     return <Router history={history as any}>
       <ReduxProvider store={this.store}>
-        <AuthStateConnector onRedirectTo={this.onRedirectTo} injectRoutes={!!injectRoutes}>
+        <AuthStateConnector onRedirectTo={this.onRedirectTo}>
           {children}
         </AuthStateConnector>
       </ReduxProvider>

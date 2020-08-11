@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { AuthContext, IAuthContext, sagaActions, sagaState } from './AuthContext';
 import { connect } from 'react-redux';
 
-class AuthStateConnector extends React.Component<IAuthContext & { children: ReactNode, injectRoutes: boolean }> {
+class AuthStateConnector extends React.Component<IAuthContext & { children: ReactNode }> {
   private timer?: any;
 
   constructor(props: any) {

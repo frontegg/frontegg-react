@@ -32,7 +32,7 @@ const plugins = [
   }),
   postcss({
     extensions: ["scss", "sass"],
-    minimize: true,
+    minimize: true
     // extract: "style.css"
   }),
   commonjs({
@@ -60,7 +60,6 @@ const commonConfig = {
 
 export default {
   ...commonConfig,
-  input: "src/index.ts",
   plugins: [
     ...plugins,
     // transformTypesAlias(),

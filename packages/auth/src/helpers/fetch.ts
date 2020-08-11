@@ -57,8 +57,14 @@ export async function Post(context: ContextOptions, url: string, body?: any, par
       credentials: context.requestCredentials || 'same-origin',
     });
     if (!response.ok) {
-      const errorMessage = `Error ${response.status} - ${response.statusText}`
-      throw new Error(await response.json() || errorMessage);
+      let errorMessage = await response.json();
+      console.log('errorMessage', errorMessage);
+      if (errorMessage.errors) {
+        errorMessage = errorMessage.errors.join(', ');
+      } else if (typeof errorMessage !== 'string') {
+        errorMessage = `Error ${response.status} - ${response.statusText}`;
+      }
+      throw new Error(errorMessage);
     }
 
     return response.json().catch(() => { });

@@ -4,11 +4,11 @@ import {
   ActivateState,
   ActivateStep,
   AuthProviderProps,
-  AuthState,
+  AuthState, AuthUrlProps, ForgotPasswordPayload, ForgotPasswordState, ForgotPasswordStep,
   LoginPayload,
   LoginState,
-  LoginStep,
-  PreLoginPayload,
+  LoginStep, LogoutPayload,
+  PreLoginPayload, ResetPasswordPayload,
   User,
   VerifyMFAPayload,
 } from './interfaces';
@@ -16,7 +16,7 @@ import { ContextOptions } from '../helpers';
 
 const name = 'auth';
 
-export type AuthProviderState = Omit<AuthState & AuthProviderProps, 'history' | 'injectRoutes'>
+export type AuthProviderState = Omit<AuthState & AuthProviderProps & AuthUrlProps, 'history' | 'routes'>
 
 // The initial auth provider state.
 export const authInitialState: AuthProviderState = {
@@ -26,19 +26,31 @@ export const authInitialState: AuthProviderState = {
   },
   isAuthenticated: false,
   isLoading: true,
-  loginUrl: '/account/login',
-  activateUrl: '/account/activate',
-  forgetPasswordUrl: '/account/forget-password',
-  authorizationUrl: '/',
   isSSOAuth: false,
+
   loginState: {
     step: LoginStep.preLogin,
     loading: false,
   },
+
   activateState: {
     step: ActivateStep.activating,
     loading: false,
   },
+
+  forgetPasswordState: {
+    step: ForgotPasswordStep.forgotPassword,
+    loading: false,
+    email: '',
+  },
+
+  // routes
+  authorizationUrl: '/',
+  loginUrl: '/account/login',
+  logoutUrl: '/account/logout',
+  activateUrl: '/account/activate',
+  forgetPasswordUrl: '/account/forget-password',
+  resetPasswordUrl: '/account/reset-password',
 };
 
 const resetStateByKey = <T>(key: keyof AuthProviderState) => (state: AuthProviderState) => ({ ...state, [key]: authInitialState[key] });
@@ -70,7 +82,9 @@ const { reducer, actions: SliceActions } = createSlice({
     setLoginState: typeReducerForKey<LoginState>('loginState'),
     resetLoginState: resetStateByKey<LoginState>('loginState'),
     setActivateState: typeReducerForKey<ActivateState>('activateState'),
-    resetActivateState: resetStateByKey<LoginState>('loginState'),
+    resetActivateState: resetStateByKey<LoginState>('activateState'),
+    setForgotPasswordState: typeReducerForKey<ForgotPasswordState>('forgetPasswordState'),
+    resetForgotPasswordState: resetStateByKey<ForgotPasswordState>('forgetPasswordState'),
   },
 });
 
@@ -82,7 +96,9 @@ const actions = {
   login: createAction(`${name}/login`, (payload: LoginPayload) => ({ payload })),
   verifyMfa: createAction(`${name}/verifyMfa`, (payload: VerifyMFAPayload) => ({ payload })),
   activateAccount: createAction(`${name}/activateAccount`, (payload: ActivateAccountPayload) => ({ payload })),
-  logout: createAction(`${name}/logout`),
+  forgotPassword: createAction(`${name}/forgotPassword`, (payload: ForgotPasswordPayload) => ({ payload })),
+  resetPassword: createAction(`${name}/resetPassword`, (payload: ResetPasswordPayload) => ({ payload })),
+  logout: createAction(`${name}/logout`, (payload: LogoutPayload) => ({ payload })),
 };
 
 

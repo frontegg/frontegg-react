@@ -1,37 +1,40 @@
 import React, { ContextType } from 'react';
 import { AuthContext } from '../AuthContext';
-import { AuthPageProps } from '../interfaces';
-import ReactDOM from 'react-dom';
+import { pageWrapper } from '../helpers';
+import { validateEmail, validateSchema } from '../helpers/validates';
+import { Form, Formik } from 'formik';
+import { FieldInput } from '../FieldInput';
+import { FieldButton } from '../FieldInput/FieldButton';
+import { ForgotPasswordStep } from '../Api';
+import { ForgotPasswordSuccessRedirect } from './ForgotPasswordSuccessRedirect';
 
 export class ForgotPassword extends React.Component {
   static contextType = AuthContext;
   context: ContextType<typeof AuthContext> | null = null;
 
-  componentDidMount() {
-    // queryParam
-  }
-
   render() {
+    const { forgetPasswordState: { loading, email, error, step }, forgotPassword } = this.context!;
 
-    /// account/activate
-    return <div>forgetPasswordUrl</div>
+
+    if (step === ForgotPasswordStep.success) {
+      return <ForgotPasswordSuccessRedirect/>;
+    }
+
+    return <Formik
+      initialValues={{ email }}
+      validationSchema={validateSchema({
+        email: validateEmail,
+      })}
+      isInitialValid={validateEmail.isValidSync(email)}
+      onSubmit={({ email }) => forgotPassword({ email })}
+    >
+      <Form className='fe-login-two-factor'>
+        <FieldInput defaultValue={email} name='email' placeholder='name@example.com' label={'Forgot password for Email'}/>
+        <FieldButton disabledDirty={true} fluid={true} primary={!loading} loading={loading}>Remind Me</FieldButton>
+        {error && <div className='fe-login-error-message'>{error}</div>}
+      </Form>
+    </Formik>;
   }
 }
 
-export class ForgotPasswordPage extends React.Component<AuthPageProps> {
-  static defaultProps = {
-    header: <img src='http://acmelogos.com/images/logo-1.svg' alt='logo'/>,
-  };
-
-  render() {
-    const loginComponent = <div className='frontegg fe-login-page'>
-      <div className='fe-login-container'>
-        <div className='fe-login-header'>
-          {this.props.header}
-        </div>
-        <ForgotPassword/>
-      </div>
-    </div>;
-    return ReactDOM.createPortal(loginComponent, document.body, 'frontegg_forgot_password_page');
-  }
-}
+export const ForgotPasswordPage = pageWrapper(ForgotPassword, 'ForgotPasswordPage');

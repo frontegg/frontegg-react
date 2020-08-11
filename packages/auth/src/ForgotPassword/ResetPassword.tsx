@@ -1,32 +1,32 @@
 import React, { ContextType } from 'react';
 import { AuthContext } from '../AuthContext';
+import { pageWrapper } from '../helpers';
+import { ForgotPasswordStep } from '../Api';
+import { ResetPasswordSuccessRedirect } from './ResetPasswordSuccessRedirect';
+import { ResetPasswordFailedRedirect } from './ResetPasswordFailedRedirect';
 import { Form, Formik } from 'formik';
 import { validatePassword, validatePasswordConfirmation, validateSchema } from '../helpers/validates';
 import { FieldInput } from '../FieldInput';
 import { FieldButton } from '../FieldInput/FieldButton';
-import { ActivateStep } from '../Api';
-import { ActivateSuccessRedirect } from './ActivateSuccessRedirect';
-import { ActivateFailedRedirect } from './ActivateFailedRedirect';
-import { pageWrapper } from '../helpers';
 
-export class Activate extends React.Component {
+export class ResetPassword extends React.Component {
   static contextType = AuthContext;
   context: ContextType<typeof AuthContext> | null = null;
   userId: string = '';
   token: string = '';
 
   render() {
-    const { activateAccount, activateState: { loading, error, step } } = this.context!;
+    const { forgetPasswordState: { loading, error, step }, resetPassword } = this.context!;
     const url = new URL(window?.location.href);
     this.userId = url.searchParams.get('userId') || '';
     this.token = url.searchParams.get('token') || '';
 
     if (!this.userId || !this.token) {
-      return <ActivateFailedRedirect/>;
+      return <ResetPasswordFailedRedirect/>;
     }
 
-    if (step === ActivateStep.success) {
-      return <ActivateSuccessRedirect/>;
+    if (step === ForgotPasswordStep.success) {
+      return <ResetPasswordSuccessRedirect/>;
     }
 
     return <Formik
@@ -36,7 +36,7 @@ export class Activate extends React.Component {
       })}
       enableReinitialize={true}
       initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={({ password }) => activateAccount({ userId: this.userId, token: this.token, password })}>
+      onSubmit={({ password }) => resetPassword({ userId: this.userId, token: this.token, password })}>
       <Form>
         <FieldInput type='password'
                     name='password'
@@ -46,12 +46,11 @@ export class Activate extends React.Component {
                     name='confirmPassword'
                     label='Confirm New password'
                     placeholder='Enter your password again'/>
-        <FieldButton fluid={true} loading={loading} primary={!loading}>Activate the account</FieldButton>
+        <FieldButton fluid={true} loading={loading} primary={!loading}>Reset Password</FieldButton>
         {error && <div className='fe-login-error-message'>{error}</div>}
       </Form>
     </Formik>;
   }
 }
 
-
-export const ActivatePage = pageWrapper(Activate, 'ActivatePage');
+export const ResetPasswordPage = pageWrapper(ResetPassword, 'ResetPasswordPage');

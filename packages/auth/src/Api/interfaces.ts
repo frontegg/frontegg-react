@@ -10,6 +10,7 @@ export interface User {
   [key: string]: any;
 }
 
+// Login
 export enum LoginStep {
   'preLogin' = 'preLogin',
   'loginWithPassword' = 'loginWithPassword',
@@ -28,6 +29,8 @@ export interface LoginState {
   mfaToken?: string;
 }
 
+
+// Activate
 export enum ActivateStep {
   'activating' = 'activating',
   'success' = 'success',
@@ -39,11 +42,36 @@ export interface ActivateState {
   step: ActivateStep
 }
 
+
+// Forgot Password
+export enum ForgotPasswordStep {
+  'forgotPassword' = 'forgotPassword',
+  'success' = 'success',
+}
+
+export interface ForgotPasswordState {
+  step: ForgotPasswordStep;
+  email: string;
+  loading: boolean;
+  error?: any;
+
+}
+
 export interface AuthUrlProps {
+
+  /*
+   * the page whither need to redirect in the case when a user is authenticated
+   * @default: url before redirect to login or '/'
+   */
+  authorizationUrl: string;
   /*
    * the page whither need to redirect in the case when a user is not authenticated
    */
   loginUrl: string;
+  /*
+   * navigating to this url, AuthProvider will logout and remove coockies
+   */
+  logoutUrl: string;
   /*
    * the page whither need to redirect in the case when a user want to activate his account
    */
@@ -55,26 +83,20 @@ export interface AuthUrlProps {
   forgetPasswordUrl: string;
 
   /*
-   * the page whither need to redirect in the case when a user is authenticated
-   * @default: url before redirect to login or '/'
+   * the page whither need to redirect in the case when a user redirected from reset password url
    */
-  authorizationUrl: string;
+  resetPasswordUrl: string;
 
 }
 
-export interface AuthProviderProps extends AuthUrlProps {
+export interface AuthProviderProps {
   context: ContextOptions;
 
+  routes: AuthUrlProps,
   /*
    * provide history of your react router
    */
   history: BrowserHistory | HashHistory | MemoryHistory;
-  /*
-   * if true, FronteggAuthProvider will render Routes foreach Authentication page, and wildcard it's children components
-   *
-   * @default true
-   */
-  injectRoutes?: boolean;
 }
 
 export interface AuthState {
@@ -83,8 +105,9 @@ export interface AuthState {
   isLoading: boolean;
   user?: User;
   isSSOAuth: boolean;
-  loginState: LoginState
-  activateState: ActivateState
+  loginState: LoginState;
+  activateState: ActivateState;
+  forgetPasswordState: ForgotPasswordState;
 }
 
 export type PreLoginPayload = {
@@ -94,6 +117,7 @@ export type LoginPayload = {
   email: string;
   password: string;
 }
+export type LogoutPayload = () => void
 export type VerifyMFAPayload = {
   mfaToken: string;
   value: string;
@@ -103,3 +127,5 @@ export type ActivateAccountPayload = {
   userId: string;
   password: string;
 }
+export type ForgotPasswordPayload = PreLoginPayload;
+export type ResetPasswordPayload = ActivateAccountPayload;

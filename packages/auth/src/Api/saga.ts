@@ -3,7 +3,15 @@ import { actions } from './reducer';
 import { ContextOptions } from '@frontegg-react/core/src/providers';
 import { Get, Post } from '../helpers';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ActivateAccountPayload, ActivateStep, LoginPayload, LoginStep, PreLoginPayload, VerifyMFAPayload } from './interfaces';
+import {
+  ActivateAccountPayload,
+  ActivateStep,
+  ForgotPasswordPayload, ForgotPasswordStep,
+  LoginPayload,
+  LoginStep, LogoutPayload,
+  PreLoginPayload, ResetPasswordPayload,
+  VerifyMFAPayload,
+} from './interfaces';
 
 export function* getContext() {
   let result;
@@ -113,11 +121,48 @@ function* activateAccount({ payload }: PayloadAction<ActivateAccountPayload>) {
   }
 }
 
+function* forgotPassword({ payload }: PayloadAction<ForgotPasswordPayload>) {
+  yield put(actions.setForgotPasswordState({ loading: true }));
+  const context = yield getContext();
+  try {
+    yield Post(context, `${USERS_SERVICE_URL}/passwords/reset`, payload);
+    yield put(actions.setForgotPasswordState({ loading: false, error: undefined, step: ForgotPasswordStep.success }));
+  } catch (e) {
+    yield put(actions.setForgotPasswordState({ loading: false, error: e.message }));
+  }
+}
+
+function* resetPassword({ payload }: PayloadAction<ResetPasswordPayload>) {
+  yield put(actions.setForgotPasswordState({ loading: true }));
+  const context = yield getContext();
+  try {
+    yield Post(context, `${USERS_SERVICE_URL}/passwords/reset/verify`, payload);
+    yield put(actions.setForgotPasswordState({ loading: false, error: undefined, step: ForgotPasswordStep.success }));
+  } catch (e) {
+    yield put(actions.setForgotPasswordState({ loading: false, error: e.message }));
+  }
+}
+
+
+function* logout({ payload }: PayloadAction<LogoutPayload>) {
+  yield put(actions.setIsLoading(true));
+  const context = yield getContext();
+  try {
+    yield Post(context, `${IDENTITY_SERVICE_URL}/logout`);
+  } catch (e) {
+    console.error(e);
+  }
+  payload();
+}
+
 
 export function* authRootSaga() {
   yield takeEvery(actions.requestAuthorize, requestAuthorize);
   yield takeEvery(actions.preLogin, preLogin);
   yield takeEvery(actions.login, login);
+  yield takeEvery(actions.logout, logout);
   yield takeEvery(actions.verifyMfa, verifyMfa);
   yield takeEvery(actions.activateAccount, activateAccount);
+  yield takeEvery(actions.forgotPassword, forgotPassword);
+  yield takeEvery(actions.resetPassword, resetPassword);
 }
