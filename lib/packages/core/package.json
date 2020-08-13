@@ -1,0 +1,73 @@
+{
+  "name": "@frontegg/rc-core",
+  "version": "0.0.1",
+  "author": "FrontEgg LTD",
+  "scripts": {
+    "build": "export NODE_ENV='production'; rm -rf ./dist && rollup -c ../../scripts/rollup.config.js && echo DONE",
+    "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "underscore": "^1.10.2",
+    "react": "^16.13.1",
+    "react-dom": "16.13.1",
+    "moment": "^2.27.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "cron-parser": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/underscore": "^1.10.2",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "16.9.5",
+    "@types/moment": "^2.13.0",
+    "@types/react-router": "^5.1.2",
+    "@types/react-router-dom": "^5.1.2",
+    "@types/react-i18next": "^8.1.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "all",
+    "jsxBracketSameLine": true,
+    "endOfLine": "lf",
+    "tabWidth": 2
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/",
+      "dist/"
+    ],
+    "globals": [
+      "describe",
+      "it",
+      "test",
+      "expect",
+      "afterAll",
+      "jest"
+    ]
+  }
+}
