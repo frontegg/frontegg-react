@@ -1,9 +1,8 @@
 {
   "packages": [
-    "packages/*",
-    "plugins/*"
+    "packages/*"
   ],
-  "version": null,
+  "version": "fixed",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "publishConfig": {

@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/rc-reports",
-  "version": null,
+  "version": "1.0.0",
   "author": "FrontEgg LTD",
   "scripts": {
     "build": "export NODE_ENV='production'; rm -rf ./dist && rollup -c ../../scripts/rollup.config.js && echo DONE",
