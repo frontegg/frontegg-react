@@ -45,7 +45,7 @@ ReactDOM.render(
 ```
 
 ## Options and Customizations
-**Frontegg-React-Auth** provide the ability for fully customization components 
+**Frontegg-React-Auth** provide the ability to fully customize your components 
 to align it with your App UI design.
 
 - [`header`](#header-reactnode) `<ReactNode>` - (optional)
