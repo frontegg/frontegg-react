@@ -38,8 +38,8 @@ ReactDOM.render(
   <FronteggProvider
         context={/* context options */}
         plugins={/* plugins to be used */}>
-      <App />
-    </FronteggProvider>
+    <App />
+  </FronteggProvider>
 </BrowserRouter>, document.querySelector('#app'));  
 ```
 ``context`` property is used:

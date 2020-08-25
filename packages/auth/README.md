@@ -53,10 +53,10 @@ to align it with your App UI design.
 React Component used to customize your authentication page header
 ```jsx
 const plugins = [
-  AuthPlugin(
+  AuthPlugin({
     header: <MyAuthPageHeader/>,
     //...rest options
-  )
+  })
 ];
 ```
 
@@ -65,10 +65,10 @@ const plugins = [
 CSS Color used to for authentication page background color
 ```jsx
 const plugins = [
-  AuthPlugin(
+  AuthPlugin({
     backgroundColor: '#FAFAFA' | 'red' | 'rgb(200,200,200)',  
     //...rest options
-  )
+  })
 ];
 ```
 
@@ -78,10 +78,10 @@ React Component displayed in first load while resolving the verifying the authen
 and to check if the user should be redirected to login page. 
 ```jsx
 const plugins = [
-  AuthPlugin(
+  AuthPlugin({
     loaderComponent: <MyLoaderComponent>,  
     //...rest options
-  )
+  })
 ];
 ```
 
