@@ -85,6 +85,7 @@ to align it with your App UI design.
 
 The main purpose of this repository is to continue developing Frontegg React to making it faster and easier to use.
 Read our [contributing guide](/CONTRIBUTING.md) to learn about our development process.
+
 **Notice** that contributions go far beyond pull requests and commits.
 
 ## License
