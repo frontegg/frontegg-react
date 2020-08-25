@@ -29,17 +29,18 @@ All you need is to add pass AuthPlugin to the ``FronteggProvider``:
 
 ```jsx  
 /* imports */
-import { AuthPlugin } from '@frontegg/react-auth'
+import { FronteggProvider } from '@frontegg/react-core';
+import { AuthPlugin } from '@frontegg/react-auth';
 
 ReactDOM.render(
 <BrowserRouter>
-	<FronteggProvider
-		context={/* context options */}
-		plugins={[
-                  AuthPlugin()
-                ]}>
-		<App />
-	</FronteggProvider>
+  <FronteggProvider
+      context={/* context options */}
+      plugins={[
+        AuthPlugin()
+      ]}>
+    <App />
+  </FronteggProvider>
 </BrowserRouter>, document.querySelector('#app'));  
 ```
 
@@ -48,38 +49,41 @@ ReactDOM.render(
 to align it with your App UI design.
 
 ### `header <React.ReactNode> (optional)`
-  React Component used to customize your authentication page header
-  ```jsx
-  const plugins = [
-    AuthPlugin(
-      header: <MyAuthPageHeader/>,
-      //...rest options
-    )
-  ]
-  ```
-   
-### `backgroundColor <string> (optional)`
-  CSS Color used to for authentication page background color
-  ```jsx
-  const plugins = [
-    AuthPlugin(
-      backgroundColor: '#FAFAFA' | 'red' | 'rgb(200,200,200)',  
-      //...rest options
-    )
-  ]
-  ```
-### `loaderComponent <React.ReactNode> (optional)`
-  React Component displayed in first load while resolving the verifying the authenticated user, refreshing the token, 
-  and to check if the user should be redirected to login page. 
-  ```jsx
-  const plugins = [
-    AuthPlugin(
-      loaderComponent: <MyLoaderComponent>,  
-      //...rest options
-    )
-  ]
-  ```
 
+React Component used to customize your authentication page header
+```jsx
+const plugins = [
+  AuthPlugin(
+    header: <MyAuthPageHeader/>,
+    //...rest options
+  )
+];
+```
+
+### `backgroundColor <string> (optional)`
+
+CSS Color used to for authentication page background color
+```jsx
+const plugins = [
+  AuthPlugin(
+    backgroundColor: '#FAFAFA' | 'red' | 'rgb(200,200,200)',  
+    //...rest options
+  )
+];
+```
+
+### `loaderComponent <React.ReactNode> (optional)`
+
+React Component displayed in first load while resolving the verifying the authenticated user, refreshing the token, 
+and to check if the user should be redirected to login page. 
+```jsx
+const plugins = [
+  AuthPlugin(
+    loaderComponent: <MyLoaderComponent>,  
+    //...rest options
+  )
+];
+```
 
 ## Contributing
 
