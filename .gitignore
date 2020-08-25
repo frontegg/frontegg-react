@@ -24,7 +24,7 @@ dist
 dist-umd
 .env
 
-dist/
+*/dist/
 dist-umd/
 
 # Runtime data
