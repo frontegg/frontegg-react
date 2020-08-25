@@ -1,0 +1,13 @@
+
+// publish frontend npm library -> npm repository public
+// publish website -> deploy hosting
+
+// publish backend npm library -> npm repository private
+// publish service -> deploy docker
+
+
+lerna run publish
+
+
+// publish frontend npm library -> npm repository public
+// publish backend npm library -> npm repository private

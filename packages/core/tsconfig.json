@@ -1,0 +1,54 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": false,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@helpers/*": [
+        "./helpers/*"
+      ],
+      "@helpers": [
+        "./helpers"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@api/*": [
+        "./api/*"
+      ],
+      "@api": [
+        "./api"
+      ],
+      "@elements/*": [
+        "./elements/*"
+      ],
+      "@elements": [
+        "./elements"
+      ],
+      "@providers/*": [
+        "./providers/*"
+      ],
+      "@providers": [
+        "./providers"
+      ],
+      "@plugins/*": [
+        "./plugins/*"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/*.tsx",
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.stories.tsx",
+    "src/**/*.test.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx"
+  ]
+}
+
