@@ -48,9 +48,14 @@ ReactDOM.render(
 **Frontegg-React-Auth** provide the ability for fully customization components 
 to align it with your App UI design.
 
-### `header <React.ReactNode> (optional)`
+- [`header`](#header-reactnode) `<ReactNode>` - (optional)
+- [`bcakgroundColor`](#backgroundcolor-string) `<CSSColor>` - (optional)
+- [`loaderComponent`](#loadercomponent-reactnode) `<ReactNode>` - (optional)
 
-React Component used to customize your authentication page header
+
+### `header <ReactNode>`
+
+*(optional)* React Component used to customize your authentication page header
 ```jsx
 const plugins = [
   AuthPlugin({
@@ -60,9 +65,9 @@ const plugins = [
 ];
 ```
 
-### `backgroundColor <string> (optional)`
+### `backgroundColor <string>`
 
-CSS Color used to for authentication page background color
+*(optional)* CSS Color used to for authentication page background color
 ```jsx
 const plugins = [
   AuthPlugin({
@@ -72,9 +77,9 @@ const plugins = [
 ];
 ```
 
-### `loaderComponent <React.ReactNode> (optional)`
+### `loaderComponent <ReactNode>`
 
-React Component displayed in first load while resolving the verifying the authenticated user, refreshing the token, 
+*(optional)* React Component displayed in first load while resolving the verifying the authenticated user, refreshing the token, 
 and to check if the user should be redirected to login page. 
 ```jsx
 const plugins = [
