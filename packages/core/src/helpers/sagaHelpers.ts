@@ -5,11 +5,11 @@ import { PayloadAction } from '@reduxjs/toolkit';
 export function* getContext() {
   let result;
   do {
-    const context = yield select(({ root: { context } }) => context);
-    if (!context) {
+    const availableContext = yield select(({ root: { context } }) => context);
+    if (!availableContext) {
       yield delay(50);
     } else {
-      result = context;
+      result = availableContext;
     }
   } while (!result);
   return result as ContextOptions;

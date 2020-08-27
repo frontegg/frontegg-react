@@ -14,7 +14,7 @@ import {
   VerifyMFAPayload,
 } from './interfaces';
 
-export const storeName =  'auth';
+export const storeName = 'auth';
 
 export const preloadedState: AuthState = {
   isAuthenticated: false,
@@ -38,12 +38,14 @@ export const preloadedState: AuthState = {
   },
 
   // routes
-  authenticatedUrl: '/',
-  loginUrl: '/account/login',
-  logoutUrl: '/account/logout',
-  activateUrl: '/account/activate',
-  forgetPasswordUrl: '/account/forget-password',
-  resetPasswordUrl: '/account/reset-password',
+  routes: {
+    authenticatedUrl: '/',
+    loginUrl: '/account/login',
+    logoutUrl: '/account/logout',
+    activateUrl: '/account/activate',
+    forgetPasswordUrl: '/account/forget-password',
+    resetPasswordUrl: '/account/reset-password',
+  },
   onRedirectTo: () => {},
 
 

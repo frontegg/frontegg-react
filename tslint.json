@@ -46,6 +46,8 @@
       ]
     },
     "class-name": true,
+    "no-shadowed-variable": false,
+    "no-empty": false,
     "no-empty-interface": {
       "severity": "warning"
     },

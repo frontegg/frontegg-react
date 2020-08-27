@@ -10,10 +10,10 @@ export {
 
 export function memoEqual(prevProps: any, nextProps: any) {
   return Object.keys(nextProps).reduce((p: boolean, next: any) => {
-    if (typeof prevProps[next] == 'function' && typeof nextProps[next] == 'function') {
+    if (typeof prevProps[next] === 'function' && typeof nextProps[next] === 'function') {
       return p;
     }
-    if (prevProps[next] != nextProps[next]) {
+    if (prevProps[next] !== nextProps[next]) {
       return p && false;
     } else {
       return p;

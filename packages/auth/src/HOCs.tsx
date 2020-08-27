@@ -47,14 +47,13 @@ export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) =>
     state: ({ isAuthenticated, loginUrl, isLoading }: AuthState) => ({ isAuthenticated, loginUrl, isLoading }),
     actions: () => {},
   };
-  return withAuth(class ProtectedRoute extends React.Component<P & ReturnType<typeof mapper.state>> {
+  return withAuth(class extends React.Component<P & ReturnType<typeof mapper.state>> {
     render() {
-      const { isAuthenticated, loginUrl, isLoading } = this.props;
-      return isLoading ? null : isAuthenticated ? <Component {...this.props} /> : onRedirecting(loginUrl);
+      const { isAuthenticated, loginUrl, isLoading, ...rest } = this.props;
+      return isLoading ? null : isAuthenticated ? <Component {...rest as P} /> : onRedirecting(loginUrl);
     }
   }, mapper);
 };
-
 
 /**
  * ```jsx
@@ -72,11 +71,9 @@ export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) =>
  * redirected from after login
  */
 export const ProtectedComponent: FC = ({ children }) => {
-  const { isAuthenticated, loginUrl, isLoading } =
-    useAuth({
-      state: ({ isAuthenticated, loginUrl, isLoading }: AuthState) =>
-        ({ isAuthenticated, loginUrl, isLoading }),
-    });
+  const { isAuthenticated, loginUrl, isLoading } = useAuth(
+    ({ isAuthenticated, loginUrl, isLoading }: AuthState) => ({ isAuthenticated, loginUrl, isLoading }),
+  );
 
   return isLoading ? null : isAuthenticated ? <>{children}</> : onRedirecting(loginUrl);
 };
@@ -123,7 +120,6 @@ export class ProtectedRoute extends React.Component<RouteProps> {
     return <Route {...routeProps}/>;
   }
 }
-
 
 /**
  * ```jsx

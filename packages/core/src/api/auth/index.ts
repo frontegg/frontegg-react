@@ -74,7 +74,6 @@ export async function activateAccount(body: IActivateAccount): Promise<void> {
   return Post(context, `${USERS_SERVICE_URL_V1}/activate`, body);
 }
 
-
 /**
  * refresh token called as authenticated use, access and refresh tokens resolved by the cookies.
  * the server will return ILoginResponse with new access Token and refresh token and store it in the browser cookies.
@@ -152,7 +151,6 @@ export async function verifyMfa(body: IVerifyMfa): Promise<IVerifyMfaResponse> {
   const context = ContextHolder.getInstance().getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/mfa/enroll/verify`, body);
 }
-
 
 /**
  * disable MFA by either passing the recoveryCode or the generated code from the Authenticator App.

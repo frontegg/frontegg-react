@@ -1,6 +1,6 @@
 import { takeEvery, put, all, call } from 'redux-saga/effects';
 import { actions } from './reducer';
-import { getContext, Post, api } from '@frontegg/react-core';
+import { getContext, api } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
   ActivateAccountPayload,
@@ -11,9 +11,6 @@ import {
   PreLoginPayload, ResetPasswordPayload,
   VerifyMFAPayload,
 } from './interfaces';
-
-const IDENTITY_SERVICE_URL = '/identity/resources/auth/v1';
-const USERS_SERVICE_URL = '/identity/resources/users/v1';
 
 function* refreshMetadata() {
   let isSSOAuth;
@@ -132,7 +129,7 @@ function* logout({ payload }: PayloadAction<LogoutPayload>) {
   yield put(actions.setIsLoading(true));
   const context = yield getContext();
   try {
-    yield Post(context, `${IDENTITY_SERVICE_URL}/logout`);
+    yield call(api.auth.logout);
   } catch (e) {
     console.error(e);
   }

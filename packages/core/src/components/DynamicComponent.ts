@@ -24,10 +24,10 @@ export type RendererFunction<P, C, R = ReactNode> = (props: Omit<P, 'renderer' |
 
 export function memoEqual(prevProps: any, nextProps: any) {
   return Object.keys(nextProps).reduce((p: boolean, next: any) => {
-    if (typeof prevProps[next] == 'function' && typeof nextProps[next] == 'function') {
+    if (typeof prevProps[next] === 'function' && typeof nextProps[next] === 'function') {
       return p;
     }
-    if (prevProps[next] != nextProps[next]) {
+    if (prevProps[next] !== nextProps[next]) {
       return p && false;
     } else {
       return p;
@@ -40,10 +40,10 @@ export function memoEqualNoChildren(prevProps: any, nextProps: any) {
     if (next === 'children') {
       return p;
     }
-    if (typeof prevProps[next] == 'function' && typeof nextProps[next] == 'function') {
+    if (typeof prevProps[next] === 'function' && typeof nextProps[next] === 'function') {
       return p;
     }
-    if (prevProps[next] != nextProps[next]) {
+    if (prevProps[next] !== nextProps[next]) {
       return p && false;
     } else {
       return p;
@@ -57,7 +57,7 @@ export const buildDynamicComponent = <T extends {}, P>(
   DefaultComponent: ComponentType<any>,
 ): any => {
   if (components?.hasOwnProperty(component)) {
-    let comp = components?.[component];
+    const comp = components?.[component];
     if (comp == null) {
       return EmptyRender;
     }
@@ -87,7 +87,7 @@ export const generateComponent = <T extends {}, P>(
   DefaultComponent: ComponentType<any>,
 ): any => {
   if (components?.hasOwnProperty(component)) {
-    let comp = components?.[component];
+    const comp = components?.[component];
     if (comp == null) {
       return EmptyRender;
     }

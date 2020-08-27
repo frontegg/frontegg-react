@@ -48,9 +48,11 @@ ReactDOM.render(
 **Frontegg-React-Auth** provide the ability to fully customize your components 
 to align it with your App UI design.
 
-- [`header`](#header-reactnode) `<ReactNode>` - (optional)
-- [`bcakgroundColor`](#backgroundcolor-string) `<CSSColor>` - (optional)
-- [`loaderComponent`](#loadercomponent-reactnode) `<ReactNode>` - (optional)
+- [`header`](#header-reactnode) `<ReactNode>`
+- [`backgroundImage`](#backgroundimage-string) `<string>`
+- [`backgroundColor`](#backgroundcolor-csscolor) `<CSSColor>`
+- [`loaderComponent`](#loadercomponent-reactnode) `<ReactNode>`
+- [`routes`](#routes-string) `<string[]>`
 
 
 ### `header <ReactNode>`
@@ -64,8 +66,19 @@ const plugins = [
   })
 ];
 ```
+### `backgroundImage <string>`
 
-### `backgroundColor <string>`
+*(optional)* CSS Color used to for authentication page background color
+```jsx
+const plugins = [
+  AuthPlugin({
+    backgroundImage: 'https://image_url' | 'data:image/png;base64,...',  
+    //...rest options
+  })
+];
+```
+
+### `backgroundColor <CSSColor>`
 
 *(optional)* CSS Color used to for authentication page background color
 ```jsx
@@ -85,6 +98,26 @@ and to check if the user should be redirected to login page.
 const plugins = [
   AuthPlugin({
     loaderComponent: <MyLoaderComponent>,  
+    //...rest options
+  })
+];
+```
+
+### `routes <string[]>`
+
+*(optional)* Path routes for Authentication Components, these pathes used to redirect
+the user to a specific route depends on authentication state. 
+```jsx
+const plugins = [
+  AuthPlugin({
+    routes: {
+      authenticatedUrl: '/', /* the page whither need to redirect in the case when a user is authenticated */
+      loginUrl: '/account/login', /* the page whither need to redirect in the case when a user is not authenticated */
+      logoutUrl: '/account/logout', /* navigating to this url, AuthProvider will logout and remove coockies */
+      activateUrl: '/account/activate', /* the page whither need to redirect in the case when a user want to activate his account */
+      forgetPasswordUrl: '/account/forgot/password', /* the page in the case a user forgot his account password */
+      resetPasswordUrl: '/account/reset/password', /* the page whither need to redirect in the case when a user redirected from reset password url */
+    },  
     //...rest options
   })
 ];

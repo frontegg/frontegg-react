@@ -1,18 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { actions, FronteggState, User } from './Api';
-import { AuthMapper, createMapper, defaultMapper } from './helpers';
+import { actions,  User } from './Api';
+import { AuthActionsMapper, AuthStateMapper, defaultMapper } from './helpers';
 
+const pluginName = 'auth';
+const pluginActions = actions;
 
-export const useAuth = (passedMapper: Partial<AuthMapper> = defaultMapper) => {
-  const mapper = createMapper(passedMapper);
+export const useAuth = <S, A>(stateMapper: AuthStateMapper<S> = defaultMapper.state, actionsMapper: AuthActionsMapper<A> = defaultMapper.actions) => {
   const dispatch = useDispatch();
-  const bindedActions = bindActionCreators(mapper.actions(actions) as any, dispatch);
-  const state = useSelector(({ auth }: any) => mapper.state(auth), memoEqual);
+  const bindedActions = bindActionCreators(actionsMapper(pluginActions) as any, dispatch);
+  const state = useSelector((state: any) => stateMapper(state[pluginName]), memoEqual);
   return {
-    ...state,
-    ...bindedActions,
+    ...state as S,
+    ...bindedActions as A,
   };
 };
 
@@ -27,7 +28,7 @@ export const useAuth = (passedMapper: Partial<AuthMapper> = defaultMapper) => {
  *
  * use this frontegg hook function to get if user is "Authenticated"
  */
-export const useIsAuthenticated = (): boolean => useSelector(({ auth: { isAuthenticated } }: FronteggState) => isAuthenticated, memoEqual);
+export const useIsAuthenticated = (): boolean => useSelector(({ [pluginName]: { isAuthenticated } }: any) => isAuthenticated, memoEqual);
 
 /**
  * ```jsx
@@ -40,4 +41,4 @@ export const useIsAuthenticated = (): boolean => useSelector(({ auth: { isAuthen
  * use this frontegg hook function to get the authenticated user
  * the return user is null if not authenticated
  */
-export const useAuthUser = (): User | undefined => useSelector(({ auth: { user } }: FronteggState) => user, memoEqual);
+export const useAuthUser = (): User | undefined => useSelector(({ [pluginName]: { user } }: any) => user, memoEqual);
