@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { actions,  User } from './Api';
+import { actions, User } from './Api';
 import { AuthActionsMapper, AuthStateMapper, defaultMapper } from './helpers';
 
 const pluginName = 'auth';

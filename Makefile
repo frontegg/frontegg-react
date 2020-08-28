@@ -91,16 +91,23 @@ lint-%: ##@2 Linting run lint on specific packages
 # TEST Operations
 #
 ########################################################################################################################
+#
+#test: ##@3 Tests test all packages
+#	@echo "${YELLOW}Testing all packages${RESET}"
+#	@find ./packages -type d -maxdepth 1 ! -path ./packages \
+#        | sed 's|^./packages/||' \
+#        | xargs -I '{}' sh -c '$(MAKE) test-package-{}'
+#
+#test-%: ##@3 Tests test a specific package
+#	@echo "${YELLOW}Testing package ${WHITE}${*}${RESET}"
+#	@export PACKAGE=${*}; cd ./packages/${*} && yarn run test
 
-test: ##@3 Tests test all packages
-	@echo "${YELLOW}Testing all packages${RESET}"
-	@find ./packages -type d -maxdepth 1 ! -path ./packages \
-        | sed 's|^./packages/||' \
-        | xargs -I '{}' sh -c '$(MAKE) test-package-{}'
-
-test-%: ##@3 Tests test a specific package
-	@echo "${YELLOW}Testing package ${WHITE}${*}${RESET}"
-	@export PACKAGE=${*}; cd ./packages/${*} && yarn run test
+cy: ##@3 Tests integration test with cypress
+	@echo "${YELLOW}Integration Test Cypress${RESET}"
+	@echo "Building DemoSaaS project"
+	@cd ./packages/demo-saas && yarn build
+	@echo "Start Cypress tests on port 3000"
+	@start-server-and-test 'cd ./packages/demo-saas && serve -l 3000 -s build' 3000 'cypress run --headed'
 
 ########################################################################################################################
 #

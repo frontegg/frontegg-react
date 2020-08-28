@@ -1,4 +1,4 @@
-describe('Core Test', () => {
+describe('Auth Test', () => {
   it('Does not do much!', () => {
     expect(true).to.equal(true);
 

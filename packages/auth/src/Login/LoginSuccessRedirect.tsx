@@ -6,7 +6,7 @@ import { withAuth } from '../HOCs';
 import { Redirect } from 'react-router';
 
 const mapper = {
-  state: ({ authenticatedUrl }: AuthState) => ({ authenticatedUrl }),
+  state: ({ routes }: AuthState) => ({ routes }),
   actions: ({ resetLoginState }: AuthActions) => ({ resetLoginState }),
 };
 type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>
@@ -19,7 +19,7 @@ class LoginSuccessRedirect extends React.Component<Props, { redirect: string }> 
 
   componentDidMount() {
     const { resetLoginState } = this.props;
-    let { authenticatedUrl } = this.props;
+    let { routes: { authenticatedUrl } } = this.props;
     const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
     if (afterAuthRedirect) {
       authenticatedUrl = afterAuthRedirect;

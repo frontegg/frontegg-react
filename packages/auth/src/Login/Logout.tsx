@@ -6,7 +6,7 @@ import { AuthActions, AuthState } from '../Api';
 
 
 const mapper = {
-  state: ({ loginUrl }: AuthState) => ({ loginUrl }),
+  state: ({ routes }: AuthState) => ({ routes }),
   actions: ({ logout }: AuthActions) => ({ logout }),
 };
 
@@ -14,7 +14,7 @@ type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>
 
 class LogoutComponent extends React.Component<Props> {
   componentDidMount() {
-    const { logout, loginUrl } = this.props;
+    const { logout, routes: { loginUrl } } = this.props;
     setTimeout(() => {
       logout(() => window.location.href = loginUrl);
     }, 2000);

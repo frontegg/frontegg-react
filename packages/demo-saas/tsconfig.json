@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "noEmit": true
   },
   "include": [
     "./src/**/*.tsx",
@@ -18,4 +19,3 @@
     "src/**/*.spec.tsx"
   ]
 }
-

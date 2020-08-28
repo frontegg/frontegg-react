@@ -12,20 +12,17 @@ import { AuthMapper } from '../helpers';
 
 
 const mapper: AuthMapper = {
-  state: ({ loginUrl, logoutUrl, isLoading, header, loaderComponent }: AuthState) => ({
-    loginUrl,
-    logoutUrl,
-    isLoading,
-    defaultComps: { header, loaderComponent },
-  }),
+  state: ({ routes, isLoading, header, loaderComponent }: AuthState) => ({ routes, isLoading, defaultComps: { header, loaderComponent } }),
   actions: () => {},
 };
 
 class DefaultAuthRoutes extends React.Component<AuthPageProps & ReturnType<typeof mapper.state>> {
   render() {
     const {
-      loginUrl,
-      logoutUrl,
+      routes: {
+        loginUrl,
+        logoutUrl,
+      },
       isLoading,
       header,
       loaderComponent,

@@ -44,12 +44,12 @@ const onRedirecting = (loginUrl: string) => {
  */
 export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) => {
   const mapper = {
-    state: ({ isAuthenticated, loginUrl, isLoading }: AuthState) => ({ isAuthenticated, loginUrl, isLoading }),
+    state: ({ isAuthenticated, isLoading, routes }: AuthState) => ({ isAuthenticated, isLoading, routes }),
     actions: () => {},
   };
   return withAuth(class extends React.Component<P & ReturnType<typeof mapper.state>> {
     render() {
-      const { isAuthenticated, loginUrl, isLoading, ...rest } = this.props;
+      const { isAuthenticated, routes: { loginUrl }, isLoading, ...rest } = this.props;
       return isLoading ? null : isAuthenticated ? <Component {...rest as P} /> : onRedirecting(loginUrl);
     }
   }, mapper);
@@ -71,8 +71,8 @@ export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) =>
  * redirected from after login
  */
 export const ProtectedComponent: FC = ({ children }) => {
-  const { isAuthenticated, loginUrl, isLoading } = useAuth(
-    ({ isAuthenticated, loginUrl, isLoading }: AuthState) => ({ isAuthenticated, loginUrl, isLoading }),
+  const { isAuthenticated, routes: { loginUrl }, isLoading } = useAuth(
+    ({ isAuthenticated, routes, isLoading }: AuthState) => ({ isAuthenticated, routes, isLoading }),
   );
 
   return isLoading ? null : isAuthenticated ? <>{children}</> : onRedirecting(loginUrl);

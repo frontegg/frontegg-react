@@ -13,7 +13,7 @@ import {
 
 
 const mapper = {
-  state: ({ loginState, isSSOAuth, onRedirectTo, forgetPasswordUrl }: AuthState) => ({ loginState, isSSOAuth, onRedirectTo, forgetPasswordUrl }),
+  state: ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({ loginState, isSSOAuth, onRedirectTo, routes }),
   actions: ({ preLogin, login, setLoginState, resetLoginState, setForgotPasswordState }: AuthActions) => ({
     preLogin,
     login,
@@ -41,11 +41,14 @@ class LoginWithPasswordComponent extends React.Component<Props> {
   render() {
     const {
       loginState: { loading, step, error },
-      isSSOAuth, preLogin, login,
+      isSSOAuth,
+      preLogin,
+      login,
       setLoginState,
       resetLoginState,
       setForgotPasswordState,
-      onRedirectTo, forgetPasswordUrl,
+      onRedirectTo,
+      routes: { forgetPasswordUrl },
     } = this.props;
 
     const displayPassword = !isSSOAuth || step == LoginStep.loginWithPassword;

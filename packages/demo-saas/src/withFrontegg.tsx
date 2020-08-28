@@ -17,10 +17,19 @@ const contextOptions: ContextOptions = {
 const plugins: PluginConfig[] = [
   AuthPlugin({
     header: <div>TEST HEADER</div>,
-    loaderComponent: <div>Loader</div>
+    loaderComponent: <div>Loader</div>,
+    routes: {
+      authenticatedUrl: '/',
+      loginUrl: '/account/login',
+      logoutUrl: '/account/logout',
+      activateUrl: '/account/activate',
+      forgetPasswordUrl: '/account/forget-password',
+      resetPasswordUrl: '/account/reset-password',
+    },
   }),
 ];
 
+// @ts-ignore
 export const withFrontegg = (Component: ComponentType<any>) =>
   withRouter(class extends React.Component<RouteComponentProps> {
     render() {

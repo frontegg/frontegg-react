@@ -41,6 +41,7 @@ export class FronteggProvider extends React.Component<FronteggProviderProps> {
 
   constructor(props: FronteggProviderProps) {
     super(props);
+    ContextHolder.getInstance().setContext(this.props.context);
     const reducer = combineReducers({
       root: rootReducer,
       ...props.plugins.reduce((p, n) => ({ ...p, [n.storeName]: n.reducer }), {}),
@@ -75,7 +76,7 @@ export class FronteggProvider extends React.Component<FronteggProviderProps> {
     this.task.cancel();
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps: Readonly<FronteggProviderProps>, prevState: Readonly<{}>, snapshot?: any) {
     ContextHolder.getInstance().setContext(this.props.context);
   }
 

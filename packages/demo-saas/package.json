@@ -5,6 +5,7 @@
   "author": "FrontEgg LTD",
   "scripts": {
     "start": "react-scripts start",
+    "cy-start": "OPEN_BROWSER=false; react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
