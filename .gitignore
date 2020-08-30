@@ -40,3 +40,4 @@ coverage
 lerna-changed.json
 .npmrc
 cypress/videos
+.nyc_output
