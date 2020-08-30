@@ -41,4 +41,18 @@
       max-width: 100%;
     }
   }
+
+
+  .fe-login-header {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 3rem;
+    align-items: center;
+    overflow-x: hidden;
+
+    > * {
+      max-width: 100%;
+    }
+  }
+
 }

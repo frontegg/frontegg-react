@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Field, FieldProps, ErrorMessage } from 'formik';
 import { Input, InputProps, InputOnChangeData } from 'semantic-ui-react';
 import classNames from 'classnames';
@@ -9,17 +9,19 @@ export interface IFieldInput extends InputProps {
   visible?: boolean;
   forwardRef?: any;
   wrapperClassName?: string;
+  labelButton?: ReactNode;
 }
 
 export const FieldInput: FC<IFieldInput> =
   ({
      wrapperClassName, forwardRef, enterAnimation,
-     visible, name, label, onChange, ...inputProps
+     visible, name, label,labelButton, onChange, ...inputProps
    }) => (
     <Field>
       {({ form: { values, handleBlur, handleChange, errors, touched } }: FieldProps) => (
         <div className={classNames('frontegg-form-row', 'frontegg-form-input', wrapperClassName)}>
           {label && <label>{label}</label>}
+          {labelButton}
           <Input
             {...inputProps}
             ref={forwardRef}

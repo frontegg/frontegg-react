@@ -123,9 +123,9 @@ export async function recoverMfaToken(body: IRecoverMFAToken): Promise<void> {
   return Post(context, `${AUTH_SERVICE_URL_V1}/user/mfa/recover`, body);
 }
 
-/*****************************************
+/**
  * Multi-Factor Settings
- *****************************************/
+ */
 
 /**
  * enroll Multi-Factor Auth Code to use in 3rd party apps like Google Authenticator.

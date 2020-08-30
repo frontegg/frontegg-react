@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { ComponentType, FC } from 'react';
 import { Provider } from 'react-redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { getDefaultMiddleware, combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
@@ -101,7 +101,7 @@ export class FronteggProvider extends React.Component<FronteggProviderProps> {
     const { history } = this.props;
     if (opts?.refresh) {
       // @ts-ignore
-      if(window.Cypress){
+      if (window.Cypress) {
         history.push(path);
         return;
       }
@@ -128,10 +128,18 @@ export class FronteggProvider extends React.Component<FronteggProviderProps> {
   }
 }
 
-export const FronteggProviderWithRouter: FC<Omit<FronteggProviderProps, 'history'>> =
-  (props) => {
-    const Provider = withRouter(({ history }: RouterProps) => <FronteggProvider history={history as any} {...props}/>);
+export class FronteggProviderWithRouter extends React.Component<Omit<FronteggProviderProps, 'history'>> {
+  provider: ComponentType;
+
+  constructor(props: Omit<FronteggProviderProps, 'history'>) {
+    super(props);
+    this.provider = withRouter(({ history }: RouterProps) => <FronteggProvider history={history as any} {...props}/>);
+  }
+
+  render() {
+    const { provider: Provider } = this;
     return <BrowserRouter>
       <Provider/>
     </BrowserRouter>;
-  };
+  }
+}

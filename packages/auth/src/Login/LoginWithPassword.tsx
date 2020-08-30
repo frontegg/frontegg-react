@@ -52,29 +52,23 @@ class LoginWithPasswordComponent extends React.Component<Props> {
     } = this.props;
 
     const displayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
-    const passwordLabel = <>
-      Password
-      <Field>
-        {({ form: { values } }: FieldProps) => (
-          <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
-            setForgotPasswordState({ email: values.email });
-            resetLoginState();
-            onRedirectTo(forgetPasswordUrl);
-          }}>Forgot Password?</Button>
-        )}
-      </Field>
-    </>;
+    const passwordLabelButton = <Field>
+      {({ form: { values } }: FieldProps) => (
+        <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
+          setForgotPasswordState({ email: values.email });
+          resetLoginState();
+          onRedirectTo(forgetPasswordUrl);
+        }}>Forgot Password?</Button>
+      )}
+    </Field>;
     return <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={validateSchema(
-        displayPassword ? {
-          email: validateEmail,
-          password: validatePassword,
-        } : {
-          email: validateEmail,
-        })}
-      onSubmit={({ email, password }) => displayPassword ? login({ email, password }) : preLogin({ email })}
-    >
+        displayPassword ?
+          { email: validateEmail, password: validatePassword }
+          :
+          { email: validateEmail })}
+      onSubmit={({ email, password }) => displayPassword ? login({ email, password }) : preLogin({ email })}>
       <Form>
         <FieldInput
           name='email'
@@ -83,7 +77,8 @@ class LoginWithPasswordComponent extends React.Component<Props> {
           focus={isSSOAuth && displayPassword ? false : undefined}
           onChange={isSSOAuth && displayPassword ? () => {setLoginState({ step: LoginStep.preLogin });} : undefined}/>
 
-        {displayPassword && <FieldInput label={passwordLabel}
+        {displayPassword && <FieldInput label='Password'
+                                        labelButton={passwordLabelButton}
                                         type='password'
                                         wrapperClassName={'fe-hidden-element'}
                                         forwardRef={this.passwordField}
