@@ -21,4 +21,26 @@
       max-width: 100%;
     }
   }
+
+  .fe-login-sso-redirect,
+  .fe-login-success,
+  .fe-activation-success,
+  .fe-forget-password-success,
+  .fe-activation-failed {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: bold;
+
+    .ui.loader.inline {
+      display: block;
+      margin: 2rem auto 1rem;
+    }
+
+    .fe-login-error-message, .fe-success-message {
+      font-weight: bold;
+      flex: 1;
+    }
+  }
 }

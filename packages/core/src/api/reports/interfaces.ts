@@ -1,5 +1,4 @@
-import { IFronteggRecord } from '@api/interfaces';
-
+import { IFronteggRecord } from '../interfaces';
 
 export interface ReportSchedule {
   interval: 'daily' | 'weekly' | 'monthly' | 'custom';

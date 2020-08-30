@@ -2,40 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "isolatedModules": false,
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "paths": {
-      "@helpers/*": [
-        "./helpers/*"
-      ],
-      "@helpers": [
-        "./helpers"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@api/*": [
-        "./api/*"
-      ],
-      "@api": [
-        "./api"
-      ],
-      "@elements/*": [
-        "./elements/*"
-      ],
-      "@elements": [
-        "./elements"
-      ],
-      "@providers/*": [
-        "./providers/*"
-      ],
-      "@providers": [
-        "./providers"
-      ],
-      "@plugins/*": [
-        "./plugins/*"
-      ]
-    }
+    "outDir": "./dist"
   },
   "include": [
     "./src/**/*.tsx",

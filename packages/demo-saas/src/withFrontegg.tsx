@@ -29,17 +29,15 @@ const plugins: PluginConfig[] = [
   }),
 ];
 
-// @ts-ignore
-export const withFrontegg = (Component: ComponentType<any>) =>
-  withRouter(class extends React.Component<RouteComponentProps> {
-    render() {
-      return <FronteggProvider
-        history={this.props.history as any}
-        context={contextOptions}
-        plugins={plugins}>
-        <DefaultAuthRoutes>
-          <Component/>
-        </DefaultAuthRoutes>
-      </FronteggProvider>;
-    }
-  });
+export const withFrontegg = (Component: ComponentType<any>): ComponentType<any> => withRouter(class extends React.Component<RouteComponentProps> {
+  render() {
+    return <FronteggProvider
+      history={this.props.history as any}
+      context={contextOptions}
+      plugins={plugins}>
+      <DefaultAuthRoutes>
+        <Component/>
+      </DefaultAuthRoutes>
+    </FronteggProvider>;
+  }
+});

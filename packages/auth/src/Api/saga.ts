@@ -1,4 +1,4 @@
-import { takeEvery, put, all, call } from 'redux-saga/effects';
+import { takeEvery, put, all, call, select } from 'redux-saga/effects';
 import { actions } from './reducer';
 import { getContext, api } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -15,12 +15,12 @@ import {
 function* refreshMetadata() {
   let isSSOAuth;
   try {
-    const data = yield call(api.metadata.getSamlMetadata);
-    isSSOAuth = data && data.rows && !!data.rows.length;
+    yield call(api.metadata.getSamlMetadata);
+    isSSOAuth = true;
   } catch (e) {
     isSSOAuth = false;
   }
-  yield put(actions.setIsSSOAuth(!!isSSOAuth));
+  yield put(actions.setIsSSOAuth(isSSOAuth));
 }
 
 function* refreshToken() {
@@ -46,10 +46,11 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
 function* preLogin({ payload: { email } }: PayloadAction<PreLoginPayload>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
+    const onRedirectTo = yield select(({ auth: { onRedirectTo } }) => onRedirectTo);
     const address = yield call(api.auth.preLogin, { email });
     if (address) {
       yield put(actions.setLoginState({ step: LoginStep.redirectToSSO, loading: false, ssoRedirectUrl: address }));
-      setTimeout(() => {window.location.href = address;}, 2000);
+      setTimeout(() => {onRedirectTo(address, {refresh:true})}, 2000);
     } else {
       yield put(actions.setLoginState({ step: LoginStep.loginWithPassword, loading: false }));
     }

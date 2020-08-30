@@ -1,7 +1,7 @@
-import ContextHolder from '@helpers/ContextHolder';
-import { Post } from '@helpers';
-import { USERS_SERVICE_URL_V1 } from '@api/constants';
-import Logger from '@helpers/Logger';
+import ContextHolder from '../../helpers/ContextHolder';
+import { Post } from '../../helpers';
+import Logger from '../../helpers/Logger';
+import { USERS_SERVICE_URL_V1 } from '../constants';
 import { IChangePassword, IUpdateProfile, IUserProfile } from './interfaces';
 
 const logger = Logger.from('ProfileApi');

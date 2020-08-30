@@ -22,6 +22,7 @@ class DefaultAuthRoutes extends React.Component<AuthPageProps & ReturnType<typeo
       routes: {
         loginUrl,
         logoutUrl,
+        forgetPasswordUrl,
       },
       isLoading,
       header,
@@ -40,7 +41,7 @@ class DefaultAuthRoutes extends React.Component<AuthPageProps & ReturnType<typeo
       <Route exact path={loginUrl} render={() => <LoginPage {...pageProps}/>}/>
       <Route exact path={logoutUrl} render={() => <LogoutPage {...pageProps}/>}/>
       {/*<Route exact path={this.context!.activateUrl} render={() => <ActivatePage {...pageProps}/>}/>*/}
-      {/*<Route exact path={this.context!.forgetPasswordUrl} render={() => <ForgotPasswordPage {...pageProps}/>}/>*/}
+      <Route exact path={forgetPasswordUrl} render={() => <div>ADSASD</div>}/>
       {/*<Route exact path={this.context!.resetPasswordUrl} render={() => <ResetPasswordPage {...pageProps}/>}/>*/}
       <Route path='*' children={() => pageProps.loaderComponent && isLoading ? pageProps.loaderComponent : children}/>
     </Switch>;

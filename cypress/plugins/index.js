@@ -1,21 +1,65 @@
 /// <reference types="cypress" />
-// ***********************************************************
-// This example plugins/index.js can be used to load plugins
-//
-// You can change the location of this file or turn off loading
-// the plugins file with the 'pluginsFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/plugins-guide
-// ***********************************************************
-
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
+const webpack = require("@cypress/webpack-preprocessor");
+const webpackOptions = {
+  mode:'production',
+  node: {
+    fs: "empty"
+  },
+  resolve: {
+    extensions: [".jsx", ".tsx", ".js", ".ts"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|mjs)$/,
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+          plugins: ["@babel/plugin-proposal-class-properties"]
+        }
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: "babel-loader",
+        options: {
+          presets: [
+            "@babel/preset-env",
+            "@babel/preset-typescript",
+            "@babel/preset-react"
+          ],
+          plugins: [
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-proposal-object-rest-spread",
+            ["@babel/plugin-transform-runtime",
+              {
+                "regenerator": true
+              }
+            ], "istanbul"
+          ]
+        }
+      },
+      {
+        test: /\.css$/,
+        exclude: [/node_modules/],
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.scss$/,
+        exclude: [/node_modules/],
+        use: ["style-loader", "css-loader", "sass-loader"]
+      }
+    ]
+  }
+};
 
 /**
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-}
+  require("@cypress/code-coverage/task")(on, config);
+  on("file:preprocessor", webpack({
+    webpackOptions,
+    watchOptions: {}
+  }));
+  return config;
+};

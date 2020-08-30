@@ -1,7 +1,7 @@
-import ContextHolder from '@helpers/ContextHolder';
-import { Post } from '@helpers';
-import Logger from '@helpers/Logger';
-import { AUTH_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '@api/constants';
+import ContextHolder from '../../helpers/ContextHolder';
+import { Post } from '../../helpers';
+import Logger from '../../helpers/Logger';
+import { AUTH_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
 import {
   IActivateAccount,
   IDisableMfa,

@@ -7,7 +7,6 @@ import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 import { useAuth, useIsAuthenticated } from './hooks';
 import { AuthMapper, createMapper, defaultMapper } from './helpers';
 
-
 const pluginName = 'auth';
 const pluginActions = actions;
 

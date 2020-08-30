@@ -3,6 +3,10 @@
     "^.+\\.tsx?$": "ts-jest",
     ".+\\.(css|styl|less|sass|scss)$": "jest-css-modules-transform"
   },
+  "setupFilesAfterEnv": [
+    "<rootDir>../../scripts/setupTests.js"
+  ],
+  "collectCoverage": true,
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   "moduleFileExtensions": [
     "ts",

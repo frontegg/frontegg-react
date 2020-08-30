@@ -33,7 +33,7 @@ class LoginWithPasswordComponent extends React.Component<Props> {
   componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any) {
     const { loginState, isSSOAuth } = this.props;
     if (this.lastLoginStep !== loginState.step && isSSOAuth && this.passwordField.current) {
-      this.lastLoginStep = this.context!.loginState.step;
+      this.lastLoginStep = loginState.step;
       this.passwordField.current.focus();
     }
   }
@@ -51,13 +51,13 @@ class LoginWithPasswordComponent extends React.Component<Props> {
       routes: { forgetPasswordUrl },
     } = this.props;
 
-    const displayPassword = !isSSOAuth || step == LoginStep.loginWithPassword;
+    const displayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
     const passwordLabel = <>
       Password
       <Field>
         {({ form: { values } }: FieldProps) => (
           <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
-            setForgotPasswordState({ email: values['email'] });
+            setForgotPasswordState({ email: values.email });
             resetLoginState();
             onRedirectTo(forgetPasswordUrl);
           }}>Forgot Password?</Button>

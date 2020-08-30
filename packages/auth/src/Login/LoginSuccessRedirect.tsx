@@ -6,19 +6,14 @@ import { withAuth } from '../HOCs';
 import { Redirect } from 'react-router';
 
 const mapper = {
-  state: ({ routes }: AuthState) => ({ routes }),
+  state: ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo }),
   actions: ({ resetLoginState }: AuthActions) => ({ resetLoginState }),
 };
 type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>
 
-class LoginSuccessRedirect extends React.Component<Props, { redirect: string }> {
-
-  state = {
-    redirect: '',
-  };
-
+class LoginSuccessRedirect extends React.Component<Props> {
   componentDidMount() {
-    const { resetLoginState } = this.props;
+    const { onRedirectTo, resetLoginState } = this.props;
     let { routes: { authenticatedUrl } } = this.props;
     const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
     if (afterAuthRedirect) {
@@ -27,18 +22,17 @@ class LoginSuccessRedirect extends React.Component<Props, { redirect: string }> 
     }
     setTimeout(() => {
       resetLoginState();
-      this.setState({ redirect: authenticatedUrl });
+      onRedirectTo(authenticatedUrl);
     }, 500);
   }
 
   render() {
-    const { redirect } = this.state;
     return <div className='fe-login-success'>
       Authentication Succeeded
       <Loader active={true} inline={true}/>
-      {redirect && <Redirect to={redirect}/>}
     </div>;
   }
 }
+
 
 export default withAuth(LoginSuccessRedirect, mapper);

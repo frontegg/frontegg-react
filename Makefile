@@ -92,22 +92,27 @@ lint-%: ##@2 Linting run lint on specific packages
 #
 ########################################################################################################################
 #
-#test: ##@3 Tests test all packages
-#	@echo "${YELLOW}Testing all packages${RESET}"
-#	@find ./packages -type d -maxdepth 1 ! -path ./packages \
-#        | sed 's|^./packages/||' \
-#        | xargs -I '{}' sh -c '$(MAKE) test-package-{}'
-#
-#test-%: ##@3 Tests test a specific package
-#	@echo "${YELLOW}Testing package ${WHITE}${*}${RESET}"
-#	@export PACKAGE=${*}; cd ./packages/${*} && yarn run test
 
-cy: ##@3 Tests integration test with cypress
+test-integration: ##@3 Tests integration test with cypress
 	@echo "${YELLOW}Integration Test Cypress${RESET}"
 	@echo "Building DemoSaaS project"
 	@cd ./packages/demo-saas && yarn build
 	@echo "Start Cypress tests on port 3000"
-	@start-server-and-test 'cd ./packages/demo-saas && serve -l 3000 -s build' 3000 'cypress run --headed'
+	@start-server-and-test 'cd ./packages/demo-saas && serve -l 3000 -s build' 3000 'cypress run --headless --config baseUrl=http://localhost:3000'
+
+test-component: ##@3 Tests component test with cypress
+	@echo "${YELLOW}Component Test Cypress${RESET}"
+	${MAKE} test-component-auth
+	#${MAKE} test-component-core
+
+test-component-%:
+	@echo "${YELLOW}Component Test Cypress [${*}]${RESET}"
+	@cypress run --headless --spec "packages/${*}/**/*"
+
+test-unit: ##@3 Tests unit test with jest
+	@echo "${YELLOW}Unit Test Jest${RESET}"
+	@./node_modules/.bin/lerna run test --parallel
+
 
 ########################################################################################################################
 #
@@ -151,9 +156,19 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	${MAKE} lint
 
 	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Test: Changed Packages${RESET}"
+	@echo "${GREEN}* Unit Test: All Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna run test --parallel --since -- ls -la
+	${MAKE} test-unit
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Component Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-component
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Integration Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-integration
 
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Push: commit generated changes to the repository${RESET}"

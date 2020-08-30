@@ -22,7 +22,7 @@ class LogoutComponent extends React.Component<Props> {
 
   render() {
     return <div className='fe-login-component'>
-      <Loader active={true}/>;
+      <Loader active={true}/>
     </div>;
   }
 }

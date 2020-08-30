@@ -1,6 +1,6 @@
-import ContextHolder from '@helpers/ContextHolder';
-import { Get } from '@helpers';
-import { IGetMetadata, INotificationMetadata, ISamlMetadata } from '@api/metadata/interfaces';
+import ContextHolder from '../../helpers/ContextHolder';
+import { Get } from '../../helpers';
+import { IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
 
 async function getMetadata(body: IGetMetadata) {
   const context = ContextHolder.getInstance().getContext();

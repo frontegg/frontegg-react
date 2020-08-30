@@ -3,9 +3,9 @@ import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
+export type WithT = WithTranslation
 export {
   withTranslation as withT,
-  WithTranslation as WithT,
 };
 
 export function memoEqual(prevProps: any, nextProps: any) {

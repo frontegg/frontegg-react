@@ -8,4 +8,4 @@ export * from './hooks';
 export * from './helpers';
 export * from './components';
 
-export { memoEqual } from '@components/DynamicComponent';
+export { memoEqual } from './components/DynamicComponent';

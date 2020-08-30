@@ -32,6 +32,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "types": ["cypress"]
+    "types": [
+      "cypress"
+    ]
   }
 }

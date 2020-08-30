@@ -5,9 +5,9 @@
   "author": "FrontEgg LTD",
   "scripts": {
     "start": "react-scripts start",
-    "cy-start": "OPEN_BROWSER=false; react-scripts start",
+    "cy-start": "OPEN_BROWSER=false && react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
     "@frontegg/react-core": "^1.0.1",

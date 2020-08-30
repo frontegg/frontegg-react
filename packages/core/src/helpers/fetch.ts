@@ -15,7 +15,7 @@ async function request(context: ContextOptions, opts: RequestOptions) {
 
   const response = await fetch(url, {
     body: opts.body ? JSON.stringify(opts.body) : null,
-    method: 'POST',
+    method: opts.method ?? 'GET',
     headers,
     credentials: context.requestCredentials || 'same-origin',
   });

@@ -1,7 +1,6 @@
 {
-  "baseUrl": "http://localhost:3000",
-  "testFiles": [
-    "core.spec.ts",
-    "auth.spec.ts"
-  ]
+  "experimentalFetchPolyfill": true,
+  "experimentalComponentTesting": true,
+  "componentFolder": "packages",
+  "testFiles": "**/*.cy-spec.*"
 }
