@@ -26,7 +26,7 @@ const MFA_TOKEN = 'mfaToken';
 
 /* eslint-env mocha */
 describe('Login Tests', () => {
-  it.skip('Login, NO SAML', () => {
+  it('Login, NO SAML', () => {
     cy.server();
     cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
     cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
@@ -109,7 +109,7 @@ describe('Login Tests', () => {
     });
   });
 
-  it.skip('Login, check after login url', () => {
+  it('Login, check after login url', () => {
     cy.server();
     cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
     cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
@@ -149,19 +149,9 @@ describe('Login Tests', () => {
       expect(loc.pathname).to.eq('/after-login-redirect');
     });
 
-    // should be redirected to home if authenticated
-    cy.wait(1000);
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
-
-    cy.location().should(loc => {
-      expect(loc.pathname).to.eq('/');
-    });
   });
 
-  it.skip('Login, WITH SAML tenant, NO SAML email', () => {
+  it('Login, WITH SAML tenant, NO SAML email', () => {
     cy.server();
     cy.route({
       method: 'POST',
@@ -254,7 +244,7 @@ describe('Login Tests', () => {
     });
   });
 
-  it.skip('Login, WITH SAML tenant, WITH email', () => {
+  it('Login, WITH SAML tenant, WITH email', () => {
     cy.server();
     cy.route({
       method: 'POST',
@@ -404,20 +394,9 @@ describe('Login Tests', () => {
     cy.location().should(loc => {
       expect(loc.pathname).to.eq('/');
     });
-
-    // should be redirected to home if authenticated
-    cy.wait(1000);
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
-
-    cy.location().should(loc => {
-      expect(loc.pathname).to.eq('/');
-    });
   });
 
-  it.skip('Logout Component', () => {
+  it('Logout Component', () => {
     cy.server();
     cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 200, response: { accessToken: '' } });
     cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
