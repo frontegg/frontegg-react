@@ -1,15 +1,24 @@
 import { takeEvery, put, all, call, select } from 'redux-saga/effects';
 import { actions } from './reducer';
-import { getContext, api } from '@frontegg/react-core';
+import {
+  getContext,
+  api,
+  ILogin,
+  IPreLogin,
+  ILoginWithMfa,
+  IRecoverMFAToken,
+  IActivateAccount,
+  IForgotPassword,
+  IResetPassword,
+} from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
   ActivateAccountPayload,
   ActivateStep,
   ForgotPasswordPayload, ForgotPasswordStep,
-  LoginPayload,
   LoginStep, LogoutPayload,
   PreLoginPayload, ResetPasswordPayload,
-  VerifyMFAPayload,
+  LoginWithMfaPayload,
 } from './interfaces';
 
 function* refreshMetadata() {
@@ -43,14 +52,14 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
 }
 
 
-function* preLogin({ payload: { email } }: PayloadAction<PreLoginPayload>) {
+function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
     const onRedirectTo = yield select(({ auth: { onRedirectTo } }) => onRedirectTo);
     const address = yield call(api.auth.preLogin, { email });
     if (address) {
       yield put(actions.setLoginState({ step: LoginStep.redirectToSSO, loading: false, ssoRedirectUrl: address }));
-      setTimeout(() => {onRedirectTo(address, {refresh:true})}, 2000);
+      setTimeout(() => {onRedirectTo(address, { refresh: true });}, 2000);
     } else {
       yield put(actions.setLoginState({ step: LoginStep.loginWithPassword, loading: false }));
     }
@@ -59,7 +68,7 @@ function* preLogin({ payload: { email } }: PayloadAction<PreLoginPayload>) {
   }
 }
 
-function* login({ payload: { email, password } }: PayloadAction<LoginPayload>) {
+function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.login, { email, password });
@@ -68,6 +77,7 @@ function* login({ payload: { email, password } }: PayloadAction<LoginPayload>) {
       user: !!user.accessToken ? undefined : user,
       isAuthenticated: !!user.accessToken,
       loginState: {
+        email,
         loading: false,
         error: undefined,
         mfaToken: user.mfaToken,
@@ -75,15 +85,19 @@ function* login({ payload: { email, password } }: PayloadAction<LoginPayload>) {
       },
     }));
   } catch (e) {
-    yield put(actions.setLoginState({ error: e.message, loading: false }));
+    yield put(actions.setLoginState({
+      email,
+      error: e.message,
+      loading: false,
+    }));
   }
 }
 
 
-function* verifyMfa({ payload: { mfaToken, value } }: PayloadAction<VerifyMFAPayload>) {
+function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWithMfa>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
-    const user = yield call(api.auth.verifyMfa, { mfaToken, value });
+    const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
     yield put(actions.setLoginState({ loading: false, error: undefined, step: LoginStep.success }));
     yield put(actions.setUser(user));
     yield put(actions.setIsAuthenticated(true));
@@ -92,8 +106,19 @@ function* verifyMfa({ payload: { mfaToken, value } }: PayloadAction<VerifyMFAPay
   }
 }
 
+function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
+  yield put(actions.setLoginState({ loading: true }));
+  try {
+    yield call(api.auth.recoverMfaToken, payload);
+    yield put(actions.setLoginState({ loading: false, error: undefined, step: LoginStep.preLogin }));
+    yield put(actions.setState({ user: undefined }));
+    yield put(actions.setIsAuthenticated(true));
+  } catch (e) {
+    yield put(actions.setLoginState({ error: e.message, loading: false }));
+  }
+}
 
-function* activateAccount({ payload }: PayloadAction<ActivateAccountPayload>) {
+function* activateAccount({ payload }: PayloadAction<IActivateAccount>) {
   yield put(actions.setActivateState({ loading: true }));
   try {
     yield call(api.auth.activateAccount, payload);
@@ -103,9 +128,8 @@ function* activateAccount({ payload }: PayloadAction<ActivateAccountPayload>) {
   }
 }
 
-function* forgotPassword({ payload }: PayloadAction<ForgotPasswordPayload>) {
+function* forgotPassword({ payload }: PayloadAction<IForgotPassword>) {
   yield put(actions.setForgotPasswordState({ loading: true }));
-  const context = yield getContext();
   try {
     yield call(api.auth.forgotPassword, payload);
     yield put(actions.setForgotPasswordState({ loading: false, error: undefined, step: ForgotPasswordStep.success }));
@@ -114,9 +138,8 @@ function* forgotPassword({ payload }: PayloadAction<ForgotPasswordPayload>) {
   }
 }
 
-function* resetPassword({ payload }: PayloadAction<ResetPasswordPayload>) {
+function* resetPassword({ payload }: PayloadAction<IResetPassword>) {
   yield put(actions.setForgotPasswordState({ loading: true }));
-  const context = yield getContext();
   try {
     yield call(api.auth.resetPassword, payload);
     yield put(actions.setForgotPasswordState({ loading: false, error: undefined, step: ForgotPasswordStep.success }));
@@ -126,9 +149,8 @@ function* resetPassword({ payload }: PayloadAction<ResetPasswordPayload>) {
 }
 
 
-function* logout({ payload }: PayloadAction<LogoutPayload>) {
+function* logout({ payload }: PayloadAction<any>) {
   yield put(actions.setIsLoading(true));
-  const context = yield getContext();
   try {
     yield call(api.auth.logout);
   } catch (e) {
@@ -143,7 +165,8 @@ export function* sagas() {
   yield takeEvery(actions.preLogin, preLogin);
   yield takeEvery(actions.login, login);
   yield takeEvery(actions.logout, logout);
-  yield takeEvery(actions.verifyMfa, verifyMfa);
+  yield takeEvery(actions.loginWithMfa, loginWithMfa);
+  yield takeEvery(actions.recoverMfa, recoverMfa);
   yield takeEvery(actions.activateAccount, activateAccount);
   yield takeEvery(actions.forgotPassword, forgotPassword);
   yield takeEvery(actions.resetPassword, resetPassword);

@@ -7,6 +7,7 @@ import { AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
 import { authPageWrapper } from '../components';
 import LoginSuccessRedirect from './LoginSuccessRedirect';
+import { RecoverTwoFactor } from './RecoverTwoFactor';
 
 const mapper = {
   state: ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step }),
@@ -28,6 +29,9 @@ class LoginComponent extends React.Component<ReturnType<typeof mapper.state>> {
       components = <LoginWithPassword/>;
     }
 
+    if (step === LoginStep.recoverTwoFactor) {
+      components = <RecoverTwoFactor/>;
+    }
 
     if (step === LoginStep.loginWithTwoFactor) {
       components = <LoginWithTwoFactor/>;

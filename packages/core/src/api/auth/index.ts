@@ -60,7 +60,7 @@ export async function login(body: ILogin): Promise<ILoginResponse> {
  */
 export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse> {
   const context = ContextHolder.getInstance().getContext();
-  return Post(context, `${AUTH_SERVICE_URL_V1}/user`, body);
+  return Post(context, `${AUTH_SERVICE_URL_V1}/user/mfa/verify`, body);
 }
 
 /**

@@ -1,18 +1,14 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  ActivateAccountPayload,
   ActivateState,
   ActivateStep,
   AuthState,
-  ForgotPasswordPayload,
   ForgotPasswordState, ForgotPasswordStep,
-  LoginPayload,
   LoginState,
-  LoginStep, LogoutPayload,
-  PreLoginPayload, ResetPasswordPayload,
+  LoginStep,
   User,
-  VerifyMFAPayload,
 } from './interfaces';
+import { IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword } from '@frontegg/react-core';
 
 export const storeName = 'auth';
 
@@ -24,6 +20,7 @@ export const preloadedState: AuthState = {
   loginState: {
     step: LoginStep.preLogin,
     loading: false,
+    email: '',
   },
 
   activateState: {
@@ -89,13 +86,14 @@ const { reducer, actions: SliceActions } = createSlice({
 const actions = {
   ...SliceActions,
   requestAuthorize: createAction(`${storeName}/requestAuthorize`, (payload: boolean) => ({ payload })),
-  preLogin: createAction(`${storeName}/preLogin`, (payload: PreLoginPayload) => ({ payload })),
-  login: createAction(`${storeName}/login`, (payload: LoginPayload) => ({ payload })),
-  verifyMfa: createAction(`${storeName}/verifyMfa`, (payload: VerifyMFAPayload) => ({ payload })),
-  activateAccount: createAction(`${storeName}/activateAccount`, (payload: ActivateAccountPayload) => ({ payload })),
-  forgotPassword: createAction(`${storeName}/forgotPassword`, (payload: ForgotPasswordPayload) => ({ payload })),
-  resetPassword: createAction(`${storeName}/resetPassword`, (payload: ResetPasswordPayload) => ({ payload })),
-  logout: createAction(`${storeName}/logout`, (payload: LogoutPayload) => ({ payload })),
+  preLogin: createAction(`${storeName}/preLogin`, (payload: IPreLogin) => ({ payload })),
+  login: createAction(`${storeName}/login`, (payload: ILogin) => ({ payload })),
+  loginWithMfa: createAction(`${storeName}/loginWithMfa`, (payload: ILoginWithMfa) => ({ payload })),
+  recoverMfa: createAction(`${storeName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
+  activateAccount: createAction(`${storeName}/activateAccount`, (payload: IActivateAccount) => ({ payload })),
+  forgotPassword: createAction(`${storeName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
+  resetPassword: createAction(`${storeName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
+  logout: createAction(`${storeName}/logout`, (payload: any) => ({ payload })),
 };
 
 export type AuthActions = typeof actions

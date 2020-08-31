@@ -21,7 +21,13 @@ async function request(context: ContextOptions, opts: RequestOptions) {
   });
 
   if (!response.ok) {
-    throw new Error(`Error ${response.status} - ${response.statusText}`);
+    let errorMessage = await response.json();
+    if (errorMessage.errors) {
+      errorMessage = errorMessage.errors.join(', ');
+    } else if (typeof errorMessage !== 'string') {
+      errorMessage = `Error ${response.status} - ${response.statusText}`;
+    }
+    throw new Error(errorMessage);
   }
 
   if (!opts.responseType || opts.responseType === 'json') {
@@ -65,7 +71,7 @@ async function buildRequestHeaders(context: ContextOptions, contentType: string 
   const headers: Record<string, string> = {};
 
   if (authToken) {
-    headers['Authorization'] = `Bearer ${authToken}`;
+    headers.Authorization = `Bearer ${authToken}`;
   }
   if (contentType) {
     headers['Content-Type'] = contentType;

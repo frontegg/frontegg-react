@@ -24,7 +24,6 @@ export type AuthPageRoutes = {
      * the page in the case a user forgot his account password
      */
     forgetPasswordUrl: string;
-
     /**
      * the page whither need to redirect in the case when a user redirected from reset password url
      */

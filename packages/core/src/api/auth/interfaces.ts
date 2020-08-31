@@ -11,7 +11,10 @@ export type ILoginResponse = {
   mfaToken?: string; // for multi-factor authentication
 };
 
-export type ILoginWithMfa = { mfaToken: string; value: string; }
+export type ILoginWithMfa = {
+  mfaToken: string;
+  value: string;
+}
 
 export type IActivateAccount = {
   userId: string;
@@ -36,7 +39,7 @@ export type IEnrollMfaResponse = {
   qrCode: string; // QR Code image as base64
 }
 
-export type IVerifyMfa = {
+export type IloginWithMfa = {
   mfaToken: string;
   value: string;
 }

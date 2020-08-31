@@ -17,6 +17,7 @@ export enum LoginStep {
   'loginWithTwoFactor' = 'loginWithTwoFactor',
   'redirectToSSO' = 'redirectToSSO',
   'success' = 'success',
+  'recoverTwoFactor' = 'recoverTwoFactor',
 }
 
 export interface LoginState {
@@ -27,6 +28,7 @@ export interface LoginState {
   ssoRedirectUrl?: string;
   mfaRequired?: boolean;
   mfaToken?: string;
+  email?: string;
 }
 
 
@@ -72,12 +74,9 @@ export interface AuthState extends AuthPluginOptions {
 export type PreLoginPayload = {
   email: string
 }
-export type LoginPayload = {
-  email: string;
-  password: string;
-}
+
 export type LogoutPayload = () => void
-export type VerifyMFAPayload = {
+export type LoginWithMfaPayload = {
   mfaToken: string;
   value: string;
 }
