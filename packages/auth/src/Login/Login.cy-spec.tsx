@@ -3,6 +3,7 @@ import { mount } from 'cypress-react-unit-test';
 import { LoginPage, AuthPlugin, LogoutPage, DefaultAuthRoutes } from '../index';
 import { IDENTITY_SERVICE, METADATA_SERVICE, TestFronteggWrapper } from '../../../../cypress/helpers';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
+import { LoginStep } from '../Api';
 
 const mountOptions = {
   stylesheets: 'https://cdn.jsdelivr.net/npm/@frontegg/react-dev/vendor.min.css',
@@ -23,6 +24,7 @@ const EMAIL_2 = 'test1@frontegg.com';
 const PASSWORD = 'ValidPassword123!';
 const SSO_PATH = '/my-test-sso-login';
 const MFA_TOKEN = 'mfaToken';
+const RECOVERY_CODE = '123412341234';
 
 /* eslint-env mocha */
 describe('Login Tests', () => {
@@ -393,6 +395,97 @@ describe('Login Tests', () => {
 
     cy.location().should(loc => {
       expect(loc.pathname).to.eq('/');
+    });
+  });
+
+  it('Login, NO SAML, Recover Two-Factor', () => {
+    cy.server();
+    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
+    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
+      status: 200,
+      response: { mfaToken: MFA_TOKEN },
+      delay: 200,
+    }).as('login');
+
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
+      <DefaultAuthRoutes>
+        Home
+      </DefaultAuthRoutes>
+    </TestFronteggWrapper>, mountOptions);
+
+    cy.window().then(win => {
+      // @ts-ignore
+      win.cypressHistory.push('/account/login');
+    });
+    const emailSelector = '[name="email"]';
+    const passwordSelector = '[name="password"]';
+    const submitSelector = 'button[type=submit]';
+    const codeSelector = '[name="code"]';
+
+    cy.get(submitSelector).contains('Login').should('be.disabled');
+    cy.get(emailSelector).focus().clear().type('invalid email').blur();
+    cy.get(emailSelector).parent().should('have.class', 'error');
+    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
+    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('be.disabled');
+    cy.get(passwordSelector).focus().clear().type('not').blur();
+    cy.get(passwordSelector).parent().should('have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('be.disabled');
+    cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
+    cy.get(passwordSelector).parent().should('not.have.class', 'error');
+
+    cy.get(submitSelector).contains('Login').should('not.be.disabled');
+    cy.get(emailSelector).focus().clear().type('invalid email').blur();
+    cy.get(emailSelector).parent().should('have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('be.disabled');
+    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
+    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('not.be.disabled');
+
+
+    cy.get(submitSelector).contains('Login').click();
+    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+
+    cy.contains('Please enter the 6 digit code').should('be.visible');
+    cy.contains('Recover Multi-Factor').click();
+
+
+    cy.contains('Please enter the recovery code').should('be.visible');
+
+    cy.get(codeSelector).focus().clear().type(RECOVERY_CODE).blur();
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/recover`,
+      status: 400,
+      response: { errors: ['invalid recovery code'] },
+      delay: 200,
+    }).as('recoverMfa');
+
+    cy.get(submitSelector).contains('Disable MFA').click();
+    cy.wait('@recoverMfa').its('request.body').should('deep.equal', { recoveryCode: RECOVERY_CODE, email: EMAIL_1 });
+    cy.contains('invalid recovery code').should('be.visible');
+
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/recover`,
+      status: 200,
+      response: {},
+      delay: 200,
+    }).as('recoverMfa');
+    cy.get(submitSelector).contains('Disable MFA').click();
+    cy.wait('@recoverMfa').its('request.body').should('deep.equal', { recoveryCode: RECOVERY_CODE, email: EMAIL_1 });
+
+    cy.window().then(win => {
+      // @ts-ignore
+      expect(win.cypressStore.getState().auth.loginState.step).to.be.eq(LoginStep.preLogin);
+    });
+    cy.location().should(loc => {
+      expect(loc.pathname).to.eq('/account/login');
     });
   });
 

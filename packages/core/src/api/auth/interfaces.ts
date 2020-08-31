@@ -39,9 +39,8 @@ export type IEnrollMfaResponse = {
   qrCode: string; // QR Code image as base64
 }
 
-export type IloginWithMfa = {
-  mfaToken: string;
-  value: string;
+export type IVerifyMfa = {
+  token: string;
 }
 
 export type IVerifyMfaResponse = {

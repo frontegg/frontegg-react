@@ -16,8 +16,6 @@ const contextOptions: ContextOptions = {
 
 const plugins: PluginConfig[] = [
   AuthPlugin({
-    header: <div>TEST HEADER</div>,
-    loaderComponent: <div>Loader</div>,
     routes: {
       authenticatedUrl: '/',
       loginUrl: '/account/login',

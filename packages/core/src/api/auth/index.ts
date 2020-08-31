@@ -12,7 +12,9 @@ import {
   ILoginWithMfa,
   IPreLogin,
   IRecoverMFAToken,
-  IResetPassword, IVerifyMfa, IVerifyMfaResponse,
+  IResetPassword,
+  IVerifyMfa,
+  IVerifyMfaResponse,
 } from './interfaces';
 
 const logger = Logger.from('AuthApi');
@@ -113,7 +115,7 @@ export async function resetPassword(body: IResetPassword): Promise<void> {
 }
 
 /**
- * disable Multi-Factor authentication by providing the recoveryCode
+ * recover Multi-Factor authentication by providing the recoveryCode
  * that has been received when activated it
  *
  * @throws exception if recovery code is not valid

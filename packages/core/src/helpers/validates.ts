@@ -1,24 +1,35 @@
 import * as Yup from 'yup';
+import { TFunction } from 'i18next';
 
-export const validatePassword = Yup.string().min(6).required('The password is required');
-
-export const validateEmail = Yup.string().email('Must be a valid email').required('The Email is required');
-
-export const validateTwoFactorCode = Yup.string().length(6).required('The code is required');
-
-export const validatePasswordConfirmation = (field: string = 'password') =>
+export const validatePassword = (t: TFunction) =>
   Yup.string()
-    .required('The confirmation of the password is required')
-    .when("password", {
-    is: val => (!!(val && val.length > 0)),
-    then: Yup.string().oneOf(
-      [Yup.ref(field)],
-      "Passwords must match"
-    )
-  })
+    .min(6, t('validation.min-length', { name: 'Password', limit: 6 }))
+    .required(t('validation.required-field', { name: 'password' }));
+
+export const validateEmail = (t: TFunction) =>
+  Yup.string()
+    .email(t('validation.must-be-a-valid-email', 'Must be a valid email'))
+    .required(t('validation.required-field', { name: 'email' }));
+
+export const validateTwoFactorCode = (t: TFunction) =>
+  Yup.string()
+    .length(6, t('validation.min-length', { name: 'code', limit: 6 }))
+    .required(t('validation.required-field', { name: 'code' }));
+
+export const validateTwoFactorRecoveryCode = (t: TFunction) =>
+  Yup.string()
+    .length(12, t('validation.length', { name: 'code', limit: 12 }))
+    .required(t('validation.required-field', { name: 'code' }));
+
+export const validatePasswordConfirmation = (t: TFunction, field: string = 'password') =>
+  Yup.string()
+    .required(t('validation.required-field', { name: 'confirmation of the password' }))
+    .when('password', {
+      is: val => (!!(val && val.length > 0)),
+      then: Yup.string().oneOf(
+        [Yup.ref(field)],
+        t('validation.passwords-must-match', 'Passwords must match'),
+      ),
+    });
 
 export const validateSchema = (props: any) => Yup.object(props);
-
-export const validateRequiredString = (field?: string) => Yup.string().required(field && `The ${field} is required`);
-
-export const validateRequiredCode = (field?: string) => Yup.number().required(field && `The ${field} is required`);

@@ -112,7 +112,7 @@ function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
     yield call(api.auth.recoverMfaToken, payload);
     yield put(actions.setLoginState({ loading: false, error: undefined, step: LoginStep.preLogin }));
     yield put(actions.setState({ user: undefined }));
-    yield put(actions.setIsAuthenticated(true));
+    yield put(actions.setIsAuthenticated(false));
   } catch (e) {
     yield put(actions.setLoginState({ error: e.message, loading: false }));
   }

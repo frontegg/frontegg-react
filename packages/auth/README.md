@@ -111,12 +111,30 @@ the user to a specific route depends on authentication state.
 const plugins = [
   AuthPlugin({
     routes: {
-      authenticatedUrl: '/', /* the page whither need to redirect in the case when a user is authenticated */
-      loginUrl: '/account/login', /* the page whither need to redirect in the case when a user is not authenticated */
-      logoutUrl: '/account/logout', /* navigating to this url, AuthProvider will logout and remove coockies */
-      activateUrl: '/account/activate', /* the page whither need to redirect in the case when a user want to activate his account */
-      forgetPasswordUrl: '/account/forgot/password', /* the page in the case a user forgot his account password */
-      resetPasswordUrl: '/account/reset/password', /* the page whither need to redirect in the case when a user redirected from reset password url */
+      /**
+       * the page whither need to redirect in the case when a user is authenticated 
+       */
+      authenticatedUrl: '/',
+      /**
+       * the page whither need to redirect in the case when a user is not authenticated 
+       */      
+      loginUrl: '/account/login',
+      /**
+       * navigating to this url, AuthProvider will logout and remove coockies 
+       */
+      logoutUrl: '/account/logout',
+      /**
+       * the page whither need to redirect in the case when a user want to activate his account 
+       */
+      activateUrl: '/account/activate',
+      /**
+       * the page in the case a user forgot his account password 
+       */
+      forgetPasswordUrl: '/account/forgot/password',
+      /**
+       * the page whither need to redirect in the case when a user redirected from reset password url 
+       */
+      resetPasswordUrl: '/account/reset/password',
     },  
     //...rest options
   })

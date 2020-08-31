@@ -28,6 +28,7 @@
     "semantic-ui-react": "^1.0.0"
   },
   "devDependencies": {
+    "@types/node": "^13.9.1",
     "@types/classnames": "^2.2.10",
     "@types/moment": "^2.13.0",
     "@types/history": "^4.7.7",

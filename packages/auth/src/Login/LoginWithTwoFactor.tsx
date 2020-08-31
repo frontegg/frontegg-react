@@ -1,10 +1,10 @@
 import React from 'react';
-import { Field, FieldProps, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import {
   validateSchema,
   validateTwoFactorCode,
   FieldInput,
-  FieldButton,
+  FieldButton, withT, WithT,
 } from '@frontegg/react-core';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
@@ -15,35 +15,41 @@ const mapper = {
   actions: ({ loginWithMfa, setLoginState }: AuthActions) => ({ loginWithMfa, setLoginState }),
 };
 
-class LoginWithTwoFactorComponent extends React.Component<ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>> {
-  render() {
-    const { loginState: { loading, error, mfaToken }, loginWithMfa } = this.props;
+type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions> & WithT;
 
-    const codeLabelButton = <Field>
-      {({ form: { values } }: FieldProps) => (
+class LoginWithTwoFactorComponent extends React.Component<Props> {
+
+  recoverCodeButton = () => {
+    const { t, loginState: { loading }, setLoginState } = this.props;
+    return <Field>
+      {() => (
         <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
-          this.props.setLoginState({ step: LoginStep.recoverTwoFactor });
-        }}>Recover Multi-Factor</Button>
+          setLoginState({ step: LoginStep.recoverTwoFactor });
+        }}>{t('auth.login.recover-multi-factor')}</Button>
       )}
     </Field>;
+  };
+
+  render() {
+    const { t, loginState: { loading, error, mfaToken }, loginWithMfa } = this.props;
 
     return <Formik
       initialValues={{ code: '' }}
       validationSchema={validateSchema({
-        code: validateTwoFactorCode,
+        code: validateTwoFactorCode(t),
       })}
       onSubmit={({ code }) => loginWithMfa({ mfaToken: mfaToken || '', value: code })}
     >
       <Form className='fe-login-two-factor'>
-        <FieldInput label={'Please enter the 6 digit code'}
-                    labelButton={codeLabelButton}
-                    name='code' focus={true}/>
-
-        <FieldButton fluid={true} primary={!loading} loading={loading}>Login</FieldButton>
+        <FieldInput label={t('auth.login.please-enter-the-6-digit-code')}
+                    labelButton={this.recoverCodeButton()}
+                    name='code'
+                    focus={true}/>
+        <FieldButton fluid={true} primary={!loading} loading={loading}>{t('auth.login.login')}</FieldButton>
         {error && <div className='fe-login-error-message'>{error}</div>}
       </Form>
     </Formik>;
   }
 }
 
-export const LoginWithTwoFactor = withAuth(LoginWithTwoFactorComponent, mapper);
+export const LoginWithTwoFactor = withAuth(withT()(LoginWithTwoFactorComponent), mapper);
