@@ -54,6 +54,9 @@ to align it with your App UI design.
 - [`loaderComponent`](#loadercomponent-reactnode) `<ReactNode>`
 - [`routes`](#routes-string) `<string[]>`
 
+**Advanced Customizations**
+
+- [`Login Component`](Login/README.md)
 
 ### `header <ReactNode>`
 
