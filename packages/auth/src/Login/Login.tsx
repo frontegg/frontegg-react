@@ -1,36 +1,50 @@
-import React from 'react';
-import { RedirectToSSO } from './RedirectToSSO';
-import { LoginWithPassword } from './LoginWithPassword';
-import { LoginWithTwoFactor } from './LoginWithTwoFactor';
+import React, { ComponentType } from 'react';
 import { AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
 import { authPageWrapper } from '../components/authPageWrapper';
-import LoginSuccessRedirect from './LoginSuccessRedirect';
-import { RecoverTwoFactor } from './RecoverTwoFactor';
 import { ComponentsTypesWithProps, FronteggClass, Loader } from '@frontegg/react-core';
-
+import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
+import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
+import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
+import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
+import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 
 const stateMapper = ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step });
 
 type Components = {
-  LoginSuccessRedirect: {}
+  LoginSuccessRedirect: LoginSuccessRedirectProps;
+  LoginWithPassword: LoginWithPasswordProps;
+  RecoverTwoFactor: RecoverTwoFactorProps;
+  LoginWithTwoFactor: LoginWithTwoFactorProps;
+  RedirectToSSO: RedirectToSSOProps;
 }
 
-type LoginComponentProps = {
-  components: ComponentsTypesWithProps<Components>
+export interface LoginComponentProps {
+  components?: ComponentsTypesWithProps<Components>
 }
 
-type Props = LoginComponentProps & ReturnType<typeof stateMapper>;
-
+type Props = LoginComponentProps & ReturnType<typeof stateMapper>
 
 class LoginComponent extends FronteggClass<Components, Props> {
   constructor(props: Props) {
-    super(props, { LoginSuccessRedirect });
+    super(props, {
+      LoginSuccessRedirect,
+      LoginWithPassword,
+      RecoverTwoFactor,
+      LoginWithTwoFactor,
+      RedirectToSSO,
+    });
   }
 
   render() {
     const { isLoading, isAuthenticated, step } = this.props;
-    const { LoginSuccessRedirect } = this.comps;
+    const {
+      LoginSuccessRedirect,
+      LoginWithPassword,
+      RecoverTwoFactor,
+      LoginWithTwoFactor,
+      RedirectToSSO,
+    } = this.comps;
     let components = null;
 
     if (isLoading) {
@@ -53,5 +67,5 @@ class LoginComponent extends FronteggClass<Components, Props> {
   }
 }
 
-export const Login = withAuth(LoginComponent, stateMapper);
+export const Login = withAuth(LoginComponent, stateMapper) as ComponentType<LoginComponentProps>;
 export const LoginPage = authPageWrapper(Login);

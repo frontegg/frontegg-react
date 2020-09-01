@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 import { AuthActions, AuthState } from '../Api';
 import { withAuth } from '../HOCs';
-import { Loader, WithT, withT } from '@frontegg/react-core';
+import { Loader, omitProps, RendererFunction, WithT, withT } from '@frontegg/react-core';
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
 const actionsMapper = ({ resetLoginState }: AuthActions) => ({ resetLoginState });
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT
 
-class LoginSuccessRedirect extends React.Component<Props> {
+export interface LoginSuccessRedirectProps {
+  renderer?: RendererFunction<Props, LoginSuccessRedirectProps>
+}
+
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & LoginSuccessRedirectProps
+
+class LoginSuccessRedirectComponent extends React.Component<Props> {
   componentDidMount() {
     const { onRedirectTo, resetLoginState } = this.props;
     let { routes: { authenticatedUrl } } = this.props;
@@ -25,7 +30,10 @@ class LoginSuccessRedirect extends React.Component<Props> {
   }
 
   render() {
-    const { t } = this.props;
+    const { t, renderer } = this.props;
+    if (renderer) {
+      return renderer(omitProps(this.props, ['renderer', 'components']));
+    }
     return <>
       <div className='fe-center'> {t('auth.login.authentication-succeeded')}</div>
       <Loader/>
@@ -34,4 +42,4 @@ class LoginSuccessRedirect extends React.Component<Props> {
 }
 
 
-export default withAuth(withT()(LoginSuccessRedirect), stateMapper, actionsMapper);
+export const LoginSuccessRedirect = withAuth(withT()(LoginSuccessRedirectComponent), stateMapper, actionsMapper);

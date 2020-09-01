@@ -3,13 +3,16 @@ import { Component1 } from '../Component1';
 import { Component2 } from '../Component2';
 import { Component3 } from '../Component3';
 import { withFrontegg } from '../withFrontegg';
+import { Route, Switch } from 'react-router';
 
 class App extends React.Component<any> {
   render() {
     return <div className='app'>
-      <Component1/>
-      <Component2/>
-      <Component3/>
+      <Switch>
+        <Route path='/login' component={Component1}/>
+        <Route path='/c2' component={Component2}/>
+        <Route path='*' component={Component3}/>
+      </Switch>
     </div>;
   }
 }

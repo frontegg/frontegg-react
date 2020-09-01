@@ -8,19 +8,6 @@ export {
   withTranslation as withT,
 };
 
-export function memoEqual(prevProps: any, nextProps: any) {
-  return Object.keys(nextProps).reduce((p: boolean, next: any) => {
-    if (typeof prevProps[next] === 'function' && typeof nextProps[next] === 'function') {
-      return p;
-    }
-    if (prevProps[next] !== nextProps[next]) {
-      return p && false;
-    } else {
-      return p;
-    }
-  }, true);
-}
-
 export type UseMapper<S, A> = {
   state: (state: S) => Partial<S>
   actions: (actions: A) => Partial<A>

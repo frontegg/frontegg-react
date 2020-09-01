@@ -4,7 +4,7 @@ import { withAuth } from '../HOCs';
 import { AuthActions, AuthState } from '../Api';
 import {
   FieldButton,
-  FieldInput,
+  FieldInput, omitProps, RendererFunction,
   validateSchema,
   validateTwoFactorRecoveryCode,
   WithT,
@@ -14,12 +14,21 @@ import {
 const stateMapper = ({ loginState }: AuthState) => ({ loginState });
 const actionsMapper = ({ recoverMfa }: AuthActions) => ({ recoverMfa });
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT;
+export interface RecoverTwoFactorProps {
+  renderer?: RendererFunction<Props, RecoverTwoFactorProps>
+}
+
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & RecoverTwoFactorProps;
 
 class RecoverTwoFactorComponent extends React.Component<Props> {
 
   render() {
-    const { t, loginState: { loading, error, email }, recoverMfa } = this.props;
+    const { renderer, t, loginState: { loading, error, email }, recoverMfa } = this.props;
+
+    if (renderer) {
+      return renderer(omitProps(this.props, ['renderer', 'components']));
+    }
+
     return <Formik
       initialValues={{ code: '' }}
       validationSchema={validateSchema({

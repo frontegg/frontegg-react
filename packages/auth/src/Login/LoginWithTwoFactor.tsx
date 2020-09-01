@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Field, Form, Formik } from 'formik';
 import {
   validateSchema,
   validateTwoFactorCode,
   FieldInput,
-  FieldButton, withT, WithT,
+  FieldButton, withT, WithT, RendererFunction, omitProps,
 } from '@frontegg/react-core';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
@@ -13,7 +13,12 @@ import { Button } from 'semantic-ui-react';
 const stateMapper = ({ loginState }: AuthState) => ({ loginState });
 const actionsMapper = ({ loginWithMfa, setLoginState }: AuthActions) => ({ loginWithMfa, setLoginState });
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT;
+
+export interface LoginWithTwoFactorProps {
+  renderer?: RendererFunction<Props, LoginWithTwoFactorProps>
+}
+
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & LoginWithTwoFactorProps;
 
 class LoginWithTwoFactorComponent extends React.Component<Props> {
 
@@ -29,8 +34,10 @@ class LoginWithTwoFactorComponent extends React.Component<Props> {
   };
 
   render() {
-    const { t, loginState: { loading, error, mfaToken }, loginWithMfa } = this.props;
-
+    const { renderer, t, loginState: { loading, error, mfaToken }, loginWithMfa } = this.props;
+    if (renderer) {
+      return renderer(omitProps(this.props, ['renderer', 'components']));
+    }
     return <Formik
       initialValues={{ code: '' }}
       validationSchema={validateSchema({

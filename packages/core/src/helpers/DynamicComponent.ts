@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactNode } from 'react';
+import React, { ComponentType, ReactElement, ReactNode } from 'react';
 import ownKeys = Reflect.ownKeys;
 
 export class EmptyRender extends React.Component<any, any> {
@@ -20,7 +20,7 @@ export type PartialInnerTypes<E> = {
   [P in keyof E]: Partial<E[P]>
 }
 
-export type RendererFunction<P, C, R = ReactNode> = (props: Omit<P, 'renderer' | 'components'>, components?: ComponentsTypes<C>) => R | null
+export type RendererFunction<P, C = P, R = ReactNode> = (props: Omit<P, 'renderer' | 'components'>, components?: ComponentsTypes<C>) => R | null
 
 export function memoEqual(prevProps: any, nextProps: any) {
   return Object.keys(nextProps).reduce((p: boolean, next: any) => {
@@ -94,6 +94,9 @@ export const generateComponent = <T extends {}, P>(
     if (typeof comp === 'function') {
       return comp;
     }
+    return React.memo((props) => {
+      return React.createElement(DefaultComponent, { ...comp, ...props });
+    }, memoEqual);
   }
   return React.memo(DefaultComponent as any, memoEqual);
 };
@@ -150,7 +153,7 @@ export class FronteggClass<COMPS, P extends {
 
   constructor(props: P, defaultComponents: ComponentsTypes<COMPS>) {
     super(props);
-    this.compsProps = buildComponentsProps(this.props.config ?? {}, this.props.components ?? {});
+    this.compsProps = buildComponentsProps({}, this.props.components ?? {});
     this.comps = buildComponents(this.compsProps, defaultComponents);
   }
 }

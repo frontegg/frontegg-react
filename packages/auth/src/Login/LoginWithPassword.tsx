@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Field, FieldProps, Formik } from 'formik';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
@@ -8,7 +8,7 @@ import {
   validatePassword,
   Button,
   Form,
-  WithT, withT, Input,
+  WithT, withT, Input, omitProps, RendererFunction,
 } from '@frontegg/react-core';
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({ loginState, isSSOAuth, onRedirectTo, routes });
@@ -20,7 +20,12 @@ const actionsMapper = ({ preLogin, login, setLoginState, resetLoginState, setFor
   setForgotPasswordState,
 });
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT
+
+export interface LoginWithPasswordProps {
+  renderer?: RendererFunction<Props, LoginWithPasswordProps>
+}
+
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & LoginWithPasswordProps
 
 class LoginWithPasswordComponent extends React.Component<Props> {
   backToPreLogin = () => this.props.setLoginState({ step: LoginStep.preLogin });
@@ -39,13 +44,11 @@ class LoginWithPasswordComponent extends React.Component<Props> {
   };
 
   render() {
-    const {
-      t,
-      loginState: { loading, step, error },
-      isSSOAuth,
-      preLogin,
-      login,
-    } = this.props;
+    const { renderer, t, loginState: { loading, step, error }, isSSOAuth, preLogin, login } = this.props;
+
+    if (renderer) {
+      return renderer(omitProps(this.props, ['renderer', 'components']));
+    }
 
     const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
     const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
@@ -71,8 +74,7 @@ class LoginWithPasswordComponent extends React.Component<Props> {
           onChange={shouldBackToLoginIfEmailChanged ? this.backToPreLogin : undefined}/>
 
 
-        {shouldDisplayPassword &&
-        <Input
+        {shouldDisplayPassword && <Input
           label={t('auth.login.password')}
           inFormik={true}
           fullWidth={true}
@@ -80,15 +82,6 @@ class LoginWithPasswordComponent extends React.Component<Props> {
           name='password'
           placeholder={t('auth.login.enter-your-password')}
           disabled={!shouldDisplayPassword}/>}
-
-          {/*{shouldDisplayPassword && <FieldInput*/}
-        {/*  label={t('auth.login.password')}*/}
-        {/*  labelButton={this.forgetPasswordButton()}*/}
-        {/*  type='password'*/}
-        {/*  name='password'*/}
-        {/*  forwardRef={this.passwordField}*/}
-        {/*  placeholder={t('auth.login.enter-your-password')}*/}
-        {/*  disabled={!shouldDisplayPassword}/>}*/}
 
         <Button type='submit' fullWidth={true} variant={loading ? undefined : 'primary'} loading={loading}>
           {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}

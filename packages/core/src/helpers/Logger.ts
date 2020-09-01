@@ -1,3 +1,4 @@
+// @ts-ignore
 const debugging = process.env.NODE_ENV === 'development';
 // tslint:disable-next-line:no-empty
 const emptyFunction = () => {};
