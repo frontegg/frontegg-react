@@ -56,7 +56,7 @@ to align it with your App UI design.
 
 **Advanced Customizations**
 
-- [`Login Component`](Login/README.md)
+- [`Login Component`](src/Login/README.md)
 
 ### `header <ReactNode>`
 

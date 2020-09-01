@@ -1,4 +1,4 @@
-#Login Component
+# Login Component
 
 Login components provide end-to-end integration with Authentication Service.
 
