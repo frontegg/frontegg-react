@@ -7,20 +7,30 @@ import { withAuth } from '../HOCs';
 import { authPageWrapper } from '../components/authPageWrapper';
 import LoginSuccessRedirect from './LoginSuccessRedirect';
 import { RecoverTwoFactor } from './RecoverTwoFactor';
-import { ComponentsTypesWithProps, Loader } from '@frontegg/react-core';
+import { ComponentsTypesWithProps, FronteggClass, Loader } from '@frontegg/react-core';
 
 
 const stateMapper = ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step });
 
-type Components = {}
-
-type LoginComponentProps = {
-  override: ComponentsTypesWithProps<Components>
+type Components = {
+  LoginSuccessRedirect: {}
 }
 
-class LoginComponent extends React.Component<ReturnType<typeof stateMapper>> {
+type LoginComponentProps = {
+  components: ComponentsTypesWithProps<Components>
+}
+
+type Props = LoginComponentProps & ReturnType<typeof stateMapper>;
+
+
+class LoginComponent extends FronteggClass<Components, Props> {
+  constructor(props: Props) {
+    super(props, { LoginSuccessRedirect });
+  }
+
   render() {
     const { isLoading, isAuthenticated, step } = this.props;
+    const { LoginSuccessRedirect } = this.comps;
     let components = null;
 
     if (isLoading) {

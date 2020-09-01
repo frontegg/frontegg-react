@@ -144,7 +144,6 @@ export const cloneComponentsWithProps = <P>(components: ComponentsTypes<P>, conf
 
 export class FronteggClass<COMPS, P extends {
   components?: ComponentsTypesWithProps<COMPS>;
-  config?: ComponentsTypeProps<COMPS>;
 } = {}, S = {}> extends React.Component<P, S> {
   declare compsProps: PartialInnerTypes<COMPS>;
   declare comps: ComponentsTypes<COMPS>;
