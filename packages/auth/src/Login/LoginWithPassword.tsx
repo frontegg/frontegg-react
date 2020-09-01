@@ -1,32 +1,29 @@
 import React, { createRef } from 'react';
-import { Field, FieldProps, Form, Formik } from 'formik';
+import { Field, FieldProps, Formik } from 'formik';
 import { AuthActions, AuthState, LoginStep } from '../Api';
-import { Button } from 'semantic-ui-react';
 import { withAuth } from '../HOCs';
 import {
   validateEmail,
   validateSchema,
   validatePassword,
   FieldInput,
-  FieldButton, WithT, withT,
+  Button,
+  Form,
+  WithT, withT, Input,
 } from '@frontegg/react-core';
 
+const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({ loginState, isSSOAuth, onRedirectTo, routes });
+const actionsMapper = ({ preLogin, login, setLoginState, resetLoginState, setForgotPasswordState }: AuthActions) => ({
+  preLogin,
+  login,
+  setLoginState,
+  resetLoginState,
+  setForgotPasswordState,
+});
 
-const mapper = {
-  state: ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({ loginState, isSSOAuth, onRedirectTo, routes }),
-  actions: ({ preLogin, login, setLoginState, resetLoginState, setForgotPasswordState }: AuthActions) => ({
-    preLogin,
-    login,
-    setLoginState,
-    resetLoginState,
-    setForgotPasswordState,
-  }),
-};
-
-type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions> & WithT
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT
 
 class LoginWithPasswordComponent extends React.Component<Props> {
-
   passwordField = createRef<HTMLInputElement>();
   lastLoginStep = LoginStep.preLogin;
 
@@ -60,11 +57,6 @@ class LoginWithPasswordComponent extends React.Component<Props> {
       isSSOAuth,
       preLogin,
       login,
-      setLoginState,
-      resetLoginState,
-      setForgotPasswordState,
-      onRedirectTo,
-      routes: { forgetPasswordUrl },
     } = this.props;
 
     const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
@@ -81,31 +73,44 @@ class LoginWithPasswordComponent extends React.Component<Props> {
         ({ email, password }) => login({ email, password }) :
         ({ email }) => preLogin({ email })
       }>
-      <Form>
-        <FieldInput
-          label={t('auth.login.email')}
+      <Form formik={true}>
+        <Input
+          inFormik={true}
+          fullWidth={true}
           name='email'
+          label={t('auth.login.email')}
           placeholder='name@example.com'
-          focus={shouldBackToLoginIfEmailChanged ? false : undefined}
           onChange={shouldBackToLoginIfEmailChanged ? this.backToPreLogin : undefined}/>
 
-        {shouldDisplayPassword && <FieldInput
+        {shouldDisplayPassword &&
+        <Input
           label={t('auth.login.password')}
-          labelButton={this.forgetPasswordButton()}
+          inFormik={true}
+          fullWidth={true}
           type='password'
           name='password'
-          wrapperClassName={'fe-hidden-element'}
           forwardRef={this.passwordField}
           placeholder={t('auth.login.enter-your-password')}
           disabled={!shouldDisplayPassword}/>}
+        {/*{shouldDisplayPassword && <FieldInput*/}
+        {/*  label={t('auth.login.password')}*/}
+        {/*  labelButton={this.forgetPasswordButton()}*/}
+        {/*  type='password'*/}
+        {/*  name='password'*/}
+        {/*  forwardRef={this.passwordField}*/}
+        {/*  placeholder={t('auth.login.enter-your-password')}*/}
+        {/*  disabled={!shouldDisplayPassword}/>}*/}
 
-        <FieldButton fluid={true} primary={!loading} loading={loading}>
+        <Button type='submit' fullWidth={true} variant={loading ? undefined : 'primary'} loading={loading}>
           {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
-        </FieldButton>
+        </Button>
+        {/*<FieldButton fluid={true} primary={!loading} loading={loading}>*/}
+        {/*  {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}*/}
+        {/*</FieldButton>*/}
         {error && <div className='fe-login-error-message'>{error}</div>}
       </Form>
     </Formik>;
   }
 }
 
-export const LoginWithPassword = withAuth(withT()(LoginWithPasswordComponent), mapper);
+export const LoginWithPassword = withAuth(withT()(LoginWithPasswordComponent), stateMapper, actionsMapper);

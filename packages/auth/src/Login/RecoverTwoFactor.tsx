@@ -11,14 +11,10 @@ import {
   withT,
 } from '@frontegg/react-core';
 
+const stateMapper = ({ loginState }: AuthState) => ({ loginState });
+const actionsMapper = ({ recoverMfa }: AuthActions) => ({ recoverMfa });
 
-const mapper = {
-  state: ({ loginState }: AuthState) => ({ loginState }),
-  actions: ({ recoverMfa }: AuthActions) => ({ recoverMfa }),
-};
-
-
-type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions> & WithT;
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT;
 
 class RecoverTwoFactorComponent extends React.Component<Props> {
 
@@ -41,4 +37,4 @@ class RecoverTwoFactorComponent extends React.Component<Props> {
   }
 }
 
-export const RecoverTwoFactor = withAuth(withT()(RecoverTwoFactorComponent), mapper);
+export const RecoverTwoFactor = withAuth(withT()(RecoverTwoFactorComponent), stateMapper, actionsMapper);

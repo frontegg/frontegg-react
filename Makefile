@@ -122,6 +122,7 @@ test-unit: ##@3 Tests unit test with jest
 
 build: ##@2 Build build all packages
 	${MAKE} build-core
+	${MAKE} build-semantic-elements
 	${MAKE} build-auth
 	#${MAKE} build-reports
 

@@ -2,7 +2,7 @@ import React, { ComponentType, FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect } from 'react-redux';
-import { AuthState, actions } from './Api';
+import { AuthState, actions, AuthActions } from './Api';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 import { useAuth, useIsAuthenticated } from './hooks';
 import { AuthMapper } from './helpers';
@@ -10,14 +10,22 @@ import { AuthMapper } from './helpers';
 const pluginName = 'auth';
 const pluginActions = actions;
 
-export const withAuth = <P extends any>(Component: ComponentType<P>, mapper: AuthMapper) => {
-  const mapStateToProps = (state: any) => mapper.state(state[pluginName]);
-  const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(mapper.actions(pluginActions) || {}, dispatch);
+const emptySelector = () => ({});
+export const withAuth = <P extends any>(
+  Component: ComponentType<P>,
+  stateSelector?: (state: AuthState) => any,
+  actionsSelector?: (actions: AuthActions) => any,
+) => {
+  const _stateSelector = stateSelector || emptySelector;
+  const _actionsSelector = actionsSelector || emptySelector;
+
+  const mapStateToProps = (state: any) => _stateSelector(state[pluginName]);
+  const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(_actionsSelector(pluginActions) || {}, dispatch);
 
   return connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(Component as any) as ComponentType<Omit<P, keyof (ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>)>>;
+  )(Component as any) as ComponentType<Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>>;
 };
 
 

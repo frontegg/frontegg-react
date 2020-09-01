@@ -1,7 +1,6 @@
 import { takeEvery, put, all, call, select } from 'redux-saga/effects';
 import { actions } from './reducer';
 import {
-  getContext,
   api,
   ILogin,
   IPreLogin,
@@ -12,14 +11,7 @@ import {
   IResetPassword,
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
-import {
-  ActivateAccountPayload,
-  ActivateStep,
-  ForgotPasswordPayload, ForgotPasswordStep,
-  LoginStep, LogoutPayload,
-  PreLoginPayload, ResetPasswordPayload,
-  LoginWithMfaPayload,
-} from './interfaces';
+import { ActivateStep, ForgotPasswordStep, LoginStep } from './interfaces';
 
 function* refreshMetadata() {
   let isSSOAuth;

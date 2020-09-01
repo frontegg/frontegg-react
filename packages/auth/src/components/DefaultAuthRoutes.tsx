@@ -9,14 +9,12 @@ import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { withAuth } from '../HOCs';
 import { AuthMapper } from '../helpers';
+import { ForgotPasswordPage } from '../ForgotPassword';
 
 
-const mapper: AuthMapper = {
-  state: ({ routes, isLoading, header, loaderComponent }: AuthState) => ({ routes, isLoading, defaultComps: { header, loaderComponent } }),
-  actions: () => {},
-};
+const stateMapper = ({ routes, isLoading, header, loaderComponent }: AuthState) => ({ routes, isLoading, defaultComps: { header, loaderComponent } });
 
-class DefaultAuthRoutes extends React.Component<AuthPageProps & ReturnType<typeof mapper.state>> {
+class DefaultAuthRoutes extends React.Component<AuthPageProps & ReturnType<typeof stateMapper>> {
   render() {
     const {
       routes: {
@@ -41,11 +39,11 @@ class DefaultAuthRoutes extends React.Component<AuthPageProps & ReturnType<typeo
       <Route exact path={loginUrl} render={() => <LoginPage {...pageProps}/>}/>
       <Route exact path={logoutUrl} render={() => <LogoutPage {...pageProps}/>}/>
       {/*<Route exact path={this.context!.activateUrl} render={() => <ActivatePage {...pageProps}/>}/>*/}
-      <Route exact path={forgetPasswordUrl} render={() => <div>ADSASD</div>}/>
+      <Route exact path={forgetPasswordUrl} render={() => <ForgotPasswordPage {...pageProps}/>}/>
       {/*<Route exact path={this.context!.resetPasswordUrl} render={() => <ResetPasswordPage {...pageProps}/>}/>*/}
       <Route path='*' children={() => pageProps.loaderComponent && isLoading ? pageProps.loaderComponent : children}/>
     </Switch>;
   }
 }
 
-export default withAuth(DefaultAuthRoutes, mapper);
+export default withAuth(DefaultAuthRoutes, stateMapper);

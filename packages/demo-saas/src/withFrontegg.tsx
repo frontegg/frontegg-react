@@ -2,6 +2,7 @@ import React, { ComponentType } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin, DefaultAuthRoutes } from '@frontegg/react-auth';
+import uiLibrary from '@frontegg/react-elements-semantic';
 
 const host =
   window.location.hostname === 'localhost' ||
@@ -30,9 +31,9 @@ const plugins: PluginConfig[] = [
 export const withFrontegg = (Component: ComponentType<any>): ComponentType<any> => withRouter(class extends React.Component<RouteComponentProps> {
   render() {
     return <FronteggProvider
-      history={this.props.history as any}
       context={contextOptions}
-      plugins={plugins}>
+      plugins={plugins}
+      uiLibrary={uiLibrary}>
       <DefaultAuthRoutes>
         <Component/>
       </DefaultAuthRoutes>

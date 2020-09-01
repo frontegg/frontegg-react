@@ -9,35 +9,25 @@ import { authPageWrapper } from '../components';
 import LoginSuccessRedirect from './LoginSuccessRedirect';
 import { RecoverTwoFactor } from './RecoverTwoFactor';
 
-const mapper = {
-  state: ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step }),
-  actions: () => {},
-};
 
-class LoginComponent extends React.Component<ReturnType<typeof mapper.state>> {
+const stateMapper = ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step });
+
+class LoginComponent extends React.Component<ReturnType<typeof stateMapper>> {
   render() {
     const { isLoading, isAuthenticated, step } = this.props;
-    if (isLoading) {
-      return <Loader active={true}/>;
-    }
-    if (isAuthenticated || step === LoginStep.success) {
-      return <LoginSuccessRedirect/>;
-    }
-
     let components = null;
-    if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
+
+    if (isLoading) {
+      components = <Loader active inline/>;
+    } else if (isAuthenticated || step === LoginStep.success) {
+      components = <LoginSuccessRedirect/>;
+    } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
       components = <LoginWithPassword/>;
-    }
-
-    if (step === LoginStep.recoverTwoFactor) {
+    } else if (step === LoginStep.recoverTwoFactor) {
       components = <RecoverTwoFactor/>;
-    }
-
-    if (step === LoginStep.loginWithTwoFactor) {
+    } else if (step === LoginStep.loginWithTwoFactor) {
       components = <LoginWithTwoFactor/>;
-    }
-
-    if (step === LoginStep.redirectToSSO) {
+    } else if (step === LoginStep.redirectToSSO) {
       components = <RedirectToSSO/>;
     }
 
@@ -47,5 +37,5 @@ class LoginComponent extends React.Component<ReturnType<typeof mapper.state>> {
   }
 }
 
-export const Login = withAuth(LoginComponent, mapper);
-export const LoginPage = authPageWrapper(Login, 'LoginPage');
+export const Login = withAuth(LoginComponent, stateMapper);
+export const LoginPage = authPageWrapper(Login);

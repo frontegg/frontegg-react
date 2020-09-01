@@ -10,12 +10,10 @@ import { AuthActions, AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
 import { Button } from 'semantic-ui-react';
 
-const mapper = {
-  state: ({ loginState }: AuthState) => ({ loginState }),
-  actions: ({ loginWithMfa, setLoginState }: AuthActions) => ({ loginWithMfa, setLoginState }),
-};
+const stateMapper = ({ loginState }: AuthState) => ({ loginState });
+const actionsMapper = ({ loginWithMfa, setLoginState }: AuthActions) => ({ loginWithMfa, setLoginState });
 
-type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions> & WithT;
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT;
 
 class LoginWithTwoFactorComponent extends React.Component<Props> {
 
@@ -52,4 +50,4 @@ class LoginWithTwoFactorComponent extends React.Component<Props> {
   }
 }
 
-export const LoginWithTwoFactor = withAuth(withT()(LoginWithTwoFactorComponent), mapper);
+export const LoginWithTwoFactor = withAuth(withT()(LoginWithTwoFactorComponent), stateMapper, actionsMapper);

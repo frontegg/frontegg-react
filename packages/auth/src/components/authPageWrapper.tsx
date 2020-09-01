@@ -1,7 +1,7 @@
 import React, { ComponentType, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 
-export const authPageWrapper = <P extends {}>(Component: ComponentType<P>, displayName: string): ComponentType<P & { header?: ReactNode }> =>
+export const authPageWrapper = <P extends {}>(Component: ComponentType<P>): ComponentType<P & { header?: ReactNode }> =>
   (props: P & { header?: ReactNode }) => {
     const {
       header = <img src='http://acmelogos.com/images/logo-1.svg' alt='logo'/>,

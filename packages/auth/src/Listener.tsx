@@ -4,12 +4,10 @@ import { AuthActions, AuthState } from './Api';
 import { AuthMapper } from './helpers';
 
 
-const mapper:AuthMapper = {
-  state: ({ isAuthenticated, user }: AuthState) => ({ isAuthenticated, user }),
-  actions: ({ requestAuthorize }: AuthActions) => ({ requestAuthorize }),
-};
+const stateMapper = ({ isAuthenticated, user }: AuthState) => ({ isAuthenticated, user });
+const actionsMapper = ({ requestAuthorize }: AuthActions) => ({ requestAuthorize });
 
-class Listener extends React.Component<ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>> {
+class Listener extends React.Component<ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper>> {
   private timer?: any;
   private isAuthenticated: boolean | null = null;
 
@@ -41,4 +39,4 @@ class Listener extends React.Component<ReturnType<typeof mapper.state> & ReturnT
   }
 }
 
-export default withAuth(Listener, mapper);
+export default withAuth(Listener, stateMapper, actionsMapper);

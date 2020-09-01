@@ -12,6 +12,7 @@
   "dependencies": {
     "@frontegg/react-core": "^1.0.1",
     "@frontegg/react-auth": "^1.0.1",
+    "semantic-ui-react": "^1.2.1",
     "classnames": "^2.2.6",
     "cron-parser": "^2.15.0",
     "moment": "^2.27.0",

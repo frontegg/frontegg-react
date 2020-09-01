@@ -5,12 +5,10 @@ import { withAuth } from '../HOCs';
 import { AuthActions, AuthState } from '../Api';
 
 
-const mapper = {
-  state: ({ routes }: AuthState) => ({ routes }),
-  actions: ({ logout }: AuthActions) => ({ logout }),
-};
+const stateMapper = ({ routes }: AuthState) => ({ routes });
+const actionsMapper = ({ logout }: AuthActions) => ({ logout });
 
-type Props = ReturnType<typeof mapper.state> & ReturnType<typeof mapper.actions>
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper>
 
 class LogoutComponent extends React.Component<Props> {
   componentDidMount() {
@@ -22,11 +20,11 @@ class LogoutComponent extends React.Component<Props> {
 
   render() {
     return <div className='fe-login-component'>
-      <Loader active={true}/>
+      <Loader inline active/>
     </div>;
   }
 }
 
-export const Logout = withAuth(LogoutComponent, mapper);
+export const Logout = withAuth(LogoutComponent, stateMapper, actionsMapper);
 
-export const LogoutPage = authPageWrapper(Logout, 'LogoutPage');
+export const LogoutPage = authPageWrapper(Logout);

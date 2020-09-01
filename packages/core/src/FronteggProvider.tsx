@@ -6,11 +6,9 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, Router, withRouter } from 'react-router-dom';
-import * as H from 'history';
+import { BrowserRouter, RouteComponentProps, Router, withRouter } from 'react-router-dom';
 import ContextHolder from './helpers/ContextHolder';
-import { createBrowserHistory } from 'history';
-import { RouterProps } from 'react-router';
+import { Elements, ElementsFactory } from './ElementsFactory';
 
 export type RedirectOptions = {
   refresh?: boolean;
@@ -25,10 +23,10 @@ export interface PluginConfig {
   Listener?: React.ComponentType;
 }
 
-export interface FronteggProviderProps {
-  history: H.History;
+interface FronteggProviderComponentProps extends RouteComponentProps {
   context: ContextOptions;
   plugins: PluginConfig[];
+  uiLibrary: Elements
   onRedirectTo?: (path: string) => void;
 }
 
@@ -37,14 +35,19 @@ const devTools = process.env.NODE_ENV === 'development' ? { name: 'Frontegg Stor
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
 
-export class FronteggProvider extends React.Component<FronteggProviderProps> {
+class FronteggProviderComponent extends React.Component<FronteggProviderComponentProps> {
+  static defaultProps = {
+    withRouter: true,
+  };
   store: any;
   task: Task;
   listeners: React.ComponentType[];
 
-  constructor(props: FronteggProviderProps) {
+  constructor(props: FronteggProviderComponentProps) {
     super(props);
     ContextHolder.getInstance().setContext(this.props.context);
+    ElementsFactory.setElements(this.props.uiLibrary);
+
     const reducer = combineReducers({
       root: rootReducer,
       ...props.plugins.reduce((p, n) => ({ ...p, [n.storeName]: n.reducer }), {}),
@@ -128,18 +131,24 @@ export class FronteggProvider extends React.Component<FronteggProviderProps> {
   }
 }
 
-export class FronteggProviderWithRouter extends React.Component<Omit<FronteggProviderProps, 'history'>> {
-  provider: ComponentType;
+export type FronteggProviderProps = Omit<FronteggProviderComponentProps, keyof RouteComponentProps> & { withRouter?: boolean; }
 
-  constructor(props: Omit<FronteggProviderProps, 'history'>) {
+export class FronteggProvider extends React.Component<FronteggProviderProps> {
+  provider: ComponentType<Omit<FronteggProviderComponentProps, keyof RouteComponentProps<any>>>;
+
+  constructor(props: FronteggProviderProps) {
     super(props);
-    this.provider = withRouter(({ history }: RouterProps) => <FronteggProvider history={history as any} {...props}/>);
+    this.provider = withRouter((props: FronteggProviderComponentProps) => <FronteggProviderComponent {...props}/>);
   }
 
   render() {
     const { provider: Provider } = this;
-    return <BrowserRouter>
-      <Provider/>
-    </BrowserRouter>;
+    const { withRouter, ...rest } = this.props;
+    if (withRouter) {
+      return <BrowserRouter>
+        <Provider {...rest}/>
+      </BrowserRouter>;
+    }
+    return <Provider {...rest}/>;
   }
 }

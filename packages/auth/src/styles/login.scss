@@ -1,76 +1,49 @@
-.frontegg {
 
-  .fe-login-sso-redirect,
-  .fe-login-success,
-  .fe-activation-success,
-  .fe-forget-password-success,
-  .fe-activation-failed {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    font-weight: bold;
+.fe-login-component {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
 
-    .ui.loader.inline {
-      display: block;
-      margin: 2rem auto 1rem;
-    }
-
-    .fe-login-error-message, .fe-success-message {
-      font-weight: bold;
-      flex: 1;
-    }
-  }
-
-  .fe-form-action {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 2rem;
-
-    .ui.primary.button {
-      background-color: #6960d1;
-      color: white;
-      border-radius: 0.5rem;
-    }
-  }
-
-  .fe-login-error-message {
-    font-weight: bold;
-    color: #9a0000;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  .ui.button.fe-field-button {
-    float: initial;
-    font-size: 0.8rem;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    top: 2px;
-    background: transparent;
-    color: #666;
-    text-transform: initial;
-    font-weight: initial;
-    text-decoration: underline;
-  }
-
-  .fe-form-input {
-    line-height: 1.5
+  .ui.loader.inline {
+    display: block;
+    margin: 2rem auto 1rem;
   }
 }
 
+.fe-error-message, .fe-success-message {
+  flex: 1;
+  font-weight: bold;
+  color: #9a0000;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.ui.button.fe-field-button {
+  float: initial;
+  font-size: 0.8rem;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 2px;
+  background: transparent;
+  color: #666;
+  text-transform: initial;
+  font-weight: initial;
+  text-decoration: underline;
+}
+
+.fe-form-input {
+  line-height: 1.5
+}
 
 @media screen and (max-width: 400px) {
-  .frontegg {
-    &.fe-login-page {
-      padding-top: 10vh;
-      justify-content: flex-start;
+  .fe-login-page {
+    padding-top: 10vh;
+    justify-content: flex-start;
 
-      .fe-login-container {
-        box-shadow: none;
-      }
+    .fe-login-container {
+      box-shadow: none;
     }
   }
 }
