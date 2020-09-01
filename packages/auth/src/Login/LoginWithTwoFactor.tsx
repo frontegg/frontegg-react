@@ -44,7 +44,7 @@ class LoginWithTwoFactorComponent extends React.Component<Props> {
                     name='code'
                     focus={true}/>
         <FieldButton fluid={true} primary={!loading} loading={loading}>{t('auth.login.login')}</FieldButton>
-        {error && <div className='fe-login-error-message'>{error}</div>}
+        {error && <div className='fe-error-message'>{error}</div>}
       </Form>
     </Formik>;
   }

@@ -3,15 +3,16 @@ import React, { ComponentType } from 'react';
 export type FormFieldProps = {
   inFormik?: boolean; // default: false
   inForm?: boolean; // default: false
+  size?: 'mini' | 'small' | 'large' | 'big' | 'huge' | 'massive' // default: undefined
 }
 
-export interface IInput extends React.HTMLAttributes<HTMLInputElement>, FormFieldProps {
-  name?: string;
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
+  label?: string;
   fullWidth?: boolean;
   error?: string;
 }
 
-export interface IButton extends React.HTMLAttributes<HTMLButtonElement>, FormFieldProps {
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, FormFieldProps {
   fullWidth?: boolean;
   variant?: 'primary' | 'secondary' | 'danger';
 
@@ -20,20 +21,28 @@ export interface IButton extends React.HTMLAttributes<HTMLButtonElement>, FormFi
   type?: 'button' | 'submit' | 'reset'
 }
 
-export interface IForm extends React.HTMLAttributes<HTMLFormElement> {
+export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   formik?: boolean; // default: false
 }
 
+export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {
+  inline?: boolean;
+  center?: boolean;
+}
+
+
 export type ElementProps = {
-  Button: ComponentType<IButton>,
-  Input: ComponentType<IInput>,
-  Form: ComponentType<IForm>,
+  Button: ComponentType<ButtonProps>,
+  Input: ComponentType<InputProps>,
+  Form: ComponentType<FormProps>,
+  Loader: ComponentType<LoaderProps>,
 };
 
 export type ElementType =
   | 'Button'
   | 'Input'
   | 'Form'
+  | 'Loader'
 
 export type Elements = {
   [type in ElementType]: ElementProps[type]

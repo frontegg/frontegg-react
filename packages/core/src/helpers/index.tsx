@@ -4,6 +4,7 @@ import moment from 'moment';
 export * from './fetch';
 export * from './sagaHelpers';
 export * from './validates';
+export * from './DynamicComponent';
 
 export function omitProps<T>(props: any, keys: string[]): T {
   const newProps = { ...props };

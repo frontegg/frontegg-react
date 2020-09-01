@@ -1,5 +1,5 @@
 import { withAuth } from '../HOCs';
-import { authPageWrapper } from '../components';
+import { authPageWrapper } from '../components/authPageWrapper';
 import React from 'react';
 
 

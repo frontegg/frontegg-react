@@ -1,9 +1,9 @@
 import React from 'react';
-import { IButton } from '@frontegg/react-core';
-import { Button as SemanticButton, ButtonProps } from 'semantic-ui-react';
+import { ButtonProps } from '@frontegg/react-core';
+import { Button as SemanticButton, ButtonProps as SemanticButtonProps } from 'semantic-ui-react';
 
 
-const mapper = (props: IButton): ButtonProps => {
+const mapper = (props: ButtonProps): SemanticButtonProps => {
   const { variant, fullWidth, ...rest } = props;
   return {
     ...rest,
@@ -15,7 +15,7 @@ const mapper = (props: IButton): ButtonProps => {
   };
 };
 
-export class Button extends React.Component<IButton> {
+export class Button extends React.Component<ButtonProps> {
   render() {
     const { children, ...rest } = this.props;
     return <SemanticButton {...mapper(rest)}>

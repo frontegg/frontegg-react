@@ -1,12 +1,12 @@
 import React from 'react';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
-import { Loader } from 'semantic-ui-react';
 import { AuthActions, AuthState } from '../Api';
 import { withAuth } from '../HOCs';
-import { WithT, withT } from '@frontegg/react-core';
+import { Loader, WithT, withT } from '@frontegg/react-core';
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
 const actionsMapper = ({ resetLoginState }: AuthActions) => ({ resetLoginState });
+
 type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT
 
 class LoginSuccessRedirect extends React.Component<Props> {
@@ -27,8 +27,8 @@ class LoginSuccessRedirect extends React.Component<Props> {
   render() {
     const { t } = this.props;
     return <>
-      {t('auth.login.authentication-succeeded')}
-      <Loader active={true} inline={true}/>
+      <div className='fe-center'> {t('auth.login.authentication-succeeded')}</div>
+      <Loader/>
     </>;
   }
 }

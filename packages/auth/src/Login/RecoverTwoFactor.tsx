@@ -31,7 +31,7 @@ class RecoverTwoFactorComponent extends React.Component<Props> {
         <FieldInput label={t('auth.login.please-enter-the-recovery-code')} name='code' focus={true}/>
 
         <FieldButton fluid={true} primary={!loading} loading={loading}>{t('auth.login.disable-mfa')}</FieldButton>
-        {error && <div className='fe-login-error-message'>{error}</div>}
+        {error && <div className='fe-error-message'>{error}</div>}
       </Form>
     </Formik>;
   }

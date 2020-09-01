@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader } from 'semantic-ui-react';
-import { authPageWrapper } from '../components';
+import { authPageWrapper } from '../components/authPageWrapper';
 import { withAuth } from '../HOCs';
 import { AuthActions, AuthState } from '../Api';
 

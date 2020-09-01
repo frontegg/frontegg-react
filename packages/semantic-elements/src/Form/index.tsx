@@ -1,11 +1,11 @@
 import React from 'react';
 import { Form as FormikForm } from 'formik';
-import { IForm } from '@frontegg/react-core';
-import { Form as SemanticForm, FormProps } from 'semantic-ui-react';
+import { FormProps } from '@frontegg/react-core';
+import { Form as SemanticForm, FormProps as SemanticFormProps } from 'semantic-ui-react';
 
-const mapper = (props: IForm): FormProps => props;
+const mapper = (props: FormProps): SemanticFormProps => props;
 
-export class Form extends React.Component<IForm> {
+export class Form extends React.Component<FormProps> {
   render() {
     const { children, formik, ...rest } = this.props;
     const formProps = mapper(rest);

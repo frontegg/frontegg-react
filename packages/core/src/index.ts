@@ -12,4 +12,4 @@ export * from './components';
 
 export * from './ElementsFactory';
 
-export { memoEqual } from './components/DynamicComponent';
+export { memoEqual } from './helpers/DynamicComponent';
