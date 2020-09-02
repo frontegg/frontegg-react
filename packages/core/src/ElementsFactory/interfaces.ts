@@ -36,12 +36,19 @@ export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {
   center?: boolean;
 }
 
+export interface SwitchToggleProps {
+  value?: boolean;
+  labels?: [string, string];
+  onChange?: (toggled: boolean) => void;
+}
+
 
 export type ElementProps = {
   Button: ComponentType<ButtonProps>,
   Input: ComponentType<InputProps>,
   Form: ComponentType<FormProps>,
   Loader: ComponentType<LoaderProps>,
+  SwitchToggle: ComponentType<SwitchToggleProps>,
 };
 
 export type ElementType =
@@ -49,6 +56,7 @@ export type ElementType =
   | 'Input'
   | 'Form'
   | 'Loader'
+  | 'SwitchToggle'
 
 export type Elements = {
   [type in ElementType]: ElementProps[type]

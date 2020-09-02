@@ -5,11 +5,12 @@ import {
   AuthState,
   ForgotPasswordState, ForgotPasswordStep,
   LoginState,
-  LoginStep,
+  LoginStep, SSOState,
   User,
 } from './interfaces';
 import {
   IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword,
+  ISamlConfiguration,
 } from '@frontegg/react-core';
 
 export const storeName = 'auth';
@@ -84,6 +85,10 @@ const { reducer, actions: SliceActions } = createSlice({
     resetActivateState: resetStateByKey<LoginState>('activateState'),
     setForgotPasswordState: typeReducerForKey<ForgotPasswordState>('forgetPasswordState'),
     resetForgotPasswordState: resetStateByKey<ForgotPasswordState>('forgetPasswordState'),
+
+    // sso
+    setSSOState: typeReducerForKey<SSOState>('ssoState'),
+    resetSSOState: resetStateByKey<SSOState>('ssoState'),
   },
 });
 
@@ -102,7 +107,7 @@ const actions = {
 
   // sso
   loadSSOConfigurations: createAction(`${storeName}/loadSSOConfigurations`),
-  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`),
+  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: ISamlConfiguration) => ({ payload })),
   validateSSODomain: createAction(`${storeName}/validateSSODomain`),
 };
 

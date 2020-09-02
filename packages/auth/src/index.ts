@@ -3,6 +3,7 @@ import { preloadedState, reducer, sagas, storeName } from './Api';
 import Listener from './Listener';
 import { AuthPluginOptions } from './interfaces';
 import './index.scss';
+import { DefaultAuthRoutes } from './components';
 
 export * from './Api';
 export * from './hooks';
@@ -24,4 +25,5 @@ export const AuthPlugin = (options: AuthPluginOptions): PluginConfig => ({
   reducer,
   sagas,
   Listener,
+  WrapperComponent: (options.InjectAuthRoutes ?? true) ? DefaultAuthRoutes : undefined,
 });

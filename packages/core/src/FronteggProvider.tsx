@@ -21,6 +21,7 @@ export interface PluginConfig {
   sagas: () => void;
   preloadedState: any;
   Listener?: React.ComponentType;
+  WrapperComponent?: React.ComponentType<any>;
 }
 
 interface FronteggProviderComponentProps {
@@ -42,6 +43,7 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
   store: any;
   task: Task;
   listeners: React.ComponentType[];
+  wrappers: React.ComponentType[];
 
   constructor(props: FronteggProviderComponentProps & RouteComponentProps) {
     super(props);
@@ -67,6 +69,7 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
     };
 
     this.listeners = props.plugins.filter(p => p.Listener).map(p => p.Listener!);
+    this.wrappers = props.plugins.filter(p => p.WrapperComponent).map(p => p.WrapperComponent!);
     this.store = configureStore({ reducer, preloadedState, middleware, devTools });
 
     function* rootSaga() {
@@ -120,11 +123,15 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
 
   render() {
     const { history, children } = this.props;
+
+    let combinedWrapper: any = children;
+    this.wrappers.forEach(Wrapper => combinedWrapper = <Wrapper>{combinedWrapper}</Wrapper>);
+
     return <Router history={history as any}>
       <Provider store={this.store}>
         <I18nextProvider i18n={i18n}>
           {this.listeners.map((Comp, i) => <Comp key={i}/>)}
-          {children}
+          {combinedWrapper}
         </I18nextProvider>
       </Provider>
     </Router>;

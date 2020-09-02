@@ -36,6 +36,7 @@ export interface AuthPageProps {
   backgroundImage?: string;
   backgroundColor?: string;
   loaderComponent?: React.ReactNode;
+  InjectAuthRoutes?: boolean; // default: true
 }
 
 

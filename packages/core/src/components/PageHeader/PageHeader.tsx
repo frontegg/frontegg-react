@@ -29,7 +29,14 @@ export const PageHeader: FC<PageHeaderProps> =
     <div className={classNames('fe-page-header', className, { 'fe-page-header__with-tabs': tabs })}>
       <div className='fe-left'>
         <div className={classNames(titleClassName, 'fe-title', { 'fe-title__back-button': onBackButtonClick })}>
-          {onBackButtonClick && <span onClick={onBackButtonClick} className={classNames('fe-back-button', subTitle && 'mt-2')}><ArrowSVG/></span>}
+          <span onClick={onBackButtonClick}
+                className={classNames('fe-back-button',
+                  {
+                    'mt-2': subTitle,
+                    'visible': onBackButtonClick,
+                  })}>
+            <ArrowSVG/>
+          </span>
           {title}
           {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
         </div>

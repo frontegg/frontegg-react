@@ -5,6 +5,7 @@ import {
   FronteggClass, ComponentsTypesWithProps, PageHeader, PageHeaderProps,
 } from '@frontegg/react-core';
 import { withProtectedRoute } from '../HOCs';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 
 type Components = {
@@ -17,7 +18,7 @@ export interface SSOPageProps {
   rootPath?: string; // default: '/sso'
 }
 
-type Props = WithT & SSOPageProps
+type Props = WithT & RouteComponentProps & SSOPageProps
 
 class SSOPageComponent extends FronteggClass<Components, Props> {
   constructor(props: Props) {
@@ -25,16 +26,18 @@ class SSOPageComponent extends FronteggClass<Components, Props> {
   }
 
   render() {
-    const { t, rootPath = '/sso' } = this.props;
+    const { t, rootPath = '/sso', location, history } = this.props;
     const { SSO, PageHeader } = this.comps;
     return <div className='fe-sso-page'>
       <PageHeader title={t('auth.sso.title')}
                   subTitle={t('auth.sso.subtitle')}
+                  onBackButtonClick={location.pathname !== rootPath ? () => {
+                    history.replace(rootPath);
+                  } : undefined}
                   {...this.compsProps.PageHeader}/>
       <SSO rootPath={rootPath}/>
     </div>;
   }
 }
 
-
-export const SSOPage = withProtectedRoute(withT()(SSOPageComponent));
+export const SSOPage = withProtectedRoute(withRouter(withT()(SSOPageComponent)));

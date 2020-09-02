@@ -1,7 +1,11 @@
+import React from 'react';
+
 export default {
   translation: {
     'common': {
       'click-here': 'Click Here',
+      'disabled': 'Disabled',
+      'enabled': 'Enabled',
     },
     'auth': {
       'login': {
@@ -49,6 +53,7 @@ export default {
       'sso': {
         'title': 'Single Sign On',
         'subtitle': 'Configure single-sign-on with your own Identity Provider',
+        'enable-sso-message': 'Enable sso and configure the settings to quickly use this functionality',
       },
     },
     'validation': {

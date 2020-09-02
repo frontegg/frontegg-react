@@ -96,14 +96,24 @@
   .fe-back-button {
     position: absolute;
     left: 0;
-    top: -0.4rem;
-    width: 2rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
     height: 2rem;
     text-align: center;
     border-radius: .3rem;
     box-sizing: border-box;
     cursor: pointer;
     transition: all .3s ease-out;
+
+    &.visible {
+      width: 2rem;
+      opacity: 1;
+      overflow: initial;
+    }
 
     svg {
       -webkit-transform: rotate(90deg);

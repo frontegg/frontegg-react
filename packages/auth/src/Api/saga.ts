@@ -40,6 +40,7 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   const calls = [call(refreshToken)];
   if (firstTime) {
     yield put(actions.setIsLoading(true));
+    calls.push(call(loadSSOConfigurations));
     calls.push(call(refreshMetadata));
   }
   yield all(calls);
@@ -144,7 +145,6 @@ function* resetPassword({ payload }: PayloadAction<IResetPassword>) {
   }
 }
 
-
 function* logout({ payload }: PayloadAction<any>) {
   yield put(actions.setIsLoading(true));
   try {
@@ -153,6 +153,37 @@ function* logout({ payload }: PayloadAction<any>) {
     console.error(e);
   }
   payload();
+}
+
+
+/*************************************
+ * SSO
+ *************************************/
+
+function* loadSSOConfigurations() {
+  try {
+    put(actions.setSSOState({ loading: true }));
+    const samlConfiguration = yield call(api.auth.getSamlConfiguration);
+    put(actions.setSSOState({ samlConfiguration, loading: false }));
+  } catch (e) {
+    put(actions.setSSOState({ error: e.message, loading: false }));
+  }
+}
+
+function* saveSSOConfigurations() {
+  try {
+
+  } catch (e) {
+
+  }
+}
+
+function* validateSSODomain() {
+  try {
+
+  } catch (e) {
+
+  }
 }
 
 
@@ -166,4 +197,9 @@ export function* sagas() {
   yield takeEvery(actions.activateAccount, activateAccount);
   yield takeEvery(actions.forgotPassword, forgotPassword);
   yield takeEvery(actions.resetPassword, resetPassword);
+
+  // sso
+  yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
+  yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
+  yield takeEvery(actions.validateSSODomain, validateSSODomain);
 }
