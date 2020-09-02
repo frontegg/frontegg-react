@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-elements-semantic",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -10,14 +10,14 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.1",
-    "semantic-ui-react": "^1.2.1",
+    "@frontegg/react-core": "^1.0.2",
     "classnames": "^2.2.6",
+    "formik": "^1.5.7",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "underscore": "^1.10.2",
-    "formik": "^1.5.7"
+    "semantic-ui-react": "^1.2.1",
+    "underscore": "^1.10.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
