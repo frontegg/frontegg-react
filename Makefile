@@ -122,7 +122,7 @@ test-unit: ##@3 Tests unit test with jest
 
 build: ##@2 Build build all packages
 	${MAKE} build-core
-	${MAKE} build-semantic-elements
+	${MAKE} build-elements-semantic
 	${MAKE} build-auth
 	#${MAKE} build-reports
 
@@ -144,6 +144,12 @@ build-watch-%: ##@2 Build build and watch a specific package
 commit-changes:
 	@git add .
 	@git commit -m "Add generated files" || true
+
+move-package-json-to-dist:
+	@find ./packages -type d -maxdepth 1 ! -path ./packages \
+		| sed 's|^./packages/||' \
+		| xargs -I '{}' sh -c 'node scripts/move-package-json-to-dist.js ./packages/{}'
+
 
 publish: ##@5 Publish publish all changed packages to npm repository
 #	@echo "${GREEN}************************************************************************************${RESET}"
@@ -178,7 +184,9 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} commit-changes
 
+	${MAKE} move-package-json-to-dist
+
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Publish: Changed Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish --yes patch
+	@./node_modules/.bin/lerna publish --contents dist --yes patch
