@@ -79,5 +79,6 @@
       "afterAll",
       "jest"
     ]
-  }
+  },
+  "gitHead": "103fc6fd8a0fa6c662485e889f398f331f6e0eea"
 }

@@ -1,8 +1,6 @@
 import React from 'react';
 import { withAuth } from './HOCs';
 import { AuthActions, AuthState } from './Api';
-import { AuthMapper } from './helpers';
-
 
 const stateMapper = ({ isAuthenticated, user }: AuthState) => ({ isAuthenticated, user });
 const actionsMapper = ({ requestAuthorize }: AuthActions) => ({ requestAuthorize });

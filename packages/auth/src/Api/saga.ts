@@ -90,7 +90,6 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   }
 }
 
-
 function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWithMfa>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
