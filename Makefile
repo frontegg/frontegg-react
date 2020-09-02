@@ -177,16 +177,16 @@ publish: ##@5 Publish publish all changed packages to npm repository
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	${MAKE} test-integration
 
-	${MAKE} build
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Push: commit generated changes to the repository${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} commit-changes
-
-	${MAKE} move-package-json-to-dist
+#	${MAKE} build
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Push: commit generated changes to the repository${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} commit-changes
+#
+#	${MAKE} move-package-json-to-dist
 
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Publish: Changed Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish --contents dist --yes patch
+	@./node_modules/.bin/lerna publish --yes --contents dist patch
