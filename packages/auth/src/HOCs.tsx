@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import React, { ComponentType, FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
@@ -5,7 +7,6 @@ import { connect } from 'react-redux';
 import { AuthState, actions, AuthActions } from './Api';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 import { useAuth, useIsAuthenticated } from './hooks';
-import { AuthMapper } from './helpers';
 import { withT } from '@frontegg/react-core';
 
 const pluginName = 'auth';

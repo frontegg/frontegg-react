@@ -1,11 +1,21 @@
+/* istanbul ignore file */
+
 import { useDispatch, useSelector } from 'react-redux';
 import { memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { actions, User } from './Api';
-import { AuthActionsMapper, AuthStateMapper, defaultMapper } from './helpers';
+import { actions, AuthActions, AuthState, User } from './Api';
+import { AuthMapper } from './helpers';
 
 const pluginName = 'auth';
 const pluginActions = actions;
+
+export type AuthStateMapper<S> = (state: AuthState) => S
+export type AuthActionsMapper<A> = (state: AuthActions) => A
+
+const defaultMapper: AuthMapper = {
+  state: (state: AuthState) => state,
+  actions: (actions: AuthActions) => actions,
+};
 
 export const useAuth = <S, A>(stateMapper: AuthStateMapper<S> = defaultMapper.state, actionsMapper: AuthActionsMapper<A> = defaultMapper.actions) => {
   const dispatch = useDispatch();

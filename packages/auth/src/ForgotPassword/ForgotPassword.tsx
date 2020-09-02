@@ -29,7 +29,7 @@ class ForgotPasswordComponent extends FronteggClass<Components, Props> {
     const { forgetPasswordState: { step } } = this.props;
     const { ForgotPasswordSuccessRedirect, ForgotPasswordForm } = this.comps;
 
-    let components = null;
+    let components: any;
     if (step === ForgotPasswordStep.success) {
       components = <ForgotPasswordSuccessRedirect/>;
     } else {

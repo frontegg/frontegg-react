@@ -31,6 +31,24 @@ export default {
         'reset-password-failed-description': 'Please double check your reset url',
         'back-to-login': 'Back to login',
         'reset-email-sent': 'A password reset email has been sent to your registered email address',
+
+        'new-password': 'New password',
+        'enter-your-password': 'Enter your password',
+        'confirm-new-password': 'Confirm New password',
+        'enter-your-password-again': 'Enter your password again',
+        'reset-password-button': 'Reset Password',
+      },
+
+      'activate-account': {
+        'failed-title': 'Activation failed',
+        'failed-description': 'Please double check your activation url',
+        'back-to-login': 'Back to login',
+        'activation-succeeded': 'Activation Succeeded',
+        'new-password': 'New password',
+        'enter-your-password': 'Enter your password',
+        'confirm-new-password': 'Confirm New password',
+        'enter-your-password-again': 'Enter your password again',
+        'activate-account-button': 'Activate',
       },
     },
 

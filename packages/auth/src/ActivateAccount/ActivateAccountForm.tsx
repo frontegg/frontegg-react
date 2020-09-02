@@ -15,21 +15,21 @@ import {
 } from '@frontegg/react-core';
 import { withAuth } from '../HOCs';
 
-const stateMapper = ({ forgetPasswordState }: AuthState) => ({ forgetPasswordState });
-const actionsMapper = ({ resetPassword }: AuthActions) => ({ resetPassword });
+const stateMapper = ({ activateState }: AuthState) => ({ activateState });
+const actionsMapper = ({ activateAccount }: AuthActions) => ({ activateAccount });
 
-export interface ResetPasswordFormProps {
-  renderer?: RendererFunction<Props, ResetPasswordFormProps>;
+export interface ActivateAccountFormProps {
+  renderer?: RendererFunction<Props, ActivateAccountFormProps>;
   userId: string;
   token: string;
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ResetPasswordFormProps
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ActivateAccountFormProps
 
-class ResetPasswordFormComponent extends React.Component<Props> {
+class ActivateAccountFormComponent extends React.Component<Props> {
 
   render() {
-    const { t, renderer, forgetPasswordState: { loading, error }, resetPassword, userId, token } = this.props;
+    const { t, renderer, activateState: { loading, error }, activateAccount, userId, token } = this.props;
 
     if (renderer) {
       return renderer(omitProps(this.props, ['renderer', 'components']));
@@ -42,27 +42,27 @@ class ResetPasswordFormComponent extends React.Component<Props> {
       })}
       enableReinitialize={true}
       initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={({ password }) => resetPassword({ userId, token, password })}>
+      onSubmit={({ password }) => activateAccount({ userId, token, password })}>
       <Form>
         <Input
           inFormik
           type='password'
           name='password'
-          label={t('auth.forgot-password.new-password')}
-          placeholder={t('auth.forgot-password.enter-your-password')}/>
+          label={t('auth.activate-account.new-password')}
+          placeholder={t('auth.activate-account.enter-your-password')}/>
         <Input
           inFormik
           type='password'
           name='confirmPassword'
-          label={t('auth.forgot-password.confirm-new-password')}
-          placeholder={t('auth.forgot-password.enter-your-password-again')}/>
+          label={t('auth.activate-account.confirm-new-password')}
+          placeholder={t('auth.activate-account.enter-your-password-again')}/>
         <Button
           inFormik
           type='submit'
           fullWidth={true}
           loading={loading}
           variant='primary'>
-          {t('auth.forgot-password.reset-password-button')}
+          {t('auth.activate-account.activate-account-button')}
         </Button>
         <ErrorMessage error={error}/>
       </Form>
@@ -70,8 +70,8 @@ class ResetPasswordFormComponent extends React.Component<Props> {
   }
 }
 
-export const ResetPasswordForm = withAuth(
-  ResetPasswordFormComponent,
+export const ActivateAccountForm = withAuth(
+  ActivateAccountFormComponent,
   stateMapper,
   actionsMapper,
-) as ComponentType<ResetPasswordFormProps>;
+) as ComponentType<ActivateAccountFormProps>;
