@@ -152,6 +152,11 @@ move-package-json-to-dist:
 
 
 publish: ##@5 Publish publish all changed packages to npm repository
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
+
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	@echo "${GREEN}* Init: Prepare Packages${RESET}"
 #	@echo "${GREEN}************************************************************************************${RESET}"
@@ -186,7 +191,3 @@ publish: ##@5 Publish publish all changed packages to npm repository
 #
 #	${MAKE} move-package-json-to-dist
 
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Publish: Changed Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish --yes --contents dist patch
