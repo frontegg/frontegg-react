@@ -1,7 +1,7 @@
 import ContextHolder from '../ContextHolder';
-import { Post } from '../fetch';
+import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
-import { AUTH_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
+import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
 import {
   IActivateAccount,
   IDisableMfa,
@@ -13,6 +13,10 @@ import {
   IPreLogin,
   IRecoverMFAToken,
   IResetPassword,
+  ISamlConfiguration,
+  ISamlVendorConfigResponse,
+  IUpdateSamlConfiguration,
+  IUpdateSamlVendorMetadata,
   IVerifyMfa,
   IVerifyMfaResponse,
 } from './interfaces';
@@ -29,7 +33,7 @@ const logger = Logger.from('AuthApi');
  * else, return null
  */
 export async function preLogin(body: IPreLogin): Promise<string | null> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   try {
     const { address } = await Post(context, `${AUTH_SERVICE_URL_V1}/user/saml/prelogin`, body);
     return address;
@@ -50,7 +54,7 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
  * @throw exception if login failed
  */
 export async function login(body: ILogin): Promise<ILoginResponse> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return await Post(context, `${AUTH_SERVICE_URL_V1}/user`, body);
 }
 
@@ -61,7 +65,7 @@ export async function login(body: ILogin): Promise<ILoginResponse> {
  * @throw exception if generated code or mfaToken are incorrect
  */
 export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${AUTH_SERVICE_URL_V1}/user/mfa/verify`, body);
 }
 
@@ -72,7 +76,7 @@ export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse>
  * @throws exception if activation failed
  */
 export async function activateAccount(body: IActivateAccount): Promise<void> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/activate`, body);
 }
 
@@ -81,7 +85,7 @@ export async function activateAccount(body: IActivateAccount): Promise<void> {
  * the server will return ILoginResponse with new access Token and refresh token and store it in the browser cookies.
  */
 export async function refreshToken(): Promise<ILoginResponse> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${AUTH_SERVICE_URL_V1}/user/token/refresh`);
 }
 
@@ -89,7 +93,7 @@ export async function refreshToken(): Promise<ILoginResponse> {
  * logout from server, invalidate access and refresh token, remove it from cookies.
  */
 export async function logout(): Promise<void> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${AUTH_SERVICE_URL_V1}/logout`);
 }
 
@@ -99,7 +103,7 @@ export async function logout(): Promise<void> {
  * @throws exception if the user not found
  */
 export async function forgotPassword(body: IForgotPassword): Promise<void> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/passwords/reset`, body);
 }
 
@@ -110,7 +114,7 @@ export async function forgotPassword(body: IForgotPassword): Promise<void> {
  * @throws exception if the user not found, password validation failed or invalid token.
  */
 export async function resetPassword(body: IResetPassword): Promise<void> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/passwords/reset/verify`, body);
 }
 
@@ -121,7 +125,7 @@ export async function resetPassword(body: IResetPassword): Promise<void> {
  * @throws exception if recovery code is not valid
  */
 export async function recoverMfaToken(body: IRecoverMFAToken): Promise<void> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${AUTH_SERVICE_URL_V1}/user/mfa/recover`, body);
 }
 
@@ -137,7 +141,7 @@ export async function recoverMfaToken(body: IRecoverMFAToken): Promise<void> {
  * ``authorized user``
  */
 export async function enrollMfa(): Promise<IEnrollMfaResponse> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/mfa/enroll`);
 }
 
@@ -150,7 +154,7 @@ export async function enrollMfa(): Promise<IEnrollMfaResponse> {
  * ``authorized user``
  */
 export async function verifyMfa(body: IVerifyMfa): Promise<IVerifyMfaResponse> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/mfa/enroll/verify`, body);
 }
 
@@ -161,6 +165,67 @@ export async function verifyMfa(body: IVerifyMfa): Promise<IVerifyMfaResponse> {
  * * ``authorized user``
  */
 export async function disableMfa(body: IDisableMfa): Promise<void> {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${USERS_SERVICE_URL_V1}/mfa/disable`, body);
+}
+
+
+/**
+ * SSO Configurations
+ */
+
+/**
+ *  Retrieve SAML configurations from server by logged in user (tenantId, vendorId)
+ *
+ *  @return {enabled: false} if no saml configuration found. else ISamlConfiguration
+ * * ``authorized user``
+ */
+export async function getSamlConfiguration(): Promise<ISamlConfiguration> {
+  const context = ContextHolder.getContext();
+  return Get(context, `${SSO_SERVICE_URL_V1}/saml/configurations`);
+}
+
+
+/**
+ *  Update SAML configuration by logged in user (tenantId, vendorId)
+ *
+ * * ``authorized user``
+ */
+export async function updateSamlConfiguration(body: IUpdateSamlConfiguration): Promise<ISamlConfiguration> {
+  const context = ContextHolder.getContext();
+  return Post(context, `${SSO_SERVICE_URL_V1}/saml/configurations`, body);
+}
+
+
+/**
+ *  Retrieve 'Vendor' Saml config from server by logged in user (tenantId, vendorId)
+ *
+ *  @throws exception 'ACS url information not found' if no saml vendor configuration found.
+ * * ``authorized user``
+ */
+export async function getSamlVendorConfiguration(): Promise<ISamlVendorConfigResponse> {
+  const context = ContextHolder.getContext();
+  return Get(context, `${SSO_SERVICE_URL_V1}/saml/configurations/vendor-config`);
+}
+
+/**
+ *  Update Vendor Saml metadata by logged in user (tenantId, vendorId)
+ *
+ *  @return {enabled: false} if no saml configuration found. else ISamlConfiguration
+ * * ``authorized user``
+ */
+export async function updateSamlVendorMetadata(body: IUpdateSamlVendorMetadata): Promise<ISamlConfiguration> {
+  const context = ContextHolder.getContext();
+  return Put(context, `${SSO_SERVICE_URL_V1}/saml/configurations/metadata`, body);
+}
+
+/**
+ *  Validate Saml configuration's domain by logged in user (tenantId, vendorId)
+ *
+ *  @return {enabled: false} if no saml configuration found. else ISamlConfiguration
+ * * ``authorized user``
+ */
+export async function validateSamlDomain(): Promise<ISamlConfiguration> {
+  const context = ContextHolder.getContext();
+  return Put(context, `${SSO_SERVICE_URL_V1}/saml/validations/domain`);
 }

@@ -3,7 +3,7 @@ import { Get } from '../fetch';
 import { IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
 
 async function getMetadata(body: IGetMetadata) {
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   const data = await Get(context, '/metadata', body);
   if (data?.rows?.[0])
     return data?.rows?.[0];

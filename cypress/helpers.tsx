@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import React, { FC } from 'react';
 import { FronteggProvider, PluginConfig, ContextOptions } from '@frontegg/react-core';
 import uiLibrary from '@frontegg/react-elements-semantic';
@@ -75,5 +77,5 @@ export const checkEmailValidation = (emailSelector: string = '[name="email"]') =
   cy.get(emailSelector).parents('.field').should('not.have.class', 'error');
 };
 
-export const submitButtonSelector ='button[type="submit"]'
-export const emailInputSelector ='input[name="email"]'
+export const submitButtonSelector = 'button[type="submit"]';
+export const emailInputSelector = 'input[name="email"]';

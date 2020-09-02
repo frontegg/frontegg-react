@@ -45,7 +45,7 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
 
   constructor(props: FronteggProviderComponentProps) {
     super(props);
-    ContextHolder.getInstance().setContext(this.props.context);
+    ContextHolder.setContext(this.props.context);
     ElementsFactory.setElements(this.props.uiLibrary);
 
     const reducer = combineReducers({
@@ -91,7 +91,7 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
   }
 
   componentDidUpdate(prevProps: Readonly<FronteggProviderProps>, prevState: Readonly<{}>, snapshot?: any) {
-    ContextHolder.getInstance().setContext(this.props.context);
+    ContextHolder.setContext(this.props.context);
   }
 
   overrideState = () => {

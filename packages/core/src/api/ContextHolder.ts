@@ -6,7 +6,7 @@ export default class ContextHolder {
 
   private constructor() { }
 
-  public static getInstance(): ContextHolder {
+  private static getInstance(): ContextHolder {
     if (!ContextHolder.instance) {
       ContextHolder.instance = new ContextHolder();
     }
@@ -14,12 +14,12 @@ export default class ContextHolder {
     return ContextHolder.instance;
   }
 
-  public setContext(context: ContextOptions) {
-    this.context = context;
+  public static setContext(context: ContextOptions) {
+    ContextHolder.getInstance().context = context;
   }
 
-  public getContext(): ContextOptions {
-    return this.context ?? {
+  public static getContext(): ContextOptions {
+    return ContextHolder.getInstance().context ?? {
       baseUrl: window.location.href,
       tokenResolver: () => 'my-authentication-token',
     };

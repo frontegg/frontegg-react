@@ -22,7 +22,7 @@ const logger = Logger.from('ReportsApi');
  */
 async function getReports(body: IGetReports): Promise<IReportRecord[]> {
   logger.debug('getReports()', body);
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Get(context, `${REPORTS_SERVICE_URL_V2}/tenant-reports`, body);
 }
 
@@ -34,7 +34,7 @@ async function getReports(body: IGetReports): Promise<IReportRecord[]> {
  */
 async function getReport(body: IGetReport): Promise<IReportRecord> {
   logger.debug('getReport()', body);
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Get(context, `${REPORTS_SERVICE_URL_V2}/${body.id}/tenant-reports`);
 }
 
@@ -47,7 +47,7 @@ async function getReport(body: IGetReport): Promise<IReportRecord> {
  */
 async function renderReport({ dataFilters, ...body }: IRenderReport): Promise<IRenderReportResponse> {
   logger.debug('renderReport()', body);
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   const html = await Get(context, `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`, {
     ...body,
     dataFilters: btoa(JSON.stringify(dataFilters || {})),
@@ -64,7 +64,7 @@ async function renderReport({ dataFilters, ...body }: IRenderReport): Promise<IR
  */
 async function scheduleReport({ templateId, dataFilters, ...body }: IScheduleReport): Promise<IReportRecord> {
   logger.debug('scheduleReport()', body);
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${REPORTS_SERVICE_URL_V2}/${templateId}/tenant-reports`, {
     ...body,
     dataFilters: btoa(JSON.stringify(dataFilters || {})),
@@ -80,7 +80,7 @@ async function scheduleReport({ templateId, dataFilters, ...body }: IScheduleRep
  */
 async function downloadReport({ dataFilters, ...body }: IDownloadReport): Promise<void> {
   logger.debug('downloadReport()', body);
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   const blob = await Get(context, `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`, {
     ...body,
     dataFilters: btoa(JSON.stringify(dataFilters || {})),
@@ -113,6 +113,6 @@ async function downloadReport({ dataFilters, ...body }: IDownloadReport): Promis
  */
 async function sendReport(body: ISendReport): Promise<void> {
   logger.debug('sendReport()', body);
-  const context = ContextHolder.getInstance().getContext();
+  const context = ContextHolder.getContext();
   return Post(context, `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/tenant-reports`, body);
 }
