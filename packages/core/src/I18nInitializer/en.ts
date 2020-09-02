@@ -35,7 +35,6 @@ export default {
         'enter-your-password-again': 'Enter your password again',
         'reset-password-button': 'Reset Password',
       },
-
       'activate-account': {
         'failed-title': 'Activation failed',
         'failed-description': 'Please double check your activation url',
@@ -47,8 +46,11 @@ export default {
         'enter-your-password-again': 'Enter your password again',
         'activate-account-button': 'Activate',
       },
+      'sso': {
+        'title': 'Single Sign On',
+        'subtitle': 'Configure single-sign-on with your own Identity Provider',
+      },
     },
-
     'validation': {
       'must-be-a-valid-email': 'Must be a valid email',
       'passwords-must-match': 'Passwords must match',
@@ -57,13 +59,11 @@ export default {
       'max-length': '{{name}} must be up to {{limit}} characters',
       'length': '{{name}} must be {{limit}} characters',
     },
-
     'reports': {
       'list-page': {
         'title': 'Reports',
         'subtitle': 'Generate insights on your account usage',
       },
     },
-
   },
 };

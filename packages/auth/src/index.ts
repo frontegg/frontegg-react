@@ -9,6 +9,10 @@ export * from './hooks';
 export * from './HOCs';
 export * from './components';
 export * from './Login';
+export * from './ActivateAccount';
+export * from './ForgotPassword';
+export * from './ResetPassword';
+export * from './SSO';
 
 
 export const AuthPlugin = (options: AuthPluginOptions): PluginConfig => ({

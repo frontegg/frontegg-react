@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { ActivateStep, AuthState } from '../Api';
 import { ActivateAccountSuccessRedirect, ActivateAccountSuccessRedirectProps } from './ActivateAccountSuccessRedirect';
 import { ActivateAccountFailedRedirect, ActivateAccountFailedRedirectProps } from './ActivateAccountFailedRedirect';
@@ -48,6 +48,6 @@ class ActivateAccountComponent extends FronteggClass<Components, Props> {
   }
 }
 
-export const ActivateAccount = withAuth(ActivateAccountComponent, stateMapper);
+export const ActivateAccount = withAuth(ActivateAccountComponent, stateMapper) as ComponentType<ActivateAccountProps>;
 
 export const ActivateAccountPage = authPageWrapper(ActivateAccount);

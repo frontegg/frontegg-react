@@ -11,12 +11,12 @@ const host =
 
 const contextOptions: ContextOptions = {
   baseUrl: `${window.location.protocol}//${host}`,
-  tokenResolver: () => 'my-authentication-token',
   requestCredentials: 'include',
 };
 
 const plugins: PluginConfig[] = [
   AuthPlugin({
+    loaderComponent: <div>SPLASH SCREEN</div>,
     routes: {
       authenticatedUrl: '/',
       loginUrl: '/account/login',

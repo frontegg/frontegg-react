@@ -79,9 +79,9 @@ export interface ThemeOptions {
 
 export interface ContextOptions {
   baseUrl: string;
-  tokenResolver: () => string;
-  additionalQueryParamsResolver?: () => KeyValuePair[];
-  additionalHeadersResolver?: () => KeyValuePair[];
+  tokenResolver?: () => Promise<string> | string; // custom resolve Authorization Header value
+  additionalQueryParamsResolver?: () => Promise<KeyValuePair[]> | KeyValuePair[];
+  additionalHeadersResolver?: () => Promise<KeyValuePair[]> | KeyValuePair[];
   requestCredentials?: RequestCredentials;
   theme?: ThemeOptions | any;
   isDemonstration?: boolean;

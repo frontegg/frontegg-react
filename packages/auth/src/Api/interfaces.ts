@@ -1,5 +1,6 @@
 import { AuthPluginOptions } from '../interfaces';
 import { RedirectOptions } from '@frontegg/react-core';
+import { ISamlConfiguration } from '@frontegg/react-core';
 
 export interface User {
   accessToken: string;
@@ -56,7 +57,20 @@ export interface ForgotPasswordState {
   email: string;
   loading: boolean;
   error?: any;
+}
 
+export interface SSOState {
+  loading: boolean;
+  error?: any;
+  saving?: boolean;
+
+  // domainValidationState
+  // errorVerification?: string;
+  // domainValidationError?: string | null;
+  // redirect: boolean;
+  // acsUrl?: string;
+  // spEntityId?: string;
+  samlConfiguration?: ISamlConfiguration;
 }
 
 export interface AuthState extends AuthPluginOptions {
@@ -68,6 +82,7 @@ export interface AuthState extends AuthPluginOptions {
   loginState: LoginState;
   activateState: ActivateState;
   forgetPasswordState: ForgotPasswordState;
+  ssoState: SSOState;
   onRedirectTo: (path: string, opts?: RedirectOptions) => void;
 }
 

@@ -4,7 +4,7 @@ import * as metadata from './metadata';
 import * as reports from './reports';
 
 export * from './ContextHolder';
-export * from './fetch';
+export * as fetch from './fetch';
 export * from './auth/interfaces';
 export * from './profile/interfaces';
 export * from './metadata/interfaces';

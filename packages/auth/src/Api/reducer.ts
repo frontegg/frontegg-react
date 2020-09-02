@@ -8,7 +8,9 @@ import {
   LoginStep,
   User,
 } from './interfaces';
-import { IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword } from '@frontegg/react-core';
+import {
+  IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword,
+} from '@frontegg/react-core';
 
 export const storeName = 'auth';
 
@@ -34,6 +36,9 @@ export const preloadedState: AuthState = {
     email: '',
   },
 
+  ssoState: {
+    loading: false,
+  },
   // routes
   routes: {
     authenticatedUrl: '/',
@@ -82,7 +87,6 @@ const { reducer, actions: SliceActions } = createSlice({
   },
 });
 
-
 const actions = {
   ...SliceActions,
   requestAuthorize: createAction(`${storeName}/requestAuthorize`, (payload: boolean) => ({ payload })),
@@ -94,6 +98,12 @@ const actions = {
   forgotPassword: createAction(`${storeName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
   resetPassword: createAction(`${storeName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
   logout: createAction(`${storeName}/logout`, (payload: any) => ({ payload })),
+
+
+  // sso
+  loadSSOConfigurations: createAction(`${storeName}/loadSSOConfigurations`),
+  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`),
+  validateSSODomain: createAction(`${storeName}/validateSSODomain`),
 };
 
 export type AuthActions = typeof actions

@@ -9,6 +9,7 @@ export * from './HOCs';
 export * from './hooks';
 export * from './helpers';
 export * from './elements';
+export * from './components';
 
 export * from './ElementsFactory';
 

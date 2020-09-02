@@ -9,6 +9,7 @@ import {
   IActivateAccount,
   IForgotPassword,
   IResetPassword,
+  ContextHolder,
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ActivateStep, ForgotPasswordStep, LoginStep } from './interfaces';
@@ -26,9 +27,11 @@ function* refreshMetadata() {
 
 function* refreshToken() {
   try {
-    yield call(api.auth.refreshToken);
+    const { accessToken } = yield call(api.auth.refreshToken);
+    ContextHolder.setAccessToken(accessToken);
     yield put(actions.setIsAuthenticated(true));
   } catch (e) {
+    ContextHolder.setAccessToken(null);
     yield  put(actions.setIsAuthenticated(false));
   }
 }
@@ -65,6 +68,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   try {
     const user = yield call(api.auth.login, { email, password });
 
+    ContextHolder.setAccessToken(user.accessToken);
     yield put(actions.setState({
       user: !!user.accessToken ? undefined : user,
       isAuthenticated: !!user.accessToken,
@@ -77,6 +81,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
       },
     }));
   } catch (e) {
+    ContextHolder.setAccessToken(null);
     yield put(actions.setLoginState({
       email,
       error: e.message,

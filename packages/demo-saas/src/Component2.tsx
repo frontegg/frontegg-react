@@ -1,12 +1,21 @@
 import React from 'react';
-import { useAuth } from '@frontegg/react-auth';
+import { ActivateAccount, useIsAuthenticated } from '@frontegg/react-auth';
+import { fetch, ContextHolder } from '@frontegg/react-core';
 
 
-const mapper: any = ({ isAuthenticated }:any) => ({ isAuthenticated });
 export const Component2 = () => {
-  const { isAuthenticated } = useAuth(mapper) as any;
-  return <div>
-
+  const isAuthenticated = useIsAuthenticated();
+  return <div onClick={() => {
+    fetch.Get(ContextHolder.getContext(), '/ttt');
+  }}>
     {isAuthenticated ? 'AUTH' : 'NOT AUTH'}
+
+    <div style={{ width: 400, margin: '0 auto' }}>
+      <ActivateAccount components={{
+        ActivateAccountForm: {
+          renderer: () => 'david',
+        },
+      }}/>
+    </div>
   </div>;
 };

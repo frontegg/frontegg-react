@@ -7,7 +7,7 @@ import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
 import { BrowserRouter, RouteComponentProps, Router, withRouter } from 'react-router-dom';
-import ContextHolder from './api/ContextHolder';
+import {ContextHolder} from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 
 export type RedirectOptions = {

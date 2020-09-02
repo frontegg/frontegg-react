@@ -1,4 +1,4 @@
-import ContextHolder from '../ContextHolder';
+import { ContextHolder } from '../ContextHolder';
 import { Get } from '../fetch';
 import { IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
 

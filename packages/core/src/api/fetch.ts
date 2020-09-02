@@ -1,4 +1,5 @@
 import { ContextOptions, KeyValuePair } from '../interfaces';
+import { ContextHolder } from './ContextHolder';
 
 interface RequestOptions {
   url: string;
@@ -71,7 +72,7 @@ async function prepareUrl(context: ContextOptions, url: string, params?: any): P
 }
 
 async function buildRequestHeaders(context: ContextOptions, contentType: string = 'application/json'): Promise<Record<string, string>> {
-  const authToken = await context.tokenResolver();
+  const authToken = await (context.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
 
   if (authToken) {

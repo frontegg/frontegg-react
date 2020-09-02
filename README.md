@@ -30,12 +30,14 @@ First of all you need to wrap your root app component with ``FronteggProvider``:
 import React from 'react';import ReactDOM from 'react-dom';  
 import App from './App';  
 import { FronteggProvider } from '@frontegg/react-core';  
+import uiLibrary from '@frontegg/react-semantic-element';  
 import { createBrowserHistory } from 'history';  
 import { BrowserRouter } from 'react-router';  
 
 ReactDOM.render(
 <BrowserRouter>
   <FronteggProvider
+        uiLibrary={uiLibrary}
         context={/* context options */}
         plugins={/* plugins to be used */}>
     <App />

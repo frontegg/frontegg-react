@@ -1,4 +1,4 @@
-import ContextHolder from '../ContextHolder';
+import {ContextHolder} from '../ContextHolder';
 import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
 import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
