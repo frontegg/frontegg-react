@@ -7,7 +7,7 @@ import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
 import { BrowserRouter, RouteComponentProps, Router, withRouter } from 'react-router-dom';
-import {ContextHolder} from './api';
+import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 
 export type RedirectOptions = {
@@ -134,6 +134,9 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
 export type FronteggProviderProps = Omit<FronteggProviderComponentProps, keyof RouteComponentProps> & { withRouter?: boolean; }
 
 export class FronteggProvider extends React.Component<FronteggProviderProps> {
+  static defaultProps = {
+    withRouter: true,
+  };
   provider: ComponentType<Omit<FronteggProviderComponentProps, keyof RouteComponentProps<any>>>;
 
   constructor(props: FronteggProviderProps) {

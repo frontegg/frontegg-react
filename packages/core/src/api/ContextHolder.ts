@@ -27,7 +27,7 @@ export class ContextHolder {
     };
   }
 
-  public static setAccessToken(accessToken: string) {
+  public static setAccessToken(accessToken: string | null) {
     ContextHolder.getInstance().accessToken = accessToken;
   }
 
