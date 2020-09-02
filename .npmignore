@@ -1,0 +1,7 @@
+coverage
+src
+dist
+.gitignore
+tsconfig.json
+scripts
+Makefile

@@ -18,10 +18,14 @@ Frontegg-React is available as an [npm package](https://www.npmjs.com/package/@f
 npm install @frontegg/react-core  
   
 // using yarn  
-yarn add @frontegg/react-core  
-  
+yarn add @frontegg/react-core
+
+// choose one of the following UI library: 
+// 1. React Semantic UI
+yarn add @frontegg/react-elements-semantic  
+
 // NOTE: to get the latest stable use @latest.  
-```   
+```
 ## Usage  
   
 First of all you need to wrap your root app component with ``FronteggProvider``: 
@@ -30,7 +34,7 @@ First of all you need to wrap your root app component with ``FronteggProvider``:
 import React from 'react';import ReactDOM from 'react-dom';  
 import App from './App';  
 import { FronteggProvider } from '@frontegg/react-core';  
-import uiLibrary from '@frontegg/react-semantic-element';  
+import uiLibrary from '@frontegg/react-elements-semantic';  
 import { createBrowserHistory } from 'history';  
 import { BrowserRouter } from 'react-router';  
 
