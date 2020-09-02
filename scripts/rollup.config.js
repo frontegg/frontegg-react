@@ -53,8 +53,6 @@ const plugins = [
   ts({
     typescript,
     clean: true,
-    check: true,
-    watch: true,
     abortOnError: false
   }),
   transformTypesAlias({ distFolder, tsConfig })

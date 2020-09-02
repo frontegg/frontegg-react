@@ -3,7 +3,6 @@ import { ButtonProps } from '@frontegg/react-core';
 import { Button as SemanticButton, ButtonProps as SemanticButtonProps, Form, Input as SemanticInput } from 'semantic-ui-react';
 import { Field, FieldProps } from 'formik';
 
-
 const mapper = (props: ButtonProps): SemanticButtonProps => {
   const {
     variant, fullWidth, inFormik, inForm, submit, formikDisableIfNotDirty, testId, loading, disabled,

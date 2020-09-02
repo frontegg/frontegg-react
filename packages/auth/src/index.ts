@@ -25,5 +25,3 @@ export const AuthPlugin = (options: AuthPluginOptions): PluginConfig => ({
   sagas,
   Listener,
 });
-
-export const version = 1;
