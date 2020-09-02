@@ -146,15 +146,15 @@ commit-changes:
 	@git commit -m "Add generated files" || true
 
 publish: ##@5 Publish publish all changed packages to npm repository
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Init: Prepare Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} init
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Lint: All Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} lint
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Init: Prepare Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} init
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Lint: All Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} lint
 
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	@echo "${GREEN}* Unit Test: All Packages${RESET}"
@@ -170,6 +170,8 @@ publish: ##@5 Publish publish all changed packages to npm repository
 #	@echo "${GREEN}* Integration Test: All Packages${RESET}"
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	${MAKE} test-integration
+
+	${MAKE} build
 
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Push: commit generated changes to the repository${RESET}"

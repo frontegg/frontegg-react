@@ -17,6 +17,9 @@ const distFolder = path.join(process.cwd(), `./dist/`);
 const isProduction = process.env.NODE_ENV === "production";
 
 
+const forceExternal = [
+  'history'
+];
 const internalDeps = [
 //   "redux",
 //   "react-redux"
@@ -57,7 +60,7 @@ const plugins = [
 
 export default {
   input: "./src/index.ts",
-  external: [...Object.keys(pkg.dependencies || []).filter(dep => internalDeps.indexOf(dep) === -1)],
+  external: [...forceExternal, ...Object.keys(pkg.dependencies || []).filter(dep => internalDeps.indexOf(dep) === -1)],
   plugins,
   inlineDynamicImports: true,
   output: {

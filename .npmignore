@@ -5,3 +5,10 @@ dist
 tsconfig.json
 scripts
 Makefile
+
+
+packages/*/coverage
+packages/*/src
+packages/*/dist
+packages/*/tsconfig.json
+
