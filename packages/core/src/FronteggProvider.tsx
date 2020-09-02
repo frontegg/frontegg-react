@@ -23,7 +23,7 @@ export interface PluginConfig {
   Listener?: React.ComponentType;
 }
 
-interface FronteggProviderComponentProps extends RouteComponentProps {
+interface FronteggProviderComponentProps {
   context: ContextOptions;
   plugins: PluginConfig[];
   uiLibrary: Elements
@@ -35,7 +35,7 @@ const devTools = process.env.NODE_ENV === 'development' ? { name: 'Frontegg Stor
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
 
-class FronteggProviderComponent extends React.Component<FronteggProviderComponentProps> {
+class FronteggProviderComponent extends React.Component<FronteggProviderComponentProps & RouteComponentProps> {
   static defaultProps = {
     withRouter: true,
   };
@@ -43,7 +43,7 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
   task: Task;
   listeners: React.ComponentType[];
 
-  constructor(props: FronteggProviderComponentProps) {
+  constructor(props: FronteggProviderComponentProps & RouteComponentProps) {
     super(props);
     ContextHolder.setContext(this.props.context);
     ElementsFactory.setElements(this.props.uiLibrary);
@@ -131,7 +131,9 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
   }
 }
 
-export type FronteggProviderProps = Omit<FronteggProviderComponentProps, keyof RouteComponentProps> & { withRouter?: boolean; }
+export interface FronteggProviderProps extends FronteggProviderComponentProps {
+  withRouter?: boolean;
+}
 
 export class FronteggProvider extends React.Component<FronteggProviderProps> {
   static defaultProps = {
