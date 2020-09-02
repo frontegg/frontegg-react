@@ -14,3 +14,5 @@ export * from './components';
 export * from './ElementsFactory';
 
 export { memoEqual } from './helpers/DynamicComponent';
+
+export const version = 1;
