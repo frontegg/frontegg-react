@@ -8,6 +8,7 @@ export default class Logger {
 
   static from = (module: string) => new Logger(module);
   private _log = ((l: string, prefix: string) => {
+    // tslint:disable-next-line:no-console
     if (console.log.bind === undefined) {
       // @ts-ignore
       return Function.prototype.bind.call(console[l], console, prefix || '', this.module, ':');

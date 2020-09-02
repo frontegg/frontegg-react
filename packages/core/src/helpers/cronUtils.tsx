@@ -43,7 +43,7 @@ export const cronToFields = (cronParam: string = DEFAULT_CRON, cronType?: string
     // default
     cron = cronParser.parseExpression(DEFAULT_CRON);
   }
-  let { minute, hour, dayOfWeek, dayOfMonth, month } = (cron as any)._fields;
+  const { minute, hour, dayOfWeek, dayOfMonth, month } = (cron as any)._fields;
 
   let intervalType: any = INTERVAL_TYPE[1];
   let intervalDayInWeek: any = INTERVAL_DAY_IN_WEEK[0];

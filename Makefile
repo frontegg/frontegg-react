@@ -75,16 +75,16 @@ versioning:
 ########################################################################################################################
 
 lint: ##@2 Linting run lint on all packages
-	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint "./packages/*/{src,tests}/**/*.{ts,tsx}"
+#	@echo "${YELLOW}Running eslint on all packages${RESET}"
+#	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 
 lint-%: ##@2 Linting run lint on specific packages
-	@echo "${YELLOW}Running eslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
-	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 	@echo "${YELLOW}Running tslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
 	@./node_modules/.bin/tslint ./packages/${*}/{src}/**/*.ts
+#	@echo "${YELLOW}Running eslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
+#	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 
 ########################################################################################################################
 #
@@ -166,17 +166,17 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} test-component
 
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Integration Test: All Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} test-integration
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Integration Test: All Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} test-integration
 
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Push: commit generated changes to the repository${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} commit-changes
 
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Publish: Changed Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@./node_modules/.bin/lerna publish --yes patch
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@./node_modules/.bin/lerna publish --yes patch

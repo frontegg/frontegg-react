@@ -1,6 +1,3 @@
-3;
-import React from 'react';
-
 export default {
   translation: {
     'common': {
