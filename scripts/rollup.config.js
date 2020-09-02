@@ -18,7 +18,9 @@ const isProduction = process.env.NODE_ENV === "production";
 
 
 const forceExternal = [
-  'history'
+  "history",
+  "react-router",
+  "react-router-dom"
 ];
 const internalDeps = [
 //   "redux",

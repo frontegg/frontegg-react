@@ -36,7 +36,7 @@ import App from './App';
 import { FronteggProvider } from '@frontegg/react-core';  
 import uiLibrary from '@frontegg/react-elements-semantic';  
 import { createBrowserHistory } from 'history';  
-import { BrowserRouter } from 'react-router';  
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
 <BrowserRouter>

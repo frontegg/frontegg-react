@@ -5,7 +5,6 @@ import {
   FronteggClass, ComponentsTypesWithProps, PageHeader, PageHeaderProps,
 } from '@frontegg/react-core';
 import { withProtectedRoute } from '../HOCs';
-import { Switch } from 'react-router';
 
 
 type Components = {

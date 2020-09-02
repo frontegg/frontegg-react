@@ -8,7 +8,6 @@ export interface RootState {
 const initialState: RootState = {
   context: undefined,
 };
-
 const { reducer, actions } = createSlice({
   name: 'root',
   initialState,

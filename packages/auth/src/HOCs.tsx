@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import React, { ComponentType, FC } from 'react';
-import { Redirect, Route, RouteProps } from 'react-router';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect } from 'react-redux';
 import { AuthState, actions, AuthActions } from './Api';
