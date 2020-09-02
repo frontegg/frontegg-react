@@ -1,5 +1,5 @@
-import ContextHolder from '../../helpers/ContextHolder';
-import { Get } from '../../helpers';
+import ContextHolder from '../ContextHolder';
+import { Get } from '../fetch';
 import { IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
 
 async function getMetadata(body: IGetMetadata) {

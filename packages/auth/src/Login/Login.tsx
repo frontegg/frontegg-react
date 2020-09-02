@@ -48,7 +48,7 @@ class LoginComponent extends FronteggClass<Components, Props> {
     let components = null;
 
     if (isLoading) {
-      components = <Loader/>;
+      components = <Loader center={true}/>;
     } else if (isAuthenticated || step === LoginStep.success) {
       components = <LoginSuccessRedirect/>;
     } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {

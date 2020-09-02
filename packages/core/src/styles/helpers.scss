@@ -1,6 +1,31 @@
 
+.fe-mb-1 {
+  margin-bottom: 1rem;
+}
+.fe-mb-2 {
+  margin-bottom: 2rem;
+}
 
 .fe-center {
   text-align: center;
   align-items: center;
+}
+
+
+.fe-error-message, .fe-success-message {
+  flex: 1;
+  font-weight: bold;
+  color: #9a0000;
+  margin-top: 1rem;
+  text-align: center;
+
+  ul {
+    padding-left: 1.5rem;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+}
+
+.fe-success-message {
+  color: initial;
 }

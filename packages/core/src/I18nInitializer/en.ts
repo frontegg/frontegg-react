@@ -1,5 +1,11 @@
+3;
+import React from 'react';
+
 export default {
   translation: {
+    'common': {
+      'click-here': 'Click Here',
+    },
     'auth': {
       'login': {
         'login': 'Login',
@@ -14,6 +20,17 @@ export default {
         'please-enter-the-recovery-code': 'Please enter the recovery code',
         'disable-mfa': 'Disable MFA',
         'redirect-to-sso-message': 'Being redirected to your SSO provider...',
+        'disable-two-factor-title': 'Having trouble?',
+        'disable-two-factor-description': 'to disable Multi-Factor with recovery code',
+      },
+      'forgot-password': {
+        'email-label': 'Forgot password for Email',
+        'remind-me': 'Remind Me',
+        'password-has-been-changed': 'Your password has been changed',
+        'reset-password-failed-title': 'Reset Password Failed',
+        'reset-password-failed-description': 'Please double check your reset url',
+        'back-to-login': 'Back to login',
+        'reset-email-sent': 'A password reset email has been sent to your registered email address',
       },
     },
 

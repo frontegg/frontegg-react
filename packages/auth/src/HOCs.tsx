@@ -6,6 +6,7 @@ import { AuthState, actions, AuthActions } from './Api';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 import { useAuth, useIsAuthenticated } from './hooks';
 import { AuthMapper } from './helpers';
+import { withT } from '@frontegg/react-core';
 
 const pluginName = 'auth';
 const pluginActions = actions;
@@ -25,7 +26,7 @@ export const withAuth = <P extends any>(
   return connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(Component as any) as ComponentType<Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>>;
+  )(withT()(Component as any)) as ComponentType<Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>>;
 };
 
 

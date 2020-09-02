@@ -1,8 +1,8 @@
 import React from 'react';
-import { Loader } from 'semantic-ui-react';
 import { authPageWrapper } from '../components/authPageWrapper';
 import { withAuth } from '../HOCs';
 import { AuthActions, AuthState } from '../Api';
+import { Loader } from '@frontegg/react-core';
 
 
 const stateMapper = ({ routes }: AuthState) => ({ routes });
@@ -20,7 +20,7 @@ class LogoutComponent extends React.Component<Props> {
 
   render() {
     return <div className='fe-login-component'>
-      <Loader inline active/>
+      <Loader center/>
     </div>;
   }
 }

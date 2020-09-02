@@ -126,7 +126,7 @@ function* forgotPassword({ payload }: PayloadAction<IForgotPassword>) {
     yield call(api.auth.forgotPassword, payload);
     yield put(actions.setForgotPasswordState({ loading: false, error: undefined, step: ForgotPasswordStep.success }));
   } catch (e) {
-    yield put(actions.setForgotPasswordState({ loading: false, error: e.message }));
+    yield put(actions.setForgotPasswordState({ loading: false, error: e.message || 'Unknown error occurred' }));
   }
 }
 

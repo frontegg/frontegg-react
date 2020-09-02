@@ -8,21 +8,27 @@ export type FormFieldProps = {
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
   label?: string;
+  labelButton?: ButtonProps;
   fullWidth?: boolean;
   error?: string;
 }
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, FormFieldProps {
+  testId?: string;
   fullWidth?: boolean;
   variant?: 'primary' | 'secondary' | 'danger';
 
   disabled?: boolean;
   loading?: boolean;
-  type?: 'button' | 'submit' | 'reset'
+  submit?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+
+  // formik props
+  formikDisableIfNotDirty?: boolean // default true
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
-  formik?: boolean; // default: false
+  inFormik?: boolean; // default is true
 }
 
 export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {

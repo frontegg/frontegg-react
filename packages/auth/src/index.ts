@@ -4,6 +4,7 @@ import Listener from './Listener';
 import { AuthPluginOptions } from './interfaces';
 import './index.scss';
 
+export * from './Api';
 export * from './hooks';
 export * from './HOCs';
 export * from './components';

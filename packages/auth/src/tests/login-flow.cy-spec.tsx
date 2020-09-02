@@ -1,13 +1,17 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
-import { LoginPage, AuthPlugin, LogoutPage, DefaultAuthRoutes } from '../index';
-import { IDENTITY_SERVICE, METADATA_SERVICE, TestFronteggWrapper } from '../../../../cypress/helpers';
+import { AuthPlugin, DefaultAuthRoutes, LoginStep } from '../index';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
-import { LoginStep } from '../Api';
+import {
+  checkEmailValidation, EMAIL_1,
+  IDENTITY_SERVICE,
+  METADATA_SERVICE,
+  mockAuthApi,
+  mountOptions,
+  navigateTo,
+  TestFronteggWrapper,
+} from '../../../../cypress/helpers';
 
-const mountOptions = {
-  stylesheets: 'https://cdn.jsdelivr.net/npm/@frontegg/react-dev/vendor.min.css',
-};
 const defaultAuthPlugin = {
   routes: {
     authenticatedUrl: '/',
@@ -19,19 +23,24 @@ const defaultAuthPlugin = {
   },
 };
 
-const EMAIL_1 = 'test1@frontegg.com';
-const EMAIL_2 = 'test1@frontegg.com';
+const EMAIL_2 = 'test2@frontegg.com';
 const PASSWORD = 'ValidPassword123!';
 const SSO_PATH = '/my-test-sso-login';
 const MFA_TOKEN = 'mfaToken';
 const RECOVERY_CODE = '123412341234';
 
+const checkPasswordValidation = () => {
+  const passwordSelector = '[name="password"]';
+  cy.get(passwordSelector).focus().clear().type('not').blur();
+  cy.contains('Password must be at least 6 characters').should('be.visible');
+  cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
+  cy.contains('Password must be at least 6 characters').should('not.be.exist');
+};
 /* eslint-env mocha */
 describe('Login Tests', () => {
   it('Login, NO SAML', () => {
     cy.server();
-    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
-    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
+    mockAuthApi(false, false);
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
       <DefaultAuthRoutes>
@@ -39,32 +48,17 @@ describe('Login Tests', () => {
       </DefaultAuthRoutes>
     </TestFronteggWrapper>, mountOptions);
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
-    const emailSelector = '[name="email"]';
-    const passwordSelector = '[name="password"]';
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata']);
+    cy.get('.loader').should('not.be.visible');
+
     const submitSelector = 'button[type=submit]';
 
     cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkEmailValidation();
     cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(passwordSelector).focus().clear().type('not').blur();
-    cy.get(passwordSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
-    cy.get(passwordSelector).parent().should('not.have.class', 'error');
 
-    cy.get(submitSelector).contains('Login').should('not.be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkPasswordValidation();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
     cy.route({
@@ -113,8 +107,7 @@ describe('Login Tests', () => {
 
   it('Login, check after login url', () => {
     cy.server();
-    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
-    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
+    mockAuthApi(false, false);
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
@@ -128,10 +121,10 @@ describe('Login Tests', () => {
       </DefaultAuthRoutes>
     </TestFronteggWrapper>, mountOptions);
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata']);
+    cy.get('.loader').should('not.be.visible');
+
     const emailSelector = '[name="email"]';
     const passwordSelector = '[name="password"]';
     const submitSelector = 'button[type=submit]';
@@ -155,20 +148,7 @@ describe('Login Tests', () => {
 
   it('Login, WITH SAML tenant, NO SAML email', () => {
     cy.server();
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-      status: 401,
-      delay: 200,
-      response: 'Unauthorized',
-    }).as('refreshToken');
-    cy.route({
-      method: 'GET',
-      url: `${METADATA_SERVICE}?entityName=saml`,
-      status: 200,
-      delay: 200,
-      response: { 'rows': [{}] },
-    }).as('metadata');
+    mockAuthApi(false, true);
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
@@ -183,17 +163,13 @@ describe('Login Tests', () => {
       response: { accessToken: 'token', refreshToken: 'refreshToken' },
       delay: 200,
     }).as('login');
-
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
       <DefaultAuthRoutes>
         Home
       </DefaultAuthRoutes>
     </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
     cy.get('.loader').should('not.be.visible');
 
@@ -202,28 +178,20 @@ describe('Login Tests', () => {
     const submitSelector = 'button[type=submit]';
 
     cy.get(submitSelector).contains('Continue').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(emailSelector).focus().clear().type(EMAIL_2).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkEmailValidation();
     cy.get(submitSelector).contains('Continue').should('not.be.disabled');
     cy.get(passwordSelector).should('not.exist');
 
     cy.get(submitSelector).contains('Continue').click();
-    cy.get(submitSelector).should('have.class', 'loading');
+    cy.get(submitSelector).should('not.have.class', 'loading');
 
     cy.get(passwordSelector).should('be.visible');
-    cy.get(passwordSelector).focus().clear().type('inv').blur();
-    cy.get(passwordSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-
-    cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
-    cy.get(passwordSelector).parent().should('not.have.class', 'error');
+    checkPasswordValidation();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
 
     // change email should reset the login back to preLogin
-    cy.get(emailSelector).focus().clear().type(EMAIL_2).blur();
+    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
     cy.get(passwordSelector).should('not.exist');
     cy.get(submitSelector).contains('Continue').click();
 
@@ -231,7 +199,6 @@ describe('Login Tests', () => {
 
     cy.get(passwordSelector).should('be.visible');
     cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
-    cy.get(passwordSelector).parent().should('not.have.class', 'error');
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
     cy.window().then(win => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
@@ -248,20 +215,7 @@ describe('Login Tests', () => {
 
   it('Login, WITH SAML tenant, WITH email', () => {
     cy.server();
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-      status: 401,
-      delay: 200,
-      response: 'Unauthorized',
-    }).as('refreshToken');
-    cy.route({
-      method: 'GET',
-      url: `${METADATA_SERVICE}?entityName=saml`,
-      status: 200,
-      delay: 200,
-      response: { 'rows': [{}] },
-    }).as('metadata');
+    mockAuthApi(false, true);
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
@@ -276,23 +230,16 @@ describe('Login Tests', () => {
       </DefaultAuthRoutes>
     </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push(defaultAuthPlugin.routes.loginUrl);
-    });
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
     cy.get('.loader').should('not.be.visible');
-
 
     const emailSelector = '[name="email"]';
     const passwordSelector = '[name="password"]';
     const submitSelector = 'button[type=submit]';
 
     cy.get(submitSelector).contains('Continue').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkEmailValidation();
     cy.get(submitSelector).contains('Continue').should('not.be.disabled');
 
     cy.get(passwordSelector).should('not.exist');
@@ -310,8 +257,7 @@ describe('Login Tests', () => {
 
   it('Login, NO SAML, Two-Factor', () => {
     cy.server();
-    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
-    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
+    mockAuthApi(false, false);
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
@@ -327,33 +273,18 @@ describe('Login Tests', () => {
       </DefaultAuthRoutes>
     </TestFronteggWrapper>, mountOptions);
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
-    const emailSelector = '[name="email"]';
-    const passwordSelector = '[name="password"]';
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata']);
+    cy.get('.loader').should('not.be.visible');
+
     const submitSelector = 'button[type=submit]';
     const codeSelector = '[name="code"]';
 
     cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkEmailValidation();
     cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(passwordSelector).focus().clear().type('not').blur();
-    cy.get(passwordSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
-    cy.get(passwordSelector).parent().should('not.have.class', 'error');
 
-    cy.get(submitSelector).contains('Login').should('not.be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkPasswordValidation();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
 
@@ -366,10 +297,10 @@ describe('Login Tests', () => {
 
     const validCode = '123123';
     cy.get(codeSelector).focus().type('111').blur();
-    cy.get(codeSelector).parent().should('have.class', 'error');
+    cy.get(codeSelector).parents('.field').should('have.class', 'error');
     cy.get(submitSelector).contains('Login').should('be.disabled');
     cy.get(codeSelector).focus().clear().type(validCode).blur();
-    cy.get(codeSelector).parent().should('not.have.class', 'error');
+    cy.get(codeSelector).parents('.field').should('not.have.class', 'error');
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
     cy.route({
@@ -400,8 +331,7 @@ describe('Login Tests', () => {
 
   it('Login, NO SAML, Recover Two-Factor', () => {
     cy.server();
-    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
-    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
+    mockAuthApi(false, false);
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
@@ -416,42 +346,24 @@ describe('Login Tests', () => {
       </DefaultAuthRoutes>
     </TestFronteggWrapper>, mountOptions);
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
-    const emailSelector = '[name="email"]';
-    const passwordSelector = '[name="password"]';
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata']);
+    cy.get('.loader').should('not.be.visible');
+
     const submitSelector = 'button[type=submit]';
     const codeSelector = '[name="code"]';
 
     cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
+    checkEmailValidation();
     cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(passwordSelector).focus().clear().type('not').blur();
-    cy.get(passwordSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
-    cy.get(passwordSelector).parent().should('not.have.class', 'error');
-
+    checkPasswordValidation();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
-    cy.get(emailSelector).focus().clear().type('invalid email').blur();
-    cy.get(emailSelector).parent().should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(emailSelector).parent().should('not.have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('not.be.disabled');
-
 
     cy.get(submitSelector).contains('Login').click();
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
     cy.contains('Please enter the 6 digit code').should('be.visible');
-    cy.contains('Recover Multi-Factor').click();
-
+    cy.get('[test-id="recover-two-factor-button"]').click();
 
     cy.contains('Please enter the recovery code').should('be.visible');
 
@@ -495,10 +407,7 @@ describe('Login Tests', () => {
     cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
     cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/logout`, status: 200, response: 'LOGOUT' });
 
-    cy.window().then(win => {
-      // @ts-ignore
-      win.cypressHistory.push(defaultAuthPlugin.routes.logoutUrl);
-    });
+    navigateTo(defaultAuthPlugin.routes.logoutUrl);
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
       <DefaultAuthRoutes>
         Home

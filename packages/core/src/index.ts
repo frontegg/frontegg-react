@@ -8,7 +8,7 @@ export * from './interfaces';
 export * from './HOCs';
 export * from './hooks';
 export * from './helpers';
-export * from './components';
+export * from './elements';
 
 export * from './ElementsFactory';
 

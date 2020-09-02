@@ -1,14 +1,16 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import { withAuth } from '../HOCs';
 import { AuthActions, AuthState } from '../Api';
 import {
-  FieldButton,
-  FieldInput, omitProps, RendererFunction,
+  Form,
+  Input,
+  Button,
+  omitProps, RendererFunction,
   validateSchema,
   validateTwoFactorRecoveryCode,
   WithT,
-  withT,
+  withT, ErrorMessage,
 } from '@frontegg/react-core';
 
 const stateMapper = ({ loginState }: AuthState) => ({ loginState });
@@ -36,11 +38,14 @@ class RecoverTwoFactorComponent extends React.Component<Props> {
       })}
       onSubmit={({ code }) => recoverMfa({ email: email ?? '', recoveryCode: code })}
     >
-      <Form className='fe-login-two-factor'>
-        <FieldInput label={t('auth.login.please-enter-the-recovery-code')} name='code' focus={true}/>
+      <Form inFormik>
+        <Input inFormik fullWidth name='code'
+               label={t('auth.login.please-enter-the-recovery-code')}/>
 
-        <FieldButton fluid={true} primary={!loading} loading={loading}>{t('auth.login.disable-mfa')}</FieldButton>
-        {error && <div className='fe-error-message'>{error}</div>}
+        <Button submit inFormik fullWidth variant='primary' loading={loading}>
+          {t('auth.login.disable-mfa')}
+        </Button>
+        <ErrorMessage error={error}/>
       </Form>
     </Formik>;
   }

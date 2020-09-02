@@ -1,0 +1,49 @@
+
+.fe-note {
+  margin: 1rem 0;
+  font-size: 0.8rem;
+
+  &-title {
+    font-weight: bold;
+    line-height: 2;
+  }
+
+  &-description {
+    font-weight: normal;
+  }
+}
+
+
+button.button.fe-link-button {
+  padding: 0;
+  background: transparent !important;
+  display: inline-block;
+  font-size: inherit;
+  color: inherit;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.fe-label__with-button {
+  position: relative;
+
+  > button.button {
+    padding: .25rem;
+    background: transparent !important;
+
+    float: right;
+    position: absolute;
+    margin-right: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 0.85rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

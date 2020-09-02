@@ -31,7 +31,11 @@ async function request(context: ContextOptions, opts: RequestOptions) {
   }
 
   if (!opts.responseType || opts.responseType === 'json') {
-    return await response.json();
+    try {
+      return await response.json();
+    } catch (e) {
+      return {};
+    }
   } else if (opts.responseType === 'blob') {
     return await response.blob();
   } else {

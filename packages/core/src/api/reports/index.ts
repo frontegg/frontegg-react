@@ -7,9 +7,9 @@ import {
   IReportRecord,
   IScheduleReport, ISendReport,
 } from './interfaces';
-import ContextHolder from '../../helpers/ContextHolder';
+import ContextHolder from '../ContextHolder';
 import Logger from '../../helpers/Logger';
-import { Get, Post } from '../../helpers';
+import { Get, Post } from '../fetch';
 import { REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1, REPORTS_SERVICE_URL_V2 } from '../constants';
 
 const logger = Logger.from('ReportsApi');

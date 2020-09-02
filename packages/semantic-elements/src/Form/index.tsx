@@ -7,9 +7,9 @@ const mapper = (props: FormProps): SemanticFormProps => props;
 
 export class Form extends React.Component<FormProps> {
   render() {
-    const { children, formik, ...rest } = this.props;
+    const { children, inFormik, ...rest } = this.props;
     const formProps = mapper(rest);
-    if (formik) {
+    if (inFormik ?? true) {
       return <SemanticForm as='div'>
         <FormikForm>
           {children}

@@ -1,5 +1,5 @@
-import ContextHolder from '../../helpers/ContextHolder';
-import { Post } from '../../helpers';
+import ContextHolder from '../ContextHolder';
+import { Post } from '../fetch';
 import Logger from '../../helpers/Logger';
 import { AUTH_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
 import {

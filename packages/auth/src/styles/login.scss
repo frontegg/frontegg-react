@@ -1,5 +1,6 @@
 
-.fe-login-component {
+.fe-login-component,
+.fe-forgot-password-component {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -11,31 +12,23 @@
   }
 }
 
-.fe-error-message, .fe-success-message {
-  flex: 1;
-  font-weight: bold;
-  color: #9a0000;
-  margin-top: 1rem;
-  text-align: center;
-}
+//.ui.button.fe-field-button {
+//  float: initial;
+//  font-size: 0.8rem;
+//  padding: 0;
+//  position: absolute;
+//  right: 0;
+//  top: 2px;
+//  background: transparent;
+//  color: #666;
+//  text-transform: initial;
+//  font-weight: initial;
+//  text-decoration: underline;
+//}
 
-.ui.button.fe-field-button {
-  float: initial;
-  font-size: 0.8rem;
-  padding: 0;
-  position: absolute;
-  right: 0;
-  top: 2px;
-  background: transparent;
-  color: #666;
-  text-transform: initial;
-  font-weight: initial;
-  text-decoration: underline;
-}
-
-.fe-form-input {
-  line-height: 1.5
-}
+//.fe-form-input {
+//  line-height: 1.5
+//}
 
 @media screen and (max-width: 400px) {
   .fe-login-page {

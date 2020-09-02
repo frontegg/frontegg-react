@@ -13,7 +13,7 @@ export const validateEmail = (t: TFunction) =>
 
 export const validateTwoFactorCode = (t: TFunction) =>
   Yup.string()
-    .length(6, t('validation.min-length', { name: 'code', limit: 6 }))
+    .length(6, t('validation.min-length', { name: 'Code', limit: 6 }))
     .required(t('validation.required-field', { name: 'code' }));
 
 export const validateTwoFactorRecoveryCode = (t: TFunction) =>

@@ -1,6 +1,8 @@
 {
   "experimentalFetchPolyfill": true,
   "experimentalComponentTesting": true,
+  "experimentalSourceRewriting": true,
+
   "componentFolder": "packages",
   "testFiles": "**/*.cy-spec.*"
 }

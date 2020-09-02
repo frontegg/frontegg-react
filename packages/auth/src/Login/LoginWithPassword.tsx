@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Field, FieldProps, Formik } from 'formik';
+import React from 'react';
+import { Formik } from 'formik';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import { withAuth } from '../HOCs';
 import {
@@ -9,6 +9,7 @@ import {
   Button,
   Form,
   WithT, withT, Input, omitProps, RendererFunction,
+  ErrorMessage,
 } from '@frontegg/react-core';
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({ loginState, isSSOAuth, onRedirectTo, routes });
@@ -30,21 +31,12 @@ type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> &
 class LoginWithPasswordComponent extends React.Component<Props> {
   backToPreLogin = () => this.props.setLoginState({ step: LoginStep.preLogin });
 
-  forgetPasswordButton = () => {
-    const { t, loginState: { loading }, setForgotPasswordState, resetLoginState, onRedirectTo, routes } = this.props;
-    return <Field>
-      {({ form: { values } }: FieldProps) => (
-        <Button disabled={loading} type='button' className='fe-field-button' onClick={() => {
-          setForgotPasswordState({ email: values.email });
-          resetLoginState();
-          onRedirectTo(routes.forgetPasswordUrl);
-        }}>{t('auth.login.forgot-password')}</Button>
-      )}
-    </Field>;
-  };
 
   render() {
-    const { renderer, t, loginState: { loading, step, error }, isSSOAuth, preLogin, login } = this.props;
+    const {
+      renderer, t, loginState: { loading, step, error }, isSSOAuth, preLogin, login,
+      setForgotPasswordState, resetLoginState, onRedirectTo, routes,
+    } = this.props;
 
     if (renderer) {
       return renderer(omitProps(this.props, ['renderer', 'components']));
@@ -64,7 +56,7 @@ class LoginWithPasswordComponent extends React.Component<Props> {
         ({ email, password }) => login({ email, password }) :
         ({ email }) => preLogin({ email })
       }>
-      <Form formik={true}>
+      {({ values }) => <Form inFormik>
         <Input
           inFormik={true}
           fullWidth={true}
@@ -76,18 +68,34 @@ class LoginWithPasswordComponent extends React.Component<Props> {
 
         {shouldDisplayPassword && <Input
           label={t('auth.login.password')}
-          inFormik={true}
-          fullWidth={true}
+          labelButton={{
+            disabled: loading,
+            testId: 'forgot-password-button',
+            onClick: () => {
+              setForgotPasswordState({ email: values.email });
+              resetLoginState();
+              onRedirectTo(routes.forgetPasswordUrl);
+            },
+            children: t('auth.login.forgot-password'),
+          }}
+          inFormik
+          fullWidth
           type='password'
           name='password'
           placeholder={t('auth.login.enter-your-password')}
           disabled={!shouldDisplayPassword}/>}
 
-        <Button type='submit' fullWidth={true} variant={loading ? undefined : 'primary'} loading={loading}>
+        <Button submit
+                inFormik
+                fullWidth={true}
+                variant={'primary'}
+                loading={loading}>
           {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
         </Button>
-        {error && <div className='fe-error-message'>{error}</div>}
+
+        <ErrorMessage error={error}/>
       </Form>
+      }
     </Formik>;
   }
 }
