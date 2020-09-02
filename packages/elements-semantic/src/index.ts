@@ -4,9 +4,11 @@ import { Input } from './Input';
 import { Form } from './Form';
 import { Loader } from './Loader';
 
-export default {
+export const type = 'semantic';
+export const version = '1.2.1';
+export const uiLibrary: Elements = {
   Button,
   Input,
   Form,
   Loader,
-} as Elements;
+};

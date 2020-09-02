@@ -143,7 +143,7 @@ export class FronteggProvider extends React.Component<FronteggProviderProps> {
 
   constructor(props: FronteggProviderProps) {
     super(props);
-    this.provider = withRouter((props: FronteggProviderComponentProps) => <FronteggProviderComponent {...props}/>);
+    this.provider = withRouter((props: FronteggProviderComponentProps & RouteComponentProps) => <FronteggProviderComponent {...props}/>);
   }
 
   render() {
