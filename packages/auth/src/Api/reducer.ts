@@ -10,7 +10,7 @@ import {
 } from './interfaces';
 import {
   IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword,
-  ISamlConfiguration, IPostLogin,
+  ISamlConfiguration, IPostLogin
 } from '@frontegg/react-core';
 
 export const storeName = 'auth';

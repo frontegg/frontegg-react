@@ -4,7 +4,6 @@ import { AuthState } from '../../Api';
 import { withAuth } from '../../HOCs';
 import { SSOStep } from './SSOStep';
 
-
 const stateMapper = ({ ssoState }: AuthState) => ({ ssoState });
 
 export interface SSOOverviewStepsProps {

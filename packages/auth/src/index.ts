@@ -1,4 +1,5 @@
-import { PluginConfig } from '@frontegg/react-core';
+import React from 'react';
+import { PluginConfig, Loader } from '@frontegg/react-core';
 import { preloadedState, reducer, sagas, storeName } from './Api';
 import Listener from './Listener';
 import { AuthPluginOptions } from './interfaces';
@@ -16,11 +17,12 @@ export * from './ResetPassword';
 export * from './SSO';
 
 
-export const AuthPlugin = (options: AuthPluginOptions): PluginConfig => ({
+export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
   storeName,
   preloadedState: {
     ...preloadedState,
     ...options,
+    loaderComponent: options?.loaderComponent ?? React.createElement(Loader, { inline: false }),
     routes: {
       ...preloadedState.routes,
       ...options?.routes,

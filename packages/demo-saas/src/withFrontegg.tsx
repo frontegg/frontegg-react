@@ -15,17 +15,7 @@ const contextOptions: ContextOptions = {
 };
 
 const plugins: PluginConfig[] = [
-  AuthPlugin({
-    loaderComponent: <div>SPLASH SCREEN</div>,
-    routes: {
-      authenticatedUrl: '/',
-      loginUrl: '/account/login',
-      logoutUrl: '/account/logout',
-      activateUrl: '/account/activate',
-      forgetPasswordUrl: '/account/forget-password',
-      resetPasswordUrl: '/account/reset-password',
-    },
-  }),
+  AuthPlugin(),
 ];
 
 export const withFrontegg = (Component: ComponentType<any>): ComponentType<any> => withRouter(class extends React.Component<RouteComponentProps> {

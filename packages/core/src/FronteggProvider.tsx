@@ -9,6 +9,7 @@ import { i18n } from './I18nInitializer';
 import { BrowserRouter, RouteComponentProps, Router, withRouter } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
+import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
 
 export type RedirectOptions = {
   refresh?: boolean;
@@ -122,7 +123,7 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
   };
 
   render() {
-    const { history, children } = this.props;
+    const { history, children, context } = this.props;
 
     let combinedWrapper: any = children;
     this.wrappers.forEach(Wrapper => combinedWrapper = <Wrapper>{combinedWrapper}</Wrapper>);
@@ -131,7 +132,12 @@ class FronteggProviderComponent extends React.Component<FronteggProviderComponen
       <Provider store={this.store}>
         <I18nextProvider i18n={i18n}>
           {this.listeners.map((Comp, i) => <Comp key={i}/>)}
-          {combinedWrapper}
+          <OldFronteggProvider contextOptions={{
+            ...context as any,
+            tokenResolver: () => ContextHolder.getAccessToken() || '',
+          }}>
+            {combinedWrapper}
+          </OldFronteggProvider>
         </I18nextProvider>
       </Provider>
     </Router>;

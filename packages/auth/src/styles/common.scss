@@ -1,58 +1,58 @@
-.frontegg {
+:root {
   box-sizing: border-box;
+}
 
-  .fe-login-page {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: white;
-    z-index: 1000;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 500px;
-    overflow: auto;
+.fe-login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  overflow: auto;
+}
+
+.fe-login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 400px;
+  max-width: 90%;
+  min-height: 300px;
+  border-radius: .5rem;
+  padding: 2rem;
+  box-shadow: 0 1.4px 4.5px rgba(0, 0, 0, 0.016),
+  0 4.3px 12.5px rgba(0, 0, 0, 0.032),
+  0 10.3px 30.1px rgba(0, 0, 0, 0.055),
+  0 29px 100px rgba(0, 0, 0, 0.14);
+}
+
+.fe-login-header {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 3rem;
+  align-items: center;
+  overflow-x: hidden;
+
+  > * {
+    max-width: 100%;
   }
-
-  .fe-login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 400px;
-    max-width: 90%;
-    min-height: 300px;
-    border-radius: .5rem;
-    padding: 2rem;
-    box-shadow: 0 1.4px 4.5px rgba(0, 0, 0, 0.016),
-    0 4.3px 12.5px rgba(0, 0, 0, 0.032),
-    0 10.3px 30.1px rgba(0, 0, 0, 0.055),
-    0 29px 100px rgba(0, 0, 0, 0.14);
-  }
-
-  .fe-login-header {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0 3rem;
-    align-items: center;
-    overflow-x: hidden;
-
-    > * {
-      max-width: 100%;
-    }
-  }
+}
 
 
-  .fe-login-header {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0 3rem;
-    align-items: center;
-    overflow-x: hidden;
+.fe-login-header {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 3rem;
+  align-items: center;
+  overflow-x: hidden;
 
-    > * {
-      max-width: 100%;
-    }
+  > * {
+    max-width: 100%;
   }
 }

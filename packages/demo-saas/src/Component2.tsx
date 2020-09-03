@@ -1,21 +1,11 @@
 import React from 'react';
-import { ActivateAccount, useIsAuthenticated } from '@frontegg/react-auth';
-import { fetch, ContextHolder } from '@frontegg/react-core';
+import { Team } from '@frontegg/react';
+import { useIsAuthenticated } from '@frontegg/react-auth';
 
 
 export const Component2 = () => {
   const isAuthenticated = useIsAuthenticated();
-  return <div onClick={() => {
-    fetch.Get(ContextHolder.getContext(), '/ttt');
-  }}>
-    {isAuthenticated ? 'AUTH' : 'NOT AUTH'}
-
-    <div style={{ width: 400, margin: '0 auto' }}>
-      <ActivateAccount components={{
-        ActivateAccountForm: {
-          renderer: () => 'david',
-        },
-      }}/>
-    </div>
+  return <div>
+    {isAuthenticated ? <Team/> : 'NOT AUTH'}
   </div>;
 };

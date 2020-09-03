@@ -6,14 +6,12 @@ export const authPageWrapper = <P extends {}>(Component: ComponentType<P>): Comp
     const {
       header = <img src='http://acmelogos.com/images/logo-1.svg' alt='logo'/>,
     } = props;
-    const component = <div className='frontegg'>
-      <div className='fe-login-page'>
-        <div className='fe-login-container'>
-          <div className='fe-login-header'>
-            {header}
-          </div>
-          <Component {...props}/>
+    const component = <div className='fe-login-page'>
+      <div className='fe-login-container'>
+        <div className='fe-login-header'>
+          {header}
         </div>
+        <Component {...props}/>
       </div>
     </div>;
     return ReactDOM.createPortal(component, document.body);
