@@ -9,23 +9,25 @@
   
 [React](https://reactjs.org/) pre-built Component for faster and simpler integration with Frontegg services.  
 </div>  
-  
+
 ## Installation  
 Frontegg-React is available as an [npm package](https://www.npmjs.com/package/@frontegg/react-core).  
-  
+
+<font color='red'>**NOTE!**:</font> **For typescript project make sure your are using typescirpt with version > 3.9.0**
+
 ```sh  
-// using npm  
-npm install @frontegg/react-core  
+// using npm
+
+/* with semantic UI (currently we only support semantic ui library) /*
+yarn add @frontegg/react-core @frontegg/react-elements-semantic
   
-// using yarn  
-yarn add @frontegg/react-core
 
-// choose one of the following UI library: 
-// 1. React Semantic UI
-yarn add @frontegg/react-elements-semantic  
+// using npm
 
-// NOTE: to get the latest stable use @latest.  
+/* with semantic UI (currently we only support semantic ui library) /*
+npm install @frontegg/react-core @frontegg/react-elements-semantic  
 ```
+
 ## Usage  
   
 First of all you need to wrap your root app component with ``FronteggProvider``: 
@@ -34,7 +36,7 @@ First of all you need to wrap your root app component with ``FronteggProvider``:
 import React from 'react';import ReactDOM from 'react-dom';  
 import App from './App';  
 import { FronteggProvider } from '@frontegg/react-core';  
-import uiLibrary from '@frontegg/react-elements-semantic';  
+import { uiLibrary } from '@frontegg/react-elements-semantic';  
 import { createBrowserHistory } from 'history';  
 import { BrowserRouter } from 'react-router-dom';
 
