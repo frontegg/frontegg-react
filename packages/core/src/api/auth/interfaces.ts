@@ -1,4 +1,8 @@
 export type IPreLogin = { email: string; };
+export type IPostLogin = {
+  RelayState: string;
+  SAMLResponse: string;
+};
 
 export type ILogin = { email: string; password: string; };
 

@@ -10,7 +10,7 @@ import {
 } from './interfaces';
 import {
   IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword,
-  ISamlConfiguration,
+  ISamlConfiguration, IPostLogin,
 } from '@frontegg/react-core';
 
 export const storeName = 'auth';
@@ -39,6 +39,7 @@ export const preloadedState: AuthState = {
 
   ssoState: {
     loading: false,
+    samlConfiguration: { enabled: false },
   },
   // routes
   routes: {
@@ -58,13 +59,15 @@ const resetStateByKey = <T>(key: keyof AuthState) => (state: AuthState) => ({ ..
 const typeReducer = <T>(key: keyof AuthState) => (state: AuthState, { payload }: PayloadAction<T>) => ({ ...state, [key]: payload });
 const typeReducerForKey = <T>(key: keyof AuthState) => ({
   prepare: (payload: Partial<T>) => ({ payload }),
-  reducer: (state: AuthState, { payload }: PayloadAction<Partial<T>>) => ({
-    ...state,
-    [key]: {
-      ...state[key],
-      ...payload,
-    },
-  }),
+  reducer: (state: AuthState, { payload }: PayloadAction<Partial<T>>) => {
+    return ({
+      ...state,
+      [key]: {
+        ...state[key],
+        ...payload,
+      },
+    });
+  },
 });
 
 const { reducer, actions: SliceActions } = createSlice({
@@ -96,6 +99,7 @@ const actions = {
   ...SliceActions,
   requestAuthorize: createAction(`${storeName}/requestAuthorize`, (payload: boolean) => ({ payload })),
   preLogin: createAction(`${storeName}/preLogin`, (payload: IPreLogin) => ({ payload })),
+  postLogin: createAction(`${storeName}/postLogin`, (payload: IPostLogin) => ({ payload })),
   login: createAction(`${storeName}/login`, (payload: ILogin) => ({ payload })),
   loginWithMfa: createAction(`${storeName}/loginWithMfa`, (payload: ILoginWithMfa) => ({ payload })),
   recoverMfa: createAction(`${storeName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),

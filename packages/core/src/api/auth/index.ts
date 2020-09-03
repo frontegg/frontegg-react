@@ -1,4 +1,4 @@
-import {ContextHolder} from '../ContextHolder';
+import { ContextHolder } from '../ContextHolder';
 import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
 import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
@@ -11,6 +11,7 @@ import {
   ILoginResponse,
   ILoginWithMfa,
   IPreLogin,
+  IPostLogin,
   IRecoverMFAToken,
   IResetPassword,
   ISamlConfiguration,
@@ -41,6 +42,16 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
     logger.error('preLogin()', e);
     return null;
   }
+}
+
+/**
+ * After calling preLogin and navigated to SSO url, the IDP will redirect you to the ACS Url
+ * Which configured in the SSO configuraation
+ * else, return null
+ */
+export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
+  const context = ContextHolder.getContext();
+  return await Post(context, `${AUTH_SERVICE_URL_V1}/user/saml/postlogin`, body)
 }
 
 /**

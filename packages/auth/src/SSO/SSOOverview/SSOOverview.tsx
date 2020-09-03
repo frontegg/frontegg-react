@@ -36,12 +36,11 @@ class SSOOverviewComponent extends FronteggClass<Components, Props> {
       enabled: !samlConfiguration?.enabled,
     };
 
-    // TODO: @aviad please describe this 'if' statement,
-    //       why if no domain or SamlCon null should only change the state
-    if (samlConfiguration?.domain) {
-      saveSSOConfigurations(newConfig);
-    } else {
+    const firstTimeConfigure = !samlConfiguration?.domain;
+    if (firstTimeConfigure) {
       setSSOState({ samlConfiguration: newConfig });
+    } else {
+      saveSSOConfigurations(newConfig);
     }
   };
 

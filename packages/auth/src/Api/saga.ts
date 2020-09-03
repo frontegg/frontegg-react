@@ -4,6 +4,7 @@ import {
   api,
   ILogin,
   IPreLogin,
+  IPostLogin,
   ILoginWithMfa,
   IRecoverMFAToken,
   IActivateAccount,
@@ -37,16 +38,16 @@ function* refreshToken() {
 }
 
 function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
-  const calls = [call(refreshToken)];
+  const calls = [];
   if (firstTime) {
     yield put(actions.setIsLoading(true));
     calls.push(call(loadSSOConfigurations));
     calls.push(call(refreshMetadata));
   }
+  calls.push(call(refreshToken));
   yield all(calls);
   yield put(actions.setIsLoading(false));
 }
-
 
 function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
   yield put(actions.setLoginState({ loading: true }));
@@ -61,6 +62,26 @@ function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
     }
   } catch (e) {
     yield put(actions.setLoginState({ step: LoginStep.loginWithPassword, loading: false }));
+  }
+}
+
+function* postLogin({ payload }: PayloadAction<IPostLogin>) {
+  const { onRedirectTo, routes } = yield select(({ auth: { onRedirectTo, routes } }) => ({ onRedirectTo, routes }));
+  yield put(actions.setLoginState({ loading: true }));
+  try {
+    const user = yield call(api.auth.postLogin, payload);
+
+    ContextHolder.setAccessToken(user.accessToken);
+    yield put(actions.setState({
+      user: !!user.accessToken ? undefined : user,
+      isAuthenticated: !!user.accessToken,
+    }));
+
+    setTimeout(() => {onRedirectTo(routes.authenticatedUrl);}, 1000);
+    yield put(actions.setLoginState({ step: LoginStep.success, loading: false }));
+  } catch (e) {
+    setTimeout(() => {onRedirectTo(routes.authenticatedUrl);}, 1000);
+    yield put(actions.setLoginState({ step: LoginStep.loginWithSSOFailed, loading: false }));
   }
 }
 
@@ -162,11 +183,11 @@ function* logout({ payload }: PayloadAction<any>) {
 
 function* loadSSOConfigurations() {
   try {
-    put(actions.setSSOState({ loading: true }));
+    yield put(actions.setSSOState({ loading: true }));
     const samlConfiguration = yield call(api.auth.getSamlConfiguration);
-    put(actions.setSSOState({ samlConfiguration, loading: false }));
+    yield put(actions.setSSOState({ samlConfiguration, loading: false }));
   } catch (e) {
-    put(actions.setSSOState({ error: e.message, loading: false }));
+    yield put(actions.setSSOState({ error: e.message, loading: false }));
   }
 }
 
@@ -190,6 +211,7 @@ function* validateSSODomain() {
 export function* sagas() {
   yield takeEvery(actions.requestAuthorize, requestAuthorize);
   yield takeEvery(actions.preLogin, preLogin);
+  yield takeEvery(actions.postLogin, postLogin);
   yield takeEvery(actions.login, login);
   yield takeEvery(actions.logout, logout);
   yield takeEvery(actions.loginWithMfa, loginWithMfa);

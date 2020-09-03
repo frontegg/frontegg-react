@@ -8,6 +8,7 @@ import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
 import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
 import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
+import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
 
 const stateMapper = ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step });
 
@@ -17,6 +18,7 @@ type Components = {
   RecoverTwoFactor: RecoverTwoFactorProps;
   LoginWithTwoFactor: LoginWithTwoFactorProps;
   RedirectToSSO: RedirectToSSOProps;
+  LoginWithSSOFailed: LoginWithSSOFailedProps;
 }
 
 export interface LoginComponentProps {
@@ -33,6 +35,7 @@ class LoginComponent extends FronteggClass<Components, Props> {
       RecoverTwoFactor,
       LoginWithTwoFactor,
       RedirectToSSO,
+      LoginWithSSOFailed,
     });
   }
 
@@ -44,6 +47,7 @@ class LoginComponent extends FronteggClass<Components, Props> {
       RecoverTwoFactor,
       LoginWithTwoFactor,
       RedirectToSSO,
+      LoginWithSSOFailed,
     } = this.comps;
     let components = null;
 
@@ -59,6 +63,8 @@ class LoginComponent extends FronteggClass<Components, Props> {
       components = <LoginWithTwoFactor/>;
     } else if (step === LoginStep.redirectToSSO) {
       components = <RedirectToSSO/>;
+    } else if (step === LoginStep.loginWithSSOFailed) {
+      components = <LoginWithSSOFailed/>;
     }
 
     return <div className='fe-login-component'>

@@ -17,6 +17,7 @@ export enum LoginStep {
   'loginWithPassword' = 'loginWithPassword',
   'loginWithTwoFactor' = 'loginWithTwoFactor',
   'redirectToSSO' = 'redirectToSSO',
+  'loginWithSSOFailed' = 'loginWithSSOFailed',
   'success' = 'success',
   'recoverTwoFactor' = 'recoverTwoFactor',
 }

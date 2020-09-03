@@ -5,4 +5,5 @@ export * from './LoginWithPassword';
 export * from './LoginWithTwoFactor';
 export * from './RecoverTwoFactor';
 export * from './RedirectToSSO';
+export * from './LoginWithSSOPage';
 

@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
-import { AuthPlugin, DefaultAuthRoutes } from '@frontegg/react-auth';
+import { AuthPlugin } from '@frontegg/react-auth';
 import { uiLibrary } from '@frontegg/react-elements-semantic';
 
 const host =
