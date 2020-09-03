@@ -37,11 +37,22 @@ export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export interface SwitchToggleProps {
+  loading?: boolean;
+  disabled?: boolean;
   value?: boolean;
   labels?: [string, string];
   onChange?: (toggled: boolean) => void;
 }
 
+
+export interface IconProps extends React.HTMLAttributes<HTMLElement> {
+  name: 'left-arrow' | 'checkmark';
+  size?: 'small' | 'medium' | 'large'
+}
+
+export interface TabProps {
+  menu: []
+}
 
 export type ElementProps = {
   Button: ComponentType<ButtonProps>,
@@ -49,6 +60,8 @@ export type ElementProps = {
   Form: ComponentType<FormProps>,
   Loader: ComponentType<LoaderProps>,
   SwitchToggle: ComponentType<SwitchToggleProps>,
+  Icon: ComponentType<IconProps>,
+  Tab: ComponentType<TabProps>,
 };
 
 export type ElementType =
@@ -57,6 +70,8 @@ export type ElementType =
   | 'Form'
   | 'Loader'
   | 'SwitchToggle'
+  | 'Icon'
+  | 'Tab'
 
 export type Elements = {
   [type in ElementType]: ElementProps[type]

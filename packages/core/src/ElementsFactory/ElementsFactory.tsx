@@ -15,7 +15,11 @@ export class ElementsFactory {
   }
 
   public static setElements = (elements: Elements) => {
-    ElementsFactory.getInstance().elements = elements;
+    if (elements == null) {
+      throw Error('You must pass UI Library to FronteggProvider');
+    } else {
+      ElementsFactory.getInstance().elements = elements;
+    }
   };
 
   public static getElement = <P extends ElementType>(type: P): Elements[P] => {

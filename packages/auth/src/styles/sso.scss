@@ -12,13 +12,13 @@
   .fe-sso-step {
     box-sizing: border-box;
     width: 20rem;
-    height: 17rem;
     padding: 1rem;
     border-radius: 0.5rem;
     background-color: #f9fafc;
     border: 3px solid #f9fafc;
     margin: 0 2rem;
     overflow: hidden;
+    transition: border 200ms ease-in;
 
     &__inner {
       width: 100%;
@@ -26,7 +26,7 @@
       position: relative;
       border-radius: .5rem;
       background-color: #fff;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     &:hover {
@@ -36,27 +36,31 @@
     &__header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 1.5rem;
       padding: 1rem 1rem 0;
+      font-weight: bold;
 
       span {
-        font-size: 14px;
+        font-size: 1rem;
         color: #3c4a5a;
-        font-weight: 800;
         text-transform: capitalize;
       }
 
       .fe-sso-step__checkmark {
         box-sizing: content-box;
-        width: 24px;
-        height: 24px;
-        border-radius: 4px;
-        background-color: #f1f1f1;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0.25rem;
+        background-color: #f9fafc;
+        border: 1px solid #f1f1f1;
         position: relative;
-        top: -0.5rem;
+        padding: 0.25rem;
 
         .icon {
           color: #0baf60;
+          font-size: 1.25rem;
+          margin: 0;
         }
       }
     }
@@ -68,22 +72,23 @@
       width: 100%;
       overflow: hidden;
       text-align: center;
-      font-size: 1.1rem;
       font-weight: bold;
-      color: #3c4a5a;
+      color: #666;
+      font-size: 1.25rem;
     }
-
-    &__title {
-      font-size: 1.5rem;
-    }
-
     &__subtitle {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
+      padding: 0 1.5rem;
+      font-size: 1rem;
+      color: #3c4a5a;
+      font-weight: bold;
 
     }
 
-    &__footer {
-
+    &__info {
+      display: flex;
+      justify-content: space-around;
+      color: #3c4a5a;
     }
   }
 }

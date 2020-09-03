@@ -1,4 +1,4 @@
-import { AuthPluginOptions } from '../interfaces';
+import { AuthPageProps, AuthPageRoutes, AuthPluginOptions } from '../interfaces';
 import { RedirectOptions } from '@frontegg/react-core';
 import { ISamlConfiguration } from '@frontegg/react-core';
 
@@ -74,7 +74,7 @@ export interface SSOState {
   samlConfiguration?: ISamlConfiguration;
 }
 
-export interface AuthState extends AuthPluginOptions {
+export interface AuthState extends AuthPageProps , AuthPageRoutes {
   error?: any;
   isAuthenticated: boolean;
   isLoading: boolean;

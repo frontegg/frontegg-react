@@ -48,32 +48,6 @@ button.button.fe-link-button {
   }
 }
 
-.fe-switch-toggle {
-  &__with_labels {
-    font-size: .9rem;
-    text-transform: uppercase;
-    color: #99a6b9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__label {
-    margin: 0 1rem;
-    transition: color 0.3s ease-in;
-    cursor: pointer;
-    user-select: none;
-
-    &:hover {
-      color: black;
-    }
-  }
-  &__disabled .fe-switch-toggle__label:first-child,
-  &__enabled .fe-switch-toggle__label:last-child {
-    color: black;
-    font-weight: bold;
-  }
-}
 
 .fe-placeholder-box {
   display: flex;

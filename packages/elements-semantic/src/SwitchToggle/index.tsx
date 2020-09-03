@@ -2,8 +2,10 @@ import React, { FC, useRef } from 'react';
 import { Checkbox, CheckboxProps, Ref } from 'semantic-ui-react';
 import { SwitchToggleProps } from '@frontegg/react-core';
 import classNames from 'classnames';
+import './style.scss';
 
 const mapper = (props: SwitchToggleProps): CheckboxProps => ({
+  disabled: props.disabled || props.loading,
   toggle: true,
   checked: props.value,
   onChange: (e, data) => props.onChange?.(!!data.checked),
@@ -20,8 +22,10 @@ export const SwitchToggle: FC<SwitchToggleProps> = (props) => {
 
   if (labels) {
     return <div className={classNames('fe-switch-toggle__with_labels', {
-      'fe-switch-toggle__disabled': !props.value,
-      'fe-switch-toggle__enabled': props.value,
+      'fe-switch-toggle__active-left': !props.value,
+      'fe-switch-toggle__active-right': props.value,
+      'fe-switch-toggle__disabled': props.disabled || props.loading,
+      'fe-switch-toggle__loading': props.loading,
     })}>
       <span className='fe-switch-toggle__label' onClick={() => {
         props.value && ref?.current?.querySelector('input')?.click();

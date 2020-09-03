@@ -2,7 +2,7 @@
 
 import React, { FC } from 'react';
 import { FronteggProvider, PluginConfig, ContextOptions } from '@frontegg/react-core';
-import uiLibrary from '@frontegg/react-elements-semantic';
+import { uiLibrary } from '@frontegg/react-elements-semantic';
 
 export const METADATA_SERVICE = 'http://localhost:8080/frontegg/metadata';
 export const IDENTITY_SERVICE = 'http://localhost:8080/frontegg/identity';

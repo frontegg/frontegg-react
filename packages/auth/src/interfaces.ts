@@ -40,4 +40,4 @@ export interface AuthPageProps {
 }
 
 
-export type AuthPluginOptions = AuthPageProps & AuthPageRoutes
+export type AuthPluginOptions = AuthPageProps & Partial<AuthPageRoutes>

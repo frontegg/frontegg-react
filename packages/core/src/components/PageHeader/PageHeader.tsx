@@ -1,7 +1,6 @@
 import React, { FC, ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
-import { ArrowSVG } from '../icons';
-import { Tab, TabProps } from 'semantic-ui-react';
+import { Icon, Tab, TabProps } from '../../ElementsFactory';
 
 export interface PageHeaderProps {
   className?: string;
@@ -35,12 +34,12 @@ export const PageHeader: FC<PageHeaderProps> =
                     'mt-2': subTitle,
                     'visible': onBackButtonClick,
                   })}>
-            <ArrowSVG/>
+            <Icon name='left-arrow'/>
           </span>
           {title}
           {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
         </div>
-        {tabs && <Tab menu={{ secondary: true, pointing: true }} {...tabs} />}
+        {tabs && <Tab {...tabs} />}
       </div>
       {centerChildren}
       {children && (

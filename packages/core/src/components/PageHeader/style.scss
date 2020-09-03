@@ -32,6 +32,7 @@
     justify-content: space-around;
 
     .fe-title {
+      text-align: left;
       position: relative;
       font-size: 1em;
       line-height: 1em;
@@ -115,15 +116,8 @@
       overflow: initial;
     }
 
-    svg {
-      -webkit-transform: rotate(90deg);
-      -moz-transform: rotate(90deg);
-      -o-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-      fill: var(--fe-header-back-button-color);
-      width: 50%;
-      height: 50%;
+    .fe-icon {
+      color: var(--fe-header-back-button-color);
       position: absolute;
       top: 0;
       left: 0;

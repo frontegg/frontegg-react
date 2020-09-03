@@ -45,7 +45,7 @@ class SSOOverviewComponent extends FronteggClass<Components, Props> {
   };
 
   render() {
-    const { t, renderer, ssoState: { samlConfiguration } } = this.props;
+    const { t, renderer, ssoState: { samlConfiguration, loading } } = this.props;
     const { SSOOverviewEnablePlaceholder, SSOOverviewSteps } = this.comps;
     if (renderer) {
       return renderer(omitProps(this.props, ['renderer', 'components']), this.comps);
@@ -54,6 +54,7 @@ class SSOOverviewComponent extends FronteggClass<Components, Props> {
     return <div className='fe-sso-overview'>
       <div className='fe-center'>
         <SwitchToggle
+          loading={loading}
           value={samlEnabled}
           labels={[t('common.disabled'), t('common.enabled')]}
           onChange={this.onEnabledDisabledChanged}/>

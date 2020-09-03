@@ -30,6 +30,7 @@ class SSOOverviewStepsComponent extends React.Component<Props> {
 
     return <div className='fe-sso-steps'>
       <SSOStep num={1}
+               t={t}
                to={`/sso/domain`}
                title={t('auth.sso.claim-domain')}
                subtitle={claimValue}
@@ -37,6 +38,7 @@ class SSOOverviewStepsComponent extends React.Component<Props> {
       />
 
       <SSOStep num={2}
+               t={t}
                to={`/sso/idp`}
                title={t('auth.sso.configure-your-idp')}
                subtitle={idpValue}

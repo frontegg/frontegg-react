@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonProps } from '@frontegg/react-core';
-import { Button as SemanticButton, ButtonProps as SemanticButtonProps, Form, Input as SemanticInput } from 'semantic-ui-react';
+import { Button as SemanticButton, ButtonProps as SemanticButtonProps, Form } from 'semantic-ui-react';
 import { Field, FieldProps } from 'formik';
 
 const mapper = (props: ButtonProps): SemanticButtonProps => {

@@ -21,9 +21,13 @@ export const AuthPlugin = (options: AuthPluginOptions): PluginConfig => ({
   preloadedState: {
     ...preloadedState,
     ...options,
+    routes: {
+      ...preloadedState.routes,
+      ...options?.routes,
+    },
   },
   reducer,
   sagas,
   Listener,
-  WrapperComponent: (options.InjectAuthRoutes ?? true) ? DefaultAuthRoutes : undefined,
+  WrapperComponent: (options?.InjectAuthRoutes ?? true) ? DefaultAuthRoutes : undefined,
 });
