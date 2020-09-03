@@ -56,6 +56,8 @@ export default {
         'title': 'Single Sign On',
         'subtitle': 'Configure single-sign-on with your own Identity Provider',
         'enable-sso-message': 'Enable sso and configure the settings to quickly use this functionality',
+        'claim-domain':'Claim Domain',
+        'configure-your-idp':'Configure Your IDP'
       },
     },
     'validation': {

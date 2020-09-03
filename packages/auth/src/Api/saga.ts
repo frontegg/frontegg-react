@@ -11,6 +11,9 @@ import {
   IForgotPassword,
   IResetPassword,
   ContextHolder,
+  ISamlConfiguration,
+  IUpdateSamlConfiguration,
+  omitProps,
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ActivateStep, ForgotPasswordStep, LoginStep } from './interfaces';
@@ -191,11 +194,17 @@ function* loadSSOConfigurations() {
   }
 }
 
-function* saveSSOConfigurations() {
+function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<ISamlConfiguration>) {
+  const oldSamlConfiguration = yield select(({ auth: { ssoState: { samlConfiguration } } }) => samlConfiguration);
   try {
+    yield put(actions.setSSOState({ samlConfiguration, loading: true }));
+    const updateSamlConfiguration: IUpdateSamlConfiguration =
+      omitProps(samlConfiguration, ['validated', 'generatedVerification', 'createdAt', 'updatedAt']);
 
+    const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
+    yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, loading: false }));
   } catch (e) {
-
+    yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, loading: false }));
   }
 }
 

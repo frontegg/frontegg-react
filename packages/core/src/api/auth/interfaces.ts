@@ -68,15 +68,7 @@ export type ISamlConfiguration = {
   acsUrl?: string;
   spEntityId?: string;
 }
-export type IUpdateSamlConfiguration = {
-  enabled?: boolean;
-  domain?: string;
-  ssoEndpoint?: string;
-  publicCertificate?: string;
-  signRequest?: boolean;
-  acsUrl?: string;
-  spEntityId?: string;
-}
+export type IUpdateSamlConfiguration = Omit<ISamlConfiguration, 'validated' | 'generatedVerification' | 'createdAt' | 'updatedAt'>
 export type ISamlVendorConfigResponse = {
   acsUrl: string;
   spEntityId: string;
