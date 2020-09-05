@@ -158,21 +158,21 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}* Lint: All Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} lint
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Unit Test: All Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} test-unit
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Component Test: All Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} test-component
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Integration Test: All Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	${MAKE} test-integration
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Unit Test: All Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} test-unit
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Component Test: All Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} test-component
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Integration Test: All Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	${MAKE} test-integration
 
 	${MAKE} build
 
