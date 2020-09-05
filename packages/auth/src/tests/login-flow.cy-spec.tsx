@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
-import { AuthPlugin, DefaultAuthRoutes, LoginStep } from '../index';
+import { AuthPlugin,  LoginStep } from '../index';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 import {
   checkEmailValidation, EMAIL_1,
@@ -43,9 +43,7 @@ describe('Login Tests', () => {
     mockAuthApi(false, false);
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
         Home
-      </DefaultAuthRoutes>
     </TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -116,9 +114,7 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('login');
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
         Home
-      </DefaultAuthRoutes>
     </TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -164,9 +160,7 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('login');
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
         Home
-      </DefaultAuthRoutes>
     </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -225,9 +219,7 @@ describe('Login Tests', () => {
     }).as('preLogin');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
         Home
-      </DefaultAuthRoutes>
     </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -268,9 +260,7 @@ describe('Login Tests', () => {
 
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -341,9 +331,7 @@ describe('Login Tests', () => {
     }).as('login');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -409,9 +397,7 @@ describe('Login Tests', () => {
 
     navigateTo(defaultAuthPlugin.routes.logoutUrl);
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
 
     cy.location().should(loc => {

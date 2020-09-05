@@ -21,6 +21,7 @@ export type PartialInnerTypes<E> = {
 }
 
 export type RendererFunction<P, C = P, R = ReactNode> = (props: Omit<P, 'renderer' | 'components'>, components?: ComponentsTypes<C>) => R | null
+export type RendererFunctionFC<P, R = ReactElement> = (props: Omit<P, 'renderer'>) => R | null
 
 export function memoEqual(prevProps: any, nextProps: any) {
   return Object.keys(nextProps).reduce((p: boolean, next: any) => {
@@ -111,7 +112,7 @@ export const buildComponents = <P>(components: any, defaultComponents: P): P => 
 };
 
 export const useDynamicComponents = <COMPS, A, P extends { components?: ComponentsTypesWithProps<COMPS> }>(defaultComponents: A, props: P) => {
-  return useMemo(() => buildComponents(buildComponentsProps({}, props.components ?? {}), defaultComponents), [props.components]);
+  return useMemo(() => buildComponents(props.components, defaultComponents), [props.components]);
 };
 
 export const buildComponentsProps = <P>(configComponents: P, propsComponents: P) => {

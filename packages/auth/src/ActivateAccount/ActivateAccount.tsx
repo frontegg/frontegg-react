@@ -19,7 +19,7 @@ export interface ActivateAccount2Props {
 }
 
 export const ActivateAccount: FC<ActivateAccount2Props> = (props) => {
-  const step = useAuth((state => state.activateState.step));
+  const { step } = useAuth(state => state.activateState);
   const Dynamic = useDynamicComponents(defaultComponents, props);
 
   const url = new URL(window?.location.href);

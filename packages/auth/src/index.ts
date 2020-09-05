@@ -1,11 +1,10 @@
 import React from 'react';
 import { PluginConfig, Loader } from '@frontegg/react-core';
 import { preloadedState, reducer, sagas, storeName } from './Api';
-import Listener, { AuthListener } from './Listener';
+import { AuthListener } from './Listener';
 import { AuthPluginOptions } from './interfaces';
 import './index.scss';
-import { DefaultAuthRoutes } from './components';
-import { AuthRoutes } from './components/DefaultAuthRoutes';
+import { AuthRoutes } from './components';
 
 export * from './Api';
 export * from './hooks';

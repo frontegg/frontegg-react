@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { ContextOptions, FeProvider, FronteggProvider, PluginConfig } from '@frontegg/react-core';
+import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { uiLibrary } from '@frontegg/react-elements-semantic';
 
@@ -16,10 +16,10 @@ const plugins: PluginConfig[] = [
   AuthPlugin(),
 ];
 
-export const withFrontegg = (Component: ComponentType<any>) => () => <FeProvider
+export const withFrontegg = (Component: ComponentType<any>) => () => <FronteggProvider
   withRouter={true}
   context={contextOptions}
   plugins={plugins}
   uiLibrary={uiLibrary}>
   <Component/>
-</FeProvider>;
+</FronteggProvider>;

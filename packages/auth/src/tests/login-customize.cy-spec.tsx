@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
-import { AuthPlugin, DefaultAuthRoutes, LoginStep } from '../index';
-import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
+import { AuthPlugin } from '../index';
 import { IDENTITY_SERVICE, METADATA_SERVICE, mountOptions, navigateTo, TestFronteggWrapper } from '../../../../cypress/helpers';
 
 const defaultAuthPlugin = {
@@ -29,9 +28,7 @@ describe('Login Customize Tests', () => {
         header: <div className='custom-header'>MY HEADER</div>,
       },
     )]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
 
     navigateTo('/account/login');

@@ -1,43 +1,34 @@
-import React, { ComponentType } from 'react';
-import { WithT, withT, RendererFunction, Button, omitProps } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { useT, RendererFunctionFC, Button, omitProps } from '@frontegg/react-core';
 import { AuthActions, AuthState } from '../Api';
-import { withAuth } from '../HOCs';
+import { useAuth } from '../hooks';
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
 const actionsMapper = ({ resetActivateState }: AuthActions) => ({ resetActivateState });
 
 export interface ActivateAccountFailedRedirectProps {
-  renderer?: RendererFunction<Props, ActivateAccountFailedRedirectProps>
+  renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ActivateAccountFailedRedirectProps
+export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProps> = (props) => {
+  const { renderer } = props;
+  const { t } = useT();
+  const { routes, onRedirectTo, resetActivateState } = useAuth(stateMapper, actionsMapper);
 
-class ActivateAccountFailedRedirectComponent extends React.Component<Props> {
-
-  render() {
-    const { renderer, t, routes: { loginUrl }, onRedirectTo, resetActivateState } = this.props;
-
-    if (renderer) {
-      return renderer(omitProps(this.props, ['renderer', 'components']));
-    }
-    return <>
-      <div className='fe-center fe-error-message'>
-        {t('auth.activate-account.failed-title')}
-        <br/>
-        {t('auth.activate-account.failed-description')}
-      </div>
-      <Button fullWidth onClick={() => {
-        resetActivateState();
-        onRedirectTo(loginUrl);
-      }}>
-        {t('auth.activate-account.back-to-login')}
-      </Button>
-    </>;
+  if (renderer) {
+    return renderer(omitProps(props, ['renderer']));
   }
-}
-
-export const ActivateAccountFailedRedirect = withAuth(
-  withT()(ActivateAccountFailedRedirectComponent),
-  stateMapper,
-  actionsMapper,
-) as ComponentType<ActivateAccountFailedRedirectProps>;
+  return <>
+    <div className='fe-center fe-error-message'>
+      {t('auth.activate-account.failed-title')}
+      <br/>
+      {t('auth.activate-account.failed-description')}
+    </div>
+    <Button fullWidth onClick={() => {
+      resetActivateState();
+      onRedirectTo(routes.loginUrl);
+    }}>
+      {t('auth.activate-account.back-to-login')}
+    </Button>
+  </>;
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
-import { AuthPlugin, DefaultAuthRoutes } from '../index';
+import { AuthPlugin } from '../index';
 import {
   checkEmailValidation, EMAIL_1, emailInputSelector,
   IDENTITY_SERVICE,
@@ -28,9 +28,7 @@ describe('Forgot Password Tests', () => {
     cy.server();
     mockAuthApi(false, false);
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.loginUrl);
 
@@ -60,9 +58,7 @@ describe('Forgot Password Tests', () => {
     }).as('preLogin');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.loginUrl);
 
@@ -90,9 +86,7 @@ describe('Forgot Password Tests', () => {
     mockAuthApi(false, false);
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.forgetPasswordUrl);
 
@@ -115,9 +109,7 @@ describe('Forgot Password Tests', () => {
     }).as('forgotPassword');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.forgetPasswordUrl);
 
@@ -138,9 +130,7 @@ describe('Forgot Password Tests', () => {
     cy.server();
     mockAuthApi(false, false);
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.resetPasswordUrl);
 
@@ -164,9 +154,7 @@ describe('Forgot Password Tests', () => {
     }).as('resetPassword');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
 
     const userId = '1111-userId-1111';

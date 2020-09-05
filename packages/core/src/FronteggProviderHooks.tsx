@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { Provider } from 'react-redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { getDefaultMiddleware, combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
@@ -6,7 +6,7 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, RouteComponentProps, Router, withRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter, useHistory } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
@@ -53,7 +53,12 @@ const FePlugins: FC<FeProviderProps> = (props) => {
 
   return <>
     {listeners}
-    {children}
+    <OldFronteggProvider contextOptions={{
+      ...props.context as any,
+      tokenResolver: () => ContextHolder.getAccessToken() || '',
+    }}>
+      {children}
+    </OldFronteggProvider>
   </>;
 };
 
@@ -113,7 +118,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   </Provider>;
 };
 
-export const FeProvider: FC<FeProviderProps> = (props) => {
+export const FronteggProvider: FC<FeProviderProps> = (props) => {
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
 

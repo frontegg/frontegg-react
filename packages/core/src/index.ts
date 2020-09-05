@@ -1,6 +1,6 @@
 import './styles/common.scss';
 
-export * from './FronteggProvider';
+// export * from './FronteggProvider';
 export * from './FronteggProviderHooks'; // 69.5
 
 export * from './api';

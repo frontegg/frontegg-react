@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
-import { AuthPlugin, DefaultAuthRoutes } from '../index';
+import { AuthPlugin } from '../index';
 import {
   IDENTITY_SERVICE,
   mockAuthApi,
@@ -26,9 +26,7 @@ describe('Activate Account Tests', () => {
     cy.server();
     mockAuthApi(false, false);
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.activateUrl);
 
@@ -52,9 +50,7 @@ describe('Activate Account Tests', () => {
     }).as('activateAccount');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      <DefaultAuthRoutes>
-        Home
-      </DefaultAuthRoutes>
+      Home
     </TestFronteggWrapper>, mountOptions);
 
     const userId = '1111-userId-1111';
