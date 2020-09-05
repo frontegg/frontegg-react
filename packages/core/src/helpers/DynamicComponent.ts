@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement, ReactNode } from 'react';
+import React, { ComponentType, ReactElement, ReactNode, useMemo } from 'react';
 import ownKeys = Reflect.ownKeys;
 
 export class EmptyRender extends React.Component<any, any> {
@@ -108,6 +108,10 @@ export const buildComponents = <P>(components: any, defaultComponents: P): P => 
   return ownKeys(defaultComponents as any)
     .map((compName: any) => ({ [compName as string]: generateComponent(components, compName as string, (defaultComponents as any)[compName]) }))
     .reduce((p: any, comp: any) => ({ ...p, ...comp }), {});
+};
+
+export const useDynamicComponents = <COMPS, A, P extends { components?: ComponentsTypesWithProps<COMPS> }>(defaultComponents: A, props: P) => {
+  return useMemo(() => buildComponents(buildComponentsProps({}, props.components ?? {}), defaultComponents), [props.components]);
 };
 
 export const buildComponentsProps = <P>(configComponents: P, propsComponents: P) => {

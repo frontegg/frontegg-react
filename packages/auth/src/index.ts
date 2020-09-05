@@ -1,10 +1,11 @@
 import React from 'react';
 import { PluginConfig, Loader } from '@frontegg/react-core';
 import { preloadedState, reducer, sagas, storeName } from './Api';
-import Listener from './Listener';
+import Listener, { AuthListener } from './Listener';
 import { AuthPluginOptions } from './interfaces';
 import './index.scss';
 import { DefaultAuthRoutes } from './components';
+import { AuthRoutes } from './components/DefaultAuthRoutes';
 
 export * from './Api';
 export * from './hooks';
@@ -30,6 +31,6 @@ export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
   },
   reducer,
   sagas,
-  Listener,
-  WrapperComponent: (options?.InjectAuthRoutes ?? true) ? DefaultAuthRoutes : undefined,
+  Listener:AuthListener,
+  WrapperComponent: (options?.InjectAuthRoutes ?? true) ? AuthRoutes : undefined,
 });

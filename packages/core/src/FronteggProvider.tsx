@@ -10,20 +10,7 @@ import { BrowserRouter, RouteComponentProps, Router, withRouter } from 'react-ro
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
-
-export type RedirectOptions = {
-  refresh?: boolean;
-  replace?: boolean
-}
-
-export interface PluginConfig {
-  storeName: string;
-  reducer: Reducer;
-  sagas: () => void;
-  preloadedState: any;
-  Listener?: React.ComponentType;
-  WrapperComponent?: React.ComponentType<any>;
-}
+import { PluginConfig, RedirectOptions } from './FronteggProviderHooks';
 
 interface FronteggProviderComponentProps {
   context: ContextOptions;

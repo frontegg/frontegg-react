@@ -130,11 +130,8 @@ build-%: ##@2 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
 	@export PACKAGE=${*}; cd ./packages/${*} && yarn build
 
-build-watch-%: ##@2 Build build and watch a specific package
-	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
-	@cd ./packages/${*} && yarn build:watch
-
-
+bw: ##@2 Build parallels build:watch all
+	@./node_modules/.bin/lerna run build:watch --parallel
 ########################################################################################################################
 #
 # Publish Operations
@@ -162,20 +159,20 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} lint
 
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Unit Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-unit
-#
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Component Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-component
-#
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Integration Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-integration
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Unit Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-unit
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Component Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-component
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Integration Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-integration
 
 	${MAKE} build
 

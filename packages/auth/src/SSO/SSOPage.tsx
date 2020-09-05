@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { SSO, SSOProps } from './SSO';
 import {
   WithT, withT,
@@ -15,7 +15,7 @@ type Components = {
 
 export interface SSOPageProps {
   components?: ComponentsTypesWithProps<Components>;
-  rootPath?: string; // default: '/sso'
+  rootPath: string; // default: '/sso'
 }
 
 type Props = WithT & RouteComponentProps & SSOPageProps
@@ -40,4 +40,5 @@ class SSOPageComponent extends FronteggClass<Components, Props> {
   }
 }
 
-export const SSOPage = withProtectedRoute(withRouter(withT()(SSOPageComponent)));
+
+export const SSOPage = withProtectedRoute(withRouter(withT()(SSOPageComponent))) as ComponentType<SSOPageProps>;

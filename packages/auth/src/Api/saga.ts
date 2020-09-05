@@ -31,12 +31,12 @@ function* refreshMetadata() {
 
 function* refreshToken() {
   try {
-    const { accessToken } = yield call(api.auth.refreshToken);
-    ContextHolder.setAccessToken(accessToken);
-    yield put(actions.setIsAuthenticated(true));
+    const user = yield call(api.auth.refreshToken);
+    ContextHolder.setAccessToken(user.accessToken);
+    yield put(actions.setState({ user, isAuthenticated: true }));
   } catch (e) {
     ContextHolder.setAccessToken(null);
-    yield  put(actions.setIsAuthenticated(false));
+    yield put(actions.setState({ user: undefined, isAuthenticated: false }));
   }
 }
 

@@ -97,7 +97,7 @@ const { reducer, actions: SliceActions } = createSlice({
 
 const actions = {
   ...SliceActions,
-  requestAuthorize: createAction(`${storeName}/requestAuthorize`, (payload: boolean) => ({ payload })),
+  requestAuthorize: createAction(`${storeName}/requestAuthorize`, (payload: boolean = false) => ({ payload })),
   preLogin: createAction(`${storeName}/preLogin`, (payload: IPreLogin) => ({ payload })),
   postLogin: createAction(`${storeName}/postLogin`, (payload: IPostLogin) => ({ payload })),
   login: createAction(`${storeName}/login`, (payload: ILogin) => ({ payload })),

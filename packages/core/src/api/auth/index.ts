@@ -199,7 +199,6 @@ export async function getSamlConfiguration(): Promise<ISamlConfiguration> {
 
 /**
  *  Update SAML configuration by logged in user (tenantId, vendorId)
- *
  * * ``authorized user``
  */
 export async function updateSamlConfiguration(body: IUpdateSamlConfiguration): Promise<ISamlConfiguration> {

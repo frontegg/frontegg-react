@@ -51,14 +51,13 @@ const onRedirecting = (loginUrl: string) => {
  * they will be redirected to the login page if not authenticated
  * returned to the page they we're redirected from after login
  */
-export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) => {
-  const stateMapper = ({ isAuthenticated, isLoading, routes }: AuthState) => ({ isAuthenticated, isLoading, routes });
-  return withAuth(class extends React.Component<P & ReturnType<typeof stateMapper>> {
-    render() {
-      const { isAuthenticated, routes: { loginUrl }, isLoading, ...rest } = this.props;
-      return isLoading ? null : isAuthenticated ? <Component {...rest as P} /> : onRedirecting(loginUrl);
-    }
-  }, stateMapper);
+export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) => function withProtectedRoute(props: P) {
+  const { isAuthenticated, isLoading, loginUrl } = useAuth((state) => ({
+    isAuthenticated: state,
+    isLoading: state.isLoading,
+    loginUrl: state.routes.loginUrl,
+  }));
+  return isLoading ? null : isAuthenticated ? <Component {...props} /> : onRedirecting(loginUrl);
 };
 
 /**
