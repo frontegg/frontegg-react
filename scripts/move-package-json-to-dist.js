@@ -11,6 +11,9 @@ function movePackageJson(packagePath) {
   const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
   newPkg.main = "./index.js";
   newPkg.typings = "./index.d.ts";
+  delete newPkg.dependencies["@frontegg/react-core"];
+  delete newPkg.dependencies["@frontegg/react-auth"];
+  delete newPkg.dependencies["@frontegg/react-elements-semantic"];
 
   fs.writeFileSync(path.join(distFolder, "package.json"), JSON.stringify(newPkg, null, 2), { encoding: "utf8" });
 }

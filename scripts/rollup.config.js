@@ -20,7 +20,8 @@ const isProduction = process.env.NODE_ENV === "production";
 const forceExternal = [
   "history",
   "react-router",
-  "react-router-dom"
+  "react-router-dom",
+  "@frontegg/recat"
 ];
 const internalDeps = [
 //   "redux",

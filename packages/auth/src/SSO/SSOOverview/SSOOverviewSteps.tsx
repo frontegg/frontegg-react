@@ -12,10 +12,7 @@ export interface SSOOverviewStepsProps {
 
 type Props = ReturnType<typeof stateMapper> & WithT & SSOOverviewStepsProps
 
-const reduceLongValue = (value: string) => value.length > 23 ? `${value.slice(0, 23)}...` : value;
-
 class SSOOverviewStepsComponent extends React.Component<Props> {
-
   render() {
     const { t, renderer, ssoState: { samlConfiguration } } = this.props;
     if (renderer) {

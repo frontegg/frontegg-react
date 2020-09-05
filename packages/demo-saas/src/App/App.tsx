@@ -11,7 +11,7 @@ class App extends React.Component<any> {
 
     return <div className='app'>
       <Switch>
-        <ProtectedRoute path='/sso' render={() => <SSOPage rootPath='/sso'/>}/>
+        <ProtectedRoute path='/s' component={SSOPage}/>
         {/*<ProtectedRoute path='/team_management' render={() => <Team/>}/>*/}
         <Route path='*' component={Component3}/>
       </Switch>
