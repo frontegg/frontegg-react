@@ -28,6 +28,10 @@ export type AuthPageRoutes = {
      * the page whither need to redirect in the case when a user redirected from reset password url
      */
     resetPasswordUrl: string;
+    /**
+     * the url to reach the idp redirect after successful SAML response
+     */
+    samlCallbackUrl?: string;
   }
 }
 

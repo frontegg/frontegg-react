@@ -9,19 +9,20 @@ import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 
 const stateMapper =
-  ({ routes, isLoading, header, loaderComponent, ssoState }: AuthState) =>
-    ({ routes, isLoading, defaultComps: { header, loaderComponent }, ssoState });
+  ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) =>
+    ({ routes, isLoading, defaultComps: { header, loaderComponent }, ssoACS });
 
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const { header, loaderComponent, children, ...rest } = props;
-  const { routes, isLoading, defaultComps, ssoState: { loading: ssoLoading, samlConfiguration } } = useAuth(stateMapper);
+  const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
 
   const samlCallbackPath = useMemo(() => {
-    if (!ssoLoading && samlConfiguration?.enabled && samlConfiguration?.acsUrl) {
-      return new URL(samlConfiguration?.acsUrl).pathname;
+    const acsUrl = routes.samlCallbackUrl ?? ssoACS;
+    if (!isLoading && acsUrl) {
+      return new URL(acsUrl).pathname;
     }
     return null;
-  }, [ssoLoading, samlConfiguration]);
+  }, [isLoading, ssoACS]);
 
   const pageProps = {
     ...rest,

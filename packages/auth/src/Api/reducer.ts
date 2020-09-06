@@ -38,7 +38,7 @@ export const preloadedState: AuthState = {
   },
 
   ssoState: {
-    loading: false,
+    loading: true,
     samlConfiguration: { enabled: false },
   },
   // routes
@@ -78,6 +78,7 @@ const { reducer, actions: SliceActions } = createSlice({
     setIsLoading: typeReducer<boolean>('isLoading'),
     setError: typeReducer<boolean>('error'),
     setIsSSOAuth: typeReducer<boolean>('isSSOAuth'),
+    setSsoACS: typeReducer<boolean>('ssoACS'),
     setIsAuthenticated: typeReducer<boolean>('isAuthenticated'),
     setUser: typeReducer<User>('user'),
 

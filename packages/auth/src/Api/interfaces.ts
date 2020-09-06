@@ -80,6 +80,7 @@ export interface AuthState extends AuthPageProps , AuthPageRoutes {
   isLoading: boolean;
   user?: User;
   isSSOAuth: boolean;
+  ssoACS?:string;
   loginState: LoginState;
   activateState: ActivateState;
   forgetPasswordState: ForgotPasswordState;

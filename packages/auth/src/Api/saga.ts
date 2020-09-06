@@ -20,13 +20,15 @@ import { ActivateStep, ForgotPasswordStep, LoginStep } from './interfaces';
 
 function* refreshMetadata() {
   let isSSOAuth;
+  let ssoACS = null;
   try {
-    yield call(api.metadata.getSamlMetadata);
+    const metadata = yield call(api.metadata.getSamlMetadata);
+    ssoACS = metadata?.configuration?.acsUrl;
     isSSOAuth = true;
   } catch (e) {
     isSSOAuth = false;
   }
-  yield put(actions.setIsSSOAuth(isSSOAuth));
+  yield put(actions.setState({ isSSOAuth, ssoACS }));
 }
 
 function* refreshToken() {
@@ -41,16 +43,14 @@ function* refreshToken() {
 }
 
 function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
-  console.log('requestAuthorize', 'START');
   const calls = [];
-  yield call(refreshToken)
+  calls.push(call(refreshToken));
   if (firstTime) {
     yield put(actions.setIsLoading(true));
-    yield call(refreshMetadata)
-    yield call(loadSSOConfigurations);
+    calls.push(call(refreshMetadata));
   }
+  yield all(calls);
   yield put(actions.setIsLoading(false));
-  console.log('requestAuthorize', 'END');
 }
 
 function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
