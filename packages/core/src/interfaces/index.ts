@@ -1,11 +1,10 @@
 declare global {
   interface Window {
     Cypress: any;
-    cypressStore:any;
-    cypressHistory:any;
+    cypressStore: any;
+    cypressHistory: any;
   }
 }
-
 
 export interface KeyValuePair {
   key: string;
