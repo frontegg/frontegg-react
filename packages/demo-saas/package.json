@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/demo-saas",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "private": true,
   "author": "FrontEgg LTD",
   "scripts": {
@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@frontegg/react": "^0.3.11",
-    "@frontegg/react-auth": "^1.0.22",
-    "@frontegg/react-core": "^1.0.22",
+    "@frontegg/react-auth": "^1.0.23",
+    "@frontegg/react-core": "^1.0.23",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "cron-parser": "^2.15.0",
