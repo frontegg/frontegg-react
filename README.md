@@ -16,7 +16,7 @@ Frontegg-React is available as an [npm package](https://www.npmjs.com/package/@f
 <font color='red'>**NOTE!**:</font> **For typescript project make sure your are using typescirpt with version > 3.9.0**
 
 ```sh  
-// using npm
+// using yarn
 
 /* with semantic UI (currently we only support semantic ui library) /*
 yarn add @frontegg/react-core @frontegg/react-elements-semantic
