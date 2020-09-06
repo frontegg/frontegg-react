@@ -43,13 +43,12 @@ function* refreshToken() {
 function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   console.log('requestAuthorize', 'START');
   const calls = [];
+  yield call(refreshToken)
   if (firstTime) {
     yield put(actions.setIsLoading(true));
-    calls.push(call(loadSSOConfigurations));
-    calls.push(call(refreshMetadata));
+    yield call(refreshMetadata)
+    yield call(loadSSOConfigurations);
   }
-  calls.push(call(refreshToken));
-  yield all(calls);
   yield put(actions.setIsLoading(false));
   console.log('requestAuthorize', 'END');
 }
