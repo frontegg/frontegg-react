@@ -3,7 +3,7 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
-    "prepublishOnly": "echo 'D\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\nD\n' && node scripts/move-package-json-to-dist.js"
+    "prepublishOnly": "make move-package-json-to-dist"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",

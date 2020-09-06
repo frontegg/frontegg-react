@@ -82,7 +82,7 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
-    if(fronteggStore){
+    if (fronteggStore) {
       return fronteggStore;
     }
     // @ts-ignore
@@ -108,7 +108,6 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* clear saga middle on unmount */
   useEffect(() => () => taskRef.current?.cancel(), []);
-
 
   /* for Cypress tests */
   if (window.Cypress) {

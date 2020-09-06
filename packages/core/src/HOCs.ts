@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 export type WithT = WithTranslation
-export {
-  withTranslation as withT,
-};
+export { withTranslation as withT };
 
 export type UseMapper<S, A> = {
   state: (state: S) => Partial<S>
