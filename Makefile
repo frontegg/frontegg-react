@@ -153,22 +153,22 @@ publish: ##@5 Publish publish all changed packages to npm repository
 #	@echo "${GREEN}* Init: Prepare Packages${RESET}"
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	${MAKE} init
-#
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Lint: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} lint
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Lint: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} lint
 #
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	@echo "${GREEN}* Unit Test: All Packages${RESET}"
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	${MAKE} test-unit
-#
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Component Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-component
-#
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Component Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-component
+
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	@echo "${GREEN}* Integration Test: All Packages${RESET}"
 #	@echo "${GREEN}************************************************************************************${RESET}"
@@ -180,8 +180,6 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}* Push: commit generated changes to the repository${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} commit-changes
-
-	${MAKE} move-package-json-to-dist
 
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Publish: Changed Packages${RESET}"

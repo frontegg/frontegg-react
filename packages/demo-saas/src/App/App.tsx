@@ -6,6 +6,9 @@ import { withFrontegg } from '../withFrontegg';
 import { useSelector } from 'react-redux';
 
 const MySSOPage = () => {
+
+  const state = useSelector(state => state)
+  const fronteggState = useAuth(state => state)
   return <div>
     <Route path={'/s3/ttt'} component={SSOPage}/>
   </div>;

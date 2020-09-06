@@ -1,4 +1,4 @@
-import { takeEvery, put, all, call, select, delay } from 'redux-saga/effects';
+import { takeLatest, takeEvery, put, all, call, select, takeLeading } from 'redux-saga/effects';
 import { actions } from './reducer';
 import {
   api,
@@ -41,6 +41,7 @@ function* refreshToken() {
 }
 
 function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
+  console.log('requestAuthorize', 'START');
   const calls = [];
   if (firstTime) {
     yield put(actions.setIsLoading(true));
@@ -50,6 +51,7 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   calls.push(call(refreshToken));
   yield all(calls);
   yield put(actions.setIsLoading(false));
+  console.log('requestAuthorize', 'END');
 }
 
 function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
@@ -218,7 +220,7 @@ function* validateSSODomain() {
 
 
 export function* sagas() {
-  yield takeEvery(actions.requestAuthorize, requestAuthorize);
+  yield takeLeading(actions.requestAuthorize, requestAuthorize);
   yield takeEvery(actions.preLogin, preLogin);
   yield takeEvery(actions.postLogin, postLogin);
   yield takeEvery(actions.login, login);
