@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const { execSync } = require("child_process");
 
 function movePackageJson(packagePath) {
   if (packagePath.indexOf("demo-saas") !== -1) {
@@ -11,6 +12,9 @@ function movePackageJson(packagePath) {
   const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
   newPkg.main = "./index.js";
   newPkg.typings = "./index.d.ts";
+  if (newPkg.bin) {
+    execSync(`tsc --project '${path.join(packagePath, "cli", "tsconfig.json")}' --outDir '${path.join(distFolder, "cli")}'`);
+  }
   delete newPkg.dependencies["@frontegg/react"];
   delete newPkg.dependencies["@frontegg/react-core"];
   delete newPkg.dependencies["@frontegg/react-auth"];
