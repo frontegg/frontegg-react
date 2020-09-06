@@ -1,8 +1,8 @@
-import React, { FC, ReactElement } from 'react';
-import { useT, RendererFunction, omitProps } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { useT, RendererFunctionFC, omitProps } from '@frontegg/react-core';
 
 export interface SSOOverviewEnablePlaceholderProps {
-  renderer?: RendererFunction<SSOOverviewEnablePlaceholderProps, SSOOverviewEnablePlaceholderProps, ReactElement>
+  renderer?: RendererFunctionFC<SSOOverviewEnablePlaceholderProps>
 }
 
 export const SSOOverviewEnablePlaceholder: FC<SSOOverviewEnablePlaceholderProps> = (props) => {

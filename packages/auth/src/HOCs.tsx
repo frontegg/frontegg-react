@@ -120,7 +120,12 @@ export class ProtectedRoute extends React.Component<RouteProps> {
       }/>;
     }
     if (component != null) {
-      return <Route {...routeProps} component={withProtectedRoute(component)}/>;
+      return <Route {...routeProps} render={(props) =>
+        <ProtectedComponent>
+          {React.createElement(component, props)}
+        </ProtectedComponent>
+      }
+      />;
     }
     return <Route {...routeProps}/>;
   }

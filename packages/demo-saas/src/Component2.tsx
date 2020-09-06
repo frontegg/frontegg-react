@@ -9,3 +9,4 @@ export const Component2 = () => {
     {isAuthenticated ? <Team/> : 'NOT AUTH'}
   </div>;
 };
+

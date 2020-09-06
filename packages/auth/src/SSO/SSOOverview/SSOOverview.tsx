@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import {
-  RendererFunction, withT, WithT, SwitchToggle, ISamlConfiguration, omitProps,
-  ComponentsTypesWithProps, FronteggClass,
+  RendererFunction, SwitchToggle, ISamlConfiguration, omitProps,
+  ComponentsTypesWithProps, useT,
 } from '@frontegg/react-core';
-import { AuthActions, AuthState } from '../../Api';
-import { withAuth } from '../../HOCs';
 import { SSOOverviewEnablePlaceholder, SSOOverviewEnablePlaceholderProps } from './SSOOverviewEnablePlaceholder';
 import { SSOOverviewSteps, SSOOverviewStepsProps } from './SSOOverviewSteps';
-
-const stateMapper = ({ ssoState }: AuthState) => ({ ssoState });
-const actionsMapper = ({ saveSSOConfigurations, setSSOState }: AuthActions) => ({ saveSSOConfigurations, setSSOState });
+import { useDynamicComponents } from '@frontegg/react-core';
+import { useAuth } from '../../hooks';
 
 type Components = {
   SSOOverviewEnablePlaceholder: SSOOverviewEnablePlaceholderProps;
@@ -17,20 +14,18 @@ type Components = {
 }
 
 export interface SSOOverviewProps {
-  renderer?: RendererFunction<SSOOverviewProps, Components>;
+  renderer?: RendererFunction<SSOOverviewProps, Components, ReactElement>;
   components?: ComponentsTypesWithProps<Components>;
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & SSOOverviewProps
+const defaultComponents = { SSOOverviewEnablePlaceholder, SSOOverviewSteps };
+export const SSOOverview: FC<SSOOverviewProps> = (props) => {
+  const Dynamic = useDynamicComponents(defaultComponents, props);
+  const { t } = useT();
+  const { samlConfiguration, loading, setSSOState, saveSSOConfigurations } = useAuth(state => state.ssoState);
+  const { renderer } = props;
 
-class SSOOverviewComponent extends FronteggClass<Components, Props> {
-  constructor(props: Props) {
-    super(props, { SSOOverviewEnablePlaceholder, SSOOverviewSteps });
-  }
-
-  onEnabledDisabledChanged = () => {
-    const { ssoState: { samlConfiguration }, setSSOState, saveSSOConfigurations } = this.props;
-
+  const onEnabledDisabledChanged = () => {
     const newConfig: ISamlConfiguration = {
       ...samlConfiguration,
       enabled: !samlConfiguration?.enabled,
@@ -43,27 +38,20 @@ class SSOOverviewComponent extends FronteggClass<Components, Props> {
       saveSSOConfigurations(newConfig);
     }
   };
+  const samlEnabled = samlConfiguration?.enabled ?? false;
 
-  render() {
-    const { t, renderer, ssoState: { samlConfiguration, loading } } = this.props;
-    const { SSOOverviewEnablePlaceholder, SSOOverviewSteps } = this.comps;
-    if (renderer) {
-      return renderer(omitProps(this.props, ['renderer', 'components']), this.comps);
-    }
-    const samlEnabled = samlConfiguration?.enabled ?? false;
-    return <div className='fe-sso-overview'>
-      <div className='fe-center'>
-        <SwitchToggle
-          loading={loading}
-          value={samlEnabled}
-          labels={[t('common.disabled'), t('common.enabled')]}
-          onChange={this.onEnabledDisabledChanged}/>
-      </div>
-
-      {samlEnabled ? <SSOOverviewSteps/> : <SSOOverviewEnablePlaceholder/>}
-    </div>;
+  if (renderer) {
+    return renderer(omitProps(props, ['renderer', 'components']), Dynamic);
   }
-}
 
-
-export const SSOOverview = withAuth(withT()(SSOOverviewComponent), stateMapper, actionsMapper);
+  return <div>
+    <div className='fe-center'>
+      <SwitchToggle
+        loading={loading}
+        value={samlEnabled}
+        labels={[t('common.disabled'), t('common.enabled')]}
+        onChange={onEnabledDisabledChanged}/>
+    </div>
+    {samlEnabled ? <SSOOverviewSteps/> : <SSOOverviewEnablePlaceholder/>}
+  </div>;
+};

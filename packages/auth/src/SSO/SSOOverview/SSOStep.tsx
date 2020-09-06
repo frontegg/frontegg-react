@@ -18,7 +18,7 @@ export class SSOStep extends React.Component<SSOStepProps> {
       <Link to={to} className='fe-sso-step'>
         <div className='fe-sso-step__inner'>
           <div className='fe-sso-step__header'>
-            <span>{t('common.step', {num})}</span>
+            <span>{t('common.step', { num })}</span>
             <span className='fe-sso-step__checkmark'>
               {configured && <Icon name='checkmark'/>}
             </span>
@@ -34,7 +34,7 @@ export class SSOStep extends React.Component<SSOStepProps> {
         {configured ?
           <div className='fe-sso-step__info'>
             <span>{t('common.configured')}</span>
-            <Link to={to}>{t('common.edit')}</Link>
+            <span style={{ color: '#4183c4' }}>{t('common.edit')}</span>
           </div> :
           <div className='fe-sso-step__info'>
             {t('common.not-configured')}

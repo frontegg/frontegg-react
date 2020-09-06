@@ -1,13 +1,10 @@
-import React from 'react';
-import { ComponentsTypesWithProps, RendererFunction, FronteggClass, omitProps } from '@frontegg/react-core';
-import { AuthState } from '../Api';
+import React, { FC, ReactElement } from 'react';
+import { ComponentsTypesWithProps, omitProps, useDynamicComponents, RootPathContext } from '@frontegg/react-core';
 import { Route, Switch } from 'react-router-dom';
-import { withAuth } from '../HOCs';
 import { SSOOverview, SSOOverviewProps } from './SSOOverview';
 import { SSOClaimDomain, SSOClaimDomainProps } from './SSOClaimDomain';
 import { SSOConfigureIDP, SSOConfigureIDPProps } from './SSOConfigureIDP';
-
-const stateMapper = ({}: AuthState) => ({});
+import { RendererFunction, useRootPath } from '@frontegg/react-core';
 
 type Components = {
   SSOOverview: SSOOverviewProps;
@@ -17,29 +14,31 @@ type Components = {
 
 export interface SSOProps {
   components?: ComponentsTypesWithProps<Components>;
-  renderer?: RendererFunction<Props, Components>;
-  rootPath?: string; // default: /sso
+  renderer?: RendererFunction<SSOProps, Components, ReactElement>;
+  rootPath?: string; // default: /ssc
 }
 
-type Props = ReturnType<typeof stateMapper> & SSOProps
+const defaultComponents = { SSOOverview, SSOClaimDomain, SSOConfigureIDP };
 
-class SSOComponent extends FronteggClass<Components, Props> {
-  constructor(props: Props) {
-    super(props, { SSOOverview, SSOClaimDomain, SSOConfigureIDP });
+export const SSO: FC<SSOProps> = (props) => {
+  const Dynamic = useDynamicComponents(defaultComponents, props);
+  const [rootPath,isRootPathContext] = useRootPath(props, '/sso');
+
+  const { renderer } = props;
+  if (renderer) {
+    return renderer(omitProps(props, ['renderer', 'components']), Dynamic);
   }
 
-  render() {
-    const { renderer, rootPath = '/sso' } = this.props;
-    const { SSOOverview, SSOClaimDomain, SSOConfigureIDP } = this.comps;
-    if (renderer) {
-      return renderer(omitProps(this.props, ['renderer', 'components']), this.comps);
-    }
-    return <Switch>
-      <Route exact path={rootPath} component={SSOOverview}/>
-      <Route exact path={`${rootPath}/domain`} component={SSOClaimDomain}/>
-      <Route exact path={`${rootPath}/idp`} component={SSOConfigureIDP}/>
-    </Switch>;
-  }
-}
+  const components = <Switch>
+    <Route exact path={`${rootPath}`} component={SSOOverview}/>
+    <Route exact path={`${rootPath}/domain`} component={SSOClaimDomain}/>
+    <Route exact path={`${rootPath}/idp`} component={SSOConfigureIDP}/>
+  </Switch>;
 
-export const SSO = withAuth(SSOComponent, stateMapper);
+  if (!isRootPathContext) {
+    return <RootPathContext.Provider value={rootPath}>
+      {components}
+    </RootPathContext.Provider>;
+  }
+  return components;
+};

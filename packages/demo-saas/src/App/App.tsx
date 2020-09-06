@@ -4,14 +4,28 @@ import { Route, Switch } from 'react-router-dom';
 import { ProtectedRoute, SSOPage } from '@frontegg/react-auth';
 import { withFrontegg } from '../withFrontegg';
 
-// import { Team } from '@frontegg/react';
+const MySSOPage = () => {
+  return <div>
+    <Route path={'/s3/ttt'} component={SSOPage}/>
+  </div>;
+};
 
 class App extends React.Component<any> {
   render() {
 
     return <div className='app'>
       <Switch>
-        <ProtectedRoute path='/s' component={SSOPage}/>
+        <ProtectedRoute path='/s1'>
+          <SSOPage/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/s2' render={() => {
+
+          return <SSOPage/>;
+        }}/>
+        <ProtectedRoute path='/s3' render={() => {
+
+          return <MySSOPage/>;
+        }}/>
         {/*<ProtectedRoute path='/team_management' render={() => <Team/>}/>*/}
         <Route path='*' component={Component3}/>
       </Switch>
