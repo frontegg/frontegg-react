@@ -1,4 +1,4 @@
-import { AuthPageProps, AuthPageRoutes, AuthPluginOptions } from '../interfaces';
+import { AuthPageProps, AuthPageRoutes } from '../interfaces';
 import { RedirectOptions } from '@frontegg/react-core';
 import { ISamlConfiguration } from '@frontegg/react-core';
 
