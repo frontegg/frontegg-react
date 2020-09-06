@@ -31,10 +31,9 @@ interface FeProviderProps {
   plugins: PluginConfig[];
   uiLibrary: Elements
   onRedirectTo?: (path: string) => void;
+  debugMode?: boolean;
 }
 
-// @ts-ignore
-const devTools = process.env.NODE_ENV === 'development' ? { name: 'Frontegg Store' } : undefined;
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
 let fronteggStore: EnhancedStore;
@@ -86,6 +85,8 @@ const FeState: FC<FeProviderProps> = (props) => {
     if(fronteggStore){
       return fronteggStore;
     }
+    // @ts-ignore
+    const devTools = process.env.NODE_ENV === 'development' || props.debugMode ? { name: 'Frontegg Store' } : undefined;
     const reducer = combineReducers({
       root: rootReducer,
       ...props.plugins.reduce((p, n) => ({ ...p, [n.storeName]: n.reducer }), {}),
