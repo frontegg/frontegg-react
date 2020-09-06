@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-auth",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.18",
+    "@frontegg/react-core": "^1.0.19",
     "@reduxjs/toolkit": "^1.1.0",
     "classnames": "^2.2.6",
     "formik": "^1.5.7",
