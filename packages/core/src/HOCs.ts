@@ -26,3 +26,6 @@ export const withPlugin = <S, A>(pluginName: string, defaultMapper: UseMapper<S,
   Object.defineProperty(fn, 'name', { value: `with${pluginName.substring(0, 1).toUpperCase()}${pluginName.substring(1)}` });
   return fn;
 };
+
+
+export { connect };

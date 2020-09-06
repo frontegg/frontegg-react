@@ -22,7 +22,7 @@ const defaultComponents = { SSOOverview, SSOClaimDomain, SSOConfigureIDP };
 
 export const SSO: FC<SSOProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
-  const [rootPath,isRootPathContext] = useRootPath(props, '/sso');
+  const [rootPath, isRootPathContext] = useRootPath(props, '/sso');
 
   const { renderer } = props;
   if (renderer) {

@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 
-import { useDispatch, useSelector } from 'react-redux';
-import { memoEqual } from '@frontegg/react-core';
+import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
 import { AuthMapper } from './helpers';

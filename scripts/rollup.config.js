@@ -25,7 +25,7 @@ const forceExternal = [
 ];
 const internalDeps = [
 //   "redux",
-//   "react-redux"
+  "react-redux"
 ];
 
 const plugins = [
