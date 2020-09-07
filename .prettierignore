@@ -1,0 +1,14 @@
+# Ignore artifacts:
+build
+dist
+coverage
+scripts
+*.md
+*.d.ts
+tsconfig.json
+tslint.json
+.*
+lerna.json
+lerna-debug.log
+yarn.lock
+node_modules

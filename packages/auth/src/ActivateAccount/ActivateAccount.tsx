@@ -11,15 +11,15 @@ type Components = {
   ActivateAccountForm: ActivateAccountFormProps;
   ActivateAccountSuccessRedirect: ActivateAccountSuccessRedirectProps;
   ActivateAccountFailedRedirect: ActivateAccountFailedRedirectProps;
-}
+};
 const defaultComponents = { ActivateAccountSuccessRedirect, ActivateAccountFailedRedirect, ActivateAccountForm };
 
-export interface ActivateAccount2Props {
-  components?: ComponentsTypesWithProps<Components>
+export interface ActivateAccountProps {
+  components?: ComponentsTypesWithProps<Components>;
 }
 
-export const ActivateAccount: FC<ActivateAccount2Props> = (props) => {
-  const { step } = useAuth(state => state.activateState);
+export const ActivateAccount: FC<ActivateAccountProps> = (props) => {
+  const { step } = useAuth((state) => state.activateState);
   const Dynamic = useDynamicComponents(defaultComponents, props);
 
   const url = new URL(window?.location.href);
@@ -28,14 +28,13 @@ export const ActivateAccount: FC<ActivateAccount2Props> = (props) => {
 
   let components: any;
   if (!userId || !token) {
-    components = <Dynamic.ActivateAccountFailedRedirect/>;
+    components = <Dynamic.ActivateAccountFailedRedirect />;
   } else if (step === ActivateStep.success) {
-    components = <Dynamic.ActivateAccountSuccessRedirect/>;
+    components = <Dynamic.ActivateAccountSuccessRedirect />;
   } else {
-    components = <Dynamic.ActivateAccountForm userId={userId} token={token}/>;
+    components = <Dynamic.ActivateAccountForm userId={userId} token={token} />;
   }
   return <div className='fe-activate-account-component'>{components}</div>;
 };
-
 
 export const ActivateAccountPage = authPageWrapper(ActivateAccount);

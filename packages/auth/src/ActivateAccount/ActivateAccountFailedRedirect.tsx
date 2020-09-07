@@ -31,4 +31,4 @@ export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProp
       {t('auth.activate-account.back-to-login')}
     </Button>
   </>;
-}
+};
