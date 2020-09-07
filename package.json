@@ -104,9 +104,6 @@
       "pre-commit": "git-format-staged -f 'prettier --config ./.prettierrc.json --write ."
     }
   },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
   "workspaces": [
     "packages/*"
   ]
