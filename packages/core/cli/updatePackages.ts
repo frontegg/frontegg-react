@@ -31,8 +31,9 @@ export default ({ argv }: any) => {
   }
 
   console.log(chalk.cyan('updating frontegg packages:'), chalk.red(currentVersion), '->', chalk.green(lastVersion));
-  const updateCommand = `${commands.updateVersion} ${installedPackages.map(p => `${p}@^${lastVersion}`).join(' ')}`;
+  const updateCommand = `${commands.updateVersion} ${installedPackages.map(p => `${p}@${lastVersion}`).join(' ')}`;
 
+  console.log(chalk.gray(`> exec: ${updateCommand}`))
   const loader = createLoader();
   const exec1 = exec(updateCommand);
   exec1.on('exit', () => {
