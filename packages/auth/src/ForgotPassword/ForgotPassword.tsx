@@ -1,12 +1,10 @@
-import React, { ComponentType } from 'react';
-import { AuthState, ForgotPasswordStep } from '../Api';
-import { ComponentsTypesWithProps, FronteggClass } from '@frontegg/react-core';
-import { withAuth } from '../HOCs';
-import { authPageWrapper } from '../components/authPageWrapper';
+import React, { FC } from 'react';
+import { ForgotPasswordStep } from '../Api';
+import { useDynamicComponents, ComponentsTypesWithProps } from '@frontegg/react-core';
+import { authPageWrapper } from '../components';
 import { ForgotPasswordSuccessRedirect, ForgotPasswordSuccessRedirectProps } from './ForgotPasswordSuccessRedirect';
 import { ForgotPasswordForm, ForgotPasswordFormProps } from './ForgotPasswordForm';
-
-const stateMapper = ({ forgetPasswordState }: AuthState) => ({ forgetPasswordState });
+import { useAuth } from '../hooks';
 
 type Components = {
   ForgotPasswordSuccessRedirect: ForgotPasswordSuccessRedirectProps;
@@ -17,30 +15,19 @@ export interface ForgotPasswordProps {
   components?: ComponentsTypesWithProps<Components>
 }
 
-type Props = ReturnType<typeof stateMapper> & ForgotPasswordProps
-
-class ForgotPasswordComponent extends FronteggClass<Components, Props> {
-
-  constructor(props: Props) {
-    super(props, { ForgotPasswordSuccessRedirect, ForgotPasswordForm });
+const defaultComponents = { ForgotPasswordSuccessRedirect, ForgotPasswordForm };
+export const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
+  const Dynamic = useDynamicComponents(defaultComponents, props);
+  const { step } = useAuth(({ forgetPasswordState: { step } }) => ({ step }));
+  let components;
+  if (step === ForgotPasswordStep.success) {
+    components = <Dynamic.ForgotPasswordSuccessRedirect/>;
+  } else {
+    components = <Dynamic.ForgotPasswordForm/>;
   }
 
-  render() {
-    const { forgetPasswordState: { step } } = this.props;
-    const { ForgotPasswordSuccessRedirect, ForgotPasswordForm } = this.comps;
-
-    let components: any;
-    if (step === ForgotPasswordStep.success) {
-      components = <ForgotPasswordSuccessRedirect/>;
-    } else {
-      components = <ForgotPasswordForm/>;
-    }
-
-    return <div className='fe-forgot-password-component'>
-      {components}
-    </div>;
-  }
-}
-
-export const ForgotPassword = withAuth(ForgotPasswordComponent, stateMapper) as ComponentType<ForgotPasswordProps>;
+  return <div className='fe-forgot-password-component'>
+    {components}
+  </div>;
+};
 export const ForgotPasswordPage = authPageWrapper(ForgotPassword);

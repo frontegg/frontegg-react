@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { LoginPage, LogoutPage, LoginWithSSOPage } from '../Login';
+import { LoginPage, LogoutPage, LoginWithSSO } from '../Login';
 import { ActivateAccountPage } from '../ActivateAccount';
 import { ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPasswordPage } from '../ResetPassword';
@@ -41,7 +41,7 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     <Route exact path={routes.forgetPasswordUrl} render={() => <ForgotPasswordPage {...pageProps}/>}/>
     <Route exact path={routes.resetPasswordUrl} render={() => <ResetPasswordPage {...pageProps}/>}/>
     <Route exact path={routes.activateUrl} render={() => <ActivateAccountPage {...pageProps}/>}/>
-    {samlCallbackPath && <Route exact path={samlCallbackPath} render={() => <LoginWithSSOPage {...pageProps}/>}/>}
+    {samlCallbackPath && <Route exact path={samlCallbackPath} render={() => <LoginWithSSO {...pageProps}/>}/>}
     <Route path='*' children={() => children}/>
   </Switch>;
 };

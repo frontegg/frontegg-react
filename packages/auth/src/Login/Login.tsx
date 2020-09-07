@@ -1,16 +1,14 @@
-import React, { ComponentType } from 'react';
+import React, { FC } from 'react';
+import { ComponentsTypesWithProps, useDynamicComponents, Loader } from '@frontegg/react-core';
 import { AuthState, LoginStep } from '../Api';
-import { withAuth } from '../HOCs';
-import { authPageWrapper } from '../components/authPageWrapper';
-import { ComponentsTypesWithProps, FronteggClass, Loader } from '@frontegg/react-core';
+import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
 import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
 import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
-
-const stateMapper = ({ isLoading, isAuthenticated, loginState: { step } }: AuthState) => ({ isLoading, isAuthenticated, step });
+import { useAuth } from '../hooks';
 
 type Components = {
   LoginSuccessRedirect: LoginSuccessRedirectProps;
@@ -25,53 +23,36 @@ export interface LoginComponentProps {
   components?: ComponentsTypesWithProps<Components>
 }
 
-type Props = LoginComponentProps & ReturnType<typeof stateMapper>
-
-class LoginComponent extends FronteggClass<Components, Props> {
-  constructor(props: Props) {
-    super(props, {
-      LoginSuccessRedirect,
-      LoginWithPassword,
-      RecoverTwoFactor,
-      LoginWithTwoFactor,
-      RedirectToSSO,
-      LoginWithSSOFailed,
-    });
-  }
-
-  render() {
-    const { isLoading, isAuthenticated, step } = this.props;
-    const {
-      LoginSuccessRedirect,
-      LoginWithPassword,
-      RecoverTwoFactor,
-      LoginWithTwoFactor,
-      RedirectToSSO,
-      LoginWithSSOFailed,
-    } = this.comps;
-    let components = null;
-
-    if (isLoading) {
-      components = <Loader center={true}/>;
-    } else if (isAuthenticated || step === LoginStep.success) {
-      components = <LoginSuccessRedirect/>;
-    } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
-      components = <LoginWithPassword/>;
-    } else if (step === LoginStep.recoverTwoFactor) {
-      components = <RecoverTwoFactor/>;
-    } else if (step === LoginStep.loginWithTwoFactor) {
-      components = <LoginWithTwoFactor/>;
-    } else if (step === LoginStep.redirectToSSO) {
-      components = <RedirectToSSO/>;
-    } else if (step === LoginStep.loginWithSSOFailed) {
-      components = <LoginWithSSOFailed/>;
-    }
-
-    return <div className='fe-login-component'>
-      {components}
-    </div>;
-  }
+export interface LoginProps {
+  components?: ComponentsTypesWithProps<Components>
 }
 
-export const Login = withAuth(LoginComponent, stateMapper) as ComponentType<LoginComponentProps>;
+const defaultComponents = { LoginSuccessRedirect, LoginWithPassword, RecoverTwoFactor, LoginWithTwoFactor, RedirectToSSO, LoginWithSSOFailed };
+const stateMapper = ({ isLoading, isAuthenticated, loginState }: AuthState) => ({ isLoading, isAuthenticated, ...loginState });
+export const Login: FC<LoginProps> = (props) => {
+  const Dynamic = useDynamicComponents(defaultComponents, props);
+  const { isLoading, isAuthenticated, step } = useAuth(stateMapper);
+
+  let components = null;
+  if (isLoading) {
+    components = <Loader center={true}/>;
+  } else if (isAuthenticated || step === LoginStep.success) {
+    components = <Dynamic.LoginSuccessRedirect/>;
+  } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
+    components = <Dynamic.LoginWithPassword/>;
+  } else if (step === LoginStep.recoverTwoFactor) {
+    components = <Dynamic.RecoverTwoFactor/>;
+  } else if (step === LoginStep.loginWithTwoFactor) {
+    components = <Dynamic.LoginWithTwoFactor/>;
+  } else if (step === LoginStep.redirectToSSO) {
+    components = <Dynamic.RedirectToSSO/>;
+  } else if (step === LoginStep.loginWithSSOFailed) {
+    components = <Dynamic.LoginWithSSOFailed/>;
+  }
+
+  return <div className='fe-login-component'>
+    {components}
+  </div>;
+};
+
 export const LoginPage = authPageWrapper(Login);

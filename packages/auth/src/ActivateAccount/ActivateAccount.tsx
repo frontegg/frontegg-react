@@ -4,7 +4,7 @@ import { ActivateAccountSuccessRedirect, ActivateAccountSuccessRedirectProps } f
 import { ActivateAccountFailedRedirect, ActivateAccountFailedRedirectProps } from './ActivateAccountFailedRedirect';
 import { ActivateAccountForm, ActivateAccountFormProps } from './ActivateAccountForm';
 import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
-import { authPageWrapper } from '../components/authPageWrapper';
+import { authPageWrapper } from '../components';
 import { useAuth } from '../hooks';
 
 type Components = {

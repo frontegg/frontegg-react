@@ -1,30 +1,27 @@
-import React from 'react';
-import { authPageWrapper } from '../components/authPageWrapper';
-import { withAuth } from '../HOCs';
-import { AuthActions, AuthState } from '../Api';
-import { Loader } from '@frontegg/react-core';
+import React, { FC, useEffect } from 'react';
+import { authPageWrapper } from '../components';
+import { Loader, omitProps, RendererFunctionFC } from '@frontegg/react-core';
+import { useAuth } from '../hooks';
 
+export interface LogoutProps {
+  renderer?: RendererFunctionFC<LogoutProps>
+}
 
-const stateMapper = ({ routes }: AuthState) => ({ routes });
-const actionsMapper = ({ logout }: AuthActions) => ({ logout });
-
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper>
-
-class LogoutComponent extends React.Component<Props> {
-  componentDidMount() {
-    const { logout, routes: { loginUrl } } = this.props;
+export const Logout: FC<LogoutProps> = (props) => {
+  const { renderer } = props;
+  const { logout, loginUrl } = useAuth(state => state.routes);
+  useEffect(() => {
     setTimeout(() => {
       logout(() => window.location.href = loginUrl);
     }, 2000);
+  }, []);
+
+  if (renderer) {
+    return renderer(omitProps(props, ['renderer']));
   }
 
-  render() {
-    return <div className='fe-login-component'>
-      <Loader center/>
-    </div>;
-  }
-}
-
-export const Logout = withAuth(LogoutComponent, stateMapper, actionsMapper);
-
+  return <div className='fe-login-component'>
+    <Loader center/>
+  </div>;
+};
 export const LogoutPage = authPageWrapper(Logout);

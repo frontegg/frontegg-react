@@ -1,40 +1,32 @@
-import React, { ComponentType } from 'react';
-import { Button, omitProps, RendererFunction, WithT, withT } from '@frontegg/react-core';
-import { withAuth } from '../HOCs';
-import { AuthActions, AuthState } from '../Api';
+import React, { FC } from 'react';
+import { Button, omitProps, useT, RendererFunctionFC } from '@frontegg/react-core';
+import { AuthState } from '../Api';
+import { useAuth } from '../hooks';
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
-const actionsMapper = ({ resetLoginState }: AuthActions) => ({ resetLoginState });
 
 export interface LoginWithSSOFailedProps {
-  renderer?: RendererFunction<Props, LoginWithSSOFailedProps>
+  renderer?: RendererFunctionFC<LoginWithSSOFailedProps>
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & LoginWithSSOFailedProps
+export const LoginWithSSOFailed: FC<LoginWithSSOFailedProps> = (props) => {
+  const { renderer } = props;
+  const { t } = useT();
+  const { routes: { loginUrl }, onRedirectTo, resetLoginState } = useAuth(stateMapper);
 
-class LoginWithSSOFailedComponent extends React.Component<Props> {
-  render() {
-    const { t, renderer, routes: { loginUrl }, onRedirectTo, resetLoginState } = this.props;
-    if (renderer) {
-      return renderer(omitProps(this.props, ['renderer']));
-    }
-
-    return <>
-      <div className='fe-error-message'>
-        {t('auth.login.login-with-sso-failed')}
-      </div>
-      <Button fullWidth={true} onClick={() => {
-        resetLoginState();
-        onRedirectTo(loginUrl);
-      }}>
-        {t('auth.login.back-to-login')}
-      </Button>
-    </>;
+  if (renderer) {
+    return renderer(omitProps(props, ['renderer']));
   }
-}
 
-export const LoginWithSSOFailed = withAuth(
-  withT()(LoginWithSSOFailedComponent),
-  stateMapper,
-  actionsMapper,
-) as ComponentType<LoginWithSSOFailedProps>;
+  return <>
+    <div className='fe-error-message'>
+      {t('auth.login.login-with-sso-failed')}
+    </div>
+    <Button fullWidth={true} onClick={() => {
+      resetLoginState();
+      onRedirectTo(loginUrl);
+    }}>
+      {t('auth.login.back-to-login')}
+    </Button>
+  </>;
+};

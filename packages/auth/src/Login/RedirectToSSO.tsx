@@ -7,10 +7,11 @@ export interface RedirectToSSOProps {
 }
 
 export const RedirectToSSO: FC<RedirectToSSOProps> = (props: RedirectToSSOProps) => {
-  if (props.renderer) {
-    return props.renderer(omitProps(props, ['renderer', 'components']));
-  }
   const { t } = useT();
+
+  if (props.renderer) {
+    return props.renderer(omitProps(props, ['renderer']));
+  }
   return <>
     <div className='fe-center'>{t('auth.login.redirect-to-sso-message')}</div>
     <Loader center/>
