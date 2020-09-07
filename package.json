@@ -101,7 +101,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "prettier --config ./.prettierrc.json --write ."
+      "pre-commit": "npm run prettier --config ./.prettierrc.json --write ."
     }
   },
   "workspaces": [
