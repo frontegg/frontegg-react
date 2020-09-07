@@ -101,7 +101,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "git-format-staged -f 'prettier --config ./.prettierrc.json --write ."
+      "pre-commit": "prettier --config ./.prettierrc.json --write ."
     }
   },
   "workspaces": [
