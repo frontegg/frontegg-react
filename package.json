@@ -58,6 +58,7 @@
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.17.0",
     "figlet": "^1.5.0",
+    "git-format-staged": "^2.1.0",
     "handlebars": "^4.7.6",
     "history": "^4.9.0",
     "husky": "^4.3.0",
@@ -100,7 +101,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "prettier --config ./.prettierrc.json --write ."
+      "pre-commit": "git-format-staged -f 'prettier --config ./.prettierrc.json --write ."
     }
   },
   "lint-staged": {
