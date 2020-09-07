@@ -4,7 +4,6 @@ import { Icon as SemanticIcon, IconProps as SemanticIconProps } from 'semantic-u
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import classNames from 'classnames';
 
-
 const iconMap: { [name: string]: SemanticICONS } = {
   'left-arrow': 'arrow left',
 };
@@ -16,6 +15,6 @@ const mapper = (props: IconProps): SemanticIconProps => ({
 
 export class Icon extends React.Component<IconProps> {
   render() {
-    return <SemanticIcon {...mapper(this.props)}/>;
+    return <SemanticIcon {...mapper(this.props)} />;
   }
 }

@@ -33,8 +33,13 @@ describe('Auth Test', () => {
 
   it('[login page], with saml, test input validation', () => {
     cy.server();
-    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 401, response: 'Unauthorized' });
-    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [{}] } });
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+      status: 401,
+      response: 'Unauthorized',
+    });
+    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { rows: [{}] } });
     cy.visit('/account/login');
 
     const emailSelector = '[name="email"]';
@@ -63,8 +68,6 @@ describe('Auth Test', () => {
     // cy.get(emailSelector).parent().should('not.have.class', 'error');
     // cy.get(submitSelector).contains('Login').should('not.be.disabled');
   });
-
 });
-
 
 export {};

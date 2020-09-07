@@ -4,7 +4,7 @@ import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 
 export interface ResetPasswordFailedProps {
-  renderer?: RendererFunctionFC<ResetPasswordFailedProps>
+  renderer?: RendererFunctionFC<ResetPasswordFailedProps>;
 }
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ ...routes, onRedirectTo });
@@ -16,17 +16,22 @@ export const ResetPasswordFailed: FC<ResetPasswordFailedProps> = (props) => {
     return renderer(omitProps(props, ['renderer']));
   }
 
-  return <>
-    <div className='fe-error-message'>
-      {t('auth.forgot-password.reset-password-failed-title')}
-      <br/>
-      {t('auth.forgot-password.reset-password-failed-description')}
-    </div>
-    <Button fullWidth={true} onClick={() => {
-      resetForgotPasswordState();
-      onRedirectTo(loginUrl);
-    }}>
-      {t('auth.forgot-password.back-to-login')}
-    </Button>
-  </>;
+  return (
+    <>
+      <div className='fe-error-message'>
+        {t('auth.forgot-password.reset-password-failed-title')}
+        <br />
+        {t('auth.forgot-password.reset-password-failed-description')}
+      </div>
+      <Button
+        fullWidth={true}
+        onClick={() => {
+          resetForgotPasswordState();
+          onRedirectTo(loginUrl);
+        }}
+      >
+        {t('auth.forgot-password.back-to-login')}
+      </Button>
+    </>
+  );
 };

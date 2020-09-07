@@ -1,7 +1,7 @@
-export type IGetMetadata = Pick<IBaseMetadata, 'entityName'>
+export type IGetMetadata = Pick<IBaseMetadata, 'entityName'>;
 
 interface IBaseMetadata {
-  entityName: 'saml' | 'notifications'
+  entityName: 'saml' | 'notifications';
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -13,7 +13,7 @@ export type IMetadataTheme = {
   id: string;
   name: string;
   styles: any;
-}
+};
 
 export interface INotificationMetadata extends IBaseMetadata {
   entityName: 'notifications';
@@ -28,5 +28,5 @@ export interface ISamlMetadata extends IBaseMetadata {
   configuration: {
     acsUrl: string;
     spEntityId: string;
-  }
+  };
 }

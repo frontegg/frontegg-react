@@ -5,7 +5,7 @@ import { RendererFunctionFC, Loader, omitProps, useT } from '@frontegg/react-cor
 import { useAuth } from '../hooks';
 
 export interface LoginSuccessRedirectProps {
-  renderer?: RendererFunctionFC<LoginSuccessRedirectProps>
+  renderer?: RendererFunctionFC<LoginSuccessRedirectProps>;
 }
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
@@ -30,8 +30,10 @@ export const LoginSuccessRedirect: FC<LoginSuccessRedirectProps> = (props) => {
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
-  return <>
-    <div className='fe-center'> {t('auth.login.authentication-succeeded')}</div>
-    <Loader center/>
-  </>;
+  return (
+    <>
+      <div className='fe-center'> {t('auth.login.authentication-succeeded')}</div>
+      <Loader center />
+    </>
+  );
 };

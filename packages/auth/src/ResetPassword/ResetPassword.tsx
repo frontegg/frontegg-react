@@ -11,16 +11,16 @@ type Components = {
   ResetPasswordForm: ResetPasswordFormProps;
   ResetPasswordSuccessRedirect: ResetPasswordSuccessRedirectProps;
   ResetPasswordFailed: ResetPasswordFailedProps;
-}
+};
 
 export interface ResetPasswordProps {
-  components?: ComponentsTypesWithProps<Components>
+  components?: ComponentsTypesWithProps<Components>;
 }
 
 const defaultComponent = { ResetPasswordForm, ResetPasswordSuccessRedirect, ResetPasswordFailed };
 export const ResetPassword: FC<ResetPasswordProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponent, props);
-  const { step } = useAuth(state => state.forgetPasswordState);
+  const { step } = useAuth((state) => state.forgetPasswordState);
 
   const url = new URL(window?.location.href);
   const userId = url.searchParams.get('userId') || '';
@@ -28,11 +28,11 @@ export const ResetPassword: FC<ResetPasswordProps> = (props) => {
 
   let components;
   if (!userId || !token) {
-    components = <Dynamic.ResetPasswordFailed/>;
+    components = <Dynamic.ResetPasswordFailed />;
   } else if (step === ForgotPasswordStep.success) {
-    components = <Dynamic.ResetPasswordSuccessRedirect/>;
+    components = <Dynamic.ResetPasswordSuccessRedirect />;
   } else {
-    components = <Dynamic.ResetPasswordForm userId={userId} token={token}/>;
+    components = <Dynamic.ResetPasswordForm userId={userId} token={token} />;
   }
 
   return <div className='fe-forgot-password-component'>{components}</div>;

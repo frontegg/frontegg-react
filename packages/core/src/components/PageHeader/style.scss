@@ -1,4 +1,3 @@
-
 :root {
   --fe-header-padding: 2rem;
   --fe-header-font-size: 1.5rem;
@@ -8,8 +7,8 @@
   --fe-header-sub-title-font-weight: normal;
   --fe-header-back-button-color: #a0a0a0;
   --fe-header-hover-bg: rgba(75, 75, 75, 0.1);
-  --fe-header-tab-font-size: .9rem;
-  --fe-header-tab-font-color: #99A6B9;
+  --fe-header-tab-font-size: 0.9rem;
+  --fe-header-tab-font-color: #99a6b9;
   --fe-header-tab-font-weight: bold;
 }
 
@@ -37,7 +36,7 @@
       font-size: 1em;
       line-height: 1em;
       font-weight: var(--fe-header-font-weight);
-      transition: all .3s ease-out;
+      transition: all 0.3s ease-out;
     }
 
     .fe-title__back-button {
@@ -45,7 +44,7 @@
     }
 
     .fe-subtitle {
-      font-size: .6em;
+      font-size: 0.6em;
       margin-top: 0.5rem;
       color: var(--fe-header-sub-title-color);
       font-weight: var(--fe-header-sub-title-font-weight);
@@ -70,7 +69,7 @@
 
       .item {
         border-bottom-width: 1px;
-        padding: .8rem 0;
+        padding: 0.8rem 0;
         margin: -1px 1rem;
         font-size: var(--fe-header-tab-font-size);
         color: var(--fe-header-tab-font-color);
@@ -91,7 +90,6 @@
         }
       }
     }
-
   }
 
   .fe-back-button {
@@ -105,10 +103,10 @@
     overflow: hidden;
     height: 2rem;
     text-align: center;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     box-sizing: border-box;
     cursor: pointer;
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
 
     &.visible {
       width: 2rem;

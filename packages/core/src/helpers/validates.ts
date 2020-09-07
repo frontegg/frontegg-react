@@ -25,11 +25,8 @@ export const validatePasswordConfirmation = (t: TFunction, field: string = 'pass
   Yup.string()
     .required(t('validation.required-field', { name: 'confirmation of the password' }))
     .when('password', {
-      is: val => (!!(val && val.length > 0)),
-      then: Yup.string().oneOf(
-        [Yup.ref(field)],
-        t('validation.passwords-must-match', 'Passwords must match'),
-      ),
+      is: (val) => !!(val && val.length > 0),
+      then: Yup.string().oneOf([Yup.ref(field)], t('validation.passwords-must-match', 'Passwords must match')),
     });
 
 export const validateSchema = (props: any) => Yup.object(props);

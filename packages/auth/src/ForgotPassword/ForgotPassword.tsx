@@ -9,10 +9,10 @@ import { useAuth } from '../hooks';
 type Components = {
   ForgotPasswordSuccessRedirect: ForgotPasswordSuccessRedirectProps;
   ForgotPasswordForm: ForgotPasswordFormProps;
-}
+};
 
 export interface ForgotPasswordProps {
-  components?: ComponentsTypesWithProps<Components>
+  components?: ComponentsTypesWithProps<Components>;
 }
 
 const defaultComponents = { ForgotPasswordSuccessRedirect, ForgotPasswordForm };
@@ -21,13 +21,11 @@ export const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   const { step } = useAuth(({ forgetPasswordState: { step } }) => ({ step }));
   let components;
   if (step === ForgotPasswordStep.success) {
-    components = <Dynamic.ForgotPasswordSuccessRedirect/>;
+    components = <Dynamic.ForgotPasswordSuccessRedirect />;
   } else {
-    components = <Dynamic.ForgotPasswordForm/>;
+    components = <Dynamic.ForgotPasswordForm />;
   }
 
-  return <div className='fe-forgot-password-component'>
-    {components}
-  </div>;
+  return <div className='fe-forgot-password-component'>{components}</div>;
 };
 export const ForgotPasswordPage = authPageWrapper(ForgotPassword);

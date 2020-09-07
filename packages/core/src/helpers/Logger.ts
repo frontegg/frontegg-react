@@ -7,7 +7,7 @@ export default class Logger {
   private constructor(private readonly module: string) {}
 
   static from = (module: string) => new Logger(module);
-  private _log = ((l: string, prefix: string) => {
+  private _log = (l: string, prefix: string) => {
     // tslint:disable-next-line:no-console
     if (console.log.bind === undefined) {
       // @ts-ignore
@@ -16,7 +16,7 @@ export default class Logger {
       // @ts-ignore
       return console[l].bind(console, prefix || '', this.module, ':');
     }
-  });
+  };
   debug = debugging ? this._log('log', 'DEBUG |') : emptyFunction;
   info = debugging ? this._log('log', 'INFO  |') : emptyFunction;
   warn = this._log('warn', 'WARN  |');

@@ -3,8 +3,8 @@ import React, { ComponentType } from 'react';
 export type FormFieldProps = {
   inFormik?: boolean; // default: false
   inForm?: boolean; // default: false
-  size?: 'mini' | 'small' | 'large' | 'big' | 'huge' | 'massive' // default: undefined
-}
+  size?: 'mini' | 'small' | 'large' | 'big' | 'huge' | 'massive'; // default: undefined
+};
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
   label?: string;
@@ -24,7 +24,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, Fo
   type?: 'button' | 'submit' | 'reset';
 
   // formik props
-  formikDisableIfNotDirty?: boolean // default true
+  formikDisableIfNotDirty?: boolean; // default true
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
@@ -44,35 +44,27 @@ export interface SwitchToggleProps {
   onChange?: (toggled: boolean) => void;
 }
 
-
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: 'left-arrow' | 'checkmark';
-  size?: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large';
 }
 
 export interface TabProps {
-  menu: []
+  menu: [];
 }
 
 export type ElementProps = {
-  Button: ComponentType<ButtonProps>,
-  Input: ComponentType<InputProps>,
-  Form: ComponentType<FormProps>,
-  Loader: ComponentType<LoaderProps>,
-  SwitchToggle: ComponentType<SwitchToggleProps>,
-  Icon: ComponentType<IconProps>,
-  Tab: ComponentType<TabProps>,
+  Button: ComponentType<ButtonProps>;
+  Input: ComponentType<InputProps>;
+  Form: ComponentType<FormProps>;
+  Loader: ComponentType<LoaderProps>;
+  SwitchToggle: ComponentType<SwitchToggleProps>;
+  Icon: ComponentType<IconProps>;
+  Tab: ComponentType<TabProps>;
 };
 
-export type ElementType =
-  | 'Button'
-  | 'Input'
-  | 'Form'
-  | 'Loader'
-  | 'SwitchToggle'
-  | 'Icon'
-  | 'Tab'
+export type ElementType = 'Button' | 'Input' | 'Form' | 'Loader' | 'SwitchToggle' | 'Icon' | 'Tab';
 
 export type Elements = {
-  [type in ElementType]: ElementProps[type]
-}
+  [type in ElementType]: ElementProps[type];
+};

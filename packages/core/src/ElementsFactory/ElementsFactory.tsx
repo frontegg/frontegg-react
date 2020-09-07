@@ -5,7 +5,7 @@ export class ElementsFactory {
   private static instance: ElementsFactory;
   private elements: Elements | null = null;
 
-  private constructor() { }
+  private constructor() {}
 
   private static getInstance(): ElementsFactory {
     if (!ElementsFactory.instance) {
@@ -31,5 +31,3 @@ export class ElementsFactory {
     return elements[type];
   };
 }
-
-

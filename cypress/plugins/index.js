@@ -1,68 +1,69 @@
 /// <reference types="cypress" />
-const webpack = require("@cypress/webpack-preprocessor");
+const webpack = require('@cypress/webpack-preprocessor');
 const webpackOptions = {
-  mode: "production",
+  mode: 'production',
   node: {
-    fs: "empty"
+    fs: 'empty',
   },
   resolve: {
-    extensions: [".jsx", ".tsx", ".js", ".ts"]
+    extensions: ['.jsx', '.tsx', '.js', '.ts'],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx|mjs)$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
+          presets: ['@babel/preset-env', '@babel/preset-react'],
           plugins: [
-            "@babel/plugin-transform-modules-commonjs",
-            "@babel/plugin-proposal-class-properties",
-            ["@babel/plugin-transform-runtime", { "regenerator": true }]
-          ]
-        }
+            '@babel/plugin-transform-modules-commonjs',
+            '@babel/plugin-proposal-class-properties',
+            ['@babel/plugin-transform-runtime', { regenerator: true }],
+          ],
+        },
       },
       {
         test: /\.(ts|tsx)$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
-          presets: [
-            "@babel/preset-env",
-            "@babel/preset-typescript",
-            "@babel/preset-react"
-          ],
+          presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
           plugins: [
-            "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-proposal-object-rest-spread",
-            ["@babel/plugin-transform-runtime",
+            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-proposal-object-rest-spread',
+            [
+              '@babel/plugin-transform-runtime',
               {
-                "regenerator": true
-              }
-            ], "istanbul"
-          ]
-        }
+                regenerator: true,
+              },
+            ],
+            'istanbul',
+          ],
+        },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
         exclude: [/node_modules/],
-        use: ["style-loader", "css-loader", "sass-loader"]
-      }
-    ]
-  }
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
 };
 
 /**
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  require("@cypress/code-coverage/task")(on, config);
-  on("file:preprocessor", webpack({
-    webpackOptions,
-    watchOptions: {}
-  }));
+  require('@cypress/code-coverage/task')(on, config);
+  on(
+    'file:preprocessor',
+    webpack({
+      webpackOptions,
+      watchOptions: {},
+    })
+  );
   return config;
 };

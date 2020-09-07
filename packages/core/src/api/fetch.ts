@@ -71,7 +71,10 @@ async function prepareUrl(context: ContextOptions, url: string, params?: any): P
   return finalUrl;
 }
 
-async function buildRequestHeaders(context: ContextOptions, contentType: string = 'application/json'): Promise<Record<string, string>> {
+async function buildRequestHeaders(
+  context: ContextOptions,
+  contentType: string = 'application/json'
+): Promise<Record<string, string>> {
   const authToken = await (context.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
 
@@ -123,7 +126,6 @@ async function getAdditionalHeaders(context: ContextOptions): Promise<KeyValuePa
   return output;
 }
 
-
 export const Get = async (context: ContextOptions, url: string, params?: any, responseType?: any) =>
   request(context, {
     url,
@@ -151,7 +153,6 @@ export const Patch = async (context: ContextOptions, url: string, body?: any, pa
     params,
     responseType,
   });
-
 
 export const Put = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
   request(context, {

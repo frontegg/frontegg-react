@@ -5,9 +5,10 @@ import {
   IRenderReport,
   IRenderReportResponse,
   IReportRecord,
-  IScheduleReport, ISendReport,
+  IScheduleReport,
+  ISendReport,
 } from './interfaces';
-import {ContextHolder} from '../ContextHolder';
+import { ContextHolder } from '../ContextHolder';
 import Logger from '../../helpers/Logger';
 import { Get, Post } from '../fetch';
 import { REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1, REPORTS_SERVICE_URL_V2 } from '../constants';
@@ -48,11 +49,16 @@ async function getReport(body: IGetReport): Promise<IReportRecord> {
 async function renderReport({ dataFilters, ...body }: IRenderReport): Promise<IRenderReportResponse> {
   logger.debug('renderReport()', body);
   const context = ContextHolder.getContext();
-  const html = await Get(context, `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`, {
-    ...body,
-    dataFilters: btoa(JSON.stringify(dataFilters || {})),
-    responseType: 'html',
-  }, 'text');
+  const html = await Get(
+    context,
+    `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`,
+    {
+      ...body,
+      dataFilters: btoa(JSON.stringify(dataFilters || {})),
+      responseType: 'html',
+    },
+    'text'
+  );
   return { html };
 }
 
@@ -81,10 +87,15 @@ async function scheduleReport({ templateId, dataFilters, ...body }: IScheduleRep
 async function downloadReport({ dataFilters, ...body }: IDownloadReport): Promise<void> {
   logger.debug('downloadReport()', body);
   const context = ContextHolder.getContext();
-  const blob = await Get(context, `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`, {
-    ...body,
-    dataFilters: btoa(JSON.stringify(dataFilters || {})),
-  }, 'blob');
+  const blob = await Get(
+    context,
+    `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`,
+    {
+      ...body,
+      dataFilters: btoa(JSON.stringify(dataFilters || {})),
+    },
+    'blob'
+  );
   let contentType = 'text/html';
   let contentExt = 'html';
   if (body.responseType === 'pdf') {

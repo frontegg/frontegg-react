@@ -12,7 +12,7 @@ type Components = {
   SSOOverview: SSOOverviewProps;
   SSOClaimDomain: SSOClaimDomainProps;
   SSOConfigureIDP: SSOConfigureIDPProps;
-}
+};
 
 export interface SSOProps {
   components?: ComponentsTypesWithProps<Components>;
@@ -36,16 +36,18 @@ export const SSO: FC<SSOProps> = (props) => {
     return renderer(omitProps(props, ['renderer', 'components']), Dynamic);
   }
 
-  const components = loading ? <Loader inline={false}/> :<Switch>
-    <Route exact path={`${rootPath}`} component={SSOOverview}/>
-    <Route exact path={`${rootPath}/domain`} component={SSOClaimDomain}/>
-    <Route exact path={`${rootPath}/idp`} component={SSOConfigureIDP}/>
-  </Switch>;
+  const components = loading ? (
+    <Loader inline={false} />
+  ) : (
+    <Switch>
+      <Route exact path={`${rootPath}`} component={SSOOverview} />
+      <Route exact path={`${rootPath}/domain`} component={SSOClaimDomain} />
+      <Route exact path={`${rootPath}/idp`} component={SSOConfigureIDP} />
+    </Switch>
+  );
 
   if (!isRootPathContext) {
-    return <RootPathContext.Provider value={rootPath}>
-      {components}
-    </RootPathContext.Provider>;
+    return <RootPathContext.Provider value={rootPath}>{components}</RootPathContext.Provider>;
   }
   return components;
 };

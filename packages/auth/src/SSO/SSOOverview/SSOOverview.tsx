@@ -1,7 +1,11 @@
 import React, { FC, ReactElement } from 'react';
 import {
-  RendererFunction, SwitchToggle, ISamlConfiguration, omitProps,
-  ComponentsTypesWithProps, useT,
+  RendererFunction,
+  SwitchToggle,
+  ISamlConfiguration,
+  omitProps,
+  ComponentsTypesWithProps,
+  useT,
 } from '@frontegg/react-core';
 import { SSOOverviewEnablePlaceholder, SSOOverviewEnablePlaceholderProps } from './SSOOverviewEnablePlaceholder';
 import { SSOOverviewSteps, SSOOverviewStepsProps } from './SSOOverviewSteps';
@@ -11,7 +15,7 @@ import { useAuth } from '../../hooks';
 type Components = {
   SSOOverviewEnablePlaceholder: SSOOverviewEnablePlaceholderProps;
   SSOOverviewSteps: SSOOverviewStepsProps;
-}
+};
 
 export interface SSOOverviewProps {
   renderer?: RendererFunction<SSOOverviewProps, Components, ReactElement>;
@@ -22,7 +26,7 @@ const defaultComponents = { SSOOverviewEnablePlaceholder, SSOOverviewSteps };
 export const SSOOverview: FC<SSOOverviewProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
   const { t } = useT();
-  const { samlConfiguration, loading, setSSOState, saveSSOConfigurations } = useAuth(state => state.ssoState);
+  const { samlConfiguration, loading, setSSOState, saveSSOConfigurations } = useAuth((state) => state.ssoState);
   const { renderer } = props;
 
   const onEnabledDisabledChanged = () => {
@@ -44,14 +48,17 @@ export const SSOOverview: FC<SSOOverviewProps> = (props) => {
     return renderer(omitProps(props, ['renderer', 'components']), Dynamic);
   }
 
-  return <div>
-    <div className='fe-center'>
-      <SwitchToggle
-        loading={loading}
-        value={samlEnabled}
-        labels={[t('common.disabled'), t('common.enabled')]}
-        onChange={onEnabledDisabledChanged}/>
+  return (
+    <div>
+      <div className='fe-center'>
+        <SwitchToggle
+          loading={loading}
+          value={samlEnabled}
+          labels={[t('common.disabled'), t('common.enabled')]}
+          onChange={onEnabledDisabledChanged}
+        />
+      </div>
+      {samlEnabled ? <SSOOverviewSteps /> : <SSOOverviewEnablePlaceholder />}
     </div>
-    {samlEnabled ? <SSOOverviewSteps/> : <SSOOverviewEnablePlaceholder/>}
-  </div>;
+  );
 };

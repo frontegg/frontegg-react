@@ -1,1 +1,1 @@
-export * from './SSOConfigureIDP'
+export * from './SSOConfigureIDP';

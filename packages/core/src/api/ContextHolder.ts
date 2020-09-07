@@ -5,7 +5,7 @@ export class ContextHolder {
   private context: ContextOptions | null = null;
   private accessToken: string | null = null;
 
-  private constructor() { }
+  private constructor() {}
 
   private static getInstance(): ContextHolder {
     if (!ContextHolder.instance) {
@@ -19,12 +19,13 @@ export class ContextHolder {
     ContextHolder.getInstance().context = context;
   }
 
-
   public static getContext(): ContextOptions {
-    return ContextHolder.getInstance().context ?? {
-      baseUrl: window.location.href,
-      tokenResolver: () => 'my-authentication-token',
-    };
+    return (
+      ContextHolder.getInstance().context ?? {
+        baseUrl: window.location.href,
+        tokenResolver: () => 'my-authentication-token',
+      }
+    );
   }
 
   public static setAccessToken(accessToken: string | null) {

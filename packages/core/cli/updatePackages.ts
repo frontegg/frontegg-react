@@ -2,10 +2,9 @@ import { createLoader, extractVersion, getPackageJson, printVersions, usingYarn 
 import { exec, execSync } from 'child_process';
 import chalk from 'chalk';
 
-
 export default ({ argv }: any) => {
   const pkg = getPackageJson();
-  const installedPackages = Object.keys(pkg.dependencies || {}).filter(dep => dep.startsWith('@frontegg/react-'));
+  const installedPackages = Object.keys(pkg.dependencies || {}).filter((dep) => dep.startsWith('@frontegg/react-'));
   if (installedPackages.length === 0) {
     throw Error('package.json missing @frontegg/react- dependencies');
   }
@@ -14,7 +13,8 @@ export default ({ argv }: any) => {
 
   const commands = {
     getCurrentVersion: 'npm list --depth=0 | grep @frontegg/react-core',
-    getLatestVersion: (version: string, latest: boolean) => `npm view @frontegg/react-core@'${latest ? '>' : '^'}${version}' version`,
+    getLatestVersion: (version: string, latest: boolean) =>
+      `npm view @frontegg/react-core@'${latest ? '>' : '^'}${version}' version`,
     updateVersion: 'npm install --save',
   };
   if (usingYarn()) {
@@ -31,7 +31,7 @@ export default ({ argv }: any) => {
   }
 
   console.log(chalk.cyan('updating frontegg packages:'), chalk.red(currentVersion), '->', chalk.green(lastVersion));
-  const updateCommand = `${commands.updateVersion} ${installedPackages.map(p => `${p}@${lastVersion}`).join(' ')}`;
+  const updateCommand = `${commands.updateVersion} ${installedPackages.map((p) => `${p}@${lastVersion}`).join(' ')}`;
 
   console.log(chalk.gray(`> exec: ${updateCommand}`));
   const loader = createLoader();
@@ -42,5 +42,4 @@ export default ({ argv }: any) => {
     printVersions(installedPackages, lastVersion);
     process.exit(0);
   });
-
-}
+};

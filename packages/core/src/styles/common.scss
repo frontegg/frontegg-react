@@ -1,8 +1,8 @@
-@import "./semantic-overrides.scss";
-@import "./elements.scss";
-@import "./helpers.scss";
+@import './semantic-overrides.scss';
+@import './elements.scss';
+@import './helpers.scss';
 
-:root{
+:root {
   font-size: 16px;
 }
 .frontegg {
@@ -13,7 +13,7 @@
   font-family: 'Nunito Sans', Helvetica Neue, Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.4285em;
-  color: rgba(0, 0, 0, .87);
+  color: rgba(0, 0, 0, 0.87);
   -webkit-font-smoothing: antialiased;
   height: 100%;
   flex: 1 1;

@@ -22,7 +22,6 @@
   color: highlighttext;
 }
 
-
 /*--------------------
       Autofilled
 ---------------------*/
@@ -43,13 +42,13 @@
 
 /* Error */
 .ui.form .error.error input:-webkit-autofill {
-  -webkit-box-shadow: 0px 0px 0px 100px #FFFAF0 inset !important;
-  box-shadow: 0px 0px 0px 100px #FFFAF0 inset !important;
-  border-color: #E0B4B4 !important;
+  -webkit-box-shadow: 0px 0px 0px 100px #fffaf0 inset !important;
+  box-shadow: 0px 0px 0px 100px #fffaf0 inset !important;
+  border-color: #e0b4b4 !important;
 }
 
-
-.ui.form .disabled.field, .ui.form .disabled.fields .field, .ui.form .field :disabled {
+.ui.form .disabled.field,
+.ui.form .disabled.fields .field,
+.ui.form .field :disabled {
   opacity: inherit;
 }
-

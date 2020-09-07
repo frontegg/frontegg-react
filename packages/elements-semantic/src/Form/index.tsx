@@ -15,14 +15,12 @@ export class Form extends React.Component<FormProps> {
     const { children, inFormik, ...rest } = this.props;
     const formProps = mapper(rest);
     if (inFormik ?? true) {
-      return <SemanticForm as='div'>
-        <FormikForm>
-          {children}
-        </FormikForm>
-      </SemanticForm>;
+      return (
+        <SemanticForm as='div'>
+          <FormikForm>{children}</FormikForm>
+        </SemanticForm>
+      );
     }
-    return <SemanticForm {...formProps}>
-      {children}
-    </SemanticForm>;
+    return <SemanticForm {...formProps}>{children}</SemanticForm>;
   }
 }

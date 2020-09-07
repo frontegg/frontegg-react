@@ -1,10 +1,10 @@
-export type IPreLogin = { email: string; };
+export type IPreLogin = { email: string };
 export type IPostLogin = {
   RelayState: string;
   SAMLResponse: string;
 };
 
-export type ILogin = { email: string; password: string; };
+export type ILogin = { email: string; password: string };
 
 export type ILoginResponse = {
   mfaRequired: boolean;
@@ -18,42 +18,42 @@ export type ILoginResponse = {
 export type ILoginWithMfa = {
   mfaToken: string;
   value: string;
-}
+};
 
 export type IActivateAccount = {
   userId: string;
   token: string;
   password?: string;
-}
+};
 
-export type IForgotPassword = { email: string }
+export type IForgotPassword = { email: string };
 
 export type IResetPassword = {
   token: string;
   userId: string;
   password: string;
-}
+};
 
 export type IRecoverMFAToken = {
   email: string;
   recoveryCode: string;
-}
+};
 
 export type IEnrollMfaResponse = {
   qrCode: string; // QR Code image as base64
-}
+};
 
 export type IVerifyMfa = {
   token: string;
-}
+};
 
 export type IVerifyMfaResponse = {
   recoveryCode: string;
-}
+};
 
 export type IDisableMfa = {
   token: string;
-}
+};
 
 export type ISamlConfiguration = {
   enabled: boolean;
@@ -67,8 +67,11 @@ export type ISamlConfiguration = {
   updatedAt?: Date;
   acsUrl?: string;
   spEntityId?: string;
-}
-export type IUpdateSamlConfiguration = Omit<ISamlConfiguration, 'validated' | 'generatedVerification' | 'createdAt' | 'updatedAt'>
+};
+export type IUpdateSamlConfiguration = Omit<
+  ISamlConfiguration,
+  'validated' | 'generatedVerification' | 'createdAt' | 'updatedAt'
+>;
 export type ISamlVendorConfigResponse = {
   acsUrl: string;
   spEntityId: string;
@@ -78,10 +81,9 @@ export type ISamlVendorMetadata = {
   id: string;
   vendorId: string;
   entityName: 'saml';
-  configuration: ISamlVendorConfigResponse
+  configuration: ISamlVendorConfigResponse;
 };
 
 export type IUpdateSamlVendorMetadata = {
   metadata: string;
-}
-
+};

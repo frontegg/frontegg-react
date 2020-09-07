@@ -11,7 +11,6 @@ export interface CronFields {
   intervalMinutes: any;
 }
 
-
 export const INTERVAL_TYPE = [
   { text: 'Daily', value: 'daily' },
   { text: 'Weekly', value: 'weekly' },
@@ -24,7 +23,14 @@ export const INTERVAL_DAY_IN_WEEK = Array.apply(null, Array(7))
   .map((day, index) => ({ text: day, value: index + 1 }));
 
 export const INTERVAL_DAY_IN_MONTH = Array.apply(null, Array(31)).map((_, i) => ({
-  text: i + 1 > 28 ? <span>{`${i + 1}`} <span style={{ fontSize: 11, color: 'grey' }}>(not recommended)</span></span> : `${i + 1}`,
+  text:
+    i + 1 > 28 ? (
+      <span>
+        {`${i + 1}`} <span style={{ fontSize: 11, color: 'grey' }}>(not recommended)</span>
+      </span>
+    ) : (
+      `${i + 1}`
+    ),
   value: i + 1,
 }));
 
@@ -91,7 +97,14 @@ export const cronToFields = (cronParam: string = DEFAULT_CRON, cronType?: string
   };
 };
 
-export const fieldsToCron = ({ intervalType, intervalCron, intervalDayInWeek, intervalDayInMonth, intervalHour, intervalMinutes }: CronFields) => {
+export const fieldsToCron = ({
+  intervalType,
+  intervalCron,
+  intervalDayInWeek,
+  intervalDayInMonth,
+  intervalHour,
+  intervalMinutes,
+}: CronFields) => {
   switch (intervalType) {
     case 'daily':
       return `0 ${intervalMinutes} ${intervalHour} * * *`;

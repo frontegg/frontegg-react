@@ -1,1 +1,1 @@
-export * from './SSOClaimDomain'
+export * from './SSOClaimDomain';

@@ -8,9 +8,12 @@ import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 
-const stateMapper =
-  ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) =>
-    ({ routes, isLoading, defaultComps: { header, loaderComponent }, ssoACS });
+const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
+  routes,
+  isLoading,
+  defaultComps: { header, loaderComponent },
+  ssoACS,
+});
 
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const { header, loaderComponent, children, ...rest } = props;
@@ -35,13 +38,15 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     return <>{pageProps.loaderComponent}</>;
   }
 
-  return <Switch>
-    <Route exact path={routes.loginUrl} render={() => <LoginPage {...pageProps}/>}/>
-    <Route exact path={routes.logoutUrl} render={() => <LogoutPage {...pageProps}/>}/>
-    <Route exact path={routes.forgetPasswordUrl} render={() => <ForgotPasswordPage {...pageProps}/>}/>
-    <Route exact path={routes.resetPasswordUrl} render={() => <ResetPasswordPage {...pageProps}/>}/>
-    <Route exact path={routes.activateUrl} render={() => <ActivateAccountPage {...pageProps}/>}/>
-    {samlCallbackPath && <Route exact path={samlCallbackPath} render={() => <LoginWithSSOPage {...pageProps}/>}/>}
-    <Route path='*' children={() => children}/>
-  </Switch>;
+  return (
+    <Switch>
+      <Route exact path={routes.loginUrl} render={() => <LoginPage {...pageProps} />} />
+      <Route exact path={routes.logoutUrl} render={() => <LogoutPage {...pageProps} />} />
+      <Route exact path={routes.forgetPasswordUrl} render={() => <ForgotPasswordPage {...pageProps} />} />
+      <Route exact path={routes.resetPasswordUrl} render={() => <ResetPasswordPage {...pageProps} />} />
+      <Route exact path={routes.activateUrl} render={() => <ActivateAccountPage {...pageProps} />} />
+      {samlCallbackPath && <Route exact path={samlCallbackPath} render={() => <LoginWithSSOPage {...pageProps} />} />}
+      <Route path='*' children={() => children} />
+    </Switch>
+  );
 };

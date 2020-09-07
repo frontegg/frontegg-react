@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ContextOptions } from './interfaces';
 
 export interface RootState {
-  context?: ContextOptions
+  context?: ContextOptions;
 }
 
 const initialState: RootState = {
@@ -15,16 +15,12 @@ const { reducer, actions } = createSlice({
   reducers: {
     setContext: {
       prepare: (context: ContextOptions) => ({ payload: context }),
-      reducer: ((state: RootState, { payload }: PayloadAction<ContextOptions>) => ({
+      reducer: (state: RootState, { payload }: PayloadAction<ContextOptions>) => ({
         ...state,
         context: payload,
-      })),
+      }),
     },
   },
 });
 
-export {
-  reducer as rootReducer,
-  actions as rootActions,
-  initialState as rootInitialState,
-};
+export { reducer as rootReducer, actions as rootActions, initialState as rootInitialState };

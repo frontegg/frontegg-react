@@ -1,9 +1,10 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
-import { AuthPlugin,  LoginStep } from '../index';
+import { AuthPlugin, LoginStep } from '../index';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 import {
-  checkEmailValidation, EMAIL_1,
+  checkEmailValidation,
+  EMAIL_1,
   IDENTITY_SERVICE,
   METADATA_SERVICE,
   mockAuthApi,
@@ -42,9 +43,7 @@ describe('Login Tests', () => {
     cy.server();
     mockAuthApi(false, false);
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-        Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
@@ -80,25 +79,25 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('login');
 
-    cy.window().then(win => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
+    cy.window().then((win) => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
     cy.get(submitSelector).contains('Login').click();
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
     cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
     });
 
     // should be redirected to home if authenticated
     cy.wait(1000);
-    cy.window().then(win => {
+    cy.window().then((win) => {
       // @ts-ignore
       win.cypressHistory.push('/account/login');
     });
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
     });
   });
@@ -113,9 +112,7 @@ describe('Login Tests', () => {
       response: { accessToken: 'token', refreshToken: 'refreshToken' },
       delay: 200,
     }).as('login');
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-        Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
@@ -129,17 +126,16 @@ describe('Login Tests', () => {
     cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
-    cy.window().then(win => win.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, '/after-login-redirect'));
+    cy.window().then((win) => win.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, '/after-login-redirect'));
     cy.get(submitSelector).click();
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
     cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/after-login-redirect');
     });
-
   });
 
   it('Login, WITH SAML tenant, NO SAML email', () => {
@@ -159,9 +155,10 @@ describe('Login Tests', () => {
       response: { accessToken: 'token', refreshToken: 'refreshToken' },
       delay: 200,
     }).as('login');
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-        Home
-    </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
+    });
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
@@ -183,7 +180,6 @@ describe('Login Tests', () => {
     checkPasswordValidation();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
-
     // change email should reset the login back to preLogin
     cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
     cy.get(passwordSelector).should('not.exist');
@@ -195,14 +191,14 @@ describe('Login Tests', () => {
     cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
-    cy.window().then(win => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
+    cy.window().then((win) => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
     cy.get(submitSelector).click();
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
     cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
     });
   });
@@ -218,9 +214,10 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('preLogin');
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-        Home
-    </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
+    });
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
@@ -242,7 +239,7 @@ describe('Login Tests', () => {
 
     cy.wait('@preLogin').its('request.body').should('deep.equal', { email: EMAIL_1 });
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(SSO_PATH);
     });
   });
@@ -258,10 +255,7 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('login');
 
-
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
@@ -277,8 +271,7 @@ describe('Login Tests', () => {
     checkPasswordValidation();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
-
-    cy.window().then(win => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
+    cy.window().then((win) => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
     cy.get(submitSelector).contains('Login').click();
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
@@ -314,7 +307,7 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Login').click();
     cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
     });
   });
@@ -330,9 +323,7 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('login');
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
     cy.wait(['@refreshToken', '@metadata']);
@@ -369,7 +360,6 @@ describe('Login Tests', () => {
     cy.wait('@recoverMfa').its('request.body').should('deep.equal', { recoveryCode: RECOVERY_CODE, email: EMAIL_1 });
     cy.contains('invalid recovery code').should('be.visible');
 
-
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/recover`,
@@ -380,29 +370,34 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Disable MFA').click();
     cy.wait('@recoverMfa').its('request.body').should('deep.equal', { recoveryCode: RECOVERY_CODE, email: EMAIL_1 });
 
-    cy.window().then(win => {
+    cy.window().then((win) => {
       // @ts-ignore
       expect(win.cypressStore.getState().auth.loginState.step).to.be.eq(LoginStep.preLogin);
     });
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/account/login');
     });
   });
 
   it('Logout Component', () => {
     cy.server();
-    cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`, status: 200, response: { accessToken: '' } });
-    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { 'rows': [] } });
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+      status: 200,
+      response: { accessToken: '' },
+    });
+    cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { rows: [] } });
     cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/logout`, status: 200, response: 'LOGOUT' });
 
     navigateTo(defaultAuthPlugin.routes.logoutUrl);
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, { ...mountOptions, alias: 'providerComponent' });
-
-    cy.location().should(loc => {
-      expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
     });
 
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
+    });
   });
 });

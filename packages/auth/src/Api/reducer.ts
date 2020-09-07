@@ -3,14 +3,23 @@ import {
   ActivateState,
   ActivateStep,
   AuthState,
-  ForgotPasswordState, ForgotPasswordStep,
+  ForgotPasswordState,
+  ForgotPasswordStep,
   LoginState,
-  LoginStep, SSOState,
+  LoginStep,
+  SSOState,
   User,
 } from './interfaces';
 import {
-  IActivateAccount, IForgotPassword, ILogin, ILoginWithMfa, IPreLogin, IRecoverMFAToken, IResetPassword,
-  ISamlConfiguration, IPostLogin
+  IActivateAccount,
+  IForgotPassword,
+  ILogin,
+  ILoginWithMfa,
+  IPreLogin,
+  IRecoverMFAToken,
+  IResetPassword,
+  ISamlConfiguration,
+  IPostLogin,
 } from '@frontegg/react-core';
 
 export const storeName = 'auth';
@@ -51,22 +60,23 @@ export const preloadedState: AuthState = {
     resetPasswordUrl: '/account/reset-password',
   },
   onRedirectTo: () => {},
-
-
 };
 
 const resetStateByKey = <T>(key: keyof AuthState) => (state: AuthState) => ({ ...state, [key]: preloadedState[key] });
-const typeReducer = <T>(key: keyof AuthState) => (state: AuthState, { payload }: PayloadAction<T>) => ({ ...state, [key]: payload });
+const typeReducer = <T>(key: keyof AuthState) => (state: AuthState, { payload }: PayloadAction<T>) => ({
+  ...state,
+  [key]: payload,
+});
 const typeReducerForKey = <T>(key: keyof AuthState) => ({
   prepare: (payload: Partial<T>) => ({ payload }),
   reducer: (state: AuthState, { payload }: PayloadAction<Partial<T>>) => {
-    return ({
+    return {
       ...state,
       [key]: {
         ...state[key],
         ...payload,
       },
-    });
+    };
   },
 });
 
@@ -109,12 +119,13 @@ const actions = {
   resetPassword: createAction(`${storeName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
   logout: createAction(`${storeName}/logout`, (payload: any) => ({ payload })),
 
-
   // sso
   loadSSOConfigurations: createAction(`${storeName}/loadSSOConfigurations`),
-  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: ISamlConfiguration) => ({ payload })),
+  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: ISamlConfiguration) => ({
+    payload,
+  })),
   validateSSODomain: createAction(`${storeName}/validateSSODomain`),
 };
 
-export type AuthActions = typeof actions
+export type AuthActions = typeof actions;
 export { reducer, actions };

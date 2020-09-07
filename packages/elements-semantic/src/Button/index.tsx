@@ -5,8 +5,17 @@ import { Field, FieldProps } from 'formik';
 
 const mapper = (props: ButtonProps): SemanticButtonProps => {
   const {
-    variant, fullWidth, inFormik, inForm, submit, formikDisableIfNotDirty, testId, loading, disabled,
-    type, ...rest
+    variant,
+    fullWidth,
+    inFormik,
+    inForm,
+    submit,
+    formikDisableIfNotDirty,
+    testId,
+    loading,
+    disabled,
+    type,
+    ...rest
   } = props;
   return {
     ...rest,
@@ -32,19 +41,21 @@ export class Button extends React.Component<ButtonProps> {
     }
 
     if (inFormik) {
-      return <Field>
-        {({ form: { isValid, dirty } }: FieldProps) => {
-          const disabled = !isValid || (disableDirty && !dirty);
-          return <div className='fe-form-action'>
-            <ButtonComponent {...buttonProps} {...(disabled ? { primary: undefined, disabled } : {})}>
-              {children}
-            </ButtonComponent>
-          </div>;
-        }}
-      </Field>;
+      return (
+        <Field>
+          {({ form: { isValid, dirty } }: FieldProps) => {
+            const disabled = !isValid || (disableDirty && !dirty);
+            return (
+              <div className='fe-form-action'>
+                <ButtonComponent {...buttonProps} {...(disabled ? { primary: undefined, disabled } : {})}>
+                  {children}
+                </ButtonComponent>
+              </div>
+            );
+          }}
+        </Field>
+      );
     }
-    return <ButtonComponent {...buttonProps}>
-      {children}
-    </ButtonComponent>;
+    return <ButtonComponent {...buttonProps}>{children}</ButtonComponent>;
   }
 }

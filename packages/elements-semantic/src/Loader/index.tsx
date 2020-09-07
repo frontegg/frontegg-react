@@ -12,7 +12,7 @@ const mapper = (props: LoaderProps): SemanticLoaderProps => {
 };
 
 export const Loader: FC<LoaderProps> = (props) => {
-  const loader = <SemanticLoader {...mapper(props)}/>;
+  const loader = <SemanticLoader {...mapper(props)} />;
   if (props.center) {
     return <div className='fe-center'>{loader}</div>;
   }

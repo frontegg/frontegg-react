@@ -2,21 +2,21 @@ import React from 'react';
 
 export default {
   translation: {
-    'common': {
+    common: {
       'click-here': 'Click Here',
-      'disabled': 'Disabled',
-      'enabled': 'Enabled',
-      'step': 'Step {{num}}',
-      'configured': 'Configured',
-      'edit': 'Edit',
+      disabled: 'Disabled',
+      enabled: 'Enabled',
+      step: 'Step {{num}}',
+      configured: 'Configured',
+      edit: 'Edit',
       'not-configured': 'Not Configured',
     },
-    'auth': {
-      'login': {
-        'login': 'Login',
-        'continue': 'Continue',
-        'email': 'Email',
-        'password': 'Password',
+    auth: {
+      login: {
+        login: 'Login',
+        continue: 'Continue',
+        email: 'Email',
+        password: 'Password',
         'enter-your-password': 'Enter Your Password',
         'forgot-password': 'Forgot Password?',
         'authentication-succeeded': 'Authentication Succeeded',
@@ -56,26 +56,26 @@ export default {
         'enter-your-password-again': 'Enter your password again',
         'activate-account-button': 'Activate',
       },
-      'sso': {
-        'title': 'Single Sign On',
-        'subtitle': 'Configure single-sign-on with your own Identity Provider',
+      sso: {
+        title: 'Single Sign On',
+        subtitle: 'Configure single-sign-on with your own Identity Provider',
         'enable-sso-message': 'Enable sso and configure the settings to quickly use this functionality',
         'claim-domain': 'Claim Domain',
         'configure-your-idp': 'Configure Your IDP',
       },
     },
-    'validation': {
+    validation: {
       'must-be-a-valid-email': 'Must be a valid email',
       'passwords-must-match': 'Passwords must match',
       'required-field': 'The {{name}} is required',
       'min-length': '{{name}} must be at least {{limit}} characters',
       'max-length': '{{name}} must be up to {{limit}} characters',
-      'length': '{{name}} must be {{limit}} characters',
+      length: '{{name}} must be {{limit}} characters',
     },
-    'reports': {
+    reports: {
       'list-page': {
-        'title': 'Reports',
-        'subtitle': 'Generate insights on your account usage',
+        title: 'Reports',
+        subtitle: 'Generate insights on your account usage',
       },
     },
   },

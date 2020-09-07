@@ -51,7 +51,7 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
  */
 export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
   const context = ContextHolder.getContext();
-  return await Post(context, `${AUTH_SERVICE_URL_V1}/user/saml/postlogin`, body)
+  return await Post(context, `${AUTH_SERVICE_URL_V1}/user/saml/postlogin`, body);
 }
 
 /**
@@ -180,7 +180,6 @@ export async function disableMfa(body: IDisableMfa): Promise<void> {
   return Post(context, `${USERS_SERVICE_URL_V1}/mfa/disable`, body);
 }
 
-
 /**
  * SSO Configurations
  */
@@ -196,7 +195,6 @@ export async function getSamlConfiguration(): Promise<ISamlConfiguration> {
   return Get(context, `${SSO_SERVICE_URL_V1}/saml/configurations`);
 }
 
-
 /**
  *  Update SAML configuration by logged in user (tenantId, vendorId)
  * * ``authorized user``
@@ -205,7 +203,6 @@ export async function updateSamlConfiguration(body: IUpdateSamlConfiguration): P
   const context = ContextHolder.getContext();
   return Post(context, `${SSO_SERVICE_URL_V1}/saml/configurations`, body);
 }
-
 
 /**
  *  Retrieve 'Vendor' Saml config from server by logged in user (tenantId, vendorId)

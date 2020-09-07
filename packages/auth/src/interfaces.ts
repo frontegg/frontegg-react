@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 
-
 export type AuthPageRoutes = {
   routes: {
     /**
@@ -32,8 +31,8 @@ export type AuthPageRoutes = {
      * the url to reach the idp redirect after successful SAML response
      */
     samlCallbackUrl?: string;
-  }
-}
+  };
+};
 
 export interface AuthPageProps {
   header?: ReactNode;
@@ -43,5 +42,4 @@ export interface AuthPageProps {
   InjectAuthRoutes?: boolean; // default: true
 }
 
-
-export type AuthPluginOptions = AuthPageProps & Partial<AuthPageRoutes>
+export type AuthPluginOptions = AuthPageProps & Partial<AuthPageRoutes>;

@@ -6,30 +6,39 @@ import { withFrontegg } from '../withFrontegg';
 import { useSelector } from 'react-redux';
 
 const MySSOPage = () => {
-  const state = useSelector(state => state);
-  const fronteggState = useAuth(state => state);
-  return <div>
-    <Route path={'/s3/ttt'} component={SSOPage}/>
-  </div>;
+  const state = useSelector((state) => state);
+  const fronteggState = useAuth((state) => state);
+  return (
+    <div>
+      <Route path={'/s3/ttt'} component={SSOPage} />
+    </div>
+  );
 };
 
 class App extends React.Component<any> {
   render() {
+    return (
+      <div className='app'>
+        <Switch>
+          <ProtectedRoute path='/s1' component={SSOPage} />
 
-    return <div className='app'>
-      <Switch>
-        <ProtectedRoute path='/s1' component={SSOPage}/>
+          <ProtectedRoute
+            path='/s2'
+            render={() => {
+              return <SSOPage />;
+            }}
+          />
+          <ProtectedRoute
+            path='/s3'
+            render={() => {
+              return <MySSOPage />;
+            }}
+          />
 
-        <ProtectedRoute path='/s2' render={() => {
-          return <SSOPage/>;
-        }}/>
-        <ProtectedRoute path='/s3' render={() => {
-          return <MySSOPage/>;
-        }}/>
-
-        <Route path='*' component={Component3}/>
-      </Switch>
-    </div>;
+          <Route path='*' component={Component3} />
+        </Switch>
+      </div>
+    );
   }
 }
 

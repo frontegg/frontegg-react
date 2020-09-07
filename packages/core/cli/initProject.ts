@@ -7,16 +7,18 @@ import { exec, execSync } from 'child_process';
 import path from 'path';
 
 const uiLibraryCss: any = {
-  'semantic': 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
+  semantic: 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
   'material-ui': 'not supported',
-  'bootstrap': 'not supported',
-  'antd': 'not supported',
+  bootstrap: 'not supported',
+  antd: 'not supported',
 };
 const buildSelectedPluginsJS = (selectedPluginsJS: string[]): object => {
   const js = [];
   const importJs = [];
   if (selectedPluginsJS.indexOf('auth') != -1) {
-    js.push(`  AuthPlugin({\n    /* auth options, find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/auth */\n  })`);
+    js.push(
+      `  AuthPlugin({\n    /* auth options, find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/auth */\n  })`
+    );
     importJs.push(`import { AuthPlugin } from '@frontegg/react-auth';`);
   }
 
@@ -46,7 +48,6 @@ export default async ({ argv }: any) => {
     return;
   }
 
-
   const { selectedPlugins, withRouter, baseUrl, uiLibrary } = await prompts([
     {
       type: 'multiselect',
@@ -55,7 +56,8 @@ export default async ({ argv }: any) => {
       choices: [
         { title: 'Authentication Plugin (for secure access integration)', value: 'auth', selected: true },
         {
-          title: 'bellow plugins are already included in @frontegg/react:\n\t- Team Management Plugin\n\t- Notifications Plugin\n\t- Reports Plugin\n\t- Integrations Plugin',
+          title:
+            'bellow plugins are already included in @frontegg/react:\n\t- Team Management Plugin\n\t- Notifications Plugin\n\t- Reports Plugin\n\t- Integrations Plugin',
           value: 'audits',
           disabled: true,
         },
@@ -65,13 +67,18 @@ export default async ({ argv }: any) => {
     {
       type: 'select',
       name: 'withRouter',
-      message: 'Do you want use Standard ReactRouter or Frontegg\'s Router?',
+      message: "Do you want use Standard ReactRouter or Frontegg's Router?",
       choices: [
         { title: 'Frontegg Router', value: true, description: 'recommended for auth plugin interrupts' },
-        { title: 'React Router', value: false, description: 'not recommended, you may need to implement auth interrupts' },
+        {
+          title: 'React Router',
+          value: false,
+          description: 'not recommended, you may need to implement auth interrupts',
+        },
       ],
       initial: 0,
-    }, {
+    },
+    {
       type: 'select',
       name: 'uiLibrary',
       message: 'Which UI Library do you use in your project?',
@@ -82,12 +89,14 @@ export default async ({ argv }: any) => {
         { title: 'Antd (coming soon)', value: 'antd', disabled: true },
       ],
       initial: 0,
-    }, {
+    },
+    {
       type: 'text',
       name: 'baseUrl',
       message: 'What is your server address?',
       initial: 'http://localhost:8080',
-    }]);
+    },
+  ]);
   const loader = createLoader();
 
   const jsFile = handlebars.compile(withFronteggTemplate)({
@@ -104,7 +113,7 @@ export default async ({ argv }: any) => {
   ];
 
   const lastVersion = execSync('npm view @frontegg/react-core version', { encoding: 'utf8' }).trim();
-  const command = `${constants.installCommand} ${toInstall.map(d => `${d}@${lastVersion}`).join(' ')}`;
+  const command = `${constants.installCommand} ${toInstall.map((d) => `${d}@${lastVersion}`).join(' ')}`;
 
   createFileInSrc(constants.fileName, jsFile);
   const filePath = path.join(process.cwd(), 'src', constants.fileName);
@@ -112,19 +121,18 @@ export default async ({ argv }: any) => {
   exec1.on('exit', () => {
     clearInterval(loader);
     process.stdout.write('\r                                          \n');
-    printVersions([
-      `@frontegg/react-core`,
-      ...toInstall,
-    ], lastVersion);
+    printVersions([`@frontegg/react-core`, ...toInstall], lastVersion);
 
     console.log(chalk.black(`\nGenerated ${constants.fileName} location:`), chalk.yellow(filePath));
 
-    console.log(chalk.yellow(`\n----------------------------------------------------------------------------------------------------
+    console.log(
+      chalk.yellow(`\n----------------------------------------------------------------------------------------------------
 ==> NEXT STEP:
 ==>   1. wrap you entire application with this HOC (withFrontegg)
 ==>   2. add this link to index html (only if you are not using ${uiLibrary} in your project)
          <link rel="stylesheet" href="${uiLibraryCss[uiLibrary]}">
-----------------------------------------------------------------------------------------------------\n`));
+----------------------------------------------------------------------------------------------------\n`)
+    );
     process.exit(0);
   });
-}
+};

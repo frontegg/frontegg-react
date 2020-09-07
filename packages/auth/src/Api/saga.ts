@@ -60,7 +60,9 @@ function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
     const address = yield call(api.auth.preLogin, { email });
     if (address) {
       yield put(actions.setLoginState({ step: LoginStep.redirectToSSO, loading: false, ssoRedirectUrl: address }));
-      setTimeout(() => {onRedirectTo(address, { refresh: true });}, 2000);
+      setTimeout(() => {
+        onRedirectTo(address, { refresh: true });
+      }, 2000);
     } else {
       yield put(actions.setLoginState({ step: LoginStep.loginWithPassword, loading: false }));
     }
@@ -76,15 +78,21 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
     const user = yield call(api.auth.postLogin, payload);
 
     ContextHolder.setAccessToken(user.accessToken);
-    yield put(actions.setState({
-      user: !!user.accessToken ? user : undefined,
-      isAuthenticated: !!user.accessToken,
-    }));
+    yield put(
+      actions.setState({
+        user: !!user.accessToken ? user : undefined,
+        isAuthenticated: !!user.accessToken,
+      })
+    );
 
-    setTimeout(() => {onRedirectTo(routes.authenticatedUrl);}, 1000);
+    setTimeout(() => {
+      onRedirectTo(routes.authenticatedUrl);
+    }, 1000);
     yield put(actions.setLoginState({ step: LoginStep.success, loading: false }));
   } catch (e) {
-    setTimeout(() => {onRedirectTo(routes.authenticatedUrl);}, 1000);
+    setTimeout(() => {
+      onRedirectTo(routes.authenticatedUrl);
+    }, 1000);
     yield put(actions.setLoginState({ step: LoginStep.loginWithSSOFailed, loading: false }));
   }
 }
@@ -95,24 +103,28 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
     const user = yield call(api.auth.login, { email, password });
 
     ContextHolder.setAccessToken(user.accessToken);
-    yield put(actions.setState({
-      user: !!user.accessToken ? user : undefined,
-      isAuthenticated: !!user.accessToken,
-      loginState: {
-        email,
-        loading: false,
-        error: undefined,
-        mfaToken: user.mfaToken,
-        step: user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success,
-      },
-    }));
+    yield put(
+      actions.setState({
+        user: !!user.accessToken ? user : undefined,
+        isAuthenticated: !!user.accessToken,
+        loginState: {
+          email,
+          loading: false,
+          error: undefined,
+          mfaToken: user.mfaToken,
+          step: user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success,
+        },
+      })
+    );
   } catch (e) {
     ContextHolder.setAccessToken(null);
-    yield put(actions.setLoginState({
-      email,
-      error: e.message,
-      loading: false,
-    }));
+    yield put(
+      actions.setLoginState({
+        email,
+        error: e.message,
+        loading: false,
+      })
+    );
   }
 }
 
@@ -180,7 +192,6 @@ function* logout({ payload }: PayloadAction<any>) {
   payload();
 }
 
-
 /*************************************
  * SSO
  *************************************/
@@ -196,11 +207,21 @@ function* loadSSOConfigurations() {
 }
 
 function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<ISamlConfiguration>) {
-  const oldSamlConfiguration = yield select(({ auth: { ssoState: { samlConfiguration } } }) => samlConfiguration);
+  const oldSamlConfiguration = yield select(
+    ({
+      auth: {
+        ssoState: { samlConfiguration },
+      },
+    }) => samlConfiguration
+  );
   try {
     yield put(actions.setSSOState({ samlConfiguration, loading: true }));
-    const updateSamlConfiguration: IUpdateSamlConfiguration =
-      omitProps(samlConfiguration, ['validated', 'generatedVerification', 'createdAt', 'updatedAt']);
+    const updateSamlConfiguration: IUpdateSamlConfiguration = omitProps(samlConfiguration, [
+      'validated',
+      'generatedVerification',
+      'createdAt',
+      'updatedAt',
+    ]);
 
     const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
     yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, loading: false }));
@@ -211,12 +232,8 @@ function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<IS
 
 function* validateSSODomain() {
   try {
-
-  } catch (e) {
-
-  }
+  } catch (e) {}
 }
-
 
 export function* sagas() {
   yield takeLeading(actions.requestAuthorize, requestAuthorize);

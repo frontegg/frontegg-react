@@ -7,7 +7,7 @@ const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedire
 const actionsMapper = ({ resetActivateState }: AuthActions) => ({ resetActivateState });
 
 export interface ActivateAccountFailedRedirectProps {
-  renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>
+  renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>;
 }
 
 export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProps> = (props) => {
@@ -18,17 +18,22 @@ export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProp
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
-  return <>
-    <div className='fe-center fe-error-message'>
-      {t('auth.activate-account.failed-title')}
-      <br/>
-      {t('auth.activate-account.failed-description')}
-    </div>
-    <Button fullWidth onClick={() => {
-      resetActivateState();
-      onRedirectTo(routes.loginUrl);
-    }}>
-      {t('auth.activate-account.back-to-login')}
-    </Button>
-  </>;
+  return (
+    <>
+      <div className='fe-center fe-error-message'>
+        {t('auth.activate-account.failed-title')}
+        <br />
+        {t('auth.activate-account.failed-description')}
+      </div>
+      <Button
+        fullWidth
+        onClick={() => {
+          resetActivateState();
+          onRedirectTo(routes.loginUrl);
+        }}
+      >
+        {t('auth.activate-account.back-to-login')}
+      </Button>
+    </>
+  );
 };

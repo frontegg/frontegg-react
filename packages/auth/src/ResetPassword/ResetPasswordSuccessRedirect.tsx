@@ -3,7 +3,6 @@ import { AuthState } from '../Api';
 import { Loader, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
-
 export interface ResetPasswordSuccessRedirectProps {
   renderer?: RendererFunctionFC<ResetPasswordSuccessRedirectProps>;
 }
@@ -11,8 +10,10 @@ export interface ResetPasswordSuccessRedirectProps {
 export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loginUrl, onRedirectTo, resetForgotPasswordState } =
-    useAuth(({ routes, onRedirectTo }: AuthState) => ({ ...routes, onRedirectTo }));
+  const { loginUrl, onRedirectTo, resetForgotPasswordState } = useAuth(({ routes, onRedirectTo }: AuthState) => ({
+    ...routes,
+    onRedirectTo,
+  }));
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,10 +25,10 @@ export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps>
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
-  return <>
-    <div className='fe-center fe-success-message'>
-      {t('auth.forgot-password.password-has-been-changed')}
-    </div>
-    <Loader center/>
-  </>;
+  return (
+    <>
+      <div className='fe-center fe-success-message'>{t('auth.forgot-password.password-has-been-changed')}</div>
+      <Loader center />
+    </>
+  );
 };

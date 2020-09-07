@@ -2,26 +2,31 @@ import React, { ComponentType, ReactElement, ReactNode, useMemo } from 'react';
 import ownKeys = Reflect.ownKeys;
 
 export class EmptyRender extends React.Component<any, any> {
-  render() {return null;}
+  render() {
+    return null;
+  }
 }
 
 export type ComponentsTypesWithProps<E> = {
-  [P in keyof Partial<E>]: ComponentType<E[P]> | Partial<E[P]> | null
-}
+  [P in keyof Partial<E>]: ComponentType<E[P]> | Partial<E[P]> | null;
+};
 
 export type ComponentsTypeProps<E> = {
-  [P in keyof Partial<E>]: E[P] | null
-}
+  [P in keyof Partial<E>]: E[P] | null;
+};
 export type ComponentsTypes<E> = {
-  [P in keyof E]: ComponentType<E[P]>
-}
+  [P in keyof E]: ComponentType<E[P]>;
+};
 
 export type PartialInnerTypes<E> = {
-  [P in keyof E]: Partial<E[P]>
-}
+  [P in keyof E]: Partial<E[P]>;
+};
 
-export type RendererFunction<P, C = P, R = ReactNode> = (props: Omit<P, 'renderer' | 'components'>, components?: ComponentsTypes<C>) => R | null
-export type RendererFunctionFC<P, R = ReactElement> = (props: Omit<P, 'renderer'>) => R | null
+export type RendererFunction<P, C = P, R = ReactNode> = (
+  props: Omit<P, 'renderer' | 'components'>,
+  components?: ComponentsTypes<C>
+) => R | null;
+export type RendererFunctionFC<P, R = ReactElement> = (props: Omit<P, 'renderer'>) => R | null;
 
 export function memoEqual(prevProps: any, nextProps: any) {
   return Object.keys(nextProps).reduce((p: boolean, next: any) => {
@@ -55,7 +60,7 @@ export function memoEqualNoChildren(prevProps: any, nextProps: any) {
 export const buildDynamicComponent = <T extends {}, P>(
   components: Partial<P> | undefined | null,
   component: keyof P,
-  DefaultComponent: ComponentType<any>,
+  DefaultComponent: ComponentType<any>
 ): any => {
   if (components?.hasOwnProperty(component)) {
     const comp = components?.[component];
@@ -77,15 +82,16 @@ export const buildPropsComponents = <P>(components: any, defaultComponents: P): 
     return defaultComponents;
   }
   return ownKeys(defaultComponents as any)
-    .map((compName: any) => ({ [compName as string]: buildDynamicComponent(components, compName as string, (defaultComponents as any)[compName]) }))
+    .map((compName: any) => ({
+      [compName as string]: buildDynamicComponent(components, compName as string, (defaultComponents as any)[compName]),
+    }))
     .reduce((p: any, comp: any) => ({ ...p, ...comp }), {});
 };
-
 
 export const generateComponent = <T extends {}, P>(
   components: Partial<P> | undefined | null,
   component: keyof P,
-  DefaultComponent: ComponentType<any>,
+  DefaultComponent: ComponentType<any>
 ): any => {
   if (components?.hasOwnProperty(component)) {
     const comp = components?.[component];
@@ -107,11 +113,16 @@ export const buildComponents = <P>(components: any, defaultComponents: P): P => 
     return defaultComponents;
   }
   return ownKeys(defaultComponents as any)
-    .map((compName: any) => ({ [compName as string]: generateComponent(components, compName as string, (defaultComponents as any)[compName]) }))
+    .map((compName: any) => ({
+      [compName as string]: generateComponent(components, compName as string, (defaultComponents as any)[compName]),
+    }))
     .reduce((p: any, comp: any) => ({ ...p, ...comp }), {});
 };
 
-export const useDynamicComponents = <COMPS, A, P extends { components?: ComponentsTypesWithProps<COMPS> }>(defaultComponents: A, props: P) => {
+export const useDynamicComponents = <COMPS, A, P extends { components?: ComponentsTypesWithProps<COMPS> }>(
+  defaultComponents: A,
+  props: P
+) => {
   return useMemo(() => buildComponents(props.components, defaultComponents), [props.components]);
 };
 
@@ -119,7 +130,7 @@ export const buildComponentsProps = <P>(configComponents: P, propsComponents: P)
   const props: any = {};
 
   const merger = (comps: any) => {
-    Object.keys(comps || {}).map(key => {
+    Object.keys(comps || {}).map((key) => {
       if (comps[key] === null) {
         props[key] = null;
         return;
@@ -140,9 +151,12 @@ export const buildComponentsProps = <P>(configComponents: P, propsComponents: P)
   return props;
 };
 
-export const cloneComponentsWithProps = <P>(components: ComponentsTypes<P>, configProps: PartialInnerTypes<P>): ComponentsTypes<P> => {
+export const cloneComponentsWithProps = <P>(
+  components: ComponentsTypes<P>,
+  configProps: PartialInnerTypes<P>
+): ComponentsTypes<P> => {
   const cloned: any = components;
-  Object.keys(configProps).forEach(key => {
+  Object.keys(configProps).forEach((key) => {
     if ((cloned as any)[key] != null) {
       cloned[key] = (props: any) => React.createElement(cloned[key], { ...configProps, ...props });
     }
@@ -150,9 +164,13 @@ export const cloneComponentsWithProps = <P>(components: ComponentsTypes<P>, conf
   return cloned as ComponentsTypes<P>;
 };
 
-export class FronteggClass<COMPS, P extends {
-  components?: ComponentsTypesWithProps<COMPS>;
-} = {}, S = {}> extends React.Component<P, S> {
+export class FronteggClass<
+  COMPS,
+  P extends {
+    components?: ComponentsTypesWithProps<COMPS>;
+  } = {},
+  S = {}
+> extends React.Component<P, S> {
   declare compsProps: PartialInnerTypes<COMPS>;
   declare comps: ComponentsTypes<COMPS>;
 

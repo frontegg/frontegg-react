@@ -24,54 +24,58 @@ export interface ActivateAccountFormProps {
   token: string;
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ActivateAccountFormProps
+type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ActivateAccountFormProps;
 
 class ActivateAccountFormComponent extends React.Component<Props> {
-
   render() {
-    const { t, renderer, activateState: { loading, error }, activateAccount, userId, token } = this.props;
+    const {
+      t,
+      renderer,
+      activateState: { loading, error },
+      activateAccount,
+      userId,
+      token,
+    } = this.props;
 
     if (renderer) {
       return renderer(omitProps(this.props, ['renderer', 'components']));
     }
 
-    return <Formik
-      validationSchema={validateSchema({
-        password: validatePassword(t),
-        confirmPassword: validatePasswordConfirmation(t),
-      })}
-      enableReinitialize={true}
-      initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={({ password }) => activateAccount({ userId, token, password })}>
-      <Form>
-        <Input
-          inFormik
-          type='password'
-          name='password'
-          label={t('auth.activate-account.new-password')}
-          placeholder={t('auth.activate-account.enter-your-password')}/>
-        <Input
-          inFormik
-          type='password'
-          name='confirmPassword'
-          label={t('auth.activate-account.confirm-new-password')}
-          placeholder={t('auth.activate-account.enter-your-password-again')}/>
-        <Button
-          inFormik
-          type='submit'
-          fullWidth={true}
-          loading={loading}
-          variant='primary'>
-          {t('auth.activate-account.activate-account-button')}
-        </Button>
-        <ErrorMessage error={error}/>
-      </Form>
-    </Formik>;
+    return (
+      <Formik
+        validationSchema={validateSchema({
+          password: validatePassword(t),
+          confirmPassword: validatePasswordConfirmation(t),
+        })}
+        enableReinitialize={true}
+        initialValues={{ password: '', confirmPassword: '' }}
+        onSubmit={({ password }) => activateAccount({ userId, token, password })}
+      >
+        <Form>
+          <Input
+            inFormik
+            type='password'
+            name='password'
+            label={t('auth.activate-account.new-password')}
+            placeholder={t('auth.activate-account.enter-your-password')}
+          />
+          <Input
+            inFormik
+            type='password'
+            name='confirmPassword'
+            label={t('auth.activate-account.confirm-new-password')}
+            placeholder={t('auth.activate-account.enter-your-password-again')}
+          />
+          <Button inFormik type='submit' fullWidth={true} loading={loading} variant='primary'>
+            {t('auth.activate-account.activate-account-button')}
+          </Button>
+          <ErrorMessage error={error} />
+        </Form>
+      </Formik>
+    );
   }
 }
 
-export const ActivateAccountForm = withAuth(
-  ActivateAccountFormComponent,
-  stateMapper,
-  actionsMapper,
-) as ComponentType<ActivateAccountFormProps>;
+export const ActivateAccountForm = withAuth(ActivateAccountFormComponent, stateMapper, actionsMapper) as ComponentType<
+  ActivateAccountFormProps
+>;

@@ -10,7 +10,7 @@ export interface SSOOverviewStepsProps {
 export const SSOOverviewSteps: FC<SSOOverviewStepsProps> = (props) => {
   const { t } = useT();
   const [rootPath] = useRootPath(props);
-  const { samlConfiguration } = useAuth(state => state.ssoState);
+  const { samlConfiguration } = useAuth((state) => state.ssoState);
   const { renderer } = props;
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
@@ -21,21 +21,24 @@ export const SSOOverviewSteps: FC<SSOOverviewStepsProps> = (props) => {
   const claimValue = samlConfiguration?.domain ?? '';
   const idpValue = samlConfiguration?.acsUrl ?? '';
 
-  return <div className='fe-sso-steps'>
-    <SSOStep num={1}
-             t={t}
-             to={`${rootPath}/domain`}
-             title={t('auth.sso.claim-domain')}
-             subtitle={claimValue}
-             configured={isDomainValidated}
-    />
-    <SSOStep num={2}
-             t={t}
-             to={`${rootPath}/idp`}
-             title={t('auth.sso.configure-your-idp')}
-             subtitle={idpValue}
-             configured={isIdpValidated}
-    />
-  </div>;
-
+  return (
+    <div className='fe-sso-steps'>
+      <SSOStep
+        num={1}
+        t={t}
+        to={`${rootPath}/domain`}
+        title={t('auth.sso.claim-domain')}
+        subtitle={claimValue}
+        configured={isDomainValidated}
+      />
+      <SSOStep
+        num={2}
+        t={t}
+        to={`${rootPath}/idp`}
+        title={t('auth.sso.configure-your-idp')}
+        subtitle={idpValue}
+        configured={isIdpValidated}
+      />
+    </div>
+  );
 };

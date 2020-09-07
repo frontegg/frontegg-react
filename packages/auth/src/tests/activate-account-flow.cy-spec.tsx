@@ -5,7 +5,9 @@ import {
   IDENTITY_SERVICE,
   mockAuthApi,
   mountOptions,
-  navigateTo, PASSWORD, submitButtonSelector,
+  navigateTo,
+  PASSWORD,
+  submitButtonSelector,
   TestFronteggWrapper,
 } from '../../../../cypress/helpers';
 
@@ -21,19 +23,16 @@ const defaultAuthPlugin = {
 };
 
 describe('Activate Account Tests', () => {
-
   it('ActivateAccount Page should display error if userId or token not found', () => {
     cy.server();
     mockAuthApi(false, false);
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.activateUrl);
 
     cy.get('.fe-error-message').contains('Activation failed').should('be.visible');
     cy.contains('Back to login').should('be.visible').click();
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
     });
   });
@@ -49,9 +48,7 @@ describe('Activate Account Tests', () => {
       delay: 200,
     }).as('activateAccount');
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     const userId = '1111-userId-1111';
     const token = '1111-token-1111';
@@ -67,7 +64,11 @@ describe('Activate Account Tests', () => {
     cy.get(passwordSelector).parents('.field').should('have.class', 'error');
     cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
     cy.get(submitButtonSelector).should('be.disabled');
-    cy.get(confirmPasswordSelector).focus().clear().type(PASSWORD + '1').blur();
+    cy.get(confirmPasswordSelector)
+      .focus()
+      .clear()
+      .type(PASSWORD + '1')
+      .blur();
     cy.get(submitButtonSelector).should('be.disabled');
 
     cy.get(confirmPasswordSelector).parents('.field').should('have.class', 'error');
@@ -79,7 +80,7 @@ describe('Activate Account Tests', () => {
     cy.get(submitButtonSelector).should('not.be.disabled').click();
     cy.wait('@activateAccount').its('request.body').should('deep.equal', { userId, token, password: PASSWORD });
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
     });
   });

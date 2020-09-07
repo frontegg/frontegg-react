@@ -8,25 +8,26 @@ import { AuthMapper } from './helpers';
 const pluginName = 'auth';
 const pluginActions = actions;
 
-export type AuthStateMapper<S> = (state: AuthState) => S
-export type AuthActionsMapper<A> = (state: AuthActions) => A
+export type AuthStateMapper<S> = (state: AuthState) => S;
+export type AuthActionsMapper<A> = (state: AuthActions) => A;
 
 const defaultMapper: AuthMapper = {
   state: (state: AuthState) => state,
   actions: (actions: AuthActions) => actions,
 };
 
-export const useAuth = <S, A>(stateMapper: AuthStateMapper<S> = defaultMapper.state, actionsMapper: AuthActionsMapper<A> = defaultMapper.actions)
-  : (S & AuthActions) => {
+export const useAuth = <S, A>(
+  stateMapper: AuthStateMapper<S> = defaultMapper.state,
+  actionsMapper: AuthActionsMapper<A> = defaultMapper.actions
+): S & AuthActions => {
   const dispatch = useDispatch();
   const bindedActions = bindActionCreators(pluginActions, dispatch);
   const state = useSelector((state: any) => stateMapper(state[pluginName]), memoEqual);
   return {
-    ...state as S,
+    ...(state as S),
     ...bindedActions,
   };
 };
-
 
 /**
  * ```jsx
@@ -38,7 +39,8 @@ export const useAuth = <S, A>(stateMapper: AuthStateMapper<S> = defaultMapper.st
  *
  * use this frontegg hook function to get if user is "Authenticated"
  */
-export const useIsAuthenticated = (): boolean => useSelector(({ [pluginName]: { isAuthenticated } }: any) => isAuthenticated, memoEqual);
+export const useIsAuthenticated = (): boolean =>
+  useSelector(({ [pluginName]: { isAuthenticated } }: any) => isAuthenticated, memoEqual);
 
 /**
  * ```jsx

@@ -5,9 +5,12 @@ import chalk from 'chalk';
 
 export const usingTypescript = (): boolean => fs.existsSync(path.join(process.cwd(), 'tsconfig.json'));
 export const usingYarn = (): boolean => !fs.existsSync(path.join(process.cwd(), 'package-lock.json'));
-export const getPackageJson = (): any => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
-export const isFileExistsInSrc = (fileName: string): boolean => fs.existsSync(path.join(process.cwd(), 'src', fileName));
-export const createFileInSrc = (fileName: string, data: string) => fs.writeFileSync(path.join(process.cwd(), 'src', fileName), data, { encoding: 'utf8' });
+export const getPackageJson = (): any =>
+  JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
+export const isFileExistsInSrc = (fileName: string): boolean =>
+  fs.existsSync(path.join(process.cwd(), 'src', fileName));
+export const createFileInSrc = (fileName: string, data: string) =>
+  fs.writeFileSync(path.join(process.cwd(), 'src', fileName), data, { encoding: 'utf8' });
 
 const coreName = '@frontegg/react-core';
 export const extractVersion = (v: string): string => {
@@ -33,10 +36,10 @@ export const extractVersion = (v: string): string => {
 export const createLoader = () => {
   const text = 'Frontegg-React';
   const gap = text.length;
-  const p:any = [];
+  const p: any = [];
   for (let i = 0; i < gap * 3; i++) {
     const preSpace = i < gap ? 0 : i - gap;
-    const postSpace = i <= gap ? (2 * gap -i) : (i < 2 * gap ? (2 * gap + 1) - i : 0);
+    const postSpace = i <= gap ? 2 * gap - i : i < 2 * gap ? 2 * gap + 1 - i : 0;
 
     let t = text;
     if (i < gap) {
@@ -52,7 +55,6 @@ export const createLoader = () => {
     x = x < p.length ? x : 0;
   }, 100);
 };
-
 
 export const printVersions = (installedPackages: string[], lastVersion: string) => {
   console.log(chalk.yellow('You are UP-TO-DATE! :D'), '\nversion:');

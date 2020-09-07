@@ -5,7 +5,7 @@ export interface ReportSchedule {
   cron: string;
   tz: string;
   active: boolean;
-  dataFilters?: { [K in string]: any }
+  dataFilters?: { [K in string]: any };
 }
 
 export interface IReportRecord extends IFronteggRecord {
@@ -21,10 +21,9 @@ export interface IReportRecord extends IFronteggRecord {
   type: 'html' | 'pdf' | 'image';
   dataFilters?: {
     type: string;
-    config: DataFilter
-  }[]
+    config: DataFilter;
+  }[];
 }
-
 
 export interface DataFilterBase {
   name: string;
@@ -60,15 +59,15 @@ export interface DataFilterBoolean extends DataFilterBase {
 export interface DataFilterSelect extends DataFilterBase {
   type: 'select';
   placeholder?: string;
-  defaultValue?: any
-  options: { label: string; value: any; }[];
+  defaultValue?: any;
+  options: { label: string; value: any }[];
 }
 
 export interface DataFilterMultiSelect extends DataFilterBase {
   type: 'multi-select';
   placeholder?: string;
   defaultValue?: any[];
-  options: { label: string; value: any; }[];
+  options: { label: string; value: any }[];
 }
 
 export interface DataFilterDate extends DataFilterBase {
@@ -95,11 +94,11 @@ export interface DataFilterDate extends DataFilterBase {
 export interface DataFilterRelativeDate extends DataFilterBase {
   type: 'relative-date';
   defaultValue?: {
-    type: 'current' | 'last',
-    period: 'seconds' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year',
-    value: number
-  }
-  periods: ('seconds' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year')[]
+    type: 'current' | 'last';
+    period: 'seconds' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year';
+    value: number;
+  };
+  periods: ('seconds' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year')[];
 }
 
 export type DataFilter =
@@ -109,8 +108,7 @@ export type DataFilter =
   | DataFilterSelect
   | DataFilterMultiSelect
   | DataFilterDate
-  | DataFilterRelativeDate
-
+  | DataFilterRelativeDate;
 
 export type ReportColumnsNames = 'name' | 'schedule' | 'status' | 'updatedAt' | 'createdAt';
 
@@ -129,7 +127,6 @@ export interface IReportsSort {
   column: ReportColumnsNames;
   direction: 'asc' | 'desc';
 }
-
 
 export interface IGetReports {
   filters?: IReportsFilter;

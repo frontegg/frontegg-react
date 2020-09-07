@@ -33,7 +33,6 @@ export interface LoginState {
   email?: string;
 }
 
-
 // Activate
 export enum ActivateStep {
   'activating' = 'activating',
@@ -43,9 +42,8 @@ export enum ActivateStep {
 export interface ActivateState {
   loading: boolean;
   error?: any;
-  step: ActivateStep
+  step: ActivateStep;
 }
-
 
 // Forgot Password
 export enum ForgotPasswordStep {
@@ -74,13 +72,13 @@ export interface SSOState {
   samlConfiguration?: ISamlConfiguration;
 }
 
-export interface AuthState extends AuthPageProps , AuthPageRoutes {
+export interface AuthState extends AuthPageProps, AuthPageRoutes {
   error?: any;
   isAuthenticated: boolean;
   isLoading: boolean;
   user?: User;
   isSSOAuth: boolean;
-  ssoACS?:string;
+  ssoACS?: string;
   loginState: LoginState;
   activateState: ActivateState;
   forgetPasswordState: ForgotPasswordState;
@@ -89,18 +87,18 @@ export interface AuthState extends AuthPageProps , AuthPageRoutes {
 }
 
 export type PreLoginPayload = {
-  email: string
-}
+  email: string;
+};
 
-export type LogoutPayload = () => void
+export type LogoutPayload = () => void;
 export type LoginWithMfaPayload = {
   mfaToken: string;
   value: string;
-}
+};
 export type ActivateAccountPayload = {
   token: string;
   userId: string;
   password: string;
-}
+};
 export type ForgotPasswordPayload = PreLoginPayload;
 export type ResetPasswordPayload = ActivateAccountPayload;

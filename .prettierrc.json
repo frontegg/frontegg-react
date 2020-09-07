@@ -4,5 +4,5 @@
   "singleQuote": true,
   "jsxSingleQuote": true,
   "semi": true,
-  "printWidth": 200
+  "printWidth": 120
 }

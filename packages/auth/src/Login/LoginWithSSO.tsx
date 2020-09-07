@@ -8,7 +8,7 @@ import { useAuth } from '../hooks';
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
 
 export interface LoginWithSSOProps {
-  renderer?: RendererFunctionFC<LoginWithSSOProps>
+  renderer?: RendererFunctionFC<LoginWithSSOProps>;
 }
 
 export const LoginWithSSO: FC<LoginWithSSOProps> = (props) => {
@@ -30,11 +30,13 @@ export const LoginWithSSO: FC<LoginWithSSOProps> = (props) => {
   }
 
   if (!RelayState || !SAMLResponse) {
-    return <LoginWithSSOFailed/>;
+    return <LoginWithSSOFailed />;
   }
-  return <div className='fe-login-component'>
-    <Loader center/>
-  </div>;
+  return (
+    <div className='fe-login-component'>
+      <Loader center />
+    </div>
+  );
 };
 
 export const LoginWithSSOPage = authPageWrapper(LoginWithSSO);

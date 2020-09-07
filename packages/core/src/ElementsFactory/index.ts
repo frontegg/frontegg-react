@@ -8,6 +8,7 @@ export const Input = (props: InputProps) => React.createElement(ElementsFactory.
 export const Button = (props: ButtonProps) => React.createElement(ElementsFactory.getElement('Button'), props);
 export const Form = (props: FormProps) => React.createElement(ElementsFactory.getElement('Form'), props);
 export const Loader = (props: LoaderProps) => React.createElement(ElementsFactory.getElement('Loader'), props);
-export const SwitchToggle = (props: SwitchToggleProps) => React.createElement(ElementsFactory.getElement('SwitchToggle'), props);
+export const SwitchToggle = (props: SwitchToggleProps) =>
+  React.createElement(ElementsFactory.getElement('SwitchToggle'), props);
 export const Icon = (props: IconProps) => React.createElement(ElementsFactory.getElement('Icon'), props);
 export const Tab = (props: TabProps) => React.createElement(ElementsFactory.getElement('Tab'), props);

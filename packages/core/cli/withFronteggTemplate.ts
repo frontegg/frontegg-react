@@ -32,4 +32,4 @@ export const withFrontegg = (AppComponent) => (props) => {
     uiLibrary={uiLibrary}>
     <AppComponent {...props}/>
   </FronteggProvider>;
-};`
+};`;

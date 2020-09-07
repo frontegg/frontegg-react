@@ -16,25 +16,41 @@ export const SwitchToggle: FC<SwitchToggleProps> = (props) => {
   const { labels } = props;
   const { className, ...checkboxProps } = mapper(props);
 
-  const toggle = <Ref innerRef={ref}>
-    <Checkbox className={classNames('fe-switch-toggle', className)} {...checkboxProps}/>
-  </Ref>;
+  const toggle = (
+    <Ref innerRef={ref}>
+      <Checkbox className={classNames('fe-switch-toggle', className)} {...checkboxProps} />
+    </Ref>
+  );
 
   if (labels) {
-    return <div className={classNames('fe-switch-toggle__with_labels', {
-      'fe-switch-toggle__active-left': !props.value,
-      'fe-switch-toggle__active-right': props.value,
-      'fe-switch-toggle__disabled': props.disabled || props.loading,
-      'fe-switch-toggle__loading': props.loading,
-    })}>
-      <span className='fe-switch-toggle__label' onClick={() => {
-        props.value && ref?.current?.querySelector('input')?.click();
-      }}>{labels[0]}</span>
-      {toggle}
-      <span className='fe-switch-toggle__label' onClick={() => {
-        !props.value && ref?.current?.querySelector('input')?.click();
-      }}>{labels[1]}</span>
-    </div>;
+    return (
+      <div
+        className={classNames('fe-switch-toggle__with_labels', {
+          'fe-switch-toggle__active-left': !props.value,
+          'fe-switch-toggle__active-right': props.value,
+          'fe-switch-toggle__disabled': props.disabled || props.loading,
+          'fe-switch-toggle__loading': props.loading,
+        })}
+      >
+        <span
+          className='fe-switch-toggle__label'
+          onClick={() => {
+            props.value && ref?.current?.querySelector('input')?.click();
+          }}
+        >
+          {labels[0]}
+        </span>
+        {toggle}
+        <span
+          className='fe-switch-toggle__label'
+          onClick={() => {
+            !props.value && ref?.current?.querySelector('input')?.click();
+          }}
+        >
+          {labels[1]}
+        </span>
+      </div>
+    );
   }
   return toggle;
 };

@@ -1,4 +1,3 @@
-
 .fe-note {
   margin: 1rem 0;
   font-size: 0.8rem;
@@ -12,7 +11,6 @@
     font-weight: normal;
   }
 }
-
 
 button.button.fe-link-button {
   padding: 0;
@@ -31,7 +29,7 @@ button.button.fe-link-button {
   position: relative;
 
   > button.button {
-    padding: .25rem;
+    padding: 0.25rem;
     background: transparent !important;
 
     float: right;
@@ -47,7 +45,6 @@ button.button.fe-link-button {
     }
   }
 }
-
 
 .fe-placeholder-box {
   display: flex;

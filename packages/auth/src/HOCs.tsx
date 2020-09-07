@@ -15,24 +15,23 @@ const emptySelector = () => ({});
 export const withAuth = <P extends any>(
   Component: ComponentType<P>,
   stateSelector?: (state: AuthState) => any,
-  actionsSelector?: (actions: AuthActions) => any,
+  actionsSelector?: (actions: AuthActions) => any
 ) => {
   const _stateSelector = stateSelector || emptySelector;
   const _actionsSelector = actionsSelector || emptySelector;
 
   const mapStateToProps = (state: any) => _stateSelector(state[pluginName]);
-  const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(_actionsSelector(pluginActions) || {}, dispatch);
+  const mapDispatchToProps = (dispatch: Dispatch) =>
+    bindActionCreators(_actionsSelector(pluginActions) || {}, dispatch);
 
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(withT()(Component as any)) as ComponentType<Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>>;
+  return connect(mapStateToProps, mapDispatchToProps)(withT()(Component as any)) as ComponentType<
+    Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>
+  >;
 };
-
 
 const onRedirecting = (loginUrl: string) => {
   window.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, window.location.pathname);
-  return <Redirect to={loginUrl}/>;
+  return <Redirect to={loginUrl} />;
 };
 
 /**
@@ -50,14 +49,15 @@ const onRedirecting = (loginUrl: string) => {
  * they will be redirected to the login page if not authenticated
  * returned to the page they we're redirected from after login
  */
-export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) => function withProtectedRoute(props: P) {
-  const { isAuthenticated, isLoading, loginUrl } = useAuth((state) => ({
-    isAuthenticated: state,
-    isLoading: state.isLoading,
-    loginUrl: state.routes.loginUrl,
-  }));
-  return isLoading ? null : isAuthenticated ? <Component {...props} /> : onRedirecting(loginUrl);
-};
+export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) =>
+  function withProtectedRoute(props: P) {
+    const { isAuthenticated, isLoading, loginUrl } = useAuth((state) => ({
+      isAuthenticated: state,
+      isLoading: state.isLoading,
+      loginUrl: state.routes.loginUrl,
+    }));
+    return isLoading ? null : isAuthenticated ? <Component {...props} /> : onRedirecting(loginUrl);
+  };
 
 /**
  * ```jsx
@@ -75,13 +75,14 @@ export const withProtectedRoute = <P extends {}>(Component: ComponentType<P>) =>
  * redirected from after login
  */
 export const ProtectedComponent: FC = ({ children }) => {
-  const { isAuthenticated, routes: { loginUrl }, isLoading } = useAuth(
-    ({ isAuthenticated, routes, isLoading }: AuthState) => ({ isAuthenticated, routes, isLoading }),
-  );
+  const {
+    isAuthenticated,
+    routes: { loginUrl },
+    isLoading,
+  } = useAuth(({ isAuthenticated, routes, isLoading }: AuthState) => ({ isAuthenticated, routes, isLoading }));
 
   return isLoading ? null : isAuthenticated ? <>{children}</> : onRedirecting(loginUrl);
 };
-
 
 /**
  * ```jsx
@@ -105,28 +106,24 @@ export class ProtectedRoute extends React.Component<RouteProps> {
   render() {
     const { component, render, children, ...routeProps } = this.props;
     if (children != null) {
-      return <Route {...routeProps}>
-        <ProtectedComponent>
-          {children}
-        </ProtectedComponent>
-      </Route>;
+      return (
+        <Route {...routeProps}>
+          <ProtectedComponent>{children}</ProtectedComponent>
+        </Route>
+      );
     }
     if (render != null) {
-      return <Route {...routeProps} render={(props) =>
-        <ProtectedComponent>
-          {render(props)}
-        </ProtectedComponent>
-      }/>;
+      return <Route {...routeProps} render={(props) => <ProtectedComponent>{render(props)}</ProtectedComponent>} />;
     }
     if (component != null) {
-      return <Route {...routeProps} render={(props) =>
-        <ProtectedComponent>
-          {React.createElement(component, props)}
-        </ProtectedComponent>
-      }
-      />;
+      return (
+        <Route
+          {...routeProps}
+          render={(props) => <ProtectedComponent>{React.createElement(component, props)}</ProtectedComponent>}
+        />
+      );
     }
-    return <Route {...routeProps}/>;
+    return <Route {...routeProps} />;
   }
 }
 
@@ -150,4 +147,3 @@ export const ProtectedArea: FC = ({ children }) => {
   const isAuthenticated = useIsAuthenticated();
   return isAuthenticated ? <>{children}</> : null;
 };
-

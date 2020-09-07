@@ -16,7 +16,6 @@ export * from './ForgotPassword';
 export * from './ResetPassword';
 export * from './SSO';
 
-
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
   storeName,
   preloadedState: {
@@ -30,6 +29,6 @@ export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
   },
   reducer,
   sagas,
-  Listener:AuthListener,
-  WrapperComponent: (options?.InjectAuthRoutes ?? true) ? AuthRoutes : undefined,
+  Listener: AuthListener,
+  WrapperComponent: options?.InjectAuthRoutes ?? true ? AuthRoutes : undefined,
 });

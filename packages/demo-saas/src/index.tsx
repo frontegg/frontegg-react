@@ -5,7 +5,6 @@ import { App } from './App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-
 function counter(state = 0, action: any) {
   switch (action.type) {
     case 'INCREMENT':
@@ -21,11 +20,11 @@ function counter(state = 0, action: any) {
 // Its API is { subscribe, dispatch, getState }.
 const store = createStore(counter);
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>
-  </React.StrictMode>
-  , document.getElementById('root'));
+  </React.StrictMode>,
+  document.getElementById('root')
+);

@@ -2,12 +2,16 @@ import React from 'react';
 import { mount } from 'cypress-react-unit-test';
 import { AuthPlugin } from '../index';
 import {
-  checkEmailValidation, EMAIL_1, emailInputSelector,
+  checkEmailValidation,
+  EMAIL_1,
+  emailInputSelector,
   IDENTITY_SERVICE,
   METADATA_SERVICE,
   mockAuthApi,
   mountOptions,
-  navigateTo, PASSWORD, submitButtonSelector,
+  navigateTo,
+  PASSWORD,
+  submitButtonSelector,
   TestFronteggWrapper,
 } from '../../../../cypress/helpers';
 
@@ -23,13 +27,10 @@ const defaultAuthPlugin = {
 };
 
 describe('Forgot Password Tests', () => {
-
   it('NO SAML, should display forget password if click on forget password button', () => {
     cy.server();
     mockAuthApi(false, false);
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.loginUrl);
 
     cy.wait(['@refreshToken', '@metadata']);
@@ -38,7 +39,7 @@ describe('Forgot Password Tests', () => {
     cy.get(emailInputSelector).focus().clear().type(EMAIL_1).blur();
     cy.get('[test-id="forgot-password-button"]').click();
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.forgetPasswordUrl);
     });
 
@@ -57,9 +58,7 @@ describe('Forgot Password Tests', () => {
       delay: 200,
     }).as('preLogin');
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.loginUrl);
 
     cy.wait(['@refreshToken', '@metadata']);
@@ -73,7 +72,7 @@ describe('Forgot Password Tests', () => {
     cy.get('button[type="submit"]').should('not.be.disabled');
 
     cy.get('[test-id="forgot-password-button"]').click();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.forgetPasswordUrl);
     });
 
@@ -85,9 +84,7 @@ describe('Forgot Password Tests', () => {
     cy.server();
     mockAuthApi(false, false);
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.forgetPasswordUrl);
 
     cy.get(submitButtonSelector).should('be.disabled');
@@ -108,9 +105,7 @@ describe('Forgot Password Tests', () => {
       delay: 200,
     }).as('forgotPassword');
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.forgetPasswordUrl);
 
     cy.get(submitButtonSelector).should('be.disabled');
@@ -121,7 +116,7 @@ describe('Forgot Password Tests', () => {
     cy.contains('A password reset email has been sent to your registered email address').should('be.visible');
     cy.contains('Back to login').should('be.visible').click();
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
     });
   });
@@ -129,15 +124,13 @@ describe('Forgot Password Tests', () => {
   it('ResetPassword Page should display error if userId or token not found', () => {
     cy.server();
     mockAuthApi(false, false);
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
     navigateTo(defaultAuthPlugin.routes.resetPasswordUrl);
 
     cy.get('.fe-error-message').contains('Reset Password Failed').should('be.visible');
     cy.contains('Back to login').should('be.visible').click();
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
     });
   });
@@ -153,9 +146,7 @@ describe('Forgot Password Tests', () => {
       delay: 200,
     }).as('resetPassword');
 
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>
-      Home
-    </TestFronteggWrapper>, mountOptions);
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     const userId = '1111-userId-1111';
     const token = '1111-token-1111';
@@ -171,7 +162,11 @@ describe('Forgot Password Tests', () => {
     cy.get(passwordSelector).parents('.field').should('have.class', 'error');
     cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
     cy.get(submitButtonSelector).should('be.disabled');
-    cy.get(confirmPasswordSelector).focus().clear().type(PASSWORD + '1').blur();
+    cy.get(confirmPasswordSelector)
+      .focus()
+      .clear()
+      .type(PASSWORD + '1')
+      .blur();
     cy.get(submitButtonSelector).should('be.disabled');
 
     cy.get(confirmPasswordSelector).parents('.field').should('have.class', 'error');
@@ -183,7 +178,7 @@ describe('Forgot Password Tests', () => {
     cy.get(submitButtonSelector).should('not.be.disabled').click();
     cy.wait('@resetPassword').its('request.body').should('deep.equal', { userId, token, password: PASSWORD });
 
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
     });
   });

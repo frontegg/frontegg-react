@@ -1,8 +1,16 @@
 import React, { FC } from 'react';
 import { Formik } from 'formik';
 import {
-  Form, Button, Input, omitProps, validatePassword, validatePasswordConfirmation,
-  validateSchema, ErrorMessage, useT, RendererFunctionFC,
+  Form,
+  Button,
+  Input,
+  omitProps,
+  validatePassword,
+  validatePasswordConfirmation,
+  validateSchema,
+  ErrorMessage,
+  useT,
+  RendererFunctionFC,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
@@ -20,25 +28,36 @@ export const ResetPasswordForm: FC<ResetPasswordFormProps> = (props) => {
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
-  return <Formik
-    validationSchema={validateSchema({
-      password: validatePassword(t),
-      confirmPassword: validatePasswordConfirmation(t),
-    })}
-    enableReinitialize
-    initialValues={{ password: '', confirmPassword: '' }}
-    onSubmit={({ password }) => resetPassword({ userId, token, password })}>
-    <Form>
-      <Input inFormik type='password' name='password'
-             label={t('auth.forgot-password.new-password')}
-             placeholder={t('auth.forgot-password.enter-your-password')}/>
-      <Input inFormik type='password' name='confirmPassword'
-             label={t('auth.forgot-password.confirm-new-password')}
-             placeholder={t('auth.forgot-password.enter-your-password-again')}/>
-      <Button inFormik type='submit' fullWidth loading={loading} variant='primary'>
-        {t('auth.forgot-password.reset-password-button')}
-      </Button>
-      <ErrorMessage error={error}/>
-    </Form>
-  </Formik>;
+  return (
+    <Formik
+      validationSchema={validateSchema({
+        password: validatePassword(t),
+        confirmPassword: validatePasswordConfirmation(t),
+      })}
+      enableReinitialize
+      initialValues={{ password: '', confirmPassword: '' }}
+      onSubmit={({ password }) => resetPassword({ userId, token, password })}
+    >
+      <Form>
+        <Input
+          inFormik
+          type='password'
+          name='password'
+          label={t('auth.forgot-password.new-password')}
+          placeholder={t('auth.forgot-password.enter-your-password')}
+        />
+        <Input
+          inFormik
+          type='password'
+          name='confirmPassword'
+          label={t('auth.forgot-password.confirm-new-password')}
+          placeholder={t('auth.forgot-password.enter-your-password-again')}
+        />
+        <Button inFormik type='submit' fullWidth loading={loading} variant='primary'>
+          {t('auth.forgot-password.reset-password-button')}
+        </Button>
+        <ErrorMessage error={error} />
+      </Form>
+    </Formik>
+  );
 };

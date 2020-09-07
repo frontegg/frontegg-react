@@ -10,43 +10,38 @@ export interface PageHeaderProps {
   childClassName?: string;
   tabs?: TabProps;
   onBackButtonClick?: (e: React.MouseEvent) => void;
-  centerChildren?: ReactNode
+  centerChildren?: ReactNode;
 }
 
-export const PageHeader: FC<PageHeaderProps> =
-  ({
-     className,
-     onBackButtonClick,
-     title,
-     titleClassName,
-     subTitle,
-     children,
-     childClassName,
-     tabs,
-     centerChildren,
-   }) => (
-    <div className={classNames('fe-page-header', className, { 'fe-page-header__with-tabs': tabs })}>
-      <div className='fe-left'>
-        <div className={classNames(titleClassName, 'fe-title', { 'fe-title__back-button': onBackButtonClick })}>
-          <span onClick={onBackButtonClick}
-                className={classNames('fe-back-button',
-                  {
-                    'mt-2': subTitle,
-                    'visible': onBackButtonClick,
-                  })}>
-            <Icon name='left-arrow'/>
-          </span>
-          {title}
-          {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
-        </div>
-        {tabs && <Tab {...tabs} />}
+export const PageHeader: FC<PageHeaderProps> = ({
+  className,
+  onBackButtonClick,
+  title,
+  titleClassName,
+  subTitle,
+  children,
+  childClassName,
+  tabs,
+  centerChildren,
+}) => (
+  <div className={classNames('fe-page-header', className, { 'fe-page-header__with-tabs': tabs })}>
+    <div className='fe-left'>
+      <div className={classNames(titleClassName, 'fe-title', { 'fe-title__back-button': onBackButtonClick })}>
+        <span
+          onClick={onBackButtonClick}
+          className={classNames('fe-back-button', {
+            'mt-2': subTitle,
+            visible: onBackButtonClick,
+          })}
+        >
+          <Icon name='left-arrow' />
+        </span>
+        {title}
+        {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
       </div>
-      {centerChildren}
-      {children && (
-        <div className={classNames('fe-right', childClassName)}>
-          {children}
-        </div>
-      )}
+      {tabs && <Tab {...tabs} />}
     </div>
-  );
-
+    {centerChildren}
+    {children && <div className={classNames('fe-right', childClassName)}>{children}</div>}
+  </div>
+);

@@ -32,7 +32,6 @@ export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUse
   return Post(context, `${USERS_SERVICE_URL_V1}/passwords/change`, body);
 }
 
-
 /**
  * change user password by providing current password and the new password.
  *

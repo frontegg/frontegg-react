@@ -11,7 +11,7 @@ export type IUserProfile = {
   tenantIds: string[];
   activatedForTenant?: boolean;
   metadata: any;
-}
+};
 
 export type IUpdateProfile = {
   title: 'Mr' | 'Miss' | 'Mrs' | 'Ms';
@@ -22,9 +22,9 @@ export type IUpdateProfile = {
   dateOfBirth: number;
   // profile picture in base64
   profilePicture: string;
-}
+};
 
 export type IChangePassword = {
   password: string;
   newPassword: string;
-}
+};

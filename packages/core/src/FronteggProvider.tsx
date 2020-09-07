@@ -13,8 +13,8 @@ import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
 
 export type RedirectOptions = {
   refresh?: boolean;
-  replace?: boolean
-}
+  replace?: boolean;
+};
 
 export interface PluginConfig {
   storeName: string;
@@ -29,7 +29,7 @@ interface FeProviderProps {
   withRouter?: boolean;
   context: ContextOptions;
   plugins: PluginConfig[];
-  uiLibrary: Elements
+  uiLibrary: Elements;
   onRedirectTo?: (path: string) => void;
   debugMode?: boolean;
 }
@@ -40,26 +40,32 @@ let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
   const listeners = useMemo(() => {
-    return props.plugins.filter(p => p.Listener).map(p => ({ storeName: p.storeName, Listener: p.Listener! }))
-      .map(({ storeName, Listener }, i) => <Listener key={storeName}/>);
+    return props.plugins
+      .filter((p) => p.Listener)
+      .map((p) => ({ storeName: p.storeName, Listener: p.Listener! }))
+      .map(({ storeName, Listener }, i) => <Listener key={storeName} />);
   }, [props.plugins]);
 
   const children = useMemo(() => {
     let combinedWrapper: any = props.children;
-    const wrappers = props.plugins.filter(p => p.WrapperComponent).map(p => p.WrapperComponent!);
-    wrappers.forEach(Wrapper => combinedWrapper = <Wrapper>{combinedWrapper}</Wrapper>);
+    const wrappers = props.plugins.filter((p) => p.WrapperComponent).map((p) => p.WrapperComponent!);
+    wrappers.forEach((Wrapper) => (combinedWrapper = <Wrapper>{combinedWrapper}</Wrapper>));
     return combinedWrapper;
   }, []);
 
-  return <>
-    {listeners}
-    <OldFronteggProvider contextOptions={{
-      ...props.context as any,
-      tokenResolver: () => ContextHolder.getAccessToken() || '',
-    }}>
-      {children}
-    </OldFronteggProvider>
-  </>;
+  return (
+    <>
+      {listeners}
+      <OldFronteggProvider
+        contextOptions={{
+          ...(props.context as any),
+          tokenResolver: () => ContextHolder.getAccessToken() || '',
+        }}
+      >
+        {children}
+      </OldFronteggProvider>
+    </>
+  );
 };
 
 const FeState: FC<FeProviderProps> = (props) => {
@@ -68,7 +74,7 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   const onRedirectTo = (path: string, opts: RedirectOptions) => {
     if (opts?.refresh) {
-      window.Cypress ? history.push(path) : window.location.href = path;
+      window.Cypress ? history.push(path) : (window.location.href = path);
     } else {
       opts?.replace ? history.replace(path) : history.push(path);
     }
@@ -93,13 +99,16 @@ const FeState: FC<FeProviderProps> = (props) => {
     });
     const preloadedState = {
       root: { ...rootInitialState, context: props.context },
-      ...props.plugins.reduce((p, n) => ({
-        ...p,
-        [n.storeName]: {
-          ...n.preloadedState,
-          onRedirectTo: props.onRedirectTo ?? onRedirectTo,
-        },
-      }), {}),
+      ...props.plugins.reduce(
+        (p, n) => ({
+          ...p,
+          [n.storeName]: {
+            ...n.preloadedState,
+            onRedirectTo: props.onRedirectTo ?? onRedirectTo,
+          },
+        }),
+        {}
+      ),
     };
     fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
     taskRef.current = sagaMiddleware.run(rootSaga);
@@ -115,11 +124,13 @@ const FeState: FC<FeProviderProps> = (props) => {
     window.cypressHistory = history;
   }
 
-  return <Provider store={store}>
-    <I18nextProvider i18n={i18n}>
-      <FePlugins {...props}/>
-    </I18nextProvider>
-  </Provider>;
+  return (
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <FePlugins {...props} />
+      </I18nextProvider>
+    </Provider>
+  );
 };
 
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
@@ -127,10 +138,11 @@ export const FronteggProvider: FC<FeProviderProps> = (props) => {
   ElementsFactory.setElements(props.uiLibrary);
 
   if (props.withRouter) {
-    return <BrowserRouter>
-      <FeState {...props}/>
-    </BrowserRouter>;
+    return (
+      <BrowserRouter>
+        <FeState {...props} />
+      </BrowserRouter>
+    );
   }
-  return <FeState {...props}/>;
+  return <FeState {...props} />;
 };
-
