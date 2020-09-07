@@ -3,10 +3,14 @@
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
-import { AuthMapper } from './helpers';
 
 const pluginName = 'auth';
 const pluginActions = actions;
+
+export type AuthMapper = {
+  state: (state: AuthState) => any;
+  actions: (actions: AuthActions) => any;
+};
 
 export type AuthStateMapper<S> = (state: AuthState) => S;
 export type AuthActionsMapper<A> = (state: AuthActions) => A;
