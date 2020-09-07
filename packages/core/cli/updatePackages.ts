@@ -1,30 +1,45 @@
-import path from 'path';
-import * as fs from 'fs';
-import { getPackageJson, usingYarn } from './helpers';
-import { execSync } from 'child_process';
+import { createLoader, extractVersion, getPackageJson, printVersions, usingYarn } from './helpers';
+import { exec, execSync } from 'child_process';
 import chalk from 'chalk';
+
 
 export default ({ argv }: any) => {
   const pkg = getPackageJson();
   const installedPackages = Object.keys(pkg.dependencies || {}).filter(dep => dep.startsWith('@frontegg/react-'));
   if (installedPackages.length === 0) {
-    throw Error('package.json missing @frontegg dependencies');
+    throw Error('package.json missing @frontegg/react- dependencies');
   }
 
   console.log(chalk.cyan('checking for updates...'));
-  const currentVersion = execSync('npm version @frontegg/react-core').toString('utf8')
-  const lastVersion = execSync('npm show @frontegg/react-core version').toString('utf8');
 
-  console.log(currentVersion, lastVersion);
-  if (argv.latest) {
-
-  }
-  let command;
+  const commands = {
+    getCurrentVersion: 'npm list --depth=0 | grep @frontegg/react-core',
+    getLatestVersion: (version: string, latest: boolean) => `npm view @frontegg/react-core@'${latest ? '>' : '^'}${version}' version`,
+    updateVersion: 'npm install --save',
+  };
   if (usingYarn()) {
-    command = 'yarn upgrade';
-  } else {
-    command = 'npm update';
+    commands.getCurrentVersion = 'yarn list --depth=0 --pattern @frontegg/react-core';
+    commands.updateVersion = 'yarn add';
   }
-  // execSync('');
-  // console.log('updatePackages', installedPackages);
+
+  const currentVersion = extractVersion(execSync(commands.getCurrentVersion).toString('utf8'));
+  const lastVersion = extractVersion(execSync(commands.getLatestVersion(currentVersion, argv.latest)).toString('utf8'));
+
+  if (currentVersion === lastVersion) {
+    printVersions(installedPackages, currentVersion);
+    return;
+  }
+
+  console.log(chalk.cyan('updating frontegg packages:'), chalk.red(currentVersion), '->', chalk.green(lastVersion));
+  const updateCommand = `${commands.updateVersion} ${installedPackages.map(p => `${p}@^${lastVersion}`).join(' ')}`;
+
+  const loader = createLoader();
+  const exec1 = exec(updateCommand);
+  exec1.on('exit', () => {
+    clearInterval(loader);
+    process.stdout.write('\r                                          \n');
+    printVersions(installedPackages, lastVersion);
+    process.exit(0);
+  });
+
 }

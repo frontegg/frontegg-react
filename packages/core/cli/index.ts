@@ -23,14 +23,10 @@ const argv = yargs
   .usage('Usage: $0 <command> [options]')
   .command('init', 'Initialize and inject Frontegg Provider to the project', hookCommand(initProject))
   .command('update', 'Update frontegg packages using npm update', hookCommand(updatePackages))
-  .demandCommand(1, 1, '','')
+  .demandCommand(1, 1, '', '')
+  .option('latest', { describe: 'frontegg update --latest; force update to latest version. (this may break components)' })
   .help('h')
   .alias('h', 'help')
-  .alias('v', 'verbose')
+  .alias('f', 'force')
   .epilog(`Frontegg LTD Copyright ${new Date().getFullYear()}`)
   .argv;
-
-
-// if (!valid) {
-//   yargs.showHelp();
-// }
