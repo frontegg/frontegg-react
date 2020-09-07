@@ -101,7 +101,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "export PATH=/usr/local/bin:$PATH; prettier --config ./.prettierrc.json --write ."
+      "pre-commit": "export PATH=/usr/local/bin:$PATH; npm run prettier --config ./.prettierrc.json --write ."
     }
   },
   "workspaces": [
