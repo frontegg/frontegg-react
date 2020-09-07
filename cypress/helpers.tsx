@@ -16,10 +16,11 @@ const contextOptions: ContextOptions = {
 export type TestFronteggWrapperProps = {
   plugins: PluginConfig[];
 };
-export const TestFronteggWrapper: FC<TestFronteggWrapperProps> = (props) =>
-        <FronteggProvider withRouter={true} context={contextOptions} plugins={props.plugins} uiLibrary={uiLibrary}>
-          {props.children}
-        </FronteggProvider>;
+export const TestFronteggWrapper: FC<TestFronteggWrapperProps> = (props) => (
+  <FronteggProvider withRouter={true} context={contextOptions} plugins={props.plugins} uiLibrary={uiLibrary}>
+    {props.children}
+  </FronteggProvider>
+);
 
 export const mountOptions = {
   stylesheets: 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',

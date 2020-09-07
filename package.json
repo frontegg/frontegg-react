@@ -4,7 +4,7 @@
   "author": "Frontegg LTD",
   "scripts": {
     "prepublishOnly": "make move-package-json-to-dist",
-    "prettierHook": "prettier --config ./.prettierrc.json --write ."
+    "prettierHook": "prettier --config ./.prettierrc.json --write . && git add ."
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -101,8 +101,7 @@
     "yargs": "^15.4.1"
   },
   "pre-commit": {
-    "run": "prettierHook",
-    "silent": true
+    "run": "prettierHook"
   },
   "workspaces": [
     "packages/*"
