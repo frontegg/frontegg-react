@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-core",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
