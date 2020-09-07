@@ -6,7 +6,12 @@ import withFronteggTemplate from './withFronteggTemplate';
 import { exec, execSync } from 'child_process';
 import path from 'path';
 
-
+const uiLibraryCss: any = {
+  'semantic': 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
+  'material-ui': 'not supported',
+  'bootstrap': 'not supported',
+  'antd': 'not supported',
+};
 const buildSelectedPluginsJS = (selectedPluginsJS: string[]): object => {
   const js = [];
   const importJs = [];
@@ -114,9 +119,12 @@ export default async ({ argv }: any) => {
 
     console.log(chalk.black(`\nGenerated ${constants.fileName} location:`), chalk.yellow(filePath));
 
-    console.log(chalk.yellow(`\n-----------------------------------------------------------------
-==> NEXT STEP is to wrap you entire application with this HOC
------------------------------------------------------------------\n`));
+    console.log(chalk.yellow(`\n----------------------------------------------------------------------------------------------------
+==> NEXT STEP:
+==>   1. wrap you entire application with this HOC
+==>   2. add this link to html
+         <link rel="stylesheet" href="${uiLibraryCss[uiLibrary]}">
+----------------------------------------------------------------------------------------------------\n`));
     process.exit(0);
   });
 }
