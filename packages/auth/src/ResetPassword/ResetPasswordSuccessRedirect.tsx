@@ -1,43 +1,33 @@
-import React, { ComponentType } from 'react';
-import { AuthActions, AuthState } from '../Api';
-import { Loader, omitProps, RendererFunction, withT, WithT } from '@frontegg/react-core';
-import { withAuth } from '../HOCs';
+import React, { FC, useEffect } from 'react';
+import { AuthState } from '../Api';
+import { Loader, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
+import { useAuth } from '../hooks';
 
-const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
-const actionsMapper = ({ resetForgotPasswordState }: AuthActions) => ({ resetForgotPasswordState });
 
 export interface ResetPasswordSuccessRedirectProps {
-  renderer?: RendererFunction<Props, ResetPasswordSuccessRedirectProps>;
+  renderer?: RendererFunctionFC<ResetPasswordSuccessRedirectProps>;
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ResetPasswordSuccessRedirectProps
+export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps> = (props) => {
+  const { renderer } = props;
+  const { t } = useT();
+  const { loginUrl, onRedirectTo, resetForgotPasswordState } =
+    useAuth(({ routes, onRedirectTo }: AuthState) => ({ ...routes, onRedirectTo }));
 
-class ResetPasswordSuccessRedirectComponent extends React.Component<Props> {
-  componentDidMount() {
-    const { routes: { loginUrl }, onRedirectTo, resetForgotPasswordState } = this.props;
+  useEffect(() => {
     setTimeout(() => {
       resetForgotPasswordState();
       onRedirectTo(loginUrl);
     }, 1000);
+  }, []);
+
+  if (renderer) {
+    return renderer(omitProps(props, ['renderer']));
   }
-
-  render() {
-    const { renderer, t } = this.props;
-    if (renderer) {
-      return renderer(omitProps(this.props, ['renderer', 'components']));
-    }
-    return <>
-      <div className='fe-center fe-success-message'>
-        {t('auth.forgot-password.password-has-been-changed')}
-      </div>
-      <Loader center/>
-    </>;
-  }
-}
-
-
-export const ResetPasswordSuccessRedirect = withAuth(
-  withT()(ResetPasswordSuccessRedirectComponent),
-  stateMapper,
-  actionsMapper,
-) as ComponentType<ResetPasswordSuccessRedirectProps>;
+  return <>
+    <div className='fe-center fe-success-message'>
+      {t('auth.forgot-password.password-has-been-changed')}
+    </div>
+    <Loader center/>
+  </>;
+};
