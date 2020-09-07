@@ -121,8 +121,8 @@ export default async ({ argv }: any) => {
 
     console.log(chalk.yellow(`\n----------------------------------------------------------------------------------------------------
 ==> NEXT STEP:
-==>   1. wrap you entire application with this HOC
-==>   2. add this link to html
+==>   1. wrap you entire application with this HOC (withFrontegg)
+==>   2. add this link to index html (only if you are not using ${uiLibrary} in your project)
          <link rel="stylesheet" href="${uiLibraryCss[uiLibrary]}">
 ----------------------------------------------------------------------------------------------------\n`));
     process.exit(0);

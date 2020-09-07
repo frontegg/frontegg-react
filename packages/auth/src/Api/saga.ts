@@ -77,7 +77,7 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
 
     ContextHolder.setAccessToken(user.accessToken);
     yield put(actions.setState({
-      user: !!user.accessToken ? undefined : user,
+      user: !!user.accessToken ? user : undefined,
       isAuthenticated: !!user.accessToken,
     }));
 
@@ -96,7 +96,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
 
     ContextHolder.setAccessToken(user.accessToken);
     yield put(actions.setState({
-      user: !!user.accessToken ? undefined : user,
+      user: !!user.accessToken ? user : undefined,
       isAuthenticated: !!user.accessToken,
       loginState: {
         email,

@@ -61,7 +61,7 @@ async function prepareUrl(context: ContextOptions, url: string, params?: any): P
   const baseUrl = await getBaseUrl(context);
   const paramsToSend = await buildQueryParams(context, params);
 
-  let finalUrl = `${baseUrl}${url}`;
+  let finalUrl = baseUrl.startsWith('http') ? url : `${baseUrl}${url}`;
   const hasKeys = Object.keys(paramsToSend).length > 0;
   if (paramsToSend && hasKeys) {
     const urlParams = new URLSearchParams(paramsToSend);
