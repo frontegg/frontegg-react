@@ -3,7 +3,8 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
-    "prepublishOnly": "make move-package-json-to-dist"
+    "prepublishOnly": "make move-package-json-to-dist",
+    "prettierHook": "prettier --config ./.prettierrc.json --write ."
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -61,12 +62,12 @@
     "git-format-staged": "^2.1.0",
     "handlebars": "^4.7.6",
     "history": "^4.9.0",
-    "husky": "^4.3.0",
     "jest": "26.0.1",
     "jest-css-modules-transform": "^4.0.0",
     "lerna": "^3.20.2",
     "node-sass": "^4.14.1",
     "path": "^0.12.7",
+    "pre-commit": "^1.2.2",
     "prettier": "2.1.1",
     "prompts": "^2.3.2",
     "rollup": "^2.15.0",
@@ -99,10 +100,9 @@
     "webpack": "^4.44.1",
     "yargs": "^15.4.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo 'TEST PRE COMMIT'"
-    }
+  "pre-commit": {
+    "run": "prettierHook",
+    "silent": true
   },
   "workspaces": [
     "packages/*"
