@@ -22,7 +22,6 @@ function movePackageJson(packagePath) {
   const peerDeps = [
     'react',
     'react-dom',
-    'react-redux',
     'react-router-dom',
     '@frontegg/react',
     '@frontegg/react-core',
