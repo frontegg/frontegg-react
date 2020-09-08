@@ -2,9 +2,11 @@ import { createLoader, extractVersion, getPackageJson, printVersions, usingYarn 
 import { exec, execSync } from 'child_process';
 import chalk from 'chalk';
 
+const packages = ['@frontegg/react-core', '@frontegg/react-auth', '@frontegg/react-elements-semantic'];
 export default ({ argv }: any) => {
   const pkg = getPackageJson();
-  const installedPackages = Object.keys(pkg.dependencies || {}).filter((dep) => dep.startsWith('@frontegg/react-'));
+  const installedPackages = Object.keys(pkg.dependencies || {}).filter((dep) => packages.indexOf(dep) !== -1);
+
   if (installedPackages.length === 0) {
     throw Error('package.json missing @frontegg/react- dependencies');
   }
