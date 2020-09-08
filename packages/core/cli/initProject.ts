@@ -108,13 +108,14 @@ export default async ({ argv }: any) => {
   });
 
   const toInstall = [
-    `@frontegg/react`,
     `@frontegg/react-elements-${uiLibrary}`,
     ...selectedPlugins.map((pluginName: string) => `@frontegg/react-${pluginName}`),
   ];
 
   const lastVersion = execSync('npm view @frontegg/react-core version', { encoding: 'utf8' }).trim();
-  const command = `${constants.installCommand} ${toInstall.map((d) => `${d}@${lastVersion}`).join(' ')}`;
+  const command = `${constants.installCommand} @frontegg/react ${toInstall
+    .map((d) => `${d}@${lastVersion}`)
+    .join(' ')}`;
 
   createFileInSrc(constants.fileName, jsFile);
   const filePath = path.join(process.cwd(), 'src', constants.fileName);
