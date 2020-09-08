@@ -1,9 +1,5 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 export interface SSOClaimDomainProps {}
 
-export class SSOClaimDomain extends React.Component<SSOClaimDomainProps> {
-  render() {
-    return 'SSOClaimDomain';
-  }
-}
+export const SSOClaimDomain: FC<SSOClaimDomainProps> = (props) => <div>SSOClaimDomain</div>;
