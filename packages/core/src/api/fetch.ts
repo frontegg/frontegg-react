@@ -11,7 +11,9 @@ interface RequestOptions {
 }
 
 async function request(context: ContextOptions, opts: RequestOptions) {
+  console.log('request.buildRequestHeaders');
   const headers = await buildRequestHeaders(context, opts.contentType);
+  console.log('request.prepareUrl');
   const url = await prepareUrl(context, opts.url, opts.params);
 
   const response = await fetch(url, {
@@ -58,7 +60,9 @@ function getBaseUrl(context: ContextOptions): string {
 }
 
 async function prepareUrl(context: ContextOptions, url: string, params?: any): Promise<string> {
+  console.log('prepareUrl.getBaseUrl');
   const baseUrl = await getBaseUrl(context);
+  console.log('prepareUrl.buildQueryParams');
   const paramsToSend = await buildQueryParams(context, params);
 
   let finalUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
@@ -75,7 +79,7 @@ async function buildRequestHeaders(
   context: ContextOptions,
   contentType: string = 'application/json'
 ): Promise<Record<string, string>> {
-  debugger;
+  console.log('buildRequestHeaders.tokenResolver');
   const authToken = await (context.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
 
