@@ -151,7 +151,6 @@ export const Get = async (context: ContextOptions, url: string, params?: any, re
   });
 
 export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) => {
-  console.log('fetch.Post', context, url, body, params, responseType);
   return request(context, {
     url,
     method: 'POST',

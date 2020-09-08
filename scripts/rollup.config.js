@@ -69,6 +69,6 @@ export default {
   output: {
     sourcemap: !isProduction,
     dir: distFolder,
-    format: 'es',
+    format: 'esm',
   },
 };
