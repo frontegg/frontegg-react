@@ -87,7 +87,7 @@
     "rollup-plugin-sass": "^1.2.2",
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-terser": "^6.1.0",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-typescript2": "^0.27.2",
     "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^4.0.4",
     "sass-loader": "^10.0.1",

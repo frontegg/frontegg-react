@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./src",
-    "noEmit": true
+    "noEmit": true,
+    "module": "esnext"
   },
   "include": [
     "./src/**/*.tsx",

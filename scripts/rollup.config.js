@@ -6,7 +6,6 @@ import replace from '@rollup/plugin-replace';
 import ts from 'rollup-plugin-typescript2';
 import progress from 'rollup-plugin-progress';
 import postcss from 'rollup-plugin-postcss';
-import typescript from 'typescript';
 import fs from 'fs';
 import path from 'path';
 import transformTypesAlias from './rollup.transform-types-alias';
@@ -56,9 +55,9 @@ const plugins = [
     ecma: '6', module: true,
   }) : progress(),
   ts({
-    typescript,
+    rollupCommonJSResolveHack: true,
     clean: true,
-    abortOnError: false,
+    tsconfig: `${process.cwd()}/tsconfig.json`,
   }),
   transformTypesAlias({ distFolder, tsConfig }),
 ];
