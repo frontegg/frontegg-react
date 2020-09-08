@@ -10,7 +10,7 @@ interface RequestOptions {
   responseType?: 'json' | 'plain' | 'blob';
 }
 
-export const request = async (context: ContextOptions, opts: RequestOptions) => {
+const sendRequest = async (context: ContextOptions, opts: RequestOptions) => {
   console.log('request.buildRequestHeaders', context, opts);
   const headers = await buildRequestHeaders(context, opts.contentType);
   console.log('request.prepareUrl');
@@ -45,18 +45,6 @@ export const request = async (context: ContextOptions, opts: RequestOptions) => 
     return await response.text();
   }
 };
-
-const requestE = async (context: ContextOptions, opts: RequestOptions) => {
-  console.log('|request| const requestE', context, opts);
-};
-
-async function requestAF(context: ContextOptions, opts: RequestOptions) {
-  console.log('|request| async function requestAF', context, opts);
-}
-
-export async function requestAFE(context: ContextOptions, opts: RequestOptions) {
-  console.log('|request| export async function requestAFE', context, opts);
-}
 
 function getBaseUrl(context: ContextOptions): string {
   let baseUrl = context.baseUrl;
@@ -155,36 +143,25 @@ async function getAdditionalHeaders(context: ContextOptions): Promise<KeyValuePa
 }
 
 export const Get = async (context: ContextOptions, url: string, params?: any, responseType?: any) =>
-  request(context, {
+  sendRequest(context, {
     url,
     method: 'GET',
     params,
     responseType,
   });
 
-export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) => {
-  const options: RequestOptions = {
+export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
+  sendRequest(context, {
     url,
     method: 'POST',
     contentType: 'application/json',
     body,
     params,
     responseType,
-  };
-  let res;
-  res = await requestE(context, options);
-  console.log('requestE.res', res);
-  res = await requestAF(context, options);
-  console.log('requestAF.res', res);
-  res = await requestAFE(context, options);
-  console.log('requestAFE.res', res);
-  res = await request(context, options);
-  console.log('request.res', res);
-  return res;
-};
+  });
 
 export const Patch = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
+  sendRequest(context, {
     url,
     method: 'PATCH',
     contentType: 'application/json',
@@ -194,7 +171,7 @@ export const Patch = async (context: ContextOptions, url: string, body?: any, pa
   });
 
 export const Put = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
+  sendRequest(context, {
     url,
     method: 'PUT',
     contentType: 'application/json',
@@ -204,7 +181,7 @@ export const Put = async (context: ContextOptions, url: string, body?: any, para
   });
 
 export const Delete = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
+  sendRequest(context, {
     url,
     method: 'DELETE',
     contentType: 'application/json',
@@ -214,7 +191,7 @@ export const Delete = async (context: ContextOptions, url: string, body?: any, p
   });
 
 export const Download = async (context: ContextOptions, url: string, body?: any, params?: any) =>
-  request(context, {
+  sendRequest(context, {
     url,
     method: 'POST',
     contentType: 'application/json',
