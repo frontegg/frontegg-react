@@ -155,25 +155,36 @@ async function getAdditionalHeaders(context: ContextOptions): Promise<KeyValuePa
 }
 
 export const Get = async (context: ContextOptions, url: string, params?: any, responseType?: any) =>
-  await request(context, {
+  request(context, {
     url,
     method: 'GET',
     params,
     responseType,
   });
 
-export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  await request(context, {
+export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) => {
+  const options: RequestOptions = {
     url,
     method: 'POST',
     contentType: 'application/json',
     body,
     params,
     responseType,
-  });
+  };
+  let res;
+  res = await requestE(context, options);
+  console.log('requestE.res', res);
+  res = await requestAF(context, options);
+  console.log('requestAF.res', res);
+  res = await requestAFE(context, options);
+  console.log('requestAFE.res', res);
+  res = await request(context, options);
+  console.log('request.res', res);
+  return res;
+};
 
 export const Patch = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  await request(context, {
+  request(context, {
     url,
     method: 'PATCH',
     contentType: 'application/json',
@@ -183,7 +194,7 @@ export const Patch = async (context: ContextOptions, url: string, body?: any, pa
   });
 
 export const Put = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  await request(context, {
+  request(context, {
     url,
     method: 'PUT',
     contentType: 'application/json',
@@ -193,7 +204,7 @@ export const Put = async (context: ContextOptions, url: string, body?: any, para
   });
 
 export const Delete = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  await request(context, {
+  request(context, {
     url,
     method: 'DELETE',
     contentType: 'application/json',
@@ -203,7 +214,7 @@ export const Delete = async (context: ContextOptions, url: string, body?: any, p
   });
 
 export const Download = async (context: ContextOptions, url: string, body?: any, params?: any) =>
-  await request(context, {
+  request(context, {
     url,
     method: 'POST',
     contentType: 'application/json',
