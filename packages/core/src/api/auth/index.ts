@@ -66,6 +66,7 @@ export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
  */
 export async function login(body: ILogin): Promise<ILoginResponse> {
   const context = ContextHolder.getContext();
+  console.log('login', context);
   return await Post(context, `${AUTH_SERVICE_URL_V1}/user`, body);
 }
 

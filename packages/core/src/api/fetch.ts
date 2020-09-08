@@ -150,8 +150,9 @@ export const Get = async (context: ContextOptions, url: string, params?: any, re
     responseType,
   });
 
-export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  sendRequest(context, {
+export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) => {
+  console.log('Post', context);
+  return sendRequest(context, {
     url,
     method: 'POST',
     contentType: 'application/json',
@@ -159,6 +160,7 @@ export const Post = async (context: ContextOptions, url: string, body?: any, par
     params,
     responseType,
   });
+};
 
 export const Patch = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
   sendRequest(context, {
