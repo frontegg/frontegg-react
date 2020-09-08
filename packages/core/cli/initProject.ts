@@ -108,6 +108,7 @@ export default async ({ argv }: any) => {
   });
 
   const toInstall = [
+    `@frontegg/react`,
     `@frontegg/react-elements-${uiLibrary}`,
     ...selectedPlugins.map((pluginName: string) => `@frontegg/react-${pluginName}`),
   ];

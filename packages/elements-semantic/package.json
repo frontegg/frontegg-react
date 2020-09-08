@@ -14,8 +14,7 @@
     "classnames": "^2.2.6",
     "formik": "^1.5.7",
     "moment": "^2.27.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": ">16.8.6",
     "semantic-ui-react": "^1.2.1",
     "underscore": "^1.10.2"
   },

@@ -98,7 +98,9 @@
     "tslint": "^6.1.0",
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
-    "yargs": "^15.4.1"
+    "yargs": "^15.4.1",
+    "react": ">16.8.6",
+    "react-dom": ">16.8.6"
   },
   "pre-commit": {
     "run": "prettierHook"

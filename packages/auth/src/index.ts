@@ -4,7 +4,7 @@ import { preloadedState, reducer, sagas, storeName } from './Api';
 import { AuthListener } from './Listener';
 import { AuthPluginOptions } from './interfaces';
 import './index.scss';
-import { AuthRoutes } from './components';
+import { AuthRoutes } from './components/AuthRoutes';
 
 export * from './Api';
 export * from './hooks';
