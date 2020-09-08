@@ -52,7 +52,9 @@ const plugins = [
     include: [/node_modules/],
     sourceMap: false,
   }),
-  isProduction ? terser() : progress(),
+  isProduction ? terser({
+    ecma: '6', module: true,
+  }) : progress(),
   ts({
     typescript,
     clean: true,

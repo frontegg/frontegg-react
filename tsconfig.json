@@ -19,7 +19,7 @@
       "dom"
     ],
     "target": "es6",
-    "module": "esnext",
+    "module": "es6",
     "noEmitHelpers": true,
     "importHelpers": true,
     "allowJs": true,
@@ -29,6 +29,7 @@
     "moduleResolution": "node",
     "strictPropertyInitialization": true,
     "skipLibCheck": true,
+    "alwaysStrict": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
