@@ -11,7 +11,7 @@ interface RequestOptions {
 }
 
 async function request(context: ContextOptions, opts: RequestOptions) {
-  console.log('request.buildRequestHeaders');
+  console.log('request.buildRequestHeaders', context, opts);
   const headers = await buildRequestHeaders(context, opts.contentType);
   console.log('request.prepareUrl');
   const url = await prepareUrl(context, opts.url, opts.params);
@@ -150,8 +150,9 @@ export const Get = async (context: ContextOptions, url: string, params?: any, re
     responseType,
   });
 
-export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  request(context, {
+export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) => {
+  console.log('fetch.Post', context, url, body, params, responseType);
+  return request(context, {
     url,
     method: 'POST',
     contentType: 'application/json',
@@ -159,6 +160,7 @@ export const Post = async (context: ContextOptions, url: string, body?: any, par
     params,
     responseType,
   });
+};
 
 export const Patch = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
   request(context, {

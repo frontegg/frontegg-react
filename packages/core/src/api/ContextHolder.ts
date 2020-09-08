@@ -7,7 +7,7 @@ export class ContextHolder {
 
   private constructor() {}
 
-  private static getInstance(): ContextHolder {
+  static getInstance(): ContextHolder {
     if (!ContextHolder.instance) {
       ContextHolder.instance = new ContextHolder();
     }

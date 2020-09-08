@@ -65,7 +65,10 @@ export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
  * @throw exception if login failed
  */
 export async function login(body: ILogin): Promise<ILoginResponse> {
+  console.log('api.login', body);
+  console.log('api.getContext', ContextHolder, ContextHolder.getInstance());
   const context = ContextHolder.getContext();
+  console.log('api.context', context);
   return await Post(context, `${AUTH_SERVICE_URL_V1}/user`, body);
 }
 
