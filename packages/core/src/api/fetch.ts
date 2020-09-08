@@ -10,7 +10,7 @@ interface RequestOptions {
   responseType?: 'json' | 'plain' | 'blob';
 }
 
-const request = async (context: ContextOptions, opts: RequestOptions) => {
+export const request = async (context: ContextOptions, opts: RequestOptions) => {
   console.log('request.buildRequestHeaders', context, opts);
   const headers = await buildRequestHeaders(context, opts.contentType);
   console.log('request.prepareUrl');
@@ -46,8 +46,8 @@ const request = async (context: ContextOptions, opts: RequestOptions) => {
   }
 };
 
-export const requestE = async (context: ContextOptions, opts: RequestOptions) => {
-  console.log('|request| export const requestE', context, opts);
+const requestE = async (context: ContextOptions, opts: RequestOptions) => {
+  console.log('|request| const requestE', context, opts);
 };
 
 async function requestAF(context: ContextOptions, opts: RequestOptions) {
