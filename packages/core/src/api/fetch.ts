@@ -75,6 +75,7 @@ async function buildRequestHeaders(
   context: ContextOptions,
   contentType: string = 'application/json'
 ): Promise<Record<string, string>> {
+  debugger;
   const authToken = await (context.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
 

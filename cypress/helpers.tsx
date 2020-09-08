@@ -9,7 +9,6 @@ export const IDENTITY_SERVICE = 'http://localhost:8080/frontegg/identity';
 
 const contextOptions: ContextOptions = {
   baseUrl: `http://localhost:8080`,
-  tokenResolver: () => 'my-authentication-token',
   requestCredentials: 'include',
 };
 
