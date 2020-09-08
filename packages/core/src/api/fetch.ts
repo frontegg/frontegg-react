@@ -79,8 +79,19 @@ async function buildRequestHeaders(
   context: ContextOptions,
   contentType: string = 'application/json'
 ): Promise<Record<string, string>> {
-  console.log('buildRequestHeaders.tokenResolver');
-  const authToken = await (context.tokenResolver ?? ContextHolder.getAccessToken)();
+  console.log(
+    'buildRequestHeaders.tokenResolver',
+    context,
+    contentType,
+    ContextHolder.getContext(),
+    ContextHolder.getAccessToken()
+  );
+  let authToken;
+  if (context.tokenResolver) {
+    authToken = await context.tokenResolver();
+  } else {
+    authToken = ContextHolder.getAccessToken();
+  }
   const headers: Record<string, string> = {};
 
   if (authToken) {
