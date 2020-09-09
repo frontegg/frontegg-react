@@ -1,10 +1,8 @@
-import { ContextHolder } from '../ContextHolder';
 import { Get } from '../fetch';
 import { IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
 
 async function getMetadata(body: IGetMetadata) {
-  const context = ContextHolder.getContext();
-  const data = await Get(context, '/metadata', body);
+  const data = await Get('/metadata', body);
   if (data?.rows?.[0]) return data?.rows?.[0];
 
   throw new Error(`metadata not found: ${body.entityName}`);

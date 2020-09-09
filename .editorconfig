@@ -7,7 +7,7 @@ insert_final_newline = true
 max_line_length = 120
 tab_width = 2
 trim_trailing_whitespace = true
-ij_continuation_indent_size = 8
+ij_continuation_indent_size = 2
 ij_formatter_off_tag = @formatter:off
 ij_formatter_on_tag = @formatter:on
 ij_formatter_tags_enabled = false
@@ -34,14 +34,6 @@ ij_css_space_after_colon = true
 ij_css_space_before_opening_brace = true
 ij_css_use_double_quotes = true
 ij_css_value_alignment = do_not_align
-
-[*.feature]
-tab_width = 4
-ij_gherkin_keep_indents_on_empty_lines = false
-
-[*.haml]
-tab_width = 4
-ij_haml_keep_indents_on_empty_lines = false
 
 [*.less]
 tab_width = 4
@@ -103,35 +95,6 @@ ij_scss_space_before_opening_brace = true
 ij_scss_use_double_quotes = true
 ij_scss_value_alignment = 0
 
-[*.styl]
-tab_width = 4
-ij_stylus_align_closing_brace_with_properties = false
-ij_stylus_blank_lines_around_nested_selector = 1
-ij_stylus_blank_lines_between_blocks = 1
-ij_stylus_brace_placement = 0
-ij_stylus_enforce_quotes_on_format = false
-ij_stylus_hex_color_long_format = false
-ij_stylus_hex_color_lower_case = false
-ij_stylus_hex_color_short_format = false
-ij_stylus_hex_color_upper_case = false
-ij_stylus_keep_blank_lines_in_code = 2
-ij_stylus_keep_indents_on_empty_lines = false
-ij_stylus_keep_single_line_blocks = false
-ij_stylus_properties_order = font,font-family,font-size,font-weight,font-style,font-variant,font-size-adjust,font-stretch,line-height,position,z-index,top,right,bottom,left,display,visibility,float,clear,overflow,overflow-x,overflow-y,clip,zoom,align-content,align-items,align-self,flex,flex-flow,flex-basis,flex-direction,flex-grow,flex-shrink,flex-wrap,justify-content,order,box-sizing,width,min-width,max-width,height,min-height,max-height,margin,margin-top,margin-right,margin-bottom,margin-left,padding,padding-top,padding-right,padding-bottom,padding-left,table-layout,empty-cells,caption-side,border-spacing,border-collapse,list-style,list-style-position,list-style-type,list-style-image,content,quotes,counter-reset,counter-increment,resize,cursor,user-select,nav-index,nav-up,nav-right,nav-down,nav-left,transition,transition-delay,transition-timing-function,transition-duration,transition-property,transform,transform-origin,animation,animation-name,animation-duration,animation-play-state,animation-timing-function,animation-delay,animation-iteration-count,animation-direction,text-align,text-align-last,vertical-align,white-space,text-decoration,text-emphasis,text-emphasis-color,text-emphasis-style,text-emphasis-position,text-indent,text-justify,letter-spacing,word-spacing,text-outline,text-transform,text-wrap,text-overflow,text-overflow-ellipsis,text-overflow-mode,word-wrap,word-break,tab-size,hyphens,pointer-events,opacity,color,border,border-width,border-style,border-color,border-top,border-top-width,border-top-style,border-top-color,border-right,border-right-width,border-right-style,border-right-color,border-bottom,border-bottom-width,border-bottom-style,border-bottom-color,border-left,border-left-width,border-left-style,border-left-color,border-radius,border-top-left-radius,border-top-right-radius,border-bottom-right-radius,border-bottom-left-radius,border-image,border-image-source,border-image-slice,border-image-width,border-image-outset,border-image-repeat,outline,outline-width,outline-style,outline-color,outline-offset,background,background-color,background-image,background-repeat,background-attachment,background-position,background-position-x,background-position-y,background-clip,background-origin,background-size,box-decoration-break,box-shadow,text-shadow
-ij_stylus_space_after_colon = true
-ij_stylus_space_before_opening_brace = true
-ij_stylus_use_double_quotes = true
-ij_stylus_value_alignment = 0
-
-[*.vue]
-ij_continuation_indent_size = 4
-ij_vue_indent_children_of_top_level = template
-ij_vue_interpolation_new_line_after_start_delimiter = true
-ij_vue_interpolation_new_line_before_end_delimiter = true
-ij_vue_interpolation_wrap = off
-ij_vue_keep_indents_on_empty_lines = false
-ij_vue_spaces_within_interpolation_expressions = true
-ij_vue_uniform_indent = true
 
 [.editorconfig]
 ij_editorconfig_align_group_field_declarations = false
@@ -163,7 +126,6 @@ ij_xml_text_wrap = normal
 
 [{*.ats,*.ts}]
 max_line_length = 150
-ij_continuation_indent_size = 2
 ij_visual_guides = 150
 ij_typescript_align_imports = false
 ij_typescript_align_multiline_array_initializer_expression = false
@@ -332,7 +294,6 @@ ij_typescript_while_on_new_line = false
 ij_typescript_wrap_comments = false
 
 [{*.cjs,*.js}]
-ij_continuation_indent_size = 2
 ij_visual_guides = 120
 ij_javascript_align_imports = false
 ij_javascript_align_multiline_array_initializer_expression = false
@@ -498,7 +459,6 @@ ij_javascript_while_on_new_line = false
 ij_javascript_wrap_comments = false
 
 [{*.cjsx,*.coffee}]
-ij_continuation_indent_size = 2
 ij_coffeescript_align_function_body = false
 ij_coffeescript_align_imports = false
 ij_coffeescript_align_multiline_array_initializer_expression = true
@@ -634,10 +594,6 @@ ij_html_space_around_equality_in_attribute = false
 ij_html_space_inside_empty_tag = true
 ij_html_text_wrap = normal
 ij_html_uniform_ident = false
-
-[{*.jade,*.pug}]
-indent_size = 4
-tab_width = 4
 
 [{*.yaml,*.yml}]
 ij_yaml_keep_indents_on_empty_lines = false

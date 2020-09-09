@@ -24,7 +24,9 @@ const defaultComponents = { SSOOverview, SSOClaimDomain, SSOConfigureIDP };
 
 export const SSO: FC<SSOProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
-  const { loading, loadSSOConfigurations } = useAuth((state) => ({ loading: state.ssoState.loading }));
+  const { loading, loadSSOConfigurations } = useAuth((state) => ({
+    loading: state.ssoState.loading && state.ssoState.firstLoad,
+  }));
   const [rootPath, isRootPathContext] = useRootPath(props, '/sso');
 
   useEffect(() => {
@@ -40,9 +42,9 @@ export const SSO: FC<SSOProps> = (props) => {
     <Loader inline={false} />
   ) : (
     <Switch>
-      <Route exact path={`${rootPath}`} component={SSOOverview} />
-      <Route exact path={`${rootPath}/domain`} component={SSOClaimDomain} />
-      <Route exact path={`${rootPath}/idp`} component={SSOConfigureIDP} />
+      <Route exact path={`${rootPath}`} component={Dynamic.SSOOverview} />
+      <Route exact path={`${rootPath}/domain`} component={Dynamic.SSOClaimDomain} />
+      <Route exact path={`${rootPath}/idp`} component={Dynamic.SSOConfigureIDP} />
     </Switch>
   );
 

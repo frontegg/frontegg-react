@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { ComponentsTypesWithProps, useDynamicComponents, Loader } from '@frontegg/react-core';
 import { AuthState, LoginStep } from '../Api';
 import { authPageWrapper } from '../components';

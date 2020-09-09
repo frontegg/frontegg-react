@@ -18,8 +18,7 @@ const logger = Logger.from('ProfileApi');
  */
 export async function getProfile(): Promise<IUserProfile> {
   logger.debug('getProfile()');
-  const context = ContextHolder.getContext();
-  return Post(context, `${USERS_SERVICE_URL_V1}/passwords/change`);
+  return Post(`${USERS_SERVICE_URL_V1}/passwords/change`);
 }
 
 /**
@@ -28,8 +27,7 @@ export async function getProfile(): Promise<IUserProfile> {
  */
 export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUserProfile> {
   logger.debug('updateProfile()', body);
-  const context = ContextHolder.getContext();
-  return Post(context, `${USERS_SERVICE_URL_V1}/passwords/change`, body);
+  return Post(`${USERS_SERVICE_URL_V1}/passwords/change`, body);
 }
 
 /**
@@ -40,6 +38,5 @@ export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUse
  */
 export async function changePassword(body: IChangePassword): Promise<void> {
   logger.debug('changePassword()');
-  const context = ContextHolder.getContext();
-  return Post(context, `${USERS_SERVICE_URL_V1}/passwords/change`, body);
+  return Post(`${USERS_SERVICE_URL_V1}/passwords/change`, body);
 }

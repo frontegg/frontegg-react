@@ -1,5 +1,6 @@
 import { ContextOptions, KeyValuePair } from '../interfaces';
 import { ContextHolder } from './ContextHolder';
+import { object } from 'yup';
 
 interface RequestOptions {
   url: string;
@@ -8,45 +9,11 @@ interface RequestOptions {
   params?: any;
   contentType?: string;
   responseType?: 'json' | 'plain' | 'blob';
+  headers?: Record<string, string>;
+  credentials?: RequestCredentials;
 }
 
-const sendRequest = async (context: ContextOptions, opts: RequestOptions) => {
-  console.log('request.buildRequestHeaders', context, opts);
-  const headers = await buildRequestHeaders(context, opts.contentType);
-  console.log('request.prepareUrl');
-  const url = await prepareUrl(context, opts.url, opts.params);
-
-  const response = await fetch(url, {
-    body: opts.body ? JSON.stringify(opts.body) : null,
-    method: opts.method ?? 'GET',
-    headers,
-    credentials: context.requestCredentials || 'same-origin',
-  });
-
-  if (!response.ok) {
-    let errorMessage = await response.json();
-    if (errorMessage.errors) {
-      errorMessage = errorMessage.errors.join(', ');
-    } else if (typeof errorMessage !== 'string') {
-      errorMessage = `Error ${response.status} - ${response.statusText}`;
-    }
-    throw new Error(errorMessage);
-  }
-
-  if (!opts.responseType || opts.responseType === 'json') {
-    try {
-      return await response.json();
-    } catch (e) {
-      return {};
-    }
-  } else if (opts.responseType === 'blob') {
-    return await response.blob();
-  } else {
-    return await response.text();
-  }
-};
-
-function getBaseUrl(context: ContextOptions): string {
+async function getBaseUrl(context: ContextOptions): Promise<string> {
   let baseUrl = context.baseUrl;
   const prefix = context.urlPrefix || 'frontegg';
   // Append everything we need to the base url
@@ -60,9 +27,7 @@ function getBaseUrl(context: ContextOptions): string {
 }
 
 async function prepareUrl(context: ContextOptions, url: string, params?: any): Promise<string> {
-  console.log('prepareUrl.getBaseUrl');
   const baseUrl = await getBaseUrl(context);
-  console.log('prepareUrl.buildQueryParams');
   const paramsToSend = await buildQueryParams(context, params);
 
   let finalUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
@@ -79,21 +44,8 @@ async function buildRequestHeaders(
   context: ContextOptions,
   contentType: string = 'application/json'
 ): Promise<Record<string, string>> {
-  console.log(
-    'buildRequestHeaders.tokenResolver',
-    context,
-    contentType,
-    ContextHolder.getContext(),
-    ContextHolder.getAccessToken()
-  );
-  let authToken;
-  if (context.tokenResolver) {
-    authToken = await context.tokenResolver();
-  } else {
-    authToken = ContextHolder.getAccessToken();
-  }
+  const authToken = await (context?.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
-
   if (authToken) {
     headers.Authorization = `Bearer ${authToken}`;
   }
@@ -142,62 +94,100 @@ async function getAdditionalHeaders(context: ContextOptions): Promise<KeyValuePa
   return output;
 }
 
-export const Get = async (context: ContextOptions, url: string, params?: any, responseType?: any) =>
-  sendRequest(context, {
-    url,
-    method: 'GET',
-    params,
-    responseType,
+const sendRequest = async (opts: RequestOptions) => {
+  const context = ContextHolder.getContext();
+  const headers = await buildRequestHeaders(context, opts.contentType);
+  const url = await prepareUrl(context, opts.url, opts.params);
+
+  const response = await fetch(url, {
+    body: opts.body ? JSON.stringify(opts.body) : null,
+    method: opts.method ?? 'GET',
+    headers: {
+      ...headers,
+      ...opts.headers,
+    },
+    credentials: opts.credentials ?? context.requestCredentials ?? 'same-origin',
   });
 
-export const Post = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) => {
-  console.log('Post', context);
-  return sendRequest(context, {
+  if (!response.ok) {
+    let errorMessage;
+    try {
+      errorMessage = await response.json();
+    } catch (e) {
+      errorMessage = await response.text();
+    }
+    if (errorMessage.errors) {
+      errorMessage = errorMessage.errors.join(', ');
+    } else if (typeof errorMessage !== 'string') {
+      errorMessage = `Error ${response.status} - ${response.statusText}`;
+    }
+    throw new Error(errorMessage);
+  }
+
+  if (!opts.responseType || opts.responseType === 'json') {
+    try {
+      return await response.json();
+    } catch (e) {
+      return {};
+    }
+  } else if (opts.responseType === 'blob') {
+    return await response.blob();
+  } else {
+    return await response.text();
+  }
+};
+
+export const Get = async (url: string, params?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+  sendRequest({
+    url,
+    method: 'GET',
+    contentType: 'application/json',
+    params,
+    ...opts,
+  });
+
+export const Post = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+  sendRequest({
     url,
     method: 'POST',
     contentType: 'application/json',
     body,
-    params,
-    responseType,
+    ...opts,
   });
-};
 
-export const Patch = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  sendRequest(context, {
+export const Patch = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+  sendRequest({
     url,
     method: 'PATCH',
     contentType: 'application/json',
     body,
-    params,
-    responseType,
+    ...opts,
   });
 
-export const Put = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  sendRequest(context, {
+export const Put = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+  sendRequest({
     url,
     method: 'PUT',
     contentType: 'application/json',
     body,
-    params,
-    responseType,
+    ...opts,
   });
 
-export const Delete = async (context: ContextOptions, url: string, body?: any, params?: any, responseType?: any) =>
-  sendRequest(context, {
+export const Delete = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+  sendRequest({
     url,
-    method: 'DELETE',
+    method: 'PUT',
     contentType: 'application/json',
     body,
-    params,
-    responseType,
+    ...opts,
   });
 
-export const Download = async (context: ContextOptions, url: string, body?: any, params?: any) =>
-  sendRequest(context, {
+export const PostDownload = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+  sendRequest({
     url,
-    method: 'POST',
+    method: 'PUT',
     contentType: 'application/json',
-    body,
-    params,
     responseType: 'blob',
+    body,
+    ...opts,
   });

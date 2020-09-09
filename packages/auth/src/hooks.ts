@@ -12,7 +12,7 @@ export type AuthMapper = {
   actions: (actions: AuthActions) => any;
 };
 
-export type AuthStateMapper<S> = (state: AuthState) => S;
+export type AuthStateMapper<S extends object> = (state: AuthState) => S;
 export type AuthActionsMapper<A> = (state: AuthActions) => A;
 
 const defaultMapper: AuthMapper = {
@@ -20,7 +20,7 @@ const defaultMapper: AuthMapper = {
   actions: (actions: AuthActions) => actions,
 };
 
-export const useAuth = <S, A>(
+export const useAuth = <S extends object, A>(
   stateMapper: AuthStateMapper<S> = defaultMapper.state,
   actionsMapper: AuthActionsMapper<A> = defaultMapper.actions
 ): S & AuthActions => {

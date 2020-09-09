@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { ComponentType, createElement, FC, ReactElement } from 'react';
 import { Formik } from 'formik';
-import { AuthState, LoginStep } from '../Api';
+import { AuthActions, AuthState, LoginStep } from '../Api';
 import {
   validateEmail,
   validateSchema,
@@ -10,7 +10,6 @@ import {
   Input,
   omitProps,
   ErrorMessage,
-  RendererFunctionFC,
   useT,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
@@ -22,13 +21,18 @@ const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState)
   routes,
 });
 
+export type LoginWithPasswordRendererProps = Omit<LoginWithPasswordProps, 'renderer'> &
+  ReturnType<typeof stateMapper> &
+  Pick<AuthActions, 'login' | 'preLogin'>;
+
 export interface LoginWithPasswordProps {
-  renderer?: RendererFunctionFC<LoginWithPasswordProps>;
+  renderer?: ComponentType<LoginWithPasswordRendererProps>;
 }
 
 export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
+  const authState = useAuth(stateMapper);
   const {
     loading,
     step,
@@ -41,10 +45,10 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     setForgotPasswordState,
     resetLoginState,
     onRedirectTo,
-  } = useAuth(stateMapper);
+  } = authState;
   const backToPreLogin = () => setLoginState({ step: LoginStep.preLogin });
   if (renderer) {
-    return renderer(omitProps(props, ['renderer']));
+    return createElement(renderer, { ...props, ...authState });
   }
 
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;

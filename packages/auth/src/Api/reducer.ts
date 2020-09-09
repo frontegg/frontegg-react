@@ -47,6 +47,7 @@ export const preloadedState: AuthState = {
   },
 
   ssoState: {
+    firstLoad: true,
     loading: true,
     samlConfiguration: { enabled: false },
   },

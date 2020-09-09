@@ -59,6 +59,7 @@ export interface ForgotPasswordState {
 }
 
 export interface SSOState {
+  firstLoad: boolean;
   loading: boolean;
   error?: any;
   saving?: boolean;

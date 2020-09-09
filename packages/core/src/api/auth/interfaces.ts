@@ -13,6 +13,15 @@ export type ILoginResponse = {
   expires: string;
   expiresIn: number;
   mfaToken?: string; // for multi-factor authentication
+
+  sub?: string;
+  name?: string;
+  email?: string;
+  emailVerified?: boolean;
+  tenantId?: string;
+  tenantIds?: string[];
+  roles?: string[];
+  permissions?: string[];
 };
 
 export type ILoginWithMfa = {

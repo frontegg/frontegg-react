@@ -28,6 +28,10 @@ export type RendererFunction<P, C = P, R = ReactNode> = (
 ) => R | null;
 export type RendererFunctionFC<P, R = ReactElement> = (props: Omit<P, 'renderer'>) => R | null;
 
+export type ComponentRenderer<P, M = {}, A = {}> = (
+  props: Omit<P, 'renderer' | 'components'> & M & A
+) => ReactElement | null;
+
 export function memoEqual(prevProps: any, nextProps: any) {
   return Object.keys(nextProps).reduce((p: boolean, next: any) => {
     if (typeof prevProps[next] === 'function' && typeof nextProps[next] === 'function') {
@@ -91,7 +95,7 @@ export const buildPropsComponents = <P>(components: any, defaultComponents: P): 
 export const generateComponent = <T extends {}, P>(
   components: Partial<P> | undefined | null,
   component: keyof P,
-  DefaultComponent: ComponentType<any>
+  defaultComponent: ComponentType<any>
 ): any => {
   if (components?.hasOwnProperty(component)) {
     const comp = components?.[component];
@@ -102,10 +106,10 @@ export const generateComponent = <T extends {}, P>(
       return comp;
     }
     return React.memo((props) => {
-      return React.createElement(DefaultComponent, { ...comp, ...props });
+      return React.createElement(defaultComponent, { ...comp, ...props });
     }, memoEqual);
   }
-  return React.memo(DefaultComponent as any, memoEqual);
+  return defaultComponent;
 };
 
 export const buildComponents = <P>(components: any, defaultComponents: P): P => {

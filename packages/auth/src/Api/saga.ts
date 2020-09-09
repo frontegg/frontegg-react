@@ -200,7 +200,7 @@ function* loadSSOConfigurations() {
   try {
     yield put(actions.setSSOState({ loading: true }));
     const samlConfiguration = yield call(api.auth.getSamlConfiguration);
-    yield put(actions.setSSOState({ samlConfiguration, loading: false }));
+    yield put(actions.setSSOState({ samlConfiguration, loading: false, firstLoad: false }));
   } catch (e) {
     yield put(actions.setSSOState({ error: e.message, loading: false }));
   }

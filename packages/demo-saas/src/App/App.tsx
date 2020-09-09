@@ -1,9 +1,10 @@
 import React from 'react';
 import { Component3 } from '../Component3';
 import { Route, Switch } from 'react-router-dom';
-import { ProtectedRoute, SSOPage, useAuth } from '@frontegg/react-auth';
+import { LoginPage, ProtectedRoute, SSOPage, useAuth } from '@frontegg/react-auth';
 import { withFrontegg } from '../withFrontegg';
 import { useSelector } from 'react-redux';
+import { AuthExamples } from '../auth-examples';
 
 const MySSOPage = () => {
   const state = useSelector((state) => state);
@@ -20,6 +21,7 @@ class App extends React.Component<any> {
     return (
       <div className='app'>
         <Switch>
+          <AuthExamples />
           <ProtectedRoute path='/s1' component={SSOPage} />
 
           <ProtectedRoute
