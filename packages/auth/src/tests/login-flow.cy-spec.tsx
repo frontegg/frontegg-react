@@ -11,6 +11,7 @@ import {
   mountOptions,
   navigateTo,
   TestFronteggWrapper,
+  ACCESS_TOKEN,
 } from '../../../../cypress/helpers';
 
 const defaultAuthPlugin = {
@@ -75,7 +76,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { accessToken: 'token', refreshToken: 'refreshToken' },
+      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
       delay: 200,
     }).as('login');
 
@@ -109,7 +110,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { accessToken: 'token', refreshToken: 'refreshToken' },
+      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
       delay: 200,
     }).as('login');
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
@@ -152,7 +153,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { accessToken: 'token', refreshToken: 'refreshToken' },
+      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
       delay: 200,
     }).as('login');
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
@@ -301,7 +302,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
       status: 200,
-      response: { accessToken: 'token', refreshToken: 'refreshToken' },
+      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
       delay: 200,
     }).as('verifyMfa');
     cy.get(submitSelector).contains('Login').click();
@@ -385,7 +386,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
       status: 200,
-      response: { accessToken: '' },
+      response: { accessToken: ACCESS_TOKEN },
     });
     cy.route({ method: 'GET', url: `${METADATA_SERVICE}?entityName=saml`, status: 200, response: { rows: [] } });
     cy.route({ method: 'POST', url: `${IDENTITY_SERVICE}/resources/auth/v1/logout`, status: 200, response: 'LOGOUT' });

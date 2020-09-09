@@ -80,6 +80,8 @@ export const mockAuthApi = (authenticated: boolean, saml: boolean) => {
 
 export const EMAIL_1 = 'test1@frontegg.com';
 export const PASSWORD = 'ValidPassword123!';
+export const ACCESS_TOKEN =
+  'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YTIyYjQyNy01MjA0LTQ2NzYtOWNhMC03ZTVjMWJkMDhiZjYiLCJuYW1lIjoiRGF2aWQiLCJlbWFpbCI6ImRhdmlkQGZyb250ZWdnLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJyb2xlcyI6WyJ3cml0ZSJdLCJwZXJtaXNzaW9ucyI6WyJjb25maWd1cmUtc3NvIiwiYWRkLXNsYWNrIiwiYWRkLXdlYmhvb2tzIl0sInRlbmFudElkIjoibXktdGVuYW50LWlkIiwidGVuYW50SWRzIjpbIm15LXRlbmFudC1pZCJdLCJpYXQiOjE1OTk2MTUyOTMsImV4cCI6MTU5OTYxNTU5MywiaXNzIjoiZnJvbnRlZ2cifQ.CdNSM-0I6cU9cEpBE5dj7jZyRfgBK3ozZ0hNxFFhM_jv9NdQp2BBkUkHTdKpvwFdub4LCUwd1h2kdvdTuGHaQDNVVoetCpzJsXMUejBdCPu6MiShNLstBdzAjnypCuwy3Mfv7tIEB3njuKeNDWJZY32EDXawdepnugRjsDIqQsQ';
 export const checkEmailValidation = (emailSelector: string = '[name="email"]') => {
   cy.get(emailSelector).focus().clear().type('invalid email').blur();
   cy.contains('Must be a valid email').should('be.visible');
