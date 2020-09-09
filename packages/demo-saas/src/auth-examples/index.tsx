@@ -11,7 +11,7 @@ enum Ex {
   'OnlyAuthAPI',
 }
 
-const selectedExample: any = Ex.CustomAuthWrapper;
+const selectedExample: any = Ex.CustomAuthComponents;
 export const AuthExamples: FC = ({ children }) => {
   switch (selectedExample) {
     case Ex.Frontegg:
