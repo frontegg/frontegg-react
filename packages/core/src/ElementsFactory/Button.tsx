@@ -7,5 +7,7 @@ export const Button = (props: ButtonProps) => React.createElement(ElementsFactor
 export const FButton: FC<ButtonProps> = (props) => {
   const { isValid, dirty } = useFormikContext();
   const disableDirty = props.formikDisableIfNotDirty ?? true;
-  return <Button {...props} disabled={!isValid || (disableDirty && !dirty)} fullWidth={props.fullWidth ?? true} />;
+  return (
+    <Button inForm {...props} disabled={!isValid || (disableDirty && !dirty)} fullWidth={props.fullWidth ?? true} />
+  );
 };

@@ -11,7 +11,7 @@ enum Ex {
   'OnlyAuthAPI',
 }
 
-const selectedExample: any = Ex.CustomAuthComponents;
+const selectedExample: any = null;
 export const AuthExamples: FC = ({ children }) => {
   switch (selectedExample) {
     case Ex.Frontegg:
@@ -24,5 +24,5 @@ export const AuthExamples: FC = ({ children }) => {
     //   return <OnlyAuthAPI />;
   }
 
-  return null;
+  return <>{children}</>;
 };

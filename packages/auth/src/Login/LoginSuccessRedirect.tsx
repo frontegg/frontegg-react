@@ -17,10 +17,10 @@ export const LoginSuccessRedirect: FC<LoginSuccessRedirectProps> = (props) => {
   useEffect(() => {
     const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
     let { authenticatedUrl } = routes;
-    if (afterAuthRedirect) {
+    if (afterAuthRedirect && afterAuthRedirect !== routes.loginUrl) {
       authenticatedUrl = afterAuthRedirect;
-      window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
     }
+    window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
     setTimeout(() => {
       resetLoginState();
       onRedirectTo(authenticatedUrl);

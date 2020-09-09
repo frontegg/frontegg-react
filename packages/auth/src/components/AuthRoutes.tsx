@@ -1,5 +1,6 @@
 import React, { FC, isValidElement, useMemo } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Logger } from '@frontegg/react-core';
 import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';
 import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
@@ -15,6 +16,8 @@ const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: Aut
   ssoACS,
 });
 
+const logger = Logger.from('AuthRoutes');
+
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const { header, loaderComponent, children, pageComponent, pageHeader, ...rest } = props;
   const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
@@ -22,7 +25,12 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const samlCallbackPath = useMemo(() => {
     const acsUrl = routes.samlCallbackUrl ?? ssoACS;
     if (!isLoading && acsUrl) {
-      return new URL(acsUrl).pathname;
+      try {
+        return new URL(acsUrl).pathname;
+      } catch (e) {
+        logger.error('failed to parse acsUrl', acsUrl);
+        return null;
+      }
     }
     return null;
   }, [isLoading, ssoACS]);
@@ -131,6 +139,7 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
                 render={() =>
                   React.createElement(pageComponent, {
                     ...pageProps,
+                    ...route.props,
                     children: React.createElement(route.standaloneComponent as any),
                   })
                 }

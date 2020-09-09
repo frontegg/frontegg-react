@@ -1,5 +1,5 @@
-import React, { ComponentType } from 'react';
-import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
+import React, { ComponentType, FC } from 'react';
+import { ButtonProps, ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { uiLibrary } from '@frontegg/react-elements-semantic';
 
@@ -16,7 +16,7 @@ const contextOptions: ContextOptions = {
 
 const plugins: PluginConfig[] = [
   AuthPlugin({
-    injectAuthRoutes: false,
+    injectAuthRoutes: true,
   }),
 ];
 

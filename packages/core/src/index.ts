@@ -8,6 +8,7 @@ export * from './interfaces';
 export * from './HOCs';
 export * from './hooks';
 export * from './helpers';
+export { default as Logger } from './helpers/Logger';
 export * from './elements';
 export * from './components';
 
