@@ -1,9 +1,9 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, isValidElement, useMemo } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { LoginPage, LogoutPage, LoginWithSSOPage } from '../Login';
-import { ActivateAccountPage } from '../ActivateAccount';
-import { ForgotPasswordPage } from '../ForgotPassword';
-import { ResetPasswordPage } from '../ResetPassword';
+import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';
+import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
+import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
+import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
@@ -16,7 +16,7 @@ const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: Aut
 });
 
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
-  const { header, loaderComponent, children, ...rest } = props;
+  const { header, loaderComponent, children, pageComponent, pageHeader, ...rest } = props;
   const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
 
   const samlCallbackPath = useMemo(() => {
@@ -30,23 +30,125 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const pageProps = {
     ...rest,
     ...defaultComps,
-    ...(header !== undefined ? { header } : {}),
+    ...(header !== undefined && isValidElement(header) ? { header } : {}),
     ...(loaderComponent !== undefined ? { loaderComponent } : {}),
   };
+
+  let perPageProps: any = {
+    loginProps: {},
+    logoutProps: {},
+    forgotPasswordProps: {},
+    resetPasswordProps: {},
+    activateAccountProps: {},
+    loginWithSSOProps: {},
+  };
+  if (pageHeader) {
+    perPageProps = {
+      loginProps: {
+        header: pageHeader?.login,
+      },
+      logoutProps: {
+        header: pageHeader?.logout,
+      },
+      forgotPasswordProps: {
+        header: pageHeader?.forgotPassword,
+      },
+      resetPasswordProps: {
+        header: pageHeader?.resetPassword,
+      },
+      activateAccountProps: {
+        header: pageHeader?.activateAccount,
+      },
+      loginWithSSOProps: {
+        header: pageHeader?.loginWithSSO,
+      },
+    };
+  }
 
   if (pageProps.loaderComponent && isLoading) {
     return <>{pageProps.loaderComponent}</>;
   }
 
+  const router = [
+    {
+      id: 'login',
+      path: routes.loginUrl,
+      defaultComponent: LoginPage,
+      standaloneComponent: Login,
+      props: perPageProps.loginProps,
+    },
+    {
+      id: 'logout',
+      path: routes.logoutUrl,
+      defaultComponent: LogoutPage,
+      standaloneComponent: Logout,
+      props: perPageProps.logoutProps,
+    },
+    {
+      id: 'forgotPassword',
+      path: routes.forgetPasswordUrl,
+      defaultComponent: ForgotPasswordPage,
+      standaloneComponent: ForgotPassword,
+      props: perPageProps.forgotPasswordProps,
+    },
+    {
+      id: 'resetPassword',
+      path: routes.resetPasswordUrl,
+      defaultComponent: ResetPasswordPage,
+      standaloneComponent: ResetPassword,
+      props: perPageProps.resetPasswordProps,
+    },
+    {
+      id: 'activateAccount',
+      path: routes.activateUrl,
+      defaultComponent: ActivateAccountPage,
+      standaloneComponent: ActivateAccount,
+      props: perPageProps.activateAccountProps,
+    },
+    ...(samlCallbackPath
+      ? [
+          {
+            id: 'loginWithSSO',
+            path: samlCallbackPath || '',
+            defaultComponent: LoginWithSSOPage,
+            standaloneComponent: LoginWithSSO,
+            props: perPageProps.loginWithSSOProps,
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <Switch>
-      <Route exact path={routes.loginUrl} render={() => <LoginPage {...pageProps} />} />
-      <Route exact path={routes.logoutUrl} render={() => <LogoutPage {...pageProps} />} />
-      <Route exact path={routes.forgetPasswordUrl} render={() => <ForgotPasswordPage {...pageProps} />} />
-      <Route exact path={routes.resetPasswordUrl} render={() => <ResetPasswordPage {...pageProps} />} />
-      <Route exact path={routes.activateUrl} render={() => <ActivateAccountPage {...pageProps} />} />
-      {samlCallbackPath && <Route exact path={samlCallbackPath} render={() => <LoginWithSSOPage {...pageProps} />} />}
-      <Route path='*' children={() => children} />
-    </Switch>
+    <>
+      <Switch>
+        {router.map((route) => {
+          if (pageComponent) {
+            return (
+              <Route
+                key={route.path}
+                exact
+                path={route.path}
+                render={() =>
+                  React.createElement(pageComponent, {
+                    ...pageProps,
+                    children: React.createElement(route.standaloneComponent as any),
+                  })
+                }
+              />
+            );
+          } else {
+            return (
+              <Route
+                exact
+                path={route.path}
+                render={() => React.createElement(route.defaultComponent as any, { ...pageProps, ...route.props })}
+              />
+            );
+          }
+        })}
+
+        <Route path='*' children={() => children} />
+      </Switch>
+    </>
   );
 };

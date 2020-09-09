@@ -1,23 +1,24 @@
 import React from 'react';
 import { InputProps } from '@frontegg/react-core';
 import { Form, Input as SemanticInput, InputProps as SemanticInputProps } from 'semantic-ui-react';
-import { Field, FieldProps } from 'formik';
 import { Button } from '../Button';
+import { FormInputProps } from 'semantic-ui-react/dist/commonjs/collections/Form/FormInput';
 
-const mapper = (props: InputProps): SemanticInputProps => {
-  const { inForm, inFormik, fullWidth, error, ...rest } = props;
+const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
+  const { inForm, fullWidth, ...rest } = props;
   return {
     ...rest,
     fluid: fullWidth,
-  };
+  } as any;
 };
 
 export class Input extends React.Component<InputProps> {
   render() {
-    const { children, inForm, inFormik, name, labelButton, label, onChange, ...rest } = this.props;
+    const { children, inForm, labelButton, label, ...rest } = this.props;
     let InputComponent: any = SemanticInput;
     let inputLabel: any = label;
-    if (inForm || inFormik) {
+
+    if (inForm) {
       InputComponent = Form.Input;
     }
 
@@ -30,24 +31,6 @@ export class Input extends React.Component<InputProps> {
       );
     }
     const inputProps = { ...mapper(rest), label: inputLabel };
-    if (inFormik) {
-      return (
-        <Field>
-          {({ form: { values, handleBlur, handleChange, errors, touched } }: FieldProps) => (
-            <InputComponent
-              {...inputProps}
-              name={name}
-              values={values[name ?? '']}
-              onChange={onChange ?? (handleChange(name) as any)}
-              onBlur={handleBlur}
-              error={!!touched[name ?? ''] && errors[name ?? '']}
-            >
-              {children}
-            </InputComponent>
-          )}
-        </Field>
-      );
-    }
 
     return <InputComponent {...inputProps}>{children}</InputComponent>;
   }

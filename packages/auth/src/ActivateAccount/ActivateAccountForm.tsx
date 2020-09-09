@@ -1,81 +1,70 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, createElement, FC } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import { Formik } from 'formik';
 import {
-  Form,
-  Button,
-  Input,
-  omitProps,
-  RendererFunction,
   validatePassword,
   validatePasswordConfirmation,
   validateSchema,
-  WithT,
   ErrorMessage,
+  FForm,
+  FButton,
+  FInput,
+  useT,
 } from '@frontegg/react-core';
-import { withAuth } from '../HOCs';
+import { useAuth } from '../hooks';
 
 const stateMapper = ({ activateState }: AuthState) => ({ activateState });
-const actionsMapper = ({ activateAccount }: AuthActions) => ({ activateAccount });
+
+export type ActivateAccountFormRendererProps = Omit<ActivateAccountFormProps, 'renderer'> &
+  ReturnType<typeof stateMapper> &
+  Pick<AuthActions, 'activateAccount'>;
 
 export interface ActivateAccountFormProps {
-  renderer?: RendererFunction<Props, ActivateAccountFormProps>;
+  renderer?: ComponentType<ActivateAccountFormRendererProps>;
   userId: string;
   token: string;
 }
 
-type Props = ReturnType<typeof stateMapper> & ReturnType<typeof actionsMapper> & WithT & ActivateAccountFormProps;
-
-class ActivateAccountFormComponent extends React.Component<Props> {
-  render() {
-    const {
-      t,
-      renderer,
-      activateState: { loading, error },
-      activateAccount,
-      userId,
-      token,
-    } = this.props;
-
-    if (renderer) {
-      return renderer(omitProps(this.props, ['renderer', 'components']));
-    }
-
-    return (
-      <Formik
-        validationSchema={validateSchema({
-          password: validatePassword(t),
-          confirmPassword: validatePasswordConfirmation(t),
-        })}
-        enableReinitialize={true}
-        initialValues={{ password: '', confirmPassword: '' }}
-        onSubmit={({ password }) => activateAccount({ userId, token, password })}
-      >
-        <Form>
-          <Input
-            inFormik
-            type='password'
-            name='password'
-            label={t('auth.activate-account.new-password')}
-            placeholder={t('auth.activate-account.enter-your-password')}
-          />
-          <Input
-            inFormik
-            type='password'
-            name='confirmPassword'
-            label={t('auth.activate-account.confirm-new-password')}
-            placeholder={t('auth.activate-account.enter-your-password-again')}
-          />
-          <Button inFormik type='submit' fullWidth={true} loading={loading} variant='primary'>
-            {t('auth.activate-account.activate-account-button')}
-          </Button>
-          <ErrorMessage error={error} />
-        </Form>
-      </Formik>
-    );
+export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
+  const { renderer, userId, token } = props;
+  const { t } = useT();
+  const authState = useAuth(stateMapper);
+  const {
+    activateState: { loading, error },
+    activateAccount,
+  } = authState;
+  if (renderer) {
+    return createElement(renderer, { ...props, ...authState });
   }
-}
 
-export const ActivateAccountForm = withAuth(ActivateAccountFormComponent, stateMapper, actionsMapper) as ComponentType<
-  ActivateAccountFormProps
->;
+  return (
+    <Formik
+      validationSchema={validateSchema({
+        password: validatePassword(t),
+        confirmPassword: validatePasswordConfirmation(t),
+      })}
+      enableReinitialize={true}
+      initialValues={{ password: '', confirmPassword: '' }}
+      onSubmit={async ({ password }) => activateAccount({ userId, token, password })}
+    >
+      <FForm>
+        <FInput
+          type='password'
+          name='password'
+          label={t('auth.activate-account.new-password')}
+          placeholder={t('auth.activate-account.enter-your-password')}
+        />
+        <FInput
+          type='password'
+          name='confirmPassword'
+          label={t('auth.activate-account.confirm-new-password')}
+          placeholder={t('auth.activate-account.enter-your-password-again')}
+        />
+        <FButton submit loading={loading} variant='primary'>
+          {t('auth.activate-account.activate-account-button')}
+        </FButton>
+        <ErrorMessage error={error} />
+      </FForm>
+    </Formik>
+  );
+};

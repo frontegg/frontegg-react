@@ -24,7 +24,7 @@ export const ResetPasswordFailed: FC<ResetPasswordFailedProps> = (props) => {
         {t('auth.forgot-password.reset-password-failed-description')}
       </div>
       <Button
-        fullWidth={true}
+        fullWidth
         onClick={() => {
           resetForgotPasswordState();
           onRedirectTo(loginUrl);

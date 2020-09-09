@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { authPageWrapper } from '../components';
-import { AuthActions, AuthState } from '../Api';
-import { WithT, Loader, RendererFunctionFC, useT, omitProps } from '@frontegg/react-core';
+import { AuthState } from '../Api';
+import { Loader, RendererFunctionFC, omitProps } from '@frontegg/react-core';
 import { LoginWithSSOFailed } from './LoginWithSSOFailed';
 import { useAuth } from '../hooks';
 

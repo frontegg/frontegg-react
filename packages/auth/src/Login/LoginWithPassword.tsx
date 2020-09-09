@@ -5,12 +5,11 @@ import {
   validateEmail,
   validateSchema,
   validatePassword,
-  Button,
-  Form,
-  Input,
-  omitProps,
   ErrorMessage,
   useT,
+  FForm,
+  FButton,
+  FInput,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
@@ -73,27 +72,24 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={validateSchema(validationSchema)}
-      onSubmit={
-        shouldDisplayPassword ? ({ email, password }) => login({ email, password }) : ({ email }) => preLogin({ email })
+      onSubmit={async ({ email, password }) =>
+        shouldDisplayPassword ? login({ email, password }) : preLogin({ email })
       }
     >
       {({ values }) => (
-        <Form inFormik>
-          <Input
-            inFormik={true}
-            fullWidth={true}
+        <FForm>
+          <FInput
             name='email'
+            type='email'
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
           />
 
           {shouldDisplayPassword && (
-            <Input
+            <FInput
               label={t('auth.login.password')}
               labelButton={labelButtonProps(values)}
-              inFormik
-              fullWidth
               type='password'
               name='password'
               placeholder={t('auth.login.enter-your-password')}
@@ -101,12 +97,12 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             />
           )}
 
-          <Button submit inFormik fullWidth variant={'primary'} loading={loading}>
+          <FButton submit fullWidth variant={'primary'} loading={loading}>
             {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
-          </Button>
+          </FButton>
 
           <ErrorMessage error={error} />
-        </Form>
+        </FForm>
       )}
     </Formik>
   );

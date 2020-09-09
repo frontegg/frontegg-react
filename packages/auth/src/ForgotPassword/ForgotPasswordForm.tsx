@@ -1,51 +1,43 @@
-import React, { FC } from 'react';
+import React, { ComponentType, createElement, FC } from 'react';
 import { Formik } from 'formik';
-import {
-  RendererFunctionFC,
-  useT,
-  Form,
-  Button,
-  Input,
-  validateEmail,
-  validateSchema,
-  ErrorMessage,
-  omitProps,
-} from '@frontegg/react-core';
+import { useT, validateEmail, validateSchema, ErrorMessage, FForm, FInput, FButton } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+import { AuthState } from '../Api';
+
+type ForgotPasswordFormRendererProps = Omit<ForgotPasswordFormProps, 'renderer'> & ReturnType<typeof stateMapper>;
 
 export interface ForgotPasswordFormProps {
-  renderer?: RendererFunctionFC<ForgotPasswordFormProps>;
+  renderer?: ComponentType<ForgotPasswordFormRendererProps>;
 }
 
+const stateMapper = ({ forgetPasswordState }: AuthState) => forgetPasswordState;
 export const ForgotPasswordForm: FC<ForgotPasswordFormProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loading, email, error, forgotPassword } = useAuth(({ forgetPasswordState }) => forgetPasswordState);
+  const authState = useAuth(stateMapper);
+  const { loading, email, error, forgotPassword } = authState;
   if (renderer) {
-    return renderer(omitProps(props, ['renderer']));
+    return createElement(renderer, { ...props, ...authState });
   }
   return (
     <Formik
       initialValues={{ email }}
-      validationSchema={validateSchema({
-        email: validateEmail(t),
-      })}
+      validationSchema={validateSchema({ email: validateEmail(t) })}
       isInitialValid={validateEmail(t).isValidSync(email)}
-      onSubmit={({ email }) => forgotPassword({ email })}
+      onSubmit={async ({ email }) => forgotPassword({ email })}
     >
-      <Form>
-        <Input
-          inFormik
+      <FForm>
+        <FInput
           defaultValue={email}
           name='email'
           placeholder='name@example.com'
           label={t('auth.forgot-password.email-label')}
         />
-        <Button inFormik submit fullWidth formikDisableIfNotDirty={false} variant='primary' loading={loading}>
+        <FButton submit formikDisableIfNotDirty={false} variant='primary' loading={loading}>
           {t('auth.forgot-password.remind-me')}
-        </Button>
+        </FButton>
         <ErrorMessage error={error} />
-      </Form>
+      </FForm>
     </Formik>
   );
 };

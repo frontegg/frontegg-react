@@ -3,14 +3,14 @@ import { Formik } from 'formik';
 import {
   validateSchema,
   validateTwoFactorCode,
-  WithT,
   omitProps,
-  Form,
   Button,
-  Input,
   ErrorMessage,
   RendererFunctionFC,
   useT,
+  FForm,
+  FInput,
+  FButton,
 } from '@frontegg/react-core';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import { useAuth } from '../hooks';
@@ -36,14 +36,14 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
       validationSchema={validateSchema({
         code: validateTwoFactorCode(t),
       })}
-      onSubmit={({ code }) => loginWithMfa({ mfaToken: mfaToken || '', value: code })}
+      onSubmit={async ({ code }) => loginWithMfa({ mfaToken: mfaToken || '', value: code })}
     >
-      <Form inFormik>
-        <Input inFormik fullWidth label={t('auth.login.please-enter-the-6-digit-code')} name='code' />
+      <FForm>
+        <FInput label={t('auth.login.please-enter-the-6-digit-code')} name='code' />
 
-        <Button inFormik fullWidth submit variant='primary' loading={loading}>
+        <FButton submit variant='primary' loading={loading}>
           {t('auth.login.login')}
-        </Button>
+        </FButton>
 
         <div className='fe-note'>
           <div className='fe-note-title'>{t('auth.login.disable-two-factor-title')}</div>
@@ -63,7 +63,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
         </div>
 
         <ErrorMessage error={error} />
-      </Form>
+      </FForm>
     </Formik>
   );
 };

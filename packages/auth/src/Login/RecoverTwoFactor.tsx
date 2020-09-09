@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { Formik } from 'formik';
 import {
-  Form,
-  Input,
-  Button,
   omitProps,
   validateSchema,
   validateTwoFactorRecoveryCode,
   ErrorMessage,
   RendererFunctionFC,
   useT,
+  FInput,
+  FButton,
+  FForm,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
@@ -32,16 +32,16 @@ export const RecoverTwoFactor: FC<RecoverTwoFactorProps> = (props) => {
       validationSchema={validateSchema({
         code: validateTwoFactorRecoveryCode(t),
       })}
-      onSubmit={({ code }) => recoverMfa({ email: email ?? '', recoveryCode: code })}
+      onSubmit={async ({ code }) => recoverMfa({ email: email ?? '', recoveryCode: code })}
     >
-      <Form inFormik>
-        <Input inFormik fullWidth name='code' label={t('auth.login.please-enter-the-recovery-code')} />
+      <FForm>
+        <FInput name='code' label={t('auth.login.please-enter-the-recovery-code')} />
 
-        <Button submit inFormik fullWidth variant='primary' loading={loading}>
+        <FButton submit variant='primary' loading={loading}>
           {t('auth.login.disable-mfa')}
-        </Button>
+        </FButton>
         <ErrorMessage error={error} />
-      </Form>
+      </FForm>
     </Formik>
   );
 };

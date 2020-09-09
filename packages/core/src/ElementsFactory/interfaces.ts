@@ -1,7 +1,6 @@
 import React, { ComponentType } from 'react';
 
 export type FormFieldProps = {
-  inFormik?: boolean; // default: false
   inForm?: boolean; // default: false
   size?: 'mini' | 'small' | 'large' | 'big' | 'huge' | 'massive'; // default: undefined
 };
@@ -28,7 +27,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, Fo
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
-  inFormik?: boolean; // default is true
+  as?: string; // default is true
 }
 
 export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {

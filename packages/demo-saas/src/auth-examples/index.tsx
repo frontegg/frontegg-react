@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { FronteggAuth } from './FronteggAuth';
 import { CustomAuthWrapper } from './CustomAuthWrapper';
 import './auth-examples.scss';
@@ -11,15 +11,15 @@ enum Ex {
   'OnlyAuthAPI',
 }
 
-const selectedExample: any = Ex.CustomAuthComponents;
-export const AuthExamples = () => {
+const selectedExample: any = Ex.CustomAuthWrapper;
+export const AuthExamples: FC = ({ children }) => {
   switch (selectedExample) {
     case Ex.Frontegg:
-      return <FronteggAuth />;
+      return <FronteggAuth>{children}</FronteggAuth>;
     case Ex.CustomAuthWrapper:
-      return <CustomAuthWrapper />;
+      return <CustomAuthWrapper>{children}</CustomAuthWrapper>;
     case Ex.CustomAuthComponents:
-      return <CustomAuthComponents />;
+      return <CustomAuthComponents>{children}</CustomAuthComponents>;
     // case Ex.OnlyAuthAPI:
     //   return <OnlyAuthAPI />;
   }

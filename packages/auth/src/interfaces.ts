@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentType, ReactNode } from 'react';
+import { LoginProps } from './Login';
 
 export type AuthPageRoutes = {
   routes: {
@@ -34,11 +35,22 @@ export type AuthPageRoutes = {
   };
 };
 
+export interface PerPageHeader {
+  login?: ReactNode;
+  logout?: ReactNode;
+  forgotPassword?: ReactNode;
+  resetPassword?: ReactNode;
+  activateAccount?: ReactNode;
+  loginWithSSO?: ReactNode;
+}
+
 export interface AuthPageProps {
   header?: ReactNode;
+  pageHeader?: PerPageHeader;
   backgroundImage?: string;
   backgroundColor?: string;
-  loaderComponent?: React.ReactNode;
+  loaderComponent?: ReactNode;
+  pageComponent?: ComponentType<any>;
   injectAuthRoutes?: boolean; // default: true
 }
 

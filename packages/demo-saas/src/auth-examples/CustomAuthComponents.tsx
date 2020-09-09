@@ -56,7 +56,7 @@ const CustomLoginWithPassword: FC<LoginWithPasswordRendererProps> = (props: Logi
 // const CustomRecoverTwoFactor = undefined;
 // const CustomRedirectToSSO = undefined;
 
-export const CustomAuthComponents = () => {
+export const CustomAuthComponents: FC = ({ children }) => {
   const { routes } = useAuth(({ routes }) => ({ routes }));
   return (
     <>
@@ -82,6 +82,7 @@ export const CustomAuthComponents = () => {
       <Route path={routes.resetPasswordUrl} component={ResetPasswordPage} />
       {routes.samlCallbackUrl && <Route path={routes.samlCallbackUrl} component={LoginWithSSOPage} />}
       <Route path={routes.logoutUrl} component={LogoutPage} />
+      <Route path='*' render={() => children} />
     </>
   );
 };

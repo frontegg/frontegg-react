@@ -11,6 +11,9 @@ import {
   ErrorMessage,
   useT,
   RendererFunctionFC,
+  FInput,
+  FButton,
+  FForm,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
@@ -36,28 +39,26 @@ export const ResetPasswordForm: FC<ResetPasswordFormProps> = (props) => {
       })}
       enableReinitialize
       initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={({ password }) => resetPassword({ userId, token, password })}
+      onSubmit={async ({ password }) => resetPassword({ userId, token, password })}
     >
-      <Form>
-        <Input
-          inFormik
+      <FForm>
+        <FInput
           type='password'
           name='password'
           label={t('auth.forgot-password.new-password')}
           placeholder={t('auth.forgot-password.enter-your-password')}
         />
-        <Input
-          inFormik
+        <FInput
           type='password'
           name='confirmPassword'
           label={t('auth.forgot-password.confirm-new-password')}
           placeholder={t('auth.forgot-password.enter-your-password-again')}
         />
-        <Button inFormik type='submit' fullWidth loading={loading} variant='primary'>
+        <FButton type='submit' loading={loading} variant='primary'>
           {t('auth.forgot-password.reset-password-button')}
-        </Button>
+        </FButton>
         <ErrorMessage error={error} />
-      </Form>
+      </FForm>
     </Formik>
   );
 };

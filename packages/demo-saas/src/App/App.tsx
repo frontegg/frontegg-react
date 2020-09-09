@@ -21,23 +21,24 @@ class App extends React.Component<any> {
     return (
       <div className='app'>
         <Switch>
-          <AuthExamples />
-          <ProtectedRoute path='/s1' component={SSOPage} />
+          <AuthExamples>
+            <ProtectedRoute path='/s1' component={SSOPage} />
 
-          <ProtectedRoute
-            path='/s2'
-            render={() => {
-              return <SSOPage />;
-            }}
-          />
-          <ProtectedRoute
-            path='/s3'
-            render={() => {
-              return <MySSOPage />;
-            }}
-          />
+            <ProtectedRoute
+              path='/s2'
+              render={() => {
+                return <SSOPage />;
+              }}
+            />
+            <ProtectedRoute
+              path='/s3'
+              render={() => {
+                return <MySSOPage />;
+              }}
+            />
 
-          <Route path='*' component={Component3} />
+            <Route path='*' component={Component3} />
+          </AuthExamples>
         </Switch>
       </div>
     );

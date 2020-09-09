@@ -13,7 +13,7 @@
     "@frontegg/react-core": "^1.0.47",
     "@reduxjs/toolkit": "^1.1.0",
     "classnames": "^2.2.6",
-    "formik": "^1.5.7",
+    "formik": "^2.1.5",
     "history": "^4.9.0",
     "react": ">16.8.6",
     "react-router-dom": "^5.1.2",
