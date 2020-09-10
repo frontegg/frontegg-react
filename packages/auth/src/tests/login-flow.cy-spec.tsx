@@ -85,19 +85,8 @@ describe('Login Tests', () => {
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
-    cy.contains('Authentication Succeeded').should('be.visible');
+    // cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/');
-    });
-
-    // should be redirected to home if authenticated
-    cy.wait(1000);
-    cy.window().then((win) => {
-      // @ts-ignore
-      win.cypressHistory.push('/account/login');
-    });
-
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
     });
@@ -132,7 +121,7 @@ describe('Login Tests', () => {
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
-    cy.contains('Authentication Succeeded').should('be.visible');
+    // cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/after-login-redirect');
@@ -197,7 +186,7 @@ describe('Login Tests', () => {
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
-    cy.contains('Authentication Succeeded').should('be.visible');
+    // cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');

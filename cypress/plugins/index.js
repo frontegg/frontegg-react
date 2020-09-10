@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 const webpack = require('@cypress/webpack-preprocessor');
 const webpackOptions = {
-  mode: 'production',
+  mode: 'development',
   node: {
     fs: 'empty',
   },
@@ -13,18 +13,20 @@ const webpackOptions = {
       {
         test: /\.(js|jsx|mjs)$/,
         loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-          plugins: [
-            '@babel/plugin-transform-modules-commonjs',
-            '@babel/plugin-proposal-class-properties',
-            ['@babel/plugin-transform-runtime', { regenerator: true }],
-          ],
-        },
+        exclude: /node_modules/,
+        // options: {
+        //   presets: ['@babel/preset-env', '@babel/preset-react'],
+        //   plugins: [
+        // '@babel/plugin-transform-modules-commonjs',
+        // '@babel/plugin-proposal-class-properties',
+        // ['@babel/plugin-transform-runtime', { regenerator: true }],
+        // ],
+        // },
       },
       {
         test: /\.(ts|tsx)$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
           plugins: [
@@ -50,6 +52,11 @@ const webpackOptions = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
+  },
+  optimization: {
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
   },
 };
 

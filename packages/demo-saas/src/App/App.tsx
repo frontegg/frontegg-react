@@ -21,8 +21,8 @@ class App extends React.Component<any> {
   render() {
     return (
       <div className='app'>
-        <Switch>
-          <AuthExamples>
+        <AuthExamples>
+          <Switch>
             <ProtectedRoute path='/s1' component={SSOPage} />
 
             <ProtectedRoute
@@ -39,8 +39,8 @@ class App extends React.Component<any> {
             />
 
             <Route path='*' component={Component3} />
-          </AuthExamples>
-        </Switch>
+          </Switch>
+        </AuthExamples>
       </div>
     );
   }

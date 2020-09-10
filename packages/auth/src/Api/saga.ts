@@ -19,6 +19,19 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { ActivateStep, ForgotPasswordStep, LoginStep } from './interfaces';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 
+function* afterAuthNavigation() {
+  const { routes, onRedirectTo } = yield select((state) => state.auth);
+  let { authenticatedUrl } = routes;
+  const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
+  if (afterAuthRedirect && afterAuthRedirect !== routes.loginUrl) {
+    authenticatedUrl = afterAuthRedirect;
+  }
+  window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
+  yield delay(500);
+  put(actions.resetLoginState());
+  onRedirectTo(authenticatedUrl);
+}
+
 function* refreshMetadata() {
   let isSSOAuth;
   let ssoACS = null;
@@ -90,29 +103,13 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
       })
     );
 
-    setTimeout(() => {
-      onRedirectTo(routes.authenticatedUrl);
-    }, 1000);
-    yield put(actions.setLoginState({ step: LoginStep.success, loading: false }));
+    yield afterAuthNavigation();
   } catch (e) {
     setTimeout(() => {
       onRedirectTo(routes.authenticatedUrl);
     }, 1000);
     yield put(actions.setLoginState({ step: LoginStep.loginWithSSOFailed, loading: false }));
   }
-}
-
-function* afterAuthNavigation() {
-  const { routes, onRedirectTo } = yield select((state) => state.auth);
-  let { authenticatedUrl } = routes;
-  const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  if (afterAuthRedirect && afterAuthRedirect !== routes.loginUrl) {
-    authenticatedUrl = afterAuthRedirect;
-  }
-  window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  yield delay(500);
-  put(actions.resetLoginState());
-  onRedirectTo(authenticatedUrl);
 }
 
 function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
@@ -122,6 +119,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
 
     ContextHolder.setAccessToken(user.accessToken);
 
+    const step = user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success;
     yield put(
       actions.setState({
         user: !!user.accessToken ? user : undefined,
@@ -131,11 +129,11 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
           loading: false,
           error: undefined,
           mfaToken: user.mfaToken,
-          step: user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success,
+          step,
         },
       })
     );
-    if (!!user.accessToken) {
+    if (step === LoginStep.success) {
       yield afterAuthNavigation();
     }
   } catch (e) {
@@ -154,14 +152,16 @@ function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWit
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
+
+    const step = LoginStep.success;
     yield put(
       actions.setState({
-        loginState: { loading: false, error: undefined, step: LoginStep.success },
+        loginState: { loading: false, error: undefined, step },
         user,
         isAuthenticated: true,
       })
     );
-    if (!!user.accessToken) {
+    if (step === LoginStep.success) {
       yield afterAuthNavigation();
     }
   } catch (e) {

@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { ComponentsTypesWithProps, useDynamicComponents, Loader } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { ComponentsTypesWithProps, Loader, useDynamicComponents } from '@frontegg/react-core';
 import { AuthState, LoginStep } from '../Api';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
@@ -24,6 +24,7 @@ export interface LoginComponentProps {
 }
 
 export interface LoginProps {
+  displaySuccessMessage?: boolean;
   components?: ComponentsTypesWithProps<Components>;
 }
 
@@ -57,6 +58,8 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.RedirectToSSO />;
   } else if (step === LoginStep.loginWithSSOFailed) {
     components = <Dynamic.LoginWithSSOFailed />;
+  } else if (step === LoginStep.success && props.displaySuccessMessage) {
+    components = <Dynamic.LoginSuccessRedirect />;
   }
 
   return <div className='fe-login-component'>{components}</div>;

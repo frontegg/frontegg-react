@@ -38,33 +38,32 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const pageProps = {
     ...rest,
     ...defaultComps,
-    ...(header !== undefined && isValidElement(header) ? { header } : {}),
     ...(loaderComponent !== undefined ? { loaderComponent } : {}),
   };
 
   const computedPerPageProps = {
     loginProps: {
-      header: pageHeader?.login,
+      header: pageHeader?.login ?? header ?? defaultComps.header,
       ...perPageProps?.login,
     },
     logoutProps: {
-      header: pageHeader?.logout,
+      header: pageHeader?.logout ?? header,
       ...perPageProps?.logout,
     },
     forgotPasswordProps: {
-      header: pageHeader?.forgotPassword,
+      header: pageHeader?.forgotPassword ?? header,
       ...perPageProps?.forgotPassword,
     },
     resetPasswordProps: {
-      header: pageHeader?.resetPassword,
+      header: pageHeader?.resetPassword ?? header,
       ...perPageProps?.resetPassword,
     },
     activateAccountProps: {
-      header: pageHeader?.activateAccount,
+      header: pageHeader?.activateAccount ?? header,
       ...perPageProps?.activateAccount,
     },
     loginWithSSOProps: {
-      header: pageHeader?.loginWithSSO,
+      header: pageHeader?.loginWithSSO ?? header,
       ...perPageProps?.loginWithSSO,
     },
   };

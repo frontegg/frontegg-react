@@ -16,7 +16,7 @@ const contextOptions: ContextOptions = {
 
 const plugins: PluginConfig[] = [
   AuthPlugin({
-    injectAuthRoutes: true,
+    injectAuthRoutes: false,
   }),
 ];
 
