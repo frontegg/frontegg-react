@@ -13,7 +13,6 @@ enum Ex {
 
 const selectedExample: any = Ex.Frontegg;
 export const AuthExamples: FC = ({ children }) => {
-  debugger;
   switch (selectedExample) {
     case Ex.Frontegg:
       return <FronteggAuth>{children}</FronteggAuth>;
