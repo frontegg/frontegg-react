@@ -1,5 +1,8 @@
 import React, { ComponentType, ReactNode } from 'react';
-import { LoginProps } from './Login';
+import { LoginProps, LoginWithSSOProps, LogoutProps } from './Login';
+import { ForgotPasswordProps } from './ForgotPassword';
+import { ResetPasswordProps } from './ResetPassword';
+import { ActivateAccountProps } from './ActivateAccount';
 
 export type AuthPageRoutes = {
   routes: {
@@ -44,9 +47,19 @@ export interface PerPageHeader {
   loginWithSSO?: ReactNode;
 }
 
+export interface PerPageProps {
+  login?: LoginProps & { header: ReactNode };
+  logout?: LogoutProps & { header: ReactNode };
+  forgotPassword?: ForgotPasswordProps & { header: ReactNode };
+  resetPassword?: ResetPasswordProps & { header: ReactNode };
+  activateAccount?: ActivateAccountProps & { header: ReactNode };
+  loginWithSSO?: LoginWithSSOProps & { header: ReactNode };
+}
+
 export interface AuthPageProps {
   header?: ReactNode;
   pageHeader?: PerPageHeader;
+  pageProps?: PerPageProps;
   backgroundImage?: string;
   backgroundColor?: string;
   loaderComponent?: ReactNode;

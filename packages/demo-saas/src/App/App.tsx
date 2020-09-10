@@ -5,6 +5,7 @@ import { LoginPage, ProtectedRoute, SSOPage, useAuth } from '@frontegg/react-aut
 import { withFrontegg } from '../withFrontegg';
 import { useSelector } from 'react-redux';
 import { AuthExamples } from '../auth-examples';
+import { TestLogin } from './TestLogin';
 
 const MySSOPage = () => {
   const state = useSelector((state) => state);

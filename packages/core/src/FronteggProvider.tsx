@@ -6,7 +6,7 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation, useRouteMatch, useParams } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
@@ -70,9 +70,14 @@ const FePlugins: FC<FeProviderProps> = (props) => {
 
 const FeState: FC<FeProviderProps> = (props) => {
   const history = useHistory();
+  const location = useLocation();
   const taskRef = useRef<Task>();
-
-  const onRedirectTo = (path: string, opts: RedirectOptions) => {
+  const baseName = window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
+  const onRedirectTo = (_path: string, opts: RedirectOptions) => {
+    let path = _path;
+    if (path.startsWith(baseName)) {
+      path = path.substring(baseName.length);
+    }
     if (opts?.refresh) {
       window.Cypress ? history.push(path) : (window.location.href = path);
     } else {

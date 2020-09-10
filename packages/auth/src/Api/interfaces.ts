@@ -73,7 +73,7 @@ export interface SSOState {
   samlConfiguration?: ISamlConfiguration;
 }
 
-export interface AuthState extends AuthPageProps, AuthPageRoutes {
+export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, AuthPageRoutes {
   error?: any;
   isAuthenticated: boolean;
   isLoading: boolean;

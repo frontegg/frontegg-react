@@ -45,10 +45,8 @@ export const Login: FC<LoginProps> = (props) => {
   const { isLoading, isAuthenticated, step } = useAuth(stateMapper);
 
   let components = null;
-  if (isLoading) {
+  if (isLoading || isAuthenticated) {
     components = <Loader center={true} />;
-  } else if (isAuthenticated || step === LoginStep.success) {
-    components = <Dynamic.LoginSuccessRedirect />;
   } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
     components = <Dynamic.LoginWithPassword />;
   } else if (step === LoginStep.recoverTwoFactor) {
@@ -64,4 +62,15 @@ export const Login: FC<LoginProps> = (props) => {
   return <div className='fe-login-component'>{components}</div>;
 };
 
-export const LoginPage = authPageWrapper(Login);
+const LoginPageComponent = authPageWrapper(Login);
+export const LoginPage: FC<LoginProps> = (props) => {
+  const { isLoading, isAuthenticated } = useAuth(stateMapper);
+  if (isLoading || isAuthenticated) {
+    return (
+      <div className='fe-login-page'>
+        <Loader center={true} inline={false} />
+      </div>
+    );
+  }
+  return <LoginPageComponent {...props} />;
+};

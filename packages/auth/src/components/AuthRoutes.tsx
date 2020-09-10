@@ -1,4 +1,4 @@
-import React, { FC, isValidElement, useMemo } from 'react';
+import React, { FC, isValidElement, useMemo, createElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Logger } from '@frontegg/react-core';
 import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';
@@ -19,7 +19,7 @@ const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: Aut
 const logger = Logger.from('AuthRoutes');
 
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
-  const { header, loaderComponent, children, pageComponent, pageHeader, ...rest } = props;
+  const { header, loaderComponent, children, pageComponent, pageHeader, pageProps: perPageProps, ...rest } = props;
   const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
 
   const samlCallbackPath = useMemo(() => {
@@ -42,36 +42,32 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     ...(loaderComponent !== undefined ? { loaderComponent } : {}),
   };
 
-  let perPageProps: any = {
-    loginProps: {},
-    logoutProps: {},
-    forgotPasswordProps: {},
-    resetPasswordProps: {},
-    activateAccountProps: {},
-    loginWithSSOProps: {},
+  const computedPerPageProps = {
+    loginProps: {
+      header: pageHeader?.login,
+      ...perPageProps?.login,
+    },
+    logoutProps: {
+      header: pageHeader?.logout,
+      ...perPageProps?.logout,
+    },
+    forgotPasswordProps: {
+      header: pageHeader?.forgotPassword,
+      ...perPageProps?.forgotPassword,
+    },
+    resetPasswordProps: {
+      header: pageHeader?.resetPassword,
+      ...perPageProps?.resetPassword,
+    },
+    activateAccountProps: {
+      header: pageHeader?.activateAccount,
+      ...perPageProps?.activateAccount,
+    },
+    loginWithSSOProps: {
+      header: pageHeader?.loginWithSSO,
+      ...perPageProps?.loginWithSSO,
+    },
   };
-  if (pageHeader) {
-    perPageProps = {
-      loginProps: {
-        header: pageHeader?.login,
-      },
-      logoutProps: {
-        header: pageHeader?.logout,
-      },
-      forgotPasswordProps: {
-        header: pageHeader?.forgotPassword,
-      },
-      resetPasswordProps: {
-        header: pageHeader?.resetPassword,
-      },
-      activateAccountProps: {
-        header: pageHeader?.activateAccount,
-      },
-      loginWithSSOProps: {
-        header: pageHeader?.loginWithSSO,
-      },
-    };
-  }
 
   if (pageProps.loaderComponent && isLoading) {
     return <>{pageProps.loaderComponent}</>;
@@ -83,35 +79,35 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       path: routes.loginUrl,
       defaultComponent: LoginPage,
       standaloneComponent: Login,
-      props: perPageProps.loginProps,
+      props: computedPerPageProps.loginProps,
     },
     {
       id: 'logout',
       path: routes.logoutUrl,
       defaultComponent: LogoutPage,
       standaloneComponent: Logout,
-      props: perPageProps.logoutProps,
+      props: computedPerPageProps.logoutProps,
     },
     {
       id: 'forgotPassword',
       path: routes.forgetPasswordUrl,
       defaultComponent: ForgotPasswordPage,
       standaloneComponent: ForgotPassword,
-      props: perPageProps.forgotPasswordProps,
+      props: computedPerPageProps.forgotPasswordProps,
     },
     {
       id: 'resetPassword',
       path: routes.resetPasswordUrl,
       defaultComponent: ResetPasswordPage,
       standaloneComponent: ResetPassword,
-      props: perPageProps.resetPasswordProps,
+      props: computedPerPageProps.resetPasswordProps,
     },
     {
       id: 'activateAccount',
       path: routes.activateUrl,
       defaultComponent: ActivateAccountPage,
       standaloneComponent: ActivateAccount,
-      props: perPageProps.activateAccountProps,
+      props: computedPerPageProps.activateAccountProps,
     },
     ...(samlCallbackPath
       ? [
@@ -120,44 +116,33 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
             path: samlCallbackPath || '',
             defaultComponent: LoginWithSSOPage,
             standaloneComponent: LoginWithSSO,
-            props: perPageProps.loginWithSSOProps,
+            props: computedPerPageProps.loginWithSSOProps,
           },
         ]
       : []),
   ];
 
   return (
-    <>
-      <Switch>
-        {router.map((route) => {
-          if (pageComponent) {
-            return (
-              <Route
-                key={route.path}
-                exact
-                path={route.path}
-                render={() =>
-                  React.createElement(pageComponent, {
-                    ...pageProps,
-                    ...route.props,
-                    children: React.createElement(route.standaloneComponent as any),
-                  })
-                }
-              />
-            );
-          } else {
-            return (
-              <Route
-                exact
-                path={route.path}
-                render={() => React.createElement(route.defaultComponent as any, { ...pageProps, ...route.props })}
-              />
-            );
-          }
-        })}
+    <Switch>
+      {router.map((route) => {
+        const routeProps = {
+          key: route.path,
+          exact: true,
+          path: route.path,
+        };
+        const wrapperProps: any = {
+          ...pageProps,
+          ...route.props,
+        };
+        if (pageComponent) {
+          wrapperProps.children = createElement(route.standaloneComponent as any);
+          return <Route {...routeProps} render={() => createElement(pageComponent, wrapperProps)} />;
+        } else {
+          return <Route {...routeProps} render={() => createElement(route.defaultComponent as any, wrapperProps)} />;
+        }
+      })}
 
-        <Route path='*' children={() => children} />
-      </Switch>
-    </>
+      <Route path='*' children={() => children} />
+    </Switch>
   );
 };

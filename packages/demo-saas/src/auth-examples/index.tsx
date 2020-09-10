@@ -11,7 +11,7 @@ enum Ex {
   'OnlyAuthAPI',
 }
 
-const selectedExample: any = null;
+const selectedExample: any = 'Frontegg';
 export const AuthExamples: FC = ({ children }) => {
   switch (selectedExample) {
     case Ex.Frontegg:

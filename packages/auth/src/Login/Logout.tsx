@@ -13,7 +13,7 @@ export const Logout: FC<LogoutProps> = (props) => {
   useEffect(() => {
     setTimeout(() => {
       logout(() => (window.location.href = loginUrl));
-    }, 2000);
+    }, 500);
   }, []);
 
   if (renderer) {
@@ -21,9 +21,9 @@ export const Logout: FC<LogoutProps> = (props) => {
   }
 
   return (
-    <div className='fe-login-component'>
-      <Loader center />
+    <div className='fe-login-page'>
+      <Loader center inline={false} />
     </div>
   );
 };
-export const LogoutPage = authPageWrapper(Logout);
+export const LogoutPage = Logout;

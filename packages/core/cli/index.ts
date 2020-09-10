@@ -6,6 +6,7 @@ import updatePackages from './updatePackages';
 import chalk from 'chalk';
 import figlet from 'figlet';
 import clear from 'clear';
+import { usingTypescript, usingYarn } from './helpers';
 
 let valid = false;
 const hookCommand = (fn: any) => (args: any) => {

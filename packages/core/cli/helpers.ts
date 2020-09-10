@@ -1,10 +1,25 @@
 import fs from 'fs';
 import path from 'path';
-import { exec } from 'child_process';
 import chalk from 'chalk';
 
 export const usingTypescript = (): boolean => fs.existsSync(path.join(process.cwd(), 'tsconfig.json'));
-export const usingYarn = (): boolean => !fs.existsSync(path.join(process.cwd(), 'package-lock.json'));
+export const usingYarn = (): boolean => {
+  let cwd = process.cwd();
+  let packageLockFound = false;
+  do {
+    packageLockFound = fs.existsSync(path.join(cwd, 'package-lock.json'));
+    if (
+      fs.existsSync(path.join(cwd, 'lerna.json')) ||
+      fs.existsSync(path.join(process.cwd(), 'yarn.lock')) ||
+      fs.existsSync(path.join(cwd, 'node_modules')) ||
+      fs.existsSync(path.join(cwd, '.git'))
+    ) {
+      return true;
+    }
+    cwd = path.join(cwd, '../');
+  } while (!packageLockFound);
+  return packageLockFound;
+};
 export const getPackageJson = (): any =>
   JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
 export const isFileExistsInSrc = (fileName: string): boolean =>

@@ -21,7 +21,7 @@ const plugins: PluginConfig[] = [
 ];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider withRouter={true} context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
+  <FronteggProvider withRouter={false} context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
     <Component />
   </FronteggProvider>
 );
