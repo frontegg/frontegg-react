@@ -23,25 +23,25 @@ In order to provide a **fully customizable** component, *Frontegg* team building
 
 This design gives you the ability to inject your custom components inside the built-in component.
 
-<font color='red'>**NOTE!**:</font> **In you pass children to the SSO components
-will render it without any inner component, if you want to customize a specific element
-you need to add the other inner components to the parent component, see bellow
-examples of how you can override single component:**
+<font color='red'>**NOTE!**:</font> **If you pass a child to the SSO component
+it will be rendered without any inner default components, then if you want to customize a specific element
+you need to add the other inner default components to it, see bellow examples of how
+you can override single component:**
 
 **You can find the default render method foreach SSO component [here](#default-rendered-components)**
 
-## Default Rendered Components
+### Default Rendered Components
 
-- [`SSO.Page`](./SSOPage.tsx)
-- [`SSO.Toggle`](./SSOToggle.tsx)
-- [`SSO.Router`](./SSORouter.tsx)
-  - [`SSO.OverviewPage`](./SSOOverviewPage/SSOOverviewPage.tsx)
-    - [`SSO.NoDataPlaceholder`](./SSOOverviewPage/SSONoDataPlaceholder.tsx)
-    - [`SSO.Steps`](./SSOOverviewPage/SSOSteps.tsx)
-  - [`SSO.ClaimDomainPage`](./SSOClaimDomainPage/SSOClaimDomainPage.tsx)
-  - [`SSO.ConfigureIDPPage`](./SSOConfigureIDPPage/SSOConfigureIDPPage.tsx)
+- [`SSO.Page`](./SSOPage.tsx#L47)
+  - [`SSO.Header`](./SSOPage.tsx#L15)
+  - [`SSO.Router`](./SSORouter.tsx#L28)
+    - [`SSO.OverviewPage`](./SSOOverviewPage/SSOOverviewPage.tsx#L17)
+      - [`SSO.NoDataPlaceholder`](./SSOOverviewPage/SSONoDataPlaceholder.tsx#L16)
+      - [`SSO.Steps`](./SSOOverviewPage/SSOSteps.tsx#L24)
+    - [`SSO.ClaimDomainPage`](./SSOClaimDomainPage/SSOClaimDomainPage.tsx)
+    - [`SSO.ConfigureIDPPage`](./SSOConfigureIDPPage/SSOConfigureIDPPage.tsx)
 
-Here are some examples of how to customized the **SSO** components:
+**Here are some examples of how to customize the **SSO** components:**
 
 - [Custom header title](#custom-header-title)
 - [Render without header](#render-header-title)
