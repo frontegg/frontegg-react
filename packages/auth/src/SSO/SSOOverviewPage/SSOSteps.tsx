@@ -1,19 +1,19 @@
-import React, { FC, useContext } from 'react';
-import { useRootPath, useT, RendererFunctionFC, omitProps } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { useRootPath, useT, Loader, checkRootPath } from '@frontegg/react-core';
 import { SSOStep } from './SSOStep';
 import { useAuth } from '../../hooks';
+import { HideOption } from '../interfaces';
 
-export interface SSOOverviewStepsProps {
-  renderer?: RendererFunctionFC<SSOOverviewStepsProps>;
-}
-
-export const SSOOverviewSteps: FC<SSOOverviewStepsProps> = (props) => {
+export const SSOSteps: FC<HideOption> = (props) => {
   const { t } = useT();
-  const [rootPath] = useRootPath(props);
-  const { samlConfiguration } = useAuth((state) => state.ssoState);
-  const { renderer } = props;
-  if (renderer) {
-    return renderer(omitProps(props, ['renderer']));
+  const rootPath = checkRootPath('SSOSteps should be rendered inside SSO component');
+
+  const { samlConfiguration, loading } = useAuth((state) => state.ssoState);
+  if (!samlConfiguration?.enabled || props.hide) {
+    return null;
+  }
+  if (loading) {
+    return <Loader inline={false} />;
   }
 
   const isDomainValidated = samlConfiguration?.validated ?? false;

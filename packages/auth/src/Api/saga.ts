@@ -245,6 +245,13 @@ function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<IS
   );
   try {
     yield put(actions.setSSOState({ samlConfiguration, loading: true }));
+
+    const firstTimeConfigure = !samlConfiguration?.domain;
+    if (firstTimeConfigure) {
+      yield put(actions.setSSOState({ samlConfiguration }));
+      return;
+    }
+
     const updateSamlConfiguration: IUpdateSamlConfiguration = omitProps(samlConfiguration, [
       'validated',
       'generatedVerification',

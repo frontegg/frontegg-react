@@ -31,5 +31,11 @@
     * {
       cursor: progress !important;
     }
+
+    label:after {
+      left: 1.1rem !important;
+      box-shadow: none;
+      opacity: 0.5 !important;
+    }
   }
 }

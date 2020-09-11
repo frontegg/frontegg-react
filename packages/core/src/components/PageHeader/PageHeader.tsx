@@ -4,7 +4,7 @@ import { Icon, Tab, TabProps } from '../../ElementsFactory';
 
 export interface PageHeaderProps {
   className?: string;
-  title: ReactNode | string;
+  title?: ReactNode | string;
   titleClassName?: string;
   subTitle?: string | ReactElement;
   childClassName?: string;

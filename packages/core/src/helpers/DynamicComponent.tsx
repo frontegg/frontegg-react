@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement, ReactNode, useMemo } from 'react';
+import React, { ComponentType, FC, ReactElement, ReactNode, useMemo } from 'react';
 import ownKeys = Reflect.ownKeys;
 
 export class EmptyRender extends React.Component<any, any> {
@@ -81,7 +81,7 @@ export const buildDynamicComponent = <T extends {}, P>(
   return React.memo(DefaultComponent as any, memoEqual);
 };
 
-export const buildPropsComponents = <P>(components: any, defaultComponents: P): P => {
+export const buildPropsComponents = <P extends {}>(components: any, defaultComponents: P): P => {
   if (!components) {
     return defaultComponents;
   }
@@ -112,7 +112,7 @@ export const generateComponent = <T extends {}, P>(
   return defaultComponent;
 };
 
-export const buildComponents = <P>(components: any, defaultComponents: P): P => {
+export const buildComponents = <P extends {}>(components: any, defaultComponents: P): P => {
   if (!components) {
     return defaultComponents;
   }
@@ -130,7 +130,7 @@ export const useDynamicComponents = <COMPS, A, P extends { components?: Componen
   return useMemo(() => buildComponents(props.components, defaultComponents), [props.components]);
 };
 
-export const buildComponentsProps = <P>(configComponents: P, propsComponents: P) => {
+export const buildComponentsProps = <P extends {}>(configComponents: P, propsComponents: P) => {
   const props: any = {};
 
   const merger = (comps: any) => {
@@ -155,7 +155,7 @@ export const buildComponentsProps = <P>(configComponents: P, propsComponents: P)
   return props;
 };
 
-export const cloneComponentsWithProps = <P>(
+export const cloneComponentsWithProps = <P extends {}>(
   components: ComponentsTypes<P>,
   configProps: PartialInnerTypes<P>
 ): ComponentsTypes<P> => {
@@ -184,3 +184,34 @@ export class FronteggClass<
     this.comps = buildComponents(this.compsProps, defaultComponents);
   }
 }
+
+export const checkValidChildren = <T extends {}>(
+  wrapperName: string,
+  hostName: string,
+  children: ReactNode,
+  requiredComponents: Partial<T>,
+  depth: number = 0
+) => {
+  if (children == null) {
+    return true;
+  }
+  let _keys = Object.keys(requiredComponents);
+  const _values = Object.values(requiredComponents);
+  React.Children.map(children, (child: any, index) => {
+    const childIndex = _values.indexOf(child?.type);
+    if (childIndex !== -1) {
+      // @ts-ignore
+      delete requiredComponents[_keys[childIndex]];
+    }
+    checkValidChildren(wrapperName, hostName, child?.props?.children, requiredComponents, depth + 1);
+  });
+  _keys = Object.keys(requiredComponents);
+  if (_keys.length > 0 && depth === 0) {
+    const warn = _keys.map((k) => `${hostName}.${k}`).join(', ');
+    throw Error(
+      `Missing required components inside ${wrapperName} => [${warn}].\nDid you mean to hide these components? just pass 'hide' property to it, Example:\n\n\t<${wrapperName}>\n\t\t<${hostName}.${_keys[0]} hide />\n\t</${hostName}>\n\n`
+    );
+  }
+};
+
+export const PartialOverride: FC = ({ children }) => <>{children}</>;

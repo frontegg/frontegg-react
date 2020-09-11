@@ -22,12 +22,12 @@ function counter(state = 0, action: any) {
 const store = createStore(counter);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  // </React.StrictMode>
   document.getElementById('root')
 );

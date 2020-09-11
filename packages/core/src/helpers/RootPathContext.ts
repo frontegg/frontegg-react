@@ -11,3 +11,11 @@ export const useRootPath = (props: any, defaultRoute: string = '/'): [string, bo
 
   return [rootPath, isRootPathContext];
 };
+
+export const checkRootPath = (error: string): string => {
+  const path = useContext(RootPathContext);
+  if (path != null) {
+    return path;
+  }
+  throw Error(error);
+};
