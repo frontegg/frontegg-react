@@ -17,6 +17,9 @@ const AppRouter:FC = ()=> {
   </div>
 }
 ```
+
+![Base Example Result](https://github.com/frontegg/frontegg/react/blob/master/imgs/sso-basic-example.png?raw=true)
+
 ## Customization
 
 In order to provide a **fully customizable** component, *Frontegg* team building their components with Compound Components design pattern.
@@ -41,7 +44,10 @@ you can override single component:**
     - [`SSO.ClaimDomainPage`](./SSOClaimDomainPage/SSOClaimDomainPage.tsx)
     - [`SSO.ConfigureIDPPage`](./SSOConfigureIDPPage/SSOConfigureIDPPage.tsx)
 
-**Here are some examples of how to customize the **SSO** components:**
+
+## Examples
+
+Here are some examples of how to customize the **SSO** components:
 
 - [Custom header title](#custom-header-title)
 - [Render without header](#render-header-title)
