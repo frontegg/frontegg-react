@@ -19,7 +19,6 @@ const SSORouter: FC<SSOProps> & SSOSubComponents = (props) => {
   const [rootPath, isRootPathContext] = useRootPath(props, '/sso');
   reloadSSOIfNeeded();
   checkValidChildren('SSO.Router', 'SSO', props.children, {
-    SSOToggle,
     OverviewPage,
     ClaimDomainPage,
     ConfigureIDPPage,
