@@ -76,6 +76,7 @@
       color: #666;
       font-size: 1.25rem;
     }
+
     &__subtitle {
       margin-top: 1.5rem;
       padding: 0 1.5rem;
@@ -88,6 +89,53 @@
       display: flex;
       justify-content: space-around;
       color: #3c4a5a;
+    }
+  }
+}
+
+.fe-sso-claim-domain-page {
+  border-radius: var(--element-border-radius);
+  padding: 1rem 1rem 1rem 2rem;
+  background-color: var(--color-gray-0);
+  display: flex;
+  justify-content: space-between;
+  width: 60rem;
+  max-width: 80%;
+  margin: 2rem auto;
+}
+
+.fe-sso-claim-domain-guide {
+  padding: 1rem;
+
+  &__title {
+    color: var(--color-gray-9);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  &__description {
+    color: var(--color-gray-6);
+    font-size: 1rem;
+  }
+
+  &__steps {
+    > * {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__step {
+    background: var(--color-white);
+    color: var(--color-gray-9);
+    padding: 0.9rem;
+    border-radius: calc(var(--element-border-radius) / 2);
+    display: flex;
+    align-items: center;
+
+    .fe-icon {
+      margin-right: 0.5rem;
+      color: var(--color-gray-3);
+      font-size: 1.2rem;
     }
   }
 }

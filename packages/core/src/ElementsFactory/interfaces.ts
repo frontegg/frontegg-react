@@ -44,7 +44,7 @@ export interface SwitchToggleProps {
 }
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
-  name: 'left-arrow' | 'checkmark';
+  name: 'left-arrow' | 'right-arrow' | 'checkmark';
   size?: 'small' | 'medium' | 'large';
 }
 

@@ -5,7 +5,8 @@ import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import classNames from 'classnames';
 
 const iconMap: { [name: string]: SemanticICONS } = {
-  'left-arrow': 'arrow left',
+  'left-arrow': 'angle left',
+  'right-arrow': 'angle right',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

@@ -18,7 +18,7 @@ const AppRouter:FC = ()=> {
 }
 ```
 
-![Base Example Result](https://github.com/frontegg/frontegg-react/raw/master/imgs/sso-basic-example.png)
+![Base Example Result](imgs/sso-basic-example.png)
 
 ## Customization
 

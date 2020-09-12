@@ -12,7 +12,7 @@ export const SSONoDataPlaceholder: FC<HideOption> = (props) => {
   if (loading) {
     return <Loader inline={false} />;
   }
-  const children = props.children ?? t('auth.sso.enable-sso-message');
+  const children = props.children ?? t('auth.sso.overview.enable-sso-message');
   return (
     <div className='fe-placeholder-box'>
       <div className='fe-placeholder-box__inner'>

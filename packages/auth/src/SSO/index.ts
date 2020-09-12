@@ -2,7 +2,7 @@ import { SSORouter } from './SSORouter';
 import { SSOPage, SSOHeader } from './SSOPage';
 import { SSOToggle } from './SSOToggle';
 import { SSOOverviewPage, SSOSteps, SSONoDataPlaceholder } from './SSOOverviewPage';
-import { SSOClaimDomainPage } from './SSOClaimDomainPage';
+import { SSOClaimDomainPage, SSOClaimDomainGuide, SSOClaimDomainForm } from './SSOClaimDomainPage';
 import { SSOConfigureIDPPage } from './SSOConfigureIDPPage';
 
 export default SSOPage;
@@ -16,4 +16,6 @@ export {
   SSOHeader as Header,
   SSOSteps as Steps,
   SSONoDataPlaceholder as NoDataPlaceholder,
+  SSOClaimDomainGuide as ClaimDomainGuide,
+  SSOClaimDomainForm as ClaimDomainForm,
 };

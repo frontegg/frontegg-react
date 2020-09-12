@@ -27,7 +27,7 @@ export const SSOSteps: FC<HideOption> = (props) => {
         num={1}
         t={t}
         to={`${rootPath}/domain`}
-        title={t('auth.sso.claim-domain')}
+        title={t('auth.sso.overview.claim-domain')}
         subtitle={claimValue}
         configured={isDomainValidated}
       />
@@ -35,7 +35,7 @@ export const SSOSteps: FC<HideOption> = (props) => {
         num={2}
         t={t}
         to={`${rootPath}/idp`}
-        title={t('auth.sso.configure-your-idp')}
+        title={t('auth.sso.overview.configure-your-idp')}
         subtitle={idpValue}
         configured={isIdpValidated}
       />

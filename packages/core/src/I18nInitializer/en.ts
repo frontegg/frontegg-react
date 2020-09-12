@@ -59,9 +59,21 @@ export default {
       sso: {
         title: 'Single Sign On',
         subtitle: 'Configure single-sign-on with your own Identity Provider',
-        'enable-sso-message': 'Enable sso and configure the settings to quickly use this functionality',
-        'claim-domain': 'Claim Domain',
-        'configure-your-idp': 'Configure Your IDP',
+        overview: {
+          'enable-sso-message': 'Enable sso and configure the settings to quickly use this functionality',
+          'claim-domain': 'Claim Domain',
+          'configure-your-idp': 'Configure Your IDP',
+        },
+        'claim-domain': {
+          guide: {
+            title: 'Guide',
+            description: 'Helpful information explaining the process',
+            'steps-0': 'Enter your domain name',
+            'steps-1': 'Click proceed',
+            'steps-2': 'Copy the TXT value to your DNS',
+            'steps-3': 'Click "Validate',
+          },
+        },
       },
     },
     validation: {
