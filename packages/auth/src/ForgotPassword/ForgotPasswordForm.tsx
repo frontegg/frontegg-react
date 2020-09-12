@@ -1,8 +1,18 @@
 import React, { ComponentType, createElement, FC } from 'react';
-import { Formik } from 'formik';
-import { useT, validateEmail, validateSchema, ErrorMessage, FForm, FInput, FButton } from '@frontegg/react-core';
+import {
+  useT,
+  validateEmail,
+  validateSchema,
+  ErrorMessage,
+  FForm,
+  FInput,
+  FButton,
+  FFormik,
+} from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 import { AuthState } from '../Api';
+
+const { Formik } = FFormik;
 
 type ForgotPasswordFormRendererProps = Omit<ForgotPasswordFormProps, 'renderer'> & ReturnType<typeof stateMapper>;
 
