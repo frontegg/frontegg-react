@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Formik } from 'formik';
 import {
   Form,
   Button,
@@ -14,8 +13,11 @@ import {
   FInput,
   FButton,
   FForm,
+  FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+
+const { Formik } = FFormik;
 
 export interface ResetPasswordFormProps {
   renderer?: RendererFunctionFC<ResetPasswordFormProps>;

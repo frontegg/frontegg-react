@@ -1,6 +1,5 @@
 import React, { ComponentType, createElement, FC } from 'react';
 import { AuthActions, AuthState } from '../Api';
-import { Formik } from 'formik';
 import {
   validatePassword,
   validatePasswordConfirmation,
@@ -10,8 +9,11 @@ import {
   FButton,
   FInput,
   useT,
+  FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+
+const { Formik } = FFormik;
 
 const stateMapper = ({ activateState }: AuthState) => ({ activateState });
 

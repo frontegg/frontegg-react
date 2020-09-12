@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Formik } from 'formik';
 import {
   omitProps,
   validateSchema,
@@ -10,8 +9,11 @@ import {
   FInput,
   FButton,
   FForm,
+  FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+
+const { Formik } = FFormik;
 
 export interface RecoverTwoFactorProps {
   renderer?: RendererFunctionFC<RecoverTwoFactorProps>;
