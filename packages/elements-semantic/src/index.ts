@@ -4,8 +4,9 @@ import { Input } from './Input';
 import { Form } from './Form';
 import { Loader } from './Loader';
 import { SwitchToggle } from './SwitchToggle';
-import { Tab } from './Tab';
+import { Tabs } from './Tabs';
 import { Icon } from './Icon';
+import { Dialog } from './Dialog';
 
 export const type = 'semantic';
 export const version = '1.2.1';
@@ -15,6 +16,7 @@ export const uiLibrary: Elements = {
   Form,
   Loader,
   SwitchToggle,
-  Tab,
+  Tabs,
   Icon,
+  Dialog,
 };

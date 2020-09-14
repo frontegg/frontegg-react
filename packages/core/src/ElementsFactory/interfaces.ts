@@ -1,8 +1,9 @@
 import React, { ComponentType } from 'react';
+import { DialogProps } from './Dialog';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
-  size?: 'mini' | 'small' | 'large' | 'big' | 'huge' | 'massive'; // default: undefined
+  size?: 'small' | 'medium' | 'large';
 };
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
@@ -12,17 +13,17 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   error?: string;
 }
 
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, FormFieldProps {
-  testId?: string;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, FormFieldProps {
   fullWidth?: boolean;
   variant?: 'primary' | 'secondary' | 'danger';
-
-  disabled?: boolean;
+  isCancel?: boolean;
   loading?: boolean;
-  submit?: boolean;
-  type?: 'button' | 'submit' | 'reset';
 
-  // formik props
+  // @deprecated
+  submit?: boolean;
+  testId?: string;
+
+  // internal use
   formikDisableIfNotDirty?: boolean; // default true
 }
 
@@ -43,13 +44,17 @@ export interface SwitchToggleProps {
   onChange?: (toggled: boolean) => void;
 }
 
+export type IconNames = 'left-arrow' | 'right-arrow' | 'checkmark' | 'copy' | 'warning';
+
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
-  name: 'left-arrow' | 'right-arrow' | 'checkmark';
+  name: IconNames;
   size?: 'small' | 'medium' | 'large';
 }
 
 export interface TabProps {
-  menu: [];
+  items: ComponentType[];
+  activeTab: number;
+  onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
 }
 
 export type ElementProps = {
@@ -59,10 +64,11 @@ export type ElementProps = {
   Loader: ComponentType<LoaderProps>;
   SwitchToggle: ComponentType<SwitchToggleProps>;
   Icon: ComponentType<IconProps>;
-  Tab: ComponentType<TabProps>;
+  Tabs: ComponentType<TabProps>;
+  Dialog: ComponentType<DialogProps>;
 };
 
-export type ElementType = 'Button' | 'Input' | 'Form' | 'Loader' | 'SwitchToggle' | 'Icon' | 'Tab';
+export type ElementType = 'Button' | 'Input' | 'Form' | 'Loader' | 'SwitchToggle' | 'Icon' | 'Tabs' | 'Dialog';
 
 export type Elements = {
   [type in ElementType]: ElementProps[type];

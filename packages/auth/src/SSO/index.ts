@@ -1,21 +1,21 @@
 import { SSORouter } from './SSORouter';
-import { SSOPage, SSOHeader } from './SSOPage';
+import { SSOPage } from './SSOPage';
+import { SSOHeader } from './SSOHeader';
 import { SSOToggle } from './SSOToggle';
 import { SSOOverviewPage, SSOSteps, SSONoDataPlaceholder } from './SSOOverviewPage';
 import { SSOClaimDomainPage, SSOClaimDomainGuide, SSOClaimDomainForm } from './SSOClaimDomainPage';
 import { SSOConfigureIDPPage } from './SSOConfigureIDPPage';
 
-export default SSOPage;
-export {
-  SSORouter as Router,
-  SSOPage as Page,
-  SSOToggle as Toggle,
-  SSOOverviewPage as OverviewPage,
-  SSOClaimDomainPage as ClaimDomainPage,
-  SSOConfigureIDPPage as ConfigureIDPPage,
-  SSOHeader as Header,
-  SSOSteps as Steps,
-  SSONoDataPlaceholder as NoDataPlaceholder,
-  SSOClaimDomainGuide as ClaimDomainGuide,
-  SSOClaimDomainForm as ClaimDomainForm,
+export const SSO = {
+  Page: SSOPage,
+  Header: SSOHeader,
+  Router: SSORouter,
+  Toggle: SSOToggle,
+  OverviewPage: SSOOverviewPage,
+  ClaimDomainPage: SSOClaimDomainPage,
+  ConfigureIDPPage: SSOConfigureIDPPage,
+  Steps: SSOSteps,
+  NoDataPlaceholder: SSONoDataPlaceholder,
+  ClaimDomainGuide: SSOClaimDomainGuide,
+  ClaimDomainForm: SSOClaimDomainForm,
 };

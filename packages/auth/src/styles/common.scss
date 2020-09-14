@@ -1,5 +1,7 @@
 :root {
   box-sizing: border-box;
+  font-smoothing: auto;
+  -webkit-font-smoothing: auto;
 }
 
 .fe-login-page {
@@ -53,4 +55,10 @@
   > * {
     max-width: 100%;
   }
+}
+
+.fe-section-title {
+  color: var(--color-gray-6);
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }

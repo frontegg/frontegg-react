@@ -1,35 +1,29 @@
 import React, { FC } from 'react';
-import { checkValidChildren, RootPathContext } from '@frontegg/react-core';
-import { SSOOverviewPage as OverviewPage } from './SSOOverviewPage';
-import { SSOClaimDomainPage as ClaimDomainPage } from './SSOClaimDomainPage';
-import { SSOConfigureIDPPage as ConfigureIDPPage } from './SSOConfigureIDPPage';
-import { useRootPath } from '@frontegg/react-core';
-import { BasePageProps } from './interfaces';
+import { checkValidChildren, RootPathContext, useRootPath } from '@frontegg/react-core';
+import { SSOOverviewPage } from '../SSO/SSOOverviewPage';
+import { SSOClaimDomainPage } from '../SSO/SSOClaimDomainPage';
+import { SSOConfigureIDPPage } from '../SSO/SSOConfigureIDPPage';
 import { reloadSSOIfNeeded } from './helpers';
 import { SSOToggle } from './SSOToggle';
+import { BasePageProps } from '../interfaces';
 
-export type SSOSubComponents = {
-  OverviewPage: typeof OverviewPage;
-  ClaimDomainPage: typeof ClaimDomainPage;
-  ConfigureIDPPage: typeof ConfigureIDPPage;
-};
 export type SSOProps = BasePageProps;
 
-const SSORouter: FC<SSOProps> & SSOSubComponents = (props) => {
+const SSORouter: FC<SSOProps> = (props) => {
   const [rootPath, isRootPathContext] = useRootPath(props, '/sso');
   reloadSSOIfNeeded();
   checkValidChildren('SSO.Router', 'SSO', props.children, {
-    OverviewPage,
-    ClaimDomainPage,
-    ConfigureIDPPage,
+    SSOOverviewPage,
+    SSOClaimDomainPage,
+    SSOConfigureIDPPage,
   });
 
   const children = props.children ?? (
     <>
       <SSOToggle />
-      <OverviewPage />
-      <ClaimDomainPage />
-      <ConfigureIDPPage />
+      <SSOOverviewPage />
+      <SSOClaimDomainPage />
+      <SSOConfigureIDPPage />
     </>
   );
 
@@ -38,9 +32,5 @@ const SSORouter: FC<SSOProps> & SSOSubComponents = (props) => {
   }
   return <>{children}</>;
 };
-
-SSORouter.OverviewPage = OverviewPage;
-SSORouter.ClaimDomainPage = ClaimDomainPage;
-SSORouter.ConfigureIDPPage = ConfigureIDPPage;
 
 export { SSORouter };

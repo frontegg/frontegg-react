@@ -1,12 +1,15 @@
 import React from 'react';
-import { IconProps } from '@frontegg/react-core';
+import { IconNames, IconProps } from '@frontegg/react-core';
 import { Icon as SemanticIcon, IconProps as SemanticIconProps } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import classNames from 'classnames';
 
-const iconMap: { [name: string]: SemanticICONS } = {
+const iconMap: { [K in IconNames]: SemanticICONS } = {
   'left-arrow': 'angle left',
   'right-arrow': 'angle right',
+  copy: 'copy',
+  checkmark: 'checkmark',
+  warning: 'warning sign',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

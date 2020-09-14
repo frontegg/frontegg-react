@@ -1,5 +1,5 @@
 import { AuthPageProps, AuthPageRoutes } from '../interfaces';
-import { RedirectOptions } from '@frontegg/react-core';
+import { IUserProfile, RedirectOptions } from '@frontegg/react-core';
 import { ISamlConfiguration } from '@frontegg/react-core';
 
 export interface User {
@@ -58,33 +58,51 @@ export interface ForgotPasswordState {
   error?: any;
 }
 
+// Single Sign On
 export interface SSOState {
   firstLoad: boolean;
   loading: boolean;
   error?: any;
   saving?: boolean;
-
-  // domainValidationState
-  // errorVerification?: string;
-  // domainValidationError?: string | null;
-  // redirect: boolean;
-  // acsUrl?: string;
-  // spEntityId?: string;
   samlConfiguration?: ISamlConfiguration;
 }
 
+// Profile
+export interface ProfileState {
+  loading: boolean;
+  error?: any;
+  saving?: boolean;
+  profile?: IUserProfile;
+}
+
+// Multi-Factor Authentication
+export enum MFAStep {
+  'verify' = 'verify',
+  'recoveryCode' = 'recoveryCode',
+}
+
+export interface MFAState {
+  step: MFAStep;
+  loading: boolean;
+  error?: any;
+  recoveryCode?: string;
+  qrCode?: string | null; // qr code image base64
+}
+
 export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, AuthPageRoutes {
+  onRedirectTo: (path: string, opts?: RedirectOptions) => void;
   error?: any;
   isAuthenticated: boolean;
   isLoading: boolean;
-  user?: User;
+  user?: User | null;
   isSSOAuth: boolean;
   ssoACS?: string;
   loginState: LoginState;
   activateState: ActivateState;
   forgetPasswordState: ForgotPasswordState;
   ssoState: SSOState;
-  onRedirectTo: (path: string, opts?: RedirectOptions) => void;
+  profileState: ProfileState;
+  mfaState: MFAState;
 }
 
 export type PreLoginPayload = {

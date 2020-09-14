@@ -1,4 +1,4 @@
-import React, { FC, isValidElement, useMemo, createElement } from 'react';
+import React, { FC, useMemo, createElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Logger } from '@frontegg/react-core';
 import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';

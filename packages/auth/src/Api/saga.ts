@@ -4,6 +4,7 @@ import {
   api,
   ContextHolder,
   IActivateAccount,
+  IDisableMfa,
   IForgotPassword,
   ILogin,
   ILoginWithMfa,
@@ -13,11 +14,13 @@ import {
   IResetPassword,
   ISamlConfiguration,
   IUpdateSamlConfiguration,
+  IVerifyMfa,
   omitProps,
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ActivateStep, ForgotPasswordStep, LoginStep } from './interfaces';
+import { ActivateStep, ForgotPasswordStep, LoginStep, MFAStep } from './interfaces';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
+import { Post } from '@frontegg/react-core/dist/api/fetch';
 
 function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -271,6 +274,50 @@ function* validateSSODomain() {
   } catch (e) {}
 }
 
+/***************************
+ * MFA Saga
+ ***************************/
+function* enrollMfa() {
+  yield put(actions.setMfaState({ loading: true }));
+  try {
+    const { qrCode } = yield api.auth.enrollMfa();
+    yield put(actions.setMfaState({ loading: false, error: undefined, qrCode }));
+  } catch (e) {
+    yield put(actions.setMfaState({ loading: false, error: e.message }));
+  }
+}
+
+function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
+  yield put(actions.setMfaState({ loading: true }));
+  try {
+    const user = yield select((state) => state.auth.user);
+    const { recoveryCode } = yield api.auth.verifyMfa(payload);
+    yield put(
+      actions.setMfaState({
+        step: MFAStep.recoveryCode,
+        loading: false,
+        error: undefined,
+        recoveryCode,
+      })
+    );
+    yield put(actions.setUser({ ...user, mfaEnabled: true }));
+  } catch (e) {
+    yield put(actions.setMfaState({ loading: false, error: e.message }));
+  }
+}
+
+function* disableMfa({ payload }: PayloadAction<IDisableMfa>) {
+  yield put(actions.setMfaState({ loading: true }));
+  try {
+    const user = yield select((state) => state.auth.user);
+    yield api.auth.disableMfa(payload);
+    yield put(actions.setMfaState({ loading: false, error: undefined }));
+    yield put(actions.setUser({ ...user, mfaRequired: false }));
+  } catch (e) {
+    yield put(actions.setMfaState({ loading: false, error: e.message }));
+  }
+}
+
 export function* sagas() {
   yield takeLeading(actions.requestAuthorize, requestAuthorize);
   yield takeEvery(actions.preLogin, preLogin);
@@ -287,4 +334,9 @@ export function* sagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
+
+  // mfa
+  yield takeEvery(actions.enrollMfa, enrollMfa);
+  yield takeEvery(actions.verifyMfa, verifyMfa);
+  yield takeEvery(actions.disableMfa, disableMfa);
 }

@@ -14,7 +14,8 @@ export * from './Login';
 export * from './ActivateAccount';
 export * from './ForgotPassword';
 export * from './ResetPassword';
-export * as SSO from './SSO';
+export * from './SSO';
+export * from './Profile';
 
 export { AuthRoutes };
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({

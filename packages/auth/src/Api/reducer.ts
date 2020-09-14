@@ -7,27 +7,43 @@ import {
   ForgotPasswordStep,
   LoginState,
   LoginStep,
+  MFAState,
+  MFAStep,
   SSOState,
   User,
 } from './interfaces';
 import {
   IActivateAccount,
+  IDisableMfa,
   IForgotPassword,
   ILogin,
   ILoginWithMfa,
+  IPostLogin,
   IPreLogin,
   IRecoverMFAToken,
   IResetPassword,
   ISamlConfiguration,
-  IPostLogin,
+  IVerifyMfa,
 } from '@frontegg/react-core';
 
 export const storeName = 'auth';
 
 export const preloadedState: AuthState = {
+  // routes
+  routes: {
+    authenticatedUrl: '/',
+    loginUrl: '/account/login',
+    logoutUrl: '/account/logout',
+    activateUrl: '/account/activate',
+    forgetPasswordUrl: '/account/forget-password',
+    resetPasswordUrl: '/account/reset-password',
+  },
+  onRedirectTo: () => {},
+
   isAuthenticated: false,
   isLoading: true,
   isSSOAuth: false,
+  user: null,
 
   loginState: {
     step: LoginStep.preLogin,
@@ -50,16 +66,14 @@ export const preloadedState: AuthState = {
     firstLoad: true,
     loading: true,
   },
-  // routes
-  routes: {
-    authenticatedUrl: '/',
-    loginUrl: '/account/login',
-    logoutUrl: '/account/logout',
-    activateUrl: '/account/activate',
-    forgetPasswordUrl: '/account/forget-password',
-    resetPasswordUrl: '/account/reset-password',
+
+  profileState: {
+    loading: true,
   },
-  onRedirectTo: () => {},
+  mfaState: {
+    step: MFAStep.verify,
+    loading: false,
+  },
 };
 
 const resetStateByKey = <T>(key: keyof AuthState) => (state: AuthState) => ({ ...state, [key]: preloadedState[key] });
@@ -100,9 +114,13 @@ const { reducer, actions: SliceActions } = createSlice({
     setForgotPasswordState: typeReducerForKey<ForgotPasswordState>('forgetPasswordState'),
     resetForgotPasswordState: resetStateByKey<ForgotPasswordState>('forgetPasswordState'),
 
-    // sso
+    // sso reducers
     setSSOState: typeReducerForKey<SSOState>('ssoState'),
     resetSSOState: resetStateByKey<SSOState>('ssoState'),
+
+    // mfa reducers
+    setMfaState: typeReducerForKey<MFAState>('mfaState'),
+    resetMfaState: resetStateByKey<MFAState>('mfaState'),
   },
 });
 
@@ -125,6 +143,15 @@ const actions = {
     payload,
   })),
   validateSSODomain: createAction(`${storeName}/validateSSODomain`),
+
+  // profile
+  loadProfile: createAction(`${storeName}/loadProfile`),
+  saveProfile: createAction(`${storeName}/saveProfile`),
+
+  // mfa actions
+  enrollMfa: createAction(`${name}/enrollMfa`, (payload = {}) => ({ payload })),
+  verifyMfa: createAction(`${name}/verifyMfa`, (payload: IVerifyMfa) => ({ payload })),
+  disableMfa: createAction(`${name}/disableMfa`, (payload: IDisableMfa) => ({ payload })),
 };
 
 export type AuthActions = typeof actions;

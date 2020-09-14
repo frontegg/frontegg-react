@@ -62,7 +62,7 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           label={t('auth.activate-account.confirm-new-password')}
           placeholder={t('auth.activate-account.enter-your-password-again')}
         />
-        <FButton submit loading={loading} variant='primary'>
+        <FButton type='submit' loading={loading} variant='primary'>
           {t('auth.activate-account.activate-account-button')}
         </FButton>
         <ErrorMessage error={error} />

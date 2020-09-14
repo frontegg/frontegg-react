@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Loader, useT } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
-import { HideOption } from '../interfaces';
+import { HideOption } from '../../interfaces';
 
 export const SSONoDataPlaceholder: FC<HideOption> = (props) => {
   const { t } = useT();

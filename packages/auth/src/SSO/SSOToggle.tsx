@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { SwitchToggle, SwitchToggleProps, useT } from '@frontegg/react-core';
-import { HideOption } from './interfaces';
 import { useAuth } from '../hooks';
 import { reloadSSOIfNeeded } from './helpers';
+import { HideOption } from '../interfaces';
 
 export const SSOToggle: FC<SwitchToggleProps & HideOption> = (props) => {
   reloadSSOIfNeeded();

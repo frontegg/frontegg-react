@@ -1,0 +1,10 @@
+.fe-dimmer.ui.dimmer {
+  background-color: var(--color-black-40);
+}
+
+.fe-dialog__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}

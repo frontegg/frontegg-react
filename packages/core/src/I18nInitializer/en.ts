@@ -1,14 +1,17 @@
-import React from 'react';
-
 export default {
   translation: {
     common: {
       'click-here': 'Click Here',
+      disable: 'Disable',
+      enable: 'Enable',
       disabled: 'Disabled',
       enabled: 'Enabled',
       step: 'Step {{num}}',
       configured: 'Configured',
+      close: 'Close',
       edit: 'Edit',
+      done: 'Done',
+      copied: 'Copied!',
       'not-configured': 'Not Configured',
     },
     auth: {
@@ -73,6 +76,34 @@ export default {
             'steps-2': 'Copy the TXT value to your DNS',
             'steps-3': 'Click "Validate',
           },
+        },
+      },
+      profile: {
+        title: 'My Profile',
+        info: {
+          title: 'Basic Info',
+        },
+        'password-settings': {
+          title: 'Change Password',
+        },
+      },
+      mfa: {
+        title: 'Multi-Factor Authentication',
+        'disable-title': 'Disable Two-factor authentication',
+        verify: {
+          message: 'Enable 2FA to get an extra layer of security.',
+          'scan-qr-description-1': `Use your phone to scan the following QR code with `,
+          'scan-qr-description-2': ` or other authenticator apps.`,
+          'enter-generated-code': 'Enter the generated 6-digit code below.',
+        },
+        'recovery-code': {
+          message: 'Recovery code can be used to disable two-factor authentication in case you lose your phone.',
+          'your-code': 'Your recovery code',
+          'copy-and-save-code': "Copy and save the code, because we won't show it again. We don't scare you ;)",
+        },
+        disable: {
+          message: 'Disable 2FA will remove an extra layer of security.',
+          'enter-generated-code': 'Enter the generated 6-digit code',
         },
       },
     },

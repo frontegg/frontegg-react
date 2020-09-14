@@ -43,7 +43,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
       <FForm>
         <FInput label={t('auth.login.please-enter-the-6-digit-code')} name='code' />
 
-        <FButton submit variant='primary' loading={loading}>
+        <FButton type='submit' variant='primary' loading={loading}>
           {t('auth.login.login')}
         </FButton>
 

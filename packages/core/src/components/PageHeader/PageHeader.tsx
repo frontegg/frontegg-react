@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
-import { Icon, Tab, TabProps } from '../../ElementsFactory';
+import { Icon, Tabs, TabProps } from '../../ElementsFactory';
 
 export interface PageHeaderProps {
   className?: string;
@@ -39,7 +39,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         {title}
         {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
       </div>
-      {tabs && <Tab {...tabs} />}
+      {tabs && <Tabs {...tabs} />}
     </div>
     {centerChildren}
     {children && <div className={classNames('fe-right', childClassName)}>{children}</div>}

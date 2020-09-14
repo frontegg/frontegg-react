@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
 
 export const SSOClaimDomainForm: FC = (props) => {
-  return <div>SSOClaimDomainForm</div>;
+  return <div></div>;
 };

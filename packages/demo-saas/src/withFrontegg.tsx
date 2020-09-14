@@ -1,7 +1,8 @@
 import React, { ComponentType, FC } from 'react';
-import { ButtonProps, ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
+import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { uiLibrary } from '@frontegg/react-elements-semantic';
+// import { uiLibrary } from '@frontegg/react-elements-material-ui';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =

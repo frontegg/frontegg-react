@@ -30,7 +30,7 @@ interface FeProviderProps {
   context: ContextOptions;
   plugins: PluginConfig[];
   uiLibrary: Elements;
-  onRedirectTo?: (path: string) => void;
+  onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
 }
 
@@ -73,17 +73,20 @@ const FeState: FC<FeProviderProps> = (props) => {
   const location = useLocation();
   const taskRef = useRef<Task>();
   const baseName = window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
-  const onRedirectTo = (_path: string, opts: RedirectOptions) => {
-    let path = _path;
-    if (path.startsWith(baseName)) {
-      path = path.substring(baseName.length);
-    }
-    if (opts?.refresh) {
-      window.Cypress ? history.push(path) : (window.location.href = path);
-    } else {
-      opts?.replace ? history.replace(path) : history.push(path);
-    }
-  };
+  const onRedirectTo =
+    props.onRedirectTo ??
+    ((_path: string, opts?: RedirectOptions) => {
+      let path = _path;
+      if (path.startsWith(baseName)) {
+        path = path.substring(baseName.length);
+      }
+      if (opts?.refresh) {
+        window.Cypress ? history.push(path) : (window.location.href = path);
+      } else {
+        opts?.replace ? history.replace(path) : history.push(path);
+      }
+    });
+  ContextHolder.setOnRedirectTo(onRedirectTo);
 
   function* rootSaga() {
     for (const plugin of props.plugins) {
@@ -109,7 +112,7 @@ const FeState: FC<FeProviderProps> = (props) => {
           ...p,
           [n.storeName]: {
             ...n.preloadedState,
-            onRedirectTo: props.onRedirectTo ?? onRedirectTo,
+            onRedirectTo,
           },
         }),
         {}

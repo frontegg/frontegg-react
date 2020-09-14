@@ -99,7 +99,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             />
           )}
 
-          <FButton submit fullWidth variant={'primary'} loading={loading}>
+          <FButton type='submit' fullWidth variant={'primary'} loading={loading}>
             {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
           </FButton>
 

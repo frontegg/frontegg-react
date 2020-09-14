@@ -3,11 +3,10 @@ import { AuthActions, AuthState } from './Api';
 import { useAuth } from './hooks';
 
 const stateMapper = ({ isAuthenticated, user }: AuthState) => ({ isAuthenticated, user });
-const actionsMapper = ({ requestAuthorize }: AuthActions) => ({ requestAuthorize });
 
 export const AuthListener: FC = () => {
   const timer = useRef<number>(0);
-  const { isAuthenticated, user, requestAuthorize } = useAuth(stateMapper, actionsMapper);
+  const { isAuthenticated, user, requestAuthorize } = useAuth(stateMapper);
 
   const updateSessionTimer = (firstTime: boolean = false) => {
     timer.current && clearInterval(timer.current);

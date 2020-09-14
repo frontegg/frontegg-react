@@ -52,3 +52,15 @@
 .ui.form .field :disabled {
   opacity: inherit;
 }
+
+.fe-dimmer {
+  .ui.active.loader {
+    &:after {
+      border-color: var(--color-gray-6) transparent transparent;
+    }
+
+    &:before {
+      border-color: var(--color-black-10);
+    }
+  }
+}

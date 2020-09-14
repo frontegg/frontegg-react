@@ -3,7 +3,7 @@ This collection contains built-in components to provide the ability to display y
 
 ## Usage
 
-To use this component you only need to import is from `@frontegg/react-auth`
+To use this component you need to import it from `@frontegg/react-auth`
 
 ```tsx
 import { SSO } from '@frontegg/react-auth';

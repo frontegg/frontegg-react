@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { useT, RendererFunctionFC, Button, omitProps } from '@frontegg/react-core';
-import { AuthActions, AuthState } from '../Api';
 import { useAuth } from '../hooks';
+import { AuthState } from '../Api';
 
 const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
-const actionsMapper = ({ resetActivateState }: AuthActions) => ({ resetActivateState });
 
 export interface ActivateAccountFailedRedirectProps {
   renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>;
@@ -13,7 +12,7 @@ export interface ActivateAccountFailedRedirectProps {
 export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { routes, onRedirectTo, resetActivateState } = useAuth(stateMapper, actionsMapper);
+  const { routes, onRedirectTo, resetActivateState } = useAuth(stateMapper);
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));

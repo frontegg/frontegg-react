@@ -5,6 +5,7 @@ export * from './sagaHelpers';
 export * from './validates';
 export * from './DynamicComponent';
 export * from './RootPathContext';
+export * from './DialogContext';
 
 export function omitProps<T>(props: any, keys: string[]): T {
   const newProps = { ...props };

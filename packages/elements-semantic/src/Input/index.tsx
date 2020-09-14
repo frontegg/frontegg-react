@@ -3,12 +3,14 @@ import { InputProps } from '@frontegg/react-core';
 import { Form, Input as SemanticInput, InputProps as SemanticInputProps } from 'semantic-ui-react';
 import { Button } from '../Button';
 import { FormInputProps } from 'semantic-ui-react/dist/commonjs/collections/Form/FormInput';
+import classNames from 'classnames';
 
 const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
-  const { inForm, fullWidth, ...rest } = props;
+  const { inForm, fullWidth, className, ...rest } = props;
   return {
     ...rest,
     fluid: fullWidth,
+    className: classNames('fe-input', className),
   } as any;
 };
 

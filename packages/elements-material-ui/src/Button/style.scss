@@ -1,0 +1,23 @@
+.fe-button__danger {
+  color: var(--color-white);
+  background-color: var(--color-red-7);
+
+  &:hover {
+    background-color: var(--color-red-8);
+  }
+}
+
+.fe-button {
+  .fe-loader {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  & + * {
+    margin-left: 1rem !important;
+  }
+}

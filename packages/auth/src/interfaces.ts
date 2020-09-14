@@ -67,4 +67,16 @@ export interface AuthPageProps {
   injectAuthRoutes?: boolean; // default: true
 }
 
+export interface HideOption {
+  hide?: boolean;
+}
+
+export interface RouteWrapper {
+  path?: string;
+}
+
+export interface BasePageProps {
+  rootPath?: string;
+}
+
 export type AuthPluginOptions = AuthPageProps & Partial<AuthPageRoutes>;
