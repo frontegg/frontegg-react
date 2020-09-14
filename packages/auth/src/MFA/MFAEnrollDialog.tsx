@@ -10,12 +10,8 @@ export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
   const { resetMfaState, setMfaState } = useAuth();
   const dialogProps = omitProps(props, ['children']);
-  // useEffect(() => {props.open && resetMfaState();}, [props.open]);
   useEffect(() => {
-    setMfaState({
-      step: MFAStep.recoveryCode,
-      recoveryCode: '12311231',
-    });
+    props.open && resetMfaState();
   }, [props.open]);
 
   const children = props.children ?? (
