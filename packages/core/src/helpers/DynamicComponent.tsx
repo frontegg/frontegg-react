@@ -213,5 +213,3 @@ export const checkValidChildren = <T extends {}>(
     );
   }
 };
-
-export const PartialOverride: FC = ({ children }) => <>{children}</>;

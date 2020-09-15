@@ -1,10 +1,12 @@
 import { ContextOptions } from '../interfaces';
 import { RedirectOptions } from '../FronteggProvider';
+import { IUserProfile } from './profile/interfaces';
 
 export class ContextHolder {
   private static instance: ContextHolder;
   private context: ContextOptions | null = null;
   private accessToken: string | null = null;
+  private user: IUserProfile | null = null;
   private onRedirectTo: (path: string, opts?: RedirectOptions) => void = (path) => (window.location.href = path);
 
   private constructor() {}
@@ -21,6 +23,14 @@ export class ContextHolder {
     ContextHolder.getInstance().context = context;
   }
 
+  public static setAccessToken(accessToken: string | null) {
+    ContextHolder.getInstance().accessToken = accessToken;
+  }
+
+  public static setUser(user: IUserProfile | null) {
+    ContextHolder.getInstance().user = user;
+  }
+
   public static setOnRedirectTo(onRedirectTo: (path: string, opts?: RedirectOptions) => void) {
     ContextHolder.getInstance().onRedirectTo = onRedirectTo;
   }
@@ -34,15 +44,21 @@ export class ContextHolder {
     );
   }
 
-  public static setAccessToken(accessToken: string | null) {
-    ContextHolder.getInstance().accessToken = accessToken;
-  }
-
   public static getAccessToken(): string | null {
     return ContextHolder.getInstance().accessToken;
+  }
+
+  public static getUser(): IUserProfile | null {
+    return ContextHolder.getInstance().user;
   }
 
   public static onRedirectTo(path: string, opts?: RedirectOptions) {
     return ContextHolder.getInstance().onRedirectTo(path, opts);
   }
 }
+
+export const FronteggContext = {
+  getContext: (): ContextOptions => ContextHolder.getContext(),
+  getAccessToken: (): string | null => ContextHolder.getAccessToken(),
+  getUser: (): IUserProfile | null => ContextHolder.getUser(),
+};

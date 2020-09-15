@@ -13,6 +13,7 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     loading,
     disabled,
     type,
+    isCancel,
     ...rest
   } = props;
   return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { withFrontegg } from '../withFrontegg';
 import { AuthExamples } from '../auth-examples';
 import { ProtectedRoute, Profile, SSO } from '@frontegg/react-auth';

@@ -3,7 +3,8 @@ import * as profile from './profile';
 import * as metadata from './metadata';
 import * as reports from './reports';
 
-export * from './ContextHolder';
+export { ContextHolder, FronteggContext } from './ContextHolder';
+
 export * as fetch from './fetch';
 export * from './auth/interfaces';
 export * from './profile/interfaces';
