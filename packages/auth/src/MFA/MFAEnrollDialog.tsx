@@ -3,14 +3,15 @@ import { Dialog, DialogContext, DialogProps, omitProps, useT } from '@frontegg/r
 import { MFAVerifyStep } from './MFAVerifyStep';
 import { MFARecoveryCodeStep } from './MFARecoveryCodeStep';
 import { useAuth } from '../hooks';
+import { MFAStep } from '../Api';
 
 export type MFADialogProps = DialogProps;
 export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
-  const { resetMfaState } = useAuth();
+  const { setMfaState } = useAuth();
   const dialogProps = omitProps(props, ['children']);
   useEffect(() => {
-    props.open && resetMfaState();
+    props.open && setMfaState({ step: MFAStep.verify, loading: true, qrCode: null });
   }, [props.open]);
 
   const children = props.children ?? (

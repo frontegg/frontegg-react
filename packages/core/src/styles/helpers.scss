@@ -1,38 +1,42 @@
 .fe-mt-1 {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 
 .fe-mt-2 {
-  margin-top: 2rem;
+  margin-top: 2rem !important;
 }
 
 .fe-mb-1 {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .fe-mb-2 {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }
 
 .fe-ml-1 {
-  margin-left: 1rem;
+  margin-left: 1rem !important;
 }
 
 .fe-ml-2 {
-  margin-left: 2rem;
+  margin-left: 2rem !important;
 }
 
 .fe-mr-1 {
-  margin-right: 1rem;
+  margin-right: 1rem !important;
 }
 
 .fe-mr-2 {
-  margin-right: 2rem;
+  margin-right: 2rem !important;
 }
 
 .fe-center {
   text-align: center;
   align-items: center;
+}
+
+.fe-bold {
+  font-weight: bold;
 }
 
 .fe-error-message,
@@ -52,4 +56,12 @@
 
 .fe-success-message {
   color: initial;
+}
+
+.fe-self-flex-start {
+  align-self: flex-start;
+}
+
+.fe-self-flex-end {
+  align-self: flex-end;
 }

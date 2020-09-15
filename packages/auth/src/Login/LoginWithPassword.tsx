@@ -103,7 +103,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
           </FButton>
 
-          <ErrorMessage error={error} />
+          <ErrorMessage separator error={error} />
         </FForm>
       )}
     </Formik>

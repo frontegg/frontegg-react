@@ -2,13 +2,11 @@ import { AuthPageProps, AuthPageRoutes } from '../interfaces';
 import { IUserProfile, RedirectOptions } from '@frontegg/react-core';
 import { ISamlConfiguration } from '@frontegg/react-core';
 
-export interface User {
+export interface User extends IUserProfile {
   accessToken: string;
   refreshToken: string;
   expiresIn: number;
   expires: string;
-
-  [key: string]: any;
 }
 
 // Login

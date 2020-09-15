@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const ErrorMessage = ({ error }: any) => {
+type ErrorMessageProps = {
+  error?: any;
+  separator?: boolean;
+};
+export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator }) => {
   if (!error) {
     return null;
   }
 
-  if (error.indexOf(', ') !== -1) {
+  if (separator && error.indexOf(', ') !== -1) {
     return (
       <div className='fe-error-message'>
         <ul>

@@ -4,7 +4,7 @@ import {
   DialogContext,
   DialogProps,
   FFormik,
-  Form,
+  FForm,
   omitProps,
   useT,
   validateSchema,
@@ -42,9 +42,11 @@ export const MFADisableDialog: FC<MFADialogProps> = (props) => {
             token: validateTwoFactorCode(t),
           })}
           initialValues={{ token: '' }}
-          onSubmit={async ({ token }) => disableMfa({ token })}
+          onSubmit={async ({ token }) => {
+            disableMfa({ token }, props.onClose);
+          }}
         >
-          <Form>{children}</Form>
+          <FForm>{children}</FForm>
         </Formik>
       </Dialog>
     </DialogContext.Provider>

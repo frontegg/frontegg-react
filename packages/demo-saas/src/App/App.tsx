@@ -11,7 +11,9 @@ class App extends React.Component<any> {
       <div className='app'>
         <AuthExamples>
           <Switch>
-            <ProtectedRoute path='/sso' component={SSO.Page} />
+            <ProtectedRoute path='/sso'>
+              <SSO.Page />
+            </ProtectedRoute>
             <ProtectedRoute path='/profile' component={Profile.Page} />
             <ProtectedRoute path='/profile2' component={OldProfile} />
           </Switch>

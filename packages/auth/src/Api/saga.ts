@@ -18,7 +18,7 @@ import {
   omitProps,
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ActivateStep, ForgotPasswordStep, LoginStep, MFAStep } from './interfaces';
+import { ActivateStep, ForgotPasswordStep, LoginStep, MFAStep, SSOState } from './interfaces';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 import { Post } from '@frontegg/react-core/dist/api/fetch';
 
@@ -243,21 +243,20 @@ function* loadSSOConfigurations() {
   }
 }
 
-function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<ISamlConfiguration>) {
-  const oldSamlConfiguration = yield select(
-    ({
-      auth: {
-        ssoState: { samlConfiguration },
-      },
-    }) => samlConfiguration
-  );
-  try {
-    yield put(actions.setSSOState({ samlConfiguration, loading: true }));
+function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<Partial<ISamlConfiguration>>) {
+  const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
 
+  let loaderKey: keyof SSOState = 'loading';
+  if (samlConfiguration?.domain !== oldSamlConfiguration.domain) {
+    loaderKey = 'saving';
+  }
+  try {
     const firstTimeConfigure = !samlConfiguration?.domain;
     if (firstTimeConfigure) {
-      yield put(actions.setSSOState({ samlConfiguration }));
+      yield put(actions.setSSOState({ samlConfiguration: { ...oldSamlConfiguration, ...samlConfiguration } }));
       return;
+    } else {
+      yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
     }
 
     const updateSamlConfiguration: IUpdateSamlConfiguration = omitProps(samlConfiguration, [
@@ -268,15 +267,33 @@ function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<IS
     ]);
 
     const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
-    yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, loading: false }));
+    yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
   } catch (e) {
-    yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, loading: false }));
+    yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, [loaderKey]: false }));
   }
 }
 
 function* validateSSODomain() {
+  const samlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
   try {
-  } catch (e) {}
+    yield put(actions.setSSOState({ error: undefined, saving: true }));
+    yield call(api.auth.validateSamlDomain);
+    yield put(
+      actions.setSSOState({
+        samlConfiguration: { ...samlConfiguration, validated: true },
+        error: undefined,
+        saving: false,
+      })
+    );
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        samlConfiguration: { ...samlConfiguration, validated: false },
+        error: e.message,
+        saving: false,
+      })
+    );
+  }
 }
 
 /***************************
@@ -305,19 +322,20 @@ function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
         recoveryCode,
       })
     );
-    yield put(actions.setUser({ ...user, mfaEnabled: true }));
+    yield put(actions.setUser({ ...user, mfaEnrolled: true }));
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
   }
 }
 
-function* disableMfa({ payload }: PayloadAction<IDisableMfa>) {
+function* disableMfa({ payload }: PayloadAction<IDisableMfa & { callback?: () => void }>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
     yield api.auth.disableMfa(payload);
     yield put(actions.setMfaState({ loading: false, error: undefined }));
-    yield put(actions.setUser({ ...user, mfaRequired: false }));
+    yield put(actions.setUser({ ...user, mfaEnrolled: false }));
+    payload.callback?.();
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
   }

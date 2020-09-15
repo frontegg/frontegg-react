@@ -1,3 +1,5 @@
+import { IUserProfile } from '../teams/interfaces';
+
 export type IPreLogin = { email: string };
 export type IPostLogin = {
   RelayState: string;
@@ -6,7 +8,7 @@ export type IPostLogin = {
 
 export type ILogin = { email: string; password: string };
 
-export type ILoginResponse = {
+export type ILoginResponse = IUserProfile & {
   mfaRequired: boolean;
   accessToken: string;
   refreshToken: string;
@@ -14,14 +16,7 @@ export type ILoginResponse = {
   expiresIn: number;
   mfaToken?: string; // for multi-factor authentication
 
-  sub?: string;
-  name?: string;
-  email?: string;
   emailVerified?: boolean;
-  tenantId?: string;
-  tenantIds?: string[];
-  roles?: string[];
-  permissions?: string[];
 };
 
 export type ILoginWithMfa = {

@@ -12,6 +12,10 @@ export default {
       edit: 'Edit',
       done: 'Done',
       copied: 'Copied!',
+      domain: 'Domain',
+      proceed: 'Proceed',
+      validate: 'Validate',
+      password: 'Password',
       'not-configured': 'Not Configured',
     },
     auth: {
@@ -76,6 +80,15 @@ export default {
             'steps-2': 'Copy the TXT value to your DNS',
             'steps-3': 'Click "Validate',
           },
+          form: {
+            title: 'Claim domain',
+            'enter-your-domain': 'Enter your Domain',
+            'copy-info-to-txt-record': 'Copy this info into a new TXT record in your DNS file:',
+            'record-name': 'Record Name',
+            'record-value': 'Record Value',
+            'validate-error':
+              'Validation did not succeed, please notice that DNS records might take some time to update. Please try again.',
+          },
         },
       },
       profile: {
@@ -89,6 +102,8 @@ export default {
       },
       mfa: {
         title: 'Multi-Factor Authentication',
+        'two-factor': 'Two Factor authentication',
+        'enable-message': 'Enable 2FA to get an extra layer of security',
         'disable-title': 'Disable Two-factor authentication',
         verify: {
           message: 'Enable 2FA to get an extra layer of security.',
@@ -109,6 +124,7 @@ export default {
     },
     validation: {
       'must-be-a-valid-email': 'Must be a valid email',
+      'must-be-a-valid-domain': 'Must be a valid domain',
       'passwords-must-match': 'Passwords must match',
       'required-field': 'The {{name}} is required',
       'min-length': '{{name}} must be at least {{limit}} characters',

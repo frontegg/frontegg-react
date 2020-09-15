@@ -19,8 +19,12 @@ import {
   MFARecoveryCodeStepForm,
   MFARecoveryCodeStepFooter,
 } from './MFARecoveryCodeStep';
+import { MFAButton } from './MFAButton';
+import { MFALayout } from './MFALayout';
 
 export const MFA = {
+  Layout: MFALayout,
+  Button: MFAButton,
   EnrollDialog: MFAEnrollDialog,
 
   EnrollDialogVerifyStep: MFAVerifyStep,

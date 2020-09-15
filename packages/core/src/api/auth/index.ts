@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
-import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1 } from '../constants';
+import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
 import {
   IActivateAccount,
   IDisableMfa,
@@ -21,12 +21,29 @@ import {
   IVerifyMfa,
   IVerifyMfaResponse,
 } from './interfaces';
+import { ContextHolder } from '../ContextHolder';
 
 const logger = Logger.from('AuthApi');
 
 /*****************************************
  * Authentication
  *****************************************/
+
+async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILoginResponse> {
+  if (!loginResponse.accessToken) {
+    return loginResponse;
+  }
+  ContextHolder.setAccessToken(loginResponse.accessToken);
+  const me = await Get(`${USERS_SERVICE_URL_V2}/me`);
+  const decodedContent: any = loginResponse.accessToken ? jwtDecode(loginResponse.accessToken) : {};
+  const user = {
+    ...loginResponse,
+    ...decodedContent,
+    ...me,
+  };
+  ContextHolder.setUser(user);
+  return user;
+}
 
 /**
  * Check if requested email address has sso configuration
@@ -52,11 +69,7 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
 export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
   logger.debug('postLogin()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user/saml/postlogin`, body);
-  const decodedContent: any = data.accessToken ? jwtDecode(data.accessToken) : {};
-  return {
-    ...data,
-    ...decodedContent,
-  };
+  return generateLoginResponse(data);
 }
 
 /**
@@ -72,11 +85,7 @@ export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
 export async function login(body: ILogin): Promise<ILoginResponse> {
   logger.debug('login()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user`, body);
-  const decodedContent: any = data.accessToken ? jwtDecode(data.accessToken) : {};
-  return {
-    ...data,
-    ...decodedContent,
-  };
+  return generateLoginResponse(data);
 }
 
 /**
@@ -88,11 +97,7 @@ export async function login(body: ILogin): Promise<ILoginResponse> {
 export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse> {
   logger.debug('loginWithMfa()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user/mfa/verify`, body);
-  const decodedContent: any = data.accessToken ? jwtDecode(data.accessToken) : {};
-  return {
-    ...data,
-    ...decodedContent,
-  };
+  return generateLoginResponse(data);
 }
 
 /**
@@ -113,11 +118,7 @@ export async function activateAccount(body: IActivateAccount): Promise<void> {
 export async function refreshToken(): Promise<ILoginResponse> {
   logger.debug('refreshToken()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user/token/refresh`);
-  const decodedContent: any = data.accessToken ? jwtDecode(data.accessToken) : {};
-  return {
-    ...data,
-    ...decodedContent,
-  };
+  return generateLoginResponse(data);
 }
 
 /**

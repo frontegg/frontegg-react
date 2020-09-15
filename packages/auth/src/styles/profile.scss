@@ -40,3 +40,15 @@
     }
   }
 }
+
+.fe-profile-mfa-page,
+.fe-profile-password-page {
+  padding: 2rem;
+}
+
+.fe-profile-mfa-page {
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}

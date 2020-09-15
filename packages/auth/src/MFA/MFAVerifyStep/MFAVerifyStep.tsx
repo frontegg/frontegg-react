@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FFormik, Form, useT, validateSchema, validateTwoFactorCode } from '@frontegg/react-core';
+import { FFormik, FForm, useT, validateSchema, validateTwoFactorCode } from '@frontegg/react-core';
 import { MFAStep } from '../../Api';
 import { useAuth } from '../../hooks';
 import { HideOption } from '../../interfaces';
@@ -35,7 +35,7 @@ export const MFAVerifyStep: FC<HideOption> = (props) => {
         initialValues={{ token: '' }}
         onSubmit={async ({ token }) => verifyMfa({ token })}
       >
-        <Form>{children}</Form>
+        <FForm>{children}</FForm>
       </Formik>
     </div>
   );

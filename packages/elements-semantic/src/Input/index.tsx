@@ -4,6 +4,7 @@ import { Form, Input as SemanticInput, InputProps as SemanticInputProps } from '
 import { Button } from '../Button';
 import { FormInputProps } from 'semantic-ui-react/dist/commonjs/collections/Form/FormInput';
 import classNames from 'classnames';
+import './style.scss';
 
 const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
   const { inForm, fullWidth, className, ...rest } = props;

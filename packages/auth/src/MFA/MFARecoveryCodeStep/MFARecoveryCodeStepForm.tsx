@@ -25,13 +25,13 @@ export const MFARecoveryCodeStepForm: FC = (props) => {
       <div>Your recovery code</div>
 
       <div className={classNames('fe-mfa__recovery-code', { copied: copiedMgsVisible })} onClick={copyRecoverCode}>
-        <span>{copiedMgsVisible ? t('copied') : recoveryCode}</span>
+        <span>{copiedMgsVisible ? t('common.copied') : recoveryCode}</span>
         <Icon name='copy' />
       </div>
 
       <div className='fe-mfa__recovery-note'>
         <Icon name='warning' />
-        <span>{t('auth.mfa.recover-code.copy-and-save-code')}</span>
+        <span>{t('auth.mfa.recovery-code.copy-and-save-code')}</span>
       </div>
     </>
   );

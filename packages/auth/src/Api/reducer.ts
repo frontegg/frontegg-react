@@ -139,7 +139,7 @@ const actions = {
 
   // sso
   loadSSOConfigurations: createAction(`${storeName}/loadSSOConfigurations`),
-  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: ISamlConfiguration) => ({
+  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: Partial<ISamlConfiguration>) => ({
     payload,
   })),
   validateSSODomain: createAction(`${storeName}/validateSSODomain`),
@@ -151,7 +151,9 @@ const actions = {
   // mfa actions
   enrollMfa: createAction(`${name}/enrollMfa`, (payload = {}) => ({ payload })),
   verifyMfa: createAction(`${name}/verifyMfa`, (payload: IVerifyMfa) => ({ payload })),
-  disableMfa: createAction(`${name}/disableMfa`, (payload: IDisableMfa) => ({ payload })),
+  disableMfa: createAction(`${name}/disableMfa`, (payload: IDisableMfa, callback?: () => void) => ({
+    payload: { ...payload, callback },
+  })),
 };
 
 export type AuthActions = typeof actions;

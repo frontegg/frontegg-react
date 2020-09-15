@@ -29,4 +29,12 @@ export const validatePasswordConfirmation = (t: TFunction, field: string = 'pass
       then: Yup.string().oneOf([Yup.ref(field)], t('validation.passwords-must-match', 'Passwords must match')),
     });
 
+export const validateDomain = (t: TFunction) =>
+  Yup.string()
+    .matches(
+      /^((?:(?:(?:\w[.\-+]?)*)\w)+)((?:(?:(?:\w[.\-+]?){0,62})\w)+)\.(\w{2,6})$/,
+      t('validation.must-be-a-valid-domain', 'Must be a valid domain')
+    )
+    .required(t('validation.required-field', { name: 'domain' }));
+
 export const validateSchema = (props: any) => Yup.object(props);
