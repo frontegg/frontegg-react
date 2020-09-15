@@ -1,4 +1,4 @@
-import { all, call, delay, put, select, takeEvery, takeLeading } from 'redux-saga/effects';
+import { all, call, delay, put, select, takeEvery, takeLeading, takeLatest } from 'redux-saga/effects';
 import { actions } from './reducer';
 import {
   api,
@@ -325,15 +325,15 @@ function* disableMfa({ payload }: PayloadAction<IDisableMfa>) {
 
 export function* sagas() {
   yield takeLeading(actions.requestAuthorize, requestAuthorize);
-  yield takeEvery(actions.preLogin, preLogin);
-  yield takeEvery(actions.postLogin, postLogin);
-  yield takeEvery(actions.login, login);
-  yield takeEvery(actions.logout, logout);
-  yield takeEvery(actions.loginWithMfa, loginWithMfa);
-  yield takeEvery(actions.recoverMfa, recoverMfa);
-  yield takeEvery(actions.activateAccount, activateAccount);
-  yield takeEvery(actions.forgotPassword, forgotPassword);
-  yield takeEvery(actions.resetPassword, resetPassword);
+  yield takeLeading(actions.preLogin, preLogin);
+  yield takeLeading(actions.postLogin, postLogin);
+  yield takeLeading(actions.login, login);
+  yield takeLeading(actions.logout, logout);
+  yield takeLeading(actions.loginWithMfa, loginWithMfa);
+  yield takeLeading(actions.recoverMfa, recoverMfa);
+  yield takeLeading(actions.activateAccount, activateAccount);
+  yield takeLeading(actions.forgotPassword, forgotPassword);
+  yield takeLeading(actions.resetPassword, resetPassword);
 
   // sso
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);

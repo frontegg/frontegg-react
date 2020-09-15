@@ -95,6 +95,7 @@ describe('Login Tests', () => {
   it('Login, check after login url', () => {
     cy.server();
     mockAuthApi(false, false);
+    cy.window().then((win) => win.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, '/after-login-redirect'));
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
@@ -116,12 +117,10 @@ describe('Login Tests', () => {
     cy.get(passwordSelector).focus().clear().type(PASSWORD).blur();
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
-    cy.window().then((win) => win.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, '/after-login-redirect'));
     cy.get(submitSelector).click();
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
-    // cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/after-login-redirect');
@@ -360,10 +359,6 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Disable MFA').click();
     cy.wait('@recoverMfa').its('request.body').should('deep.equal', { recoveryCode: RECOVERY_CODE, email: EMAIL_1 });
 
-    cy.window().then((win) => {
-      // @ts-ignore
-      expect(win.cypressStore.getState().auth.loginState.step).to.be.eq(LoginStep.preLogin);
-    });
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/account/login');
     });
