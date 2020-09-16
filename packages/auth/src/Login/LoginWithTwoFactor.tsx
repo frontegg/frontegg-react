@@ -51,6 +51,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
           <div className='fe-note-title'>{t('auth.login.disable-two-factor-title')}</div>
           <div className='fe-note-description'>
             <a
+              test-id='recover-two-factor-button'
               onClick={() => {
                 setLoginState({ step: LoginStep.recoverTwoFactor });
               }}
