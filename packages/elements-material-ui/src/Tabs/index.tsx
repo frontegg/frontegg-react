@@ -1,15 +1,16 @@
-import React, { ChangeEvent, FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 import { TabProps } from '@frontegg/react-core';
-import MaterialTabs, { TabsProps as MaterialTabsProps } from '@material-ui/core/Tabs';
-import MaterialTab from '@material-ui/core/Tab';
+import { Tabs as MaterialTabs, TabsProps as MaterialTabsProps, Tab as MaterialTab } from '@material-ui/core';
 
-const mapper = ({ activeTab, onTabChange, items }: TabProps): MaterialTabsProps => ({
+const mapper = ({ activeTab, onTabChange }: TabProps): MaterialTabsProps => ({
   value: activeTab,
   onChange: ((event: any, value: any) => onTabChange(event, value)) as any,
 });
 
 export const Tabs: FC<TabProps> = (props) => {
-  const tabs = props.items.map((m, index) => <MaterialTab key={index} value={index} label={React.createElement(m)} />);
+  const tabs = props.items.map((m: any, index: number) => (
+    <MaterialTab key={index} value={index} label={React.createElement(m)} />
+  ));
   const tabsProps = mapper(props);
   return (
     <MaterialTabs textColor={'primary'} indicatorColor={'primary'} {...tabsProps}>

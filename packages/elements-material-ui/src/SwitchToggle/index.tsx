@@ -1,7 +1,7 @@
 import React, { FC, useRef } from 'react';
 import { SwitchToggleProps } from '@frontegg/react-core';
 import './style.scss';
-import MaterialSwitch, { SwitchProps as MaterialSwitchProps } from '@material-ui/core/Switch';
+import { Switch as MaterialSwitch, SwitchProps as MaterialSwitchProps } from '@material-ui/core';
 import classNames from 'classnames';
 
 const mapper = (props: SwitchToggleProps): MaterialSwitchProps => ({

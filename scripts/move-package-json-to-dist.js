@@ -27,6 +27,9 @@ function movePackageJson(packagePath) {
     '@frontegg/react-core',
     '@frontegg/react-auth',
     '@frontegg/react-elements-semantic',
+    '@frontegg/react-elements-material-ui',
+    '@material-ui/core',
+    '@material-ui/icons',
   ];
   newPkg.peerDependencies = {
     ...(newPkg.peerDependencies || {}),

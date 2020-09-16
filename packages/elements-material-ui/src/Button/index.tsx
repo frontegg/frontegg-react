@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonProps } from '@frontegg/react-core';
-import MaterialButton, { ButtonProps as MaterialButtonProps } from '@material-ui/core/Button';
+import { Button as MaterialButton, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import classNames from 'classnames';
 import './style.scss';
 import { Loader } from '../Loader';

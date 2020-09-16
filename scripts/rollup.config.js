@@ -18,11 +18,15 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const forceExternal = [
   'react',
+  'react-is',
   'react-dom',
   'history',
   'react-router',
   'react-router-dom',
   '@frontegg/react',
+  '@material-ui/core',
+  '@material-ui/icons',
+  'jss'
 ];
 const internalDeps = [
 //   "redux",

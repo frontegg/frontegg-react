@@ -1,7 +1,11 @@
 import React from 'react';
 import { InputProps } from '@frontegg/react-core';
-import MaterialInput, { InputProps as MaterialInputProps } from '@material-ui/core/Input';
-import MaterialTextField, { TextFieldProps as MaterialTextFieldProps } from '@material-ui/core/TextField';
+import {
+  Input as MaterialInput,
+  InputProps as MaterialInputProps,
+  TextField as MaterialTextField,
+  TextFieldProps as MaterialTextFieldProps,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import './style.scss';
 

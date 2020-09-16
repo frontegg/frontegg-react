@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { DialogProps } from '@frontegg/react-core';
-import MaterialDialog, { DialogProps as MaterialDialogProps } from '@material-ui/core/Dialog';
+import { Dialog as MaterialDialog, DialogProps as MaterialDialogProps } from '@material-ui/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import './style.scss';

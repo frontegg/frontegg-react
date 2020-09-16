@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { LoaderProps } from '@frontegg/react-core';
-import CircularProgress, { CircularProgressProps as MaterialLoaderProps } from '@material-ui/core/CircularProgress';
+import { CircularProgress, CircularProgressProps as MaterialLoaderProps } from '@material-ui/core';
 import classNames from 'classnames';
 import './style.scss';
 
