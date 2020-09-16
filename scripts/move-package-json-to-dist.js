@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const { execSync } = require('child_process');
 
 function movePackageJson(packagePath) {
   if (packagePath.indexOf('demo-saas') !== -1) {
