@@ -8,7 +8,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "bin": {
-    "frontegg": "dist/cli/index.js"
+    "frontegg": "dist/index.js"
   },
   "dependencies": {
     "chalk": "^4.1.0",
