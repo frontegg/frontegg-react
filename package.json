@@ -1,5 +1,6 @@
 {
   "name": "@fronteg/react",
+  "version": "1.0.66",
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {

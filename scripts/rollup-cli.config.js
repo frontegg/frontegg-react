@@ -51,6 +51,14 @@ export default {
   input: './src/index.ts',
   plugins,
   inlineDynamicImports: true,
+  external: [
+    'chalk',
+    'clear',
+    'figlet',
+    'handlebars',
+    'history',
+    'yargs',
+  ],
   output: {
     sourcemap: !isProduction,
     dir: distFolder,
