@@ -16,7 +16,6 @@ function movePackageJson(packagePath) {
     for (const k in newPkg.bin) {
       newPkg.bin[k] = newPkg.bin[k].substring('dist/'.length);
     }
-    execSync(`tsc --project '${path.join(packagePath, 'cli', 'tsconfig.json')}' --outDir '${path.join(distFolder, 'cli')}'`);
   }
 
   const peerDeps = [
