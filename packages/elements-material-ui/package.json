@@ -9,6 +9,10 @@
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
+  "peerDependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1"
+  },
   "dependencies": {
     "@frontegg/react-core": "^1.0.53",
     "@material-ui/core": "^4.11.0",

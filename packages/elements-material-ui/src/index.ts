@@ -9,7 +9,7 @@ import { Icon } from './Icon';
 import { Dialog } from './Dialog';
 
 export const type = 'material-ui';
-export const version = '4.0.11';
+export const version = '4.11.0';
 export const uiLibrary: Elements = {
   Button,
   Input,

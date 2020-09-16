@@ -2,8 +2,8 @@ import React from 'react';
 import { ButtonProps } from '@frontegg/react-core';
 import { Button as MaterialButton, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import classNames from 'classnames';
-import './style.scss';
 import { Loader } from '../Loader';
+import './style.scss';
 
 const mapper = (props: ButtonProps): MaterialButtonProps => {
   const { className, inForm, variant, fullWidth, loading, disabled, type, onClick, isCancel, size } = props;
