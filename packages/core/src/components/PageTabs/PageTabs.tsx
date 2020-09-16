@@ -1,6 +1,5 @@
 import React, { ComponentType, FC, useMemo, useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
-import { ProfileTabsProps } from '@frontegg/react-auth/dist/Profile/ProfileTabs';
 import { Tabs } from '../../ElementsFactory';
 import { ContextHolder } from '../../api';
 
@@ -10,11 +9,15 @@ export type PageTabProps = {
   comp?: ComponentType;
 };
 
+export type TabsProps = {
+  tabs: PageTabProps[];
+};
+
 const findMatchPath = (pathname: string, tabs: { route: string }[]) => {
   const activeTab = tabs.findIndex(({ route }) => matchPath(pathname, { path: route, exact: true }));
   return activeTab === -1 ? 0 : activeTab;
 };
-export const PageTabs: FC<ProfileTabsProps> = (props) => {
+export const PageTabs: FC<TabsProps> = (props) => {
   const location = useLocation();
   const firstMatch = useMemo(() => findMatchPath(location.pathname, props.tabs), []);
   const [activeTab, setActiveTab] = useState(firstMatch);
