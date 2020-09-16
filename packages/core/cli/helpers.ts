@@ -14,7 +14,7 @@ export const usingYarn = (): boolean => {
       fs.existsSync(path.join(cwd, 'node_modules')) ||
       fs.existsSync(path.join(cwd, '.git'))
     ) {
-      return true;
+      return false;
     }
     cwd = path.join(cwd, '../');
   } while (!packageLockFound);
