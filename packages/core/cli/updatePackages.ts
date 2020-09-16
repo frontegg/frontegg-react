@@ -2,7 +2,12 @@ import { createLoader, extractVersion, getPackageJson, printVersions, usingYarn 
 import { exec, execSync } from 'child_process';
 import chalk from 'chalk';
 
-const packages = ['@frontegg/react-core', '@frontegg/react-auth', '@frontegg/react-elements-semantic'];
+const packages = [
+  '@frontegg/react-core',
+  '@frontegg/react-auth',
+  '@frontegg/react-elements-semantic',
+  '@frontegg/react-elements-material-ui',
+];
 export default ({ argv }: any) => {
   const pkg = getPackageJson();
   const installedPackages = Object.keys(pkg.dependencies || {}).filter((dep) => packages.indexOf(dep) !== -1);
