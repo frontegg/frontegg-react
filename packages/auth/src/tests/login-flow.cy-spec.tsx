@@ -12,6 +12,7 @@ import {
   navigateTo,
   TestFronteggWrapper,
   ACCESS_TOKEN,
+  mockAuthMe,
 } from '../../../../cypress/helpers';
 
 const defaultAuthPlugin = {
@@ -43,7 +44,7 @@ describe('Login Tests', () => {
   it('Login, NO SAML', () => {
     cy.server();
     mockAuthApi(false, false);
-
+    mockAuthMe();
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
@@ -95,6 +96,7 @@ describe('Login Tests', () => {
   it('Login, check after login url', () => {
     cy.server();
     mockAuthApi(false, false);
+    mockAuthMe();
     cy.window().then((win) => win.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, '/after-login-redirect'));
     cy.route({
       method: 'POST',
@@ -130,6 +132,7 @@ describe('Login Tests', () => {
   it('Login, WITH SAML tenant, NO SAML email', () => {
     cy.server();
     mockAuthApi(false, true);
+    mockAuthMe();
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
@@ -236,6 +239,7 @@ describe('Login Tests', () => {
   it('Login, NO SAML, Two-Factor', () => {
     cy.server();
     mockAuthApi(false, false);
+    mockAuthMe();
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,

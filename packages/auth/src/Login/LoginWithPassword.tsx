@@ -74,9 +74,9 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={validateSchema(validationSchema)}
-      onSubmit={async ({ email, password }) =>
-        shouldDisplayPassword ? login({ email, password }) : preLogin({ email })
-      }
+      onSubmit={async ({ email, password }) => {
+        shouldDisplayPassword ? login({ email, password }) : preLogin({ email });
+      }}
     >
       {({ values }) => (
         <FForm>
