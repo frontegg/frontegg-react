@@ -9,10 +9,11 @@ export const usingYarn = (): boolean => {
   do {
     packageLockFound = fs.existsSync(path.join(cwd, 'package-lock.json'));
     if (
-      fs.existsSync(path.join(cwd, 'lerna.json')) ||
-      fs.existsSync(path.join(cwd, 'yarn.lock')) ||
-      fs.existsSync(path.join(cwd, 'node_modules')) ||
-      fs.existsSync(path.join(cwd, '.git'))
+      !packageLockFound &&
+      (fs.existsSync(path.join(cwd, 'lerna.json')) ||
+        fs.existsSync(path.join(cwd, 'yarn.lock')) ||
+        fs.existsSync(path.join(cwd, 'node_modules')) ||
+        fs.existsSync(path.join(cwd, '.git')))
     ) {
       packageLockFound = false;
       break;
@@ -20,7 +21,7 @@ export const usingYarn = (): boolean => {
     cwd = path.join(cwd, '../');
   } while (!packageLockFound);
   packageLockFound ? console.log(chalk.yellow('--using-npm')) : console.log(chalk.yellow('--using-yarn'));
-  return packageLockFound;
+  return !packageLockFound;
 };
 export const getPackageJson = (): any =>
   JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
