@@ -186,5 +186,5 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Publish: Changed Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish patch --contents dist --yes
+	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
 
