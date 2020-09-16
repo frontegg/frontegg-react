@@ -8,14 +8,14 @@ import path from 'path';
 
 const uiLibraryCss: any = {
   semantic: 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
-  'material-ui': 'not supported',
+  'material-ui': '',
   bootstrap: 'not supported',
   antd: 'not supported',
 };
 const buildSelectedPluginsJS = (selectedPluginsJS: string[]): object => {
   const js = [];
   const importJs = [];
-  if (selectedPluginsJS.indexOf('auth') != -1) {
+  if (selectedPluginsJS.indexOf('auth') !== -1) {
     js.push(
       `  AuthPlugin({\n    /* auth options, find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/auth */\n  })`
     );
@@ -67,7 +67,7 @@ export default async ({ argv }: any) => {
     {
       type: 'select',
       name: 'withRouter',
-      message: "Do you want use Standard ReactRouter or Frontegg's Router?",
+      message: `Do you want use Standard ReactRouter or Frontegg's Router?`,
       choices: [
         { title: 'Frontegg Router', value: true, description: 'recommended for auth plugin interrupts' },
         {
@@ -84,7 +84,7 @@ export default async ({ argv }: any) => {
       message: 'Which UI Library do you use in your project?',
       choices: [
         { title: 'Semantic', value: 'semantic' },
-        { title: 'Material UI (coming soon)', value: 'material-ui', disabled: true },
+        { title: 'Material UI', value: 'material-ui' },
         { title: 'Bootstrap (coming soon)', value: 'bootstrap', disabled: true },
         { title: 'Antd (coming soon)', value: 'antd', disabled: true },
       ],
@@ -131,8 +131,11 @@ export default async ({ argv }: any) => {
       chalk.yellow(`\n----------------------------------------------------------------------------------------------------
 ==> NEXT STEP:
 ==>   1. wrap you entire application with this HOC (withFrontegg)
-==>   2. add this link to index html (only if you are not using ${uiLibrary} in your project)
-         <link rel="stylesheet" href="${uiLibraryCss[uiLibrary]}">
+${
+  uiLibraryCss[uiLibrary] &&
+  `==>   2. add this link to index html (only if you are not using ${uiLibrary} in your project)
+         <link rel="stylesheet" href="${uiLibraryCss[uiLibrary]}">`
+}
 ----------------------------------------------------------------------------------------------------\n`)
     );
     process.exit(0);
