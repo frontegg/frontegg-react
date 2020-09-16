@@ -1,8 +1,11 @@
 import React, { FC } from 'react';
 import { DialogProps } from '@frontegg/react-core';
-import { Dialog as MaterialDialog, DialogProps as MaterialDialogProps } from '@material-ui/core';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
+import {
+  Dialog as MaterialDialog,
+  DialogProps as MaterialDialogProps,
+  DialogTitle,
+  DialogContent,
+} from '@material-ui/core';
 import './style.scss';
 
 const mapSize: any = {

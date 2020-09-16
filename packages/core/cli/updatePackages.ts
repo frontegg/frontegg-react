@@ -43,6 +43,13 @@ export default ({ argv }: any) => {
   console.log(chalk.gray(`> exec: ${updateCommand}`));
   const loader = createLoader();
   const exec1 = exec(updateCommand);
+  exec1.stdout?.on('data', (data) => {
+    console.log('> ' + data.toString());
+  });
+
+  exec1.stderr?.on('data', (data) => {
+    console.log('> ' + data.toString());
+  });
   exec1.on('exit', () => {
     clearInterval(loader);
     process.stdout.write('\r                                          \n');

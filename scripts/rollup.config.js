@@ -18,7 +18,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const forceExternal = [
   'react',
-  'react-is',
   'react-dom',
   'history',
   'react-router',
@@ -26,6 +25,10 @@ const forceExternal = [
   '@frontegg/react',
   '@material-ui/core',
   '@material-ui/icons',
+  '@material-ui/styles',
+  '@material-ui/system',
+  '@material-ui/types',
+  '@material-ui/utils',
   'jss'
 ];
 const internalDeps = [
