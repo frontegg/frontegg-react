@@ -34,6 +34,7 @@ const forceExternal = [
 const internalDeps = [
 //   "redux",
   'react-redux',
+  'formik',
 ];
 
 const plugins = [
