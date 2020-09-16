@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { useT, FFormik, FButton, FInput, Input, ErrorMessage } from '@frontegg/react-core';
+import { useT, FFormik, FButton, Input, ErrorMessage } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
-import { useFormikContext } from 'formik';
 
-const { Formik } = FFormik;
+const { useFormikContext } = FFormik;
 
 const prefixT = 'auth.sso.claim-domain.form';
 export const SSOClaimDomainValidateStep: FC = (props) => {
