@@ -8,7 +8,6 @@ import path from 'path';
 
 const uiLibraryCss: any = {
   semantic: 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
-  'material-ui': '',
   bootstrap: 'not supported',
   antd: 'not supported',
 };
@@ -108,6 +107,7 @@ export default async ({ argv }: any) => {
   });
 
   const toInstall = [
+    `@frontegg/react-core`,
     `@frontegg/react-elements-${uiLibrary}`,
     ...selectedPlugins.map((pluginName: string) => `@frontegg/react-${pluginName}`),
   ];
