@@ -21,6 +21,6 @@ export const AuthListener: FC = () => {
     }
   };
   useEffect(() => updateSessionTimer(true), []);
-  useEffect(() => updateSessionTimer(), [isAuthenticated, user]);
+  useEffect(() => updateSessionTimer(), [isAuthenticated]);
   return null;
 };
