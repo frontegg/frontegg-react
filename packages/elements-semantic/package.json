@@ -9,8 +9,10 @@
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
+  "peerDependencies": {
+    "@frontegg/react-core": "^1.0.63"
+  },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.63",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "moment": "^2.27.0",

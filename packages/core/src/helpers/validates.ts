@@ -18,7 +18,7 @@ export const validateTwoFactorCode = (t: TFunction) =>
 
 export const validateTwoFactorRecoveryCode = (t: TFunction) =>
   Yup.string()
-    .length(12, t('validation.length', { name: 'code', limit: 12 }))
+    .min(8, t('validation.max-length', { name: 'code', limit: 8 }))
     .required(t('validation.required-field', { name: 'code' }));
 
 export const validatePasswordConfirmation = (t: TFunction, field: string = 'password') =>

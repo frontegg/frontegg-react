@@ -11,10 +11,10 @@
   },
   "peerDependencies": {
     "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1"
+    "@material-ui/icons": "^4.9.1",
+    "@frontegg/react-core": "^1.0.63"
   },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.63",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "classnames": "^2.2.6",

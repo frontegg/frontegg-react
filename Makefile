@@ -121,6 +121,7 @@ test-unit: ##@3 Tests unit test with jest
 ########################################################################################################################
 
 build: ##@2 Build build all packages
+	${MAKE} build-cli
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
@@ -166,10 +167,10 @@ publish: ##@5 Publish publish all changed packages to npm repository
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	${MAKE} test-unit
 
-# 	@echo "${GREEN}************************************************************************************${RESET}"
-# 	@echo "${GREEN}* Component Test: All Packages${RESET}"
-# 	@echo "${GREEN}************************************************************************************${RESET}"
-# 	${MAKE} test-component
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Component Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-component
 
 #	@echo "${GREEN}************************************************************************************${RESET}"
 #	@echo "${GREEN}* Integration Test: All Packages${RESET}"

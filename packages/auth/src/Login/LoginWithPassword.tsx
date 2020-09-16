@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, ReactElement } from 'react';
+import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef } from 'react';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import {
   validateEmail,
@@ -34,6 +34,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
   const authState = useAuth(stateMapper);
+
   const {
     loading,
     step,
@@ -48,6 +49,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     onRedirectTo,
   } = authState;
   const backToPreLogin = () => setLoginState({ step: LoginStep.preLogin });
+
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
@@ -58,6 +60,11 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   if (shouldDisplayPassword) {
     validationSchema.password = validatePassword(t);
   }
+  useEffect(() => {
+    if (isSSOAuth && shouldDisplayPassword) {
+      document.querySelector<HTMLInputElement>('input[name="password"]')?.focus?.();
+    }
+  }, [shouldDisplayPassword]);
 
   const labelButtonProps = (values: any) => ({
     disabled: loading,

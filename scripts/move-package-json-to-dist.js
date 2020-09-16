@@ -11,7 +11,7 @@ function movePackageJson(packagePath) {
 
   const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
   newPkg.main = './index.js';
-  newPkg.typings = './index.d.ts';
+  newPkg.typings = newPkg.typings ? './index.d.ts' : undefined;
   if (newPkg.bin) {
     for (const k in newPkg.bin) {
       newPkg.bin[k] = newPkg.bin[k].substring('dist/'.length);

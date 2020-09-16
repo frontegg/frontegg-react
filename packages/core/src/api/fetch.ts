@@ -1,6 +1,5 @@
 import { ContextOptions, KeyValuePair } from '../interfaces';
 import { ContextHolder } from './ContextHolder';
-import { object } from 'yup';
 
 interface RequestOptions {
   url: string;

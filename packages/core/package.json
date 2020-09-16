@@ -9,19 +9,12 @@
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
-  "bin": {
-    "frontegg": "dist/cli/index.js"
-  },
   "dependencies": {
     "@frontegg/react": "^0.3.11",
     "@reduxjs/toolkit": "^1.4.0",
-    "chalk": "^4.1.0",
     "classnames": "^2.2.6",
-    "clear": "^0.1.0",
     "cron-parser": "^2.15.0",
-    "figlet": "^1.5.0",
     "formik": "^2.1.5",
-    "handlebars": "^4.7.6",
     "history": "^4.9.0",
     "i18next": "^19.6.3",
     "jwt-decode": "2.2.0",
@@ -33,7 +26,6 @@
     "react-router-dom": "^5.1.2",
     "redux-saga": "^1.1.3",
     "underscore": "^1.10.2",
-    "yargs": "^15.4.1",
     "yup": "^0.28.3"
   },
   "devDependencies": {

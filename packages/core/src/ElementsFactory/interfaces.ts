@@ -17,6 +17,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean;
   variant?: 'primary' | 'secondary' | 'danger';
   isCancel?: boolean;
+  asLink?: boolean;
   loading?: boolean;
 
   // @deprecated

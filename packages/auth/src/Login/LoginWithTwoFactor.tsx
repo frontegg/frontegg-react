@@ -41,7 +41,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
       onSubmit={async ({ code }) => loginWithMfa({ mfaToken: mfaToken || '', value: code })}
     >
       <FForm>
-        <FInput label={t('auth.login.please-enter-the-6-digit-code')} name='code' />
+        <FInput aria-autocomplete={'none'} label={t('auth.login.please-enter-the-6-digit-code')} name='code' />
 
         <FButton type='submit' variant='primary' loading={loading}>
           {t('auth.login.login')}
@@ -50,15 +50,13 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
         <div className='fe-note'>
           <div className='fe-note-title'>{t('auth.login.disable-two-factor-title')}</div>
           <div className='fe-note-description'>
-            <Button
-              className='fe-link-button'
-              testId='recover-two-factor-button'
+            <a
               onClick={() => {
                 setLoginState({ step: LoginStep.recoverTwoFactor });
               }}
             >
               {t('common.click-here')}
-            </Button>
+            </a>
             &nbsp;
             {t('auth.login.disable-two-factor-description')}
           </div>

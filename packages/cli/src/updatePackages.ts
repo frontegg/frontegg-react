@@ -43,17 +43,20 @@ export default ({ argv }: any) => {
   console.log(chalk.gray(`> exec: ${updateCommand}`));
   const loader = createLoader();
   const exec1 = exec(updateCommand);
+  const commandLogs = [];
   exec1.stdout?.on('data', (data) => {
-    console.log('> ' + data.toString());
+    commandLogs.push(chalk.blue(`> ${data.toString()}`));
   });
 
   exec1.stderr?.on('data', (data) => {
-    console.log('> ' + data.toString());
+    commandLogs.push(chalk.red(`> ${data.toString()}`));
   });
   exec1.on('exit', () => {
     clearInterval(loader);
     process.stdout.write('\r                                          \n');
-    printVersions(installedPackages, lastVersion);
-    process.exit(0);
+    if (exec1.exitCode === 0) {
+      printVersions(installedPackages, lastVersion);
+    }
+    process.exit(exec1.exitCode !== null ? exec1.exitCode : 0);
   });
 };
