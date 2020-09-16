@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-elements-material-ui",
-  "version": "1.0.56",
+  "version": "1.0.57",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,12 +14,12 @@
     "@material-ui/icons": "^4.9.1"
   },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.56",
+    "@frontegg/react-core": "^1.0.57",
     "classnames": "^2.2.6",
-    "react-is": "^16.13.1",
     "formik": "^2.1.5",
     "moment": "^2.27.0",
     "react": ">16.8.6",
+    "react-is": "^16.13.1",
     "underscore": "^1.10.2"
   },
   "devDependencies": {
