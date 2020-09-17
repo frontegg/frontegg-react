@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-auth",
-  "version": "1.0.68",
+  "version": "1.0.69",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "@frontegg/react-core": "^1.0.63"
   },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.68",
+    "@frontegg/react-core": "^1.0.69",
     "@reduxjs/toolkit": "^1.1.0",
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
