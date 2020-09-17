@@ -1,8 +1,8 @@
 import React, { ComponentType } from 'react';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
-// import { uiLibrary } from '@frontegg/react-elements-semantic';
-import { uiLibrary } from '@frontegg/react-elements-material-ui';
+import { uiLibrary as SemanticLibrary } from '@frontegg/react-elements-semantic';
+import { uiLibrary as MaterialLibrary } from '@frontegg/react-elements-material-ui';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
@@ -22,7 +22,13 @@ const plugins: PluginConfig[] = [
 ];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider withRouter={false} context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
+  <FronteggProvider
+    context={contextOptions}
+    plugins={plugins}
+    uiLibrary={{
+      ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
+    }}
+  >
     <Component />
   </FronteggProvider>
 );

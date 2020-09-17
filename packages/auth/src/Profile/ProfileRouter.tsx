@@ -20,9 +20,9 @@ export const ProfileRouter: FC<BasePageProps> = (props) => {
   const [rootPath, isRootPathContext] = useRootPath(props, '/profile');
   reloadProfileIfNeeded();
   checkValidChildren('Profile.Router', 'Profile', props.children, {
-    ProfileInfoPage,
-    ProfilePasswordSettingsPage,
-    ProfileMfaPage,
+    // ProfileInfoPage,
+    // ProfilePasswordSettingsPage,
+    // ProfileMfaPage,
   });
 
   const children = props.children ?? (

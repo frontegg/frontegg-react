@@ -1,9 +1,24 @@
-import React from 'react';
-import { Switch } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import { withFrontegg } from '../withFrontegg';
 import { AuthExamples } from '../auth-examples';
-import { ProtectedRoute, Profile, SSO, MFA } from '@frontegg/react-auth';
+import { ProtectedRoute, Profile, SSO, MFA, useAuthUser } from '@frontegg/react-auth';
 import { Profile as OldProfile } from '@frontegg/react';
+import { PageTabProps, useT } from '@frontegg/react-core';
+
+const TestPage: FC = () => {
+  const user = useAuthUser();
+  return <div>{user.roles[1].length}</div>;
+};
+
+const MyTab: FC & PageTabProps = () => {
+  return <div>My Tab</div>;
+};
+MyTab.Title = (() => {
+  const { t } = useT();
+  return <>{t('common.enabled')}</>;
+}) as FC;
+MyTab.route = '/my-tab';
 
 class App extends React.Component<any> {
   render() {
@@ -11,6 +26,7 @@ class App extends React.Component<any> {
       <div className='app'>
         <AuthExamples>
           <Switch>
+            <Route path='/test-auth-user' component={TestPage} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />

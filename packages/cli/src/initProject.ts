@@ -123,7 +123,7 @@ export default async ({ argv }: any) => {
   exec1.on('exit', () => {
     clearInterval(loader);
     process.stdout.write('\r                                          \n');
-    printVersions([`@frontegg/react-core`, ...toInstall], lastVersion);
+    printVersions(toInstall, lastVersion);
 
     console.log(chalk.black(`\nGenerated ${constants.fileName} location:`), chalk.yellow(filePath));
 

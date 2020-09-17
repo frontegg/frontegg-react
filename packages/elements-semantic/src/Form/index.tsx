@@ -5,7 +5,6 @@ import { FormProps } from '@frontegg/react-core';
 import './style.scss';
 
 const mapper = (props: FormProps): SemanticFormProps => ({
-  className: classNames('fe-form', props.className),
   ...props,
 });
 

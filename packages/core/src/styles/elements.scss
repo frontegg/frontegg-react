@@ -114,3 +114,30 @@
     border-radius: 0.25rem;
   }
 }
+
+.fe-form {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fe-row {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+
+.fe-input__inline {
+  width: 300px !important;
+  display: inline-block;
+  margin: 0 1rem 1rem 0 !important;
+
+  &:last-child {
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .fe-input__inline {
+    width: 100% !important;
+  }
+}

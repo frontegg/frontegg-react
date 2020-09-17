@@ -54,4 +54,19 @@ export const useIsAuthenticated = (): boolean =>
  * use this frontegg hook function to get the authenticated user
  * the return user is null if not authenticated
  */
-export const useAuthUser = (): User | undefined => useSelector(({ [pluginName]: { user } }: any) => user, memoEqual);
+export const useAuthUser = (): User => {
+  const { user, routes, onRedirectTo } = useSelector(
+    ({ [pluginName]: { user, routes, onRedirectTo } }: { auth: AuthState }) => ({
+      user,
+      routes,
+      onRedirectTo,
+    }),
+    memoEqual
+  );
+
+  if (user == null) {
+    onRedirectTo(routes.loginUrl, { refresh: true });
+    return {} as User;
+  }
+  return user;
+};

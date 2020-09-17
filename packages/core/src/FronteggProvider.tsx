@@ -6,7 +6,7 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, useHistory, useLocation, useRouteMatch, useParams } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';

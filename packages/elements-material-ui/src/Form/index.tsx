@@ -4,6 +4,6 @@ import './style.scss';
 
 export class Form extends React.Component<FormProps> {
   render() {
-    return <div className='fe-form' {...(this.props as any)} />;
+    return <div {...(this.props as any)} />;
   }
 }
