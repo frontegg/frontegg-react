@@ -9,6 +9,8 @@ export type PageTabProps = {
   comp?: ComponentType;
 };
 
+export type PageProps<T = {}> = FC<T> & Omit<PageTabProps, 'comp'>;
+
 export type TabsProps = {
   tabs: PageTabProps[];
 };

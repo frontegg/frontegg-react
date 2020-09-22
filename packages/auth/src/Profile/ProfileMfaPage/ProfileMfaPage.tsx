@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Button, useT } from '@frontegg/react-core';
-import { ProfilePage } from '../interfaces';
+import { Button, PageProps, useT } from '@frontegg/react-core';
 import { MFA } from '../../MFA';
 
-export const ProfileMfaPage: ProfilePage = (props) => {
+export const ProfileMfaPage: PageProps = (props) => {
   const { t } = useT();
   return (
     <div className='fe-profile-mfa-page'>

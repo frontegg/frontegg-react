@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { withFrontegg } from '../withFrontegg';
 import { AuthExamples } from '../auth-examples';
 import { ProtectedRoute, Profile, SSO, MFA, useAuthUser } from '@frontegg/react-auth';
@@ -26,6 +26,13 @@ class App extends React.Component<any> {
       <div className='app'>
         <AuthExamples>
           <Switch>
+            <Route exact path='/'>
+              <div>
+                <div><Link to='/profile'>Profile</Link></div>
+                <div><Link to='/sso'>SSO</Link></div>
+                <div><Link to='/test-auth-user'>Test Auth User</Link></div>
+              </div>
+            </Route>
             <Route path='/test-auth-user' component={TestPage} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>

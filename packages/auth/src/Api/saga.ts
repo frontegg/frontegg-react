@@ -13,7 +13,7 @@ import {
   IRecoverMFAToken,
   IResetPassword,
   ISamlConfiguration,
-  IUpdateSamlConfiguration,
+  IUpdateSamlConfiguration, IUserProfile,
   IVerifyMfa,
   omitProps,
 } from '@frontegg/react-core';
@@ -106,7 +106,7 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
       actions.setState({
         user: !!user.accessToken ? user : undefined,
         isAuthenticated: !!user.accessToken,
-      })
+      }),
     );
 
     yield afterAuthNavigation();
@@ -138,7 +138,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
           mfaToken: user.mfaToken,
           step,
         },
-      })
+      }),
     );
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -151,7 +151,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
         email,
         error: e.message,
         loading: false,
-      })
+      }),
     );
   }
 }
@@ -167,7 +167,7 @@ function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWit
         loginState: { loading: false, error: undefined, step },
         user,
         isAuthenticated: true,
-      })
+      }),
     );
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -283,7 +283,7 @@ function* validateSSODomain() {
         samlConfiguration: { ...samlConfiguration, validated: true },
         error: undefined,
         saving: false,
-      })
+      }),
     );
   } catch (e) {
     yield put(
@@ -291,9 +291,23 @@ function* validateSSODomain() {
         samlConfiguration: { ...samlConfiguration, validated: false },
         error: e.message,
         saving: false,
-      })
+      }),
     );
   }
+}
+
+/***************************
+ * Profile Saga
+ ***************************/
+
+function* loadProfile() {
+  const profile = yield call(api.profile.getProfile);
+  const currentUser = yield select(state => state.auth.user);
+  actions.setUser({ ...currentUser, ...profile });
+}
+
+function* saveProfile({ payload }: PayloadAction<IUserProfile>) {
+
 }
 
 /***************************
@@ -320,7 +334,7 @@ function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
         loading: false,
         error: undefined,
         recoveryCode,
-      })
+      }),
     );
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
   } catch (e) {
@@ -357,6 +371,10 @@ export function* sagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
+
+  // profile
+  yield takeEvery(actions.loadProfile, loadProfile);
+  yield takeEvery(actions.saveProfile, saveProfile);
 
   // mfa
   yield takeEvery(actions.enrollMfa, enrollMfa);

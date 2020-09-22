@@ -1,6 +1,6 @@
-import { Post } from '../fetch';
+import { Get, Post } from '../fetch';
 import Logger from '../../helpers/Logger';
-import { USERS_SERVICE_URL_V1 } from '../constants';
+import { USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
 import { IChangePassword, IUpdateProfile, IUserProfile } from './interfaces';
 
 const logger = Logger.from('ProfileApi');
@@ -17,7 +17,7 @@ const logger = Logger.from('ProfileApi');
  */
 export async function getProfile(): Promise<IUserProfile> {
   logger.debug('getProfile()');
-  return Post(`${USERS_SERVICE_URL_V1}/passwords/change`);
+  return Get(`${USERS_SERVICE_URL_V2}/me`);
 }
 
 /**

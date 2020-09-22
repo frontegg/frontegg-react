@@ -1,5 +1,4 @@
 import React from 'react';
-import { ProfilePage } from '../interfaces';
 import {
   FFormik,
   FForm,
@@ -8,12 +7,14 @@ import {
   validateSchema,
   validatePassword,
   validatePasswordConfirmation,
-  FButton,
+  FButton, PageProps,
 } from '@frontegg/react-core';
+import { useAuth } from '../../hooks';
 
 const { Formik } = FFormik;
-export const ProfilePasswordSettingsPage: ProfilePage = (props) => {
+export const ProfilePasswordSettingsPage: PageProps = () => {
   const { t } = useT();
+  const {} = useAuth()
   return (
     <div className='fe-profile-password-page'>
       <div className='fe-section-title fe-bold fe-mb-2'>{t('common.password')}</div>
@@ -46,7 +47,7 @@ export const ProfilePasswordSettingsPage: ProfilePage = (props) => {
             />
           </div>
           <FButton type='submit' variant='primary' fullWidth={false}>
-            {t('change-password')}
+            {t('auth.profile.password-settings.button')}
           </FButton>
         </FForm>
       </Formik>

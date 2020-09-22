@@ -6,7 +6,7 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation, useRouteMatch, useParams } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
@@ -26,12 +26,14 @@ export interface PluginConfig {
 }
 
 interface FeProviderProps {
-  withRouter?: boolean;
   context: ContextOptions;
   plugins: PluginConfig[];
   uiLibrary: Elements;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
+
+  // deprecated: FronteggProvider will detect if wrapped by ReactRouter, it not will wrap it self with BrowserRouter
+  withRouter?: boolean;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -41,9 +43,9 @@ let fronteggStore: EnhancedStore;
 const FePlugins: FC<FeProviderProps> = (props) => {
   const listeners = useMemo(() => {
     return props.plugins
-      .filter((p) => p.Listener)
-      .map((p) => ({ storeName: p.storeName, Listener: p.Listener! }))
-      .map(({ storeName, Listener }, i) => <Listener key={storeName} />);
+    .filter((p) => p.Listener)
+    .map((p) => ({ storeName: p.storeName, Listener: p.Listener! }))
+    .map(({ storeName, Listener }, i) => <Listener key={storeName} />);
   }, [props.plugins]);
 
   const children = useMemo(() => {
@@ -115,7 +117,7 @@ const FeState: FC<FeProviderProps> = (props) => {
             onRedirectTo,
           },
         }),
-        {}
+        {},
       ),
     };
     fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
@@ -144,8 +146,8 @@ const FeState: FC<FeProviderProps> = (props) => {
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
-
-  if (props.withRouter) {
+  const withRouter = !useHistory();
+  if (withRouter) {
     return (
       <BrowserRouter>
         <FeState {...props} />

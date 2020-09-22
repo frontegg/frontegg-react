@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import { useT, FFormik, validateDomain, validateSchema, FInput, FForm } from '@frontegg/react-core';
 import { SSOClaimDomainProceedStep } from './SSOClaimDomainProceedStep';

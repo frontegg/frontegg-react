@@ -38,7 +38,7 @@ export default {
         'login-with-sso-failed': 'Failed to Login with SSO, try again later.',
       },
       'forgot-password': {
-        'email-label': 'Forgot password for Email',
+        'email-label': 'Enter your email',
         'remind-me': 'Remind Me',
         'password-has-been-changed': 'Your password has been changed',
         'reset-password-failed-title': 'Reset Password Failed',
@@ -98,6 +98,7 @@ export default {
         },
         'password-settings': {
           title: 'Change Password',
+          button: 'Change Password'
         },
       },
       mfa: {

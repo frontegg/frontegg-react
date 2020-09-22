@@ -24,9 +24,9 @@ const store = createStore(counter);
 ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <BrowserRouter>
+    {/*<BrowserRouter>*/}
       <App />
-    </BrowserRouter>
+    {/*</BrowserRouter>*/}
   </Provider>,
   // </React.StrictMode>
   document.getElementById('root')

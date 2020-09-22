@@ -1,10 +1,9 @@
 import React from 'react';
-import { useT } from '@frontegg/react-core';
-import { ProfilePage } from '../interfaces';
-import { useAuthProfile } from '../helpers';
+import { PageProps, useT } from '@frontegg/react-core';
+import { useAuthUser } from '../../hooks';
 
-export const ProfileInfoPage: ProfilePage = (props) => {
-  const { profile } = useAuthProfile();
+export const ProfileInfoPage: PageProps = (props) => {
+  const profile = useAuthUser();
 
   return (
     <div className='fe-profile-info'>

@@ -22,7 +22,7 @@ import {
   IPreLogin,
   IRecoverMFAToken,
   IResetPassword,
-  ISamlConfiguration,
+  ISamlConfiguration, IUserProfile,
   IVerifyMfa,
 } from '@frontegg/react-core';
 
@@ -146,7 +146,7 @@ const actions = {
 
   // profile
   loadProfile: createAction(`${storeName}/loadProfile`),
-  saveProfile: createAction(`${storeName}/saveProfile`),
+  saveProfile: createAction(`${storeName}/saveProfile`, (payload: Partial<IUserProfile>) => ({ payload })),
 
   // mfa actions
   enrollMfa: createAction(`${name}/enrollMfa`, (payload = {}) => ({ payload })),

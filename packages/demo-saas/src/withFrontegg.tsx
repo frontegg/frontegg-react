@@ -23,6 +23,7 @@ const plugins: PluginConfig[] = [
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider
+    debugMode
     context={contextOptions}
     plugins={plugins}
     uiLibrary={{
