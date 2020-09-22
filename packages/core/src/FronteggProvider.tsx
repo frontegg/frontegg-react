@@ -43,9 +43,9 @@ let fronteggStore: EnhancedStore;
 const FePlugins: FC<FeProviderProps> = (props) => {
   const listeners = useMemo(() => {
     return props.plugins
-    .filter((p) => p.Listener)
-    .map((p) => ({ storeName: p.storeName, Listener: p.Listener! }))
-    .map(({ storeName, Listener }, i) => <Listener key={storeName} />);
+      .filter((p) => p.Listener)
+      .map((p) => ({ storeName: p.storeName, Listener: p.Listener! }))
+      .map(({ storeName, Listener }, i) => <Listener key={storeName} />);
   }, [props.plugins]);
 
   const children = useMemo(() => {
@@ -117,7 +117,7 @@ const FeState: FC<FeProviderProps> = (props) => {
             onRedirectTo,
           },
         }),
-        {},
+        {}
       ),
     };
     fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });

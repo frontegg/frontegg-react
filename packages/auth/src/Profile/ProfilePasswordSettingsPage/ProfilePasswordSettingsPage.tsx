@@ -7,14 +7,15 @@ import {
   validateSchema,
   validatePassword,
   validatePasswordConfirmation,
-  FButton, PageProps,
+  FButton,
+  PageProps,
 } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
 
 const { Formik } = FFormik;
 export const ProfilePasswordSettingsPage: PageProps = () => {
   const { t } = useT();
-  const {} = useAuth()
+  const {} = useAuth();
   return (
     <div className='fe-profile-password-page'>
       <div className='fe-section-title fe-bold fe-mb-2'>{t('common.password')}</div>

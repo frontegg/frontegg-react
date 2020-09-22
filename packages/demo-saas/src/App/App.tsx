@@ -28,9 +28,15 @@ class App extends React.Component<any> {
           <Switch>
             <Route exact path='/'>
               <div>
-                <div><Link to='/profile'>Profile</Link></div>
-                <div><Link to='/sso'>SSO</Link></div>
-                <div><Link to='/test-auth-user'>Test Auth User</Link></div>
+                <div>
+                  <Link to='/profile'>Profile</Link>
+                </div>
+                <div>
+                  <Link to='/sso'>SSO</Link>
+                </div>
+                <div>
+                  <Link to='/test-auth-user'>Test Auth User</Link>
+                </div>
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />

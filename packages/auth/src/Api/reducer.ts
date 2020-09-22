@@ -22,7 +22,8 @@ import {
   IPreLogin,
   IRecoverMFAToken,
   IResetPassword,
-  ISamlConfiguration, IUserProfile,
+  ISamlConfiguration,
+  IUserProfile,
   IVerifyMfa,
 } from '@frontegg/react-core';
 

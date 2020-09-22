@@ -10,7 +10,9 @@ export const SSOClaimDomainProceedStep: FC = (props) => {
   const { saving, error, samlConfiguration, setSSOState } = useAuth((state) => state.ssoState);
   const { values } = useFormikContext<{ domain: string }>();
 
-  useEffect(() => {setSSOState({ error: null });}, [values.domain]);
+  useEffect(() => {
+    setSSOState({ error: null });
+  }, [values.domain]);
 
   if ((samlConfiguration && values.domain === samlConfiguration?.domain) || !samlConfiguration) {
     return null;

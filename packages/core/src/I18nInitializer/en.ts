@@ -98,7 +98,7 @@ export default {
         },
         'password-settings': {
           title: 'Change Password',
-          button: 'Change Password'
+          button: 'Change Password',
         },
       },
       mfa: {
