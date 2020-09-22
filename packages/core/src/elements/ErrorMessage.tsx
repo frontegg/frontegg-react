@@ -1,12 +1,21 @@
 import React, { FC } from 'react';
 
-type ErrorMessageProps = {
+export type OnError = {
+  // triggered if change password failed. return true to override the default behavior
+  onError?: (error: any) => boolean;
+}
+type ErrorMessageProps = OnError & {
   error?: any;
   separator?: boolean;
 };
-export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator }) => {
+export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator, onError }) => {
   if (!error) {
     return null;
+  }
+  if (onError) {
+    if (onError(error)) {
+      return null;
+    }
   }
 
   if (separator && error.indexOf(', ') !== -1) {

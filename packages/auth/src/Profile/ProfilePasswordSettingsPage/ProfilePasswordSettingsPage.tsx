@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   FFormik,
   FForm,
@@ -8,14 +8,19 @@ import {
   validatePassword,
   validatePasswordConfirmation,
   FButton,
-  PageProps,
+  ErrorMessage,
+  PageTabProps, OnError,
 } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
 
 const { Formik } = FFormik;
-export const ProfilePasswordSettingsPage: PageProps = () => {
+
+type ProfilePasswordSettingsPageProps = OnError
+
+export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> & PageTabProps = (props) => {
   const { t } = useT();
-  const {} = useAuth();
+  const { onError } = props;
+  const { loading, error, changePassword } = useAuth(state => state.profileState);
   return (
     <div className='fe-profile-password-page'>
       <div className='fe-section-title fe-bold fe-mb-2'>{t('common.password')}</div>
@@ -30,8 +35,8 @@ export const ProfilePasswordSettingsPage: PageProps = () => {
           newPassword: validatePassword(t),
           confirmNewPassword: validatePasswordConfirmation(t, 'newPassword'),
         })}
-        onSubmit={async (values) => {
-          console.log(values);
+        onSubmit={async ({ password, newPassword }) => {
+          changePassword({ password, newPassword });
         }}
       >
         <FForm>
@@ -47,7 +52,8 @@ export const ProfilePasswordSettingsPage: PageProps = () => {
               label={'Repeat New Password'}
             />
           </div>
-          <FButton type='submit' variant='primary' fullWidth={false}>
+          <ErrorMessage error={error} onError={onError} separator/>
+          <FButton type='submit' variant='primary' fullWidth={false} loading={loading}>
             {t('auth.profile.password-settings.button')}
           </FButton>
         </FForm>

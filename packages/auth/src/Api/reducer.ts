@@ -8,12 +8,12 @@ import {
   LoginState,
   LoginStep,
   MFAState,
-  MFAStep,
+  MFAStep, ProfileState,
   SSOState,
   User,
 } from './interfaces';
 import {
-  IActivateAccount,
+  IActivateAccount, IChangePassword,
   IDisableMfa,
   IForgotPassword,
   ILogin,
@@ -69,7 +69,7 @@ export const preloadedState: AuthState = {
   },
 
   profileState: {
-    loading: true,
+    loading: false,
   },
   mfaState: {
     step: MFAStep.verify,
@@ -119,6 +119,10 @@ const { reducer, actions: SliceActions } = createSlice({
     setSSOState: typeReducerForKey<SSOState>('ssoState'),
     resetSSOState: resetStateByKey<SSOState>('ssoState'),
 
+    // profile reducers
+    setProfileState: typeReducerForKey<ProfileState>('profileState'),
+    resetProfileState: resetStateByKey<ProfileState>('profileState'),
+
     // mfa reducers
     setMfaState: typeReducerForKey<MFAState>('mfaState'),
     resetMfaState: resetStateByKey<MFAState>('mfaState'),
@@ -148,6 +152,7 @@ const actions = {
   // profile
   loadProfile: createAction(`${storeName}/loadProfile`),
   saveProfile: createAction(`${storeName}/saveProfile`, (payload: Partial<IUserProfile>) => ({ payload })),
+  changePassword: createAction(`${storeName}/changePassword`, (payload: Partial<IChangePassword>) => ({ payload })),
 
   // mfa actions
   enrollMfa: createAction(`${name}/enrollMfa`, (payload = {}) => ({ payload })),

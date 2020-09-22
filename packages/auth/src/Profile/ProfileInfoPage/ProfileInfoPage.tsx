@@ -1,14 +1,22 @@
 import React from 'react';
 import { PageProps, useT } from '@frontegg/react-core';
-import { useAuthUser } from '../../hooks';
+import { useAuthProfile } from '../helpers';
 
-export const ProfileInfoPage: PageProps = (props) => {
-  const profile = useAuthUser();
+export const ProfileInfoPage: PageProps = () => {
+  const { loading, error, profile } = useAuthProfile();
 
   return (
     <div className='fe-profile-info'>
-      profile info
-      {JSON.stringify(profile ?? {})}
+
+      <br />
+      <br />
+      Loading: {loading ? 'true' : 'false'}
+      <br />
+      <br />
+      Error: {error || 'null'}
+      <br />
+      <br />
+      {profile && JSON.stringify(profile)}
     </div>
   );
 };

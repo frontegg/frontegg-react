@@ -1,10 +1,12 @@
 import { InputProps } from './interfaces';
 import React from 'react';
 import { ElementsFactory } from './ElementsFactory';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
 
 export const Input = (props: InputProps) => React.createElement(ElementsFactory.getElement('Input'), props);
 export const FInput = (props: InputProps & { name: string }) => {
+
+  const { submitCount } = useFormikContext();
   const [inputProps, { touched, error }] = useField(props.name);
   const { onChange } = props;
   return (

@@ -1,9 +1,9 @@
-import { all, call, delay, put, select, takeEvery, takeLeading, takeLatest } from 'redux-saga/effects';
+import { all, call, delay, put, select, takeEvery, takeLeading, retry } from 'redux-saga/effects';
 import { actions } from './reducer';
 import {
   api,
   ContextHolder,
-  IActivateAccount,
+  IActivateAccount, IChangePassword,
   IDisableMfa,
   IForgotPassword,
   ILogin,
@@ -21,7 +21,6 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ActivateStep, ForgotPasswordStep, LoginStep, MFAStep, SSOState } from './interfaces';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
-import { Post } from '@frontegg/react-core/dist/api/fetch';
 
 function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -107,7 +106,7 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
       actions.setState({
         user: !!user.accessToken ? user : undefined,
         isAuthenticated: !!user.accessToken,
-      })
+      }),
     );
 
     yield afterAuthNavigation();
@@ -139,7 +138,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
           mfaToken: user.mfaToken,
           step,
         },
-      })
+      }),
     );
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -152,7 +151,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
         email,
         error: e.message,
         loading: false,
-      })
+      }),
     );
   }
 }
@@ -168,7 +167,7 @@ function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWit
         loginState: { loading: false, error: undefined, step },
         user,
         isAuthenticated: true,
-      })
+      }),
     );
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -284,7 +283,7 @@ function* validateSSODomain() {
         samlConfiguration: { ...samlConfiguration, validated: true },
         error: undefined,
         saving: false,
-      })
+      }),
     );
   } catch (e) {
     yield put(
@@ -292,7 +291,7 @@ function* validateSSODomain() {
         samlConfiguration: { ...samlConfiguration, validated: false },
         error: e.message,
         saving: false,
-      })
+      }),
     );
   }
 }
@@ -302,12 +301,30 @@ function* validateSSODomain() {
  ***************************/
 
 function* loadProfile() {
-  const profile = yield call(api.profile.getProfile);
-  const currentUser = yield select((state) => state.auth.user);
-  actions.setUser({ ...currentUser, ...profile });
+  yield put(actions.setProfileState({ loading: true }));
+  try {
+    const profile = yield retry(3, 2000, api.profile.getProfile);
+    const currentUser = yield select((state) => state.auth.user);
+    actions.setUser({ ...currentUser, ...profile });
+    yield put(actions.setProfileState({ profile, loading: false }));
+  } catch (e) {
+    yield put(actions.setProfileState({ loading: false, error: e.message }));
+  }
 }
 
-function* saveProfile({ payload }: PayloadAction<IUserProfile>) {}
+function* saveProfile({ payload }: PayloadAction<IUserProfile>) {
+
+}
+
+function* changePassword({ payload }: PayloadAction<IChangePassword>) {
+  yield put(actions.setProfileState({ loading: true }));
+  try {
+    yield call(api.profile.changePassword, payload);
+    yield put(actions.setProfileState({ loading: false, error: undefined }));
+  } catch (e) {
+    yield put(actions.setProfileState({ loading: false, error: e.message }));
+  }
+}
 
 /***************************
  * MFA Saga
@@ -333,7 +350,7 @@ function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
         loading: false,
         error: undefined,
         recoveryCode,
-      })
+      }),
     );
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
   } catch (e) {
@@ -372,8 +389,9 @@ export function* sagas() {
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
 
   // profile
-  yield takeEvery(actions.loadProfile, loadProfile);
+  yield takeLeading(actions.loadProfile, loadProfile);
   yield takeEvery(actions.saveProfile, saveProfile);
+  yield takeEvery(actions.changePassword, changePassword);
 
   // mfa
   yield takeEvery(actions.enrollMfa, enrollMfa);
