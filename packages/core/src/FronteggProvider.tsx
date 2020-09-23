@@ -28,7 +28,7 @@ export interface PluginConfig {
 interface FeProviderProps {
   context: ContextOptions;
   plugins: PluginConfig[];
-  uiLibrary: Elements;
+  uiLibrary?: Partial<Elements>;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
 

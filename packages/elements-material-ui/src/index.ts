@@ -10,7 +10,7 @@ import { Dialog } from './Dialog';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
-export const uiLibrary: Elements = {
+export const uiLibrary: Partial<Elements> = {
   Button,
   Input,
   Form,

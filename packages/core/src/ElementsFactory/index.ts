@@ -3,7 +3,6 @@ import { ElementsFactory } from './ElementsFactory';
 import { IconProps, LoaderProps, SwitchToggleProps, TabProps } from './interfaces';
 
 export * from './interfaces';
-export * from './Button';
 export * from './FileInput';
 export * from './Input';
 export * from './Form';
