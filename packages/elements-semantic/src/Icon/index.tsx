@@ -10,11 +10,14 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   copy: 'copy',
   checkmark: 'checkmark',
   warning: 'warning sign',
+  image: 'image',
+  delete: 'trash',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,
   name: iconMap[props.name] ?? props.name,
   className: classNames('fe-icon', props.className),
+  onClick: props.onClick,
 });
 
 export class Icon extends React.Component<IconProps> {

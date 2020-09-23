@@ -1,4 +1,4 @@
-import { Get, Post } from '../fetch';
+import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
 import { USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
 import { IChangePassword, IUpdateProfile, IUserProfile } from './interfaces';
@@ -26,7 +26,7 @@ export async function getProfile(): Promise<IUserProfile> {
  */
 export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUserProfile> {
   logger.debug('updateProfile()', body);
-  return Post(`${USERS_SERVICE_URL_V1}/passwords/change`, body);
+  return Put(`${USERS_SERVICE_URL_V2}/me`, body);
 }
 
 /**

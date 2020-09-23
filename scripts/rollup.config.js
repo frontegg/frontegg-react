@@ -29,7 +29,7 @@ const forceExternal = [
   '@material-ui/system',
   '@material-ui/types',
   '@material-ui/utils',
-  'jss'
+  'jss',
 ];
 const internalDeps = [
 //   "redux",
@@ -79,5 +79,6 @@ export default {
     sourcemap: !isProduction,
     dir: distFolder,
     format: 'esm',
+    exports: 'named',
   },
 };

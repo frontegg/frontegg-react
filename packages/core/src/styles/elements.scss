@@ -99,13 +99,13 @@
     max-width: 90%;
     width: 40rem;
     padding: 1rem;
-    background: #f9fafc;
+    background: var(--color-gray-0);
     border-radius: 0.25rem;
   }
 
   &-content {
     height: 100%;
-    border: 1px solid #d4dde9;
+    border: 1px solid var(--color-blue-gray-0);
     display: flex;
     flex-direction: column;
     justify-content: center;

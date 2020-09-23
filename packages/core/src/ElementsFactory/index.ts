@@ -4,6 +4,7 @@ import { IconProps, LoaderProps, SwitchToggleProps, TabProps } from './interface
 
 export * from './interfaces';
 export * from './Button';
+export * from './FileInput';
 export * from './Input';
 export * from './Form';
 export * from './Dialog';

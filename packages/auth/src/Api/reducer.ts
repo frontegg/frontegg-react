@@ -152,7 +152,7 @@ const actions = {
   // profile
   loadProfile: createAction(`${storeName}/loadProfile`),
   saveProfile: createAction(`${storeName}/saveProfile`, (payload: Partial<IUserProfile>) => ({ payload })),
-  changePassword: createAction(`${storeName}/changePassword`, (payload: Partial<IChangePassword>) => ({ payload })),
+  changePassword: createAction(`${storeName}/changePassword`, (payload: IChangePassword) => ({ payload })),
 
   // mfa actions
   enrollMfa: createAction(`${name}/enrollMfa`, (payload = {}) => ({ payload })),

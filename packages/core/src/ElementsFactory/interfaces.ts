@@ -45,7 +45,14 @@ export interface SwitchToggleProps {
   onChange?: (toggled: boolean) => void;
 }
 
-export type IconNames = 'left-arrow' | 'right-arrow' | 'checkmark' | 'copy' | 'warning';
+export type IconNames =
+  | 'left-arrow'
+  | 'right-arrow'
+  | 'checkmark'
+  | 'copy'
+  | 'warning'
+  | 'image'
+  | 'delete';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

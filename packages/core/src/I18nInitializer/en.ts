@@ -15,8 +15,11 @@ export default {
       domain: 'Domain',
       proceed: 'Proceed',
       validate: 'Validate',
+      email: 'Email',
       password: 'Password',
       'not-configured': 'Not Configured',
+      country: 'Country',
+      'date-of-birth': 'Date of Birth',
     },
     auth: {
       login: {
@@ -95,11 +98,18 @@ export default {
         title: 'My Profile',
         info: {
           title: 'Basic Info',
+          title2: 'Basic Information',
+          'upload-photo': 'Upload Photo',
+          'upload-photo-note': 'At least 256x256px PNG or JPEG file',
+          'invalid-profile-photo': 'Profile Photo must be at least 256x256px',
+          'user-title': 'Title',
+          'user-name': 'Display Name',
         },
         'password-settings': {
           title: 'Change Password',
           button: 'Change Password',
         },
+
       },
       mfa: {
         title: 'Multi-Factor Authentication',

@@ -312,8 +312,21 @@ function* loadProfile() {
   }
 }
 
-function* saveProfile({ payload }: PayloadAction<IUserProfile>) {
-
+function* saveProfile({ payload }: PayloadAction<Partial<IUserProfile>>) {
+  yield put(actions.setProfileState({ saving: true }));
+  try {
+    const oldProfileData = yield select(state => state.auth.profileState.profile);
+    const newProfileData = {
+      ...oldProfileData,
+      ...payload,
+    };
+    const profile = yield call(api.profile.updateProfile, newProfileData);
+    const currentUser = yield select((state) => state.auth.user);
+    actions.setUser({ ...currentUser, ...profile });
+    yield put(actions.setProfileState({ profile, saving: false }));
+  } catch (e) {
+    yield put(actions.setProfileState({ saving: false, error: e.message }));
+  }
 }
 
 function* changePassword({ payload }: PayloadAction<IChangePassword>) {

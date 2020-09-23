@@ -1,24 +1,35 @@
-import React from 'react';
-import { PageProps, useT } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { PageTabProps, useT, FFormik, IUserProfile, FForm } from '@frontegg/react-core';
+import { ProfileImageUploader } from './ProfileImageUploader';
+import { ProfileBasicInformation } from './ProfileBasicInformation';
 import { useAuthProfile } from '../helpers';
+import { useAuth } from '../../hooks';
 
-export const ProfileInfoPage: PageProps = () => {
-  const { loading, error, profile } = useAuthProfile();
+const { Formik } = FFormik;
+export const ProfileInfoPage: FC & PageTabProps = (props) => {
+  const { loading, profile, saveProfile } = useAuthProfile();
 
-  return (
-    <div className='fe-profile-info'>
+  const children = props.children ?? <>
+    <ProfileImageUploader />
+    <ProfileBasicInformation />
+  </>;
 
-      <br />
-      <br />
-      Loading: {loading ? 'true' : 'false'}
-      <br />
-      <br />
-      Error: {error || 'null'}
-      <br />
-      <br />
-      {profile && JSON.stringify(profile)}
-    </div>
-  );
+  return <Formik
+    initialValues={{
+      profilePictureUrl: profile?.profilePictureUrl ?? '',
+    }}
+    enableReinitialize
+
+    onSubmit={(values) => {
+      saveProfile(values);
+    }}
+  >
+    <FForm>
+      <div className='fe-profile-info'>
+        {children}
+      </div>
+    </FForm>
+  </Formik>;
 };
 
 ProfileInfoPage.Title = () => useT().t('auth.profile.info.title');
