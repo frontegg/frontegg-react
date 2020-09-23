@@ -8,12 +8,14 @@ import {
   LoginState,
   LoginStep,
   MFAState,
-  MFAStep, ProfileState,
+  MFAStep,
+  ProfileState,
   SSOState,
   User,
 } from './interfaces';
 import {
-  IActivateAccount, IChangePassword,
+  IActivateAccount,
+  IChangePassword,
   IDisableMfa,
   IForgotPassword,
   ILogin,

@@ -15,7 +15,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   error?: string;
 }
 
-
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   as?: string; // default is true
 }
@@ -33,14 +32,7 @@ export interface SwitchToggleProps {
   onChange?: (toggled: boolean) => void;
 }
 
-export type IconNames =
-  | 'left-arrow'
-  | 'right-arrow'
-  | 'checkmark'
-  | 'copy'
-  | 'warning'
-  | 'image'
-  | 'delete';
+export type IconNames = 'left-arrow' | 'right-arrow' | 'checkmark' | 'copy' | 'warning' | 'image' | 'delete';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;
@@ -53,10 +45,14 @@ export interface TabProps {
   onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
 }
 
-type ComponentTypeOrForwardRef<P, REF> = ComponentType<P> | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>
+type ComponentTypeOrForwardRef<P, REF> =
+  | ComponentType<P>
+  | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>;
 
 export type ElementProps = {
-  Button: ComponentType<ButtonProps> | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>
+  Button:
+    | ComponentType<ButtonProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
@@ -64,7 +60,9 @@ export type ElementProps = {
   Icon: ComponentType<IconProps>;
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
-  Grid: ComponentType<GridProps> | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+  Grid:
+    | ComponentType<GridProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
 };
 
 export type ElementType = keyof ElementProps;

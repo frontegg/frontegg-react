@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import {
   ArrowBackRounded,
   ArrowForwardRounded,
-  CheckRounded, DeleteRounded,
+  CheckRounded,
+  DeleteRounded,
   FileCopyRounded,
   ImageRounded,
   WarningRounded,

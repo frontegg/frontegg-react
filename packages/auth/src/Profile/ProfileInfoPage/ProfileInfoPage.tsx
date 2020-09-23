@@ -9,27 +9,28 @@ const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = (props) => {
   const { loading, profile, saveProfile } = useAuthProfile();
 
-  const children = props.children ?? <>
-    <ProfileImageUploader />
-    <ProfileBasicInformation />
-  </>;
+  const children = props.children ?? (
+    <>
+      <ProfileImageUploader />
+      <ProfileBasicInformation />
+    </>
+  );
 
-  return <Formik
-    initialValues={{
-      profilePictureUrl: profile?.profilePictureUrl ?? '',
-    }}
-    enableReinitialize
-
-    onSubmit={(values) => {
-      saveProfile(values);
-    }}
-  >
-    <FForm>
-      <div className='fe-profile-info'>
-        {children}
-      </div>
-    </FForm>
-  </Formik>;
+  return (
+    <Formik
+      initialValues={{
+        profilePictureUrl: profile?.profilePictureUrl ?? '',
+      }}
+      enableReinitialize
+      onSubmit={(values) => {
+        saveProfile(values);
+      }}
+    >
+      <FForm>
+        <div className='fe-profile-info'>{children}</div>
+      </FForm>
+    </Formik>
+  );
 };
 
 ProfileInfoPage.Title = () => useT().t('auth.profile.info.title');

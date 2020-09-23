@@ -3,12 +3,10 @@ import { Elements, ElementType } from './interfaces';
 import { FeGrid } from '../elements/Grid/FeGrid';
 import { FeButton } from '../elements/Button/FeButton';
 
-
 const fronteggElements: Partial<Elements> = {
   Button: FeButton,
   Grid: FeGrid,
 };
-
 
 export class ElementsFactory {
   private static instance: ElementsFactory;

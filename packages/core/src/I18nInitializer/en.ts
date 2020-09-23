@@ -109,7 +109,6 @@ export default {
           title: 'Change Password',
           button: 'Change Password',
         },
-
       },
       mfa: {
         title: 'Multi-Factor Authentication',

@@ -4,4 +4,5 @@ import { GridProps } from './inteterfaces';
 import './grid.scss';
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>((props, ref) =>
-  React.createElement(ElementsFactory.getElement('Grid'), { ...props, ref } as any));
+  React.createElement(ElementsFactory.getElement('Grid'), { ...props, ref } as any)
+);
