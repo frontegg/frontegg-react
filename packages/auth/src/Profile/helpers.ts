@@ -6,7 +6,7 @@ export const reloadProfileIfNeeded = () => {
   const { profile, loading, loadProfile } = useAuthProfile();
   useEffect(() => {
     if (!loading && !profile) {
-      console.log("reloadProfileIfNeeded", loading, profile)
+      console.log('reloadProfileIfNeeded', loading, profile);
       loadProfile();
     }
   }, []);

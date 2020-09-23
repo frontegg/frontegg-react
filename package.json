@@ -4,8 +4,7 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
-    "prepublishOnly": "make move-package-json-to-dist",
-    "prettierHook": "prettier --config ./.prettierrc.json --write . && git add ."
+    "prepublishOnly": "make move-package-json-to-dist"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -105,9 +104,6 @@
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
     "yargs": "^15.4.1"
-  },
-  "pre-commit": {
-    "run": "prettierHook"
   },
   "nyc": {
     "reporter": [
