@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { fronteggElements as FE } from '@frontegg/react-core';
+import { Elements, fronteggElements as FE } from '@frontegg/react-core';
 import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
-import { Elements } from '@frontegg/react-core';
 
 const Semantic = S as Elements;
 const Material = M as Elements;
@@ -24,6 +23,7 @@ const SubSection: FC<{ title: string }> = ({ title, children }) => {
     </div>
   );
 };
+
 const libs = [
   {
     title: 'Frontegg',
