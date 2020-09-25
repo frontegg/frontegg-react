@@ -1,12 +1,6 @@
 import React from 'react';
 import { Elements, ElementType } from './interfaces';
-import { FeGrid } from '../elements/Grid/FeGrid';
-import { FeButton } from '../elements/Button/FeButton';
-
-const fronteggElements: Partial<Elements> = {
-  Button: FeButton,
-  Grid: FeGrid,
-};
+import { fronteggElements } from '../elements';
 
 export class ElementsFactory {
   private static instance: ElementsFactory;

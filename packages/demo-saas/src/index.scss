@@ -1,2 +1,24 @@
 //@import url('https://cdn.jsdelivr.net/npm/@frontegg/react-dev/vendor.min.css');
 @import url('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css');
+
+.components-section {
+  margin: auto;
+  max-width: 80%;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  background: #f1f1f1;
+  margin-top: 2rem;
+}
+
+.components-sub-section {
+  margin-top: 2rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #eee;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

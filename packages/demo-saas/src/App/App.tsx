@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { withFrontegg } from '../withFrontegg';
 import { AuthExamples } from '../auth-examples';
 import { ProtectedRoute, Profile, SSO, MFA, useAuthUser } from '@frontegg/react-auth';
 import { Profile as OldProfile } from '@frontegg/react';
 import { PageTabProps, useT } from '@frontegg/react-core';
+import { ComponentsPage } from '../ComponentsPage';
+import { withFrontegg } from '../withFrontegg';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -40,6 +41,7 @@ class App extends React.Component<any> {
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />
+            <Route path='/components' component={ComponentsPage} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />
