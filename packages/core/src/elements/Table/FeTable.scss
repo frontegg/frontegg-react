@@ -1,0 +1,85 @@
+.fe-table {
+  --fe-table-header-bg: var(--color-gray-0);
+  --fe-table-header-font-color: var(--color-blue-gray-8);
+  --fe-table-header-icon-color: var(--color-gray-5);
+  --fe-table-header-font-size: 0.85rem;
+  --fe-table-header-align: left;
+  --fe-table-header-height: 3rem;
+  --fe-table-header-padding: 0 1rem;
+
+  --fe-table-row-divider-width: 1px;
+  --fe-table-row-divider-color: var(--color-gray-2);
+
+  --fe-table-cell-padding: var(--fe-table-header-padding);
+  --fe-table-cell-height: 3.5rem;
+  --fe-table-cell-font-size: 0.85rem;
+  --fe-table-cell-font-color: var(--color-blue-gray-8);
+
+  --fe-table-elements-border-radius: 0.5rem;
+
+  width: 100%;
+
+  &__thead {
+    background: var(--fe-table-header-bg);
+  }
+
+  &__thead-tr {
+    height: var(--fe-table-header-height);
+  }
+
+  &__thead-tr-th {
+    color: var(--fe-table-header-font-color);
+    padding: var(--fe-table-header-padding);
+    text-align: var(--fe-table-header-align);
+    font-size: var(--fe-table-header-font-size);
+    line-height: var(--fe-table-header-font-size);
+    text-transform: uppercase;
+
+    > * {
+      vertical-align: baseline;
+    }
+
+    .fe-icon {
+      height: var(--fe-table-header-font-size);
+      transform: translateY(0.1rem);
+      margin: 0 0.5rem;
+      width: auto;
+      color: var(--fe-table-header-icon-color);
+    }
+
+    .fe-table-filter-button {
+      z-index: 10;
+      float: right;
+      padding: 0.5rem;
+      box-sizing: content-box;
+      margin: -0.5rem 1rem -0.5rem 2rem;
+      transition: all 300ms;
+      border-radius: var(--fe-table-elements-border-radius);
+
+      &:hover {
+        color: var(--fe-table-header-font-color);
+        background: var(--color-gray-2);
+      }
+
+      &.active-filter {
+        color: var(--color-primary-dark);
+        background: var(--color-gray-2);
+      }
+    }
+  }
+
+  &__tbody {
+  }
+
+  &__tr {
+    height: var(--fe-table-cell-height);
+  }
+
+  &__tr-td {
+    border-bottom: var(--fe-table-row-divider-width) solid var(--fe-table-row-divider-color);
+    color: var(--fe-table-header-font-color);
+    padding: var(--fe-table-cell-padding);
+    font-size: var(--fe-table-cell-font-size);
+    font-weight: bold;
+  }
+}

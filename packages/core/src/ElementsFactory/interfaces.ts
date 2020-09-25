@@ -1,7 +1,8 @@
 import React, { ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
-import { ButtonProps } from '../elements/Button/interfaces';
+import { ButtonProps } from '../elements/Button';
+import { IconProps } from '../elements/Icon';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -31,14 +32,6 @@ export interface SwitchToggleProps {
   labels?: [string, string];
   onChange?: (toggled: boolean) => void;
 }
-
-export type IconNames = 'left-arrow' | 'right-arrow' | 'checkmark' | 'copy' | 'warning' | 'image' | 'delete';
-
-export interface IconProps extends React.HTMLAttributes<HTMLElement> {
-  name: IconNames;
-  size?: 'small' | 'medium' | 'large';
-}
-
 export interface TabProps {
   items: ComponentType[];
   activeTab: number;

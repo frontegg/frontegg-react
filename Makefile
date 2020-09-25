@@ -77,14 +77,10 @@ versioning:
 lint: ##@2 Linting run lint on all packages
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint "./packages/*/{src,tests}/**/*.{ts,tsx}"
-#	@echo "${YELLOW}Running eslint on all packages${RESET}"
-#	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 
 lint-%: ##@2 Linting run lint on specific packages
 	@echo "${YELLOW}Running tslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
 	@./node_modules/.bin/tslint ./packages/${*}/{src}/**/*.ts
-#	@echo "${YELLOW}Running eslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
-#	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 
 ########################################################################################################################
 #
@@ -134,6 +130,9 @@ build-%: ##@2 Build build a specific package
 
 bw: ##@2 Build parallels build:watch all
 	@./node_modules/.bin/lerna run build:watch --parallel
+
+bw-%: ##@2 Build build:watch specific package
+	@export PACKAGE=${*}; cd ./packages/${*} && yarn build:watch
 ########################################################################################################################
 #
 # Publish Operations

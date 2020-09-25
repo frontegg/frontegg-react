@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
-import { Icon, Tabs, TabProps } from '../../ElementsFactory';
+import { Tabs, TabProps } from '../../ElementsFactory';
+import { Icon } from '../../elements/Icon';
 
 export interface PageHeaderProps {
   className?: string;

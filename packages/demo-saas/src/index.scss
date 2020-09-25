@@ -1,6 +1,16 @@
 //@import url('https://cdn.jsdelivr.net/npm/@frontegg/react-dev/vendor.min.css');
 @import url('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css');
 
+body {
+  --color-primary: var(--color-green-5);
+  --color-primary-25: var(--color-green-5-25);
+  --color-primary-50: var(--color-green-5-50);
+  --color-primary-74: var(--color-green-5-75);
+  --color-primary-light: var(--color-green-3);
+  --color-primary-dark: var(--color-green-6);
+  --color-primary-darker: var(--color-green-7);
+  --color-primary-bg: var(--color-green-5);
+}
 .components-section {
   margin: auto;
   max-width: 80%;
