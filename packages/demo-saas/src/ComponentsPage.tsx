@@ -56,12 +56,12 @@ const elements = [
       { variant: 'secondary', children: 'Secondary Button' },
       { variant: 'danger', children: 'Danger Button' },
       { isCancel: true, children: 'Cancel Button' },
+      { fullWidth: true, children: 'Full Width Button' },
       { size: 'small', children: 'Small Button' },
       { size: 'medium', children: 'Medium Button' },
       { size: 'large', children: 'Large Button' },
       { disabled: true, children: 'Disabled Button' },
       { loading: true, children: 'Loading Button' },
-      { fullWidth: true, children: 'Full Width Button' },
     ],
   },
 ];
