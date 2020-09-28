@@ -12,6 +12,10 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   warning: 'warning sign',
   image: 'image',
   delete: 'trash',
+  'sort-arrows': 'trash',
+  'sort-arrows-asc': 'trash',
+  'sort-arrows-desc': 'trash',
+  filters: 'trash',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

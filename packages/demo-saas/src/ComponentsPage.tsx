@@ -47,17 +47,23 @@ const libs = [
 ];
 
 const elements = [
-  // {
-  //   title: 'Buttons',
-  //   type: 'Button',
-  //   props: [
-  //     { children: 'Regular Button' },
-  //     { variant: 'primary', children: 'Primary Button' },
-  //     { variant: 'secondary', children: 'Secondary Button' },
-  //     { variant: 'danger', children: 'Danger Button' },
-  //     { isCancel: true, children: 'Cancel Button' },
-  //   ],
-  // }
+  {
+    title: 'Buttons',
+    type: 'Button',
+    props: [
+      { children: 'Regular Button' },
+      { variant: 'primary', children: 'Primary Button' },
+      { variant: 'secondary', children: 'Secondary Button' },
+      { variant: 'danger', children: 'Danger Button' },
+      { isCancel: true, children: 'Cancel Button' },
+      { size: 'small', children: 'Small Button' },
+      { size: 'medium', children: 'Medium Button' },
+      { size: 'large', children: 'Large Button' },
+      { disabled: true, children: 'Disabled Button' },
+      { loading: true, children: 'Loading Button' },
+      { fullWidth: true, children: 'Full Width Button' },
+    ],
+  },
 ];
 
 const data = [
@@ -346,34 +352,26 @@ const data = [
 export const ComponentsPage: FC = () => {
   return (
     <div>
-      {/*<div style={{ maxWidth: '80%', margin: '20px auto 0' }}>*/}
-      {/*  {libs.map((lib) => (*/}
-      {/*    <SubSection title={`Customize ${lib.title}`}>*/}
-      {/*      <p dangerouslySetInnerHTML={{ __html: lib.customizeNotes }} />*/}
-      {/*    </SubSection>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
-      {/*{elements.map((elem) => (*/}
-      {/*  <Section title={elem.title}>*/}
-      {/*    {libs.map((lib) => (*/}
-      {/*      <SubSection title={lib.title}>*/}
-      {/*        {(lib.elements as any)[elem.type]*/}
-      {/*          ? elem.props.map((props) => {*/}
-      {/*              return React.createElement((lib.elements as any)[elem.type], props);*/}
-      {/*            })*/}
-      {/*          : `Elem ${elem.type} not found in lib ${lib.title}`}*/}
-      {/*      </SubSection>*/}
-      {/*    ))}*/}
-      {/*  </Section>*/}
-      {/*))}*/}
-
-      <FeTable
-        columns={[
-          { accessor: 'user', Header: 'User' },
-          { accessor: 'createdAt', Header: 'Time' },
-        ]}
-        data={data}
-      />
+      <div style={{ maxWidth: '80%', margin: '20px auto 0' }}>
+        {libs.map((lib) => (
+          <SubSection key={lib.title} title={`Customize ${lib.title}`}>
+            <p dangerouslySetInnerHTML={{ __html: lib.customizeNotes }} />
+          </SubSection>
+        ))}
+      </div>
+      {elements.map((elem) => (
+        <Section key={elem.title} title={elem.title}>
+          {libs.map((lib) => (
+            <SubSection key={lib.title} title={lib.title}>
+              {(lib.elements as any)[elem.type]
+                ? elem.props.map((props, index) => {
+                    return React.createElement((lib.elements as any)[elem.type], { ...props, key: index });
+                  })
+                : `Elem ${elem.type} not found in lib ${lib.title}`}
+            </SubSection>
+          ))}
+        </Section>
+      ))}
     </div>
   );
 };
