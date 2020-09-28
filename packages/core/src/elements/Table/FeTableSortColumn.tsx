@@ -4,22 +4,20 @@ import { FeTableColumnProps } from './interfaces';
 
 type FeTableSortColumnProps<T extends object = any> = {
   column: FeTableColumnProps<T>;
-  onSortChange: (column: FeTableColumnProps<T>) => void;
 };
 
-export const FeTableSortColumn: FC<FeTableSortColumnProps> = ({ column, onSortChange }: FeTableSortColumnProps) => {
-  const onClick = useCallback(() => onSortChange(column), [column]);
+export const FeTableSortColumn: FC<FeTableSortColumnProps> = ({ column }: FeTableSortColumnProps) => {
   if (!column.canSort) {
     return null;
   }
 
   if (!column.isSorted) {
-    return <FeIcon onClick={onClick} name='sort-arrows' />;
+    return <FeIcon name='sort-arrows' />;
   }
 
   if (column.isSortedDesc) {
-    return <FeIcon onClick={onClick} name='sort-arrows-desc' />;
+    return <FeIcon name='sort-arrows-desc' />;
   }
 
-  return <FeIcon onClick={onClick} name='sort-arrows-asc' />;
+  return <FeIcon name='sort-arrows-asc' />;
 };

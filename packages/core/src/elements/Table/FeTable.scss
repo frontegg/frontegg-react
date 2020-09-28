@@ -20,6 +20,7 @@
   height: 100%;
   width: 100%;
   flex: 1;
+  border-spacing: 0;
 
   &__container {
     position: relative;
@@ -98,5 +99,11 @@
     padding: var(--fe-table-cell-padding);
     font-size: var(--fe-table-cell-font-size);
     font-weight: bold;
+  }
+
+  &__tr-expanded-content > td {
+    box-shadow: 0 4px 5px -5px var(--color-black-10) inset, 0 -4px 5px -5px var(--color-black-10) inset;
+    background: var(--color-gray-0);
+    border-bottom: var(--fe-table-row-divider-width) solid var(--fe-table-row-divider-color);
   }
 }

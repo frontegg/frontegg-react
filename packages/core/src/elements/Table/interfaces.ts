@@ -17,17 +17,18 @@ export interface TableProps<T extends object = {}> {
    */
   /* column array to be displayed in the table */
   columns: TableColumnProps<T>[];
-
   pagination?: 'pages' | 'infinite-scroll';
   pageSize?: number;
 
-  /* Static Data Props */
+  expandable?: boolean;
+  renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
 
-  /* using this 'data' property to display static data */
+  tableHeader?: boolean;
+
   data: T[];
 
   isMultiSort?: boolean;
-  sortBy?: (sortBy: TableSort[]) => void;
+  sortBy?: TableSort[];
   onSortChange?: (sortBy: TableSort[]) => void;
 
   filters?: TableFilter[];

@@ -6,6 +6,7 @@ import { Profile as OldProfile } from '@frontegg/react';
 import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
+import { ComponentsPage2 } from '../ComponentsPage2';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -41,7 +42,8 @@ class App extends React.Component<any> {
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />
-            <Route path='/components' component={ComponentsPage} />
+            <Route exact path='/components' component={ComponentsPage} />
+            <Route exact path='/components2' component={ComponentsPage2} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />

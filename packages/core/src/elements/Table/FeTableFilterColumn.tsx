@@ -5,10 +5,12 @@ import { FeTableColumnProps } from './interfaces';
 
 type FeTableFilterColumnProps<T extends object = any> = {
   column: FeTableColumnProps<T>;
+  onFilterChange: (column: FeTableColumnProps<T>, value: any) => void;
 };
 
 export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object>({
   column,
+  onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
   if (!column.canFilter) {
     return null;
@@ -16,7 +18,6 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
 
   return (
     <>
-      {/*{column.render('Filter')}*/}
       <FeIcon
         className={classNames('fe-table-filter-button', {
           'active-filter': column.filterValue,
@@ -24,8 +25,11 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
         name='filters'
         onClick={(e) => {
           e.stopPropagation();
-          column.setFilter('600');
-          console.log('ss', column);
+          if (!column.filterValue) {
+            onFilterChange(column, '600');
+          } else {
+            onFilterChange(column, null);
+          }
         }}
       />
     </>
