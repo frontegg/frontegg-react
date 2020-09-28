@@ -1,5 +1,15 @@
-import { FC, ReactNode } from 'react';
-import { Accessor, HeaderProps, IdType, Renderer, SortingRule } from 'react-table';
+import React, { ReactNode } from 'react';
+import {
+  Column,
+  HeaderGroup,
+  HeaderProps,
+  IdType,
+  Renderer,
+  UseFiltersColumnOptions,
+  UseFiltersColumnProps,
+  UseSortByColumnOptions,
+  UseSortByColumnProps,
+} from 'react-table';
 
 export interface TableProps<T extends object = {}> {
   /**
@@ -16,7 +26,12 @@ export interface TableProps<T extends object = {}> {
   /* using this 'data' property to display static data */
   data: T[];
 
-  onSortChange?: (sortBy: TableSort[]) => any;
+  isMultiSort?: boolean;
+  sortBy?: (sortBy: TableSort[]) => void;
+  onSortChange?: (sortBy: TableSort[]) => void;
+
+  filters?: TableFilter[];
+  onFilterChange?: (filters: TableFilter[]) => void;
 }
 
 export interface TableColumnProps<T extends object> {
@@ -47,6 +62,7 @@ export interface TableColumnProps<T extends object> {
   Cell?: (data: T, index: number) => ReactNode;
 
   sortable?: boolean;
+  Filter?: () => React.ReactElement;
 }
 
 export interface TableSort {
@@ -54,7 +70,16 @@ export interface TableSort {
   desc?: boolean;
 }
 
+export interface TableFilter {
+  id: string;
+  value: any;
+}
+
 export interface TableColumnFilterProps<T = {}> {
   type: 'text' | 'select';
   filterBy: string;
 }
+
+export type FeTableColumnProps<T extends object> = HeaderGroup<T> & UseSortByColumnProps<T> & UseFiltersColumnProps<T>;
+
+export type FeTableColumnOptions<T extends object> = Column<T> & UseSortByColumnOptions<T> & UseFiltersColumnOptions<T>;

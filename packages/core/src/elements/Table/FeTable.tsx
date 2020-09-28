@@ -1,41 +1,89 @@
-import React, { FC, useEffect, useMemo } from 'react';
-import { TableProps } from './interfaces';
-import { HeaderGroup, useSortBy, UseSortByColumnProps, UseSortByState, useTable } from 'react-table';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import { FeTableColumnOptions, FeTableColumnProps, TableProps } from './interfaces';
+import {
+  useTable,
+  useFilters,
+  useSortBy,
+  TableState,
+  UseTableOptions,
+  UseFiltersOptions,
+  UseFiltersState,
+  UseSortByOptions,
+  UseSortByState,
+} from 'react-table';
 
 import './FeTable.scss';
 import classNames from 'classnames';
-import { FeIcon } from '../Icon/FeIcon';
+import { FeTableFilterColumn } from './FeTableFilterColumn';
+import { FeTableSortColumn } from './FeTableSortColumn';
+import { hasOwnProperty } from 'tslint/lib/utils';
 
 export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
   const columns = useMemo(() => {
-    return props.columns.map(({ sortable, ...rest }) => ({
-      ...rest,
-      defaultCanSort: sortable,
-    }));
+    return props.columns.map(
+      ({ sortable, Filter, ...rest }) =>
+        ({
+          ...rest,
+          disableSortBy: !sortable,
+          disableFilters: !Filter,
+          Filter,
+        } as FeTableColumnOptions<T>)
+    );
   }, props.columns);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state } = useTable(
     {
       columns,
       data: props.data,
-      manualSortBy: props.onSortChange,
-    } as any,
+      manualSortBy: !!props.onSortChange,
+      manualFilters: !!props.onFilterChange,
+      useControlledState: (state1: any) =>
+        ({
+          ...state1,
+          sortBy: props.sortBy ?? state1.sortBy,
+          filters: props.filters ?? state1.filters,
+        } as TableState<T> & UseFiltersState<T> & UseSortByState<T>),
+    } as UseTableOptions<T> & UseFiltersOptions<T> & UseSortByOptions<T>,
+    useFilters,
     useSortBy
   );
 
-  const tableState = state as UseSortByState<T>;
+  const tableState = state as UseSortByState<T> & UseFiltersState<T>;
+
+  const onSortChange = useCallback(
+    (column: FeTableColumnProps<T>) => {
+      if (hasOwnProperty(props, 'sortBy')) {
+        if (!props.onSortChange) {
+          throw Error('FeTable: you must provide onSortChange property in sortBy controlled');
+        }
+        const sortBy = props.isMultiSort ? tableState.sortBy.filter(({ id }) => id !== column.id) : [];
+        if (!column.isSorted || !column.isSortedDesc) {
+          sortBy.push({ id: column.id, desc: false });
+        }
+        props.onSortChange(sortBy);
+      } else {
+        column.toggleSortBy(!column.isSortedDesc, props.isMultiSort ?? false);
+      }
+    },
+    [props.onSortChange]
+  );
+
   useEffect(() => {
     props.onSortChange?.(tableState.sortBy);
   }, [props.onSortChange, tableState.sortBy]);
 
+  useEffect(() => {
+    props.onFilterChange?.(tableState.filters);
+  }, [props.onFilterChange, tableState.filters]);
+
   return (
-    <div>
+    <div className='fe-table__container'>
       <table className='fe-table' cellSpacing={0} cellPadding={0} {...getTableProps()}>
         <thead className='fe-table__thead'>
           {headerGroups.map((headerGroup) => (
             <tr className='fe-table__thead-tr' {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((c) => {
-                const column = c as HeaderGroup & UseSortByColumnProps<T>;
+                const column = c as FeTableColumnProps<T>;
                 return (
                   <th
                     className={classNames('fe-table__thead-tr-th', {
@@ -45,26 +93,8 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
                     {column.render('Header')}
-
-                    {column.canSort &&
-                      (column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <FeIcon name='sort-arrows-desc' />
-                        ) : (
-                          <FeIcon name='sort-arrows-asc' />
-                        )
-                      ) : (
-                        <FeIcon name='sort-arrows' />
-                      ))}
-
-                    <FeIcon
-                      className='fe-table-filter-button'
-                      name='filters'
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        console.log('ss');
-                      }}
-                    />
+                    <FeTableSortColumn column={column} onSortChange={onSortChange} />
+                    <FeTableFilterColumn column={column} />
                   </th>
                 );
               })}

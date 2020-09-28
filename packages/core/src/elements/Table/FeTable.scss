@@ -17,14 +17,27 @@
 
   --fe-table-elements-border-radius: 0.5rem;
 
+  height: 100%;
   width: 100%;
+  flex: 1;
+
+  &__container {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow: auto;
+  }
 
   &__thead {
-    background: var(--fe-table-header-bg);
   }
 
   &__thead-tr {
     height: var(--fe-table-header-height);
+    background: var(--fe-table-header-bg);
   }
 
   &__thead-tr-th {
@@ -33,7 +46,10 @@
     text-align: var(--fe-table-header-align);
     font-size: var(--fe-table-header-font-size);
     line-height: var(--fe-table-header-font-size);
+    background: var(--fe-table-header-bg);
     text-transform: uppercase;
+    position: sticky;
+    top: 0;
 
     > * {
       vertical-align: baseline;
@@ -55,6 +71,7 @@
       margin: -0.5rem 1rem -0.5rem 2rem;
       transition: all 300ms;
       border-radius: var(--fe-table-elements-border-radius);
+      cursor: pointer;
 
       &:hover {
         color: var(--fe-table-header-font-color);

@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Elements, fronteggElements as FE } from '@frontegg/react-core';
+import React, { FC, useState } from 'react';
+import { Elements, fronteggElements as FE, TableFilter } from '@frontegg/react-core';
 import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 import { FeTable } from '@frontegg/react-core';
@@ -344,6 +344,7 @@ const data = [
   },
 ];
 export const ComponentsPage: FC = () => {
+  const [filters, setFilters] = useState<TableFilter[]>([]);
   return (
     <div>
       {/*<div style={{ maxWidth: '80%', margin: '20px auto 0' }}>*/}
@@ -369,10 +370,15 @@ export const ComponentsPage: FC = () => {
 
       <FeTable
         columns={[
-          { accessor: 'user', Header: 'User' },
-          { accessor: 'createdAt', Header: 'Time' },
+          { accessor: 'user', Header: 'User', sortable: true },
+          { accessor: 'createdAt', Header: 'Time', Filter: () => <div>SS</div> },
         ]}
         data={data}
+        filters={filters}
+        onFilterChange={(_filters) => {
+          console.log('sss', _filters);
+          setFilters(_filters);
+        }}
       />
     </div>
   );
