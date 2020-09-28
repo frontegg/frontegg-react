@@ -1,25 +1,23 @@
 .fe-button {
   position: relative;
-  box-sizing: border-box;
   background: var(--color-gray-0);
   height: var(--element-height);
-  display: inline-block;
   cursor: pointer;
   font-family: var(--element-font-family);
   font-size: var(--font-size-body);
   font-stretch: normal;
   font-style: normal;
+  font-weight: 600;
   line-height: normal;
-  letter-spacing: normal;
   padding: 0 var(--element-padding);
   vertical-align: top;
   border-radius: var(--element-border-radius);
-  box-shadow: var(--shadow-1);
-  border: solid 1px var(--element-border-color);
+  box-shadow: none;
+  border: solid 2px var(--element-border-color);
   background-color: var(--color-white);
   text-decoration: none;
-  transition: background-color 0.2s ease-out;
-  outline: none !important;
+  transition: all 0.1s ease-out;
+  outline: none;
   overflow: hidden;
   color: var(--color-gray-8);
 
@@ -42,4 +40,51 @@
       padding: 0;
     }
   }
+}
+
+.fe-button:hover {
+  filter: brightness(0.9);
+}
+
+.fe-button:active {
+  filter: brightness(0.8);
+}
+
+.fe-button-primary {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.fe-button-secondary {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary-dark);
+}
+
+.fe-button-danger {
+  background: var(--color-danger-light);
+  color: var(--color-black);
+}
+
+.fe-button-small {
+  padding: 0 var(--element-padding-sm);
+  height: var(--element-height-sm);
+  font-size: var(--element-font-size-sm);
+}
+
+.fe-button-large {
+  padding: 0 var(--element-padding-lg);
+  height: var(--element-height-lg);
+  font-size: var(--element-font-size-lg);
+}
+
+.fe-button-disabled {
+  pointer-events: none;
+  cursor: default;
+  background-color: var(--color-gray-3);
+  color: var(--color-gray-5);
+  font-weight: 400;
+}
+
+.fe-button-full-width {
+  width: 100%;
 }

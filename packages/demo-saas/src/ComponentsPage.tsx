@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Elements, fronteggElements as FE, TableFilter } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { Elements, fronteggElements as FE } from '@frontegg/react-core';
 import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 import { FeTable } from '@frontegg/react-core';
@@ -47,17 +47,23 @@ const libs = [
 ];
 
 const elements = [
-  // {
-  //   title: 'Buttons',
-  //   type: 'Button',
-  //   props: [
-  //     { children: 'Regular Button' },
-  //     { variant: 'primary', children: 'Primary Button' },
-  //     { variant: 'secondary', children: 'Secondary Button' },
-  //     { variant: 'danger', children: 'Danger Button' },
-  //     { isCancel: true, children: 'Cancel Button' },
-  //   ],
-  // }
+  {
+    title: 'Buttons',
+    type: 'Button',
+    props: [
+      { children: 'Regular Button' },
+      { variant: 'primary', children: 'Primary Button' },
+      { variant: 'secondary', children: 'Secondary Button' },
+      { variant: 'danger', children: 'Danger Button' },
+      { isCancel: true, children: 'Cancel Button' },
+      { fullWidth: true, children: 'Full Width Button' },
+      { size: 'small', children: 'Small Button' },
+      { size: 'medium', children: 'Medium Button' },
+      { size: 'large', children: 'Large Button' },
+      { disabled: true, children: 'Disabled Button' },
+      { loading: true, children: 'Loading Button' },
+    ],
+  },
 ];
 
 const data = [
@@ -344,42 +350,28 @@ const data = [
   },
 ];
 export const ComponentsPage: FC = () => {
-  const [filters, setFilters] = useState<TableFilter[]>([]);
   return (
     <div>
-      {/*<div style={{ maxWidth: '80%', margin: '20px auto 0' }}>*/}
-      {/*  {libs.map((lib) => (*/}
-      {/*    <SubSection title={`Customize ${lib.title}`}>*/}
-      {/*      <p dangerouslySetInnerHTML={{ __html: lib.customizeNotes }} />*/}
-      {/*    </SubSection>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
-      {/*{elements.map((elem) => (*/}
-      {/*  <Section title={elem.title}>*/}
-      {/*    {libs.map((lib) => (*/}
-      {/*      <SubSection title={lib.title}>*/}
-      {/*        {(lib.elements as any)[elem.type]*/}
-      {/*          ? elem.props.map((props) => {*/}
-      {/*              return React.createElement((lib.elements as any)[elem.type], props);*/}
-      {/*            })*/}
-      {/*          : `Elem ${elem.type} not found in lib ${lib.title}`}*/}
-      {/*      </SubSection>*/}
-      {/*    ))}*/}
-      {/*  </Section>*/}
-      {/*))}*/}
-
-      <FeTable
-        columns={[
-          { accessor: 'user', Header: 'User', sortable: true },
-          { accessor: 'createdAt', Header: 'Time', Filter: () => <div>SS</div> },
-        ]}
-        data={data}
-        filters={filters}
-        onFilterChange={(_filters) => {
-          console.log('sss', _filters);
-          setFilters(_filters);
-        }}
-      />
+      <div style={{ maxWidth: '80%', margin: '20px auto 0' }}>
+        {libs.map((lib) => (
+          <SubSection key={lib.title} title={`Customize ${lib.title}`}>
+            <p dangerouslySetInnerHTML={{ __html: lib.customizeNotes }} />
+          </SubSection>
+        ))}
+      </div>
+      {elements.map((elem) => (
+        <Section key={elem.title} title={elem.title}>
+          {libs.map((lib) => (
+            <SubSection key={lib.title} title={lib.title}>
+              {(lib.elements as any)[elem.type]
+                ? elem.props.map((props, index) => {
+                    return React.createElement((lib.elements as any)[elem.type], { ...props, key: index });
+                  })
+                : `Elem ${elem.type} not found in lib ${lib.title}`}
+            </SubSection>
+          ))}
+        </Section>
+      ))}
     </div>
   );
 };

@@ -20,6 +20,10 @@ const iconMap: { [K in IconNames]: any } = {
   warning: WarningRounded,
   image: ImageRounded,
   delete: DeleteRounded,
+  'sort-arrows': DeleteRounded,
+  'sort-arrows-asc': DeleteRounded,
+  'sort-arrows-desc': DeleteRounded,
+  filters: DeleteRounded,
 };
 
 export class Icon extends React.Component<IconProps> {

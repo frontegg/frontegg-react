@@ -1,22 +1,23 @@
 :root {
-  --color-primary: var(--color-amber-5);
-  --color-primary-25: var(--color-amber-5-25);
-  --color-primary-50: var(--color-amber-5-50);
-  --color-primary-74: var(--color-amber-5-75);
-  --color-primary-light: var(--color-amber-3);
-  --color-primary-dark: var(--color-amber-6);
-  --color-primary-darker: var(--color-amber-7);
-  --color-primary-bg: var(--color-amber-5);
+  --color-primary: var(--color-green-3);
+  --color-primary-25: var(--color-green-5-25);
+  --color-primary-50: var(--color-green-5-50);
+  --color-primary-75: var(--color-green-5-75);
 
-  --color-secondary: var(--color-deep-purple-a1);
+  --color-primary-light: var(--color-green-1);
+  --color-primary-dark: var(--color-green-5);
+  --color-primary-darker: var(--color-green-7);
+  --color-primary-bg: var(--color-green-5);
+
+  --color-secondary: var(--color-deep-purple-3);
   --color-secondary-75: var(--color-deep-purple-a1-75);
   --color-secondary-50: var(--color-deep-purple-a1-50);
   --color-secondary-25: var(--color-deep-purple-a1-25);
 
-  --color-secondary-light: var(--color-deep-purple-a0);
-  --color-secondary-lightest: var(--color-deep-purple-1);
-  --color-secondary-dark: var(--color-deep-purple-a2);
-  --color-secondary-darker: var(--color-deep-purple-a3);
+  --color-secondary-light: var(--color-deep-purple-1);
+  --color-secondary-lightest: var(--color-deep-purple-0);
+  --color-secondary-dark: var(--color-deep-purple-5);
+  --color-secondary-darker: var(--color-deep-purple-7);
   --color-secondary-bg: var(--color-deep-purple-a1);
 
   /* feedback */
@@ -25,14 +26,14 @@
   --color-success-50: var(--color-light-green-a3-50);
   --color-success-25: var(--color-light-green-a3-25);
 
-  --color-danger: var(--color-red-7);
+  --color-danger: var(--color-red-5);
   --color-danger-75: var(--color-red-8-75);
   --color-danger-50: var(--color-red-8-50);
   --color-danger-25: var(--color-red-8-25);
 
-  --color-danger-dark: var(--color-red-8);
+  --color-danger-dark: var(--color-red-9);
   --color-danger-darker: var(--color-red-9);
-  --color-danger-light: var(--color-red-3);
+  --color-danger-light: var(--color-red-5);
   --color-warning: var(--color-yellow-6);
   --color-info: var(--color-blue-5);
 
