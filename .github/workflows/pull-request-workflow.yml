@@ -24,5 +24,10 @@ jobs:
           npm whoami
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-      - run: make init
-      - run: make publish-dev
+      - name: Init & Build Project
+        run: make init
+      - name: Publish To NPM (Prod)
+        run: make publish-dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USERNAME: ${{ github.event.schedule.user.login }}

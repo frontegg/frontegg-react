@@ -4,6 +4,7 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
+    "prettierHook": "prettier --config ./.prettierrc.json --write . && git add .",
     "prepublishOnly": "make move-package-json-to-dist"
   },
   "devDependencies": {
