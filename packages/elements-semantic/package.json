@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-elements-semantic",
-  "version": "1.0.72",
+  "version": "1.0.73",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
