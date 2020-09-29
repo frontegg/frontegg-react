@@ -26,7 +26,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Init & Build Project
         run: make init
-      - name: Publish To NPM (Prod)
+      - name: Publish To NPM (Dev)
         run: make publish-dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
