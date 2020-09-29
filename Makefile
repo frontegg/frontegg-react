@@ -61,7 +61,9 @@ clean-%:
 
 
 install: ##@1 Global yarn install all packages
+	@echo "${YELLOW}Running yarn install${RESET}"
 	@yarn install
+	@echo "${YELLOW}Running lerna bootstrap${RESET}"
 	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
 
 versioning:
