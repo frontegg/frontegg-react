@@ -11,11 +11,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - run: make init
       - run: make build
 
