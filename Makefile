@@ -61,7 +61,9 @@ clean-%:
 
 
 install: ##@1 Global yarn install all packages
+	@echo "${YELLOW}Running yarn install${RESET}"
 	@yarn install
+	@echo "${YELLOW}Running lerna bootstrap${RESET}"
 	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
 
 versioning:
@@ -107,7 +109,7 @@ test-component: ##@3 Tests component test with cypress
 
 test-component-%:
 	@echo "${YELLOW}Component Test Cypress [${*}]${RESET}"
-	@cypress run --headless --spec "packages/${*}/**/*"
+	@./node_modules/.bin/cypress run --headless --spec "packages/${*}/**/*"
 
 test-unit: ##@3 Tests unit test with jest
 	@echo "${YELLOW}Unit Test Jest${RESET}"
@@ -120,7 +122,7 @@ test-unit: ##@3 Tests unit test with jest
 #
 ########################################################################################################################
 
-build: ##@2 Build build all packages
+build: ##@4 Build build all packages
 	${MAKE} build-cli
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
@@ -128,11 +130,11 @@ build: ##@2 Build build all packages
 	${MAKE} build-auth
 	#${MAKE} build-reports
 
-build-%: ##@2 Build build a specific package
+build-%: ##@4 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
 	@export PACKAGE=${*}; cd ./packages/${*} && yarn build
 
-bw: ##@2 Build parallels build:watch all
+bw: ##@4 Build parallels build:watch all
 	@./node_modules/.bin/lerna run build:watch --parallel
 ########################################################################################################################
 #
@@ -141,6 +143,8 @@ bw: ##@2 Build parallels build:watch all
 ########################################################################################################################
 
 commit-changes:
+	@git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+	@git config user.name "${GITHUB_ACTOR}"
 	@git add .
 	@git commit -m "Add generated files" || true
 
@@ -150,32 +154,16 @@ move-package-json-to-dist:
 		| xargs -I '{}' sh -c 'node scripts/move-package-json-to-dist.js ./packages/{}'
 
 
-publish: ##@5 Publish publish all changed packages to npm repository
-
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Init: Prepare Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} init
-#
+publish-base:
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Lint: All Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} lint
 
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Unit Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-unit
-
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Component Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-component
-
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	@echo "${GREEN}* Integration Test: All Packages${RESET}"
-#	@echo "${GREEN}************************************************************************************${RESET}"
-#	${MAKE} test-integration
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Component Test: All Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	${MAKE} test-component
 
 	${MAKE} build
 
@@ -184,8 +172,20 @@ publish: ##@5 Publish publish all changed packages to npm repository
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} commit-changes
 
+
+publish-prod: ##@5 Publish publish all changed packages to npm repository
+	${MAKE} publish-base
+
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@echo "${GREEN}* Publish: Changed Packages${RESET}"
 	@echo "${GREEN}************************************************************************************${RESET}"
 	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
+
+publish-dev: ##@5 Publish publish all changed packages to npm repository
+	${MAKE} publish-base
+
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+	@echo "${GREEN}************************************************************************************${RESET}"
+	@./node_modules/.bin/lerna publish patch --canary --preid dev --force-publish --contents dist --yes
 

@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-cli",
-  "version": "1.0.82",
+  "version": "1.0.83",
   "author": "FrontEgg LTD",
   "scripts": {
     "build": "export NODE_ENV='production'; rm -rf ./dist && rollup -c ../../scripts/rollup-cli.config.js && echo DONE",
@@ -21,5 +21,5 @@
   "devDependencies": {
     "@types/node": "^13.9.1"
   },
-  "gitHead": "bffacbfc16763c7dc9312ab351c555e1d096b2b1"
+  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
 }
