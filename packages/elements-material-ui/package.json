@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-elements-material-ui",
-  "version": "1.0.81",
+  "version": "1.0.82",
   "author": "FrontEgg LTD",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
