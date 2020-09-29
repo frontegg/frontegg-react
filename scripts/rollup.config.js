@@ -78,7 +78,7 @@ export default {
   output: {
     sourcemap: !isProduction,
     dir: distFolder,
-    format: 'esm',
+    format: 'cjs',
     exports: 'named',
   },
 };

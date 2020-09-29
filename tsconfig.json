@@ -19,7 +19,7 @@
       "dom"
     ],
     "target": "es5",
-    "module": "esnext",
+    "module": "es6",
     "noEmitHelpers": true,
     "importHelpers": true,
     "allowJs": true,
