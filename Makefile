@@ -104,12 +104,13 @@ test-integration: ##@3 Tests integration test with cypress
 
 test-component: ##@3 Tests component test with cypress
 	@echo "${YELLOW}Component Test Cypress${RESET}"
+	@yarn add cypress
 	${MAKE} test-component-auth
 	#${MAKE} test-component-core
 
 test-component-%:
 	@echo "${YELLOW}Component Test Cypress [${*}]${RESET}"
-	@cypress run --headless --spec "packages/${*}/**/*"
+	@./node_modules/.bin/cypress run --headless --spec "packages/${*}/**/*"
 
 test-unit: ##@3 Tests unit test with jest
 	@echo "${YELLOW}Unit Test Jest${RESET}"
