@@ -1,13 +1,11 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: NPM Build Workflow
+name: Merge to Master Workflow
 
 on:
   push:
-    branches:
-      - '*'
-      - !master
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,5 +15,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - run: make init
-      - run: make test-component
+      - run: make publish-prod

@@ -1,11 +1,9 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: NPM Publish Workflow
+name: Pull Request Workflow
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 jobs:
@@ -27,4 +25,4 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - run: make init
-      - run: make publish
+      - run: make publish-dev
