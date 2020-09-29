@@ -18,7 +18,12 @@ export interface TableProps<T extends object = {}> {
   /* column array to be displayed in the table */
   columns: TableColumnProps<T>[];
   pagination?: 'pages' | 'infinite-scroll';
+  onPageChange?: (pageSize: number, page: number) => void;
   pageSize?: number;
+
+  toolbar?: boolean;
+  loading?: boolean;
+  emptyRowsPlaceholder?: ReactNode;
 
   expandable?: boolean;
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;

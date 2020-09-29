@@ -19,7 +19,7 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
   return (
     <>
       <FeIcon
-        className={classNames('fe-table-filter-button', {
+        className={classNames('fe-table__filter-button', {
           'active-filter': column.filterValue,
         })}
         name='filters'

@@ -1,11 +1,12 @@
 :root {
-  --color-primary: var(--color-green-3);
+  --color-primary: var(--color-green-5);
   --color-primary-25: var(--color-green-5-25);
   --color-primary-50: var(--color-green-5-50);
   --color-primary-75: var(--color-green-5-75);
 
-  --color-primary-light: var(--color-green-1);
-  --color-primary-dark: var(--color-green-5);
+  --color-primary-lighter: var(--color-green-1);
+  --color-primary-light: var(--color-green-3);
+  --color-primary-dark: var(--color-green-6);
   --color-primary-darker: var(--color-green-7);
   --color-primary-bg: var(--color-green-5);
 
@@ -216,10 +217,10 @@
   --color-green-2: #a5d6a7;
   --color-green-3: #81c784;
   --color-green-4: #66bb6a;
-  --color-green-5: #4caf50;
-  --color-green-5-75: rgba(76, 175, 80, 0.75);
-  --color-green-5-50: rgba(76, 175, 80, 0.5);
-  --color-green-5-25: rgba(76, 175, 80, 0.25);
+  --color-green-5: #0baf60;
+  --color-green-5-75: rgba(11, 175, 96, 0.75);
+  --color-green-5-50: rgba(11, 175, 96, 0.5);
+  --color-green-5-25: rgba(11, 175, 96, 0.25);
   --color-green-6: #43a047;
   --color-green-7: #388e3c;
   --color-green-8: #2e7d32;

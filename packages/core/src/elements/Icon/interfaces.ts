@@ -1,6 +1,8 @@
 import React from 'react';
 
 export type IconNames =
+  | 'up-arrow'
+  | 'down-arrow'
   | 'left-arrow'
   | 'right-arrow'
   | 'checkmark'

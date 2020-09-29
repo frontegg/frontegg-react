@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { FeTableColumnOptions, FeTableColumnProps, TableProps } from './interfaces';
 import {
   useTable,
@@ -18,24 +18,47 @@ import {
   Row,
   Column,
   useFlexLayout,
+  usePagination,
+  PluginHook,
+  UsePaginationOptions,
+  UsePaginationState,
+  UsePaginationInstanceProps,
+  UseTableInstanceProps,
+  TableInstance,
 } from 'react-table';
 
 import './FeTable.scss';
 import classNames from 'classnames';
 import { FeTableFilterColumn } from './FeTableFilterColumn';
 import { FeTableSortColumn } from './FeTableSortColumn';
+import { FeButton } from '../Button/FeButton';
+import { FeIcon } from '../Icon/FeIcon';
+import { FeTableTHead } from './FeTableTHead';
+import { FeTableTBody } from './FeTableTBody';
+import { FeTablePagination } from './FeTablePagination';
+import { FeTableToolbar } from './FeTableToolbar';
 
 export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
+  const tableRef = useRef<HTMLDivElement>(null);
   const columns = useMemo(() => {
     return [
       ...(props.expandable
         ? [
             {
               id: 'expander',
-              width: 80,
+              minWidth: 60,
+              maxWidth: '60px',
               Cell: (cell: Cell<T>) => {
                 const row = cell.row as Row<T> & UseExpandedRowProps<T>;
-                return <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? '👇' : '👉'}</span>;
+                return (
+                  <FeButton
+                    className={classNames('fe-table__expand-button', { 'is-expanded': row.isExpanded })}
+                    {...row.getToggleRowExpandedProps()}
+                    variant={row.isExpanded ? 'primary' : undefined}
+                  >
+                    <FeIcon name='right-arrow' />
+                  </FeButton>
+                );
               },
             },
           ]
@@ -52,7 +75,34 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     ] as Column<T>[];
   }, [props.columns, props.expandable]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns, state } = useTable(
+  const tableHooks: PluginHook<T>[] = [useFilters, useSortBy];
+  if (props.expandable) {
+    tableHooks.push(useExpanded);
+  }
+  if (props.pagination) {
+    tableHooks.push(usePagination);
+  }
+  tableHooks.push(useFlexLayout);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state,
+
+    // The page controls ;)
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+  } = useTable(
     {
       columns,
       data: props.data,
@@ -64,15 +114,18 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
           sortBy: props.sortBy ?? state1.sortBy,
           filters: props.filters ?? state1.filters,
         } as TableState<T> & UseFiltersState<T> & UseSortByState<T>),
-
-      // expanded rows
       expandSubRows: false,
-    } as UseTableOptions<T> & UseFiltersOptions<T> & UseSortByOptions<T> & UseExpandedOptions<T>,
-    useFilters,
-    useSortBy,
-    useExpanded,
-    useFlexLayout
-  );
+      initialState: {
+        pageIndex: 0,
+        pageSize: props.pageSize,
+      },
+    } as UseTableOptions<T> &
+      UseFiltersOptions<T> &
+      UseSortByOptions<T> &
+      UseExpandedOptions<T> &
+      UsePaginationOptions<T>,
+    ...tableHooks
+  ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T>;
 
   if (props.expandable && !props.renderExpandedComponent) {
     throw Error('FeTable: you must provide renderExpandedComponent property if the table is expandable');
@@ -83,11 +136,15 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   if (props.hasOwnProperty('filters') && !props.onFilterChange) {
     throw Error('FeTable: you must provide onFilterChange property if filters is controlled');
   }
+  if (props.hasOwnProperty('pagination') && !props.pageSize) {
+    throw Error('FeTable: you must provide pageSize property if pagination enabled');
+  }
 
-  const tableState = state as UseSortByState<T> & UseFiltersState<T>;
+  const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T>;
 
   const onSortChange = useCallback(
     (column: FeTableColumnProps<T>) => {
+      debugger;
       if (props.hasOwnProperty('sortBy')) {
         const sortBy = props.isMultiSort ? tableState.sortBy.filter(({ id }) => id !== column.id) : [];
         if (!column.isSorted) {
@@ -97,7 +154,11 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         }
         props.onSortChange?.(sortBy);
       } else {
-        column.toggleSortBy(!column.isSortedDesc, props.isMultiSort ?? false);
+        if (column.isSorted && column.isSortedDesc) {
+          column.clearSortBy();
+        } else {
+          column.toggleSortBy(column.isSorted, props.isMultiSort ?? false);
+        }
       }
     },
     [props.onSortChange]
@@ -126,61 +187,38 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     !props.hasOwnProperty('filters') && props.onFilterChange?.(tableState.filters);
   }, [props.filters, tableState.filters]);
 
+  useEffect(() => {
+    tableRef.current?.querySelector('.fe-table__tbody')?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
+  }, [tableState.pageIndex]);
+
   return (
     <div className='fe-table__container'>
-      <table className='fe-table' cellSpacing={0} cellPadding={0} {...getTableProps()}>
-        <thead className='fe-table__thead'>
-          {headerGroups.map((headerGroup) => (
-            <tr className='fe-table__thead-tr' {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((c) => {
-                const column = c as FeTableColumnProps<T>;
-                return (
-                  <th
-                    className={classNames('fe-table__thead-tr-th', {
-                      'fe-table__thead-sortable-asc': column.isSorted && !column.isSortedDesc,
-                      'fe-table__thead-sortable-desc': column.isSorted && column.isSortedDesc,
-                    })}
-                    {...column.getHeaderProps(
-                      column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
-                        ...p,
-                        onClick: column.canSort ? () => onSortChange(column) : undefined,
-                      }))
-                    )}
-                  >
-                    {column.render('Header')}
-                    <FeTableSortColumn column={column} />
-                    <FeTableFilterColumn column={column} onFilterChange={onFilterChange} />
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody className='fe-table__tbody' {...getTableBodyProps()}>
-          {rows.map((r) => {
-            const row = r as Row<T> & UseExpandedRowProps<T>;
-            prepareRow(row);
-            return (
-              <>
-                <tr className='fe-table__tr' {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td className='fe-table__tr-td' {...cell.getCellProps()}>
-                        {cell.render('Cell')}
-                      </td>
-                    );
-                  })}
-                </tr>
-                {row.isExpanded ? (
-                  <tr className='fe-table__tr-expanded-content' key={row.getRowProps().key + '_expanded'}>
-                    <td colSpan={visibleColumns.length}>{props.renderExpandedComponent?.(row.original, row.index)}</td>
-                  </tr>
-                ) : null}
-              </>
-            );
-          })}
-        </tbody>
-      </table>
+      <div ref={tableRef} className='fe-table' {...getTableProps()}>
+        {props.toolbar && <FeTableToolbar />}
+        <FeTableTHead headerGroups={headerGroups} onSortChange={onSortChange} onFilterChange={onFilterChange} />
+        <FeTableTBody
+          getTableBodyProps={getTableBodyProps}
+          prepareRow={prepareRow}
+          rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
+          renderExpandedComponent={props.renderExpandedComponent}
+        />
+
+        {props.pagination === 'pages' && (
+          <FeTablePagination
+            pageIndex={tableState.pageIndex}
+            pageSize={tableState.pageSize}
+            canPreviousPage={canPreviousPage}
+            canNextPage={canNextPage}
+            pageOptions={pageOptions}
+            pageCount={pageCount}
+            gotoPage={gotoPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            setPageSize={setPageSize}
+          />
+        )}
+      </div>
     </div>
   );
 };
