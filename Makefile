@@ -145,9 +145,9 @@ bw: ##@4 Build parallels build:watch all
 GH_USERNAME ?= 'Pipeline'
 
 commit-changes:
+	@git config user.email "$(GH_USERNAME)@users.noreply.github.com"
+	@git config user.name "$(GH_USERNAME)"
 	@git add .
-	@git config --global user.email "$(GH_USERNAME)@users.noreply.github.com"
-	@git config --global user.name "$(GH_USERNAME)"
 	@git commit -m "Add generated files" || true
 
 move-package-json-to-dist:
