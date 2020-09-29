@@ -142,11 +142,9 @@ bw: ##@4 Build parallels build:watch all
 #
 ########################################################################################################################
 
-GH_USERNAME ?= 'Pipeline'
-
 commit-changes:
-	@git config user.email "$(GH_USERNAME)@users.noreply.github.com"
-	@git config user.name "$(GH_USERNAME)"
+	@git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+	@git config user.name "${GITHUB_ACTOR}"
 	@git add .
 	@git commit -m "Add generated files" || true
 
