@@ -2,8 +2,8 @@ import React from 'react';
 import { IconProps, IconNames } from '@frontegg/react-core';
 import classNames from 'classnames';
 import {
-  ArrowBackRounded,
-  ArrowForwardRounded,
+  ArrowBackRounded, ArrowDownwardRounded,
+  ArrowForwardRounded, ArrowUpwardRounded,
   CheckRounded,
   DeleteRounded,
   FileCopyRounded,
@@ -13,6 +13,8 @@ import {
 import './style.scss';
 
 const iconMap: { [K in IconNames]: any } = {
+  'up-arrow': ArrowUpwardRounded,
+  'down-arrow': ArrowDownwardRounded,
   'left-arrow': ArrowBackRounded,
   'right-arrow': ArrowForwardRounded,
   checkmark: CheckRounded,
