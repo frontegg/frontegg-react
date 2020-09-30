@@ -14,7 +14,7 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   warning: 'warning sign',
   image: 'image',
   delete: 'trash',
-  'filters': 'trash',
+  filters: 'trash',
   'sort-arrows': 'trash',
   'sort-arrows-asc': 'trash',
   'sort-arrows-desc': 'trash',

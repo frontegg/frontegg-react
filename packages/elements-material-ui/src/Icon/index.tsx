@@ -2,8 +2,10 @@ import React from 'react';
 import { IconProps, IconNames } from '@frontegg/react-core';
 import classNames from 'classnames';
 import {
-  ArrowBackRounded, ArrowDownwardRounded,
-  ArrowForwardRounded, ArrowUpwardRounded,
+  ArrowBackRounded,
+  ArrowDownwardRounded,
+  ArrowForwardRounded,
+  ArrowUpwardRounded,
   CheckRounded,
   DeleteRounded,
   FileCopyRounded,
