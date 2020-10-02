@@ -31,7 +31,6 @@ export const PopupExample: FC = () => {
       <h4>Material Popup</h4>
       <div>
         <ME.Popup
-          style={{ marginBottom: '10px' }}
           position='lc'
           action='click'
           content={<span>my content</span>}
