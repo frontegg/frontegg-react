@@ -48,7 +48,6 @@ init: ##@1 Global init project before start after each pull
 clean: ##@1 Global uninstall node modules, remove transpiled code & lock files
 	@rm -rf ./node_modules
 	@rm -rf ./package-lock.json
-	@rm -rf ./yarn-lock.json
 	@find ./packages -type d -maxdepth 1 ! -path ./packages \
 		| sed 's|^./packages/||' \
 		| xargs -I '{}' sh -c '$(MAKE) clean-{}'
@@ -57,7 +56,7 @@ clean-%:
 	@rm -rf ./packages/${*}/dist
 	@rm -rf ./packages/${*}/node_modules
 	@rm -rf ./packages/${*}/package-lock.json
-	@rm -rf ./packages/${*}/yarn-lock.json
+	@rm -rf ./packages/${*}/yarn.lock
 
 
 install: ##@1 Global yarn install all packages

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { SwitchToggle, SwitchToggleProps, useT } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 import { reloadSSOIfNeeded } from './helpers';
@@ -12,9 +12,9 @@ export const SSOToggle: FC<SwitchToggleProps & HideOption> = (props) => {
     return null;
   }
   const samlEnabled = samlConfiguration?.enabled ?? false;
-  const onEnabledDisabledChanged = () => {
+  const onEnabledDisabledChanged = useCallback(() => {
     saveSSOConfigurations({ ...samlConfiguration, enabled: !samlConfiguration?.enabled });
-  };
+  }, [samlConfiguration]);
   return (
     <div className='fe-center fe-mt-2'>
       <SwitchToggle

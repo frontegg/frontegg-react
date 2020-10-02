@@ -3,6 +3,7 @@ import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { IconProps } from '../elements/Icon';
+import { TableProps } from '../elements/Table';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -56,6 +57,9 @@ export type ElementProps = {
   Grid:
     | ComponentType<GridProps>
     | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+  Table:
+    | ComponentType<TableProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
 };
 
 export type ElementType = keyof ElementProps;
