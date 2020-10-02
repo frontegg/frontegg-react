@@ -1,7 +1,7 @@
 import { PopupProps } from './interfaces';
 import React, { forwardRef } from 'react';
 import Popup from 'react-popper-tooltip';
-import TooltipTrigger from './Tooltip';
+import PopupComponent from './PopupComponent';
 import './FePopup.scss';
 
 const positions: any = {
@@ -27,10 +27,8 @@ const preparePosition = (p: any): any => {
 };
 
 export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
-  const { position, trigger } = props;
+  const { position, trigger, action, content } = props;
   const placement = position ? preparePosition(position) : 'bottom';
 
-  return (
-    <TooltipTrigger ref={ref} trigger={trigger} placement={placement} action={props.action} content={props.content} />
-  );
+  return <PopupComponent ref={ref} trigger={trigger} placement={placement} action={action} content={content} />;
 });

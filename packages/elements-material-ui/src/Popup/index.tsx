@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react';
-import TooltipTrigger from 'react-popper-tooltip';
+import MaterialPopup from 'react-popper-tooltip';
 import { PopupProps } from '@frontegg/react-core';
 import './style.scss';
 
@@ -40,11 +40,11 @@ const mapper = ({ action, position: p, ...rest }: PopupProps): ITooltipProps => 
   };
 };
 
-const Popup = forwardRef<TooltipTrigger, PopupProps>((props, ref) => {
+const Popup = forwardRef<MaterialPopup, PopupProps>((props, ref) => {
   const mPopupProps = mapper(props);
   const { action, placement, trigger, content } = mPopupProps;
   return (
-    <TooltipTrigger
+    <MaterialPopup
       ref={ref}
       trigger={action}
       placement={placement}
@@ -52,7 +52,7 @@ const Popup = forwardRef<TooltipTrigger, PopupProps>((props, ref) => {
         <div
           {...getTooltipProps({
             ref: tooltipRef,
-            className: 'material-tooltip-container',
+            className: 'material-popup-container',
           })}
         >
           {content}
@@ -69,7 +69,7 @@ const Popup = forwardRef<TooltipTrigger, PopupProps>((props, ref) => {
           {trigger}
         </span>
       )}
-    </TooltipTrigger>
+    </MaterialPopup>
   );
 });
 

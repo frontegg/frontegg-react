@@ -8,7 +8,7 @@ export interface ITooltipProps {
   trigger: ReactNode;
 }
 
-const Tooltip = forwardRef<TooltipTrigger, ITooltipProps>((props, ref) => {
+const PopupComponent = forwardRef<TooltipTrigger, ITooltipProps>((props, ref) => {
   const { trigger, content, action, placement } = props;
   return (
     <TooltipTrigger
@@ -19,7 +19,7 @@ const Tooltip = forwardRef<TooltipTrigger, ITooltipProps>((props, ref) => {
         <div
           {...getTooltipProps({
             ref: tooltipRef,
-            className: 'fe-tooltip-container',
+            className: 'fe-popup-container',
           })}
         >
           {content}
@@ -40,4 +40,4 @@ const Tooltip = forwardRef<TooltipTrigger, ITooltipProps>((props, ref) => {
   );
 });
 
-export default Tooltip;
+export default PopupComponent;
