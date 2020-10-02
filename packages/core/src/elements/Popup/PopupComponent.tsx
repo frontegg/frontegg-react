@@ -26,16 +26,14 @@ const PopupComponent = forwardRef<TooltipTrigger, ITooltipProps>((props, ref) =>
         </div>
       )}
     >
-      {({ getTriggerProps, triggerRef }) => (
-        <span
-          {...getTriggerProps({
+      {({ getTriggerProps, triggerRef }) =>
+        React.cloneElement(trigger as React.ReactElement<any>, {
+          ...getTriggerProps({
             ref: triggerRef,
             className: 'trigger',
-          })}
-        >
-          {trigger}
-        </span>
-      )}
+          }),
+        })
+      }
     </TooltipTrigger>
   );
 });

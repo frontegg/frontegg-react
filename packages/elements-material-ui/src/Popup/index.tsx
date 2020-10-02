@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef, ReactElement, ReactNode } from 'react';
 import MaterialPopup from 'react-popper-tooltip';
 import { PopupProps } from '@frontegg/react-core';
 import './style.scss';
@@ -59,16 +59,14 @@ const Popup = forwardRef<MaterialPopup, PopupProps>((props, ref) => {
         </div>
       )}
     >
-      {({ getTriggerProps, triggerRef }) => (
-        <span
-          {...getTriggerProps({
+      {({ getTriggerProps, triggerRef }) =>
+        React.cloneElement(trigger as React.ReactElement<any>, {
+          ...getTriggerProps({
             ref: triggerRef,
             className: 'trigger',
-          })}
-        >
-          {trigger}
-        </span>
-      )}
+          }),
+        })
+      }
     </MaterialPopup>
   );
 });
