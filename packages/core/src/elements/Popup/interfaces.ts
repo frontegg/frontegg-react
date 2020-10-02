@@ -4,6 +4,6 @@ export interface PopupProps extends HTMLAttributes<HTMLDivElement> {
   position?: 'tr' | 'tl' | 'tc' | 'br' | 'bl' | 'bc' | 'lc' | 'rc';
   content: ReactNode;
   action: 'hover' | 'click' | 'focus';
-  trigger: ReactNode;
-  mountNode?: HTMLElement; // default if document body
+  trigger: JSX.Element;
+  mountNode?: HTMLElement;
 }

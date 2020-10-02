@@ -1,0 +1,76 @@
+import React, { forwardRef, ReactNode } from 'react';
+import TooltipTrigger from 'react-popper-tooltip';
+import { PopupProps } from '@frontegg/react-core';
+import './style.scss';
+
+const positions: any = {
+  t: 'top',
+  b: 'bottom',
+  l: 'left',
+  r: 'right',
+  c: 'center',
+  s: 'start',
+  e: 'end',
+};
+
+const preparePosition = (p: any): any => {
+  if (p.charAt(1) === 'c') {
+    return `${positions[p.charAt(0)]}`;
+  } else if (p.charAt(1) === 'l') {
+    return `${positions[p.charAt(0)]}-start`;
+  } else if (p.charAt(0) === 'l' || p.charAt(0) === 'r') {
+    return `${positions[p.charAt(0)]}`;
+  } else {
+    return `${positions[p.charAt(0)]}-end`;
+  }
+};
+
+export interface ITooltipProps {
+  content: ReactNode;
+  action: 'hover' | 'click' | 'focus';
+  placement: any;
+  trigger: ReactNode;
+}
+
+const mapper = ({ action, position: p, ...rest }: PopupProps): ITooltipProps => {
+  return {
+    ...rest,
+    action: action,
+    placement: p ? preparePosition(p) : 'bottom',
+  };
+};
+
+const Popup = forwardRef<TooltipTrigger, PopupProps>((props, ref) => {
+  const mPopupProps = mapper(props);
+  const { action, placement, trigger, content } = mPopupProps;
+  return (
+    <TooltipTrigger
+      ref={ref}
+      trigger={action}
+      placement={placement}
+      tooltip={({ tooltipRef, getTooltipProps }) => (
+        <div
+          {...getTooltipProps({
+            ref: tooltipRef,
+            className: 'material-tooltip-container',
+          })}
+        >
+          {content}
+        </div>
+      )}
+    >
+      {({ getTriggerProps, triggerRef }) => (
+        <span
+          {...getTriggerProps({
+            ref: triggerRef,
+            className: 'trigger',
+          })}
+        >
+          {trigger}
+        </span>
+      )}
+    </TooltipTrigger>
+  );
+});
+
+export default Popup;
