@@ -1,6 +1,8 @@
 .fe-popup-container {
-  border-radius: 4px;
-  padding: 16px;
-  box-shadow: 0 10px 30px 0 rgba(105, 114, 133, 0.14);
-  background-color: rgb(255, 255, 255);
+  border-radius: var(--fe-popup-border-radius, var(--element-border-radius));
+  padding: var(--fe-popup-padding, var(--element-padding));
+  box-shadow: var(--fe-popup-shadow, var(--popup-shadow));
+  background-color: var(--fe-popup-bg, var(--color-white));
+
+  color: var(--color-gray-9);
 }

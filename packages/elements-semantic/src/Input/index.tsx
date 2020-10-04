@@ -17,13 +17,8 @@ const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
 
 export class Input extends React.Component<InputProps> {
   render() {
-    const { children, inForm, labelButton, label, ...rest } = this.props;
-    let InputComponent: any = SemanticInput;
+    const { children, labelButton, label } = this.props;
     let inputLabel: any = label;
-
-    if (inForm) {
-      InputComponent = Form.Input;
-    }
 
     if (labelButton) {
       inputLabel = (
@@ -33,8 +28,8 @@ export class Input extends React.Component<InputProps> {
         </label>
       );
     }
-    const inputProps = { ...mapper(rest), label: inputLabel };
+    const inputProps = { ...mapper(this.props), label: inputLabel };
 
-    return <InputComponent {...inputProps}>{children}</InputComponent>;
+    return <Form.Input {...inputProps}>{children}</Form.Input>;
   }
 }

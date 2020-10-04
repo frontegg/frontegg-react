@@ -32,15 +32,14 @@ export interface ITooltipProps {
   trigger: ReactNode;
 }
 
-const mapper = ({ action, position: p, ...rest }: PopupProps): ITooltipProps => {
+const mapper = ({ position: p, ...rest }: PopupProps): ITooltipProps => {
   return {
     ...rest,
-    action: action,
     placement: p ? preparePosition(p) : 'bottom',
   };
 };
 
-const Popup = forwardRef<MaterialPopup, PopupProps>((props, ref) => {
+export const Popup = forwardRef<MaterialPopup, PopupProps>((props, ref) => {
   const mPopupProps = mapper(props);
   const { action, placement, trigger, content } = mPopupProps;
   return (
@@ -70,5 +69,3 @@ const Popup = forwardRef<MaterialPopup, PopupProps>((props, ref) => {
     </MaterialPopup>
   );
 });
-
-export default Popup;

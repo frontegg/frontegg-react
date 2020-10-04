@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentType, FC, ReactElement, ReactNode } from 'react';
 import {
   Column,
   HeaderGroup,
@@ -7,6 +7,8 @@ import {
   Renderer,
   UseFiltersColumnOptions,
   UseFiltersColumnProps,
+  UseRowSelectInstanceProps,
+  UseRowSelectOptions,
   UseSortByColumnOptions,
   UseSortByColumnProps,
 } from 'react-table';
@@ -19,11 +21,16 @@ export interface TableProps<T extends object = {}> {
   columns: TableColumnProps<T>[];
   pagination?: 'pages' | 'infinite-scroll';
   onPageChange?: (pageSize: number, page: number) => void;
+  pageCount?: number;
   pageSize?: number;
 
   toolbar?: boolean;
   loading?: boolean;
   emptyRowsPlaceholder?: ReactNode;
+
+  selection?: 'single' | 'multi';
+  onRowSelected?: (rowIds: Record<string | number, boolean>) => void;
+  selectedRowIds?: Record<string | number, boolean>;
 
   expandable?: boolean;
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
@@ -31,6 +38,7 @@ export interface TableProps<T extends object = {}> {
   tableHeader?: boolean;
 
   data: T[];
+  rowKey: keyof T | string;
 
   isMultiSort?: boolean;
   sortBy?: TableSort[];
@@ -68,8 +76,10 @@ export interface TableColumnProps<T extends object> {
   Cell?: (data: T, index: number) => ReactNode;
 
   sortable?: boolean;
-  Filter?: () => React.ReactElement;
+  Filter?: FilterComponent;
 }
+
+export type FilterComponent<T = any> = ComponentType<{ value: T | null; setFilterValue: (value: T | null) => void }>;
 
 export interface TableSort {
   id: string;
@@ -86,6 +96,12 @@ export interface TableColumnFilterProps<T = {}> {
   filterBy: string;
 }
 
-export type FeTableColumnProps<T extends object> = HeaderGroup<T> & UseSortByColumnProps<T> & UseFiltersColumnProps<T>;
+export type FeTableColumnProps<T extends object> = HeaderGroup<T> &
+  UseSortByColumnProps<T> &
+  UseFiltersColumnProps<T> &
+  UseRowSelectInstanceProps<T> & { Filter: FilterComponent };
 
-export type FeTableColumnOptions<T extends object> = Column<T> & UseSortByColumnOptions<T> & UseFiltersColumnOptions<T>;
+export type FeTableColumnOptions<T extends object> = Column<T> &
+  UseSortByColumnOptions<T> &
+  UseFiltersColumnOptions<T> &
+  UseRowSelectOptions<T>;

@@ -1,9 +1,12 @@
-import { ReactNode, HTMLAttributes } from 'react';
+import { ReactNode, HTMLAttributes, ReactElement } from 'react';
+
+export type PopupPosition = 'tr' | 'tl' | 'tc' | 'br' | 'bl' | 'bc' | 'lc' | 'rc';
+export type PopupAction = 'hover' | 'click' | 'focus';
 
 export interface PopupProps extends HTMLAttributes<HTMLDivElement> {
-  position?: 'tr' | 'tl' | 'tc' | 'br' | 'bl' | 'bc' | 'lc' | 'rc';
-  content: JSX.Element | ReactNode;
-  action: 'hover' | 'click' | 'focus';
-  trigger: JSX.Element | ReactNode;
+  position?: PopupPosition;
+  content: ReactNode;
+  action: PopupAction;
+  trigger: ReactElement;
   mountNode?: HTMLElement;
 }

@@ -4,6 +4,7 @@ import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
+import { CheckboxProps } from '../elements/Checkbox';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -33,6 +34,7 @@ export interface SwitchToggleProps {
   labels?: [string, string];
   onChange?: (toggled: boolean) => void;
 }
+
 export interface TabProps {
   items: ComponentType[];
   activeTab: number;
@@ -47,6 +49,9 @@ export type ElementProps = {
   Button:
     | ComponentType<ButtonProps>
     | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
+  Checkbox:
+    | ComponentType<CheckboxProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;

@@ -10,6 +10,7 @@ import {
   DeleteRounded,
   FileCopyRounded,
   ImageRounded,
+  IndeterminateCheckBoxRounded,
   WarningRounded,
 } from '@material-ui/icons';
 import './style.scss';
@@ -19,6 +20,7 @@ const iconMap: { [K in IconNames]: any } = {
   'down-arrow': ArrowDownwardRounded,
   'left-arrow': ArrowBackRounded,
   'right-arrow': ArrowForwardRounded,
+  indeterminate: IndeterminateCheckBoxRounded,
   checkmark: CheckRounded,
   copy: FileCopyRounded,
   warning: WarningRounded,
