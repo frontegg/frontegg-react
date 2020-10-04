@@ -7,6 +7,7 @@ import { SwitchToggle } from './SwitchToggle';
 import { Tabs } from './Tabs';
 import { Icon } from './Icon';
 import { Dialog } from './Dialog';
+import Popup from './Popup';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
@@ -19,4 +20,5 @@ export const uiLibrary: Partial<Elements> = {
   Tabs,
   Icon,
   Dialog,
+  Popup,
 };

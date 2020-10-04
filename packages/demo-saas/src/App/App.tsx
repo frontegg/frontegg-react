@@ -6,6 +6,7 @@ import { Profile as OldProfile } from '@frontegg/react';
 import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
+import { PopupExample } from '../PopupExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
 
 const TestPage: FC = () => {
@@ -39,11 +40,16 @@ class App extends React.Component<any> {
                 <div>
                   <Link to='/test-auth-user'>Test Auth User</Link>
                 </div>
+                <div>
+                  <Link to='/popup'>Popup Examples</Link>
+                </div>
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />
             <Route exact path='/components' component={ComponentsPage} />
             <Route exact path='/components2' component={ComponentsPage2} />
+
+            <Route exact path='/popup' component={PopupExample} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />
