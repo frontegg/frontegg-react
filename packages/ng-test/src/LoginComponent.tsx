@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Consumer } from './context';
 import { useLocation, useHistory, useRouteMatch, useParams, Link } from 'react-router-dom';
 
-export const LoginComponent = () => {
+export const LoginComponent: FC = () => {
   const location = useLocation();
   const history = useHistory();
   const routeMatch = useRouteMatch();

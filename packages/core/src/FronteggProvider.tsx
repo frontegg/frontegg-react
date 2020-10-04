@@ -6,10 +6,9 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
-import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
 
 export type RedirectOptions = {
   refresh?: boolean;
@@ -34,6 +33,10 @@ export interface FeProviderProps {
 
   // deprecated: FronteggProvider will detect if wrapped by ReactRouter, it not will wrap it self with BrowserRouter
   withRouter?: boolean;
+
+  // internal use
+  _history?: any;
+  _resolvePortals: (setPortals: any) => void;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -41,6 +44,8 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
+  const [rcPortals, setRcPortals] = useState([]);
+  props._resolvePortals(setRcPortals);
   const listeners = useMemo(() => {
     return props.plugins
       .filter((p) => p.Listener)
@@ -58,14 +63,8 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      <OldFronteggProvider
-        contextOptions={{
-          ...(props.context as any),
-          tokenResolver: () => ContextHolder.getAccessToken() || '',
-        }}
-      >
-        {children}
-      </OldFronteggProvider>
+      {children}
+      {rcPortals}
     </>
   );
 };
@@ -147,6 +146,13 @@ export const FronteggProvider: FC<FeProviderProps> = (props) => {
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
 
+  if (props._history) {
+    return (
+      <Router history={props._history}>
+        <FeState {...props} />
+      </Router>
+    );
+  }
   const withRouter = !useHistory();
   if (withRouter) {
     return (

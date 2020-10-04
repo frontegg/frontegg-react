@@ -19,5 +19,8 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
 
 export const FeIcon: FC<IconProps> = (props) => {
   const SelectedIcon = mapIcons[props.name] ?? (() => null);
+  if (!SelectedIcon) {
+    return null;
+  }
   return <SelectedIcon {...omitProps(props, ['name'])} />;
 };

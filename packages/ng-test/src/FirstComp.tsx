@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Consumer } from './context';
 
-export const FirstComp = () => {
+export const FirstComp: FC = () => {
   return (
     <Consumer>
       {({ counter }) => {

@@ -1,13 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Provider } from './context';
 import { Router, Route, Switch } from 'react-router-dom';
-// import { createMemoryHistory } from 'history';
 import { LoginComponent } from './LoginComponent';
 import { TeamTestComponent } from './TeamTestComponent';
-
-// const history = createMemoryHistory();
-// @ts-ignore
-// window.rcHistory = history;
 
 export class Wrapper extends React.Component<{ ngComponents: any; rcPortals: any; _history: any }> {
   state = {

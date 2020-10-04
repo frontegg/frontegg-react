@@ -2,11 +2,12 @@
   "name": "ng-test",
   "version": "0.2.1",
   "author": "FrontEgg LTD",
-  "main": "dist/ng-index.js",
-  "module": "dist/ng-index.js",
-  "typings": "dist/ng-index.d.ts",
+  "main": "dist/bundles/index.umd.js",
+  "module": "dist/esm/ng-index.js",
+  "typings": "dist/esm/ng-index.d.ts",
   "scripts": {
     "build": "rollup -c ../../scripts/rollup-for-ng.config.js && echo DONE",
+    "build-prod": "export NODE_ENV='production';rollup -c ../../scripts/rollup-for-ng.config.js && echo DONE",
     "build:watch": "rollup -w -c ../../scripts/rollup-for-ng.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
