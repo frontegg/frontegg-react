@@ -13,9 +13,9 @@ export const PopupExample: FC = () => {
       <h4>Frontegg Popup</h4>
       <div>
         <FE.Popup
-          position='bc'
+          position='lc'
           action='click'
-          content={<span>My content</span>}
+          content={<div>My content</div>}
           trigger={<FE.Button>Trigger</FE.Button>}
         />
       </div>
@@ -23,7 +23,7 @@ export const PopupExample: FC = () => {
       <div>
         <SE.Popup
           position='rc'
-          action='click'
+          action='focus'
           content={<div>My content</div>}
           trigger={<SE.Button>Trigger</SE.Button>}
         />
@@ -31,14 +31,10 @@ export const PopupExample: FC = () => {
       <h4>Material Popup</h4>
       <div>
         <ME.Popup
-          position='lc'
+          position='bc'
           action='click'
-          content={<span>my content</span>}
-          trigger={
-            <div style={{ width: 'max-content', margin: '0 auto' }}>
-              <ME.Button>Trigger</ME.Button>
-            </div>
-          }
+          content={<div>My content</div>}
+          trigger={<ME.Button>Trigger</ME.Button>}
         />
       </div>
     </div>

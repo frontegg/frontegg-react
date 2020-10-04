@@ -6,15 +6,17 @@ export interface ITooltipProps {
   action: 'hover' | 'click' | 'focus';
   placement: any;
   trigger: ReactNode;
+  mountNode?: HTMLElement;
 }
 
 const PopupComponent = forwardRef<TooltipTrigger, ITooltipProps>((props, ref) => {
-  const { trigger, content, action, placement } = props;
+  const { trigger, content, action, placement, mountNode } = props;
   return (
     <TooltipTrigger
       ref={ref}
       trigger={action}
       placement={placement}
+      portalContainer={mountNode}
       tooltip={({ tooltipRef, getTooltipProps }) => (
         <div
           {...getTooltipProps({
