@@ -10,10 +10,12 @@ export * from './Checkbox';
 
 import { FeButton } from './Button/FeButton';
 import { FeGrid } from './Grid/FeGrid';
+import { FeLoader } from './Loader/FeLoader';
 import { FePopup } from './Popup/FePopup';
 import { FeCheckbox } from './Checkbox/FeCheckbox';
 
 export const fronteggElements: Partial<Elements> = {
+  Loader: FeLoader,
   Button: FeButton,
   Grid: FeGrid,
   Popup: FePopup,

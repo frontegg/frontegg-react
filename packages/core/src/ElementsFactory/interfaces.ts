@@ -25,6 +25,7 @@ export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
 export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {
   inline?: boolean;
   center?: boolean;
+  color?: 'primary' | 'secondary' | 'inherit';
 }
 
 export interface SwitchToggleProps {

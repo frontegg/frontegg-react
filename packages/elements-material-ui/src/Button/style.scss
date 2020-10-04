@@ -1,19 +1,8 @@
-.MuiButton-root.MuiButton-contained.fe-button.fe-button__danger:not(.Mui-disabled) {
+.MuiButton-root.MuiButton-contained.fe-material-button__danger:not(.Mui-disabled) {
   color: var(--color-white);
   background-color: var(--color-red-7);
 
   &:hover {
     background-color: var(--color-red-8);
-  }
-}
-
-.fe-button {
-  .fe-loader {
-    height: 1.5rem !important;
-    width: 1.5rem !important;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
   }
 }
