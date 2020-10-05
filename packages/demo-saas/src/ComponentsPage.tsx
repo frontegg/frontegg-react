@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Elements, fronteggElements as FE } from '@frontegg/react-core';
+import { Elements, fronteggElements as FE, Loader } from '@frontegg/react-core';
 import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 
@@ -45,7 +45,11 @@ const libs = [
   },
 ];
 
-const elements = [
+const elements: {
+  type: string;
+  title: string;
+  props: any[];
+}[] = [
   // {
   //   title: 'Buttons',
   //   type: 'Button',
@@ -72,6 +76,11 @@ const elements = [
       { label: 'Indeterminate Checkbox', indeterminate: true },
       { label: 'FullWidth', fullWidth: true },
     ],
+  },
+  {
+    title: 'Loaders',
+    type: 'Loader',
+    props: [{ color: 'secondary', children: null }],
   },
 ];
 
