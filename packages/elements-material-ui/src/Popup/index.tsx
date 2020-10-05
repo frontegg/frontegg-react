@@ -58,15 +58,15 @@ export const Popup = forwardRef<HTMLElement, PopupProps>((props, ref) => {
   const Component = useMemo(() => {
     switch (action) {
       case 'click':
-        return <PopupClick ref={ref} {...popupProps} content={content} trigger={trigger} />;
+        return PopupClick;
       case 'hover':
-        return <PopupHover ref={ref} {...popupProps} content={content} trigger={trigger} />;
+        return PopupHover;
       case 'focus':
-        return <PopupFocus ref={ref} {...popupProps} content={content} trigger={trigger} />;
+        return PopupFocus;
       default:
-        return <PopupClick ref={ref} {...popupProps} content={content} trigger={trigger} />;
+        return PopupClick;
     }
   }, [action]);
 
-  return Component;
+  return <Component ref={ref} {...popupProps} content={content} trigger={trigger} />;
 });
