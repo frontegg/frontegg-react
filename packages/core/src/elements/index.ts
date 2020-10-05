@@ -2,6 +2,7 @@ import { Elements } from '../ElementsFactory';
 
 export * from './ErrorMessage';
 export * from './Button';
+export * from './Loader';
 export * from './Grid';
 export * from './Table';
 export * from './Icon';
