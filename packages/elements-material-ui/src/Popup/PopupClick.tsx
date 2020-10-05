@@ -1,4 +1,4 @@
-import React, { useCallback, forwardRef } from 'react';
+import React, { useCallback, forwardRef, useState } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { useStyles } from './styles';
@@ -7,8 +7,8 @@ import { IPopoverProps } from './types';
 export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) => {
   const { trigger, content, anchorOrigin, transformOrigin, mountNode } = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

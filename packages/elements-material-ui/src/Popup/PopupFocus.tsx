@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { IPopoverProps } from './types';
@@ -7,9 +7,9 @@ import { useStyles } from './styles';
 export const PopupFocus = forwardRef<HTMLElement, IPopoverProps>((props, ref) => {
   const { trigger, content, anchorOrigin, transformOrigin, mountNode } = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-  const [focused, setFocused] = React.useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [focused, setFocused] = useState<boolean>(false);
 
   const handleFocus = useCallback(
     (event: React.FocusEvent<HTMLButtonElement>) => {
