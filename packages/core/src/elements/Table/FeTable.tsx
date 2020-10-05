@@ -25,6 +25,11 @@ import {
   UsePaginationInstanceProps,
   UseTableInstanceProps,
   TableInstance,
+  useRowSelect,
+  UseRowSelectRowProps,
+  UseRowSelectOptions,
+  UseRowSelectInstanceProps,
+  UseRowSelectState,
 } from 'react-table';
 
 import './FeTable.scss';
@@ -37,42 +42,57 @@ import { FeTableTHead } from './FeTableTHead';
 import { FeTableTBody } from './FeTableTBody';
 import { FeTablePagination } from './FeTablePagination';
 import { FeTableToolbar } from './FeTableToolbar';
+import { FeCheckbox } from '../Checkbox/FeCheckbox';
 
 export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
   const tableRef = useRef<HTMLDivElement>(null);
   const columns = useMemo(() => {
-    return [
-      ...(props.expandable
-        ? [
-            {
-              id: 'expander',
-              minWidth: 60,
-              maxWidth: '60px',
-              Cell: (cell: Cell<T>) => {
-                const row = cell.row as Row<T> & UseExpandedRowProps<T>;
-                return (
-                  <FeButton
-                    className={classNames('fe-table__expand-button', { 'is-expanded': row.isExpanded })}
-                    {...row.getToggleRowExpandedProps()}
-                    variant={row.isExpanded ? 'primary' : undefined}
-                  >
-                    <FeIcon name='right-arrow' />
-                  </FeButton>
-                );
-              },
-            },
-          ]
-        : []),
-      ...props.columns.map(
-        ({ sortable, Filter, ...rest }) =>
-          ({
-            ...rest,
-            disableSortBy: !sortable,
-            disableFilters: !Filter,
-            Filter,
-          } as FeTableColumnOptions<T>)
-      ),
-    ] as Column<T>[];
+    const columns = props.columns.map(
+      ({ sortable, Filter, ...rest }) =>
+        ({
+          ...rest,
+          disableSortBy: !sortable,
+          disableFilters: !Filter,
+          Filter,
+        } as FeTableColumnOptions<T>)
+    );
+    if (props.expandable) {
+      columns.unshift({
+        id: 'fe-expander',
+        minWidth: 60,
+        maxWidth: '60px' as any,
+        Cell: (cell: Cell<T>) => {
+          const row = cell.row as Row<T> & UseExpandedRowProps<T>;
+          return (
+            <FeButton
+              className={classNames('fe-table__expand-button', { 'is-expanded': row.isExpanded })}
+              {...row.getToggleRowExpandedProps()}
+              variant={row.isExpanded ? 'primary' : undefined}
+            >
+              <FeIcon name='right-arrow' />
+            </FeButton>
+          );
+        },
+      });
+    }
+    if (props.selection) {
+      columns.unshift({
+        id: 'fe-selection',
+        minWidth: 60,
+        maxWidth: '60px' as any,
+        Cell: (cell: Cell<T>) => {
+          const row = cell.row as Row<T> & UseRowSelectRowProps<T>;
+          return (
+            <FeCheckbox
+              {...row.getToggleRowSelectedProps()}
+              checked={row.isSelected}
+              onChange={(e) => onRowSelected(row.original, e.target.checked)}
+            />
+          );
+        },
+      });
+    }
+    return columns as Column<T>[];
   }, [props.columns, props.expandable]);
 
   const tableHooks: PluginHook<T>[] = [useFilters, useSortBy];
@@ -81,6 +101,9 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   }
   if (props.pagination) {
     tableHooks.push(usePagination);
+  }
+  if (props.selection) {
+    tableHooks.push(useRowSelect);
   }
   tableHooks.push(useFlexLayout);
 
@@ -102,30 +125,43 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     nextPage,
     previousPage,
     setPageSize,
+
+    // select props
+    toggleAllRowsSelected,
+    isAllRowsSelected,
+    selectedFlatRows,
+    toggleRowSelected,
   } = useTable(
     {
       columns,
       data: props.data,
+      getRowId: (row: any) => row[props.rowKey],
       manualSortBy: !!props.onSortChange,
       manualFilters: !!props.onFilterChange,
+      manualPagination: !!props.onPageChange,
+      manualRowSelectedKey: props.rowKey,
+      pageCount: props.pageCount ?? 0,
       useControlledState: (state1: any) =>
         ({
           ...state1,
           sortBy: props.sortBy ?? state1.sortBy,
           filters: props.filters ?? state1.filters,
-        } as TableState<T> & UseFiltersState<T> & UseSortByState<T>),
+          selectedRowIds: props.selectedRowIds ?? state1.selectedRowIds,
+        } as TableState<T> & UseFiltersState<T> & UseSortByState<T> & UseRowSelectState<T>),
       expandSubRows: false,
       initialState: {
         pageIndex: 0,
-        pageSize: props.pageSize,
+        pageSize: props.pageSize ?? 0,
+        selectedRowIds: props.selectedRowIds || {},
       },
     } as UseTableOptions<T> &
       UseFiltersOptions<T> &
       UseSortByOptions<T> &
       UseExpandedOptions<T> &
+      UseRowSelectOptions<T> &
       UsePaginationOptions<T>,
     ...tableHooks
-  ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T>;
+  ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T> & UseRowSelectInstanceProps<T>;
 
   if (props.expandable && !props.renderExpandedComponent) {
     throw Error('FeTable: you must provide renderExpandedComponent property if the table is expandable');
@@ -139,12 +175,14 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   if (props.hasOwnProperty('pagination') && !props.pageSize) {
     throw Error('FeTable: you must provide pageSize property if pagination enabled');
   }
+  if (props.hasOwnProperty('onPageChange') && !props.pageCount) {
+    throw Error('FeTable: you must provide pageCount property if onPageChange is controlled');
+  }
 
-  const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T>;
+  const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T> & UseRowSelectState<T>;
 
   const onSortChange = useCallback(
     (column: FeTableColumnProps<T>) => {
-      debugger;
       if (props.hasOwnProperty('sortBy')) {
         const sortBy = props.isMultiSort ? tableState.sortBy.filter(({ id }) => id !== column.id) : [];
         if (!column.isSorted) {
@@ -179,6 +217,36 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     [props.onFilterChange]
   );
 
+  const onToggleAllRowsSelected = useCallback(
+    (value: boolean) => {
+      if (props.hasOwnProperty('selectedRowIds')) {
+        const selectedIds = props.data.reduce((p, n: any) => ({ ...p, [n[props.rowKey]]: true }), {});
+        props.onRowSelected?.(value ? selectedIds : {});
+      } else {
+        toggleAllRowsSelected(value);
+      }
+    },
+    [props.onRowSelected]
+  );
+
+  const onRowSelected = useCallback(
+    (row: any, value: boolean) => {
+      const id = row[props.rowKey];
+      if (props.hasOwnProperty('selectedRowIds')) {
+        const newSelectedRows: any = { ...props.selectedRowIds };
+        if (value) {
+          newSelectedRows[id] = true;
+        } else {
+          delete newSelectedRows[id];
+        }
+        props.onRowSelected?.(newSelectedRows);
+      } else {
+        toggleRowSelected(id, value);
+      }
+    },
+    [props.onRowSelected]
+  );
+
   useEffect(() => {
     !props.hasOwnProperty('sortBy') && props.onSortChange?.(tableState.sortBy);
   }, [props.sortBy, tableState.sortBy]);
@@ -192,11 +260,22 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
   }, [tableState.pageIndex]);
 
+  useEffect(() => {
+    !props.hasOwnProperty('selectedRowIds') && props.onRowSelected?.(tableState.selectedRowIds as any);
+  }, [tableState.selectedRowIds]);
+
   return (
     <div className='fe-table__container'>
       <div ref={tableRef} className='fe-table' {...getTableProps()}>
         {props.toolbar && <FeTableToolbar />}
-        <FeTableTHead headerGroups={headerGroups} onSortChange={onSortChange} onFilterChange={onFilterChange} />
+        <FeTableTHead
+          headerGroups={headerGroups}
+          onSortChange={onSortChange}
+          onFilterChange={onFilterChange}
+          toggleAllRowsSelected={onToggleAllRowsSelected}
+          isAllRowsSelected={isAllRowsSelected}
+          selectedFlatRows={selectedFlatRows}
+        />
         <FeTableTBody
           getTableBodyProps={getTableBodyProps}
           prepareRow={prepareRow}

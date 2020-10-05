@@ -8,6 +8,7 @@ import { Tabs } from './Tabs';
 import { Icon } from './Icon';
 import { Dialog } from './Dialog';
 import { Popup } from './Popup';
+import { Checkbox } from './Checkbox';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
@@ -21,4 +22,5 @@ export const uiLibrary: Partial<Elements> = {
   Icon,
   Dialog,
   Popup,
+  Checkbox,
 };

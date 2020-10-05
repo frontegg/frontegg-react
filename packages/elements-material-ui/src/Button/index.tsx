@@ -29,9 +29,9 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     variant: isCancel ? 'text' : 'contained',
     color: variant === 'danger' ? 'default' : variant,
     classes: {
-      root: classNames('fe-button', className, {
-        'fe-button__danger': variant === 'danger',
-        'fe-button__in-form': inForm,
+      root: classNames(className, {
+        'fe-material-button__danger': variant === 'danger',
+        'fe-material-button__in-form': inForm,
       }),
     },
   };
