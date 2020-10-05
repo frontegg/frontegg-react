@@ -36,8 +36,8 @@ const mapper = (props: PopupProps): Omit<PopoverProps, 'open'> => {
   } else {
     aVertical = positions[p?.charAt(0) || 'b'];
     aHorizontal = positions[p?.charAt(1) || 'c'];
-    tVertical = invertedPositions[p?.charAt(0) || 'c'];
-    tHorizontal = invertedPositions[p?.charAt(1) || 'b'];
+    tVertical = invertedPositions[p?.charAt(0) || 'b'];
+    tHorizontal = invertedPositions[p?.charAt(1) || 'c'];
   }
   return {
     anchorOrigin: {
