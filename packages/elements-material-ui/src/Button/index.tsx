@@ -6,8 +6,21 @@ import { Loader } from '../Loader';
 import './style.scss';
 
 const mapper = (props: ButtonProps): MaterialButtonProps => {
-  const { className, inForm, variant, fullWidth, loading, disabled, type, onClick, isCancel, size } = props;
+  const {
+    className,
+    inForm,
+    variant,
+    fullWidth,
+    loading,
+    disabled,
+    type,
+    onClick,
+    isCancel,
+    size,
+    ...restProps
+  } = props;
   return {
+    ...restProps,
     fullWidth,
     onClick,
     type,

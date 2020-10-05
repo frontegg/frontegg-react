@@ -5,8 +5,8 @@ export type PopupAction = 'hover' | 'click' | 'focus';
 
 export interface PopupProps extends HTMLAttributes<HTMLDivElement> {
   position?: PopupPosition;
-  content: ReactNode;
+  content: JSX.Element | ReactNode;
   action: PopupAction;
-  trigger: ReactElement;
+  trigger: JSX.Element | ReactNode | Element;
   mountNode?: HTMLElement;
 }
