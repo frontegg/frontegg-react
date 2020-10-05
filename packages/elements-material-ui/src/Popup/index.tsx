@@ -1,4 +1,4 @@
-import React, { FC, forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { PopoverProps } from '@material-ui/core';
 import { PopupClick } from './PopupClick';
 import { PopupHover } from './PopupHover';
@@ -51,18 +51,22 @@ const mapper = (props: PopupProps): Omit<PopoverProps, 'open'> => {
   };
 };
 
-export const Popup = forwardRef<any, PopupProps>((props, ref) => {
+export const Popup = forwardRef<HTMLElement, PopupProps>((props, ref) => {
   const { action, content, trigger } = props;
-  const popupProps = mapper(props);
+  const popupProps: any = mapper(props);
 
-  switch (action) {
-    case 'click':
-      return <PopupClick ref={ref} {...popupProps} content={content} trigger={trigger} />;
-    case 'hover':
-      return <PopupHover ref={ref} {...popupProps} content={content} trigger={trigger} />;
-    case 'focus':
-      return <PopupFocus ref={ref} {...popupProps} content={content} trigger={trigger} />;
-    default:
-      return <PopupClick ref={ref} {...popupProps} content={content} trigger={trigger} />;
-  }
+  const Component = useMemo(() => {
+    switch (action) {
+      case 'click':
+        return <PopupClick ref={ref} {...popupProps} content={content} trigger={trigger} />;
+      case 'hover':
+        return <PopupHover ref={ref} {...popupProps} content={content} trigger={trigger} />;
+      case 'focus':
+        return <PopupFocus ref={ref} {...popupProps} content={content} trigger={trigger} />;
+      default:
+        return <PopupClick ref={ref} {...popupProps} content={content} trigger={trigger} />;
+    }
+  }, [action]);
+
+  return Component;
 });

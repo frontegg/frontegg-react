@@ -1,16 +1,10 @@
 import React, { forwardRef, useCallback } from 'react';
 import { Popover, Box } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import classnames from 'classnames';
+import { IPopoverProps } from './types';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    box: {
-      padding: theme.spacing(2),
-    },
-  })
-);
-
-export const PopupFocus = forwardRef<any, any>((props, ref) => {
+export const PopupFocus = forwardRef<HTMLElement, IPopoverProps>((props, ref) => {
   const { trigger, content, anchorOrigin, transformOrigin, mountNode } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
@@ -30,21 +24,19 @@ export const PopupFocus = forwardRef<any, any>((props, ref) => {
     [focused]
   );
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
     setOpen(false);
-  };
+  }, []);
 
   return (
-    <div>
+    <>
       {React.cloneElement(trigger as React.ReactElement<any>, {
-        'aria-describedby': 'simple-popover',
         className: 'fe-m-popup-trigger',
         onFocus: handleFocus,
+        ref: ref,
       })}
       <Popover
-        ref={ref}
-        id='simple-popover'
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -58,8 +50,8 @@ export const PopupFocus = forwardRef<any, any>((props, ref) => {
           horizontal: transformOrigin.horizontal,
         }}
       >
-        <Box className={`${classes.box} fe-m-popup-content`}>{content}</Box>
+        <Box className={classnames(classes.box, 'fe-m-popup-content')}>{content}</Box>
       </Popover>
-    </div>
+    </>
   );
 });

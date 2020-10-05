@@ -1,44 +1,33 @@
-import React, { FC, useCallback, forwardRef } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import { Popover, Box } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import classnames from 'classnames';
+import { useStyles } from './styles';
+import { IPopoverProps } from './types';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    box: {
-      padding: theme.spacing(2),
-    },
-  })
-);
-
-export const PopupClick = forwardRef<any, any>((props, ref) => {
+export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) => {
   const { trigger, content, anchorOrigin, transformOrigin, mountNode } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-      setOpen(true);
-    },
-    [setAnchorEl, setOpen]
-  );
+  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(true);
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
     setOpen(false);
-  };
+  }, []);
 
   return (
-    <div>
+    <>
       {React.cloneElement(trigger as React.ReactElement<any>, {
-        'aria-describedby': 'simple-popover',
         className: 'fe-m-popup-trigger',
         onClick: handleClick,
         ref: ref,
       })}
       <Popover
-        id='simple-popover'
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -52,8 +41,8 @@ export const PopupClick = forwardRef<any, any>((props, ref) => {
           horizontal: transformOrigin.horizontal,
         }}
       >
-        <Box className={`${classes.box} fe-m-popup-content`}>{content}</Box>
+        <Box className={classnames(classes.box, 'fe-m-popup-content')}>{content}</Box>
       </Popover>
-    </div>
+    </>
   );
 });
