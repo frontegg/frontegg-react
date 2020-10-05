@@ -43,11 +43,11 @@ type ComponentTypeOrForwardRef<P, REF> =
 
 export type ElementProps = {
   Button:
-  | ComponentType<ButtonProps>
-  | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
+    | ComponentType<ButtonProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
   Checkbox:
-  | ComponentType<CheckboxProps>
-  | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
+    | ComponentType<CheckboxProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
@@ -56,11 +56,11 @@ export type ElementProps = {
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
   Grid:
-  | ComponentType<GridProps>
-  | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+    | ComponentType<GridProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
   Popup:
-  | ComponentType<PopupProps>
-  | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
+    | ComponentType<PopupProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
 };
 
 export type ElementType = keyof ElementProps;

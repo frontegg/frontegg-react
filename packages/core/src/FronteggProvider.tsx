@@ -117,7 +117,7 @@ const FeState: FC<FeProviderProps> = (props) => {
             onRedirectTo,
           },
         }),
-        {},
+        {}
       ),
     };
     fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
