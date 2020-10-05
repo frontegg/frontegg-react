@@ -1,14 +1,14 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import './FeLoader.scss';
-import { LoaderProps } from '../../ElementsFactory';
+import { LoaderProps } from './interfaces';
 
 const prefixCls = 'fe-loader';
 export const FeLoader = forwardRef<HTMLDivElement, LoaderProps>((props, ref) => {
-  const { className, children, color = 'primary', ...propsWithoutChildren } = props;
+  const { className, children, variant = 'primary', ...propsWithoutChildren } = props;
 
   const classes = classNames(prefixCls, className, {
-    [`${prefixCls}-${color}`]: color,
+    [`${prefixCls}-${variant}`]: variant,
   });
 
   return <div ref={ref} className={classes} {...propsWithoutChildren} />;

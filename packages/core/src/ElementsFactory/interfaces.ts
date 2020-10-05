@@ -4,6 +4,7 @@ import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
+import { LoaderProps } from '../elements/Loader/interfaces';
 import { CheckboxProps } from '../elements/Checkbox';
 
 export type FormFieldProps = {
@@ -20,12 +21,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   as?: string; // default is true
-}
-
-export interface LoaderProps extends React.HTMLAttributes<HTMLElement> {
-  inline?: boolean;
-  center?: boolean;
-  color?: 'primary' | 'secondary' | 'inherit';
 }
 
 export interface SwitchToggleProps {

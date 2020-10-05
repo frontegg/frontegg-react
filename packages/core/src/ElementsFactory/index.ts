@@ -1,6 +1,7 @@
 import React from 'react';
+import { LoaderProps } from '../elements/Loader/interfaces';
 import { ElementsFactory } from './ElementsFactory';
-import { LoaderProps, SwitchToggleProps, TabProps } from './interfaces';
+import { SwitchToggleProps, TabProps } from './interfaces';
 
 export * from './interfaces';
 export * from './FileInput';
