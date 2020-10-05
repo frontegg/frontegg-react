@@ -1,6 +1,11 @@
 import { PopupProps } from '@frontegg/react-core';
 
+type positions = {
+  vertical: any;
+  horizontal: any;
+};
+
 export interface IPopoverProps extends PopupProps {
-  anchorOrigin?: any;
-  transformOrigin?: any;
+  anchorOrigin: positions;
+  transformOrigin: positions;
 }

@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import { Elements, fronteggElements } from '@frontegg/react-core';
 import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
@@ -7,7 +7,6 @@ const SE = S as Elements;
 const FE = fronteggElements as Elements;
 const ME = M as Elements;
 export const PopupExample: FC = () => {
-  const ref = useRef(null);
   return (
     <div style={{ textAlign: 'center' }}>
       <h2>Popup Example</h2>
@@ -32,7 +31,6 @@ export const PopupExample: FC = () => {
       <h4>Material Popup</h4>
       <div>
         <ME.Popup
-          ref={ref}
           position='bc'
           action='hover'
           content={<div>My content</div>}
