@@ -1,0 +1,17 @@
+.fe-tag {
+  height: var(--element-height-sm);
+  padding: 0 var(--element-padding-sm);
+  color: var(--color-text);
+  border: none;
+  cursor: default;
+  display: inline-flex;
+  outline: 0;
+  box-sizing: border-box;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: var(--element-height-sm);
+  vertical-align: middle;
+  justify-content: center;
+  text-decoration: none;
+  background-color: var(--color-gray-3);
+}

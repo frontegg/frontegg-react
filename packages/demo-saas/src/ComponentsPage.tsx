@@ -50,23 +50,24 @@ const elements: {
   title: string;
   props: any[];
 }[] = [
-  // {
-  //   title: 'Buttons',
-  //   type: 'Button',
-  //   props: [
-  //     { children: 'Regular Button' },
-  //     { variant: 'primary', children: 'Primary Button' },
-  //     { variant: 'secondary', children: 'Secondary Button' },
-  //     { variant: 'danger', children: 'Danger Button' },
-  //     { isCancel: true, children: 'Cancel Button' },
-  //     { fullWidth: true, children: 'Full Width Button' },
-  //     { size: 'small', children: 'Small Button' },
-  //     { size: 'medium', children: 'Medium Button' },
-  //     { size: 'large', children: 'Large Button' },
-  //     { disabled: true, children: 'Disabled Button' },
-  //     { loading: true, children: 'Loading Button' },
-  //   ],
-  // },
+  {
+    title: 'Buttons',
+    type: 'Button',
+    props: [
+      { children: 'Regular Button' },
+      { variant: 'default', children: 'Default Button' },
+      { variant: 'primary', children: 'Primary Button' },
+      { variant: 'secondary', children: 'Secondary Button' },
+      { variant: 'danger', children: 'Danger Button' },
+      { isCancel: true, children: 'Cancel Button' },
+      { fullWidth: true, children: 'Full Width Button' },
+      { size: 'small', children: 'Small Button' },
+      { size: 'medium', children: 'Medium Button' },
+      { size: 'large', children: 'Large Button' },
+      { disabled: true, children: 'Disabled Button' },
+      { loading: true, children: 'Loading Button' },
+    ],
+  },
   {
     title: 'Checkbox',
     type: 'Checkbox',
@@ -78,9 +79,27 @@ const elements: {
     ],
   },
   {
+    title: 'Tags',
+    type: 'Tag',
+    props: [
+      { children: 'Some Tag' },
+      { children: 'Primary Tag', variant: 'primary' },
+      { children: 'Secondary Tag', variant: 'secondary' },
+      { children: 'Danger Tag', variant: 'danger' },
+      { children: 'Default Tag', variant: 'default' },
+      { children: 'Clickable Tag', onClick: console.log },
+      { children: 'Disabled Tag', disabled: true },
+      { children: 'Delete Tag', onDelete: console.log },
+    ],
+  },
+  {
     title: 'Loaders',
     type: 'Loader',
-    props: [{ color: 'secondary', children: null }],
+    props: [
+      { variant: 'primary', children: null },
+      { variant: 'secondary', children: null },
+      { variant: 'danger', children: null },
+    ],
   },
 ];
 

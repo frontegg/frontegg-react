@@ -21,6 +21,23 @@
   --body-bg: var(--color-gray-1);
 }
 
+.fe-clickable {
+  cursor: pointer;
+  background-color: inherit;
+  transition: all 0.1s ease-out;
+  user-select: none;
+
+  &:focus {
+    filter: brightness(0.95);
+  }
+  &:hover {
+    filter: brightness(0.9);
+  }
+  &:active {
+    filter: brightness(0.8);
+  }
+}
+
 .fe-note {
   margin: 1rem 0;
   font-size: 0.8rem;

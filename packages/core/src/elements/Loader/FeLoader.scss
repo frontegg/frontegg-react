@@ -2,36 +2,19 @@
   position: relative;
   width: var(--element-height);
   height: var(--element-height);
+  display: inline-flex;
 
-  &::before {
-    content: '';
+  .fe-inner-loader {
     position: absolute;
     width: 100%;
     height: 100%;
+    background-color: transparent;
     border-radius: 50%;
     border: 2px solid var(--color-black-20);
     border-bottom: 2px solid;
     animation: spin 0.4s infinite linear;
     left: 0;
     top: 0;
-  }
-}
-
-.fe-loader.fe-loader-inherit {
-  &::before {
-    border-bottom-color: inherit;
-  }
-}
-
-.fe-loader.fe-loader-primary {
-  &::before {
-    border-bottom-color: var(--color-primary-darker);
-  }
-}
-
-.fe-loader.fe-loader-secondary {
-  &::before {
-    border-bottom-color: var(--color-secondary-darker);
   }
 }
 

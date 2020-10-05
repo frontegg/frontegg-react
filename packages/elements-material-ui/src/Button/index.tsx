@@ -19,6 +19,8 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     size,
     ...restProps
   } = props;
+  const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
+
   return {
     ...restProps,
     fullWidth,
@@ -27,7 +29,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     size,
     disabled: loading || disabled,
     variant: isCancel ? 'text' : 'contained',
-    color: variant === 'danger' ? 'default' : variant,
+    color: variantColor,
     classes: {
       root: classNames(className, {
         'fe-material-button__danger': variant === 'danger',
