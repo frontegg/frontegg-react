@@ -38,6 +38,7 @@ export interface TableProps<T extends object = {}> {
   tableHeader?: boolean;
 
   data: T[];
+  // totalData: number;
   rowKey: keyof T | string;
 
   isMultiSort?: boolean;
