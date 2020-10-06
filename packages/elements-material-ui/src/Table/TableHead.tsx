@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import { TableFilterColumn } from './TableFilterColumn';
 import { FeTableColumnProps } from '@frontegg/react-core';
 import { HeaderGroup, TableSortByToggleProps } from 'react-table';
-import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel } from '@material-ui/core';
+import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel, Checkbox } from '@material-ui/core';
+import classnames from 'classnames';
 
 type FeTableTHeadProps<T extends object> = {
   headerGroups: HeaderGroup<T>[];
@@ -22,14 +23,23 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
     selectedFlatRows,
     isAllRowsSelected,
   } = props;
-
   return (
     <MaterialTableHead>
       {headerGroups.map((headerGroup) => (
         <TableRow {...headerGroup.getHeaderGroupProps()}>
           {headerGroup.headers.map((c) => {
             const column = c as FeTableColumnProps<T>;
-            console.log(column);
+            if (column.id === 'fe-selection') {
+              return (
+                <TableCell {...column.getHeaderProps()}>
+                  <Checkbox
+                    indeterminate={!isAllRowsSelected && (selectedFlatRows ?? []).length > 0}
+                    checked={isAllRowsSelected}
+                    onChange={() => toggleAllRowsSelected?.(!isAllRowsSelected)}
+                  />
+                </TableCell>
+              );
+            }
             return (
               <TableCell
                 {...column.getHeaderProps(

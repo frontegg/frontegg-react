@@ -3,6 +3,7 @@ import { Popup } from '../Popup';
 import classNames from 'classnames';
 import { FeTableColumnProps } from '@frontegg/react-core';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { IconButton, Tooltip } from '@material-ui/core';
 
 type FeTableFilterColumnProps<T extends object = any> = {
   column: FeTableColumnProps<T>;
@@ -29,13 +30,17 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
       content={<FilterComponent value={filterValue} setFilterValue={(value) => setFilterValue(value)} />}
       action={'click'}
       trigger={
-        <FilterListIcon
-          key={1}
-          name='filters'
-          className={classNames('fe-table__filter-button', {
-            'active-filter': column.filterValue,
-          })}
-        />
+        <Tooltip title='Filter list'>
+          <IconButton aria-label='filter list'>
+            <FilterListIcon
+              key={1}
+              name='filters'
+              // className={classNames('fe-table__filter-button', {
+              //   'active-filter': column.filterValue,
+              // })}
+            />
+          </IconButton>
+        </Tooltip>
       }
     />
   );

@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from 'react';
 import { Elements, fronteggElements } from '@frontegg/react-core';
-import { uiLibrary as S } from '@frontegg/react-elements-semantic';
+// import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 import { TableFilter, TableSort, Input } from '@frontegg/react-core';
 
-const SE = S as Elements;
-const FE = fronteggElements as Elements;
+// const SE = S as Elements;
+// const FE = fronteggElements as Elements;
 const ME = M as Elements;
 
 const data = [
@@ -1180,12 +1180,12 @@ export const TableExample: FC = () => {
         onPageChange={(pageSize, page) => {
           console.log(pageSize, page);
         }}
-        expandable
-        renderExpandedComponent={renderExpandedComponent}
-        // selection='multi'
-        // onRowSelected={(selected) => {
-        //   console.log(selected);
-        // }}
+        // expandable
+        // renderExpandedComponent={renderExpandedComponent}
+        selection='multi'
+        onRowSelected={(selected) => {
+          console.log(selected);
+        }}
         toolbar
         isMultiSort
         // sortBy={sortBy}
