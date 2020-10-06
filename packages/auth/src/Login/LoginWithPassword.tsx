@@ -8,11 +8,13 @@ import {
   useT,
   FForm,
   FButton,
+  FInputIcon,
+  Icon,
   FInput,
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
-
+import AccountCircle from '@material-ui/icons/AccountCircle';
 const { Formik } = FFormik;
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
@@ -87,11 +89,13 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     >
       {({ values }) => (
         <FForm>
-          <FInput
+          <FInputIcon
             name='email'
             type='email'
             label={t('auth.login.email')}
-            placeholder='name@example.com'
+            placeholder='name@example.comds'
+            prefix={<AccountCircle/>}
+            suffix={<AccountCircle/>}
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
           />
 

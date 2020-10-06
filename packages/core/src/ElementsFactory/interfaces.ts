@@ -13,6 +13,15 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   error?: string;
 }
 
+export interface InputIconProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
+  label?: string;
+  labelButton?: ButtonProps;
+  fullWidth?: boolean;
+  error?: string;
+  prefix?: any;
+  suffix?: any;
+}
+
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, FormFieldProps {
   fullWidth?: boolean;
   variant?: 'primary' | 'secondary' | 'danger';
@@ -45,6 +54,7 @@ export interface SwitchToggleProps {
   onChange?: (toggled: boolean) => void;
 }
 
+
 export type IconNames =
   | 'left-arrow'
   | 'right-arrow'
@@ -68,6 +78,7 @@ export interface TabProps {
 export type ElementProps = {
   Button: ComponentType<ButtonProps>;
   Input: ComponentType<InputProps>;
+  InputIcon: ComponentType<InputIconProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
   SwitchToggle: ComponentType<SwitchToggleProps>;
@@ -76,7 +87,7 @@ export type ElementProps = {
   Dialog: ComponentType<DialogProps>;
 };
 
-export type ElementType = 'Button' | 'Input' | 'Form' | 'Loader' | 'SwitchToggle' | 'Icon' | 'Tabs' | 'Dialog';
+export type ElementType = 'Button' | 'Input' | 'InputIcon' | 'Form' | 'Loader' | 'SwitchToggle' | 'Icon' | 'Tabs' | 'Dialog';
 
 export type Elements = {
   [type in ElementType]: ElementProps[type];
