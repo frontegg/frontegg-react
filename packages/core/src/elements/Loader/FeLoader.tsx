@@ -5,13 +5,13 @@ import { LoaderProps } from './interfaces';
 import { getThemeClassNameByVariant } from '../../styles';
 
 export const FeLoader = forwardRef<HTMLDivElement, LoaderProps>((props, ref) => {
-  const { className, children, variant = 'primary', ...propsWithoutChildren } = props;
+  const { className, children, variant = 'primary', ...restProps } = props;
 
   const classes = classNames('fe-loader', className);
-  const innerClasses = classNames('fe-inner-loader', className, getThemeClassNameByVariant(variant));
+  const innerClasses = classNames('fe-loader__inner', className, getThemeClassNameByVariant(variant));
 
   return (
-    <div ref={ref} className={classes} {...propsWithoutChildren}>
+    <div ref={ref} className={classes} {...restProps}>
       <span className={innerClasses} />
     </div>
   );
