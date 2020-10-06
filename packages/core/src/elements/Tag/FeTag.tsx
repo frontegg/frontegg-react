@@ -9,10 +9,7 @@ const prefixCls = 'fe-tag';
 export const FeTag = forwardRef<HTMLDivElement, TagProps>((props, ref) => {
   const { className, children, variant = 'default', onDelete, ...rest } = props;
 
-  const classes = classNames(
-    prefixCls,
-    className,
-    getThemeClassNameByVariant(props.disabled ? 'disabled' : variant), {
+  const classes = classNames(prefixCls, className, getThemeClassNameByVariant(props.disabled ? 'disabled' : variant), {
     [clickableClassName]: props.onClick,
   });
 
