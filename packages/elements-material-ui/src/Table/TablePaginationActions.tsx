@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { IconButton } from '@material-ui/core';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -20,21 +20,27 @@ export const TablePaginationActions = (props: any) => {
   const theme = useTheme();
   const { count, page, rowsPerPage, onChangePage, pageOptions, pageIndex, pageCount, gotoPage } = props;
 
-  const handleFirstPageButtonClick = () => {
+  const handleFirstPageButtonClick = useCallback(() => {
     gotoPage(0);
-  };
+  }, []);
 
-  const handleBackButtonClick = (event: any) => {
-    onChangePage(event, page - 1, page);
-  };
+  const handleBackButtonClick = useCallback(
+    (event: any) => {
+      onChangePage(event, page - 1, page);
+    },
+    [page],
+  );
 
-  const handleNextButtonClick = (event: any) => {
-    onChangePage(event, page + 1, page);
-  };
+  const handleNextButtonClick = useCallback(
+    (event: any) => {
+      onChangePage(event, page + 1, page);
+    },
+    [page],
+  );
 
-  const handleLastPageButtonClick = () => {
+  const handleLastPageButtonClick = useCallback(() => {
     gotoPage(Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
+  }, []);
 
   if (pageOptions.length < 2) {
     return null;
