@@ -6,7 +6,6 @@ import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
-
 export type FormFieldProps = {
   inForm?: boolean; // default: false
   size?: 'small' | 'medium' | 'large';
@@ -17,8 +16,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   labelButton?: ButtonProps;
   fullWidth?: boolean;
   error?: string;
-  prefixIcon?: any;
-  suffixIcon?: any;
+  prefixIcon?: HTMLElement;
+  suffixIcon?: HTMLElement;
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {

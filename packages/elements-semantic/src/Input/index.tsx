@@ -11,7 +11,7 @@ const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
   const data = {
     ...rest,
     fluid: fullWidth,
-    className: classNames('fe-input icon', className),
+    className: classNames('fe-input', className),
   } as any;
 
   if (prefixIcon) {
@@ -42,10 +42,12 @@ export class Input extends React.Component<InputProps> {
     }
 
     const inputProps = { ...mapper(this.props), label: inputLabel };
-    return (<Form.Input {...inputProps} icon>
-      <input />
-      {iconContent}
-      {children}
-      </Form.Input>);
+    return (
+      <Form.Input {...inputProps} icon>
+        <input />
+        {iconContent}
+        {children}
+      </Form.Input>
+    );
   }
 }
