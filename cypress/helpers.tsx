@@ -16,7 +16,7 @@ export type TestFronteggWrapperProps = {
   plugins: PluginConfig[];
 };
 export const TestFronteggWrapper: FC<TestFronteggWrapperProps> = (props) => (
-  <FronteggProvider withRouter={true} context={contextOptions} plugins={props.plugins} uiLibrary={uiLibrary}>
+  <FronteggProvider context={contextOptions} plugins={props.plugins} uiLibrary={uiLibrary}>
     {props.children}
   </FronteggProvider>
 );

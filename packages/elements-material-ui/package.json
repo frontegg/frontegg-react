@@ -3,7 +3,6 @@
   "libName": "FronteggElementsMaterialUi",
   "version": "1.0.83",
   "author": "FrontEgg LTD",
-  "browser": "dist/index.umd.js",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "es2015": "dist/index.es.js",
