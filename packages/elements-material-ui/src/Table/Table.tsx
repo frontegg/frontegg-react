@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo, useEffect, useRef } from 'react';
 import { TableProps, FeTableColumnProps, FeTableColumnOptions } from '@frontegg/react-core';
-import { Table as MaUTable, TableCell, Checkbox, IconButton } from '@material-ui/core';
+import { Table as MaUTable, Checkbox, IconButton, TablePagination } from '@material-ui/core';
 import classnames from 'classnames';
 import {
   useTable,
@@ -37,6 +37,7 @@ import { TableHead } from './TableHead';
 import { TableBody } from './TableBody';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { TablePaginationActions } from './TablePaginationActions';
 
 export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
   const tableRef = useRef<HTMLTableElement>(null);
@@ -109,14 +110,14 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
 
     // The page controls ;)
     page,
-    canPreviousPage,
-    canNextPage,
+    // canPreviousPage,
+    // canNextPage,
     pageOptions,
     pageCount,
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
+    // setPageSize,
 
     // select props
     toggleAllRowsSelected,
@@ -240,22 +241,51 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
     !props.hasOwnProperty('selectedRowIds') && props.onRowSelected?.(tableState.selectedRowIds as any);
   }, [tableState.selectedRowIds]);
 
+  const onPageChangeHandler = (page: number) => {
+    if (page > tableState.pageIndex) {
+      nextPage();
+    } else {
+      previousPage();
+    }
+  };
+
   return (
-    <MaUTable ref={tableRef} {...getTableProps()}>
-      <TableHead
-        headerGroups={headerGroups}
-        onSortChange={onSortChange}
-        onFilterChange={onFilterChange}
-        toggleAllRowsSelected={onToggleAllRowsSelected}
-        isAllRowsSelected={isAllRowsSelected}
-        selectedFlatRows={selectedFlatRows}
+    <>
+      <MaUTable ref={tableRef} {...getTableProps()}>
+        <TableHead
+          headerGroups={headerGroups}
+          onSortChange={onSortChange}
+          onFilterChange={onFilterChange}
+          toggleAllRowsSelected={onToggleAllRowsSelected}
+          isAllRowsSelected={isAllRowsSelected}
+          selectedFlatRows={selectedFlatRows}
+        />
+        <TableBody
+          getTableBodyProps={getTableBodyProps}
+          prepareRow={prepareRow}
+          rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
+          renderExpandedComponent={props.renderExpandedComponent}
+        />
+      </MaUTable>
+
+      <TablePagination
+        // rowsPerPageOptions={[5, 10, 25]}
+        component='div'
+        count={rows.length}
+        rowsPerPage={10}
+        page={tableState.pageIndex}
+        onChangePage={(e, page) => onPageChangeHandler(page)}
+        ActionsComponent={(props) => (
+          <TablePaginationActions
+            {...props}
+            gotoPage={gotoPage}
+            pageOptions={pageOptions}
+            pageIndex={tableState.pageIndex}
+            pageCount={pageCount}
+          />
+        )}
+        // onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-      <TableBody
-        getTableBodyProps={getTableBodyProps}
-        prepareRow={prepareRow}
-        rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
-        renderExpandedComponent={props.renderExpandedComponent}
-      />
-    </MaUTable>
+    </>
   );
 };

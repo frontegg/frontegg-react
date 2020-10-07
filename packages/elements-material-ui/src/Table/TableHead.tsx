@@ -3,7 +3,6 @@ import { TableFilterColumn } from './TableFilterColumn';
 import { FeTableColumnProps } from '@frontegg/react-core';
 import { HeaderGroup, TableSortByToggleProps } from 'react-table';
 import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel, Checkbox } from '@material-ui/core';
-import classnames from 'classnames';
 
 type FeTableTHeadProps<T extends object> = {
   headerGroups: HeaderGroup<T>[];

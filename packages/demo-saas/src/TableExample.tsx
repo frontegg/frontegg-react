@@ -1170,18 +1170,18 @@ export const TableExample: FC = () => {
           { accessor: 'resource', Header: 'Resource', sortable: true },
           { accessor: 'action', Header: 'Action', sortable: true },
           { accessor: 'severity', Header: 'Severity', sortable: true },
-          { accessor: 'ip', Header: 'IP ADDRESS', sortable: true },
+          { accessor: 'ip', Header: 'Ip Address', sortable: true },
         ]}
         data={data}
         rowKey='frontegg_id'
         pagination='pages'
         pageSize={20}
         pageCount={100}
-        onPageChange={(pageSize, page) => {
-          console.log(pageSize, page);
-        }}
-        // expandable
-        // renderExpandedComponent={renderExpandedComponent}
+        // onPageChange={(pageSize, page) => {
+        //   console.log(pageSize, page);
+        // }}
+        expandable
+        renderExpandedComponent={renderExpandedComponent}
         selection='multi'
         onRowSelected={(selected) => {
           console.log(selected);
