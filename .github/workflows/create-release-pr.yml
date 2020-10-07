@@ -27,13 +27,13 @@ jobs:
         run: make test-component
       - name: Git Identity
         run: |
-          git config --global user.name 'azu'
-          git config --global user.email 'azu@users.noreply.github.com'
+          git config --global user.name 'frontegg'
+          git config --global user.email 'frontegg@users.noreply.github.com'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Versionup commit
         run: |
-          make version
+          make versioning
       - name: Set current CHANGELOG to output
         id: changelog
         shell: bash -ex {0}
