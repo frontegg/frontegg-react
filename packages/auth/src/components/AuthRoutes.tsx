@@ -110,14 +110,14 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     },
     ...(samlCallbackPath
       ? [
-        {
-          id: 'loginWithSSO',
-          path: samlCallbackPath || '',
-          defaultComponent: LoginWithSSOPage,
-          standaloneComponent: LoginWithSSO,
-          props: computedPerPageProps.loginWithSSOProps,
-        },
-      ]
+          {
+            id: 'loginWithSSO',
+            path: samlCallbackPath || '',
+            defaultComponent: LoginWithSSOPage,
+            standaloneComponent: LoginWithSSO,
+            props: computedPerPageProps.loginWithSSOProps,
+          },
+        ]
       : []),
   ];
 

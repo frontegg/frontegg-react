@@ -75,7 +75,9 @@ const FeState: FC<FeProviderProps> = (props) => {
   const history = useHistory();
   const location = useLocation();
   const taskRef = useRef<Task>();
-  const baseName = isSSR ? '' : window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
+  const baseName = isSSR
+    ? ''
+    : window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
   const onRedirectTo =
     props.onRedirectTo ??
     ((_path: string, opts?: RedirectOptions) => {
@@ -118,7 +120,7 @@ const FeState: FC<FeProviderProps> = (props) => {
             onRedirectTo,
           },
         }),
-        {},
+        {}
       ),
     };
     fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
