@@ -43,15 +43,18 @@ export class Input extends React.Component<InputProps> {
     }
 
     const inputProps = { ...mapper(this.props), label: inputLabel };
-    return (
-      rest.iconAction ?
-      <Form.Input {...inputProps} icon action={{
-        icon: iconContent,
-        onClick: rest.iconAction
-      }}
+    return rest.iconAction ? (
+      <Form.Input
+        {...inputProps}
+        icon
+        action={{
+          icon: iconContent,
+          onClick: rest.iconAction,
+        }}
       >
         {children}
-      </Form.Input> :
+      </Form.Input>
+    ) : (
       <Form.Input {...inputProps} icon>
         <input />
         {iconContent}
