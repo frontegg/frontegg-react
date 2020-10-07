@@ -24,4 +24,4 @@ jobs:
       - run: make clean
       - run: make install
       - run: make build
-       - run: make test-component
+      - run: make test-component
