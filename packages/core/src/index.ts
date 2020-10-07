@@ -11,6 +11,7 @@ export * from './helpers';
 export { default as Logger } from './helpers/Logger';
 export * from './elements';
 export * from './components';
+export * from './styles';
 
 export * from './ElementsFactory';
 

@@ -6,10 +6,12 @@ import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
+import { TagProps } from '../elements/Tag';
+import { Size } from '../styles';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
 };
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
@@ -48,6 +50,7 @@ export type ElementProps = {
   Checkbox:
     | ComponentType<CheckboxProps>
     | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
+  Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
