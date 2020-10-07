@@ -125,13 +125,13 @@ build: ##@4 Build build all packages
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
 	${MAKE} build-auth
-	#${MAKE} build-reports
 
 build-%: ##@4 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
-	@export PACKAGE=${*}; cd ./packages/${*} && yarn build
+	@export NODE_ENV=production; cd ./packages/${*} && yarn build
 
 bw: ##@4 Build parallels build:watch all
+	@export NODE_ENV=development
 	@./node_modules/.bin/lerna run build:watch --parallel
 
 bw-%: ##@2 Build build:watch specific package

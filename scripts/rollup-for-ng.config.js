@@ -8,21 +8,19 @@ import progress from 'rollup-plugin-progress';
 import postcss from 'rollup-plugin-postcss';
 import fs from 'fs';
 import path from 'path';
-import transformTypesAlias from './rollup.transform-types-alias';
 
 const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json')));
-const tsConfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), './tsconfig.json')));
 const isProduction = process.env.NODE_ENV === 'production';
 const isWatching = process.argv.includes('-w') || process.argv.includes('--watch');
-let packageName = pkg.name.substring('@frontegg/react-'.length);
-packageName = packageName.substring(0, 1).toUpperCase() + packageName.substring(1);
+
+console.warn('****************************************');
+console.log('* Building   :', pkg.libName);
+console.log('* ENV        :', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
+console.log('* isWatching :', isWatching);
+console.warn('****************************************');
 
 
-const esmFolder = path.join(process.cwd(), './dist/');
-const esFolder = path.join(process.cwd(), './dist/');
-const cjsFolder = path.join(process.cwd(), './dist/');
-const umdFolder = path.join(process.cwd(), './dist/');
-const declarationFolder = path.join(process.cwd(), './dist/');
+const distFolder = path.join(process.cwd(), './dist/');
 
 const isExternal = (id) => {
   const exact = [
@@ -69,6 +67,8 @@ const commonPlugins = [
     include: [/node_modules/],
     sourceMap: false,
   }),
+  isWatching && progress(),
+  isProduction && terser(),
 ];
 
 const esmPlugins = [
@@ -79,7 +79,7 @@ const esmPlugins = [
     tsconfigOverride: {
       'compilerOptions': {
         'declaration': true,
-        'declarationDir': declarationFolder,
+        'declarationDir': distFolder,
         'target': 'ES6',
         'module': 'ES6',
       },
@@ -137,18 +137,17 @@ export default [
     plugins: esmPlugins,
     external: isExternal,
     output: {
-      dir: esmFolder,
+      file: path.join(distFolder, 'index.esm.js'),
       sourcemap: true,
       format: 'esm',
-      name:'index.cjs.js'
     },
-  }
-  , {
+  },
+  {
     input: './src/index.ts',
     plugins: esPlugins,
     external: isExternal,
     output: {
-      dir: esFolder,
+      file: path.join(distFolder, 'index.es.js'),
       sourcemap: true,
       format: 'es',
     },
@@ -157,7 +156,7 @@ export default [
     plugins: cjsPlugins,
     external: isExternal,
     output: {
-      dir: cjsFolder,
+      file: path.join(distFolder, 'index.cjs.js'),
       sourcemap: true,
       format: 'cjs',
     },
@@ -168,7 +167,6 @@ export default [
     external: [
       'react',
       'react-dom',
-      '@frontegg/react-cli',
       '@frontegg/react-core',
       '@frontegg/react-auth',
       '@frontegg/react-elements-material-ui',
@@ -183,8 +181,8 @@ export default [
         '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
         '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
       },
-      file: path.join(umdFolder, 'index.js'),
-      name: `Frontegg${packageName}`,
+      file: path.join(distFolder, 'index.umd.js'),
+      name: pkg.libName,
       format: 'umd',
     },
   }]),
