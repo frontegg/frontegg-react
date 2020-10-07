@@ -16,6 +16,7 @@ const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
 
   if (prefixIcon) {
     data.iconPosition = 'left';
+    data.actionPosition = 'left';
   }
   return data;
 };
@@ -43,6 +44,14 @@ export class Input extends React.Component<InputProps> {
 
     const inputProps = { ...mapper(this.props), label: inputLabel };
     return (
+      rest.iconAction ?
+      <Form.Input {...inputProps} icon action={{
+        icon: iconContent,
+        onClick: rest.iconAction
+      }}
+      >
+        {children}
+      </Form.Input> :
       <Form.Input {...inputProps} icon>
         <input />
         {iconContent}

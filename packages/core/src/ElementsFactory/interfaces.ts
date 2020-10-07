@@ -19,8 +19,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   error?: string;
   prefixIcon?: ReactElement<any, any> | null;
   suffixIcon?: ReactElement<any, any> | null;
-  iconAction?: ()=> void | null;
-
+  iconAction?: () => void | null;
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
