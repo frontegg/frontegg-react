@@ -7,18 +7,24 @@ import classNames from 'classnames';
 import './style.scss';
 
 const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
-  const { inForm, fullWidth, className, ...rest } = props;
-  return {
+  const { inForm, fullWidth, className, prefixIcon, suffixIcon, ...rest } = props;
+  const data = {
     ...rest,
     fluid: fullWidth,
-    className: classNames('fe-input', className),
+    className: classNames('fe-input icon', className),
   } as any;
+
+  if (prefixIcon) {
+    data.iconPosition = 'left';
+  }
+  return data;
 };
 
 export class Input extends React.Component<InputProps> {
   render() {
-    const { children, labelButton, label } = this.props;
+    const { children, labelButton, label, ...rest } = this.props;
     let inputLabel: any = label;
+    let iconContent: any;
 
     if (labelButton) {
       inputLabel = (
@@ -28,8 +34,18 @@ export class Input extends React.Component<InputProps> {
         </label>
       );
     }
-    const inputProps = { ...mapper(this.props), label: inputLabel };
 
-    return <Form.Input {...inputProps}>{children}</Form.Input>;
+    if (rest.prefixIcon) {
+      iconContent = rest.prefixIcon;
+    } else if (rest.suffixIcon) {
+      iconContent = rest.suffixIcon;
+    }
+
+    const inputProps = { ...mapper(this.props), label: inputLabel };
+    return (<Form.Input {...inputProps} icon>
+      <input />
+      {iconContent}
+      {children}
+      </Form.Input>);
   }
 }
