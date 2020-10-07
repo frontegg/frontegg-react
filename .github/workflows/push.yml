@@ -7,7 +7,7 @@ on:
       - '!master'
 jobs:
   init:
-    name: 'Init Packages'
+    name: 'Install, Build and Test'
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
@@ -23,35 +23,5 @@ jobs:
           key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
       - run: make clean
       - run: make install
-  build:
-    name: 'Build Packages'
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.13.0-chrome80-ff74
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Cache node_modules
-        id: cache-modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
       - run: make build
-  test:
-    name: 'Test Packages'
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.13.0-chrome80-ff74
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Cache node_modules
-        id: cache-modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
-      - run: make test-component
+       - run: make test-component
