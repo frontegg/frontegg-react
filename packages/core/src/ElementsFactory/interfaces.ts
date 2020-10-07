@@ -1,5 +1,6 @@
-import React, { ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import React, { ReactElement, ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 import { DialogProps } from './Dialog';
+
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { IconProps } from '../elements/Icon';
@@ -16,8 +17,10 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   labelButton?: ButtonProps;
   fullWidth?: boolean;
   error?: string;
-  prefixIcon?: HTMLElement;
-  suffixIcon?: HTMLElement;
+  prefixIcon?: ReactElement<any, any> | null;
+  suffixIcon?: ReactElement<any, any> | null;
+  iconAction?: ()=> void | null;
+
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
