@@ -49,7 +49,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
-        } as FeTableColumnOptions<T>),
+        } as FeTableColumnOptions<T>)
     );
     if (props.expandable) {
       columns.unshift({
@@ -61,7 +61,8 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           return (
             <IconButton
               className={classnames('fe-table__expand-button', { 'is-expanded': row.isExpanded })}
-              {...row.getToggleRowExpandedProps()}>
+              {...row.getToggleRowExpandedProps()}
+            >
               {row.isExpanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           );
@@ -153,7 +154,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
       UseExpandedOptions<T> &
       UseRowSelectOptions<T> &
       UsePaginationOptions<T>,
-    ...tableHooks,
+    ...tableHooks
   ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T> & UseRowSelectInstanceProps<T>;
 
   const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T> & UseRowSelectState<T>;
@@ -176,7 +177,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         }
       }
     },
-    [props.onSortChange],
+    [props.onSortChange]
   );
 
   const onFilterChange = useCallback(
@@ -191,7 +192,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         column.setFilter(filterValue);
       }
     },
-    [props.onFilterChange],
+    [props.onFilterChange]
   );
 
   const onToggleAllRowsSelected = useCallback(
@@ -203,7 +204,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         toggleAllRowsSelected(value);
       }
     },
-    [props.onRowSelected],
+    [props.onRowSelected]
   );
 
   const onRowSelected = useCallback(
@@ -221,7 +222,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         toggleRowSelected(id, value);
       }
     },
-    [props.onRowSelected],
+    [props.onRowSelected]
   );
 
   useEffect(() => {

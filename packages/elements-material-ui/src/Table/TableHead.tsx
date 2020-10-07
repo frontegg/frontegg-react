@@ -45,8 +45,9 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                   column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
                     ...p,
                     onClick: column.canSort ? () => onSortChange?.(column) : undefined,
-                  })),
-                )}>
+                  }))
+                )}
+              >
                 {column.render('Header')}
                 {column.canSort ? (
                   <TableSortLabel active={column.isSorted} direction={column.isSortedDesc ? 'desc' : 'asc'} />
