@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useMemo, useEffect, useRef } from 'react';
 import { TableProps, FeTableColumnProps, FeTableColumnOptions } from '@frontegg/react-core';
 import { Table as MaUTable, Checkbox, IconButton, TablePagination, TableFooter, TableRow } from '@material-ui/core';
-import classnames from 'classnames';
+import './style.scss';
 import {
   useTable,
   useFilters,
@@ -38,8 +38,19 @@ import { TableBody } from './TableBody';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { TablePaginationActions } from './TablePaginationActions';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  expandIcon: {
+    margin: '-12px 0',
+  },
+  checkBox: {
+    margin: '-9px 0',
+  },
+}));
 
 export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
+  const classes = useStyles();
   const tableRef = useRef<HTMLTableElement>(null);
   const columns = useMemo(() => {
     const columns = props.columns.map(
@@ -54,14 +65,10 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
     if (props.expandable) {
       columns.unshift({
         id: 'fe-expander',
-        minWidth: 60,
-        maxWidth: '60px' as any,
         Cell: (cell: Cell<T>) => {
           const row = cell.row as Row<T> & UseExpandedRowProps<T>;
           return (
-            <IconButton
-              className={classnames('fe-table__expand-button', { 'is-expanded': row.isExpanded })}
-              {...row.getToggleRowExpandedProps()}>
+            <IconButton className={classes.expandIcon} {...row.getToggleRowExpandedProps()}>
               {row.isExpanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           );
@@ -71,12 +78,11 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
     if (props.selection) {
       columns.unshift({
         id: 'fe-selection',
-        minWidth: 60,
-        maxWidth: '60px' as any,
         Cell: (cell: Cell<T>) => {
           const row = cell.row as Row<T> & UseRowSelectRowProps<T>;
           return (
             <Checkbox
+              className={classes.checkBox}
               {...row.getToggleRowSelectedProps()}
               checked={row.isSelected}
               onChange={(e) => onRowSelected(row.original, e.target.checked)}

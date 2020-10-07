@@ -21,13 +21,10 @@ export const TableExpandable: FC<TableExpandableProps<any>> = <T extends object>
     }
   }, [isExpanded]);
   return (
-    // <div ref={(node) => (ref.current = node)} className='fe-table__tr-expanded-content'>
-    //   {isExpanded && renderExpandedComponent?.(row.original, row.index)}
-    // </div>
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={row.cells.length}>
         <Collapse in={isExpanded} timeout='auto' unmountOnExit>
-          <Box margin={1}>{renderExpandedComponent?.(row.original, row.index)}</Box>
+          <Box>{renderExpandedComponent?.(row.original, row.index)}</Box>
         </Collapse>
       </TableCell>
     </TableRow>

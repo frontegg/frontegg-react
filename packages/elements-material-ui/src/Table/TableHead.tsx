@@ -3,6 +3,13 @@ import { TableFilterColumn } from './TableFilterColumn';
 import { FeTableColumnProps } from '@frontegg/react-core';
 import { HeaderGroup, TableSortByToggleProps } from 'react-table';
 import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel, Checkbox, Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  checkBox: {
+    margin: '-9px 0',
+  },
+}));
 
 type FeTableTHeadProps<T extends object> = {
   headerGroups: HeaderGroup<T>[];
@@ -22,6 +29,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
     selectedFlatRows,
     isAllRowsSelected,
   } = props;
+  const classes = useStyles();
 
   return (
     <MaterialTableHead>
@@ -33,6 +41,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
               return (
                 <TableCell {...column.getHeaderProps()}>
                   <Checkbox
+                    className={classes.checkBox}
                     indeterminate={!isAllRowsSelected && (selectedFlatRows ?? []).length > 0}
                     checked={isAllRowsSelected}
                     onChange={() => toggleAllRowsSelected?.(!isAllRowsSelected)}
@@ -52,7 +61,11 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                   <Box>
                     {column.render('Header')}
                     {column.canSort ? (
-                      <TableSortLabel active={column.isSorted} direction={column.isSortedDesc ? 'desc' : 'asc'} />
+                      <TableSortLabel
+                        className='fe-sortLabel'
+                        active={column.isSorted}
+                        direction={column.isSortedDesc ? 'desc' : 'asc'}
+                      />
                     ) : null}
                   </Box>
 

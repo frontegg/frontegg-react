@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { TableBody as MTableBody, TableRow, TableCell } from '@material-ui/core';
 import {
-  HeaderGroup,
+  // HeaderGroup,
   Row,
   TableBodyPropGetter,
   TableBodyProps,
-  TableSortByToggleProps,
+  // TableSortByToggleProps,
   UseExpandedRowProps,
 } from 'react-table';
 import { TableExpandable } from './TableExpandable';
@@ -37,6 +37,13 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
           <React.Fragment key={row.getRowProps().key}>
             <TableRow className={classes.root} {...row.getRowProps()}>
               {row.cells.map((cell) => {
+                if (cell.column.id.includes('fe-expander') || cell.column.id.includes('fe-selection')) {
+                  return (
+                    <TableCell width={20} {...cell.getCellProps()}>
+                      {cell.render('Cell')}
+                    </TableCell>
+                  );
+                }
                 return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
               })}
             </TableRow>

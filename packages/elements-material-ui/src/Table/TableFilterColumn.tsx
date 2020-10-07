@@ -4,6 +4,16 @@ import classNames from 'classnames';
 import { FeTableColumnProps } from '@frontegg/react-core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Box, IconButton, Tooltip } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  filterButton: {
+    margin: '-16px 0',
+  },
+  filterIcon: {
+    fontSize: '1.4rem',
+  },
+}));
 
 type FeTableFilterColumnProps<T extends object = any> = {
   column: FeTableColumnProps<T>;
@@ -19,6 +29,7 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
   }
   const [filterValue, setFilterValue] = useState(column.filterValue);
   const debounceFilters = useDebounce(filterValue, 500);
+  const classes = useStyles();
 
   useEffect(() => {
     onFilterChange?.(column, debounceFilters);
@@ -32,14 +43,8 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
         action={'click'}
         trigger={
           <Tooltip title='Filter list'>
-            <IconButton aria-label='filter list'>
-              <FilterListIcon
-                key={1}
-                name='filters'
-                // className={classNames('fe-table__filter-button', {
-                //   'active-filter': column.filterValue,
-                // })}
-              />
+            <IconButton className={classes.filterButton} aria-label='filter list'>
+              <FilterListIcon className={classes.filterIcon} key={1} name='filters' />
             </IconButton>
           </Tooltip>
         }
