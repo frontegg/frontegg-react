@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { TableFilterColumn } from './TableFilterColumn';
 import { FeTableColumnProps } from '@frontegg/react-core';
 import { HeaderGroup, TableSortByToggleProps } from 'react-table';
-import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel, Checkbox } from '@material-ui/core';
+import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel, Checkbox, Box } from '@material-ui/core';
 
 type FeTableTHeadProps<T extends object> = {
   headerGroups: HeaderGroup<T>[];
@@ -22,6 +22,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
     selectedFlatRows,
     isAllRowsSelected,
   } = props;
+
   return (
     <MaterialTableHead>
       {headerGroups.map((headerGroup) => (
@@ -45,14 +46,18 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                   column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
                     ...p,
                     onClick: column.canSort ? () => onSortChange?.(column) : undefined,
-                  }))
-                )}
-              >
-                {column.render('Header')}
-                {column.canSort ? (
-                  <TableSortLabel active={column.isSorted} direction={column.isSortedDesc ? 'desc' : 'asc'} />
-                ) : null}
-                <TableFilterColumn column={column} onFilterChange={onFilterChange} />
+                  })),
+                )}>
+                <Box display='flex' alignItems='center' justifyContent='space-between'>
+                  <Box>
+                    {column.render('Header')}
+                    {column.canSort ? (
+                      <TableSortLabel active={column.isSorted} direction={column.isSortedDesc ? 'desc' : 'asc'} />
+                    ) : null}
+                  </Box>
+
+                  <TableFilterColumn column={column} onFilterChange={onFilterChange} />
+                </Box>
               </TableCell>
             );
           })}
