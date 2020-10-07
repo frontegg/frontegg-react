@@ -8,13 +8,10 @@ import {
   useT,
   FForm,
   FButton,
-  FInputIcon,
-  Icon,
   FInput,
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 const { Formik } = FFormik;
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
