@@ -47,7 +47,7 @@ export interface PerPageHeader {
   loginWithSSO?: ReactNode;
 }
 
-export type HeaderProps = { header?: ReactNode, headerImg?: string };
+export type HeaderProps = { header?: ReactNode; headerImg?: string };
 
 export interface PerPageProps {
   login?: LoginProps & HeaderProps;
@@ -61,7 +61,7 @@ export interface PerPageProps {
 export type PageComponentProps = HeaderProps & {
   pageId: 'login' | 'logout' | 'forgotPassword' | 'resetPassword' | 'activateAccount' | 'loginWithSSO';
   children?: ReactNode;
-}
+};
 
 export interface AuthPageProps {
   header?: ReactNode;

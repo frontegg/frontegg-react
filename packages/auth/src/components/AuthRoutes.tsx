@@ -19,7 +19,16 @@ const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: Aut
 const logger = Logger.from('AuthRoutes');
 
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
-  const { header, headerImg, loaderComponent, children, pageComponent, pageHeader, pageProps: perPageProps, ...rest } = props;
+  const {
+    header,
+    headerImg,
+    loaderComponent,
+    children,
+    pageComponent,
+    pageHeader,
+    pageProps: perPageProps,
+    ...rest
+  } = props;
   const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
 
   const samlCallbackPath = useMemo(() => {
@@ -116,14 +125,14 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     },
     ...(samlCallbackPath
       ? [
-        {
-          id: 'loginWithSSO',
-          path: samlCallbackPath || '',
-          defaultComponent: LoginWithSSOPage,
-          standaloneComponent: LoginWithSSO,
-          props: computedPerPageProps.loginWithSSOProps,
-        },
-      ]
+          {
+            id: 'loginWithSSO',
+            path: samlCallbackPath || '',
+            defaultComponent: LoginWithSSOPage,
+            standaloneComponent: LoginWithSSO,
+            props: computedPerPageProps.loginWithSSOProps,
+          },
+        ]
       : []),
   ];
 
