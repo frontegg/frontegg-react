@@ -93,7 +93,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             name='email'
             type='email'
             label={t('auth.login.email')}
-            placeholder='name@example.comds'
+            placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
           />
 
