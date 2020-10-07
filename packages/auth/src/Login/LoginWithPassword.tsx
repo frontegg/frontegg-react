@@ -89,13 +89,11 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     >
       {({ values }) => (
         <FForm>
-          <FInputIcon
+          <FInput
             name='email'
             type='email'
             label={t('auth.login.email')}
             placeholder='name@example.comds'
-            prefix={<AccountCircle/>}
-            suffix={<AccountCircle/>}
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
           />
 

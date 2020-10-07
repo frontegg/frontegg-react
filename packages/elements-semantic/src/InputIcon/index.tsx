@@ -11,13 +11,11 @@ const mapper = (props: InputIconProps): SemanticInputIconProps | FormInputProps 
   const data = {
     ...rest,
     fluid: fullWidth,
-    className: classNames('fe-Input', className),
+    className: classNames('fe-Input icon', className),
   } as any;
 
   if (prefix) {
     data.iconPosition = 'left';
-  } else if (suffix) {
-    data.iconPosition = 'right';
   }
   return data;
 };
@@ -49,7 +47,7 @@ export class InputIcon extends React.Component<InputIconProps> {
     }
 
     const InputIconProps = { ...mapper(rest), label: InputIconLabel };
-    return (<InputIconComponent {...InputIconProps}>
+    return (<InputIconComponent {...InputIconProps} icon>
             <input />
             {iconContent}
             {children}
