@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo, useEffect, useRef } from 'react';
 import { TableProps, FeTableColumnProps, FeTableColumnOptions } from '@frontegg/react-core';
-import { Table as MaUTable, Checkbox, IconButton, TablePagination } from '@material-ui/core';
+import { Table as MaUTable, Checkbox, IconButton, TablePagination, TableFooter, TableRow } from '@material-ui/core';
 import classnames from 'classnames';
 import {
   useTable,
@@ -49,7 +49,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
-        } as FeTableColumnOptions<T>)
+        } as FeTableColumnOptions<T>),
     );
     if (props.expandable) {
       columns.unshift({
@@ -61,8 +61,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           return (
             <IconButton
               className={classnames('fe-table__expand-button', { 'is-expanded': row.isExpanded })}
-              {...row.getToggleRowExpandedProps()}
-            >
+              {...row.getToggleRowExpandedProps()}>
               {row.isExpanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           );
@@ -154,7 +153,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
       UseExpandedOptions<T> &
       UseRowSelectOptions<T> &
       UsePaginationOptions<T>,
-    ...tableHooks
+    ...tableHooks,
   ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T> & UseRowSelectInstanceProps<T>;
 
   const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T> & UseRowSelectState<T>;
@@ -177,7 +176,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         }
       }
     },
-    [props.onSortChange]
+    [props.onSortChange],
   );
 
   const onFilterChange = useCallback(
@@ -192,7 +191,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         column.setFilter(filterValue);
       }
     },
-    [props.onFilterChange]
+    [props.onFilterChange],
   );
 
   const onToggleAllRowsSelected = useCallback(
@@ -204,7 +203,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         toggleAllRowsSelected(value);
       }
     },
-    [props.onRowSelected]
+    [props.onRowSelected],
   );
 
   const onRowSelected = useCallback(
@@ -222,7 +221,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         toggleRowSelected(id, value);
       }
     },
-    [props.onRowSelected]
+    [props.onRowSelected],
   );
 
   useEffect(() => {
@@ -252,7 +251,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
 
   return (
     <>
-      <MaUTable ref={tableRef} {...getTableProps()}>
+      <MaUTable ref={tableRef} {...getTableProps()} stickyHeader>
         <TableHead
           headerGroups={headerGroups}
           onSortChange={onSortChange}
@@ -267,26 +266,29 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
           renderExpandedComponent={props.renderExpandedComponent}
         />
-      </MaUTable>
-
-      <TablePagination
-        // rowsPerPageOptions={[5, 10, 25]}
-        component='div'
-        count={rows.length}
-        rowsPerPage={10}
-        page={tableState.pageIndex}
-        onChangePage={(e, page) => onPageChangeHandler(page)}
-        ActionsComponent={(props) => (
-          <TablePaginationActions
-            {...props}
-            gotoPage={gotoPage}
-            pageOptions={pageOptions}
-            pageIndex={tableState.pageIndex}
-            pageCount={pageCount}
-          />
+        {props.pagination === 'pages' && (
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[]}
+                count={rows.length}
+                rowsPerPage={tableState.pageSize}
+                page={tableState.pageIndex}
+                onChangePage={(e, page) => onPageChangeHandler(page)}
+                ActionsComponent={(props) => (
+                  <TablePaginationActions
+                    {...props}
+                    gotoPage={gotoPage}
+                    pageOptions={pageOptions}
+                    pageIndex={tableState.pageIndex}
+                    pageCount={pageCount}
+                  />
+                )}
+              />
+            </TableRow>
+          </TableFooter>
         )}
-        // onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+      </MaUTable>
     </>
   );
 };

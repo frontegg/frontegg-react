@@ -1175,7 +1175,7 @@ export const TableExample: FC = () => {
         data={data}
         rowKey='frontegg_id'
         pagination='pages'
-        pageSize={20}
+        pageSize={10}
         pageCount={100}
         // onPageChange={(pageSize, page) => {
         //   console.log(pageSize, page);

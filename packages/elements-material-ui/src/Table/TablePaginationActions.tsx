@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
 export const TablePaginationActions = (props: any) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { count, page, rowsPerPage, onChangePage, pageOptions, pageIndex, pageCount } = props;
+  const { count, page, rowsPerPage, onChangePage, pageOptions, pageIndex, pageCount, gotoPage } = props;
 
-  const handleFirstPageButtonClick = (event: any) => {
-    onChangePage(event, 0);
+  const handleFirstPageButtonClick = () => {
+    gotoPage(0);
   };
 
   const handleBackButtonClick = (event: any) => {
@@ -32,8 +32,8 @@ export const TablePaginationActions = (props: any) => {
     onChangePage(event, page + 1, page);
   };
 
-  const handleLastPageButtonClick = (event: any) => {
-    onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  const handleLastPageButtonClick = () => {
+    gotoPage(Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
   if (pageOptions.length < 2) {
