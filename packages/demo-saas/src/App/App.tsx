@@ -7,6 +7,7 @@ import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
 import { ComponentsPage2 } from '../ComponentsPage2';
+import { GridExamples } from '../grid-examples';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -50,6 +51,7 @@ class App extends React.Component<any> {
             </ProtectedRoute>
             <ProtectedRoute path='/profile' component={Profile.Page} />
             <ProtectedRoute path='/profile2' component={OldProfile} />
+            <Route path='/grids' component={GridExamples} />
           </Switch>
         </AuthExamples>
       </div>
