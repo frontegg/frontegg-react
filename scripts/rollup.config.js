@@ -142,49 +142,49 @@ export default [
       format: 'esm',
     },
   },
-  {
-    input: './src/index.ts',
-    plugins: esPlugins,
-    external: isExternal,
-    output: {
-      file: path.join(distFolder, 'index.es.js'),
-      sourcemap: true,
-      format: 'es',
-    },
-  }, {
-    input: './src/index.ts',
-    plugins: cjsPlugins,
-    external: isExternal,
-    output: {
-      file: path.join(distFolder, 'index.cjs.js'),
-      sourcemap: true,
-      format: 'cjs',
-    },
-  },
-  ...(isWatching ? [] : [{
-    input: './src/index.ts',
-    plugins: umdPlugins,
-    external: [
-      'react',
-      'react-dom',
-      '@frontegg/react-core',
-      '@frontegg/react-auth',
-      '@frontegg/react-elements-material-ui',
-      '@frontegg/react-elements-semantic',
-    ],
-    output: {
-      globals: {
-        'react': 'React',
-        'react-dom': 'ReactDOM',
-        '@frontegg/react-core': 'FronteggCore',
-        '@frontegg/react-auth': 'FronteggAuth',
-        '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
-        '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
+  ...(isWatching ? [] : [
+    {
+      input: './src/index.ts',
+      plugins: esPlugins,
+      external: isExternal,
+      output: {
+        file: path.join(distFolder, 'index.es.js'),
+        sourcemap: true,
+        format: 'es',
       },
-      file: path.join(distFolder, 'index.umd.js'),
-      name: pkg.libName,
-      format: 'umd',
-    },
-  }]),
+    }, {
+      input: './src/index.ts',
+      plugins: cjsPlugins,
+      external: isExternal,
+      output: {
+        file: path.join(distFolder, 'index.cjs.js'),
+        sourcemap: true,
+        format: 'cjs',
+      },
+    }, {
+      input: './src/index.ts',
+      plugins: umdPlugins,
+      external: [
+        'react',
+        'react-dom',
+        '@frontegg/react-core',
+        '@frontegg/react-auth',
+        '@frontegg/react-elements-material-ui',
+        '@frontegg/react-elements-semantic',
+      ],
+      output: {
+        globals: {
+          'react': 'React',
+          'react-dom': 'ReactDOM',
+          '@frontegg/react-core': 'FronteggCore',
+          '@frontegg/react-auth': 'FronteggAuth',
+          '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
+          '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
+        },
+        file: path.join(distFolder, 'index.umd.js'),
+        name: pkg.libName,
+        format: 'umd',
+      },
+    }]),
 ];
 
