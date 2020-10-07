@@ -47,23 +47,23 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       ...perPageProps?.login,
     },
     logoutProps: {
-      header: pageHeader?.logout ?? header,
+      header: pageHeader?.logout ?? header ?? defaultComps.header,
       ...perPageProps?.logout,
     },
     forgotPasswordProps: {
-      header: pageHeader?.forgotPassword ?? header,
+      header: pageHeader?.forgotPassword ?? header ?? defaultComps.header,
       ...perPageProps?.forgotPassword,
     },
     resetPasswordProps: {
-      header: pageHeader?.resetPassword ?? header,
+      header: pageHeader?.resetPassword ?? header ?? defaultComps.header,
       ...perPageProps?.resetPassword,
     },
     activateAccountProps: {
-      header: pageHeader?.activateAccount ?? header,
+      header: pageHeader?.activateAccount ?? header ?? defaultComps.header,
       ...perPageProps?.activateAccount,
     },
     loginWithSSOProps: {
-      header: pageHeader?.loginWithSSO ?? header,
+      header: pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
       ...perPageProps?.loginWithSSO,
     },
   };
@@ -110,14 +110,14 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     },
     ...(samlCallbackPath
       ? [
-          {
-            id: 'loginWithSSO',
-            path: samlCallbackPath || '',
-            defaultComponent: LoginWithSSOPage,
-            standaloneComponent: LoginWithSSO,
-            props: computedPerPageProps.loginWithSSOProps,
-          },
-        ]
+        {
+          id: 'loginWithSSO',
+          path: samlCallbackPath || '',
+          defaultComponent: LoginWithSSOPage,
+          standaloneComponent: LoginWithSSO,
+          props: computedPerPageProps.loginWithSSOProps,
+        },
+      ]
       : []),
   ];
 

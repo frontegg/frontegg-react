@@ -17,6 +17,10 @@
   align-items: center;
   min-height: 500px;
   overflow: auto;
+  from {
+    box-sizing: border-box;
+    width: 100%;
+  }
 }
 
 .fe-login-container {

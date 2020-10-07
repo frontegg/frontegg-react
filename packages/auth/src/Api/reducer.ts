@@ -157,9 +157,9 @@ const actions = {
   changePassword: createAction(`${storeName}/changePassword`, (payload: IChangePassword) => ({ payload })),
 
   // mfa actions
-  enrollMfa: createAction(`${name}/enrollMfa`, (payload = {}) => ({ payload })),
-  verifyMfa: createAction(`${name}/verifyMfa`, (payload: IVerifyMfa) => ({ payload })),
-  disableMfa: createAction(`${name}/disableMfa`, (payload: IDisableMfa, callback?: () => void) => ({
+  enrollMfa: createAction(`${storeName}/enrollMfa`, (payload = {}) => ({ payload })),
+  verifyMfa: createAction(`${storeName}/verifyMfa`, (payload: IVerifyMfa) => ({ payload })),
+  disableMfa: createAction(`${storeName}/disableMfa`, (payload: IDisableMfa, callback?: () => void) => ({
     payload: { ...payload, callback },
   })),
 };

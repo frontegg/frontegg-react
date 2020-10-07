@@ -10,6 +10,8 @@ import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 
+const isSSR = typeof window === 'undefined';
+
 export type RedirectOptions = {
   refresh?: boolean;
   replace?: boolean;
@@ -36,7 +38,7 @@ export interface FeProviderProps {
 
   // internal use
   _history?: any;
-  _resolvePortals: (setPortals: any) => void;
+  _resolvePortals?: (setPortals: any) => void;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -45,7 +47,7 @@ let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
   const [rcPortals, setRcPortals] = useState([]);
-  props._resolvePortals(setRcPortals);
+  props._resolvePortals?.(setRcPortals);
   const listeners = useMemo(() => {
     return props.plugins
       .filter((p) => p.Listener)
@@ -73,7 +75,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   const history = useHistory();
   const location = useLocation();
   const taskRef = useRef<Task>();
-  const baseName = window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
+  const baseName = isSSR ? '' : window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
   const onRedirectTo =
     props.onRedirectTo ??
     ((_path: string, opts?: RedirectOptions) => {
@@ -81,7 +83,7 @@ const FeState: FC<FeProviderProps> = (props) => {
       if (path.startsWith(baseName)) {
         path = path.substring(baseName.length);
       }
-      if (opts?.refresh) {
+      if (opts?.refresh && !isSSR) {
         window.Cypress ? history.push(path) : (window.location.href = path);
       } else {
         opts?.replace ? history.replace(path) : history.push(path);
@@ -97,7 +99,7 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
-    if (fronteggStore && !window.Cypress) {
+    if (fronteggStore && !isSSR && !window.Cypress) {
       return fronteggStore;
     }
     // @ts-ignore
@@ -116,7 +118,7 @@ const FeState: FC<FeProviderProps> = (props) => {
             onRedirectTo,
           },
         }),
-        {}
+        {},
       ),
     };
     fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
@@ -128,7 +130,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   useEffect(() => () => taskRef.current?.cancel(), []);
 
   /* for Cypress tests */
-  if (window.Cypress) {
+  if (!isSSR && window.Cypress) {
     window.cypressStore = store;
     window.cypressHistory = history;
   }

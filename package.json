@@ -4,8 +4,9 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
-    "prettierHook": "prettier --config ./.prettierrc.json --write . && git add .",
-    "prepublishOnly": "make move-package-json-to-dist"
+    "prettier-hook": "prettier --config ./.prettierrc.json --write .",
+    "prepublishOnly": "make move-package-json-to-dist",
+    "commit-version": "git add . && git commit -m \"chore(release): publish `node -p 'require(\"./lerna.json\").version'`\""
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -103,7 +104,8 @@
     "tslint": "^6.1.0",
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
-    "yargs": "^15.4.1"
+    "yargs": "^15.4.1",
+    "style-inject": "^0.3.0"
   },
   "nyc": {
     "reporter": [
@@ -111,7 +113,7 @@
     ]
   },
   "pre-commit": {
-    "run": "prettierHook"
+    "run": "prettier-hook"
   },
   "workspaces": [
     "packages/*"

@@ -66,8 +66,10 @@ install: ##@1 Global yarn install all packages
 	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
 
 versioning:
-	@./node_modules/.bin/lerna changed --json --all > lerna-changed.json
-	@./node_modules/.bin/lerna version --yes --exact patch
+	@./node_modules/.bin/lerna version patch --conventional-commits --no-git-tag-version --yes
+	@yarn prettier-hook
+	@yarn commit-version
+
 
 ########################################################################################################################
 #
@@ -170,20 +172,18 @@ publish-base:
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} commit-changes
 
-
-publish-prod: ##@5 Publish publish all changed packages to npm repository
-	${MAKE} publish-base
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Publish: Changed Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
-
-publish-dev: ##@5 Publish publish all changed packages to npm repository
-	${MAKE} publish-base
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Publish: Changed Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish patch --canary --preid "dev-${GITHUB_RUN_ID}" --force-publish --contents dist --yes
-
+#publish-prod: ##@5 Publish publish all changed packages to npm repository
+#	${MAKE} publish-base
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
+#
+#publish-dev: ##@5 Publish publish all changed packages to npm repository
+#	${MAKE} publish-base
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@./node_modules/.bin/lerna publish patch --canary --preid "dev-${GITHUB_RUN_ID}" --force-publish --contents dist --yes

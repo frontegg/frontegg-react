@@ -10,7 +10,7 @@ import { ComponentsPage2 } from '../ComponentsPage2';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
-  return <div>{user.roles[1].length}</div>;
+  return <div>{JSON.stringify(user)}</div>;
 };
 
 const MyTab: FC & PageTabProps = () => {
