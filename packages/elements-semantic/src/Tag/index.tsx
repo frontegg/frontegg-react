@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { TagProps } from '@frontegg/react-core';
-import { Label, LabelProps as SemanticLabelProps, SemanticCOLORS } from 'semantic-ui-react';
-import { Theme } from '@frontegg/react-core/dist/styles';
+import { TagProps, Theme } from '@frontegg/react-core';
+import { Icon, Label, LabelProps as SemanticLabelProps, SemanticCOLORS } from 'semantic-ui-react';
 
 const variantToColor: { [variant in Theme]: SemanticCOLORS } = {
   primary: 'blue',
@@ -21,5 +20,11 @@ const mapper = (props: TagProps): SemanticLabelProps => {
 };
 
 export const Tag: FC<TagProps> = (props) => {
-  return <Label {...mapper(props)} />;
+  const { children, onDelete, ...rest } = props;
+  return (
+    <Label {...mapper(rest)}>
+      {children}
+      {onDelete && <Icon name='delete' onClick={onDelete} />}
+    </Label>
+  );
 };

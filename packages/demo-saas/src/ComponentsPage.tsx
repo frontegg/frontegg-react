@@ -96,6 +96,7 @@ const elements: {
     title: 'Loaders',
     type: 'Loader',
     props: [
+      { variant: 'default', children: null },
       { variant: 'primary', children: null },
       { variant: 'secondary', children: null },
       { variant: 'danger', children: null },

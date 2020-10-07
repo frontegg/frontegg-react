@@ -1,4 +1,5 @@
 import React from 'react';
+import { Size } from '../../styles';
 
 export type IconNames =
   | 'up-arrow'
@@ -18,5 +19,5 @@ export type IconNames =
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
 }

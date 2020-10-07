@@ -1,9 +1,8 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import './FeButton.scss';
 import { ButtonProps } from './interfaces';
 import { FeLoader } from '../Loader/FeLoader';
-import { clickableClassName, getThemeClassNameByVariant } from '../../styles';
+import { ClassNameGenerator } from '../../styles';
+import './FeButton.scss';
 
 const prefixCls = 'fe-button';
 export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -12,17 +11,15 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
 
   const disabled = props.disabled || loading;
 
-  const classes = classNames(
-    prefixCls,
+  const classes = ClassNameGenerator.generate({
     className,
-    clickableClassName,
-    getThemeClassNameByVariant(disabled ? 'disabled' : variant),
-    {
-      [`${prefixCls}-${size}`]: size,
-      [`${prefixCls}-full-width`]: fullWidth,
-      [`${prefixCls}-loader`]: loading,
-    }
-  );
+    prefixCls,
+    size,
+    theme: disabled ? 'disabled' : variant,
+    isClickable: true,
+    isFullWidth: fullWidth,
+    isLoading: loading,
+  });
 
   return (
     <button ref={ref} className={classes} {...propsWithoutJunk}>

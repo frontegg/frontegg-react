@@ -1,2 +1,2 @@
-export * from './FeClassNames';
-export * from './Theme';
+export * from './ClassNameGenerator';
+export * from './Styles';

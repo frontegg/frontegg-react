@@ -1,3 +1,5 @@
+@import '../../styles/mixin.scss';
+
 .fe-button {
   position: relative;
   background: var(--color-gray-0);
@@ -21,17 +23,9 @@
   overflow: hidden;
   color: var(--color-gray-8);
 
-  &-small {
-    padding: 0 var(--element-padding-sm);
-    height: var(--element-height-sm);
-    font-size: var(--element-font-size-sm);
-  }
-
-  &-large {
-    padding: 0 var(--element-padding-lg);
-    height: var(--element-height-lg);
-    font-size: var(--element-font-size-lg);
-  }
+  @include with-clickable;
+  @include with-theme;
+  @include with-size;
 
   &-full-width {
     width: 100%;

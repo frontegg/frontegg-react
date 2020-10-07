@@ -1,3 +1,5 @@
+@import '../../styles/mixin.scss';
+
 .fe-tag {
   height: var(--element-height-sm);
   padding: 0 var(--element-padding-sm);
@@ -14,4 +16,15 @@
   justify-content: center;
   text-decoration: none;
   background-color: var(--color-gray-3);
+  @include with-theme;
+  @include with-clickable;
+
+  &__icon {
+    @include with-clickable;
+  }
+
+  .fe-icon {
+    margin-right: calc(-1 * var(--element-padding-sm));
+    margin-left: var(--element-spacing);
+  }
 }
