@@ -6,6 +6,7 @@ import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
+import { TableProps } from '../elements/Table';
 import { TagProps } from '../elements/Tag';
 import { Size } from '../styles';
 import { TableProps } from '../elements/Table';
@@ -68,6 +69,7 @@ export type ElementProps = {
   Popup:
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
+  Table: ComponentType<TableProps>;
 };
 
 export type ElementType = keyof ElementProps;

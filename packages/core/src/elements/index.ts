@@ -9,6 +9,7 @@ export * from './Table';
 export * from './Icon';
 export * from './Popup';
 export * from './Checkbox';
+export * from './Table';
 
 import { FeButton } from './Button/FeButton';
 import { FeGrid } from './Grid/FeGrid';

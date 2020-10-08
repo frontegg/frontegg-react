@@ -9,6 +9,7 @@ import { Icon } from './Icon';
 import { Dialog } from './Dialog';
 import { Popup } from './Popup';
 import { Checkbox } from './Checkbox';
+import { Table } from './Table';
 import { Tag } from './Tag';
 import { Grid } from './Grid';
 
@@ -26,5 +27,6 @@ export const uiLibrary: Partial<Elements> = {
   Grid,
   Popup,
   Checkbox,
+  Table,
   Tag,
 };

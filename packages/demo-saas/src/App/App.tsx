@@ -7,6 +7,7 @@ import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
 import { PopupExample } from '../PopupExample';
+import { TableExample } from '../TableExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 
@@ -44,13 +45,16 @@ class App extends React.Component<any> {
                 <div>
                   <Link to='/popup'>Popup Examples</Link>
                 </div>
+                <div>
+                  <Link to='/table'>Table Examples</Link>
+                </div>
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />
             <Route exact path='/components' component={ComponentsPage} />
             <Route exact path='/components2' component={ComponentsPage2} />
-
             <Route exact path='/popup' component={PopupExample} />
+            <Route exact path='/table' component={TableExample} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />
