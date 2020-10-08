@@ -14,8 +14,8 @@ import {
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 const { Formik } = FFormik;
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
   ...loginState,
@@ -55,7 +55,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
-  const [ passwordType, setPasswordType ] = useState('text');
+  const [passwordType, setPasswordType] = useState('text');
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
   const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
   const validationSchema: any = { email: validateEmail(t) };
@@ -93,6 +93,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             name='email'
             type='email'
             prefixIcon={<Icon name='checkmark' />}
+            suffixIcon={<Icon name='checkmark' />}
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
@@ -102,8 +103,8 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             <FInput
               label={t('auth.login.password')}
               suffixIcon={passwordType === 'text' ? <Visibility /> : <VisibilityOff />}
-              iconAction={()=> {
-                setPasswordType(passwordType === 'text' ? 'password' : 'text')
+              iconAction={() => {
+                setPasswordType(passwordType === 'text' ? 'password' : 'text');
               }}
               labelButton={labelButtonProps(values)}
               type={passwordType}

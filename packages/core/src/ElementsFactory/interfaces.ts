@@ -17,9 +17,9 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   labelButton?: ButtonProps;
   fullWidth?: boolean;
   error?: string;
-  prefixIcon?: ReactElement<any, any> | null;
-  suffixIcon?: ReactElement<any, any> | null;
-  iconAction?: () => void | null;
+  prefixIcon?: ReactElement;
+  suffixIcon?: ReactElement;
+  iconAction?: () => void;
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
