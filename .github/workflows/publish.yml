@@ -81,6 +81,15 @@ jobs:
             ${{ github.event.pull_request.body }}
           draft: false
           prerelease: false
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Publish
         if: steps.tag_check.outputs.exists_tag == 'false' && startsWith(github.event.pull_request.title, 'v')
         run: |
