@@ -11,7 +11,7 @@ env:
 jobs:
   publish:
     name: Publish
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - name: Checkout
