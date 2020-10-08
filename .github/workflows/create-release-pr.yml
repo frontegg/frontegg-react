@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -54,7 +56,7 @@ jobs:
           yarn commit-version-dev
           yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
 
-          yarn lerna version --conventional-commits --conventional-graduate --no-changelog --no-git-tag-version --yes
+          yarn lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes
           yarn prettier-hook
           yarn commit-version
       - name: Set current CHANGELOG to output
