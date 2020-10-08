@@ -20,5 +20,5 @@ export const uiLibrary: Partial<Elements> = {
   Tabs,
   Icon,
   Dialog,
-  Grid
+  Grid,
 };

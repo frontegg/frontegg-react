@@ -108,6 +108,7 @@ export default {
         'password-settings': {
           title: 'Change Password',
           button: 'Change Password',
+          'success-message': 'Your password have been changed!'
         },
       },
       mfa: {

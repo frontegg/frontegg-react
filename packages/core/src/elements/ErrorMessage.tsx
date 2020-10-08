@@ -5,10 +5,11 @@ export type OnError = {
   onError?: (error: any) => boolean;
 };
 type ErrorMessageProps = OnError & {
+  style?: object;
   error?: any;
   separator?: boolean;
 };
-export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator, onError }) => {
+export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator, onError, style }) => {
   if (!error) {
     return null;
   }
@@ -20,7 +21,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator, onError 
 
   if (separator && error.indexOf(', ') !== -1) {
     return (
-      <div className='fe-error-message'>
+      <div className='fe-error-message' style={style}>
         <ul>
           {error.split(', ').map((err: string) => (
             <li>{err}</li>
@@ -29,5 +30,5 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator, onError 
       </div>
     );
   }
-  return <div className='fe-error-message'>{error}</div>;
+  return <div className='fe-error-message' style={style}>{error}</div>;
 };
