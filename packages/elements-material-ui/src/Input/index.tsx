@@ -5,11 +5,11 @@ import {
   InputProps as MaterialInputProps,
   TextField as MaterialTextField,
   TextFieldProps as MaterialTextFieldProps,
-  IconButton, InputAdornment
+  IconButton,
+  InputAdornment,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import './style.scss';
-
 
 const materialInputMapper = (props: InputProps): MaterialInputProps => {
   const { inForm, fullWidth, labelButton, error, prefixIcon, suffixIcon, iconAction, className, ...rest } = props;
@@ -26,8 +26,7 @@ const materialInputMapper = (props: InputProps): MaterialInputProps => {
         {iconAction ? <IconButton>{prefixIcon}</IconButton> : prefixIcon}
       </InputAdornment>
     );
-  }
-  if (suffixIcon) {
+  } else if (suffixIcon) {
     data.endAdornment = (
       <InputAdornment onClick={iconAction} position='end'>
         {iconAction ? <IconButton>{suffixIcon}</IconButton> : suffixIcon}
@@ -55,7 +54,7 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
       ),
     };
   }
-  if (suffixIcon) {
+  else if (suffixIcon) {
     data.InputProps = {
       endAdornment: (
         <InputAdornment onClick={iconAction} position='end'>
