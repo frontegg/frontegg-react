@@ -53,7 +53,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
-  const [passwordType, setPasswordType] = useState('text');
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
   const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
   const validationSchema: any = { email: validateEmail(t) };
@@ -90,7 +89,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           <FInput
             name='email'
             type='email'
-            prefixIcon={<Icon name='checkmark' />}
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
@@ -99,12 +97,8 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           {shouldDisplayPassword && (
             <FInput
               label={t('auth.login.password')}
-              suffixIcon={<Icon name={passwordType === 'text' ? 'visibility' : 'visibility-off'} />}
-              iconAction={() => {
-                setPasswordType(passwordType === 'text' ? 'password' : 'text');
-              }}
               labelButton={labelButtonProps(values)}
-              type={passwordType}
+              type='password'
               name='password'
               placeholder={t('auth.login.enter-your-password')}
               disabled={!shouldDisplayPassword}
