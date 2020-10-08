@@ -66,7 +66,7 @@ install: ##@1 Global yarn install all packages
 	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
 
 versioning:
-	@./node_modules/.bin/lerna version patch --conventional-commits --no-git-tag-version --yes
+	@./node_modules/.bin/lerna version --conventional-commits --no-git-tag-version --yes
 	@yarn prettier-hook
 	@yarn commit-version
 
