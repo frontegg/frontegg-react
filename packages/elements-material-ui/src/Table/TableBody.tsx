@@ -33,7 +33,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
   const { getTableBodyProps, prepareRow, rows, renderExpandedComponent } = props;
   const classes = useRowStyles();
   return (
-    <MTableBody {...getTableBodyProps()}>
+    <MTableBody className='fe-table__tbody' {...getTableBodyProps()}>
       {rows.map((row) => {
         prepareRow(row);
         return (

@@ -9,6 +9,12 @@ const useStyles = makeStyles((theme) => ({
   checkBox: {
     margin: '-9px 0',
   },
+  head: {
+    position: 'sticky',
+    top: '0px',
+    zIndex: 1,
+    background: theme.palette.background.paper,
+  },
 }));
 
 type FeTableTHeadProps<T extends object> = {
@@ -32,7 +38,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
   const classes = useStyles();
 
   return (
-    <MaterialTableHead>
+    <MaterialTableHead className={classes.head}>
       {headerGroups.map((headerGroup) => (
         <TableRow {...headerGroup.getHeaderGroupProps()}>
           {headerGroup.headers.map((c) => {
@@ -55,9 +61,8 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                   column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
                     ...p,
                     onClick: column.canSort ? () => onSortChange?.(column) : undefined,
-                  }))
-                )}
-              >
+                  })),
+                )}>
                 <Box display='flex' alignItems='center' justifyContent='space-between' flexWrap='nowrap'>
                   <Box display='flex'>
                     {column.render('Header')}

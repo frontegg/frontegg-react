@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo, useEffect, useRef } from 'react';
 import { TableProps, FeTableColumnProps, FeTableColumnOptions } from '@frontegg/react-core';
-import { Table as MaUTable, Checkbox, IconButton, TablePagination, TableFooter, TableRow } from '@material-ui/core';
+import { Table as MaUTable, Checkbox, IconButton, TablePagination, Paper } from '@material-ui/core';
 import './style.scss';
 import {
   useTable,
@@ -40,7 +40,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { TablePaginationActions } from './TablePaginationActions';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   expandIcon: {
     margin: '-12px 0',
   },
@@ -49,6 +49,18 @@ const useStyles = makeStyles(() => ({
   },
   table: {
     minWidth: '750px',
+  },
+  paper: {
+    width: '100%',
+    overflowY: 'auto',
+    maxHeight: '100vh',
+    height: '100%',
+  },
+  footer: {
+    zIndex: 1,
+    bottom: '0px',
+    position: 'sticky',
+    background: theme.palette.background.paper,
   },
 }));
 
@@ -279,8 +291,8 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
   };
 
   return (
-    <>
-      <MaUTable className={classes.table} ref={tableRef} {...getTableProps()} stickyHeader>
+    <Paper className={classes.paper}>
+      <MaUTable className={classes.table} ref={tableRef} {...getTableProps()}>
         <TableHead
           headerGroups={headerGroups}
           onSortChange={onSortChange}
@@ -295,23 +307,21 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
           renderExpandedComponent={props.renderExpandedComponent}
         />
-        {props.pagination === 'pages' && (
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[]}
-                count={rows.length}
-                rowsPerPage={tableState.pageSize}
-                page={tableState.pageIndex}
-                onChangePage={(e, page) => onPageChangeHandler(page)}
-                ActionsComponent={(props) => (
-                  <TablePaginationActions {...props} gotoPage={gotoPage} pageOptions={pageOptions} />
-                )}
-              />
-            </TableRow>
-          </TableFooter>
-        )}
       </MaUTable>
-    </>
+      {props.pagination === 'pages' && (
+        <TablePagination
+          className={classes.footer}
+          rowsPerPageOptions={[]}
+          component='div'
+          count={rows.length}
+          rowsPerPage={tableState.pageSize}
+          page={tableState.pageIndex}
+          onChangePage={(e, page) => onPageChangeHandler(page)}
+          ActionsComponent={(props) => (
+            <TablePaginationActions {...props} gotoPage={gotoPage} pageOptions={pageOptions} />
+          )}
+        />
+      )}
+    </Paper>
   );
 };
