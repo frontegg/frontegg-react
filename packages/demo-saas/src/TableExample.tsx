@@ -1149,7 +1149,7 @@ export const TableExample: FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', paddingBottom: '20px' }}>
+    <div style={{ textAlign: 'center' }}>
       <h4>Material Table</h4>
       <ME.Table
         columns={[

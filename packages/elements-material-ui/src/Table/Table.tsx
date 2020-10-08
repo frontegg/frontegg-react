@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     zIndex: 1,
     bottom: '0px',
+    left: '0px',
+    right: '0px',
+    width: '100%',
     position: 'sticky',
     background: theme.palette.background.paper,
   },
