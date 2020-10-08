@@ -1,4 +1,5 @@
 import React, { ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import { Size } from '../styles';
 import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
@@ -6,9 +7,7 @@ import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
-import { TableProps } from '../elements/Table';
 import { TagProps } from '../elements/Tag';
-import { Size } from '../styles';
 import { TableProps } from '../elements/Table';
 
 export type FormFieldProps = {
@@ -69,7 +68,6 @@ export type ElementProps = {
   Popup:
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
-  Table: ComponentType<TableProps>;
 };
 
 export type ElementType = keyof ElementProps;

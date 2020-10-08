@@ -10,21 +10,3 @@ export * from './Icon';
 export * from './Popup';
 export * from './Checkbox';
 export * from './Table';
-
-import { FeButton } from './Button/FeButton';
-import { FeGrid } from './Grid/FeGrid';
-import { FeIcon } from './Icon/FeIcon';
-import { FeLoader } from './Loader/FeLoader';
-import { FePopup } from './Popup/FePopup';
-import { FeCheckbox } from './Checkbox/FeCheckbox';
-import { FeTag } from './Tag/FeTag';
-
-export const fronteggElements: Partial<Elements> = {
-  Loader: FeLoader,
-  Tag: FeTag,
-  Button: FeButton,
-  Grid: FeGrid,
-  Icon: FeIcon,
-  Popup: FePopup,
-  Checkbox: FeCheckbox,
-};

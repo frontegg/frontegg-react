@@ -1,5 +1,4 @@
 import React from 'react';
-import { LoaderProps } from '../elements/Loader';
 import { ElementsFactory } from './ElementsFactory';
 import { SwitchToggleProps, TabProps } from './interfaces';
 
