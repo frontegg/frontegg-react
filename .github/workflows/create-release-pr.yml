@@ -82,5 +82,5 @@ jobs:
           echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
           echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha.${{ github.run_number }}"
           yarn lerna version prerelease --preid "alpha.${{ github.run_number }}" --no-git-tag-version --yes --no-push
-          yarn lerna publish from-package --dist-tag next --force-publish --contents dist --no-git-reset --yes --no-push
+          yarn lerna publish from-package --canary --no-git-reset --preid next --force-publish --contents dist --yes --no-push
 
