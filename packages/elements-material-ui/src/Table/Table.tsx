@@ -12,14 +12,14 @@ import {
   UseFiltersState,
   UseSortByOptions,
   UseSortByState,
-  TableSortByToggleProps,
+  // TableSortByToggleProps,
   useExpanded,
   UseExpandedOptions,
   Cell,
   UseExpandedRowProps,
   Row,
   Column,
-  useFlexLayout,
+  // useFlexLayout,
   usePagination,
   PluginHook,
   UsePaginationOptions,
@@ -46,6 +46,9 @@ const useStyles = makeStyles(() => ({
   },
   checkBox: {
     margin: '-9px 0',
+  },
+  table: {
+    minWidth: '750px',
   },
 }));
 
@@ -162,6 +165,22 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
     ...tableHooks,
   ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T> & UseRowSelectInstanceProps<T>;
 
+  if (props.expandable && !props.renderExpandedComponent) {
+    throw Error('FeTable: you must provide renderExpandedComponent property if the table is expandable');
+  }
+  if (props.hasOwnProperty('sortBy') && !props.onSortChange) {
+    throw Error('FeTable: you must provide onSortChange property if sortBy is controlled');
+  }
+  if (props.hasOwnProperty('filters') && !props.onFilterChange) {
+    throw Error('FeTable: you must provide onFilterChange property if filters is controlled');
+  }
+  if (props.hasOwnProperty('pagination') && !props.pageSize) {
+    throw Error('FeTable: you must provide pageSize property if pagination enabled');
+  }
+  if (props.hasOwnProperty('onPageChange') && !props.pageCount) {
+    throw Error('FeTable: you must provide pageCount property if onPageChange is controlled');
+  }
+
   const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T> & UseRowSelectState<T>;
 
   const onSortChange = useCallback(
@@ -257,7 +276,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
 
   return (
     <>
-      <MaUTable ref={tableRef} {...getTableProps()} stickyHeader>
+      <MaUTable className={classes.table} ref={tableRef} {...getTableProps()} stickyHeader>
         <TableHead
           headerGroups={headerGroups}
           onSortChange={onSortChange}

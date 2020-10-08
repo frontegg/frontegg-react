@@ -24,7 +24,7 @@ export const TableExpandable: FC<TableExpandableProps<any>> = <T extends object>
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={row.cells.length}>
         <Collapse in={isExpanded} timeout='auto' unmountOnExit>
-          <Box>{renderExpandedComponent?.(row.original, row.index)}</Box>
+          <Box margin='0 auto'>{renderExpandedComponent?.(row.original, row.index)}</Box>
         </Collapse>
       </TableCell>
     </TableRow>

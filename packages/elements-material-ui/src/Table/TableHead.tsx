@@ -57,8 +57,8 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                     onClick: column.canSort ? () => onSortChange?.(column) : undefined,
                   })),
                 )}>
-                <Box display='flex' alignItems='center' justifyContent='space-between'>
-                  <Box>
+                <Box display='flex' alignItems='center' justifyContent='space-between' flexWrap='nowrap'>
+                  <Box display='flex'>
                     {column.render('Header')}
                     {column.canSort ? (
                       <TableSortLabel
