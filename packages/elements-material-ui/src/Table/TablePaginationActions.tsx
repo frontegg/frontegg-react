@@ -7,11 +7,9 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 type FeTablePaginationProps<T extends object> = {
-  pageIndex: number;
   count: number;
   page: number;
   rowsPerPage: number;
-  pageCount: number;
   pageOptions: number[];
   onChangePage: (e: any, nextPage: number) => void;
   gotoPage: (updater: ((pageIndex: number) => number) | number) => void;
@@ -31,7 +29,7 @@ export const TablePaginationActions: FC<FeTablePaginationProps<any>> = <T extend
 ) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { count, page, rowsPerPage, onChangePage, pageOptions, pageIndex, pageCount, gotoPage } = props;
+  const { count, page, rowsPerPage, onChangePage, gotoPage } = props;
 
   const handleFirstPageButtonClick = useCallback(() => {
     gotoPage(0);
@@ -54,22 +52,6 @@ export const TablePaginationActions: FC<FeTablePaginationProps<any>> = <T extend
   const handleLastPageButtonClick = useCallback(() => {
     gotoPage(Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   }, []);
-
-  if (pageOptions.length < 2) {
-    return null;
-  }
-
-  const pageButtons: number[] = [pageIndex];
-  if (pageIndex < 5) {
-    pageButtons.push(0, 1, 2, 3);
-  } else {
-    pageButtons.push(0, pageIndex - 2, pageIndex - 1);
-  }
-  if (pageIndex > pageCount - 5) {
-    pageButtons.push(pageCount - 4, pageCount - 3, pageCount - 2, pageCount - 1);
-  } else {
-    pageButtons.push(pageCount - 1, pageIndex + 1, pageIndex + 2);
-  }
 
   return (
     <div className={classes.root}>
