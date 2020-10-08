@@ -2,7 +2,7 @@
   "name": "@frontegg/demo-saas",
   "version": "1.0.83",
   "private": true,
-  "author": "FrontEgg LTD",
+  "author": "Frontegg LTD",
   "scripts": {
     "start": "react-scripts start",
     "cy-start": "OPEN_BROWSER=false && react-scripts -r @cypress/instrument-cra start",
