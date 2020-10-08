@@ -53,8 +53,7 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
         </InputAdornment>
       ),
     };
-  }
-  else if (suffixIcon) {
+  } else if (suffixIcon) {
     data.InputProps = {
       endAdornment: (
         <InputAdornment onClick={iconAction} position='end'>
