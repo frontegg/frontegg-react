@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Elements, fronteggElements } from '@frontegg/react-core';
+import { Elements } from '@frontegg/react-core';
 // import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 import { TableFilter, TableSort, Input } from '@frontegg/react-core';
