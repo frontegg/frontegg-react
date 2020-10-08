@@ -37,9 +37,26 @@ jobs:
           git config --global user.email 'frontegg@users.noreply.github.com'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Commit Version UP
         run: |
-          make versioning
+          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha.${{ github.run_number }}"
+          yarn lerna version prerelease --preid "alpha.${{ github.run_number }}" --no-git-tag-version --yes
+          yarn prettier-hook
+          yarn commit-version-dev
+          yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
+
+          yarn lerna version --conventional-commits --conventional-graduate --no-changelog --no-git-tag-version --yes
+          yarn prettier-hook
+          yarn commit-version
       - name: Set current CHANGELOG to output
         id: changelog
         shell: bash -ex {0}
@@ -67,10 +84,3 @@ jobs:
           labels: "Type: Release"
           branch: "release/next"
           request-to-parent: false
-      - name: Publish alpha version to npm
-        run: |
-          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
-          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha"
-          yarn lerna publish from-package --canary --preid next --force-publish --contents dist --yes
-

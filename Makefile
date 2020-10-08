@@ -65,12 +65,6 @@ install: ##@1 Global yarn install all packages
 	@echo "${YELLOW}Running lerna bootstrap${RESET}"
 	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
 
-versioning:
-	@./node_modules/.bin/lerna version patch --conventional-commits --no-git-tag-version --yes
-	@yarn prettier-hook
-	@yarn commit-version
-
-
 ########################################################################################################################
 #
 # PACKAGES

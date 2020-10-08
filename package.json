@@ -6,7 +6,8 @@
   "scripts": {
     "prettier-hook": "prettier --config ./.prettierrc.json --write .",
     "prepublishOnly": "make move-package-json-to-dist",
-    "commit-version": "git add . && git commit -m \"chore(release): publish `node -p 'require(\"./lerna.json\").version'`\""
+    "commit-version": "git add . && git commit -m \"chore(release): publish `node -p 'require(\"./lerna.json\").version'`\"",
+    "commit-version-dev": "git add . && git commit -m \"ci: publish prerelease version `node -p 'require(\"./lerna.json\").version'`\""
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",

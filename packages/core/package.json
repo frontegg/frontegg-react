@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-core",
   "libName": "FronteggCore",
-  "version": "1.0.83",
+  "version": "1.0.85",
   "author": "Frontegg LTD",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -44,8 +44,8 @@
     "@types/react-i18next": "^8.1.0",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.2",
-    "@types/underscore": "^1.10.2",
-    "@types/react-table": "^7.0.23"
+    "@types/react-table": "^7.0.23",
+    "@types/underscore": "^1.10.2"
   },
   "jest": {
     "preset": "ts-jest",
