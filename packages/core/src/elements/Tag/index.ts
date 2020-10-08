@@ -1,2 +1,2 @@
-export * from './Loader';
+export * from './Tag';
 export * from './interfaces';

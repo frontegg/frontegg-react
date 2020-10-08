@@ -1,7 +1,9 @@
-import React, { forwardRef, ReactElement, ReactNode } from 'react';
-import MaterialPopup from 'react-popper-tooltip';
+import React, { forwardRef, useMemo } from 'react';
+import { PopoverProps } from '@material-ui/core';
+import { PopupClick } from './PopupClick';
+import { PopupHover } from './PopupHover';
+import { PopupFocus } from './PopupFocus';
 import { PopupProps } from '@frontegg/react-core';
-import './style.scss';
 
 const positions: any = {
   t: 'top',
@@ -9,63 +11,62 @@ const positions: any = {
   l: 'left',
   r: 'right',
   c: 'center',
-  s: 'start',
-  e: 'end',
 };
 
-const preparePosition = (p: any): any => {
-  if (p.charAt(1) === 'c') {
-    return `${positions[p.charAt(0)]}`;
-  } else if (p.charAt(1) === 'l') {
-    return `${positions[p.charAt(0)]}-start`;
-  } else if (p.charAt(0) === 'l' || p.charAt(0) === 'r') {
-    return `${positions[p.charAt(0)]}`;
+//it's for transformOrigin property
+const invertedPositions: any = {
+  t: 'bottom',
+  b: 'top',
+  l: 'right',
+  r: 'left',
+  c: 'center',
+};
+
+const mapper = (props: PopupProps): Omit<PopoverProps, 'open'> => {
+  const { position: p } = props;
+  let aVertical: any = '';
+  let aHorizontal: any = '';
+  let tVertical: any = '';
+  let tHorizontal: any = '';
+  if (p?.charAt(0) === 'l' || p?.charAt(0) === 'r') {
+    aHorizontal = positions[p?.charAt(0)];
+    aVertical = 'center';
+    tHorizontal = invertedPositions[p?.charAt(0)];
+    tVertical = 'center';
   } else {
-    return `${positions[p.charAt(0)]}-end`;
+    aVertical = positions[p?.charAt(0) || 'b'];
+    aHorizontal = positions[p?.charAt(1) || 'c'];
+    tVertical = invertedPositions[p?.charAt(0) || 'b'];
+    tHorizontal = invertedPositions[p?.charAt(1) || 'c'];
   }
-};
-
-export interface ITooltipProps {
-  content: ReactNode;
-  action: 'hover' | 'click' | 'focus';
-  placement: any;
-  trigger: ReactNode;
-}
-
-const mapper = ({ position: p, ...rest }: PopupProps): ITooltipProps => {
   return {
-    ...rest,
-    placement: p ? preparePosition(p) : 'bottom',
+    anchorOrigin: {
+      vertical: aVertical,
+      horizontal: aHorizontal,
+    },
+    transformOrigin: {
+      vertical: tVertical,
+      horizontal: tHorizontal,
+    },
   };
 };
 
-export const Popup = forwardRef<MaterialPopup, PopupProps>((props, ref) => {
-  const mPopupProps = mapper(props);
-  const { action, placement, trigger, content } = mPopupProps;
-  return (
-    <MaterialPopup
-      ref={ref}
-      trigger={action}
-      placement={placement}
-      tooltip={({ tooltipRef, getTooltipProps }) => (
-        <div
-          {...getTooltipProps({
-            ref: tooltipRef,
-            className: 'material-popup-container',
-          })}
-        >
-          {content}
-        </div>
-      )}
-    >
-      {({ getTriggerProps, triggerRef }) =>
-        React.cloneElement(trigger as React.ReactElement<any>, {
-          ...getTriggerProps({
-            ref: triggerRef,
-            className: 'trigger',
-          }),
-        })
-      }
-    </MaterialPopup>
-  );
+export const Popup = forwardRef<HTMLElement, PopupProps>((props, ref) => {
+  const { action, content, trigger } = props;
+  const popupProps: any = mapper(props);
+
+  const Component = useMemo(() => {
+    switch (action) {
+      case 'click':
+        return PopupClick;
+      case 'hover':
+        return PopupHover;
+      case 'focus':
+        return PopupFocus;
+      default:
+        return PopupClick;
+    }
+  }, [action]);
+
+  return <Component ref={ref} {...popupProps} content={content} trigger={trigger} />;
 });

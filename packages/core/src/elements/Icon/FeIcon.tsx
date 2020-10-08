@@ -6,6 +6,7 @@ import { SortArrows, SortArrowsAsc, SortArrowsDesc } from './svgs/SortArrows';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
 import { Checkmark, Indeterminate } from './svgs/Checkmark';
+import { Delete } from './svgs/Actions';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'up-arrow': UpArrow,
@@ -15,6 +16,7 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'sort-arrows': SortArrows,
   'sort-arrows-asc': SortArrowsAsc,
   'sort-arrows-desc': SortArrowsDesc,
+  delete: Delete,
   checkmark: Checkmark,
   indeterminate: Indeterminate,
   filters: Filters,

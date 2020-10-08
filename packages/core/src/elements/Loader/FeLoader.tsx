@@ -1,15 +1,23 @@
-import React, { forwardRef, HTMLAttributes } from 'react';
-import classNames from 'classnames';
-import './FeLoader.scss';
+import React, { forwardRef } from 'react';
 import { LoaderProps } from './interfaces';
+import { ClassNameGenerator } from '../../styles';
+import './FeLoader.scss';
 
 const prefixCls = 'fe-loader';
 export const FeLoader = forwardRef<HTMLDivElement, LoaderProps>((props, ref) => {
-  const { className, children, variant = 'primary', ...propsWithoutChildren } = props;
+  const { className, children, variant = 'primary', ...restProps } = props;
 
-  const classes = classNames(prefixCls, className, {
-    [`${prefixCls}-${variant}`]: variant,
+  const classes = ClassNameGenerator.generate({ prefixCls, className });
+
+  const innerClasses = ClassNameGenerator.generate({
+    prefixCls: `${prefixCls}__inner`,
+    className,
+    theme: variant,
   });
 
-  return <div ref={ref} className={classes} {...propsWithoutChildren} />;
+  return (
+    <div ref={ref} className={classes} {...restProps}>
+      <span className={innerClasses} />
+    </div>
+  );
 });

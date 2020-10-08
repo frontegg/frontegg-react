@@ -85,7 +85,7 @@
   input:checked:hover:not(:disabled) + .fe-checkbox__input,
   input:checked:active:not(:disabled) + .fe-checkbox__input,
   input:checked:focus:not(:disabled) + .fe-checkbox__input {
-    opacity: 0.9;
+    filter: brightness(0.9);
   }
 
   &__disabled {
