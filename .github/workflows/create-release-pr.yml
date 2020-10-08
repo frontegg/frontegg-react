@@ -3,8 +3,6 @@ on:
   issue_comment:
     types: [created]
 
-# require public member
-# private member is treated as CONTRIBUTOR
 jobs:
   checker:
     runs-on: ubuntu-latest
@@ -17,7 +15,7 @@ jobs:
   createPullRequest:
     if: |
       github.event_name == 'issue_comment' &&
-      (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER') &&
+      (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'COLLABORATOR') &&
       startsWith(github.event.comment.body, '/create release')
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
