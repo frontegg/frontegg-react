@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef } from 'react';
+import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef, useState } from 'react';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import {
   validateEmail,
@@ -10,10 +10,12 @@ import {
   FButton,
   FInput,
   FFormik,
+  Icon,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
-
 const { Formik } = FFormik;
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
   ...loginState,
@@ -53,7 +55,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
-
+  const [ passwordType, setPasswordType ] = useState('text');
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
   const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
   const validationSchema: any = { email: validateEmail(t) };
@@ -90,6 +92,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           <FInput
             name='email'
             type='email'
+            prefixIcon={<Icon name='checkmark' />}
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
@@ -98,8 +101,12 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           {shouldDisplayPassword && (
             <FInput
               label={t('auth.login.password')}
+              suffixIcon={passwordType === 'text' ? <Visibility /> : <VisibilityOff />}
+              iconAction={()=> {
+                setPasswordType(passwordType === 'text' ? 'password' : 'text')
+              }}
               labelButton={labelButtonProps(values)}
-              type='password'
+              type={passwordType}
               name='password'
               placeholder={t('auth.login.enter-your-password')}
               disabled={!shouldDisplayPassword}
