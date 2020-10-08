@@ -7,11 +7,13 @@ import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
 import { PopupExample } from '../PopupExample';
+import { TableExample } from '../TableExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
+import { GridExamples } from '../grid-examples';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
-  return <div>{user.roles[1].length}</div>;
+  return <div>{JSON.stringify(user)}</div>;
 };
 
 const MyTab: FC & PageTabProps = () => {
@@ -43,19 +45,23 @@ class App extends React.Component<any> {
                 <div>
                   <Link to='/popup'>Popup Examples</Link>
                 </div>
+                <div>
+                  <Link to='/table'>Table Examples</Link>
+                </div>
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />
             <Route exact path='/components' component={ComponentsPage} />
             <Route exact path='/components2' component={ComponentsPage2} />
-
             <Route exact path='/popup' component={PopupExample} />
+            <Route exact path='/table' component={TableExample} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />
             </ProtectedRoute>
             <ProtectedRoute path='/profile' component={Profile.Page} />
             <ProtectedRoute path='/profile2' component={OldProfile} />
+            <Route path='/grids' component={GridExamples} />
           </Switch>
         </AuthExamples>
       </div>

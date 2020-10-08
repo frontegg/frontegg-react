@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks';
 
 const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = (props) => {
-  const { loading, profile, saveProfile } = useAuthProfile();
+  const { profile, saveProfile } = useAuthProfile();
 
   const children = props.children ?? (
     <>
@@ -20,6 +20,8 @@ export const ProfileInfoPage: FC & PageTabProps = (props) => {
     <Formik
       initialValues={{
         profilePictureUrl: profile?.profilePictureUrl ?? '',
+        name: profile?.name ?? '',
+        email: profile?.email ?? '',
       }}
       enableReinitialize
       onSubmit={(values) => {

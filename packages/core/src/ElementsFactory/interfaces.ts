@@ -1,4 +1,5 @@
 import React, { MouseEvent, ReactElement, ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import { Size } from '../styles';
 import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
@@ -6,9 +7,12 @@ import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
+import { TagProps } from '../elements/Tag';
+import { TableProps } from '../elements/Table';
+
 export type FormFieldProps = {
   inForm?: boolean; // default: false
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
 };
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
@@ -50,6 +54,7 @@ export type ElementProps = {
   Checkbox:
     | ComponentType<CheckboxProps>
     | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
+  Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
@@ -60,6 +65,9 @@ export type ElementProps = {
   Grid:
     | ComponentType<GridProps>
     | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+  Table:
+    | ComponentType<TableProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
   Popup:
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;

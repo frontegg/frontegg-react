@@ -1,2 +1,2 @@
-export * from './FeLoader';
+export * from './Loader';
 export * from './interfaces';

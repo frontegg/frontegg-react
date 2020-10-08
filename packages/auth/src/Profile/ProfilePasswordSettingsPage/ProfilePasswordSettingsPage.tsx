@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   FFormik,
   FForm,
@@ -13,6 +13,7 @@ import {
   OnError,
 } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
+import { FormikProps } from 'formik/dist/types';
 
 const { Formik } = FFormik;
 
@@ -22,6 +23,18 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
   const { t } = useT();
   const { onError } = props;
   const { loading, error, changePassword } = useAuth((state) => state.profileState);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const changePasswordSubmitted = useRef(false);
+
+  useEffect(() => {
+    if (changePasswordSubmitted.current && !loading && !error) {
+      setSuccessMessage(t('auth.profile.password-settings.success-message'));
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    }
+  }, [loading, error]);
+
   return (
     <div className='fe-profile-password-page'>
       <div className='fe-section-title fe-bold fe-mb-2'>{t('common.password')}</div>
@@ -36,8 +49,10 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
           newPassword: validatePassword(t),
           confirmNewPassword: validatePasswordConfirmation(t, 'newPassword'),
         })}
-        onSubmit={async ({ password, newPassword }) => {
+        onSubmit={async ({ password, newPassword }, { resetForm }) => {
+          changePasswordSubmitted.current = true;
           changePassword({ password, newPassword });
+          resetForm();
         }}
       >
         <FForm>
@@ -53,9 +68,9 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
               label={'Repeat New Password'}
             />
           </div>
-          <ErrorMessage error={error} onError={onError} separator />
+          <ErrorMessage error={error} onError={onError} separator style={{ textAlign: 'left', marginBottom: '2rem' }} />
           <FButton type='submit' variant='primary' fullWidth={false} loading={loading}>
-            {t('auth.profile.password-settings.button')}
+            {successMessage || t('auth.profile.password-settings.button')}
           </FButton>
         </FForm>
       </Formik>

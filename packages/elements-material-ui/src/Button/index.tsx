@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ButtonProps } from '@frontegg/react-core';
-import { Button as MaterialButton, ButtonProps as MaterialButtonProps } from '@material-ui/core';
+import { Button as MaterialButton, ButtonProps as MaterialButtonProps, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import { Loader } from '../Loader';
-import './style.scss';
+
+const useStyles = makeStyles({
+  dangerStyle: {
+    color: 'var(--color-white)',
+    backgroundColor: 'var(--color-red-7)',
+    '&:hover': {
+      backgroundColor: 'var(--color-red-8)',
+    },
+  },
+});
 
 const mapper = (props: ButtonProps): MaterialButtonProps => {
   const {
@@ -19,6 +28,10 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     size,
     ...restProps
   } = props;
+  const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
+
+  const classes = useStyles();
+
   return {
     ...restProps,
     fullWidth,
@@ -27,25 +40,22 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     size,
     disabled: loading || disabled,
     variant: isCancel ? 'text' : 'contained',
-    color: variant === 'danger' ? 'default' : variant,
+    color: variantColor,
     classes: {
       root: classNames(className, {
-        'fe-material-button__danger': variant === 'danger',
-        'fe-material-button__in-form': inForm,
+        [classes.dangerStyle]: variant === 'danger',
       }),
     },
   };
 };
 
-export class Button extends React.Component<ButtonProps> {
-  render() {
-    const { children, loading } = this.props;
-    const buttonProps = mapper(this.props);
-    return (
-      <MaterialButton {...buttonProps}>
-        {children}
-        {loading && <Loader />}
-      </MaterialButton>
-    );
-  }
-}
+export const Button: FC<ButtonProps> = (props) => {
+  const { children, loading } = props;
+  const buttonProps = mapper(props);
+  return (
+    <MaterialButton {...buttonProps}>
+      {children}
+      {loading && <Loader />}
+    </MaterialButton>
+  );
+};
