@@ -16,7 +16,7 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'sort-arrows': SortArrows,
   'sort-arrows-asc': SortArrowsAsc,
   'sort-arrows-desc': SortArrowsDesc,
-  'visibility': Visibility,
+  visibility: Visibility,
   'visibility-off': VisibilityOff,
   delete: Delete,
   checkmark: Checkmark,

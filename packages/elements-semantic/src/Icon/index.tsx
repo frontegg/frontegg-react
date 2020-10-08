@@ -9,7 +9,7 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   'down-arrow': 'angle down',
   'left-arrow': 'angle left',
   'right-arrow': 'angle right',
-  'visibility': 'eye slash',
+  visibility: 'eye slash',
   'visibility-off': 'eye',
   copy: 'copy',
   checkmark: 'checkmark',

@@ -1,4 +1,11 @@
-import React, { MouseEvent, ReactElement, ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import React, {
+  MouseEvent,
+  ReactElement,
+  ComponentType,
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+} from 'react';
 import { Size } from '../styles';
 import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
