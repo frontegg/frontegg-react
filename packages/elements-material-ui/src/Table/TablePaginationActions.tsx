@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const TablePaginationActions: FC<FeTablePaginationProps<any>> = <T extends object>(
-  props: FeTablePaginationProps<T>,
+  props: FeTablePaginationProps<T>
 ) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -39,14 +39,14 @@ export const TablePaginationActions: FC<FeTablePaginationProps<any>> = <T extend
     (event: any) => {
       onChangePage(event, page - 1);
     },
-    [page],
+    [page]
   );
 
   const handleNextButtonClick = useCallback(
     (event: any) => {
       onChangePage(event, page + 1);
     },
-    [page],
+    [page]
   );
 
   const handleLastPageButtonClick = useCallback(() => {
@@ -64,13 +64,15 @@ export const TablePaginationActions: FC<FeTablePaginationProps<any>> = <T extend
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='next page'>
+        aria-label='next page'
+      >
         {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='last page'>
+        aria-label='last page'
+      >
         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </div>

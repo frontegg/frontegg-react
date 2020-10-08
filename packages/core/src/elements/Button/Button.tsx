@@ -4,7 +4,7 @@ import { ElementsFactory } from '../../ElementsFactory';
 import { ButtonProps } from './interfaces';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
-  React.createElement(ElementsFactory.getElement('Button'), { ...props, ref } as any),
+  React.createElement(ElementsFactory.getElement('Button'), { ...props, ref } as any)
 );
 
 export const FButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {

@@ -19,7 +19,6 @@ export const fronteggElements: Partial<Elements> = {
   Checkbox: FeCheckbox,
 };
 
-
 export class ElementsFactory {
   private static instance: ElementsFactory;
   private elements: Elements | null = null;
