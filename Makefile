@@ -48,7 +48,6 @@ init: ##@1 Global init project before start after each pull
 clean: ##@1 Global uninstall node modules, remove transpiled code & lock files
 	@rm -rf ./node_modules
 	@rm -rf ./package-lock.json
-	@rm -rf ./yarn-lock.json
 	@find ./packages -type d -maxdepth 1 ! -path ./packages \
 		| sed 's|^./packages/||' \
 		| xargs -I '{}' sh -c '$(MAKE) clean-{}'
@@ -57,7 +56,7 @@ clean-%:
 	@rm -rf ./packages/${*}/dist
 	@rm -rf ./packages/${*}/node_modules
 	@rm -rf ./packages/${*}/package-lock.json
-	@rm -rf ./packages/${*}/yarn-lock.json
+	@rm -rf ./packages/${*}/yarn.lock
 
 
 install: ##@1 Global yarn install all packages
@@ -67,8 +66,10 @@ install: ##@1 Global yarn install all packages
 	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
 
 versioning:
-	@./node_modules/.bin/lerna changed --json --all > lerna-changed.json
-	@./node_modules/.bin/lerna version --yes --exact patch
+	@./node_modules/.bin/lerna version patch --conventional-commits --no-git-tag-version --yes
+	@yarn prettier-hook
+	@yarn commit-version
+
 
 ########################################################################################################################
 #
@@ -79,14 +80,10 @@ versioning:
 lint: ##@2 Linting run lint on all packages
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint "./packages/*/{src,tests}/**/*.{ts,tsx}"
-#	@echo "${YELLOW}Running eslint on all packages${RESET}"
-#	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 
 lint-%: ##@2 Linting run lint on specific packages
 	@echo "${YELLOW}Running tslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
 	@./node_modules/.bin/tslint ./packages/${*}/{src}/**/*.ts
-#	@echo "${YELLOW}Running eslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
-#	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 
 ########################################################################################################################
 #
@@ -128,14 +125,17 @@ build: ##@4 Build build all packages
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
 	${MAKE} build-auth
-	#${MAKE} build-reports
 
 build-%: ##@4 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
-	@export PACKAGE=${*}; cd ./packages/${*} && yarn build
+	@export NODE_ENV=production; cd ./packages/${*} && yarn build
 
 bw: ##@4 Build parallels build:watch all
+	@export NODE_ENV=development
 	@./node_modules/.bin/lerna run build:watch --parallel
+
+bw-%: ##@2 Build build:watch specific package
+	@export PACKAGE=${*}; cd ./packages/${*} && yarn build:watch
 ########################################################################################################################
 #
 # Publish Operations
@@ -172,20 +172,18 @@ publish-base:
 	@echo "${GREEN}************************************************************************************${RESET}"
 	${MAKE} commit-changes
 
-
-publish-prod: ##@5 Publish publish all changed packages to npm repository
-	${MAKE} publish-base
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Publish: Changed Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
-
-publish-dev: ##@5 Publish publish all changed packages to npm repository
-	${MAKE} publish-base
-
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@echo "${GREEN}* Publish: Changed Packages${RESET}"
-	@echo "${GREEN}************************************************************************************${RESET}"
-	@./node_modules/.bin/lerna publish patch --canary --preid dev --force-publish --contents dist --yes
-
+#publish-prod: ##@5 Publish publish all changed packages to npm repository
+#	${MAKE} publish-base
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@./node_modules/.bin/lerna publish patch --force-publish --contents dist --yes
+#
+#publish-dev: ##@5 Publish publish all changed packages to npm repository
+#	${MAKE} publish-base
+#
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@echo "${GREEN}* Publish: Changed Packages${RESET}"
+#	@echo "${GREEN}************************************************************************************${RESET}"
+#	@./node_modules/.bin/lerna publish patch --canary --preid "dev-${GITHUB_RUN_ID}" --force-publish --contents dist --yes

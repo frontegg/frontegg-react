@@ -1,5 +1,9 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 import { DialogProps } from './Dialog';
+import { GridProps } from '../elements/Grid';
+import { ButtonProps } from '../elements/Button';
+import { IconProps } from '../elements/Icon';
+import { TableProps } from '../elements/Table';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -11,21 +15,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   labelButton?: ButtonProps;
   fullWidth?: boolean;
   error?: string;
-}
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, FormFieldProps {
-  fullWidth?: boolean;
-  variant?: 'primary' | 'secondary' | 'danger';
-  isCancel?: boolean;
-  asLink?: boolean;
-  loading?: boolean;
-
-  // @deprecated
-  submit?: boolean;
-  testId?: string;
-
-  // internal use
-  formikDisableIfNotDirty?: boolean; // default true
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
@@ -44,29 +33,20 @@ export interface SwitchToggleProps {
   labels?: [string, string];
   onChange?: (toggled: boolean) => void;
 }
-
-export type IconNames =
-  | 'left-arrow'
-  | 'right-arrow'
-  | 'checkmark'
-  | 'copy'
-  | 'warning'
-  | 'image'
-  | 'delete';
-
-export interface IconProps extends React.HTMLAttributes<HTMLElement> {
-  name: IconNames;
-  size?: 'small' | 'medium' | 'large';
-}
-
 export interface TabProps {
   items: ComponentType[];
   activeTab: number;
   onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
 }
 
+type ComponentTypeOrForwardRef<P, REF> =
+  | ComponentType<P>
+  | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>;
+
 export type ElementProps = {
-  Button: ComponentType<ButtonProps>;
+  Button:
+    | ComponentType<ButtonProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
@@ -74,9 +54,15 @@ export type ElementProps = {
   Icon: ComponentType<IconProps>;
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
+  Grid:
+    | ComponentType<GridProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+  Table:
+    | ComponentType<TableProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
 };
 
-export type ElementType = 'Button' | 'Input' | 'Form' | 'Loader' | 'SwitchToggle' | 'Icon' | 'Tabs' | 'Dialog';
+export type ElementType = keyof ElementProps;
 
 export type Elements = {
   [type in ElementType]: ElementProps[type];

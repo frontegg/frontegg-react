@@ -6,10 +6,11 @@ import { I18nextProvider } from 'react-i18next';
 import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, useHistory, useLocation, useRouteMatch, useParams } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
-import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
+
+const isSSR = typeof window === 'undefined';
 
 export type RedirectOptions = {
   refresh?: boolean;
@@ -25,15 +26,19 @@ export interface PluginConfig {
   WrapperComponent?: React.ComponentType<any>;
 }
 
-interface FeProviderProps {
+export interface FeProviderProps {
   context: ContextOptions;
   plugins: PluginConfig[];
-  uiLibrary: Elements;
+  uiLibrary?: Partial<Elements>;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
 
   // deprecated: FronteggProvider will detect if wrapped by ReactRouter, it not will wrap it self with BrowserRouter
   withRouter?: boolean;
+
+  // internal use
+  _history?: any;
+  _resolvePortals?: (setPortals: any) => void;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -41,6 +46,8 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
+  const [rcPortals, setRcPortals] = useState([]);
+  props._resolvePortals?.(setRcPortals);
   const listeners = useMemo(() => {
     return props.plugins
       .filter((p) => p.Listener)
@@ -58,14 +65,8 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      <OldFronteggProvider
-        contextOptions={{
-          ...(props.context as any),
-          tokenResolver: () => ContextHolder.getAccessToken() || '',
-        }}
-      >
-        {children}
-      </OldFronteggProvider>
+      {children}
+      {rcPortals}
     </>
   );
 };
@@ -74,7 +75,9 @@ const FeState: FC<FeProviderProps> = (props) => {
   const history = useHistory();
   const location = useLocation();
   const taskRef = useRef<Task>();
-  const baseName = window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
+  const baseName = isSSR
+    ? ''
+    : window.location.pathname.substring(0, window.location.pathname.lastIndexOf(location.pathname));
   const onRedirectTo =
     props.onRedirectTo ??
     ((_path: string, opts?: RedirectOptions) => {
@@ -82,7 +85,7 @@ const FeState: FC<FeProviderProps> = (props) => {
       if (path.startsWith(baseName)) {
         path = path.substring(baseName.length);
       }
-      if (opts?.refresh) {
+      if (opts?.refresh && !isSSR) {
         window.Cypress ? history.push(path) : (window.location.href = path);
       } else {
         opts?.replace ? history.replace(path) : history.push(path);
@@ -98,7 +101,7 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
-    if (fronteggStore && !window.Cypress) {
+    if (fronteggStore && !isSSR && !window.Cypress) {
       return fronteggStore;
     }
     // @ts-ignore
@@ -129,7 +132,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   useEffect(() => () => taskRef.current?.cancel(), []);
 
   /* for Cypress tests */
-  if (window.Cypress) {
+  if (!isSSR && window.Cypress) {
     window.cypressStore = store;
     window.cypressHistory = history;
   }
@@ -146,6 +149,14 @@ const FeState: FC<FeProviderProps> = (props) => {
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
+
+  if (props._history) {
+    return (
+      <Router history={props._history}>
+        <FeState {...props} />
+      </Router>
+    );
+  }
   const withRouter = !useHistory();
   if (withRouter) {
     return (

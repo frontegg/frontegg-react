@@ -3,7 +3,8 @@ import { actions } from './reducer';
 import {
   api,
   ContextHolder,
-  IActivateAccount, IChangePassword,
+  IActivateAccount,
+  IChangePassword,
   IDisableMfa,
   IForgotPassword,
   ILogin,
@@ -106,7 +107,7 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
       actions.setState({
         user: !!user.accessToken ? user : undefined,
         isAuthenticated: !!user.accessToken,
-      }),
+      })
     );
 
     yield afterAuthNavigation();
@@ -138,7 +139,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
           mfaToken: user.mfaToken,
           step,
         },
-      }),
+      })
     );
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -151,7 +152,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
         email,
         error: e.message,
         loading: false,
-      }),
+      })
     );
   }
 }
@@ -167,7 +168,7 @@ function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWit
         loginState: { loading: false, error: undefined, step },
         user,
         isAuthenticated: true,
-      }),
+      })
     );
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -283,7 +284,7 @@ function* validateSSODomain() {
         samlConfiguration: { ...samlConfiguration, validated: true },
         error: undefined,
         saving: false,
-      }),
+      })
     );
   } catch (e) {
     yield put(
@@ -291,7 +292,7 @@ function* validateSSODomain() {
         samlConfiguration: { ...samlConfiguration, validated: false },
         error: e.message,
         saving: false,
-      }),
+      })
     );
   }
 }
@@ -315,7 +316,7 @@ function* loadProfile() {
 function* saveProfile({ payload }: PayloadAction<Partial<IUserProfile>>) {
   yield put(actions.setProfileState({ saving: true }));
   try {
-    const oldProfileData = yield select(state => state.auth.profileState.profile);
+    const oldProfileData = yield select((state) => state.auth.profileState.profile);
     const newProfileData = {
       ...oldProfileData,
       ...payload,
@@ -363,7 +364,7 @@ function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
         loading: false,
         error: undefined,
         recoveryCode,
-      }),
+      })
     );
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
   } catch (e) {

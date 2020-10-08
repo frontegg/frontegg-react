@@ -47,23 +47,29 @@ export interface PerPageHeader {
   loginWithSSO?: ReactNode;
 }
 
+export type HeaderProps = { header?: ReactNode; headerImg?: string };
+
 export interface PerPageProps {
-  login?: LoginProps & { header: ReactNode };
-  logout?: LogoutProps & { header: ReactNode };
-  forgotPassword?: ForgotPasswordProps & { header: ReactNode };
-  resetPassword?: ResetPasswordProps & { header: ReactNode };
-  activateAccount?: ActivateAccountProps & { header: ReactNode };
-  loginWithSSO?: LoginWithSSOProps & { header: ReactNode };
+  login?: LoginProps & HeaderProps;
+  logout?: LogoutProps & HeaderProps;
+  forgotPassword?: ForgotPasswordProps & HeaderProps;
+  resetPassword?: ResetPasswordProps & HeaderProps;
+  activateAccount?: ActivateAccountProps & HeaderProps;
+  loginWithSSO?: LoginWithSSOProps & HeaderProps;
 }
+
+export type PageComponentProps = HeaderProps & {
+  pageId: 'login' | 'logout' | 'forgotPassword' | 'resetPassword' | 'activateAccount' | 'loginWithSSO';
+  children?: ReactNode;
+};
 
 export interface AuthPageProps {
   header?: ReactNode;
+  headerImg?: string;
   pageHeader?: PerPageHeader;
   pageProps?: PerPageProps;
-  backgroundImage?: string;
-  backgroundColor?: string;
   loaderComponent?: ReactNode;
-  pageComponent?: ComponentType<any>;
+  pageComponent?: ComponentType<PageComponentProps>;
   injectAuthRoutes?: boolean; // default: true
 }
 

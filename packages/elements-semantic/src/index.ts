@@ -10,7 +10,7 @@ import { Dialog } from './Dialog';
 
 export const type = 'semantic';
 export const version = '1.2.1';
-export const uiLibrary: Elements = {
+export const uiLibrary: Partial<Elements> = {
   Button,
   Input,
   Form,

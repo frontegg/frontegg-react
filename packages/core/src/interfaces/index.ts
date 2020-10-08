@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 declare global {
   interface Window {
     Cypress: any;
@@ -93,7 +95,7 @@ export interface ContextOptions {
   requestCredentials?: RequestCredentials;
   theme?: ThemeOptions | any;
   isDemonstration?: boolean;
-  errorComponent?: JSX.Element | string;
+  errorComponent?: ReactElement | string;
   currentUserId?: string;
   currentUserRoles?: string[];
   currentUserPermissions?: string[];

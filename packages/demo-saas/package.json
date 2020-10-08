@@ -2,7 +2,7 @@
   "name": "@frontegg/demo-saas",
   "version": "1.0.83",
   "private": true,
-  "author": "FrontEgg LTD",
+  "author": "Frontegg LTD",
   "scripts": {
     "start": "react-scripts start",
     "cy-start": "OPEN_BROWSER=false && react-scripts -r @cypress/instrument-cra start",
@@ -18,7 +18,6 @@
     "@frontegg/react-elements-semantic": "^1.0.83",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
-    "cron-parser": "^2.15.0",
     "i18next": "^19.6.3",
     "moment": "^2.27.0",
     "react": ">16.8.6",

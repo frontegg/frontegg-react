@@ -1,0 +1,91 @@
+.fe-button {
+  position: relative;
+  background: var(--color-gray-0);
+  height: var(--element-height);
+  cursor: pointer;
+  font-family: var(--element-font-family);
+  font-size: var(--font-size-body);
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 0 var(--element-padding);
+  vertical-align: top;
+  border-radius: var(--element-border-radius);
+  box-shadow: none;
+  border: 1px solid var(--element-border-color);
+  background-color: var(--color-white);
+  text-decoration: none;
+  transition: all 0.1s ease-out;
+  outline: none;
+  overflow: hidden;
+  color: var(--color-gray-8);
+
+  > svg {
+    padding: 0 var(--element-padding) / 2;
+    vertical-align: sub;
+    width: 1rem;
+    height: 1rem;
+    box-sizing: initial;
+
+    &:first-child {
+      padding: 0 var(--element-padding) 0 0;
+    }
+
+    &:last-child {
+      padding: 0 0 0 var(--element-padding);
+    }
+
+    &:first-child:last-child {
+      padding: 0;
+    }
+  }
+}
+
+.fe-button:hover {
+  filter: brightness(0.9);
+}
+
+.fe-button:active {
+  filter: brightness(0.8);
+}
+
+.fe-button-primary {
+  background: var(--color-primary-lighter);
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary-lighter);
+}
+
+.fe-button-secondary {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary-dark);
+}
+
+.fe-button-danger {
+  background: var(--color-danger-light);
+  color: var(--color-black);
+}
+
+.fe-button-small {
+  padding: 0 var(--element-padding-sm);
+  height: var(--element-height-sm);
+  font-size: var(--element-font-size-sm);
+}
+
+.fe-button-large {
+  padding: 0 var(--element-padding-lg);
+  height: var(--element-height-lg);
+  font-size: var(--element-font-size-lg);
+}
+
+.fe-button-disabled {
+  pointer-events: none;
+  cursor: default;
+  background-color: var(--color-gray-3);
+  color: var(--color-gray-5);
+  font-weight: 400;
+}
+
+.fe-button-full-width {
+  width: 100%;
+}

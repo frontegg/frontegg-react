@@ -7,10 +7,11 @@ import { SwitchToggle } from './SwitchToggle';
 import { Tabs } from './Tabs';
 import { Icon } from './Icon';
 import { Dialog } from './Dialog';
+import { Grid } from './Grid';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
-export const uiLibrary: Elements = {
+export const uiLibrary: Partial<Elements> = {
   Button,
   Input,
   Form,
@@ -19,4 +20,5 @@ export const uiLibrary: Elements = {
   Tabs,
   Icon,
   Dialog,
+  Grid,
 };

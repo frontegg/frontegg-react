@@ -62,7 +62,6 @@
 }
 
 .fe-profile-image {
-
   &-uploader {
     .fe-card-content {
       display: flex;
@@ -104,7 +103,7 @@
       color: var(--color-white);
       background: var(--color-red-5);
       border-radius: 50%;
-      font-size: .85rem;
+      font-size: 0.85rem;
       line-height: 2rem;
       text-align: center;
       width: 2rem;
@@ -115,9 +114,7 @@
         background: var(--color-red-7);
       }
     }
-
   }
-
 
   &-details {
     flex: 1;
@@ -132,7 +129,7 @@
       text-overflow: ellipsis;
     }
 
-    input[type=file] {
+    input[type='file'] {
       display: none;
     }
   }
@@ -143,11 +140,11 @@
     margin-top: 1rem;
     color: var(--color-gray-5);
   }
-
 }
 
-.fe-profile-basic-information{
-  flex:1;
+.fe-profile-basic-information {
+  flex: 1;
+  padding: 2rem;
 }
 
 @media screen and (max-width: 75rem) {

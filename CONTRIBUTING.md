@@ -28,6 +28,3 @@ After cloning FronteggReact, run `make init` to initialize your. Then, you can r
 - `make test-integration` to run cypress integration tests
 - `make test-component` to run cypress component tests
 - `make test-unit` to run cypress unit tests
-
-**Publish:**
-- `make publish` used to publish packages to npm repository (using in build pipeline)
