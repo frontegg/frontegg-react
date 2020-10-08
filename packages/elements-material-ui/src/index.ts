@@ -10,6 +10,7 @@ import { Dialog } from './Dialog';
 import { Popup } from './Popup';
 import { Checkbox } from './Checkbox';
 import { Tag } from './Tag';
+import { Grid } from './Grid';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
@@ -22,6 +23,7 @@ export const uiLibrary: Partial<Elements> = {
   Tabs,
   Icon,
   Dialog,
+  Grid,
   Popup,
   Checkbox,
   Tag,

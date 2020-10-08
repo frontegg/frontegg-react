@@ -8,6 +8,7 @@ import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { Size } from '../styles';
+import { TableProps } from '../elements/Table';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -61,6 +62,9 @@ export type ElementProps = {
   Grid:
     | ComponentType<GridProps>
     | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+  Table:
+    | ComponentType<TableProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
   Popup:
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;

@@ -1,11 +1,14 @@
 {
   "name": "@frontegg/react-auth",
+  "libName": "FronteggAuth",
   "version": "1.0.83",
-  "author": "FrontEgg LTD",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "author": "Frontegg LTD",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "es2015": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "export NODE_ENV='production'; rm -rf ./dist && rollup -c ../../scripts/rollup.config.js && echo DONE",
+    "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },

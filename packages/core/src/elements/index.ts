@@ -12,6 +12,7 @@ export * from './Checkbox';
 
 import { FeButton } from './Button/FeButton';
 import { FeGrid } from './Grid/FeGrid';
+import { FeIcon } from './Icon/FeIcon';
 import { FeLoader } from './Loader/FeLoader';
 import { FePopup } from './Popup/FePopup';
 import { FeCheckbox } from './Checkbox/FeCheckbox';
@@ -22,6 +23,7 @@ export const fronteggElements: Partial<Elements> = {
   Tag: FeTag,
   Button: FeButton,
   Grid: FeGrid,
+  Icon: FeIcon,
   Popup: FePopup,
   Checkbox: FeCheckbox,
 };

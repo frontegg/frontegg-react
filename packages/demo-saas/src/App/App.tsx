@@ -8,10 +8,11 @@ import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
 import { PopupExample } from '../PopupExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
+import { GridExamples } from '../grid-examples';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
-  return <div>{user.roles[1].length}</div>;
+  return <div>{JSON.stringify(user)}</div>;
 };
 
 const MyTab: FC & PageTabProps = () => {
@@ -56,6 +57,7 @@ class App extends React.Component<any> {
             </ProtectedRoute>
             <ProtectedRoute path='/profile' component={Profile.Page} />
             <ProtectedRoute path='/profile2' component={OldProfile} />
+            <Route path='/grids' component={GridExamples} />
           </Switch>
         </AuthExamples>
       </div>

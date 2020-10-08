@@ -1,6 +1,5 @@
 import React, { FC, forwardRef } from 'react';
 import { IconNames, IconProps } from './interfaces';
-
 import { omitProps } from '../../helpers';
 import { SortArrows, SortArrowsAsc, SortArrowsDesc } from './svgs/SortArrows';
 import { Filters } from './svgs/Filters';
@@ -24,5 +23,8 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {
   const SelectedIcon: any = mapIcons[props.name] ?? (() => null);
+  if (!SelectedIcon) {
+    return null;
+  }
   return <SelectedIcon ref={ref} {...omitProps(props, ['name'])} />;
 });

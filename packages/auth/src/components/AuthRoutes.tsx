@@ -5,7 +5,7 @@ import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } 
 import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
-import { AuthPageProps } from '../interfaces';
+import { AuthPageProps, PageComponentProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 
@@ -19,7 +19,16 @@ const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: Aut
 const logger = Logger.from('AuthRoutes');
 
 export const AuthRoutes: FC<AuthPageProps> = (props) => {
-  const { header, loaderComponent, children, pageComponent, pageHeader, pageProps: perPageProps, ...rest } = props;
+  const {
+    header,
+    headerImg,
+    loaderComponent,
+    children,
+    pageComponent,
+    pageHeader,
+    pageProps: perPageProps,
+    ...rest
+  } = props;
   const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
 
   const samlCallbackPath = useMemo(() => {
@@ -43,28 +52,34 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
 
   const computedPerPageProps = {
     loginProps: {
-      header: pageHeader?.login ?? header ?? defaultComps.header,
       ...perPageProps?.login,
+      header: perPageProps?.login ?? pageHeader?.login ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.login ?? headerImg,
     },
     logoutProps: {
-      header: pageHeader?.logout ?? header,
       ...perPageProps?.logout,
+      header: perPageProps?.logout ?? pageHeader?.logout ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.logout ?? headerImg,
     },
     forgotPasswordProps: {
-      header: pageHeader?.forgotPassword ?? header,
       ...perPageProps?.forgotPassword,
+      header: perPageProps?.forgotPassword ?? pageHeader?.forgotPassword ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.forgotPassword ?? headerImg,
     },
     resetPasswordProps: {
-      header: pageHeader?.resetPassword ?? header,
       ...perPageProps?.resetPassword,
+      header: perPageProps?.resetPassword ?? pageHeader?.resetPassword ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.resetPassword ?? headerImg,
     },
     activateAccountProps: {
-      header: pageHeader?.activateAccount ?? header,
       ...perPageProps?.activateAccount,
+      header: perPageProps?.activateAccount ?? pageHeader?.activateAccount ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.activateAccount ?? headerImg,
     },
     loginWithSSOProps: {
-      header: pageHeader?.loginWithSSO ?? header,
       ...perPageProps?.loginWithSSO,
+      header: perPageProps?.loginWithSSO ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.loginWithSSO ?? headerImg,
     },
   };
 
@@ -132,6 +147,7 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
         const wrapperProps: any = {
           ...pageProps,
           ...route.props,
+          pageId: route.id,
         };
         if (pageComponent) {
           wrapperProps.children = createElement(route.standaloneComponent as any);
