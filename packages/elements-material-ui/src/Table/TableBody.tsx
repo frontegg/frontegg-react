@@ -25,10 +25,6 @@ const useRowStyles = makeStyles({
     },
   },
   cell: {
-    maxWidth: '200px',
-    width: '200px',
-    minWidth: '200px',
-    overflow: 'hidden',
     wordWrap: 'break-word',
   },
 });

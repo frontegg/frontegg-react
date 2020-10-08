@@ -19,7 +19,7 @@ import {
   UseExpandedRowProps,
   Row,
   Column,
-  // useFlexLayout,
+  useFlexLayout,
   usePagination,
   PluginHook,
   UsePaginationOptions,
@@ -63,11 +63,13 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
-        } as FeTableColumnOptions<T>)
+        } as FeTableColumnOptions<T>),
     );
     if (props.expandable) {
       columns.unshift({
         id: 'fe-expander',
+        minWidth: 60,
+        maxWidth: '60px' as any,
         Cell: (cell: Cell<T>) => {
           const row = cell.row as Row<T> & UseExpandedRowProps<T>;
           return (
@@ -81,6 +83,8 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
     if (props.selection) {
       columns.unshift({
         id: 'fe-selection',
+        minWidth: 60,
+        maxWidth: '60px' as any,
         Cell: (cell: Cell<T>) => {
           const row = cell.row as Row<T> & UseRowSelectRowProps<T>;
           return (
@@ -107,7 +111,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
   if (props.selection) {
     tableHooks.push(useRowSelect);
   }
-  // tableHooks.push(useFlexLayout);
+  tableHooks.push(useFlexLayout);
 
   const {
     getTableProps,
@@ -162,7 +166,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
       UseExpandedOptions<T> &
       UseRowSelectOptions<T> &
       UsePaginationOptions<T>,
-    ...tableHooks
+    ...tableHooks,
   ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T> & UseRowSelectInstanceProps<T>;
 
   if (props.expandable && !props.renderExpandedComponent) {
@@ -201,7 +205,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         }
       }
     },
-    [props.onSortChange]
+    [props.onSortChange],
   );
 
   const onFilterChange = useCallback(
@@ -216,7 +220,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         column.setFilter(filterValue);
       }
     },
-    [props.onFilterChange]
+    [props.onFilterChange],
   );
 
   const onToggleAllRowsSelected = useCallback(
@@ -228,7 +232,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         toggleAllRowsSelected(value);
       }
     },
-    [props.onRowSelected]
+    [props.onRowSelected],
   );
 
   const onRowSelected = useCallback(
@@ -246,7 +250,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         toggleRowSelected(id, value);
       }
     },
-    [props.onRowSelected]
+    [props.onRowSelected],
   );
 
   useEffect(() => {

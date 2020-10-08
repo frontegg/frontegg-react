@@ -5,7 +5,7 @@ import { FeTableColumnProps } from '@frontegg/react-core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Box, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useDebounce } from './helpers';
 const useStyles = makeStyles((theme) => ({
   filterButton: {
     margin: '-16px 0',
@@ -52,17 +52,3 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
     </Box>
   );
 };
-
-function useDebounce(value: any, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value]);
-  return debouncedValue;
-}
