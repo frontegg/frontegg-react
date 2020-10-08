@@ -2,6 +2,7 @@ import React, { FC, forwardRef } from 'react';
 import { IconNames, IconProps } from './interfaces';
 import { omitProps } from '../../helpers';
 import { SortArrows, SortArrowsAsc, SortArrowsDesc } from './svgs/SortArrows';
+import { Visibility, VisibilityOff } from './svgs/Visibility';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
 import { Checkmark, Indeterminate } from './svgs/Checkmark';
@@ -15,6 +16,8 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'sort-arrows': SortArrows,
   'sort-arrows-asc': SortArrowsAsc,
   'sort-arrows-desc': SortArrowsDesc,
+  'visibility': Visibility,
+  'visibility-off': VisibilityOff,
   delete: Delete,
   checkmark: Checkmark,
   indeterminate: Indeterminate,

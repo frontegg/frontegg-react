@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef } from 'react';
+import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef, useState } from 'react';
 import { AuthActions, AuthState, LoginStep } from '../Api';
 import {
   validateEmail,
@@ -10,9 +10,9 @@ import {
   FButton,
   FInput,
   FFormik,
+  Icon,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
-
 const { Formik } = FFormik;
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
@@ -53,7 +53,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
-
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
   const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
   const validationSchema: any = { email: validateEmail(t) };

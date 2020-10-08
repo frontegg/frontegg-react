@@ -3,6 +3,8 @@ import { Size } from '../../styles';
 
 export type IconNames =
   | 'up-arrow'
+  | 'visibility'
+  | 'visibility-off'
   | 'down-arrow'
   | 'left-arrow'
   | 'right-arrow'
