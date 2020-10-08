@@ -14,8 +14,6 @@ import {
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 const { Formik } = FFormik;
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
   ...loginState,
@@ -93,7 +91,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             name='email'
             type='email'
             prefixIcon={<Icon name='checkmark' />}
-            suffixIcon={<Icon name='checkmark' />}
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
@@ -102,7 +99,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           {shouldDisplayPassword && (
             <FInput
               label={t('auth.login.password')}
-              suffixIcon={passwordType === 'text' ? <Visibility /> : <VisibilityOff />}
+              suffixIcon={<Icon name={passwordType === 'text' ? 'visibility' : 'visibility-off'} />}
               iconAction={() => {
                 setPasswordType(passwordType === 'text' ? 'password' : 'text');
               }}

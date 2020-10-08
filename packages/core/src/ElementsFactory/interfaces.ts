@@ -1,6 +1,5 @@
-import React, { ReactElement, ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import React, { MouseEvent, ReactElement, ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 import { DialogProps } from './Dialog';
-
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { IconProps } from '../elements/Icon';
@@ -19,7 +18,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   error?: string;
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
-  iconAction?: () => void;
+  iconAction?: (e: MouseEvent) => void;
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
