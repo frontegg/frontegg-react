@@ -9,6 +9,13 @@ on:
 env:
   CI: true
 jobs:
+  checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Logger
+        run: |
+          echo "Pull Request Title |${{github.event.pull_request.title}}|"
+          echo "Pull Request Merged |${{github.event.pull_request.merged}}|"
   publish:
     name: Publish
     runs-on: ubuntu-latest
