@@ -7,7 +7,7 @@ export const Input = (props: InputProps) => React.createElement(ElementsFactory.
 
 export const FInput = (props: InputProps & { name: string }) => {
   const [inputProps, { touched, error }] = useField(props.name);
-  const {isSubmitting} = useFormikContext();
+  const { isSubmitting } = useFormikContext();
   const { onChange } = props;
   return (
     <Input

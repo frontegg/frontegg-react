@@ -30,5 +30,9 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({ error, separator, onError,
       </div>
     );
   }
-  return <div className='fe-error-message' style={style}>{error}</div>;
+  return (
+    <div className='fe-error-message' style={style}>
+      {error}
+    </div>
+  );
 };

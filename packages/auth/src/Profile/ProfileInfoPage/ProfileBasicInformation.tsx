@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks';
 const { useFormikContext } = FFormik;
 export const ProfileBasicInformation: FC = () => {
   const { t } = useT();
-  const { saving } = useAuth(state => state.profileState);
+  const { saving } = useAuth((state) => state.profileState);
 
   const formikContext = useFormikContext();
   useEffect(() => {

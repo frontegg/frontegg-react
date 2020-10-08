@@ -26,7 +26,6 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const changePasswordSubmitted = useRef(false);
 
-
   useEffect(() => {
     if (changePasswordSubmitted.current && !loading && !error) {
       setSuccessMessage(t('auth.profile.password-settings.success-message'));
