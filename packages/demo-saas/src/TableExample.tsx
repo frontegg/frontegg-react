@@ -1180,8 +1180,8 @@ export const TableExample: FC = () => {
         // onPageChange={(pageSize, page) => {
         //   console.log(pageSize, page);
         // }}
-        expandable
-        renderExpandedComponent={renderExpandedComponent}
+        // expandable
+        // renderExpandedComponent={renderExpandedComponent}
         selection='multi'
         onRowSelected={(selected) => {
           console.log(selected);

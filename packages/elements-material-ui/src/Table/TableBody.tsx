@@ -24,6 +24,13 @@ const useRowStyles = makeStyles({
       borderBottom: 'unset',
     },
   },
+  cell: {
+    maxWidth: '200px',
+    width: '200px',
+    minWidth: '200px',
+    overflow: 'hidden',
+    wordWrap: 'break-word',
+  },
 });
 
 export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: TableTBodyProps<T>) => {
@@ -44,7 +51,11 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
                     </TableCell>
                   );
                 }
-                return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
+                return (
+                  <TableCell className={classes.cell} {...cell.getCellProps()}>
+                    {cell.render('Cell')}
+                  </TableCell>
+                );
               })}
             </TableRow>
             <TableExpandable isExpanded={row.isExpanded} row={row} renderExpandedComponent={renderExpandedComponent} />
