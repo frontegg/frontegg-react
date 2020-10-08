@@ -54,7 +54,7 @@ jobs:
           yarn commit-version-dev
           yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
 
-          yarn lerna version --conventional-commits --no-git-tag-version --yes
+          yarn lerna version --conventional-commits --conventional-graduate --no-changelog --no-git-tag-version --yes
           yarn prettier-hook
           yarn commit-version
       - name: Set current CHANGELOG to output
@@ -84,11 +84,3 @@ jobs:
           labels: "Type: Release"
           branch: "release/next"
           request-to-parent: false
-      - name: Publish alpha version to npm
-        run: |
-          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
-          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha.${{ github.run_number }}"
-          yarn lerna version prerelease --preid "alpha.${{ github.run_number }}" --no-git-tag-version --yes --no-push
-          yarn lerna publish from-package --canary --no-git-reset --preid next --force-publish --contents dist --yes --no-push
-
