@@ -3,7 +3,7 @@
   "libName": "FronteggCore",
   "version": "1.0.85",
   "author": "Frontegg LTD",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "es2015": "dist/index.es.js",
   "types": "dist/index.d.ts",

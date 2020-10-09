@@ -157,7 +157,7 @@ export default [
       plugins: cjsPlugins,
       external: isExternal,
       output: {
-        file: path.join(distFolder, 'index.cjs.js'),
+        file: path.join(distFolder, 'index.js'),
         sourcemap: true,
         format: 'cjs',
       },

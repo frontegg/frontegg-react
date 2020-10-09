@@ -9,9 +9,11 @@ function movePackageJson(packagePath) {
   const distFolder = `${packagePath}/dist`;
 
   const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
-  newPkg.main = './esm/index.js';
-  newPkg.module = './esm/index.js';
-  newPkg.types = newPkg.types || newPkg.typings ? './esm/index.d.ts' : undefined;
+  newPkg.main = 'index.js';
+  newPkg.module = 'index.esm.js';
+  newPkg.es2015 = 'index.es.js';
+  newPkg.types = 'index.d.ts';
+
   if (newPkg.bin) {
     for (const k in newPkg.bin) {
       newPkg.bin[k] = newPkg.bin[k].substring('dist/'.length);
