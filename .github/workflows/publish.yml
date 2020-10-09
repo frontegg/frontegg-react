@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
       - name: Setup Node ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
@@ -92,14 +94,14 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Publish
-        if: steps.tag_check.outputs.exists_tag == 'false' && startsWith(github.event.pull_request.title, 'v')
+        if: steps.tag_check.outputs.exists_tag == 'false' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')
         run: |
           yarn lerna publish from-package --force-publish --contents dist --yes --no-push
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/github-script@0.8.0
-        if: startsWith(github.event.pull_request.title, 'v')
+        if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
