@@ -16,6 +16,7 @@ import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
+import { SelectProps } from '../elements/Select/interfaces';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -78,6 +79,7 @@ export type ElementProps = {
   Popup:
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
+  Select: ComponentType<SelectProps>;
 };
 
 export type ElementType = keyof ElementProps;
