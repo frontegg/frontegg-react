@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-cli",
-  "version": "1.0.86",
+  "version": "1.0.87",
   "author": "Frontegg LTD",
   "scripts": {
     "build": "export NODE_ENV='production'; rm -rf ./dist && rollup -c ../../scripts/rollup-cli.config.js && echo DONE",
@@ -16,8 +16,8 @@
     "figlet": "^1.5.0",
     "handlebars": "^4.7.6",
     "history": "^4.9.0",
-    "yargs": "^15.4.1",
-    "tslib": "^2.0.1"
+    "tslib": "^2.0.1",
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@types/node": "^13.9.1"
