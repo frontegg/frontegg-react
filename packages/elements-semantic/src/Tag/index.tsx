@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { TagProps, Theme } from '@frontegg/react-core';
-import { Icon, Label, LabelProps as SemanticLabelProps, SemanticCOLORS } from 'semantic-ui-react';
+import { TagProps, Icon, Theme } from '@frontegg/react-core';
+import { Label, LabelProps as SemanticLabelProps, SemanticCOLORS } from 'semantic-ui-react';
 
 const variantToColor: { [variant in Theme]: SemanticCOLORS } = {
   primary: 'blue',

@@ -37,6 +37,10 @@
   }
 }
 
+@mixin with-full-width {
+  width: 100%;
+}
+
 @mixin with-clickable {
   &-clickable {
     cursor: pointer;
