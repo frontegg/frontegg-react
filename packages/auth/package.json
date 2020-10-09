@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@frontegg/react-core": "^1.0.86",
-    "@reduxjs/toolkit": "^1.1.0",
+    "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
     "react": ">16.8.6",
