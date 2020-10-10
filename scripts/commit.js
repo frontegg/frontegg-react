@@ -136,7 +136,7 @@ async function run() {
           '   - no dot (.) at the end\n');
       },
       format: value => value.trim(),
-      validate: value => value === 'Start typing...' ? 'Summary should not be empty' : (value.trim().length < 10 ? `very short summary` : (value.trim().length > 60 ? `very short summary` : true)),
+      validate: value => value === 'Start typing...' ? 'Summary should not be empty' : (value.trim().length < 10 ? `very short summary` : (value.trim().length > 80 ? `very short summary` : true)),
     },
   ]);
 
