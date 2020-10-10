@@ -181,7 +181,7 @@ async function run() {
   console.log(`-----------Commit Message--------------`);
   console.log(commitMessage);
   console.log('---------------------------------------');
-  console.log(`Branch: ${execSync(`git rev-parse --abbrev-ref HEAD`).replace('\n', '').trim()}`);
+  console.log(`Branch: ${execSync(`git rev-parse --abbrev-ref HEAD`)}`);
   console.log('---------------------------------------');
   const { confirm } = await prompts([{
     type: 'toggle',
