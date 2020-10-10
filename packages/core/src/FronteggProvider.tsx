@@ -9,6 +9,7 @@ import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
+import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
 
 const isSSR = typeof window === 'undefined';
 
@@ -65,7 +66,15 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      {children}
+      <OldFronteggProvider
+        contextOptions={{
+          ...(props.context as any),
+          tokenResolver: () => ContextHolder.getAccessToken() || '',
+        }}
+        plugins={[{ type: 'reports' }]}
+      >
+        {children}
+      </OldFronteggProvider>
       {rcPortals}
     </>
   );
