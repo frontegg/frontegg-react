@@ -42,6 +42,10 @@ jobs:
       - name: Authenticate with Registry
         run: |
           yarn logout
+          echo "init-author-name=Frontegg LTD" > .npmrc
+          echo "init-author-email=hello@frontegg.com" > .npmrc
+          echo "init-author-url=https://frontegg.com" > .npmrc
+          echo "init-license=MIT" > .npmrc
           echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
           echo "registry=http://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
@@ -50,13 +54,14 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Commit Version UP
         run: |
-          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha.${{ github.run_number }}"
-          yarn lerna version prerelease --preid "alpha.${{ github.run_number }}" --no-git-tag-version --yes
+          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha"
+          yarn lerna version prerelease --conventional-prerelease --preid alpha --yes --no-push --no-changelog
           yarn prettier-hook
           git add . && git commit -m "ci: publish prerelease version `node -p 'require("./lerna.json").version'`"
+          git tag -d $(git describe --abbrev=0)
           yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
 
-          yarn lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes
+          yarn lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes --no-push
           yarn prettier-hook
           git add . && git commit -m "chore(release): publish `node -p 'require("./lerna.json").version'`"
       - name: Set current CHANGELOG to output
