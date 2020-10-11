@@ -1,7 +1,7 @@
 import React, { FC, useContext, useLayoutEffect, useRef } from 'react';
-import { ClassNameGenerator } from '../../../../styles';
-import { AccordionContentProps } from '../../interfaces';
-import { FeAccordionContext } from '../FeAccordionContext';
+import { ClassNameGenerator } from '../../../styles';
+import { AccordionContentProps } from '../interfaces';
+import { FeAccordionContext } from './FeAccordionContext';
 import './FeAccordionContent.scss';
 
 const prefixCls = 'fe-accordion-content';
