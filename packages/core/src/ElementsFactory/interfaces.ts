@@ -59,9 +59,6 @@ export type ElementProps = {
   Button:
     | ComponentType<ButtonProps>
     | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
-  Checkbox:
-    | ComponentType<CheckboxProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
@@ -70,6 +67,9 @@ export type ElementProps = {
   Icon: ComponentType<IconProps>;
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
+  Checkbox:
+    | ComponentType<CheckboxProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Grid:
     | ComponentType<GridProps>
     | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;

@@ -37,7 +37,7 @@ export const SelectorExample: FC = () => {
 
   return (
     <div style={{ margin: '30px' }}>
-      <ME.Select options={top100Films} value={value} onChange={onChange} />
+      {/*<ME.Select options={top100Films} value={value} onChange={onChange} />*/}
     </div>
   );
 };
