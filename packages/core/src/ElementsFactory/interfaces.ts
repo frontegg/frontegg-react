@@ -16,6 +16,7 @@ import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
+import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -55,12 +56,15 @@ type ComponentTypeOrForwardRef<P, REF> =
   | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>;
 
 export type ElementProps = {
+  Accordion: ComponentType<AccordionProps>;
+  AccordionHeader: ComponentType<AccordionHeaderProps>;
+  AccordionContent: ComponentType<AccordionContentProps>;
   Button:
-    | ComponentType<ButtonProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
+  | ComponentType<ButtonProps>
+  | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
   Checkbox:
-    | ComponentType<CheckboxProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
+  | ComponentType<CheckboxProps>
+  | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
@@ -70,14 +74,14 @@ export type ElementProps = {
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
   Grid:
-    | ComponentType<GridProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
+  | ComponentType<GridProps>
+  | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
   Table:
-    | ComponentType<TableProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
+  | ComponentType<TableProps>
+  | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
   Popup:
-    | ComponentType<PopupProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
+  | ComponentType<PopupProps>
+  | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
 };
 
 export type ElementType = keyof ElementProps;

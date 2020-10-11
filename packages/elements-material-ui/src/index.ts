@@ -1,4 +1,7 @@
 import { Elements } from '@frontegg/react-core';
+import { Accordion } from './Accordion';
+import { AccordionContent } from './Accordion';
+import { AccordionHeader } from './Accordion';
 import { Button } from './Button';
 import { Input } from './Input';
 import { Form } from './Form';
@@ -16,6 +19,9 @@ import { Grid } from './Grid';
 export const type = 'material-ui';
 export const version = '4.11.0';
 export const uiLibrary: Partial<Elements> = {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
   Button,
   Input,
   Form,
