@@ -42,6 +42,10 @@ jobs:
       - name: Authenticate with Registry
         run: |
           yarn logout
+          echo "init-author-name=Frontegg LTD" > .npmrc
+          echo "init-author-email=hello@frontegg.com" > .npmrc
+          echo "init-author-url=https://frontegg.com" > .npmrc
+          echo "init-license=MIT" > .npmrc
           echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
           echo "registry=http://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
