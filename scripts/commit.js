@@ -176,7 +176,7 @@ async function run() {
   }
 
 
-  const commitMessage = `${type}${scope ? `(${scope})` : ''}:${summary}${body ? `\n\n${body}${footer ? `\n\n${footer}` : ''}` : ''}`.trim();
+  const commitMessage = `${type}${scope ? `(${scope})` : ''}: ${summary}${body ? `\n\n${body}${footer ? `\n\n${footer}` : ''}` : ''}`.trim();
 
   console.log(`-----------Commit Message--------------`);
   console.log(commitMessage);
