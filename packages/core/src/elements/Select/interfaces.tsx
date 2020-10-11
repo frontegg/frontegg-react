@@ -36,7 +36,6 @@ export interface SelectProps<T = any> {
   theme?: Theme;
 }
 
-
 // const props = {
 //   options: [{label:'MAx', value:'max' }],
 //   renderOption: (value, state)=>{
