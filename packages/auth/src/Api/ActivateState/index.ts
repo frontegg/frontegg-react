@@ -1,5 +1,5 @@
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
-import { ActivateActions, ActivateState, ActivateStep } from './interfaces';
+import { ActivateState, ActivateStep } from './interfaces';
 import { createAction } from '@reduxjs/toolkit';
 import { IActivateAccount } from '@frontegg/react-core';
 
@@ -12,9 +12,9 @@ export const activateState: ActivateState = {
 
 export const activateStateReducers = {
   setActivateState: typeReducerForKey<ActivateState>('activateState'),
-  resetActivateState: resetStateByKey<ActivateState>('activateState'),
+  resetActivateState: resetStateByKey<ActivateState>('activateState', { activateState }),
 };
 
-export const activateActions: ActivateActions = {
+export const activateActions = {
   activateAccount: createAction(`${storeName}/activateAccount`, (payload: IActivateAccount) => ({ payload })),
 };

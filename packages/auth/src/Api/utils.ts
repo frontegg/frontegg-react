@@ -1,9 +1,8 @@
 import { AuthState } from './interfaces';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { preloadedState } from './preloadedState';
 
 export const storeName = 'auth';
-export const resetStateByKey = <T>(key: keyof AuthState) => (state: AuthState) => ({
+export const resetStateByKey = <T>(key: keyof AuthState, preloadedState: Partial<AuthState>) => (state: AuthState) => ({
   ...state,
   [key]: preloadedState[key],
 });

@@ -10,7 +10,3 @@ export interface ActivateState {
   error?: any;
   step: ActivateStep;
 }
-
-export interface ActivateActions {
-  activateAccount: (payload: IActivateAccount) => void;
-}

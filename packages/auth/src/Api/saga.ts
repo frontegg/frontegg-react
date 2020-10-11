@@ -20,8 +20,12 @@ import {
   omitProps,
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ActivateStep, ForgotPasswordStep, LoginStep, MFAStep, SSOState } from './interfaces';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
+import { LoginStep } from './LoginState';
+import { ActivateStep } from './ActivateState';
+import { ForgotPasswordStep } from './ForgotPasswordState';
+import { SSOState } from './SSOState';
+import { MFAStep } from './MfaState';
 
 function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -70,11 +74,11 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   const calls = [];
   calls.push(call(refreshToken));
   if (firstTime) {
-    yield put(actions.setIsLoading(true));
+    yield put(actions.setState({ isLoading: true }));
     calls.push(call(refreshMetadata));
   }
   yield all(calls);
-  yield put(actions.setIsLoading(false));
+  yield put(actions.setState({ isLoading: false }));
 }
 
 function* preLogin({ payload: { email } }: PayloadAction<IPreLogin>) {
@@ -183,8 +187,7 @@ function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
   try {
     yield call(api.auth.recoverMfaToken, payload);
     yield put(actions.setLoginState({ loading: false, error: undefined, step: LoginStep.preLogin }));
-    yield put(actions.setState({ user: undefined }));
-    yield put(actions.setIsAuthenticated(false));
+    yield put(actions.setState({ user: undefined, isAuthenticated: false }));
   } catch (e) {
     yield put(actions.setLoginState({ error: e.message, loading: false }));
   }
@@ -221,12 +224,13 @@ function* resetPassword({ payload }: PayloadAction<IResetPassword>) {
 }
 
 function* logout({ payload }: PayloadAction<any>) {
-  yield put(actions.setIsLoading(true));
+  yield put(actions.setState({ isLoading: true }));
   try {
     yield call(api.auth.logout);
   } catch (e) {
     console.error(e);
   }
+  yield put(actions.setState({ isLoading: false }));
   payload();
 }
 

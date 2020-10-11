@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { ActivateStep } from '../Api';
 import { ActivateAccountSuccessRedirect, ActivateAccountSuccessRedirectProps } from './ActivateAccountSuccessRedirect';
 import { ActivateAccountFailedRedirect, ActivateAccountFailedRedirectProps } from './ActivateAccountFailedRedirect';
 import { ActivateAccountForm, ActivateAccountFormProps } from './ActivateAccountForm';
 import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 import { authPageWrapper } from '../components';
 import { useAuth } from '../hooks';
+import { ActivateStep } from '../Api/ActivateState';
 
 type Components = {
   ActivateAccountForm: ActivateAccountFormProps;

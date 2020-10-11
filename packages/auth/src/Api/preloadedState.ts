@@ -1,7 +1,10 @@
 import { loginState } from './LoginState';
-import { AuthState, MFAStep } from './interfaces';
+import { AuthState } from './interfaces';
 import { activateState } from './ActivateState';
 import { forgotPasswordState } from './ForgotPasswordState';
+import { ssoState } from './SSOState';
+import { profileState } from './ProfileState';
+import { mfaState } from './MfaState';
 
 export const preloadedState: AuthState = {
   // routes
@@ -23,17 +26,7 @@ export const preloadedState: AuthState = {
   loginState,
   activateState,
   forgotPasswordState,
-
-  ssoState: {
-    firstLoad: true,
-    loading: true,
-  },
-
-  profileState: {
-    loading: false,
-  },
-  mfaState: {
-    step: MFAStep.verify,
-    loading: false,
-  },
+  ssoState,
+  profileState,
+  mfaState,
 };
