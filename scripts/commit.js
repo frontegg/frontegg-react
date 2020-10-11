@@ -200,6 +200,7 @@ async function run() {
   console.log(chalk.cyan('GIT:'), 'committing...');
   if (confirm) {
     execSync(`git commit -m "${commitMessage}"`);
+    execSync(`git push`);
   }
 
 }
