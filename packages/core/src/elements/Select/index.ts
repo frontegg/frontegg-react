@@ -1,2 +1,2 @@
 export * from './Select';
-export * from './interfaces'
+export * from './interfaces';

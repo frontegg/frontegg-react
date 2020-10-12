@@ -14,7 +14,7 @@ const top100Films = [
   { label: 'The Dark Knight', value: '2008' },
   { label: '12 Angry Men', value: '1957' },
   { label: "Schindler's List", value: '1993' },
-  { label: 'Pulp Fiction', value: '1994' },
+  { label: 'Pulp Fiction', value: '19924' },
   { label: 'The Lord of the Rings: The Return of the King', value: '2003' },
   { label: 'The Good, the Bad and the Ugly', value: '1966' },
   { label: 'Fight Club', value: '1999' },
@@ -41,8 +41,8 @@ export const SelectorExample: FC = () => {
   };
 
   const renderOption = (option: any, state: any) => {
-    console.log(state);
-    return <span>{option.label}</span>;
+    // console.log(option, state);
+    return <span style={{ background: 'pink' }}>{option.label}</span>;
   };
 
   const onChange = useCallback((_e, newValue: Array<any>) => {
@@ -51,23 +51,38 @@ export const SelectorExample: FC = () => {
 
   return (
     <div style={{ margin: '30px' }}>
-      {
-        <ME.Select
-          size='medium'
-          label='Selector'
-          open={open}
-          loading={loading}
-          onOpen={onOpen}
-          theme='secondary'
-          onClose={onClose}
-          multiselect={true}
-          options={top100Films}
-          value={value}
-          onChange={onChange}
-          getOptionLabel={getOptionLabel}
-          renderOption={renderOption}
-        />
-      }
+      <ME.Select
+        size='medium'
+        label='Selector'
+        open={open}
+        loading={loading}
+        onOpen={onOpen}
+        theme='secondary'
+        onClose={onClose}
+        multiselect={true}
+        options={top100Films}
+        value={value}
+        onChange={onChange}
+        getOptionLabel={getOptionLabel}
+        renderOption={renderOption}
+      />
+      <br />
+      {/*@ts-ignore */}
+      <br />
+
+      <FE.Select
+        label='Selector'
+        getOptionLabel={getOptionLabel}
+        renderOption={renderOption}
+        multiselect={true}
+        value={value}
+        onChange={onChange}
+        noOptionsText='Empty list'
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        options={top100Films}
+      />
     </div>
   );
 };

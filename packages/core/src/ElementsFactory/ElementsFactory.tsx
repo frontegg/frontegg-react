@@ -8,6 +8,7 @@ import { FeLoader } from '../elements/Loader/FeLoader';
 import { FePopup } from '../elements/Popup/FePopup';
 import { FeCheckbox } from '../elements/Checkbox/FeCheckbox';
 import { FeTag } from '../elements/Tag/FeTag';
+import { FeSelect } from '../elements/Select/FeSelect';
 
 export const fronteggElements: Partial<Elements> = {
   Loader: FeLoader,
@@ -17,6 +18,7 @@ export const fronteggElements: Partial<Elements> = {
   Icon: FeIcon,
   Popup: FePopup,
   Checkbox: FeCheckbox,
+  Select: FeSelect,
 };
 
 export class ElementsFactory {

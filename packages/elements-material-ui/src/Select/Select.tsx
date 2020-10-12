@@ -42,7 +42,7 @@ export const Select: FC<any> = (props) => {
         <Chip disabled={true} label={option.label} {...getTagProps({ index })} />
       );
     },
-    [renderOption],
+    [renderOption]
   );
 
   return (
