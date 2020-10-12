@@ -33,10 +33,7 @@ export const SelectorExample: FC = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const onOpen = () => {
-    setOpen(true);
-    setLoading(true);
-  };
+  const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
 
   const getOptionLabel = (option: any) => {
@@ -45,12 +42,11 @@ export const SelectorExample: FC = () => {
 
   const renderOption = (option: any, state: any) => {
     console.log(state);
-    return <h3>{option.label}</h3>;
+    return <span>{option.label}</span>;
   };
 
   const onChange = useCallback((_e, newValue: Array<any>) => {
     setValue(newValue);
-    setLoading(true);
   }, []);
 
   return (
