@@ -1,10 +1,10 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Size, Theme } from '../../styles';
 
 export interface SelectOptionProps<T> {
   label: string;
   value: T;
-  key: string | number; // REMOVE: use value as key for semantic
+  // key: string | number; // REMOVE: use value as key for semantic
 }
 
 export interface StateProps {
@@ -15,6 +15,7 @@ export interface StateProps {
 
 export interface SelectProps<T = any> {
   value: T[];
+  label?: string;
   onChange: (e: Event, newValues: T[]) => void;
   options: SelectOptionProps<T>[];
   multiselect?: boolean; // for multi select
