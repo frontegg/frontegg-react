@@ -8,6 +8,8 @@ export * from './interfaces';
 export const teamState: TeamState = {
   loading: true,
   users: [],
+  roles: [],
+  totalPages: 0,
 };
 
 export const teamStateReducers = {};

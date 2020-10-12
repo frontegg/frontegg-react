@@ -13,6 +13,7 @@ export type IUserProfile = {
   tenantIds: string[];
   activatedForTenant?: boolean;
   metadata: any;
+  roleIds?: string[]; // { addRoles: true } params
 };
 
 export type IUpdateProfile = {
@@ -47,6 +48,14 @@ export type ITeamUser = {
   mfaEnabled?: boolean;
 };
 
+export type ITeamUserRole = string;
+
+export type ITeamStats = {
+  totalItems: number;
+  addedThisWeek: number;
+  superAdmins: number;
+};
+
 // api actions
 
 export type IChangePassword = {
@@ -56,4 +65,18 @@ export type IChangePassword = {
 export type ILoadUsers = {
   filter: TableFilter;
   sort: TableSort;
+  pageOffset: number;
+  pageSize: number;
+};
+
+export type IAddUser = {
+  email: string;
+};
+
+export type IResendActivationLink = {
+  userId: string;
+};
+
+export type ISendResetPassword = {
+  userId: string;
 };

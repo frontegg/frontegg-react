@@ -1,6 +1,15 @@
-import { ITeamUser } from '@frontegg/react-core';
+import { ITeamUserRole, ITeamUser } from '@frontegg/react-core';
 
 export interface TeamState {
-  loading: boolean;
+  error?: string; // for general api errors
+  loading: boolean; // for loading actions
+  saving: boolean; // for post actions
+
   users: ITeamUser[];
+  totalPages: number;
+  roles: ITeamUserRole[];
+
+  // users stats
+  totalItems?: number;
+  addedThisWeek?: number;
 }
