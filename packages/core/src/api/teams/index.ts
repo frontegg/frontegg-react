@@ -1,7 +1,7 @@
 import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
 import { USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
-import { IChangePassword, IUpdateProfile, IUserProfile } from './interfaces';
+import { IChangePassword, ITeamUser, IUpdateProfile, IUserProfile } from './interfaces';
 
 const logger = Logger.from('ProfileApi');
 
@@ -38,4 +38,17 @@ export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUse
 export async function changePassword(body: IChangePassword): Promise<void> {
   logger.debug('changePassword()');
   return Post(`${USERS_SERVICE_URL_V1}/passwords/change`, body);
+}
+
+/*****************************************
+ * Team Api
+ *****************************************/
+/**
+ * load team users
+ *
+ * ``authorized user``
+ */
+export async function loadUsers(): Promise<ITeamUser[]> {
+  logger.debug('loadUsers()');
+  return Get(`${USERS_SERVICE_URL_V1}`);
 }

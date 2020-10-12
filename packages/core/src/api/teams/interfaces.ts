@@ -1,3 +1,5 @@
+import { TableFilter, TableSort } from '../../elements/Table';
+
 export type IUserProfile = {
   id: string;
   email: string;
@@ -24,7 +26,34 @@ export type IUpdateProfile = {
   profilePicture: string;
 };
 
+export type ITeamUser = {
+  // info
+  id: string;
+  email: string;
+  name: string;
+  phone?: string;
+  profileImage?: string;
+  profileImageUrl?: string;
+  // association
+  tenantId: string;
+  vendorId: string;
+  roleIds: string[];
+  activatedForTenant: boolean;
+
+  // other
+  createdAt: string;
+  customData?: any;
+  lastLogin?: string;
+  mfaEnabled?: boolean;
+};
+
+// api actions
+
 export type IChangePassword = {
   password: string;
   newPassword: string;
+};
+export type ILoadUsers = {
+  filter: TableFilter;
+  sort: TableSort;
 };

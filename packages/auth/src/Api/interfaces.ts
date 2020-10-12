@@ -6,6 +6,7 @@ import { ForgotPasswordState } from './ForgotPasswordState';
 import { SSOState } from './SSOState';
 import { ProfileState } from './ProfileState';
 import { MFAState } from './MfaState';
+import { TeamState } from './TeamState';
 
 export interface User extends IUserProfile {
   accessToken: string;
@@ -28,11 +29,5 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   ssoState: SSOState;
   profileState: ProfileState;
   mfaState: MFAState;
+  teamState: TeamState;
 }
-
-export type LogoutPayload = () => void;
-export type ActivateAccountPayload = {
-  token: string;
-  userId: string;
-  password: string;
-};

@@ -5,6 +5,7 @@ import { forgotPasswordState } from './ForgotPasswordState';
 import { ssoState } from './SSOState';
 import { profileState } from './ProfileState';
 import { mfaState } from './MfaState';
+import { teamState } from './TeamState';
 
 export const preloadedState: AuthState = {
   // routes
@@ -29,4 +30,5 @@ export const preloadedState: AuthState = {
   ssoState,
   profileState,
   mfaState,
+  teamState,
 };

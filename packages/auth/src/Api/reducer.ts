@@ -8,6 +8,7 @@ import { forgotPasswordActions, forgotPasswordStateReducers } from './ForgotPass
 import { ssoActions, ssoStateReducers } from './SSOState';
 import { mfaActions, mfaStateReducers } from './MfaState';
 import { profileActions, profileStateReducers } from './ProfileState';
+import { teamActions, teamStateReducers } from './TeamState';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
@@ -22,6 +23,7 @@ const { reducer, actions: sliceActions } = createSlice({
     ...ssoStateReducers,
     ...profileStateReducers,
     ...mfaStateReducers,
+    ...teamStateReducers,
   },
 });
 
@@ -33,6 +35,7 @@ const actions = {
   ...ssoActions,
   ...profileActions,
   ...mfaActions,
+  ...teamActions,
 };
 
 export type AuthActions = typeof actions;
