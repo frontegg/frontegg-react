@@ -19,6 +19,7 @@ const mapper = ({
   ...rest
 }: PopupProps): SemanticPopupProps => {
   let position: any;
+
   if (vertical === 'center') {
     position = `${horizontal === 'center' ? 'bottom' : horizontal} center`;
   } else if (horizontal === 'center') {
