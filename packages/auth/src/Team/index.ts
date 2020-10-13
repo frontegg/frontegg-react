@@ -1,17 +1,17 @@
 import { TeamPage } from './TeamPage';
 import { TeamLayout } from './TeamLayout';
 import { TeamHeader } from './TeamHeader';
-import { TeamTableHeader } from './TeamTableHeader';
+import { TeamTableToolbar } from './TeamTableToolbar';
 import { TeamTable } from './TeamTable';
 import { TeamAddUserDialog } from './TeamAddUserDialog';
 import { TeamDeleteUserDialog } from './TeamDeleteUserDialog';
 
 export const Team = {
   Page: TeamPage,
-  Layout: TeamLayout,
   Header: TeamHeader,
-  TableHeader: TeamTableHeader,
+  Layout: TeamLayout,
   Table: TeamTable,
+  TableToolbar: TeamTableToolbar,
   AddUserDialog: TeamAddUserDialog,
   DeleteUserDialog: TeamDeleteUserDialog,
 };
