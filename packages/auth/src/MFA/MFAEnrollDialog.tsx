@@ -3,7 +3,7 @@ import { Dialog, DialogContext, DialogProps, omitProps, useT } from '@frontegg/r
 import { MFAVerifyStep } from './MFAVerifyStep';
 import { MFARecoveryCodeStep } from './MFARecoveryCodeStep';
 import { useAuth } from '../hooks';
-import { MFAStep } from '../Api';
+import { MFAStep } from '../Api/MfaState';
 
 export type MFADialogProps = DialogProps;
 export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {

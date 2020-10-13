@@ -25,7 +25,7 @@ export interface ResetPasswordFormProps {
 export const ResetPasswordForm: FC<ResetPasswordFormProps> = (props) => {
   const { renderer, userId, token } = props;
   const { t } = useT();
-  const { loading, error, resetPassword } = useAuth(({ forgetPasswordState }) => forgetPasswordState);
+  const { loading, error, resetPassword } = useAuth(({ forgotPasswordState }) => forgotPasswordState);
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));

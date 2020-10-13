@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { ComponentsTypesWithProps, Loader, useDynamicComponents } from '@frontegg/react-core';
-import { AuthState, LoginStep } from '../Api';
+import { AuthState } from '../Api';
+import { LoginStep } from '../Api/LoginState';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';

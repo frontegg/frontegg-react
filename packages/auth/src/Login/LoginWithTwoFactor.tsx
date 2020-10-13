@@ -3,7 +3,6 @@ import {
   validateSchema,
   validateTwoFactorCode,
   omitProps,
-  Button,
   ErrorMessage,
   RendererFunctionFC,
   useT,
@@ -12,8 +11,9 @@ import {
   FButton,
   FFormik,
 } from '@frontegg/react-core';
-import { AuthActions, AuthState, LoginStep } from '../Api';
+import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
+import { LoginStep } from '../Api/LoginState';
 
 const { Formik } = FFormik;
 
