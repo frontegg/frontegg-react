@@ -20,6 +20,7 @@ export interface TeamState {
   errors: LoaderIndicatorState<TeamStateKeys>;
 
   users: ITeamUser[];
+  pageSize: number;
   totalPages: number;
   roles: ITeamUserRole[];
 

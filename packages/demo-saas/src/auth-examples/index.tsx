@@ -12,6 +12,7 @@ enum Ex {
 }
 
 const selectedExample: any = Ex.Frontegg;
+
 export const AuthExamples: FC = ({ children }) => {
   switch (selectedExample) {
     case Ex.Frontegg:

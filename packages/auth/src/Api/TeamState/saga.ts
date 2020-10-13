@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import {
   api,
@@ -14,9 +14,12 @@ import { TeamStateKeys } from './interfaces';
 
 function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>) {
   const { silentLoading, ...body } = payload;
+  const pageSize = payload.pageSize ?? (yield select((state) => state.auth.team.pageSize));
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: !silentLoading }));
   try {
-    const { items: users, totalPages } = yield call(api.teams.loadUsers, body);
+    const { items: users, totalPages } = yield call(api.teams.loadUsers, { ...body, pageSize });
+    const roles = yield call(api.teams.loadAvailableRoles);
+    yield put(actions.setTeamState({ users, totalPages, pageSize, roles }));
   } catch (e) {
     yield put(actions.setTeamError({ key: TeamStateKeys.USERS, value: e.message }));
     yield put(actions.setTeamState({ totalPages: 0, users: [] }));

@@ -65,10 +65,10 @@ export type IChangePassword = {
 
 export type ILoadUsers = {
   silentLoading?: boolean;
-  filter: TableFilter;
-  sort: TableSort;
+  filter?: TableFilter[];
+  sort?: TableSort[];
   pageOffset: number;
-  pageSize: number;
+  pageSize?: number;
 };
 
 export type IAddUser = {

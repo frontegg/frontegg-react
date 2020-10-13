@@ -10,6 +10,7 @@ export const teamState: TeamState = {
   loaders: {
     [TeamStateKeys.USERS]: true,
   },
+  pageSize: 20,
   errors: {},
   users: [],
   roles: [],

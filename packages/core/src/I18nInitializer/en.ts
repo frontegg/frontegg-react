@@ -19,6 +19,7 @@ export default {
       password: 'Password',
       'not-configured': 'Not Configured',
       country: 'Country',
+      'last-updated': 'Last updated',
       'date-of-birth': 'Date of Birth',
     },
     auth: {
@@ -131,6 +132,10 @@ export default {
           message: 'Disable 2FA will remove an extra layer of security.',
           'enter-generated-code': 'Enter the generated 6-digit code',
         },
+      },
+      team: {
+        title: 'Team Management',
+        subtitle: 'Total or {{totalItems}} team membders',
       },
     },
     validation: {
