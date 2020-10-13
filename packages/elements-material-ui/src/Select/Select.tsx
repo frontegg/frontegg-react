@@ -33,7 +33,6 @@ export const Select: FC<SelectProps> = (props) => {
     open: propOpen,
   } = p;
   const color: any = p.color;
-  console.log(color);
   const handleChange = useCallback((e, newValue, reson) => {
     onChange && onChange(e, newValue, reson);
   }, []);
