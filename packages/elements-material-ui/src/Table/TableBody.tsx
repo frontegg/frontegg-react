@@ -1,14 +1,7 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { TableBody as MTableBody, TableRow, TableCell } from '@material-ui/core';
-import {
-  // HeaderGroup,
-  Row,
-  TableBodyPropGetter,
-  TableBodyProps,
-  // TableSortByToggleProps,
-  UseExpandedRowProps,
-} from 'react-table';
+import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { TableExpandable } from './TableExpandable';
 
 type TableTBodyProps<T extends object> = {

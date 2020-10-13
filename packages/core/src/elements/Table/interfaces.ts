@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, ReactElement, ReactNode } from 'react';
+import React, { ComponentType, ReactNode } from 'react';
 import {
   Column,
   HeaderGroup,

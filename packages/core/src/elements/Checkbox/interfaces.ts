@@ -1,6 +1,5 @@
-import React, { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { FormFieldProps } from '../../ElementsFactory';
-import { ButtonProps } from '../Button';
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'size'>, FormFieldProps {
   label?: string;

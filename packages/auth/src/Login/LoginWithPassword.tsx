@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef } from 'react';
+import React, { ComponentType, createElement, FC, useEffect } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import { LoginStep } from '../Api/LoginState';
 import {
