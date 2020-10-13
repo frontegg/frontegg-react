@@ -14,7 +14,7 @@ import { TeamStateKeys } from './interfaces';
 
 function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>) {
   const { silentLoading, ...body } = payload;
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: true }));
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: !silentLoading }));
   try {
     const { items: users, totalPages } = yield call(api.teams.loadUsers, body);
   } catch (e) {
@@ -39,7 +39,7 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
 
 function* resendActivationLink({ payload }: PayloadAction<WithCallback<IResendActivationLink, boolean>>) {
   const { callback, ...body } = payload;
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_ACTIVATE_LINK, value: true }));
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_ACTIVATE_LINK, value: body.userId }));
   try {
     yield call(api.teams.resendActivationLink, body);
     callback?.(true);
@@ -52,7 +52,7 @@ function* resendActivationLink({ payload }: PayloadAction<WithCallback<IResendAc
 
 function* sendResetPasswordLink({ payload }: PayloadAction<WithCallback<ISendResetPasswordLink, boolean>>) {
   const { callback, ...body } = payload;
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.SEND_RESET_PASSWORD_LINK, value: true }));
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.SEND_RESET_PASSWORD_LINK, value: body.userId }));
   try {
     yield call(api.teams.sendResetPasswordLink, body);
     callback?.(true);

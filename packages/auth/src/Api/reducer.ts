@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User } from './interfaces';
 import { storeName, typeReducer } from './utils';
-import { preloadedState } from './preloadedState';
+import { initialState } from './initialState';
 import { loginActions, loginStateReducers } from './LoginState';
 import { activateActions, activateStateReducers } from './ActivateState';
 import { forgotPasswordActions, forgotPasswordStateReducers } from './ForgotPasswordState';
@@ -12,7 +12,7 @@ import { teamActions, teamStateReducers } from './TeamState';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
-  initialState: preloadedState,
+  initialState,
   reducers: {
     setState: (state: AuthState, { payload }: PayloadAction<Partial<AuthState>>) => ({ ...state, ...payload }),
     setUser: typeReducer<User>('user'),

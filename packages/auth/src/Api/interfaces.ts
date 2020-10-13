@@ -1,5 +1,5 @@
 import { AuthPageProps, AuthPageRoutes } from '../interfaces';
-import { ITeamUser, IUserProfile, RedirectOptions } from '@frontegg/react-core';
+import { IUserProfile, RedirectOptions } from '@frontegg/react-core';
 import { ActivateState } from './ActivateState';
 import { LoginState } from './LoginState';
 import { ForgotPasswordState } from './ForgotPasswordState';
@@ -12,7 +12,7 @@ export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
 };
 export type WithCallback<T, R> = T & {
-  callback?: (user: R | null, error?: string) => void;
+  callback?: (data: R | null, error?: string) => void;
 };
 export type LoaderIndicatorState<T extends string> = Partial<
   {

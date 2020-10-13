@@ -3,9 +3,9 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { TeamStateKeys } from './TeamState';
 
 export const storeName = 'auth';
-export const resetStateByKey = <T>(key: keyof AuthState, preloadedState: Partial<AuthState>) => (state: AuthState) => ({
+export const resetStateByKey = <T>(key: keyof AuthState, initialState: Partial<AuthState>) => (state: AuthState) => ({
   ...state,
-  [key]: preloadedState[key],
+  [key]: initialState[key],
 });
 export const typeReducer = <T>(key: keyof AuthState) => (state: AuthState, { payload }: PayloadAction<T>) => ({
   ...state,

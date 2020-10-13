@@ -7,7 +7,7 @@ import { profileState } from './ProfileState';
 import { mfaState } from './MfaState';
 import { teamState } from './TeamState';
 
-export const preloadedState: AuthState = {
+export const initialState: AuthState = {
   // routes
   routes: {
     authenticatedUrl: '/',
