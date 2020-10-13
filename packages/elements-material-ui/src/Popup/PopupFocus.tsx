@@ -31,24 +31,14 @@ export const PopupFocus = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
 
   return (
     <>
-      {React.cloneElement(trigger as React.ReactElement<any>, {
-        className: 'fe-m-popup-trigger',
-        onFocus: handleFocus,
-        ref: ref,
-      })}
+      {React.cloneElement(trigger, { onFocus: handleFocus, ref })}
       <Popover
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         container={mountNode}
-        anchorOrigin={{
-          vertical: anchorOrigin.vertical,
-          horizontal: anchorOrigin.horizontal,
-        }}
-        transformOrigin={{
-          vertical: transformOrigin.vertical,
-          horizontal: transformOrigin.horizontal,
-        }}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}
       >
         <Box className={classnames(classes.box, 'fe-m-popup-content')}>{content}</Box>
       </Popover>

@@ -22,19 +22,19 @@ export const FeCheckbox = forwardRef<HTMLInputElement, CheckboxProps>((props, re
   return (
     <div
       className={classNames(prefixCls, className, {
-        'fe-checkbox__in-form': inForm,
-        'fe-checkbox__checked': checked,
-        'fe-checkbox__disabled': disabled,
-        'fe-checkbox__full-width': fullWidth,
-        'fe-checkbox__with-label': !!label,
+        [`${prefixCls}__in-form`]: inForm,
+        [`${prefixCls}__checked`]: checked,
+        [`${prefixCls}__disabled`]: disabled,
+        [`${prefixCls}__full-width`]: fullWidth,
+        [`${prefixCls}__with-label`]: !!label,
       })}
     >
-      <div className='fe-checkbox__content'>
+      <div className={`${prefixCls}__content`}>
         <input type='checkbox' ref={ref} checked={indeterminate || checked} onChange={toggleCheck} />
-        <span className='fe-checkbox__input'>
+        <span className={`${prefixCls}__input`}>
           <FeIcon name={indeterminate ? 'indeterminate' : 'checkmark'} />
         </span>
-        {label && <label className='fe-checkbox__label'>{label}</label>}
+        {label && <label className={`${prefixCls}__label`}>{label}</label>}
       </div>
     </div>
   );

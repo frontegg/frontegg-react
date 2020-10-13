@@ -26,10 +26,7 @@
   @include with-clickable;
   @include with-theme;
   @include with-size;
-
-  &-full-width {
-    width: 100%;
-  }
+  @include with-full-width;
 
   &-loader {
     color: transparent !important;

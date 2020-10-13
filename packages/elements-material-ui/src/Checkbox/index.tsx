@@ -5,7 +5,6 @@ import {
   CheckboxProps as MaterialCheckboxProps,
   FormControlLabel,
 } from '@material-ui/core';
-import './style.scss';
 import classNames from 'classnames';
 
 const mapper = ({

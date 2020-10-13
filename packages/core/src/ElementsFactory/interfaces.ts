@@ -16,6 +16,8 @@ import { LoaderProps } from '../elements/Loader';
 import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
+import { SelectProps } from '../elements/Select';
+import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -67,12 +69,12 @@ type ComponentTypeOrForwardRef<P, REF> =
   | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>;
 
 export type ElementProps = {
+  Accordion: ComponentType<AccordionProps>;
+  AccordionHeader: ComponentType<AccordionHeaderProps>;
+  AccordionContent: ComponentType<AccordionContentProps>;
   Button:
     | ComponentType<ButtonProps>
     | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
-  Checkbox:
-    | ComponentType<CheckboxProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
   DatePicker: ComponentType<DatePickerProps>;
@@ -82,6 +84,9 @@ export type ElementProps = {
   Icon: ComponentType<IconProps>;
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
+  Checkbox:
+    | ComponentType<CheckboxProps>
+    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Grid:
     | ComponentType<GridProps>
     | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
@@ -91,6 +96,7 @@ export type ElementProps = {
   Popup:
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
+  Select: ComponentType<SelectProps>;
 };
 
 export type ElementType = keyof ElementProps;

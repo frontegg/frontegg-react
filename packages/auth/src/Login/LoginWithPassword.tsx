@@ -1,5 +1,6 @@
-import React, { ComponentType, createElement, FC, ReactElement, useEffect, useRef, useState } from 'react';
-import { AuthActions, AuthState, LoginStep } from '../Api';
+import React, { ComponentType, createElement, FC, useEffect } from 'react';
+import { AuthActions, AuthState } from '../Api';
+import { LoginStep } from '../Api/LoginState';
 import {
   validateEmail,
   validateSchema,
@@ -10,9 +11,9 @@ import {
   FButton,
   FInput,
   FFormik,
-  Icon,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+
 const { Formik } = FFormik;
 
 const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({

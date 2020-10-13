@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-material-ui",
   "libName": "FronteggElementsMaterialUi",
-  "version": "1.0.87",
+  "version": "1.0.89",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -22,6 +22,7 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "classnames": "^2.2.6",
     "moment": "^2.29.1",
     "react": ">16.8.6",

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { FeIcon } from '../Icon/FeIcon';
 import { FeTableColumnProps } from './interfaces';
 import { FePopup } from '../Popup/FePopup';
-import useDebounce from '../../hooks';
+import { useDebounce } from '../../hooks';
 
 type FeTableFilterColumnProps<T extends object = any> = {
   column: FeTableColumnProps<T>;
@@ -14,9 +14,6 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
   column,
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
-  if (!column.canFilter) {
-    return null;
-  }
   const [filterValue, setFilterValue] = useState(column.filterValue);
   const debounceFilters = useDebounce(filterValue, 500);
 

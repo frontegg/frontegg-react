@@ -20,7 +20,7 @@ export interface ForgotPasswordFormProps {
   renderer?: ComponentType<ForgotPasswordFormRendererProps>;
 }
 
-const stateMapper = ({ forgetPasswordState }: AuthState) => forgetPasswordState;
+const stateMapper = ({ forgotPasswordState }: AuthState) => forgotPasswordState;
 export const ForgotPasswordForm: FC<ForgotPasswordFormProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();

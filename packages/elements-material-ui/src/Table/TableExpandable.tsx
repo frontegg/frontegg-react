@@ -9,17 +9,7 @@ type TableExpandableProps<T extends object> = {
 };
 export const TableExpandable: FC<TableExpandableProps<any>> = <T extends object>(props: TableExpandableProps<T>) => {
   const { isExpanded, renderExpandedComponent, row } = props;
-  const ref = useRef<HTMLDivElement | null>();
-  useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
-    if (isExpanded) {
-      ref.current?.classList?.add?.('is-expanded');
-    } else {
-      ref.current?.classList?.remove?.('is-expanded');
-    }
-  }, [isExpanded]);
+
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={row.cells.length}>

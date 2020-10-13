@@ -1,67 +1,54 @@
-import React, { forwardRef, MouseEvent, useCallback, useState } from 'react';
+import React, { forwardRef, MouseEvent, useCallback, useRef, useState } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { IPopoverProps } from './types';
 import { useStyles } from './styles';
 
+const debounceDelay = 100;
 export const PopupHover = forwardRef<HTMLElement, IPopoverProps>((props, ref) => {
   const { trigger, content, anchorOrigin, transformOrigin, mountNode } = props;
-  const classes = useStyles();
-  const [open, setOpen] = useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [anchorElRect, setAnchorElRect] = useState({ fromX: 0, toX: 0, fromY: 0, toY: 0 });
 
-  const onMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (
-        e.pageX < anchorElRect.fromX ||
-        e.pageX > anchorElRect.toX ||
-        e.pageY < anchorElRect.fromY ||
-        e.pageY > anchorElRect.toY
-      ) {
-        setOpen(false);
-        setAnchorEl(null);
-      }
-    },
-    [anchorElRect]
-  );
+  const debounceRef = useRef<number>(0);
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const open = Boolean(anchorEl);
 
   const onMouseEnter = useCallback((e: MouseEvent<HTMLElement>) => {
-    const { x: fromX, y: fromY, width, height } = e.currentTarget.getBoundingClientRect();
-    const toX = fromX + width;
-    const toY = fromY + height;
-    setAnchorElRect({ fromX, fromY, toX, toY });
+    clearTimeout(debounceRef.current);
     setAnchorEl(e.currentTarget);
-    setOpen(true);
+  }, []);
+  const onMouseLeave = useCallback((e: MouseEvent<HTMLElement>) => {
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      setAnchorEl(null);
+    }, debounceDelay);
+  }, []);
+
+  const onMouseEnterPopup = useCallback((e: MouseEvent<HTMLElement>) => {
+    clearTimeout(debounceRef.current);
   }, []);
 
   return (
     <>
-      {React.cloneElement(trigger as React.ReactElement<any>, {
-        className: 'fe-m-popup-trigger',
-        ref: ref,
-        onMouseEnter,
-      })}
+      {React.cloneElement(trigger, { ref, onMouseEnter, onMouseLeave })}
       <Popover
+        className={classes.popover}
         container={mountNode}
         open={open}
-        BackdropProps={{
-          onMouseMove,
-          style: {
-            backgroundColor: 'inherit',
-          },
-        }}
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: anchorOrigin.vertical,
-          horizontal: anchorOrigin.horizontal,
-        }}
-        transformOrigin={{
-          vertical: transformOrigin.vertical,
-          horizontal: transformOrigin.horizontal,
-        }}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}
+        onClose={() => setAnchorEl(null)}
+        disableRestoreFocus
       >
-        <Box className={classnames(classes.box, 'fe-m-popup-content')}>{content}</Box>
+        <Box
+          className={classnames(classes.box, 'fe-material-popup-content')}
+          onMouseEnter={onMouseEnterPopup}
+          onMouseLeave={onMouseLeave}
+        >
+          {content}
+        </Box>
       </Popover>
     </>
   );

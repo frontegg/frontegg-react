@@ -1,52 +1,31 @@
 import React, { forwardRef, useMemo } from 'react';
+import { PopupProps } from '@frontegg/react-core';
 import { PopoverProps } from '@material-ui/core';
 import { PopupClick } from './PopupClick';
 import { PopupHover } from './PopupHover';
 import { PopupFocus } from './PopupFocus';
-import { PopupProps } from '@frontegg/react-core';
 
-const positions: any = {
-  t: 'top',
-  b: 'bottom',
-  l: 'left',
-  r: 'right',
-  c: 'center',
+const invertedVerticalPositions: { [key in string]: 'top' | 'bottom' | 'center' } = {
+  top: 'bottom',
+  bottom: 'top',
+  center: 'center',
 };
-
-//it's for transformOrigin property
-const invertedPositions: any = {
-  t: 'bottom',
-  b: 'top',
-  l: 'right',
-  r: 'left',
-  c: 'center',
+const invertedHorizontalPositions: { [key in string]: 'left' | 'right' | 'center' } = {
+  left: 'right',
+  right: 'left',
+  center: 'center',
 };
 
 const mapper = (props: PopupProps): Omit<PopoverProps, 'open'> => {
-  const { position: p } = props;
-  let aVertical: any = '';
-  let aHorizontal: any = '';
-  let tVertical: any = '';
-  let tHorizontal: any = '';
-  if (p?.charAt(0) === 'l' || p?.charAt(0) === 'r') {
-    aHorizontal = positions[p?.charAt(0)];
-    aVertical = 'center';
-    tHorizontal = invertedPositions[p?.charAt(0)];
-    tVertical = 'center';
-  } else {
-    aVertical = positions[p?.charAt(0) || 'b'];
-    aHorizontal = positions[p?.charAt(1) || 'c'];
-    tVertical = invertedPositions[p?.charAt(0) || 'b'];
-    tHorizontal = invertedPositions[p?.charAt(1) || 'c'];
-  }
+  const { position: { vertical, horizontal } = { vertical: 'bottom', horizontal: 'center' } } = props;
   return {
     anchorOrigin: {
-      vertical: aVertical,
-      horizontal: aHorizontal,
+      vertical,
+      horizontal,
     },
     transformOrigin: {
-      vertical: tVertical,
-      horizontal: tHorizontal,
+      vertical: invertedVerticalPositions[vertical],
+      horizontal: invertedHorizontalPositions[horizontal],
     },
   };
 };

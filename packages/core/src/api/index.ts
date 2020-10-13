@@ -1,5 +1,5 @@
 import * as auth from './auth';
-import * as profile from './teams';
+import * as teams from './teams';
 import * as metadata from './metadata';
 import * as reports from './reports';
 
@@ -13,7 +13,7 @@ export * from './reports/interfaces';
 
 export const api = {
   auth,
-  profile,
+  teams,
   metadata,
   reports,
 };

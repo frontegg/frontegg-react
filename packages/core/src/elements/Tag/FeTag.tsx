@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { TagProps } from './interfaces';
 import './FeTag.scss';
 import { FeIcon } from '../Icon/FeIcon';
-import { ClassNameGenerator, Theme } from '../../styles';
+import { ClassNameGenerator } from '../../styles';
 
 const prefixCls = 'fe-tag';
 export const FeTag = forwardRef<HTMLDivElement, TagProps>((props, ref) => {

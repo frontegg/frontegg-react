@@ -37,6 +37,12 @@
   }
 }
 
+@mixin with-full-width {
+  &-full-width {
+    width: 100%;
+  }
+}
+
 @mixin with-clickable {
   &-clickable {
     cursor: pointer;
@@ -46,12 +52,15 @@
     &:focus {
       filter: brightness(0.95);
     }
+
     &:hover {
       filter: brightness(0.9);
     }
+
     &:active {
       filter: brightness(0.8);
     }
+
     @content;
   }
 }

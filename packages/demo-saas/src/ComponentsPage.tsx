@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Elements, fronteggElements as FE, Loader } from '@frontegg/react-core';
+import React, { FC, useState } from 'react';
+import { Elements, fronteggElements as FE } from '@frontegg/react-core';
 import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 
@@ -24,7 +24,13 @@ const SubSection: FC<{ title: string }> = ({ title, children }) => {
   );
 };
 
-const libs = [
+interface Library {
+  title: string;
+  elements: Elements;
+  customizeNotes: string;
+}
+
+const libs: Library[] = [
   {
     title: 'Frontegg',
     elements: Frontegg,
@@ -104,6 +110,61 @@ const elements: {
   },
 ];
 
+const AccordionByLib: FC<{ lib: Library }> = ({ lib }) => {
+  const [open, setOpen] = useState(false);
+
+  const { Accordion, AccordionContent, AccordionHeader, Icon } = lib.elements;
+
+  if (!Accordion || !AccordionContent || !AccordionHeader) return <>{`Elem Accordion not found in lib ${lib.title}`}</>;
+
+  return (
+    <>
+      <Accordion expanded={open} onChange={setOpen}>
+        <AccordionHeader>Controlled</AccordionHeader>
+        <AccordionContent>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
+        </AccordionContent>
+      </Accordion>
+      <Accordion>
+        <AccordionHeader>Uncontrolled</AccordionHeader>
+        <AccordionContent>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
+        </AccordionContent>
+      </Accordion>
+      <Accordion expanded={open} onChange={setOpen}>
+        <AccordionHeader>Controlled 2</AccordionHeader>
+        <AccordionContent>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
+        </AccordionContent>
+      </Accordion>
+      <Accordion disabled>
+        <AccordionHeader>Disabled</AccordionHeader>
+        <AccordionContent>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
+        </AccordionContent>
+      </Accordion>
+      {Icon && (
+        <Accordion>
+          <AccordionHeader expandIcon={<Icon name='down-arrow' />}>Header Icon</AccordionHeader>
+          <AccordionContent>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+            reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+            necessitatibus commodi vitae?
+          </AccordionContent>
+        </Accordion>
+      )}
+    </>
+  );
+};
+
 export const ComponentsPage: FC = () => {
   return (
     <div>
@@ -114,6 +175,13 @@ export const ComponentsPage: FC = () => {
       {/*    </SubSection>*/}
       {/*  ))}*/}
       {/*</div>*/}
+      <Section title='Accordions'>
+        {libs.map((lib) => (
+          <SubSection key={lib.title} title={lib.title}>
+            <AccordionByLib lib={lib} />
+          </SubSection>
+        ))}
+      </Section>
       {elements.map((elem) => (
         <Section key={elem.title} title={elem.title}>
           {libs.map((lib) => (

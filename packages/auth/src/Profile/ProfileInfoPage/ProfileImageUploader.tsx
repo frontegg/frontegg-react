@@ -21,7 +21,6 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
   const { loading, profile } = useAuthProfile();
 
   const [profileImageField] = useField(profilePictureUrl);
-  const { errors, setErrors } = useFormikContext<any>();
   // const profileImageError = errors[profileImageField.name];
   //
   // const handleUploadClick = useCallback(() => {
