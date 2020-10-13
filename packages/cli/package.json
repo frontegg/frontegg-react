@@ -11,6 +11,7 @@
     "frontegg": "dist/index.js"
   },
   "dependencies": {
+    "prompts": "^2.3.2",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "figlet": "^1.5.0",
