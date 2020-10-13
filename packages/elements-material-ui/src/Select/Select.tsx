@@ -1,16 +1,24 @@
 import React, { FC, useCallback, useState } from 'react';
-// import { SelectProps } from '@frontegg/react-core';
+import { SelectProps } from '@frontegg/react-core';
 import { TextField, Chip, CircularProgress } from '@material-ui/core';
 import { Autocomplete, AutocompleteProps as MaterialSelectProps } from '@material-ui/lab';
 
-const mapper = ({ multiselect, ...rest }: any): MaterialSelectProps<true, true, false, true> => {
+const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectProps<true, true, false, true> => {
+  const restProps: any = rest;
+  let color;
+  if (theme === 'danger' || theme === 'secondary') {
+    color = 'secondary';
+  } else {
+    color = 'primary';
+  }
   return {
-    ...rest,
-    multiple: multiselect,
+    ...restProps,
+    color,
+    multiple: !multiselect ? undefined : multiselect,
   };
 };
 
-export const Select: FC<any> = (props) => {
+export const Select: FC<SelectProps> = (props) => {
   const p = mapper(props);
   const [open, setOpen] = useState(false);
 
@@ -28,6 +36,7 @@ export const Select: FC<any> = (props) => {
     getOptionLabel,
     open: propOpen,
   } = p;
+  const color: any = p.color;
 
   const handleChange = useCallback((e, newValue, reson) => {
     onChange && onChange(e, newValue, reson);
@@ -42,7 +51,7 @@ export const Select: FC<any> = (props) => {
         <Chip disabled={true} label={option.label} {...getTagProps({ index })} />
       );
     },
-    [renderOption]
+    [renderOption],
   );
 
   return (
@@ -65,7 +74,7 @@ export const Select: FC<any> = (props) => {
           {...params}
           label={props.label}
           variant='standard'
-          color={props.theme}
+          color={color}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

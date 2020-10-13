@@ -49,6 +49,9 @@ class App extends React.Component<any> {
                 <div>
                   <Link to='/table'>Table Examples</Link>
                 </div>
+                <div>
+                  <Link to='/select'>Select Examples</Link>
+                </div>
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />

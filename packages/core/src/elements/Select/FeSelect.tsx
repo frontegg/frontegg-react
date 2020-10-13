@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SelectProps, SelectOptionProps } from './interfaces';
 import Select, { components, MultiValueProps } from 'react-select';
 

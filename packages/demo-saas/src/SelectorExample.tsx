@@ -57,7 +57,7 @@ export const SelectorExample: FC = () => {
         open={open}
         loading={loading}
         onOpen={onOpen}
-        theme='secondary'
+        theme='primary'
         onClose={onClose}
         multiselect={true}
         options={top100Films}
@@ -71,17 +71,19 @@ export const SelectorExample: FC = () => {
       <br />
 
       <FE.Select
+        size='medium'
         label='Selector'
-        getOptionLabel={getOptionLabel}
-        renderOption={renderOption}
+        open={open}
+        loading={loading}
+        onOpen={onOpen}
+        theme='secondary'
+        onClose={onClose}
         multiselect={true}
+        options={top100Films}
         value={value}
         onChange={onChange}
-        noOptionsText='Empty list'
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        options={top100Films}
+        getOptionLabel={getOptionLabel}
+        renderOption={renderOption}
       />
     </div>
   );
