@@ -56,116 +56,116 @@ const elements: {
   title: string;
   props: any[];
 }[] = [
-    {
-      title: 'Buttons',
-      type: 'Button',
-      props: [
-        { children: 'Regular Button' },
-        { variant: 'default', children: 'Default Button' },
-        { variant: 'primary', children: 'Primary Button' },
-        { variant: 'secondary', children: 'Secondary Button' },
-        { variant: 'danger', children: 'Danger Button' },
-        { isCancel: true, children: 'Cancel Button' },
-        { fullWidth: true, children: 'Full Width Button' },
-        { size: 'small', children: 'Small Button' },
-        { size: 'medium', children: 'Medium Button' },
-        { size: 'large', children: 'Large Button' },
-        { disabled: true, children: 'Disabled Button' },
-        { loading: true, children: 'Loading Button' },
-      ],
-    },
-    {
-      title: 'Checkbox',
-      type: 'Checkbox',
-      props: [
-        { label: 'Inline Checkbox 1' },
-        { label: 'Inline Checkbox 2' },
-        { label: 'Indeterminate Checkbox', indeterminate: true },
-        { label: 'FullWidth', fullWidth: true },
-      ],
-    },
-    {
-      title: 'Tags',
-      type: 'Tag',
-      props: [
-        { children: 'Some Tag' },
-        { children: 'Primary Tag', variant: 'primary' },
-        { children: 'Secondary Tag', variant: 'secondary' },
-        { children: 'Danger Tag', variant: 'danger' },
-        { children: 'Default Tag', variant: 'default' },
-        { children: 'Clickable Tag', onClick: console.log },
-        { children: 'Disabled Tag', disabled: true },
-        { children: 'Delete Tag', onDelete: console.log },
-      ],
-    },
-    {
-      title: 'Loaders',
-      type: 'Loader',
-      props: [
-        { variant: 'default', children: null },
-        { variant: 'primary', children: null },
-        { variant: 'secondary', children: null },
-        { variant: 'danger', children: null },
-      ],
-    },
-  ];
+  {
+    title: 'Buttons',
+    type: 'Button',
+    props: [
+      { children: 'Regular Button' },
+      { variant: 'default', children: 'Default Button' },
+      { variant: 'primary', children: 'Primary Button' },
+      { variant: 'secondary', children: 'Secondary Button' },
+      { variant: 'danger', children: 'Danger Button' },
+      { isCancel: true, children: 'Cancel Button' },
+      { fullWidth: true, children: 'Full Width Button' },
+      { size: 'small', children: 'Small Button' },
+      { size: 'medium', children: 'Medium Button' },
+      { size: 'large', children: 'Large Button' },
+      { disabled: true, children: 'Disabled Button' },
+      { loading: true, children: 'Loading Button' },
+    ],
+  },
+  {
+    title: 'Checkbox',
+    type: 'Checkbox',
+    props: [
+      { label: 'Inline Checkbox 1' },
+      { label: 'Inline Checkbox 2' },
+      { label: 'Indeterminate Checkbox', indeterminate: true },
+      { label: 'FullWidth', fullWidth: true },
+    ],
+  },
+  {
+    title: 'Tags',
+    type: 'Tag',
+    props: [
+      { children: 'Some Tag' },
+      { children: 'Primary Tag', variant: 'primary' },
+      { children: 'Secondary Tag', variant: 'secondary' },
+      { children: 'Danger Tag', variant: 'danger' },
+      { children: 'Default Tag', variant: 'default' },
+      { children: 'Clickable Tag', onClick: console.log },
+      { children: 'Disabled Tag', disabled: true },
+      { children: 'Delete Tag', onDelete: console.log },
+    ],
+  },
+  {
+    title: 'Loaders',
+    type: 'Loader',
+    props: [
+      { variant: 'default', children: null },
+      { variant: 'primary', children: null },
+      { variant: 'secondary', children: null },
+      { variant: 'danger', children: null },
+    ],
+  },
+];
 
 const AccordionByLib: FC<{ lib: Library }> = ({ lib }) => {
   const [open, setOpen] = useState(false);
 
   const { Accordion, AccordionContent, AccordionHeader, Icon } = lib.elements;
 
-  if (!Accordion || !AccordionContent || !AccordionHeader)
-    return <>{`Elem Accordion not found in lib ${lib.title}`}</>;
+  if (!Accordion || !AccordionContent || !AccordionHeader) return <>{`Elem Accordion not found in lib ${lib.title}`}</>;
 
   return (
     <>
       <Accordion expanded={open} onChange={setOpen}>
-        <AccordionHeader>
-          Controlled
-        </AccordionHeader>
+        <AccordionHeader>Controlled</AccordionHeader>
         <AccordionContent>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora necessitatibus commodi vitae?
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
         </AccordionContent>
       </Accordion>
       <Accordion>
-        <AccordionHeader>
-          Uncontrolled
-        </AccordionHeader>
+        <AccordionHeader>Uncontrolled</AccordionHeader>
         <AccordionContent>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora necessitatibus commodi vitae?
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
         </AccordionContent>
       </Accordion>
       <Accordion expanded={open} onChange={setOpen}>
-        <AccordionHeader>
-          Controlled 2
-        </AccordionHeader>
+        <AccordionHeader>Controlled 2</AccordionHeader>
         <AccordionContent>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora necessitatibus commodi vitae?
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
         </AccordionContent>
       </Accordion>
       <Accordion disabled>
-        <AccordionHeader>
-          Disabled
-        </AccordionHeader>
+        <AccordionHeader>Disabled</AccordionHeader>
         <AccordionContent>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora necessitatibus commodi vitae?
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+          reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+          necessitatibus commodi vitae?
         </AccordionContent>
       </Accordion>
-      {Icon && <Accordion>
-        <AccordionHeader expandIcon={<Icon name='down-arrow' />}>
-          Header Icon
-        </AccordionHeader>
-        <AccordionContent>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora necessitatibus commodi vitae?
-        </AccordionContent>
-      </Accordion>}
+      {Icon && (
+        <Accordion>
+          <AccordionHeader expandIcon={<Icon name='down-arrow' />}>Header Icon</AccordionHeader>
+          <AccordionContent>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ab sint necessitatibus ut natus aut
+            reprehenderit iste delectus illum. Placeat, consequatur quis libero praesentium ea repellendus tempora
+            necessitatibus commodi vitae?
+          </AccordionContent>
+        </Accordion>
+      )}
     </>
-  )
-}
+  );
+};
 
 export const ComponentsPage: FC = () => {
-
   return (
     <div>
       {/*<div style={{ maxWidth: '80%', margin: '20px auto 0' }}>*/}
@@ -175,12 +175,12 @@ export const ComponentsPage: FC = () => {
       {/*    </SubSection>*/}
       {/*  ))}*/}
       {/*</div>*/}
-      <Section title="Accordions">
-        {libs.map(lib =>
-          <SubSection key={lib.title} title={lib.title} >
+      <Section title='Accordions'>
+        {libs.map((lib) => (
+          <SubSection key={lib.title} title={lib.title}>
             <AccordionByLib lib={lib} />
           </SubSection>
-        )}
+        ))}
       </Section>
       {elements.map((elem) => (
         <Section key={elem.title} title={elem.title}>
@@ -188,8 +188,8 @@ export const ComponentsPage: FC = () => {
             <SubSection key={lib.title} title={lib.title}>
               {(lib.elements as any)[elem.type]
                 ? (elem.props as any).map((props: any, index: any) => {
-                  return React.createElement((lib.elements as any)[elem.type], { ...props, key: index });
-                })
+                    return React.createElement((lib.elements as any)[elem.type], { ...props, key: index });
+                  })
                 : `Elem ${elem.type} not found in lib ${lib.title}`}
             </SubSection>
           ))}

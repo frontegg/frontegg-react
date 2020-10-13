@@ -12,15 +12,16 @@ export interface ClassNameGeneratorOptions {
 }
 
 export class ClassNameGenerator {
-  public static generate = ({
-    prefixCls,
-    className,
-    theme,
-    size,
-    isClickable = false,
-    isFullWidth = false,
-    isLoading = false,
-  }: ClassNameGeneratorOptions,
+  public static generate = (
+    {
+      prefixCls,
+      className,
+      theme,
+      size,
+      isClickable = false,
+      isFullWidth = false,
+      isLoading = false,
+    }: ClassNameGeneratorOptions,
     ...extraClasses: (string | boolean | null | undefined)[]
   ) => {
     const classes = classNames(prefixCls, className, {
@@ -30,9 +31,9 @@ export class ClassNameGenerator {
       [`${prefixCls}-full-width`]: isFullWidth,
       [`${prefixCls}-loader`]: isLoading,
       ...extraClasses
-        .filter(_ => !!_)
-        .map(className => `${prefixCls}-${className}`)
-        .reduce((acc, curr) => ({ ...acc, [curr]: true }), {})
+        .filter((_) => !!_)
+        .map((className) => `${prefixCls}-${className}`)
+        .reduce((acc, curr) => ({ ...acc, [curr]: true }), {}),
     });
 
     return classes;

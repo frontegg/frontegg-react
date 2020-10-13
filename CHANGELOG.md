@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.89](https://github.com/frontegg/frontegg-react/compare/v1.0.88...v1.0.89) (2020-10-13)
+
+
+### Bug Fixes
+
+* **cli:** fix missing property in frontegg/react-cli ([2d45c3f](https://github.com/frontegg/frontegg-react/commit/2d45c3f2c44c4531e72434cb7935a42c28012992)), closes [#44](https://github.com/frontegg/frontegg-react/issues/44)
+* **cli:** fix missing property in frontegg/react-cli ([b468a08](https://github.com/frontegg/frontegg-react/commit/b468a0845b070d28c4f6c60dbb1cc982e6af1f72)), closes [#43](https://github.com/frontegg/frontegg-react/issues/43)
+* **cli:** upload cypress failure artifacts ([b23aa60](https://github.com/frontegg/frontegg-react/commit/b23aa60016dee1b8089bafd417664263241d8c84))
+
+
+
+
+
+## [1.0.88](https://github.com/frontegg/frontegg-react/compare/v1.0.87...v1.0.88) (2020-10-11)
+
+
+### Bug Fixes
+
+* **ci:** fix npmrc file ([97df62e](https://github.com/frontegg/frontegg-react/commit/97df62e26446ec42c655b03b4dc7c41d25f13d9e))
+* **cli:** add space between commit scope and summary text ([ef6fec0](https://github.com/frontegg/frontegg-react/commit/ef6fec04c4e84e1ae7b4f77d4fccef62694bd1c7))
+* **cli:** fix create pull request action ([daf216d](https://github.com/frontegg/frontegg-react/commit/daf216d03c7423408c1fa534b8af65e81a7eaccb))
+* **cli:** increase max size of the summary ([f7243c1](https://github.com/frontegg/frontegg-react/commit/f7243c1c865c46530b05df7b94e42a52a7050892))
+
+
+
+
+
 ## [1.0.87](https://github.com/frontegg/frontegg-react/compare/v1.0.86...v1.0.87) (2020-10-09)
 
 

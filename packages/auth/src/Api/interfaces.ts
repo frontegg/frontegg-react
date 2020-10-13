@@ -1,90 +1,30 @@
 import { AuthPageProps, AuthPageRoutes } from '../interfaces';
 import { IUserProfile, RedirectOptions } from '@frontegg/react-core';
-import { ISamlConfiguration } from '@frontegg/react-core';
+import { ActivateState } from './ActivateState';
+import { LoginState } from './LoginState';
+import { ForgotPasswordState } from './ForgotPasswordState';
+import { SSOState } from './SSOState';
+import { ProfileState } from './ProfileState';
+import { MFAState } from './MfaState';
+import { TeamState, TeamStateKeys } from './TeamState';
+
+export type WithSilentLoad<T> = T & {
+  silentLoading?: boolean;
+};
+export type WithCallback<T, R> = T & {
+  callback?: (data: R | null, error?: string) => void;
+};
+export type LoaderIndicatorState<T extends string> = Partial<
+  {
+    [key in T]: string | boolean;
+  }
+>;
 
 export interface User extends IUserProfile {
   accessToken: string;
   refreshToken: string;
   expiresIn: number;
   expires: string;
-}
-
-// Login
-export enum LoginStep {
-  'preLogin' = 'preLogin',
-  'loginWithPassword' = 'loginWithPassword',
-  'loginWithTwoFactor' = 'loginWithTwoFactor',
-  'redirectToSSO' = 'redirectToSSO',
-  'loginWithSSOFailed' = 'loginWithSSOFailed',
-  'success' = 'success',
-  'recoverTwoFactor' = 'recoverTwoFactor',
-}
-
-export interface LoginState {
-  loading: boolean;
-  error?: any;
-  step: LoginStep;
-
-  ssoRedirectUrl?: string;
-  mfaRequired?: boolean;
-  mfaToken?: string;
-  email?: string;
-}
-
-// Activate
-export enum ActivateStep {
-  'activating' = 'activating',
-  'success' = 'success',
-}
-
-export interface ActivateState {
-  loading: boolean;
-  error?: any;
-  step: ActivateStep;
-}
-
-// Forgot Password
-export enum ForgotPasswordStep {
-  'forgotPassword' = 'forgotPassword',
-  'success' = 'success',
-}
-
-export interface ForgotPasswordState {
-  step: ForgotPasswordStep;
-  email: string;
-  loading: boolean;
-  error?: any;
-}
-
-// Single Sign On
-export interface SSOState {
-  firstLoad: boolean;
-  loading: boolean;
-  error?: any;
-  saving?: boolean;
-  samlConfiguration?: ISamlConfiguration;
-}
-
-// Profile
-export interface ProfileState {
-  loading: boolean;
-  error?: any;
-  saving?: boolean;
-  profile?: IUserProfile;
-}
-
-// Multi-Factor Authentication
-export enum MFAStep {
-  'verify' = 'verify',
-  'recoveryCode' = 'recoveryCode',
-}
-
-export interface MFAState {
-  step: MFAStep;
-  loading: boolean;
-  error?: any;
-  recoveryCode?: string;
-  qrCode?: string | null; // qr code image base64
 }
 
 export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, AuthPageRoutes {
@@ -97,25 +37,9 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   ssoACS?: string;
   loginState: LoginState;
   activateState: ActivateState;
-  forgetPasswordState: ForgotPasswordState;
+  forgotPasswordState: ForgotPasswordState;
   ssoState: SSOState;
   profileState: ProfileState;
   mfaState: MFAState;
+  teamState: TeamState;
 }
-
-export type PreLoginPayload = {
-  email: string;
-};
-
-export type LogoutPayload = () => void;
-export type LoginWithMfaPayload = {
-  mfaToken: string;
-  value: string;
-};
-export type ActivateAccountPayload = {
-  token: string;
-  userId: string;
-  password: string;
-};
-export type ForgotPasswordPayload = PreLoginPayload;
-export type ResetPasswordPayload = ActivateAccountPayload;

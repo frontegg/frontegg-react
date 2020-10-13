@@ -1,14 +1,11 @@
 import { useAuth } from '../hooks';
 import { useEffect } from 'react';
-import { ProfileState } from '../Api';
+import { ProfileState } from '../Api/ProfileState';
 
 export const reloadProfileIfNeeded = () => {
   const { profile, loading, loadProfile } = useAuthProfile();
   useEffect(() => {
-    if (!loading && !profile) {
-      console.log('reloadProfileIfNeeded', loading, profile);
-      loadProfile();
-    }
+    !loading && !profile && loadProfile();
   }, []);
 };
 

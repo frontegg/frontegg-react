@@ -57,7 +57,6 @@ jobs:
           echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha"
           yarn lerna version prerelease --conventional-prerelease --preid alpha --yes --no-push --no-changelog
           yarn prettier-hook
-          git add . && git commit -m "ci: publish prerelease version `node -p 'require("./lerna.json").version'`"
           git tag -d $(git describe --abbrev=0)
           yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
 

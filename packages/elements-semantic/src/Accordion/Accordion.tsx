@@ -5,7 +5,7 @@ import { ActiveContext } from './AccordionActiveContext';
 import classNames from 'classnames';
 import './style.scss';
 
-export const Accordion: FC<AccordionProps> = ((props) => {
+export const Accordion: FC<AccordionProps> = (props) => {
   const [innerActive, setInnerActive] = useState(false);
 
   const { onChange = setInnerActive, children, expanded, ...rest } = props;
@@ -25,4 +25,4 @@ export const Accordion: FC<AccordionProps> = ((props) => {
       </SemanticAccordion>
     </ActiveContext.Provider>
   );
-});
+};

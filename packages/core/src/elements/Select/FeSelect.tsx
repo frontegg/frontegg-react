@@ -28,7 +28,7 @@ export const FeSelect = (props: SelectProps) => {
         option.selectProps.options &&
         option.selectProps.options.findIndex((o: SelectOptionProps<string>) => o.value === option.selectProps.value),
     }),
-    [],
+    []
   );
 
   const MultiValueLabel = useCallback(
@@ -37,7 +37,7 @@ export const FeSelect = (props: SelectProps) => {
         {renderOption && renderOption(props.data, getState(props))}
       </components.MultiValueLabel>
     ),
-    [renderOption],
+    [renderOption]
   );
 
   return (
