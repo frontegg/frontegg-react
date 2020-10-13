@@ -10,7 +10,6 @@ import {
   UseFiltersState,
   UseSortByOptions,
   UseSortByState,
-  TableSortByToggleProps,
   useExpanded,
   UseExpandedOptions,
   Cell,
@@ -34,8 +33,6 @@ import {
 
 import './FeTable.scss';
 import classNames from 'classnames';
-import { FeTableFilterColumn } from './FeTableFilterColumn';
-import { FeTableSortColumn } from './FeTableSortColumn';
 import { FeButton } from '../Button/FeButton';
 import { FeIcon } from '../Icon/FeIcon';
 import { FeTableTHead } from './FeTableTHead';

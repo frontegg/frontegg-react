@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { ClassNameGenerator } from '../../../styles';
 import { AccordionProps } from '../interfaces';
 import { FeAccordionContext } from './FeAccordionContext';

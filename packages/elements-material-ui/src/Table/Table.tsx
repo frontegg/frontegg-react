@@ -12,7 +12,6 @@ import {
   UseFiltersState,
   UseSortByOptions,
   UseSortByState,
-  // TableSortByToggleProps,
   useExpanded,
   UseExpandedOptions,
   Cell,

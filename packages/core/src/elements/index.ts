@@ -1,5 +1,3 @@
-import { Elements } from '../ElementsFactory';
-
 export * from './ErrorMessage';
 export * from './Button';
 export * from './Loader';

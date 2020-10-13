@@ -1,4 +1,4 @@
-import React, { FC, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { AccordionProps } from '@frontegg/react-core';
 import { Accordion as MaterialAccordion, AccordionProps as MaterialAccordionProps } from '@material-ui/core';
 

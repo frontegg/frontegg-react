@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes, ReactElement } from 'react';
+import { ReactNode, HTMLAttributes } from 'react';
 
 export type PopupPosition = 'tr' | 'tl' | 'tc' | 'br' | 'bl' | 'bc' | 'lc' | 'rc';
 export type PopupAction = 'hover' | 'click' | 'focus';
