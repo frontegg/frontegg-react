@@ -65,20 +65,6 @@ export default async ({ argv }: any) => {
     } as any,
     {
       type: 'select',
-      name: 'withRouter',
-      message: `Do you want use Standard ReactRouter or Frontegg's Router?`,
-      choices: [
-        { title: 'Frontegg Router', value: true, description: 'recommended for auth plugin interrupts' },
-        {
-          title: 'React Router',
-          value: false,
-          description: 'not recommended, you may need to implement auth interrupts',
-        },
-      ],
-      initial: 0,
-    },
-    {
-      type: 'select',
       name: 'uiLibrary',
       message: 'Which UI Library do you use in your project?',
       choices: [

@@ -26,8 +26,7 @@ export const withFrontegg = <P extends {}>(AppComponent: ComponentType<P>) => (p
 export const withFrontegg = (AppComponent) => (props) => {
 {{/if}}
   return <FronteggProvider
-    {{#if withRouter}}withRouter={true}
-    {{/if}}plugins={plugins}
+    plugins={plugins}
     context={contextOptions}
     uiLibrary={uiLibrary}>
     <AppComponent {...props}/>
