@@ -7,6 +7,7 @@ import { SSOState } from './SSOState';
 import { ProfileState } from './ProfileState';
 import { MFAState } from './MfaState';
 import { TeamState, TeamStateKeys } from './TeamState';
+import { AcceptInvitationState } from './AcceptInvitationState';
 
 export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
@@ -37,6 +38,7 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   ssoACS?: string;
   loginState: LoginState;
   activateState: ActivateState;
+  acceptInvitationState: AcceptInvitationState;
   forgotPasswordState: ForgotPasswordState;
   ssoState: SSOState;
   profileState: ProfileState;

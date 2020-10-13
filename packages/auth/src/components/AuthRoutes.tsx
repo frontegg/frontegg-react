@@ -3,12 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 import { Logger } from '@frontegg/react-core';
 import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';
 import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
+import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps, PageComponentProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
-import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 
 const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
   routes,

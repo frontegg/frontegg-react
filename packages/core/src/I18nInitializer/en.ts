@@ -66,6 +66,14 @@ export default {
         'enter-your-password-again': 'Enter your password again',
         'activate-account-button': 'Activate',
       },
+      account: {
+        'invalid-title': 'Invalid link',
+        'invalid-description': 'Please double check your link',
+        'failed-title': 'Authorization Failed',
+        'failed-description': 'We were unable to authorize you',
+        'success-title': 'Authorize successfully!',
+        'pending-title': 'Please wait ehile we authorize you...',
+      },
       sso: {
         title: 'Single Sign On',
         subtitle: 'Configure single-sign-on with your own Identity Provider',

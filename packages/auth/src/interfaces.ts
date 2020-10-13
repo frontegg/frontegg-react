@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { LoginProps, LoginWithSSOProps, LogoutProps } from './Login';
 import { ForgotPasswordProps } from './ForgotPassword';
 import { ResetPasswordProps } from './ResetPassword';
@@ -66,7 +66,14 @@ export interface PerPageProps {
 }
 
 export type PageComponentProps = HeaderProps & {
-  pageId: 'login' | 'logout' | 'forgotPassword' | 'resetPassword' | 'activateAccount' | 'loginWithSSO';
+  pageId:
+    | 'login'
+    | 'logout'
+    | 'forgotPassword'
+    | 'resetPassword'
+    | 'activateAccount'
+    | 'acceptInvitation'
+    | 'loginWithSSO';
   children?: ReactNode;
 };
 
