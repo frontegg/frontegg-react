@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-semantic",
   "libName": "FronteggElementsSemantic",
-  "version": "1.0.88",
+  "version": "1.0.89-alpha.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
