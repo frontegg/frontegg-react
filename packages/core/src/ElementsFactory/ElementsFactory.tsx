@@ -8,6 +8,7 @@ import { FeLoader } from '../elements/Loader/FeLoader';
 import { FePopup } from '../elements/Popup/FePopup';
 import { FeCheckbox } from '../elements/Checkbox/FeCheckbox';
 import { FeTag } from '../elements/Tag/FeTag';
+import { FeSelect } from '../elements/Select/FeSelect';
 import { FeAccordion } from '../elements/Accordion/FeAccordion';
 import { FeAccordionHeader } from '../elements/Accordion/FeAccordion';
 import { FeAccordionContent } from '../elements/Accordion/FeAccordion';
@@ -23,13 +24,14 @@ export const fronteggElements: Partial<Elements> = {
   Icon: FeIcon,
   Popup: FePopup,
   Checkbox: FeCheckbox,
+  Select: FeSelect,
 };
 
 export class ElementsFactory {
   private static instance: ElementsFactory;
   private elements: Elements | null = null;
 
-  private constructor() { }
+  private constructor() {}
 
   private static getInstance(): ElementsFactory {
     if (!ElementsFactory.instance) {
