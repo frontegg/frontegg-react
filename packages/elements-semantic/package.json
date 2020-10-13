@@ -20,6 +20,7 @@
     "formik": "^2.1.5",
     "moment": "^2.27.0",
     "react": ">16.8.6",
+    "react-semantic-ui-datepickers": "^2.10.0",
     "semantic-ui-react": "^1.2.1",
     "underscore": "^1.10.2"
   },

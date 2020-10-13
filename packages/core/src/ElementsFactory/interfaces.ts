@@ -32,6 +32,18 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   iconAction?: (e: MouseEvent) => void;
 }
 
+export interface DatePickerProps extends FormFieldProps {
+  label?: string;
+  format?: string;
+  withTime?: boolean;
+  defaultValue?: Date;
+  value?: Date;
+  minDate?: Date;
+  maxDate?: Date;
+  onChange?: (date: Date) => void;
+  fullWidth?: boolean;
+}
+
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   as?: string; // default is true
 }
@@ -63,6 +75,7 @@ export type ElementProps = {
     | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
   Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
+  DatePicker: ComponentType<DatePickerProps>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
   SwitchToggle: ComponentType<SwitchToggleProps>;

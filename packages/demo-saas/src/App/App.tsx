@@ -10,6 +10,7 @@ import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
+import { DatePickerExample } from 'DatePickerExample';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -55,6 +56,7 @@ class App extends React.Component<any> {
             <Route exact path='/components2' component={ComponentsPage2} />
             <Route exact path='/popup' component={PopupExample} />
             <Route exact path='/table' component={TableExample} />
+            <Route exact path='/datepicker' component={DatePickerExample} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />
