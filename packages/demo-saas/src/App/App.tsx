@@ -57,16 +57,17 @@ class App extends React.Component<any> {
             <Route path='/test-auth-user' component={TestPage} />
             <Route exact path='/components' component={ComponentsPage} />
             <Route exact path='/components2' component={ComponentsPage2} />
-            <Route exact path='/popup' component={PopupExample} />
-            <Route exact path='/table' component={TableExample} />
-            <Route exact path='/select' component={SelectorExample} />
             <ProtectedRoute path='/test' />
             <ProtectedRoute path='/sso'>
               <SSO.Page />
             </ProtectedRoute>
+
             <ProtectedRoute path='/profile' component={Profile.Page} />
             <ProtectedRoute path='/profile2' component={OldProfile} />
-            <Route path='/grids' component={GridExamples} />
+            <Route exact path='/popup' component={PopupExample} />
+            <Route exact path='/table' component={TableExample} />
+            <Route exact path='/select' component={SelectorExample} />
+            <Route exact path='/grids' component={GridExamples} />
           </Switch>
         </AuthExamples>
       </div>

@@ -156,3 +156,6 @@ move-package-json-to-dist:
 
 commit:
 	@node ./scripts/commit.js
+
+pretty:
+	@yarn prettier-hook

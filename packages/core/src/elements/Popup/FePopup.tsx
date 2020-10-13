@@ -3,39 +3,24 @@ import React, { forwardRef, useMemo, cloneElement, MouseEvent } from 'react';
 import Popup from 'react-popper-tooltip';
 import './FePopup.scss';
 
-const positions: { [key: string]: string } = {
-  t: 'top',
-  b: 'bottom',
-  l: 'left',
-  r: 'right',
-  c: 'center',
-  s: 'start',
-  e: 'end',
-};
-
 const preparePosition = (p?: PopupPosition): any => {
   if (!p) {
     return 'bottom';
   }
 
-  const center = p.indexOf('c') !== 1;
-  const left = p.indexOf('l') !== 1;
-  const right = p.indexOf('r') !== 1;
-  const top = p.indexOf('t') !== 1;
-  const bottom = p.indexOf('b') !== 1;
-  const position = positions[p.charAt(0)];
+  if (p.vertical === 'center') {
+    return p.horizontal === 'center' ? 'auto' : p.horizontal;
+  }
 
-  if (center) {
-    return position;
+  if (p.horizontal === 'center') {
+    return p.vertical;
   }
-  if (top || bottom) {
-    return `${position}${left ? '-start' : right ? '-end' : ''}`;
-  }
-  return position;
+
+  return `${p.vertical}-${p.horizontal === 'left' ? 'start' : 'end'}`;
 };
 
 export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
-  const { position, trigger, action, content } = props;
+  const { position, trigger, action, content, mountNode } = props;
   const placement = useMemo(() => preparePosition(position), [position]);
 
   return (
@@ -43,12 +28,13 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
       ref={ref}
       trigger={action}
       placement={placement}
-      tooltip={({ tooltipRef, getTooltipProps }) => {
+      portalContainer={mountNode}
+      tooltip={({ tooltipRef: ref, getTooltipProps }) => {
         return (
           <div
             {...getTooltipProps({
-              ref: tooltipRef,
-              className: 'fe-popup-container',
+              ref,
+              className: 'fe-popup__container',
               onClick: (e: MouseEvent) => e.stopPropagation(),
             })}
           >
@@ -57,17 +43,13 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
         );
       }}
     >
-      {({ getTriggerProps, triggerRef }) => {
-        return (
-          <span
-            {...getTriggerProps({
-              ref: triggerRef,
-              onClick: (e: MouseEvent) => e.stopPropagation(),
-            })}
-          >
-            {trigger}
-          </span>
-        );
+      {({ getTriggerProps, triggerRef: ref }) => {
+        return React.cloneElement(trigger, {
+          ...getTriggerProps({
+            ref,
+            onClick: (e: MouseEvent) => e.stopPropagation(),
+          }),
+        });
       }}
     </Popup>
   );

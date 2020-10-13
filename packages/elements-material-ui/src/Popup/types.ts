@@ -1,11 +1,6 @@
+import { PopoverProps } from '@material-ui/core';
 import { PopupProps } from '@frontegg/react-core';
 
-type positions = {
-  vertical: any;
-  horizontal: any;
-};
-
-export interface IPopoverProps extends PopupProps {
-  anchorOrigin: positions;
-  transformOrigin: positions;
-}
+export type IPopoverProps = Omit<PopupProps, 'vertical' | 'horizontal'> &
+  Pick<PopoverProps, 'anchorOrigin'> &
+  Pick<PopoverProps, 'transformOrigin'>;

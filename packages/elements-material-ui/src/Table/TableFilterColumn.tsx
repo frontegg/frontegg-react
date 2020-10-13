@@ -24,9 +24,6 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
   column,
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
-  if (!column.canFilter) {
-    return null;
-  }
   const [filterValue, setFilterValue] = useState(column.filterValue);
   const debounceFilters = useDebounce(filterValue, 500);
   const classes = useStyles();

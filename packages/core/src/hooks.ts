@@ -7,8 +7,8 @@ export { useSelector, useDispatch };
 export { FFormik };
 export const useT = (): UseTranslationResponse => useTranslation();
 
-export default function useDebounce(value: any, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+export function useDebounce<T>(value: T, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(value);

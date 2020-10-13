@@ -76,7 +76,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                     ) : null}
                   </Box>
 
-                  <TableFilterColumn column={column} onFilterChange={onFilterChange} />
+                  {column.canFilter && <TableFilterColumn column={column} onFilterChange={onFilterChange} />}
                 </Box>
               </TableCell>
             );

@@ -10,8 +10,23 @@ const positions: any = {
   c: 'center',
 };
 
-const mapper = ({ action, position: p, ...rest }: PopupProps): SemanticPopupProps => {
-  const position: any = p ? `${positions[p?.charAt(0)]} ${positions[p?.charAt(1)]}` : 'bottom center';
+const mapper = ({
+  action,
+  position: { vertical, horizontal } = {
+    vertical: 'bottom',
+    horizontal: 'center',
+  },
+  ...rest
+}: PopupProps): SemanticPopupProps => {
+  let position: any;
+  if (vertical === 'center') {
+    position = `${horizontal === 'center' ? 'bottom' : horizontal} center`;
+  } else if (horizontal === 'center') {
+    position = `${vertical} center`;
+  } else {
+    position = `${vertical}  ${horizontal}`;
+  }
+
   return {
     ...rest,
     on: action,
