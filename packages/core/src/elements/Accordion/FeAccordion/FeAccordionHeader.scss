@@ -1,0 +1,25 @@
+.fe-accordion-header {
+  $wrapper-class: &;
+  padding: var(--element-spacing);
+  display: flex;
+  cursor: pointer;
+  transition: padding 0.3s ease;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+
+    svg {
+      height: 1rem;
+    }
+  }
+
+  &-expanded {
+    padding: var(--element-padding) var(--element-spacing) var(--element-spacing);
+
+    & #{$wrapper-class}__icon {
+      transform: rotate(180deg);
+    }
+  }
+}

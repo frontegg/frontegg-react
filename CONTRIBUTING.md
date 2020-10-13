@@ -61,6 +61,17 @@ The`<type>` and `<summary>` fields are mandatory, the (`<scope>`) field is optio
   └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|style|test
 ```
 
+**Commit Message Format**
+
+A commit message consists of a header, body and footer. The header has a type, scope and subject:
+```
+<type>(<scope>): <short summary>
+<BLANK LINE>
+<body (optional)>
+<BLANK LINE>
+<footer (optional)>
+```
+
 **The `<type>` Must be one of the following:**
 - `chore`: Update something without impacting the user (ex: bump a dependency in package.json).
 - `build`: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
@@ -85,7 +96,7 @@ The`<type>` and `<summary>` fields are mandatory, the (`<scope>`) field is optio
 - `packaging`: Used for changes that change the npm package layout in all of our packages, e.g. public path changes, package.json changes done to all packages, d.ts file/format changes, changes to bundles, etc.
 - `upgrade`: Used for updating the external libraries.
 
-**The `<short summery>` Must be one of the following:**
+**The `<short summary>` Must be one of the following:**
 
 Use the summary field to provide a succinct description of the change.
 - use the imperative, **_"add"_** not _"added"_, **_"change"_** not _"changed"_ nor _"changes"_

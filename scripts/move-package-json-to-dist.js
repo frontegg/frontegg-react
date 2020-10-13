@@ -13,7 +13,6 @@ function movePackageJson(packagePath) {
   newPkg.module = 'index.esm.js';
   newPkg.es2015 = 'index.es.js';
   newPkg.types = 'index.d.ts';
-
   if (newPkg.bin) {
     for (const k in newPkg.bin) {
       newPkg.bin[k] = newPkg.bin[k].substring('dist/'.length);

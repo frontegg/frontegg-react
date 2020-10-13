@@ -9,8 +9,14 @@ import { FePopup } from '../elements/Popup/FePopup';
 import { FeCheckbox } from '../elements/Checkbox/FeCheckbox';
 import { FeTag } from '../elements/Tag/FeTag';
 import { FeSelect } from '../elements/Select/FeSelect';
+import { FeAccordion } from '../elements/Accordion/FeAccordion';
+import { FeAccordionHeader } from '../elements/Accordion/FeAccordion';
+import { FeAccordionContent } from '../elements/Accordion/FeAccordion';
 
 export const fronteggElements: Partial<Elements> = {
+  Accordion: FeAccordion,
+  AccordionHeader: FeAccordionHeader,
+  AccordionContent: FeAccordionContent,
   Loader: FeLoader,
   Tag: FeTag,
   Button: FeButton,
