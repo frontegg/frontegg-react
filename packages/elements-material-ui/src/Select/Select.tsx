@@ -5,12 +5,8 @@ import { Autocomplete, AutocompleteProps as MaterialSelectProps } from '@materia
 
 const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectProps<true, true, false, true> => {
   const restProps: any = rest;
-  let color;
-  if (theme === 'danger' || theme === 'secondary') {
-    color = 'secondary';
-  } else {
-    color = 'primary';
-  }
+  const color = theme === 'danger' || theme === 'secondary' ? 'secondary' : 'primary';
+
   return {
     ...restProps,
     color,
@@ -37,7 +33,7 @@ export const Select: FC<SelectProps> = (props) => {
     open: propOpen,
   } = p;
   const color: any = p.color;
-
+  console.log(color);
   const handleChange = useCallback((e, newValue, reson) => {
     onChange && onChange(e, newValue, reson);
   }, []);
