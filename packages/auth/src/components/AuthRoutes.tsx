@@ -8,6 +8,7 @@ import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps, PageComponentProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
+import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 
 const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
   routes,
@@ -76,6 +77,11 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       header: perPageProps?.activateAccount ?? pageHeader?.activateAccount ?? header ?? defaultComps.header,
       headerImg: perPageProps?.activateAccount ?? headerImg,
     },
+    acceptInvitationProps: {
+      ...perPageProps?.acceptInvitation,
+      header: perPageProps?.acceptInvitation ?? pageHeader?.acceptInvitation ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.acceptInvitation ?? headerImg,
+    },
     loginWithSSOProps: {
       ...perPageProps?.loginWithSSO,
       header: perPageProps?.loginWithSSO ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
@@ -122,6 +128,13 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       defaultComponent: ActivateAccountPage,
       standaloneComponent: ActivateAccount,
       props: computedPerPageProps.activateAccountProps,
+    },
+    {
+      id: 'acceptInvitation',
+      path: routes.acceptInvitationUrl,
+      defaultComponent: AcceptInvitationPage,
+      standaloneComponent: AcceptInvitation,
+      props: computedPerPageProps.acceptInvitationProps,
     },
     ...(samlCallbackPath
       ? [
