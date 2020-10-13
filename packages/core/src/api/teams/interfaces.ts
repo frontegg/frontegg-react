@@ -16,17 +16,6 @@ export type IUserProfile = {
   roleIds?: string[]; // { addRoles: true } params
 };
 
-export type IUpdateProfile = {
-  title: 'Mr' | 'Miss' | 'Mrs' | 'Ms';
-  name: string;
-  country: string;
-  phoneNumber: string;
-  // time since 1970
-  dateOfBirth: number;
-  // profile picture in base64
-  profilePicture: string;
-};
-
 export type ITeamUser = {
   // info
   id: string;
@@ -58,11 +47,24 @@ export type ITeamStats = {
 
 // api actions
 
+export type IUpdateProfile = {
+  title: 'Mr' | 'Miss' | 'Mrs' | 'Ms';
+  name: string;
+  country: string;
+  phoneNumber: string;
+  // time since 1970
+  dateOfBirth: number;
+  // profile picture in base64
+  profilePicture: string;
+};
+
 export type IChangePassword = {
   password: string;
   newPassword: string;
 };
+
 export type ILoadUsers = {
+  silentLoading?: boolean;
   filter: TableFilter;
   sort: TableSort;
   pageOffset: number;
@@ -77,6 +79,6 @@ export type IResendActivationLink = {
   userId: string;
 };
 
-export type ISendResetPassword = {
+export type ISendResetPasswordLink = {
   userId: string;
 };

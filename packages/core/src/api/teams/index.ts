@@ -6,7 +6,7 @@ import {
   IChangePassword,
   ILoadUsers,
   IResendActivationLink,
-  ISendResetPassword,
+  ISendResetPasswordLink,
   ITeamUserRole,
   ITeamStats,
   ITeamUser,
@@ -106,11 +106,11 @@ export async function resendActivationLink(body: IResendActivationLink): Promise
 }
 
 /**
- * reset password for a specific user
+ * send reset password link for a specific user
  *
  * ``authorized user``
  */
-export async function resetUserPassword(body: ISendResetPassword): Promise<void> {
+export async function sendResetPasswordLink(body: ISendResetPasswordLink): Promise<void> {
   logger.debug('resetUserPassword()', body);
   return Post(`${TEAMS_SERVICE_URL_V1}/sendResetPassword`, body);
 }
