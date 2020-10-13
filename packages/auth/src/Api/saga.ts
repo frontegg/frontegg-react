@@ -5,13 +5,16 @@ import { forgotPasswordSagas } from './ForgotPasswordState/saga';
 import { activateSagas } from './ActivateState/saga';
 import { loginSagas } from './LoginState/saga';
 import { teamSagas } from './TeamState/saga';
+import { all, call } from 'redux-saga/effects';
 
 export function* sagas() {
-  yield loginSagas();
-  yield activateSagas();
-  yield forgotPasswordSagas();
-  yield ssoSagas();
-  yield profileSagas();
-  yield mfaSagas();
-  yield teamSagas();
+  yield all([
+    call(loginSagas),
+    call(activateSagas),
+    call(forgotPasswordSagas),
+    call(ssoSagas),
+    call(profileSagas),
+    call(mfaSagas),
+    call(teamSagas),
+  ]);
 }
