@@ -20,6 +20,7 @@ import {
   IUpdateSamlVendorMetadata,
   IVerifyMfa,
   IVerifyMfaResponse,
+  IAcceptInvitation,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -109,6 +110,17 @@ export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse>
 export async function activateAccount(body: IActivateAccount): Promise<void> {
   logger.debug('activateAccount()');
   return Post(`${USERS_SERVICE_URL_V1}/activate`, body);
+}
+
+/**
+ * activating account should be called after registering new user of deactivate account
+ * ``activateAccount`` should contains userId and the token that has been sent to the user after activation requested.
+ *
+ * @throws exception if activation failed
+ */
+export async function acceptInvitation(body: IAcceptInvitation): Promise<void> {
+  logger.debug('acceptInvitation()');
+  return Post(`${USERS_SERVICE_URL_V1}/invitation/accept`, body);
 }
 
 /**

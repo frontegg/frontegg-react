@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Logger } from '@frontegg/react-core';
 import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';
 import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
+import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps, PageComponentProps } from '../interfaces';
@@ -76,6 +77,11 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       header: perPageProps?.activateAccount ?? pageHeader?.activateAccount ?? header ?? defaultComps.header,
       headerImg: perPageProps?.activateAccount ?? headerImg,
     },
+    acceptInvitationProps: {
+      ...perPageProps?.acceptInvitation,
+      header: perPageProps?.acceptInvitation ?? pageHeader?.acceptInvitation ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.acceptInvitation ?? headerImg,
+    },
     loginWithSSOProps: {
       ...perPageProps?.loginWithSSO,
       header: perPageProps?.loginWithSSO ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
@@ -122,6 +128,13 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       defaultComponent: ActivateAccountPage,
       standaloneComponent: ActivateAccount,
       props: computedPerPageProps.activateAccountProps,
+    },
+    {
+      id: 'acceptInvitation',
+      path: routes.acceptInvitationUrl,
+      defaultComponent: AcceptInvitationPage,
+      standaloneComponent: AcceptInvitation,
+      props: computedPerPageProps.acceptInvitationProps,
     },
     ...(samlCallbackPath
       ? [

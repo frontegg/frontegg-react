@@ -7,6 +7,7 @@
     margin-bottom: var(--element-spacing);
     margin-right: calc(var(--element-spacing) * 2);
   }
+
   &__full-width {
     display: block;
     margin-right: 0;
@@ -59,14 +60,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: #fff;
+    color: var(--color-white);
+    margin: 0;
     width: 1rem;
     height: 1rem;
     max-width: unset;
     opacity: 0;
     transform: scale(0.1);
     transition: all 200ms;
-    margin: 0;
   }
 
   input:checked + .fe-checkbox__input {
@@ -79,6 +80,10 @@
       opacity: 1;
       top: -0.5rem;
       left: -0.5rem;
+      height: 1rem;
+      width: 1rem;
+      color: var(--color-white);
+      margin: 0;
     }
   }
 

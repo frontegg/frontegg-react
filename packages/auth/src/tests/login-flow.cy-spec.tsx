@@ -21,6 +21,7 @@ const defaultAuthPlugin = {
     loginUrl: '/account/login',
     logoutUrl: '/account/logout',
     activateUrl: '/account/activate',
+    acceptInvitationUrl: '/account/invitation/accept',
     forgetPasswordUrl: '/account/forget-password',
     resetPasswordUrl: '/account/reset-password',
   },

@@ -4,6 +4,7 @@ import { storeName, typeReducer } from './utils';
 import { initialState } from './initialState';
 import { loginActions, loginStateReducers } from './LoginState';
 import { activateActions, activateStateReducers } from './ActivateState';
+import { acceptInvitationActions, acceptInvitationStateReducers } from './AcceptInvitationState';
 import { forgotPasswordActions, forgotPasswordStateReducers } from './ForgotPasswordState';
 import { ssoActions, ssoStateReducers } from './SSOState';
 import { mfaActions, mfaStateReducers } from './MfaState';
@@ -19,6 +20,7 @@ const { reducer, actions: sliceActions } = createSlice({
 
     ...loginStateReducers,
     ...activateStateReducers,
+    ...acceptInvitationStateReducers,
     ...forgotPasswordStateReducers,
     ...ssoStateReducers,
     ...profileStateReducers,
@@ -31,6 +33,7 @@ const actions = {
   ...sliceActions,
   ...loginActions,
   ...activateActions,
+  ...acceptInvitationActions,
   ...forgotPasswordActions,
   ...ssoActions,
   ...profileActions,

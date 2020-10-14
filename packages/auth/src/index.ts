@@ -13,6 +13,7 @@ export * from './HOCs';
 export * from './components';
 export * from './Login';
 export * from './ActivateAccount';
+export * from './AcceptInvitation';
 export * from './ForgotPassword';
 export * from './ResetPassword';
 export * from './SSO';
