@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { SelectProps, SelectOptionProps } from './interfaces';
 import Select, { components, MultiValueProps } from 'react-select';
+import { useT } from '../../hooks';
 
 export const FeSelect = (props: SelectProps) => {
   const [open, setOpen] = useState(false);
+  const { t } = useT();
   const {
     label,
     value,
@@ -42,16 +44,16 @@ export const FeSelect = (props: SelectProps) => {
 
   return (
     <Select
-      isMulti={multiselect ?? true}
+      isMulti={multiselect ?? false}
       placeholder={label}
       value={value}
       components={renderOption ? { MultiValueLabel } : {}}
       options={options}
       isLoading={loading ?? false}
-      loadingMessage={() => loadingText ?? 'Loading...'}
+      loadingMessage={() => loadingText ?? `${t('common.loading')}...`}
       closeMenuOnSelect={false}
       open={openProps ?? open}
-      noOptionsMessage={() => noOptionsText ?? 'Empty'}
+      noOptionsMessage={() => noOptionsText ?? t('common.empty-items')}
       onMenuOpen={() => (onOpen ? onOpen : setOpen(true))}
       onMenuClose={() => (onClose ? onClose : setOpen(false))}
       onChange={(newValues, e: any) => onChange(e, newValues)}
