@@ -30,6 +30,11 @@ export type IActivateAccount = {
   password?: string;
 };
 
+export type IAcceptInvitation = {
+  userId: string;
+  token: string;
+};
+
 export type IForgotPassword = { email: string };
 
 export type IResetPassword = {

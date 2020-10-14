@@ -1,6 +1,7 @@
 import { loginState } from './LoginState';
 import { AuthState } from './interfaces';
 import { activateState } from './ActivateState';
+import { acceptInvitationState } from './AcceptInvitationState';
 import { forgotPasswordState } from './ForgotPasswordState';
 import { ssoState } from './SSOState';
 import { profileState } from './ProfileState';
@@ -14,6 +15,7 @@ export const initialState: AuthState = {
     loginUrl: '/account/login',
     logoutUrl: '/account/logout',
     activateUrl: '/account/activate',
+    acceptInvitationUrl: '/account/invitation/accept',
     forgetPasswordUrl: '/account/forget-password',
     resetPasswordUrl: '/account/reset-password',
   },
@@ -26,6 +28,7 @@ export const initialState: AuthState = {
 
   loginState,
   activateState,
+  acceptInvitationState,
   forgotPasswordState,
   ssoState,
   profileState,
