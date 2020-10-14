@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "1.0.89",
+  "version": "1.1.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -13,11 +13,11 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-core": "^1.0.89",
+    "@frontegg/react-core": "^1.1.0",
     "@reduxjs/toolkit": "^1.4.0",
-    "immer": "^7.0.3",
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
+    "immer": "^7.0.3",
     "react": ">16.8.6",
     "react-is": ">16.8.6",
     "react-router-dom": "^5.1.2",
