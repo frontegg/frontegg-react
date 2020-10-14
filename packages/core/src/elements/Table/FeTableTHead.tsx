@@ -1,21 +1,23 @@
 import React, { FC } from 'react';
 import { FeTableColumnProps } from './interfaces';
 import classNames from 'classnames';
-import { HeaderGroup, TableSortByToggleProps } from 'react-table';
+import { HeaderGroup, Row, TableSortByToggleProps } from 'react-table';
 import { FeTableSortColumn } from './FeTableSortColumn';
 import { FeTableFilterColumn } from './FeTableFilterColumn';
 import { FeCheckbox } from '../Checkbox/FeCheckbox';
 
-type FeTableTHeadProps<T extends object> = {
+export type FeTableTHeadProps<T extends object> = {
+  prefixCls: string;
   headerGroups: HeaderGroup<T>[];
   onSortChange?: (column: FeTableColumnProps<T>) => void;
   onFilterChange?: (column: FeTableColumnProps<T>, filterValue?: any) => void;
   toggleAllRowsSelected?: (value: boolean) => void;
   isAllRowsSelected?: boolean;
-  selectedFlatRows?: T[];
+  selectedFlatRows?: Row<T>[];
 };
 export const FeTableTHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: FeTableTHeadProps<T>) => {
   const {
+    prefixCls,
     headerGroups,
     onSortChange,
     onFilterChange,
@@ -57,7 +59,7 @@ export const FeTableTHead: FC<FeTableTHeadProps<any>> = <T extends object>(props
                 <FeTableSortColumn column={column} />
 
                 <div className='fe-table__spacer' />
-                {column.canFilter && <FeTableFilterColumn column={column} onFilterChange={onFilterChange} />}
+                {column.canFilter && <FeTableFilterColumn prefixCls={prefixCls} column={column} onFilterChange={onFilterChange} />}
               </div>
             );
           })}

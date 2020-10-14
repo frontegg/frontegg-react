@@ -1,33 +1,21 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
-import { FeTableColumnOptions, FeTableColumnProps, TableProps } from './interfaces';
+import { FeTableColumnOptions, FeTableColumnProps, FeTableInstance, FeTableState, FeUseTable, TableProps } from './interfaces';
 import {
   useTable,
   useFilters,
   useSortBy,
-  TableState,
-  UseTableOptions,
-  UseFiltersOptions,
   UseFiltersState,
-  UseSortByOptions,
   UseSortByState,
   useExpanded,
-  UseExpandedOptions,
   Cell,
   UseExpandedRowProps,
   Row,
   Column,
   useFlexLayout,
   usePagination,
-  PluginHook,
-  UsePaginationOptions,
   UsePaginationState,
-  UsePaginationInstanceProps,
-  UseTableInstanceProps,
-  TableInstance,
   useRowSelect,
   UseRowSelectRowProps,
-  UseRowSelectOptions,
-  UseRowSelectInstanceProps,
   UseRowSelectState,
 } from 'react-table';
 
@@ -35,12 +23,14 @@ import './FeTable.scss';
 import classNames from 'classnames';
 import { FeButton } from '../Button/FeButton';
 import { FeIcon } from '../Icon/FeIcon';
-import { FeTableTHead } from './FeTableTHead';
-import { FeTableTBody } from './FeTableTBody';
-import { FeTablePagination } from './FeTablePagination';
+import { FeTableTHead, FeTableTHeadProps } from './FeTableTHead';
+import { FeTableTBody, FeTableTBodyProps } from './FeTableTBody';
+import { FeTablePagination, FeTablePaginationProps } from './FeTablePagination';
 import { FeTableToolbar } from './FeTableToolbar';
 import { FeCheckbox } from '../Checkbox/FeCheckbox';
+import { checkTableProps } from './TableUtils';
 
+const prefixCls = 'fe-table';
 export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
   const tableRef = useRef<HTMLDivElement>(null);
   const columns = useMemo(() => {
@@ -51,7 +41,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
-        } as FeTableColumnOptions<T>)
+        } as FeTableColumnOptions<T>),
     );
     if (props.expandable) {
       columns.unshift({
@@ -92,17 +82,6 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     return columns as Column<T>[];
   }, [props.columns, props.expandable]);
 
-  const tableHooks: PluginHook<T>[] = [useFilters, useSortBy];
-  if (props.expandable) {
-    tableHooks.push(useExpanded);
-  }
-  if (props.pagination) {
-    tableHooks.push(usePagination);
-  }
-  if (props.selection) {
-    tableHooks.push(useRowSelect);
-  }
-  tableHooks.push(useFlexLayout);
 
   const {
     getTableProps,
@@ -144,37 +123,23 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
           sortBy: props.sortBy ?? state1.sortBy,
           filters: props.filters ?? state1.filters,
           selectedRowIds: props.selectedRowIds ?? state1.selectedRowIds,
-        } as TableState<T> & UseFiltersState<T> & UseSortByState<T> & UseRowSelectState<T>),
+        } as FeTableState<T>),
       expandSubRows: false,
       initialState: {
         pageIndex: 0,
         pageSize: props.pageSize ?? 0,
         selectedRowIds: props.selectedRowIds || {},
       },
-    } as UseTableOptions<T> &
-      UseFiltersOptions<T> &
-      UseSortByOptions<T> &
-      UseExpandedOptions<T> &
-      UseRowSelectOptions<T> &
-      UsePaginationOptions<T>,
-    ...tableHooks
-  ) as TableInstance<T> & UseTableInstanceProps<T> & UsePaginationInstanceProps<T> & UseRowSelectInstanceProps<T>;
+    } as FeUseTable<T>,
+    useFilters,
+    useSortBy,
+    useExpanded,
+    usePagination,
+    useRowSelect,
+    useFlexLayout,
+  ) as FeTableInstance<T>;
 
-  if (props.expandable && !props.renderExpandedComponent) {
-    throw Error('FeTable: you must provide renderExpandedComponent property if the table is expandable');
-  }
-  if (props.hasOwnProperty('sortBy') && !props.onSortChange) {
-    throw Error('FeTable: you must provide onSortChange property if sortBy is controlled');
-  }
-  if (props.hasOwnProperty('filters') && !props.onFilterChange) {
-    throw Error('FeTable: you must provide onFilterChange property if filters is controlled');
-  }
-  if (props.hasOwnProperty('pagination') && !props.pageSize) {
-    throw Error('FeTable: you must provide pageSize property if pagination enabled');
-  }
-  if (props.hasOwnProperty('onPageChange') && !props.pageCount) {
-    throw Error('FeTable: you must provide pageCount property if onPageChange is controlled');
-  }
+  checkTableProps(props);
 
   const tableState = state as UseSortByState<T> & UseFiltersState<T> & UsePaginationState<T> & UseRowSelectState<T>;
 
@@ -196,7 +161,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         }
       }
     },
-    [props.onSortChange]
+    [props.onSortChange],
   );
 
   const onFilterChange = useCallback(
@@ -211,7 +176,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         column.setFilter(filterValue);
       }
     },
-    [props.onFilterChange]
+    [props.onFilterChange],
   );
 
   const onToggleAllRowsSelected = useCallback(
@@ -223,7 +188,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         toggleAllRowsSelected(value);
       }
     },
-    [props.onRowSelected]
+    [props.onRowSelected],
   );
 
   const onRowSelected = useCallback(
@@ -241,7 +206,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         toggleRowSelected(id, value);
       }
     },
-    [props.onRowSelected]
+    [props.onRowSelected],
   );
 
   useEffect(() => {
@@ -253,7 +218,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   }, [props.filters, tableState.filters]);
 
   useEffect(() => {
-    tableRef.current?.querySelector('.fe-table__tbody')?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
     props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
   }, [tableState.pageIndex]);
 
@@ -261,39 +226,47 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     !props.hasOwnProperty('selectedRowIds') && props.onRowSelected?.(tableState.selectedRowIds as any);
   }, [tableState.selectedRowIds]);
 
+
+  const tableHeadProps: FeTableTHeadProps<T> = {
+    prefixCls,
+    headerGroups,
+    onSortChange,
+    onFilterChange,
+    toggleAllRowsSelected,
+    isAllRowsSelected,
+    selectedFlatRows,
+  };
+
+  const tableBodyProps: FeTableTBodyProps<T> = {
+    prefixCls,
+    getTableBodyProps,
+    prepareRow,
+    renderExpandedComponent: props.renderExpandedComponent,
+    rows: (props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[],
+  };
+
+  const tablePaginationProps: FeTablePaginationProps<T> = {
+    pageIndex: tableState.pageIndex,
+    pageSize: tableState.pageSize,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+  };
+
   return (
     <div className='fe-table__container'>
-      <div ref={tableRef} className='fe-table' {...getTableProps()}>
+      <div ref={tableRef} className={prefixCls} {...getTableProps()}>
         {props.toolbar && <FeTableToolbar />}
-        <FeTableTHead
-          headerGroups={headerGroups}
-          onSortChange={onSortChange}
-          onFilterChange={onFilterChange}
-          toggleAllRowsSelected={onToggleAllRowsSelected}
-          isAllRowsSelected={isAllRowsSelected}
-          selectedFlatRows={selectedFlatRows}
-        />
-        <FeTableTBody
-          getTableBodyProps={getTableBodyProps}
-          prepareRow={prepareRow}
-          rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
-          renderExpandedComponent={props.renderExpandedComponent}
-        />
 
-        {props.pagination === 'pages' && (
-          <FeTablePagination
-            pageIndex={tableState.pageIndex}
-            pageSize={tableState.pageSize}
-            canPreviousPage={canPreviousPage}
-            canNextPage={canNextPage}
-            pageOptions={pageOptions}
-            pageCount={pageCount}
-            gotoPage={gotoPage}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            setPageSize={setPageSize}
-          />
-        )}
+        <FeTableTHead {...tableHeadProps} />
+        <FeTableTBody {...tableBodyProps} />
+
+        {props.pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}
       </div>
     </div>
   );

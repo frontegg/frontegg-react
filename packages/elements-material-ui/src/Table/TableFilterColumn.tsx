@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Popup } from '../Popup';
-import { FeTableColumnProps } from '@frontegg/react-core';
+import { FeTableColumnProps, useDebounce } from '@frontegg/react-core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Box, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDebounce } from './helpers';
+
 const useStyles = makeStyles({
   filterButton: {
     margin: '-16px 0',
