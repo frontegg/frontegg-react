@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { SelectProps } from '@frontegg/react-core';
+import { SelectProps, useT } from '@frontegg/react-core';
 import { TextField, Chip, CircularProgress } from '@material-ui/core';
 import { Autocomplete, AutocompleteProps as MaterialSelectProps } from '@material-ui/lab';
 
@@ -15,6 +15,7 @@ const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectPro
 };
 
 export const Select: FC<SelectProps> = (props) => {
+  const { t } = useT();
   const p = mapper(props);
   const [open, setOpen] = useState(false);
 
@@ -43,22 +44,22 @@ export const Select: FC<SelectProps> = (props) => {
       return renderOption ? (
         <React.Fragment key={index}>{renderOption(option, state)}</React.Fragment>
       ) : (
-        <Chip disabled={true} label={option.label} {...getTagProps({ index })} />
-      );
+          <Chip size={size} disabled={true} label={option.label} {...getTagProps({ index })} />
+        );
     },
     [renderOption]
   );
 
   return (
     <Autocomplete
-      multiple={multiple ?? true}
+      multiple={multiple ?? false}
       options={options}
-      size={size ?? 'small'}
-      loading={loading ?? false}
+      size={size}
+      loading={loading}
       disableCloseOnSelect
       open={propOpen ?? open}
-      noOptionsText={noOptionsText ?? 'Empty'}
-      loadingText={loadingText ?? 'Loading...'}
+      noOptionsText={noOptionsText ?? t('common.empty-items')}
+      loadingText={loadingText ?? `${t('common.loading')}...`}
       onOpen={(e) => (onOpen ? onOpen(e) : setOpen(true))}
       onClose={(e, reson) => (onClose ? onClose(e, reson) : setOpen(false))}
       onChange={(e, newValue, reson) => handleChange(e, newValue, reson)}
