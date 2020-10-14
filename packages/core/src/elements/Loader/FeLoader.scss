@@ -1,0 +1,30 @@
+@import '../../styles/mixin.scss';
+
+.fe-loader {
+  position: relative;
+  width: var(--element-height);
+  height: var(--element-height);
+  display: inline-flex;
+
+  &__inner {
+    @include with-theme {
+      background-color: transparent;
+      border: 2px solid var(--color-black-20);
+      border-bottom: 2px solid;
+    }
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: spin 0.4s infinite linear;
+    left: 0;
+    top: 0;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

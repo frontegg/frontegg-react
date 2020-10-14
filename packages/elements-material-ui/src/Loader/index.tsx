@@ -5,12 +5,14 @@ import classNames from 'classnames';
 import './style.scss';
 
 const mapper = (props: LoaderProps): MaterialLoaderProps => {
-  const { center, inline, ...rest } = props;
+  const { className, variant, color, ...rest } = props;
+  const variantColor = variant === 'danger' || variant === 'disabled' || variant === 'default' ? 'inherit' : variant;
   return {
-    className: classNames('fe-loader', {
+    className: classNames(className, {
       'fe-loader__centered': !props.inline,
     }),
-    // ...rest,
+    color: variantColor,
+    ...rest,
   };
 };
 

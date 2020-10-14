@@ -4,7 +4,7 @@ import { FeIcon } from '../Icon/FeIcon';
 import { FeButton } from '../Button/FeButton';
 import classNames from 'classnames';
 
-type FeTablePaginationProps<T extends object> = {
+export type FeTablePaginationProps<T extends object> = {
   pageIndex: number;
   pageSize: number;
   pageCount: number;

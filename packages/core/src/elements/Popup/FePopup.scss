@@ -1,0 +1,10 @@
+.fe-popup {
+  &__container {
+    border-radius: var(--fe-popup-border-radius, var(--element-border-radius));
+    padding: var(--fe-popup-padding, var(--element-padding));
+    box-shadow: var(--fe-popup-shadow, var(--popup-shadow));
+    background-color: var(--fe-popup-bg, var(--color-white));
+
+    color: var(--color-gray-9);
+  }
+}

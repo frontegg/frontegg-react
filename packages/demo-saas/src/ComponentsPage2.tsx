@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { TableFilter, TableSort } from '@frontegg/react-core';
-import { FeTable } from '@frontegg/react-core';
+import { TableFilter, TableSort, Input, FeTable } from '@frontegg/react-core';
 
 const data = [
   {
@@ -1144,21 +1143,40 @@ export const ComponentsPage2: FC = () => {
     <div>
       <FeTable
         columns={[
-          { accessor: 'user', Header: 'User', sortable: true, Filter: () => <div>fff</div> },
-          { accessor: 'createdAt', Header: 'Time', sortable: true },
+          {
+            accessor: 'user',
+            Header: 'User',
+            sortable: true,
+            Filter: ({ value, setFilterValue }) => {
+              return <Input label='Filter by user' value={value} onChange={(e) => setFilterValue(e.target.value)} />;
+            },
+          },
+          {
+            accessor: 'createdAt',
+            Header: 'Time',
+            sortable: true,
+            Filter: ({ setFilterValue }) => <div></div>,
+          },
           { accessor: 'resource', Header: 'Resource', sortable: true },
           { accessor: 'action', Header: 'Action', sortable: true },
           { accessor: 'severity', Header: 'Severity', sortable: true },
           { accessor: 'ip', Header: 'IP ADDRESS', sortable: true },
         ]}
         data={data}
-        expandable
+        rowKey='frontegg_id'
         pagination='pages'
         pageSize={20}
+        pageCount={100}
         onPageChange={(pageSize, page) => {
           console.log(pageSize, page);
         }}
-        renderExpandedComponent={renderExpandedComponent}
+        // expandable
+        // renderExpandedComponent={renderExpandedComponent}
+
+        selection='multi'
+        onRowSelected={(selected) => {
+          console.log(selected);
+        }}
         toolbar
         // sortBy={sortBy}
         // onSortChange={(_sortBy) => {

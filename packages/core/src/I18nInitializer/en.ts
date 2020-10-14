@@ -20,6 +20,8 @@ export default {
       'not-configured': 'Not Configured',
       country: 'Country',
       'date-of-birth': 'Date of Birth',
+      loading: 'Loading',
+      'empty-items': 'No Items',
     },
     auth: {
       login: {

@@ -1,6 +1,6 @@
-import { ElementsFactory } from '../../ElementsFactory';
 import React, { forwardRef } from 'react';
 import { useFormikContext } from 'formik';
+import { ElementsFactory } from '../../ElementsFactory';
 import { ButtonProps } from './interfaces';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
