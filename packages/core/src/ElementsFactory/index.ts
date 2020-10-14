@@ -4,7 +4,6 @@ import { SwitchToggleProps, TabProps } from './interfaces';
 
 export * from './interfaces';
 export * from './FileInput';
-export * from './DatePicker';
 export * from './Input';
 export * from './Form';
 export * from './Dialog';
