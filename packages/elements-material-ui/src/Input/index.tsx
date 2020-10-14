@@ -5,29 +5,64 @@ import {
   InputProps as MaterialInputProps,
   TextField as MaterialTextField,
   TextFieldProps as MaterialTextFieldProps,
+  IconButton,
+  InputAdornment,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import './style.scss';
 
 const materialInputMapper = (props: InputProps): MaterialInputProps => {
-  const { inForm, fullWidth, labelButton, error, className, ...rest } = props;
-  return {
+  const { inForm, fullWidth, labelButton, error, prefixIcon, suffixIcon, iconAction, className, ...rest } = props;
+  const data = {
     ...rest,
     className: classNames('fe-input', props.className),
     fullWidth,
     helperText: error,
     error,
   } as any;
+  if (prefixIcon) {
+    data.startAdornment = (
+      <InputAdornment onClick={iconAction} position='start'>
+        {iconAction ? <IconButton>{prefixIcon}</IconButton> : prefixIcon}
+      </InputAdornment>
+    );
+  } else if (suffixIcon) {
+    data.endAdornment = (
+      <InputAdornment onClick={iconAction} position='end'>
+        {iconAction ? <IconButton>{suffixIcon}</IconButton> : suffixIcon}
+      </InputAdornment>
+    );
+  }
+  return data;
 };
 const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
-  const { inForm, fullWidth, labelButton, error, className, ...rest } = props;
-  return {
+  const { inForm, fullWidth, labelButton, error, prefixIcon, suffixIcon, iconAction, className, ...rest } = props;
+  const data = {
     ...rest,
     className: classNames('fe-input__in-form', props.className),
     fullWidth,
     helperText: error,
     error,
   } as any;
+
+  if (prefixIcon) {
+    data.InputProps = {
+      startAdornment: (
+        <InputAdornment onClick={iconAction} position='start'>
+          {iconAction ? <IconButton>{prefixIcon}</IconButton> : prefixIcon}
+        </InputAdornment>
+      ),
+    };
+  } else if (suffixIcon) {
+    data.InputProps = {
+      endAdornment: (
+        <InputAdornment onClick={iconAction} position='end'>
+          {iconAction ? <IconButton>{suffixIcon}</IconButton> : suffixIcon}
+        </InputAdornment>
+      ),
+    };
+  }
+  return data;
 };
 
 export class Input extends React.Component<InputProps> {

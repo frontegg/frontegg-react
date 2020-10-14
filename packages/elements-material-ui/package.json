@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-material-ui",
   "libName": "FronteggElementsMaterialUi",
-  "version": "1.0.89",
+  "version": "1.1.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -20,9 +20,11 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "classnames": "^2.2.6",
     "react": ">16.8.6",
     "react-is": "^16.13.1",
+    "react-popper-tooltip": "^3.1.0",
     "underscore": "^1.10.2"
   },
   "devDependencies": {

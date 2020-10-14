@@ -1,14 +1,16 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentType, ReactNode } from 'react';
 import {
   Column,
   HeaderGroup,
   HeaderProps,
   IdType,
-  Renderer,
+  Renderer, TableInstance, TableState, UseExpandedOptions,
   UseFiltersColumnOptions,
-  UseFiltersColumnProps,
+  UseFiltersColumnProps, UseFiltersOptions, UseFiltersState, UsePaginationInstanceProps, UsePaginationOptions,
+  UseRowSelectInstanceProps,
+  UseRowSelectOptions, UseRowSelectState,
   UseSortByColumnOptions,
-  UseSortByColumnProps,
+  UseSortByColumnProps, UseSortByOptions, UseSortByState, UseTableInstanceProps, UseTableOptions,
 } from 'react-table';
 
 export interface TableProps<T extends object = {}> {
@@ -19,11 +21,16 @@ export interface TableProps<T extends object = {}> {
   columns: TableColumnProps<T>[];
   pagination?: 'pages' | 'infinite-scroll';
   onPageChange?: (pageSize: number, page: number) => void;
+  pageCount?: number;
   pageSize?: number;
 
   toolbar?: boolean;
   loading?: boolean;
   emptyRowsPlaceholder?: ReactNode;
+
+  selection?: 'single' | 'multi';
+  onRowSelected?: (rowIds: Record<string | number, boolean>) => void;
+  selectedRowIds?: Record<string | number, boolean>;
 
   expandable?: boolean;
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
@@ -31,6 +38,8 @@ export interface TableProps<T extends object = {}> {
   tableHeader?: boolean;
 
   data: T[];
+  // totalData: number;
+  rowKey: keyof T | string;
 
   isMultiSort?: boolean;
   sortBy?: TableSort[];
@@ -68,8 +77,10 @@ export interface TableColumnProps<T extends object> {
   Cell?: (data: T, index: number) => ReactNode;
 
   sortable?: boolean;
-  Filter?: () => React.ReactElement;
+  Filter?: FilterComponent;
 }
+
+export type FilterComponent<T = any> = ComponentType<{ value: T | null; setFilterValue: (value: T | null) => void }>;
 
 export interface TableSort {
   id: string;
@@ -86,6 +97,32 @@ export interface TableColumnFilterProps<T = {}> {
   filterBy: string;
 }
 
-export type FeTableColumnProps<T extends object> = HeaderGroup<T> & UseSortByColumnProps<T> & UseFiltersColumnProps<T>;
+export type FeTableColumnProps<T extends object> = HeaderGroup<T> &
+  UseSortByColumnProps<T> &
+  UseFiltersColumnProps<T> &
+  UseRowSelectInstanceProps<T> & { Filter: FilterComponent };
 
-export type FeTableColumnOptions<T extends object> = Column<T> & UseSortByColumnOptions<T> & UseFiltersColumnOptions<T>;
+export type FeTableColumnOptions<T extends object> = Column<T> &
+  UseSortByColumnOptions<T> &
+  UseFiltersColumnOptions<T> &
+  UseRowSelectOptions<T>;
+
+export type FeUseTable<T extends object> =
+  UseTableOptions<T>
+  & UseFiltersOptions<T>
+  & UseSortByOptions<T>
+  & UseExpandedOptions<T>
+  & UseRowSelectOptions<T>
+  & UsePaginationOptions<T>
+
+export type FeTableInstance<T extends object> =
+  TableInstance<T>
+  & UseTableInstanceProps<T>
+  & UsePaginationInstanceProps<T>
+  & UseRowSelectInstanceProps<T>
+
+export type FeTableState<T extends object> =
+  TableState<T>
+  & UseFiltersState<T>
+  & UseSortByState<T>
+  & UseRowSelectState<T>

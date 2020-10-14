@@ -1,10 +1,14 @@
 import React from 'react';
+import { Size } from '../../styles';
 
 export type IconNames =
   | 'up-arrow'
+  | 'visibility'
+  | 'visibility-off'
   | 'down-arrow'
   | 'left-arrow'
   | 'right-arrow'
+  | 'indeterminate'
   | 'checkmark'
   | 'copy'
   | 'warning'
@@ -17,5 +21,5 @@ export type IconNames =
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
 }

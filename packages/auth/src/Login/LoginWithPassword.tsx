@@ -54,7 +54,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
-
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
   const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
   const validationSchema: any = { email: validateEmail(t) };

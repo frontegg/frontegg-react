@@ -1,8 +1,9 @@
-import React, { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { LoginProps, LoginWithSSOProps, LogoutProps } from './Login';
 import { ForgotPasswordProps } from './ForgotPassword';
 import { ResetPasswordProps } from './ResetPassword';
 import { ActivateAccountProps } from './ActivateAccount';
+import { AcceptInvitationProps } from './AcceptInvitation';
 
 export type AuthPageRoutes = {
   routes: {
@@ -24,6 +25,10 @@ export type AuthPageRoutes = {
      */
     activateUrl: string;
     /**
+     * the page whether need to redirect in the case when a user want to accept invite to tanent
+     */
+    acceptInvitationUrl: string;
+    /**
      * the page in the case a user forgot his account password
      */
     forgetPasswordUrl: string;
@@ -44,6 +49,7 @@ export interface PerPageHeader {
   forgotPassword?: ReactNode;
   resetPassword?: ReactNode;
   activateAccount?: ReactNode;
+  acceptInvitation?: ReactNode;
   loginWithSSO?: ReactNode;
 }
 
@@ -55,11 +61,19 @@ export interface PerPageProps {
   forgotPassword?: ForgotPasswordProps & HeaderProps;
   resetPassword?: ResetPasswordProps & HeaderProps;
   activateAccount?: ActivateAccountProps & HeaderProps;
+  acceptInvitation?: AcceptInvitationProps & HeaderProps;
   loginWithSSO?: LoginWithSSOProps & HeaderProps;
 }
 
 export type PageComponentProps = HeaderProps & {
-  pageId: 'login' | 'logout' | 'forgotPassword' | 'resetPassword' | 'activateAccount' | 'loginWithSSO';
+  pageId:
+    | 'login'
+    | 'logout'
+    | 'forgotPassword'
+    | 'resetPassword'
+    | 'activateAccount'
+    | 'acceptInvitation'
+    | 'loginWithSSO';
   children?: ReactNode;
 };
 

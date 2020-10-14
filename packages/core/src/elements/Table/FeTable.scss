@@ -104,11 +104,10 @@
       color: var(--fe-table-header-font-color);
       background: var(--color-gray-2);
     }
-
-    &.active-filter {
-      color: var(--color-primary-dark);
-      background: var(--color-gray-2);
-    }
+  }
+  &__active-filter {
+    color: var(--color-primary-dark);
+    background: var(--color-gray-2);
   }
 
   &__tbody {

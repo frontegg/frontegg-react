@@ -1,3 +1,5 @@
+@import '../../styles/mixin.scss';
+
 .fe-button {
   position: relative;
   background: var(--color-gray-0);
@@ -10,7 +12,7 @@
   font-weight: 600;
   line-height: normal;
   padding: 0 var(--element-padding);
-  vertical-align: top;
+  vertical-align: middle;
   border-radius: var(--element-border-radius);
   box-shadow: none;
   border: 1px solid var(--element-border-color);
@@ -21,7 +23,31 @@
   overflow: hidden;
   color: var(--color-gray-8);
 
-  > svg {
+  @include with-clickable;
+  @include with-theme;
+  @include with-size;
+  @include with-full-width;
+
+  &-loader {
+    color: transparent !important;
+    text-shadow: none !important;
+
+    .fe-loader {
+      position: absolute;
+      width: var(--element-height-sm);
+      height: var(--element-height-sm);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      visibility: visible;
+    }
+
+    & > *:not(.fe-loader) {
+      visibility: hidden;
+    }
+  }
+
+  & > svg {
     padding: 0 var(--element-padding) / 2;
     vertical-align: sub;
     width: 1rem;
@@ -40,52 +66,4 @@
       padding: 0;
     }
   }
-}
-
-.fe-button:hover {
-  filter: brightness(0.9);
-}
-
-.fe-button:active {
-  filter: brightness(0.8);
-}
-
-.fe-button-primary {
-  background: var(--color-primary-lighter);
-  color: var(--color-primary) !important;
-  border: 1px solid var(--color-primary-lighter);
-}
-
-.fe-button-secondary {
-  background: var(--color-secondary-light);
-  color: var(--color-secondary-dark);
-}
-
-.fe-button-danger {
-  background: var(--color-danger-light);
-  color: var(--color-black);
-}
-
-.fe-button-small {
-  padding: 0 var(--element-padding-sm);
-  height: var(--element-height-sm);
-  font-size: var(--element-font-size-sm);
-}
-
-.fe-button-large {
-  padding: 0 var(--element-padding-lg);
-  height: var(--element-height-lg);
-  font-size: var(--element-font-size-lg);
-}
-
-.fe-button-disabled {
-  pointer-events: none;
-  cursor: default;
-  background-color: var(--color-gray-3);
-  color: var(--color-gray-5);
-  font-weight: 400;
-}
-
-.fe-button-full-width {
-  width: 100%;
 }

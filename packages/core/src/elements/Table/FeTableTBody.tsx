@@ -13,7 +13,8 @@ import { FeTableSortColumn } from './FeTableSortColumn';
 import { FeTableFilterColumn } from './FeTableFilterColumn';
 import { FeTableExpandable } from './FeTableExpandable';
 
-type FeTableTBodyProps<T extends object> = {
+export type FeTableTBodyProps<T extends object> = {
+  prefixCls: string;
   getTableBodyProps: (propGetter?: TableBodyPropGetter<T>) => TableBodyProps;
   prepareRow: (row: Row<T>) => void;
   rows: (Row<T> & UseExpandedRowProps<T>)[];
