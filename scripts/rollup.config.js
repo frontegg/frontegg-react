@@ -68,7 +68,7 @@ const commonPlugins = [
     sourceMap: false,
   }),
   isWatching && progress(),
-  isProduction && terser(),
+  // isProduction && terser(),
 ];
 
 const esmPlugins = [
