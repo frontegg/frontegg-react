@@ -54,9 +54,7 @@ jobs:
         shell: bash -ex {0}
         run: |
           version=$(node -p 'require("./lerna.json").version')
-          changelog=$(node -p 'require("fs").readFileSync("./CHANGELOG.md", {encoding: "utf-8"})')
           echo "::set-output name=version::${version}"
-          echo "::set-output name=changelog::${changelog}"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3.4.0
@@ -67,7 +65,15 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
           title: 'v${{ steps.changelog.outputs.version }}'
-          body: ${{ steps.changelog.outputs.changelog }}
+          body: |
+            # v${{ steps.changelog.outputs.version }}
+
+            ### Bug fixes
+            [ ] TODO
+
+            ### Feature
+            [ ] TODO
+
           labels: "Type: Release"
           branch: "release/next"
           request-to-parent: false
