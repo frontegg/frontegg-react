@@ -37,7 +37,12 @@ export type ITeamUser = {
   mfaEnabled?: boolean;
 };
 
-export type ITeamUserRole = string;
+export type ITeamUserRole = {
+  id: string;
+  description: string;
+  key: string;
+  name: string;
+};
 
 export type ITeamStats = {
   totalItems: number;

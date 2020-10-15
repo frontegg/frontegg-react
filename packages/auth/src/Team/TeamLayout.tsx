@@ -1,7 +1,16 @@
 import React, { FC } from 'react';
+import { reloadTeamIfNeeded } from './helpers';
+import { TeamTableToolbar } from './TeamTableToolbar';
+import { TeamTable } from './TeamTable';
 
-export interface TeamLayoutProps {}
+export const TeamLayout: FC = (props) => {
+  reloadTeamIfNeeded();
 
-export const TeamLayout: FC<TeamLayoutProps> = (props) => {
-  return <div className='fe-team-layout'>TeamLayout</div>;
+  const children = props.children ?? (
+    <>
+      <TeamTableToolbar />
+      <TeamTable />
+    </>
+  );
+  return <div className='fe-team__layout'>{children}</div>;
 };

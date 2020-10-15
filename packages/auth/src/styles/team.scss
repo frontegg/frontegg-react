@@ -1,0 +1,25 @@
+
+.fe-team__page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.fe-team__layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fe-team__table {
+  flex: 1;
+  overflow: hidden;
+}
+
+.fe-team__table-toolbar {
+  padding: 1rem;
+  margin-top: -0.5rem;
+}

@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
-import { TableFilter, TableSort, Input, FeTable } from '@frontegg/react-core';
+import { TableFilter, TableSort, Input, fronteggElements, Elements } from '@frontegg/react-core';
 
+const { Table } = fronteggElements as Elements;
 const data = [
   {
     ip: '79.176.23.49',
@@ -1141,7 +1142,7 @@ export const ComponentsPage2: FC = () => {
   }, []);
   return (
     <div>
-      <FeTable
+      <Table
         columns={[
           {
             accessor: 'user',

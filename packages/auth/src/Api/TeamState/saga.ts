@@ -14,7 +14,7 @@ import { TeamStateKeys } from './interfaces';
 
 function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>) {
   const { silentLoading, ...body } = payload;
-  const pageSize = payload.pageSize ?? (yield select((state) => state.auth.team.pageSize));
+  const pageSize = payload.pageSize ?? (yield select((state) => state.auth.teamState.pageSize));
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: !silentLoading }));
   try {
     const { items: users, totalPages } = yield call(api.teams.loadUsers, { ...body, pageSize });

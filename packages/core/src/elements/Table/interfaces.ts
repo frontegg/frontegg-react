@@ -4,13 +4,25 @@ import {
   HeaderGroup,
   HeaderProps,
   IdType,
-  Renderer, TableInstance, TableState, UseExpandedOptions,
+  Renderer,
+  TableInstance,
+  TableState,
+  UseExpandedOptions,
   UseFiltersColumnOptions,
-  UseFiltersColumnProps, UseFiltersOptions, UseFiltersState, UsePaginationInstanceProps, UsePaginationOptions,
+  UseFiltersColumnProps,
+  UseFiltersOptions,
+  UseFiltersState,
+  UsePaginationInstanceProps,
+  UsePaginationOptions,
   UseRowSelectInstanceProps,
-  UseRowSelectOptions, UseRowSelectState,
+  UseRowSelectOptions,
+  UseRowSelectState,
   UseSortByColumnOptions,
-  UseSortByColumnProps, UseSortByOptions, UseSortByState, UseTableInstanceProps, UseTableOptions,
+  UseSortByColumnProps,
+  UseSortByOptions,
+  UseSortByState,
+  UseTableInstanceProps,
+  UseTableOptions,
 } from 'react-table';
 
 export interface TableProps<T extends object = {}> {
@@ -49,13 +61,13 @@ export interface TableProps<T extends object = {}> {
   onFilterChange?: (filters: TableFilter[]) => void;
 }
 
-export interface TableColumnProps<T extends object> {
+export interface TableColumnProps<T extends object = any> {
   /**
    * Required
    * This string/function is used to build the data model for your column.
    * The data returned by an accessor should be primitive and sortable.
    */
-  accessor: keyof T extends never ? IdType<T> : never;
+  accessor: string | IdType<T> | never;
   /**
    * Required if accessor is a function
    * This is the unique ID for the column. It is used by reference in things like sorting, grouping, filtering etc.
@@ -107,22 +119,19 @@ export type FeTableColumnOptions<T extends object> = Column<T> &
   UseFiltersColumnOptions<T> &
   UseRowSelectOptions<T>;
 
-export type FeUseTable<T extends object> =
-  UseTableOptions<T>
-  & UseFiltersOptions<T>
-  & UseSortByOptions<T>
-  & UseExpandedOptions<T>
-  & UseRowSelectOptions<T>
-  & UsePaginationOptions<T>
+export type FeUseTable<T extends object> = UseTableOptions<T> &
+  UseFiltersOptions<T> &
+  UseSortByOptions<T> &
+  UseExpandedOptions<T> &
+  UseRowSelectOptions<T> &
+  UsePaginationOptions<T>;
 
-export type FeTableInstance<T extends object> =
-  TableInstance<T>
-  & UseTableInstanceProps<T>
-  & UsePaginationInstanceProps<T>
-  & UseRowSelectInstanceProps<T>
+export type FeTableInstance<T extends object> = TableInstance<T> &
+  UseTableInstanceProps<T> &
+  UsePaginationInstanceProps<T> &
+  UseRowSelectInstanceProps<T>;
 
-export type FeTableState<T extends object> =
-  TableState<T>
-  & UseFiltersState<T>
-  & UseSortByState<T>
-  & UseRowSelectState<T>
+export type FeTableState<T extends object> = TableState<T> &
+  UseFiltersState<T> &
+  UseSortByState<T> &
+  UseRowSelectState<T>;

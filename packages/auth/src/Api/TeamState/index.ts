@@ -7,9 +7,7 @@ import { WithCallback, WithSilentLoad } from '../interfaces';
 export * from './interfaces';
 
 export const teamState: TeamState = {
-  loaders: {
-    [TeamStateKeys.USERS]: true,
-  },
+  loaders: {},
   pageSize: 20,
   errors: {},
   users: [],

@@ -1,3 +1,3 @@
 export * from './interfaces';
-export * from './FeTable';
+export * from './Table';
 export * as TableUtils from './TableUtils';

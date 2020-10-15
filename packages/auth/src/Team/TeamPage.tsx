@@ -3,10 +3,12 @@ import { checkValidChildren, RootPathContext, useRootPath } from '@frontegg/reac
 import { BasePageProps } from '../interfaces';
 import { TeamLayout } from './TeamLayout';
 import { TeamHeader } from './TeamHeader';
+import { reloadTeamIfNeeded } from './helpers';
 
 export type TeamPageProps = BasePageProps;
 
 export const TeamPage: FC<TeamPageProps> = (props) => {
+  reloadTeamIfNeeded();
   const [rootPath] = useRootPath(props, '/team');
   useMemo(() => checkValidChildren('Team.Page', 'Team', props.children, { TeamLayout }), [props.children]);
 
