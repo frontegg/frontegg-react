@@ -28,11 +28,10 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
     context={contextOptions}
     plugins={plugins}
     uiLibrary={{
-      Input: SemanticLibrary.Input,
-      Select: SemanticLibrary.Select,
-      // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
-    }}
-  >
+      // Input: SemanticLibrary.Input,
+      // Select: SemanticLibrary.Select,
+      ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
+    }}>
     <Component />
   </FronteggProvider>
 );

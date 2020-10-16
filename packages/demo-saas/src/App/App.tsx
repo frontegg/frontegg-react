@@ -63,7 +63,7 @@ class App extends React.Component<any> {
             </ProtectedRoute>
 
             <ProtectedRoute path='/profile' component={Profile.Page} />
-            <ProtectedRoute path='/team' component={Team.Page} />
+            <Route path='/team' component={Team.Page} />
             <Route exact path='/popup' component={PopupExample} />
             <Route exact path='/table' component={TableExample} />
             <Route exact path='/select' component={SelectorExample} />
