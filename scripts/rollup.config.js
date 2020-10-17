@@ -26,6 +26,7 @@ const isExternal = (id) => {
   const exact = [
     'react-redux',
     'formik',
+    'immer',
     '@reduxjs/toolkit',
   ];
   const startWith = [
@@ -68,7 +69,9 @@ const commonPlugins = [
     sourceMap: false,
   }),
   isWatching && progress(),
-  // isProduction && terser(),
+  isProduction && terser({
+    ecma: '6', module: true,
+  }),
 ];
 
 const esmPlugins = [
@@ -161,30 +164,32 @@ export default [
         sourcemap: true,
         format: 'cjs',
       },
-    }, {
-      input: './src/index.ts',
-      plugins: umdPlugins,
-      external: [
-        'react',
-        'react-dom',
-        '@frontegg/react-core',
-        '@frontegg/react-auth',
-        '@frontegg/react-elements-material-ui',
-        '@frontegg/react-elements-semantic',
-      ],
-      output: {
-        globals: {
-          'react': 'React',
-          'react-dom': 'ReactDOM',
-          '@frontegg/react-core': 'FronteggCore',
-          '@frontegg/react-auth': 'FronteggAuth',
-          '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
-          '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
-        },
-        file: path.join(distFolder, 'index.umd.js'),
-        name: pkg.libName,
-        format: 'umd',
-      },
-    }]),
+    },
+    // {
+    //   input: './src/index.ts',
+    //   plugins: umdPlugins,
+    //   external: [
+    //     'react',
+    //     'react-dom',
+    //     '@frontegg/react-core',
+    //     '@frontegg/react-auth',
+    //     '@frontegg/react-elements-material-ui',
+    //     '@frontegg/react-elements-semantic',
+    //   ],
+    //   output: {
+    //     globals: {
+    //       'react': 'React',
+    //       'react-dom': 'ReactDOM',
+    //       '@frontegg/react-core': 'FronteggCore',
+    //       '@frontegg/react-auth': 'FronteggAuth',
+    //       '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
+    //       '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
+    //     },
+    //     file: path.join(distFolder, 'index.umd.js'),
+    //     name: pkg.libName,
+    //     format: 'umd',
+    //   },
+    // }
+    ]),
 ];
 
