@@ -30,8 +30,6 @@ const top100Films = [
 
 export const SelectorExample: FC = () => {
   const [value, setValue] = useState<Array<any>>([]);
-  const [semanticValue, setSemanticValue] = useState<Array<any>>([]);
-  const [materialValue, setMaterialvalue] = useState<Array<any>>([]);
 
   const [open, setOpen] = useState({
     material: false,
@@ -60,28 +58,21 @@ export const SelectorExample: FC = () => {
     setValue(newValue);
   }, []);
 
-  const onSmanticChange = useCallback((_e, newValue: Array<any>) => {
-    setSemanticValue(newValue);
-  }, []);
-
-  const onMaterialChange = useCallback((_e, newValue: Array<any>) => {
-    setMaterialvalue(newValue);
-  }, []);
-
   return (
     <div style={{ margin: '30px' }}>
       <ME.Select
         size='small'
         label='Selector'
-        // open={open.material}
+        open={open.material}
         loading={loading}
-        // onOpen={onOpenMaterial}
+        onOpen={onOpenMaterial}
         theme='danger'
-        // onClose={onCloseMaterial}
+        onClose={onCloseMaterial}
+        fullWidth={false}
         multiselect={true}
         options={top100Films}
-        value={materialValue}
-        onChange={onMaterialChange}
+        value={value}
+        onChange={onChange}
         getOptionLabel={getOptionLabel}
         // renderOption={renderOption}
       />
@@ -91,11 +82,12 @@ export const SelectorExample: FC = () => {
       <FE.Select
         size='medium'
         label='Selector'
-        open={open.core}
         loading={loading}
+        open={open.core}
         onOpen={onOpenCore}
-        theme='secondary'
         onClose={onCloseCore}
+        theme='secondary'
+        fullWidth={false}
         multiselect={true}
         options={top100Films}
         value={value}
@@ -113,12 +105,13 @@ export const SelectorExample: FC = () => {
         onOpen={onOpenSemantic}
         onClose={onCloseSemantic}
         theme='secondary'
+        fullWidth={false}
         multiselect={true}
         options={top100Films}
-        value={semanticValue}
-        onChange={onSmanticChange}
+        value={value}
+        onChange={onChange}
         getOptionLabel={getOptionLabel}
-        renderOption={renderOption}
+        // renderOption={renderOption}
       />
     </div>
   );
