@@ -34,11 +34,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
             <TableRow className={classes.root} {...row.getRowProps()}>
               {row.cells.map((cell) => {
                 if (cell.column.id.includes('fe-expander') || cell.column.id.includes('fe-selection')) {
-                  return (
-                    <TableCell width={20} {...cell.getCellProps()}>
-                      {cell.render('Cell')}
-                    </TableCell>
-                  );
+                  return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
                 }
                 return (
                   <TableCell className={classes.cell} {...cell.getCellProps()}>
