@@ -15,6 +15,7 @@ export interface StateProps {
 export interface SelectProps<T = any> {
   value: T[];
   label?: string;
+  fullWidth?: boolean;
   onChange: (e: Event, newValues: T[]) => void;
   options: SelectOptionProps<T>[];
   multiselect?: boolean;

@@ -21,12 +21,14 @@ export const Select: FC<SelectProps> = (props) => {
 
   const {
     size,
+    value,
     loading,
     onChange,
     options,
     onOpen,
     onClose,
     multiple,
+    fullWidth,
     loadingText,
     renderOption,
     noOptionsText,
@@ -34,9 +36,15 @@ export const Select: FC<SelectProps> = (props) => {
     open: propOpen,
   } = p;
   const color: any = p.color;
-  const handleChange = useCallback((e, newValue, reson) => {
-    onChange && onChange(e, newValue, reson);
-  }, []);
+  const [remountCount, setRemountCount] = useState(0);
+  const refresh = () => setRemountCount(remountCount + 1);
+
+  const handleChange = useCallback(
+    (e, newValue, reson) => {
+      onChange?.(e, newValue, reson);
+    },
+    [onChange]
+  );
 
   const renderTag = useCallback(
     (option, getTagProps, index) => {
@@ -44,8 +52,8 @@ export const Select: FC<SelectProps> = (props) => {
       return renderOption ? (
         <React.Fragment key={index}>{renderOption(option, state)}</React.Fragment>
       ) : (
-          <Chip size={size} disabled={true} label={option.label} {...getTagProps({ index })} />
-        );
+        <Chip size={size} disabled={true} label={option.label} {...getTagProps({ index })} />
+      );
     },
     [renderOption]
   );
@@ -55,20 +63,27 @@ export const Select: FC<SelectProps> = (props) => {
       multiple={multiple ?? false}
       options={options}
       size={size}
+      value={value}
       loading={loading}
       disableCloseOnSelect
+      filterSelectedOptions
       open={propOpen ?? open}
       noOptionsText={noOptionsText ?? t('common.empty-items')}
       loadingText={loadingText ?? `${t('common.loading')}...`}
       onOpen={(e) => (onOpen ? onOpen(e) : setOpen(true))}
       onClose={(e, reson) => (onClose ? onClose(e, reson) : setOpen(false))}
-      onChange={(e, newValue, reson) => handleChange(e, newValue, reson)}
+      onChange={(e, newValue, reson) => {
+        handleChange(e, newValue, reson);
+        setTimeout(() => refresh());
+      }}
       getOptionLabel={(option: any) => (getOptionLabel ? getOptionLabel(option) : option.label)}
       renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => renderTag(option, getTagProps, index))}
       renderInput={(params) => (
         <TextField
           {...params}
           label={props.label}
+          fullWidth={fullWidth ?? true}
+          style={{ minWidth: `${fullWidth ? '100%' : '14em'}` }}
           variant='standard'
           color={color}
           InputProps={{
