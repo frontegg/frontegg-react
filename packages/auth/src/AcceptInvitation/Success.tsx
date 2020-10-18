@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useT, RendererFunctionFC, omitProps, Loader } from '@frontegg/react-core';
+import { useT, RendererFunctionFC, omitProps } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
 export interface SuccessProps {

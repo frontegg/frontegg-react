@@ -22,7 +22,7 @@ export const Logout: FC<LogoutProps> = (props) => {
 
   return (
     <div className='fe-login-page'>
-      <Loader center inline={false} />
+      <Loader center />
     </div>
   );
 };

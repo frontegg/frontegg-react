@@ -39,7 +39,7 @@
     width: 1rem;
     height: 1rem;
     border: 2px solid var(--fe-checkbox-border-color, var(--color-gray-4));
-    border-radius: var(--fe-checkbox-border-radius, var(--element-border-radius));
+    border-radius: var(--fe-checkbox-border-radius, var(--element-border-radius-sm));
     display: inline-block;
     cursor: pointer;
     color: var(--fe-checkbox-icon-color, var(--color-text));

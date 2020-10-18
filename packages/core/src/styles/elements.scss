@@ -1,20 +1,26 @@
 :root {
-  --element-padding: 1rem;
-  --element-padding-lg: 1.125rem;
+  --element-font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+  --element-font-size: 0.9375rem;
+  --element-font-size-lg: 1rem;
+  --element-font-size-sm: 0.875rem;
+
+  --element-padding: 0.9375rem;
+  --element-padding-lg: 1rem;
   --element-padding-sm: 0.875rem;
 
-  --element-font-size: 1rem;
-  --element-font-size-lg: 1.125rem;
-  --element-font-size-sm: 0.875rem;
+  --element-height: 2.4375rem;
+  --element-height-lg: 2.875rem;
+  --element-height-sm: 2rem;
 
   --element-spacing: 0.5rem;
   --element-default-width: 300px;
 
-  --element-height: 2.875rem;
-  --element-height-lg: 3.5rem;
-  --element-height-sm: 2rem;
+  --element-border-radius: 0.5rem;
+  --element-border-radius-lg: 1rem;
+  --element-border-radius-sm: 0.25rem;
+  --element-border-radius-tiny: 0.125rem;
 
-  --element-border-radius: 0.25rem;
   --element-border-color: var(--color-gray-3);
   --element-divider-color: var(--color-gray-2);
 

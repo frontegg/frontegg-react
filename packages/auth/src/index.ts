@@ -26,7 +26,7 @@ export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
   preloadedState: {
     ...initialState,
     ...options,
-    loaderComponent: options?.loaderComponent ?? React.createElement(Loader, { inline: false }),
+    loaderComponent: options?.loaderComponent ?? React.createElement(Loader, { center: true }),
     routes: {
       ...initialState.routes,
       ...options?.routes,

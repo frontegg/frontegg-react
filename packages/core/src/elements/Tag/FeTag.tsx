@@ -6,11 +6,12 @@ import { ClassNameGenerator } from '../../styles';
 
 const prefixCls = 'fe-tag';
 export const FeTag = forwardRef<HTMLDivElement, TagProps>((props, ref) => {
-  const { className, children, variant = 'default', onDelete, ...rest } = props;
+  const { className, children, size, variant = 'default', onDelete, ...rest } = props;
 
   const classes = ClassNameGenerator.generate({
     prefixCls,
     className,
+    size,
     theme: props.disabled ? 'disabled' : variant,
     isClickable: !!props.onClick,
   });

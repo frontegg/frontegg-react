@@ -2,18 +2,17 @@
 
 .fe-button {
   position: relative;
-  background: var(--color-gray-0);
+  background: var(--color-white);
   height: var(--element-height);
   cursor: pointer;
   font-family: var(--element-font-family);
-  font-size: var(--font-size-body);
+  font-size: var(--element-font-size);
   font-stretch: normal;
   font-style: normal;
-  font-weight: 600;
   line-height: normal;
   padding: 0 var(--element-padding);
   vertical-align: middle;
-  border-radius: var(--element-border-radius);
+  border-radius: var(--element-border-radius-sm);
   box-shadow: none;
   border: 1px solid var(--element-border-color);
   background-color: var(--color-white);
@@ -25,8 +24,11 @@
 
   @include with-clickable;
   @include with-theme;
-  @include with-size;
   @include with-full-width;
+
+  @include with-size {
+    border-radius: var(--element-border-radius-sm);
+  }
 
   &-loader {
     color: transparent !important;

@@ -16,7 +16,7 @@ export const MFAVerifyStepForm: FC = (props) => {
           &nbsp;<span style={{ color: 'green' }}>Google Authenticator</span>&nbsp;
           {t('auth.mfa.verify.scan-qr-description-2')}
           <div className='fe-mfa__qr'>
-            {loading && !qrCode ? <Loader inline={false} /> : <img alt='Multi-factor QR' src={qrCode ?? ''} />}
+            {loading && !qrCode ? <Loader center /> : <img alt='Multi-factor QR' src={qrCode ?? ''} />}
           </div>
         </li>
         <li>
