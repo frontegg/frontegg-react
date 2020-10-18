@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { TagProps, Icon, Theme } from '@frontegg/react-core';
+import { TagProps, Theme } from '@frontegg/react-core';
+import { Icon } from '../Icon';
 import { Label, LabelProps as SemanticLabelProps, SemanticCOLORS } from 'semantic-ui-react';
 
 const variantToColor: { [variant in Theme]: SemanticCOLORS } = {
@@ -11,10 +12,11 @@ const variantToColor: { [variant in Theme]: SemanticCOLORS } = {
 };
 
 const mapper = (props: TagProps): SemanticLabelProps => {
-  const { variant, color, ...rest } = props;
+  const { variant, color, size, ...rest } = props;
   return {
     color: variant && variantToColor[variant],
     disabled: variant === 'disabled',
+    size,
     ...rest,
   };
 };

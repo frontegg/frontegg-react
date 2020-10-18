@@ -15,20 +15,20 @@
 
   &-danger {
     background-color: var(--color-danger-light);
-    color: var(--color-black);
+    color: var(--color-text-on-danger);
     border: 1px solid var(--color-danger-light);
     @content;
   }
 
   &-default {
-    background-color: var(--color-gray-2);
+    background-color: var(--color-gray-1);
     color: var(--color-black);
     border: 1px solid var(--color-gray-4);
     @content;
   }
 
   &-disabled {
-    background-color: var(--color-gray-3);
+    background-color: var(--background-disabled);
     color: var(--color-text-disabled);
     border: none;
     pointer-events: none;
@@ -70,6 +70,7 @@
     padding: 0 var(--element-padding-sm);
     height: var(--element-height-sm);
     font-size: var(--element-font-size-sm);
+    border-radius: var(--element-border-radius-lg);
     @content;
   }
 
@@ -77,6 +78,7 @@
     padding: 0 var(--element-padding-lg);
     height: var(--element-height-lg);
     font-size: var(--element-font-size-lg);
+    border-radius: var(--element-border-radius-sm);
     @content;
   }
 }

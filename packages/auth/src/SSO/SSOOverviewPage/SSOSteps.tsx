@@ -13,7 +13,7 @@ export const SSOSteps: FC<HideOption> = (props) => {
     return null;
   }
   if (loading) {
-    return <Loader inline={false} />;
+    return <Loader center />;
   }
 
   const isDomainValidated = samlConfiguration?.validated ?? false;

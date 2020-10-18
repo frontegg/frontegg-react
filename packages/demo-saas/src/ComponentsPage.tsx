@@ -96,6 +96,9 @@ const elements: {
       { children: 'Clickable Tag', onClick: console.log },
       { children: 'Disabled Tag', disabled: true },
       { children: 'Delete Tag', onDelete: console.log },
+      { children: 'Small Tag', size: 'small' },
+      { children: 'Medium Tag', size: 'medium' },
+      { children: 'Large Tag', size: 'large' },
     ],
   },
   {
@@ -106,6 +109,7 @@ const elements: {
       { variant: 'primary', children: null },
       { variant: 'secondary', children: null },
       { variant: 'danger', children: null },
+      { center: true, children: null },
     ],
   },
 ];
