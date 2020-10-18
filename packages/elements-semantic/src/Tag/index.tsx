@@ -12,10 +12,11 @@ const variantToColor: { [variant in Theme]: SemanticCOLORS } = {
 };
 
 const mapper = (props: TagProps): SemanticLabelProps => {
-  const { variant, color, ...rest } = props;
+  const { variant, color, size, ...rest } = props;
   return {
     color: variant && variantToColor[variant],
     disabled: variant === 'disabled',
+    size,
     ...rest,
   };
 };

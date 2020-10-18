@@ -48,7 +48,7 @@ export const Login: FC<LoginProps> = (props) => {
 
   let components = null;
   if (isLoading || isAuthenticated) {
-    components = <Loader center={true} />;
+    components = <Loader center />;
   } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
     components = <Dynamic.LoginWithPassword />;
   } else if (step === LoginStep.recoverTwoFactor) {
@@ -72,7 +72,7 @@ export const LoginPage: FC<LoginProps> = (props) => {
   if (isLoading || isAuthenticated) {
     return (
       <div className='fe-login-page'>
-        <Loader center={true} inline={false} />
+        <Loader center />
       </div>
     );
   }

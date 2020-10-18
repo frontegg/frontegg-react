@@ -6,7 +6,7 @@ import './FeButton.scss';
 
 const prefixCls = 'fe-button';
 export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className, children, variant = 'default', size, loading, fullWidth, ...restProps } = props;
+  const { className, children, variant, size, loading, fullWidth, ...restProps } = props;
   const { isCancel, inForm, asLink, ...propsWithoutJunk } = restProps;
 
   const disabled = props.disabled || loading;

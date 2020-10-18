@@ -1,8 +1,9 @@
 import { HTMLAttributes } from 'react';
-import { Theme } from '../../styles';
+import { Size, Theme } from '../../styles';
 
 export interface TagProps extends HTMLAttributes<HTMLElement> {
   variant?: Theme;
+  size?: Size;
   disabled?: boolean;
   onDelete?: () => void;
 }

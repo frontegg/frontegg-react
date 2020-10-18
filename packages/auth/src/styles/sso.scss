@@ -95,7 +95,7 @@
 
 .fe-sso-claim-domain {
   &-page {
-    border-radius: var(--element-border-radius);
+    border-radius: var(--element-border-radius-sm);
     padding: 1rem 1rem 1rem 2rem;
     background-color: var(--color-gray-0);
     display: flex;
@@ -129,7 +129,7 @@
       background: var(--color-white);
       color: var(--color-gray-9);
       padding: 0.9rem;
-      border-radius: calc(var(--element-border-radius) / 2);
+      border-radius: var(--element-border-radius-tiny);
       display: flex;
       align-items: center;
 

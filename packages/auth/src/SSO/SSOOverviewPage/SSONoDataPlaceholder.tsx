@@ -10,7 +10,7 @@ export const SSONoDataPlaceholder: FC<HideOption> = (props) => {
     return null;
   }
   if (loading) {
-    return <Loader inline={false} />;
+    return <Loader center />;
   }
   const children = props.children ?? t('auth.sso.overview.enable-sso-message');
   return (
