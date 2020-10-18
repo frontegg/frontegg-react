@@ -1,10 +1,11 @@
-import { useAuth } from '../hooks';
+import { useAuth, useAuthTeamActions, useAuthTeamState } from '../hooks';
 import { useEffect } from 'react';
 
 export const reloadTeamIfNeeded = () => {
-  const { loaders, users, loadUsers } = useAuth((state) => state.teamState);
+  const { loading, users } = useAuthTeamState(({ loaders, users }) => ({ loading: loaders.USERS, users }));
+  const { loadUsers } = useAuthTeamActions();
   useEffect(() => {
-    if (!loaders.USERS && users.length === 0) {
+    if (!loading && users.length === 0) {
       loadUsers({ pageOffset: 0 });
     }
   }, []);

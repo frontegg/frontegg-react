@@ -1,11 +1,22 @@
 import React, { FC, useMemo } from 'react';
-import { Select, Table, TableColumnProps } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { Select, Table, TableColumnProps, Tag } from '@frontegg/react-core';
+import { useAuth, useAuthTeamState } from '../hooks';
+import { TeamState } from '../Api/TeamState';
 
-export interface TeamTableProps {}
+const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors, roles }: TeamState) => ({
+  users,
+  loaders,
+  totalItems,
+  pageSize,
+  totalPages,
+  errors,
+  roles,
+});
 
-export const TeamTable: FC<TeamTableProps> = (props) => {
-  const { users, loaders, totalItems, pageSize, totalPages, errors, roles } = useAuth((state) => state.teamState);
+export const TeamTable: FC = (props) => {
+  const { users, loaders, totalItems, pageSize, totalPages, errors, roles } = useAuthTeamState(stateMapper);
+
+  const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
 
   const teamTableColumns: TableColumnProps[] = useMemo(
     () => [
@@ -23,15 +34,15 @@ export const TeamTable: FC<TeamTableProps> = (props) => {
         accessor: 'roleIds',
         Header: 'Permissions',
         Cell: ({ value }) => {
+          const permissions = roleOptions.filter((role) => value.indexOf(role.value) !== -1) || [];
           return (
-            <Select
-              multiselect={true}
-              value={value}
-              options={roles.map((role) => ({ label: role.name, value: role.id }))}
-              onChange={(e, values) => {
-                console.log(values);
-              }}
-            />
+            <>
+              {permissions.map((permission) => (
+                <Tag variant='primary' key={permission.value}>
+                  {permission.label}
+                </Tag>
+              ))}
+            </>
           );
         },
       },

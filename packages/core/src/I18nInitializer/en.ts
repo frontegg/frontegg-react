@@ -23,6 +23,14 @@ export default {
       'date-of-birth': 'Date of Birth',
       loading: 'Loading',
       'empty-items': 'No Items',
+      invite: 'Invite',
+      cancel: 'Cancel',
+      name: 'Name',
+
+      'enter-name': 'Enter name',
+      'enter-email': 'Enter email',
+      permissions: 'Permissions',
+      select: 'Select',
     },
     auth: {
       login: {
@@ -146,6 +154,10 @@ export default {
       team: {
         title: 'Team Management',
         subtitle: 'Total or {{totalItems}} team membders',
+        inviteUser: 'Invite User',
+        'add-dialog': {
+          title: 'Invite New Teammate',
+        },
       },
     },
     validation: {

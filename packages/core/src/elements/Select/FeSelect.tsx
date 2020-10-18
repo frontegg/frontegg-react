@@ -66,7 +66,7 @@ export const FeSelect = (props: SelectProps) => {
       noOptionsMessage={() => noOptionsText ?? t('common.empty-items')}
       onMenuOpen={() => (onOpen ? onOpen : setOpen(true))}
       onMenuClose={() => (onClose ? onClose : setOpen(false))}
-      onChange={(newValues, e: any) => onChange(e, newValues ?? [])}
+      onChange={(newValues, e: any) => onChange?.(e, newValues ?? [])}
       getOptionLabel={(option) => (getOptionLabel ? getOptionLabel(option) : option.label)}
     />
   );

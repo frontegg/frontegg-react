@@ -28,13 +28,13 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
       action={'click'}
       trigger={
         <span>
-        <FeIcon
-          key={1}
-          name='filters'
-          className={classNames(`${prefixCls}__filter-button`, {
-            [`${prefixCls}__active-filter}`]: column.filterValue != null,
-          })}
-        />
+          <FeIcon
+            key={1}
+            name='filters'
+            className={classNames(`${prefixCls}__filter-button`, {
+              [`${prefixCls}__active-filter}`]: column.filterValue != null,
+            })}
+          />
         </span>
       }
     />

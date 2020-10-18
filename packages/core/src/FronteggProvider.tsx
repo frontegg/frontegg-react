@@ -47,6 +47,7 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
+  console.log('FePlugins.render');
   const [rcPortals, setRcPortals] = useState([]);
   props._resolvePortals?.(setRcPortals);
   const listeners = useMemo(() => {
@@ -66,21 +67,22 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      <OldFronteggProvider
-        contextOptions={{
-          ...(props.context as any),
-          tokenResolver: () => ContextHolder.getAccessToken() || '',
-        }}
-        plugins={[{ type: 'reports' }]}
-      >
-        {children}
-      </OldFronteggProvider>
+      {/*<OldFronteggProvider*/}
+      {/*  contextOptions={{*/}
+      {/*    ...(props.context as any),*/}
+      {/*    tokenResolver: () => ContextHolder.getAccessToken() || '',*/}
+      {/*  }}*/}
+      {/*  plugins={[{ type: 'reports' }]}*/}
+      {/*>*/}
+      {children}
+      {/*</OldFronteggProvider>*/}
       {rcPortals}
     </>
   );
 };
 
 const FeState: FC<FeProviderProps> = (props) => {
+  console.log('FeState.render');
   const history = useHistory();
   const location = useLocation();
   const taskRef = useRef<Task>();
@@ -156,6 +158,7 @@ const FeState: FC<FeProviderProps> = (props) => {
 };
 
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
+  console.log('FronteggProvider.render');
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
 

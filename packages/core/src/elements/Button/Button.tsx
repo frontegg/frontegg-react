@@ -15,7 +15,7 @@ export const FButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =
       ref={ref}
       inForm
       {...props}
-      disabled={!isValid || (disableDirty && !dirty)}
+      disabled={props.disabled || !isValid || (disableDirty && !dirty)}
       size={props.size ?? props.type === 'submit' ? 'large' : undefined}
       fullWidth={props.fullWidth ?? true}
     />

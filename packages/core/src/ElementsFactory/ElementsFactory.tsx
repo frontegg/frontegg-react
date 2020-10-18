@@ -13,6 +13,7 @@ import { FeAccordion } from '../elements/Accordion/FeAccordion';
 import { FeAccordionHeader } from '../elements/Accordion/FeAccordion';
 import { FeAccordionContent } from '../elements/Accordion/FeAccordion';
 import { FeTable } from '../elements/Table/FeTable';
+import { FeForm } from '../elements/Form/FeForm';
 
 export const fronteggElements: Partial<Elements> = {
   Accordion: FeAccordion,
@@ -27,6 +28,7 @@ export const fronteggElements: Partial<Elements> = {
   Checkbox: FeCheckbox,
   Select: FeSelect,
   Table: FeTable,
+  Form: FeForm,
 };
 
 export class ElementsFactory {

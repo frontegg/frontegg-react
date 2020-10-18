@@ -13,7 +13,8 @@ import { useAuth } from '../hooks';
 const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
   routes,
   isLoading,
-  defaultComps: { header, loaderComponent },
+  header,
+  loaderComponent,
   ssoACS,
 });
 
@@ -30,8 +31,15 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     pageProps: perPageProps,
     ...rest
   } = props;
-  const { routes, isLoading, defaultComps, ssoACS } = useAuth(stateMapper);
+  const { routes, isLoading, header: defaultHeader, loaderComponent: defaultLoaderComponent, ssoACS } = useAuth(
+    stateMapper
+  );
+  const defaultComps = {
+    header: defaultHeader,
+    loaderComponent: defaultLoaderComponent,
+  };
 
+  console.log('AuthRoutes.render');
   const samlCallbackPath = useMemo(() => {
     const acsUrl = routes.samlCallbackUrl ?? ssoACS;
     if (!isLoading && acsUrl) {
@@ -170,7 +178,7 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
         }
       })}
 
-      <Route path='*' children={() => children} />
+      <Route path='*'>{children}</Route>
     </Switch>
   );
 };

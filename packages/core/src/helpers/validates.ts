@@ -37,4 +37,12 @@ export const validateDomain = (t: TFunction) =>
     )
     .required(t('validation.required-field', { name: 'domain' }));
 
+export const validateLength = (name: string, t: TFunction) =>
+  Yup.string()
+    .min(6, t('validation.min-length', { name, limit: 2 }))
+    .required(t('validation.required-field', { name }));
+
+export const validateArrayLength = (t: TFunction, name: string) =>
+  Yup.array().required(t('validation.required-field', { name }));
+
 export const validateSchema = (props: any) => Yup.object(props);

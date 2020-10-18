@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { SelectProps, useT } from '@frontegg/react-core';
+import { SelectOptionProps, SelectProps, useT } from '@frontegg/react-core';
 import { TextField, Chip, CircularProgress } from '@material-ui/core';
 import { Autocomplete, AutocompleteProps as MaterialSelectProps } from '@material-ui/lab';
 
@@ -76,6 +76,7 @@ export const Select: FC<SelectProps> = (props) => {
         handleChange(e, newValue, reson);
         setTimeout(() => refresh());
       }}
+      getOptionSelected={(option: any, value: any) => option.value === value.value}
       getOptionLabel={(option: any) => (getOptionLabel ? getOptionLabel(option) : option.label)}
       renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => renderTag(option, getTagProps, index))}
       renderInput={(params) => (

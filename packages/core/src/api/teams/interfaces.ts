@@ -77,7 +77,9 @@ export type ILoadUsers = {
 };
 
 export type IAddUser = {
+  name: string;
   email: string;
+  permissions: string[];
 };
 
 export type IResendActivationLink = {

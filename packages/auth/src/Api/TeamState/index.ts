@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { IAddUser, ILoadUsers, IResendActivationLink, ISendResetPasswordLink, ITeamUser } from '@frontegg/react-core';
-import { TeamState, TeamStateIndicator, TeamStateKeys } from './interfaces';
+import { ISetAddUserDialog, ISetDeleteUserDialog, TeamState, TeamStateIndicator, TeamStateKeys } from './interfaces';
 import { errorsReducerForKey, loadersReducerForKey, resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { WithCallback, WithSilentLoad } from '../interfaces';
 
@@ -13,6 +13,15 @@ export const teamState: TeamState = {
   users: [],
   roles: [],
   totalPages: 0,
+
+  addUserDialogState: {
+    loading: false,
+    open: false,
+  },
+  deleteUserDialogState: {
+    loading: false,
+    open: false,
+  },
 };
 
 export const teamStateReducers = {
@@ -35,4 +44,11 @@ export const teamActions = {
     `${storeName}/sendResetPasswordLink`,
     (payload: WithCallback<ISendResetPasswordLink, boolean>) => ({ payload })
   ),
+
+  openAddUserDialog: createAction(`${storeName}/openAddUserDialog`, (payload?: ISetAddUserDialog) => ({ payload })),
+  closeAddUserDialog: createAction(`${storeName}/closeAddUserDialog`, (data?: any) => ({ payload: data })),
+  openDeleteUserDialog: createAction(`${storeName}/openDeleteUserDialog`, (payload?: ISetDeleteUserDialog) => ({
+    payload,
+  })),
+  closeDeleteUserDialog: createAction(`${storeName}/closeDeleteUserDialog`, (data?: any) => ({ payload: data })),
 };

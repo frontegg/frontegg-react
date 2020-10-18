@@ -15,6 +15,23 @@ export type TeamStateIndicator = {
   value: string | boolean;
 };
 
+type BaseDialogState = {
+  open: boolean;
+  onClose?: (data?: any) => void;
+};
+export type AddUserDialogState = BaseDialogState & {
+  loading?: boolean;
+  error?: boolean;
+};
+export type ISetAddUserDialog = Omit<AddUserDialogState, 'loading' | 'error' | 'open'>;
+
+export type DeleteUserDialogState = BaseDialogState & {
+  loading?: boolean;
+  error?: boolean;
+  userId?: string;
+};
+export type ISetDeleteUserDialog = Omit<DeleteUserDialogState, 'loading' | 'error' | 'open'>;
+
 export interface TeamState {
   loaders: LoaderIndicatorState<TeamStateKeys>;
   errors: LoaderIndicatorState<TeamStateKeys>;
@@ -27,4 +44,8 @@ export interface TeamState {
   // users stats
   totalItems?: number;
   addedThisWeek?: number;
+
+  // dialogs
+  addUserDialogState: AddUserDialogState;
+  deleteUserDialogState: DeleteUserDialogState;
 }

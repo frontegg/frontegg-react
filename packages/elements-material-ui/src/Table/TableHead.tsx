@@ -64,15 +64,17 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                   column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
                     ...p,
                     onClick: column.canSort ? () => onSortChange?.(column) : undefined,
-                  })),
-                )}>
+                  }))
+                )}
+              >
                 <Box display='flex' alignItems='center' justifyContent='space-between' flexWrap='nowrap'>
                   <Box display='flex' flexGrow='1'>
                     {column.canSort ? (
                       <TableSortLabel
                         className='fe-sortLabel'
                         active={column.isSorted}
-                        direction={column.isSortedDesc ? 'desc' : 'asc'}>
+                        direction={column.isSortedDesc ? 'desc' : 'asc'}
+                      >
                         {column.render('Header')}
                       </TableSortLabel>
                     ) : (
