@@ -80,6 +80,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           Header: Header ?? <div style={{ minWidth: rest.minWidth, maxWidth: rest.maxWidth }} />,
         } as FeTableColumnOptions<T>)
     );
+
     if (props.expandable) {
       columns.unshift({
         id: 'fe-expander',
@@ -307,6 +308,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         <TableBody
           getTableBodyProps={getTableBodyProps}
           prepareRow={prepareRow}
+          loading={props.loading}
           rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
           renderExpandedComponent={props.renderExpandedComponent}
         />

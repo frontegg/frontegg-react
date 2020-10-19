@@ -12,8 +12,10 @@ import {
 import { FeTableSortColumn } from './FeTableSortColumn';
 import { FeTableFilterColumn } from './FeTableFilterColumn';
 import { FeTableExpandable } from './FeTableExpandable';
+import { FeLoader } from '../Loader/FeLoader';
 
 export type FeTableTBodyProps<T extends object> = {
+  loading?: boolean;
   prefixCls: string;
   getTableBodyProps: (propGetter?: TableBodyPropGetter<T>) => TableBodyProps;
   prepareRow: (row: Row<T>) => void;
@@ -21,28 +23,35 @@ export type FeTableTBodyProps<T extends object> = {
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
 };
 export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props: FeTableTBodyProps<T>) => {
-  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent } = props;
+  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading } = props;
+
   return (
     <div className='fe-table__tbody' {...getTableBodyProps()}>
-      {rows.map((row) => {
-        prepareRow(row);
-        return (
-          <React.Fragment key={row.getRowProps().key}>
-            <div className={classNames('fe-table__tr', { 'is-expanded': row.isExpanded })} {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <div className='fe-table__tr-td' {...cell.getCellProps()}>
-                  {cell.render('Cell')}
-                </div>
-              ))}
-            </div>
-            <FeTableExpandable
-              isExpanded={row.isExpanded}
-              row={row}
-              renderExpandedComponent={renderExpandedComponent}
-            />
-          </React.Fragment>
-        );
-      })}
+      {!loading ? (
+        rows.map((row) => {
+          prepareRow(row);
+          return (
+            <React.Fragment key={row.getRowProps().key}>
+              <div className={classNames('fe-table__tr', { 'is-expanded': row.isExpanded })} {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <div className='fe-table__tr-td' {...cell.getCellProps()}>
+                    {cell.render('Cell')}
+                  </div>
+                ))}
+              </div>
+              <FeTableExpandable
+                isExpanded={row.isExpanded}
+                row={row}
+                renderExpandedComponent={renderExpandedComponent}
+              />
+            </React.Fragment>
+          );
+        })
+      ) : (
+        <div className='fe-text-align-center'>
+          <FeLoader />
+        </div>
+      )}
     </div>
   );
 };

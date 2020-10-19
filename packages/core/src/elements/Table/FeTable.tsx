@@ -269,7 +269,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         {props.toolbar && <FeTableToolbar />}
 
         <FeTableTHead {...tableHeadProps} />
-        <FeTableTBody {...tableBodyProps} />
+        <FeTableTBody loading={props.loading} {...tableBodyProps} />
 
         {props.pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}
       </div>

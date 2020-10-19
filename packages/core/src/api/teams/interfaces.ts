@@ -69,6 +69,8 @@ export type IChangePassword = {
 };
 
 export type ILoadUsers = {
+  id?: string;
+  value?: string;
   silentLoading?: boolean;
   filter?: TableFilter[];
   sort?: TableSort[];
