@@ -14,9 +14,7 @@ type SSOClaimDomainFormProps = {
 const prefixT = 'auth.sso.claim-domain.form';
 export const SSOClaimDomainForm: FC<SSOClaimDomainFormProps> = (props) => {
   const { t } = useT();
-  const { samlConfiguration, validateSSODomain, saveSSOConfigurations, setSSOState } = useAuth(
-    (state) => state.ssoState
-  );
+  const { samlConfiguration, validateSSODomain, saveSSOConfigurations } = useAuth((state) => state.ssoState);
 
   const children = props.children ?? (
     <>

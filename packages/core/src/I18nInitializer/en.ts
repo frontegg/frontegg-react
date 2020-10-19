@@ -15,6 +15,7 @@ export default {
       domain: 'Domain',
       proceed: 'Proceed',
       validate: 'Validate',
+      validated: 'Validated',
       email: 'Email',
       password: 'Password',
       'not-configured': 'Not Configured',
@@ -23,6 +24,8 @@ export default {
       'date-of-birth': 'Date of Birth',
       loading: 'Loading',
       'empty-items': 'No Items',
+      back: 'Back',
+      next: 'Next',
       invite: 'Invite',
       cancel: 'Cancel',
       name: 'Name',
@@ -97,6 +100,7 @@ export default {
           'claim-domain': 'Claim Domain',
           'configure-your-idp': 'Configure Your IDP',
         },
+        'go-to-idp': 'Configure IDP',
         'claim-domain': {
           guide: {
             title: 'Guide',
@@ -114,6 +118,38 @@ export default {
             'record-value': 'Record Value',
             'validate-error':
               'Validation did not succeed, please notice that DNS records might take some time to update. Please try again.',
+          },
+        },
+        idp: {
+          guide: {
+            title: 'Guide',
+            description: 'Helpful information explaining the process',
+            'steps-0': 'Create an entry for the application on the IDP',
+            'steps-1': 'Download the IDP federation metadata XML',
+            'steps-2': 'Click on next to step 2',
+            'steps-3': 'Upload the IDP metadata XML',
+            'steps-4': 'Click "Validate & Save"',
+          },
+          select: {
+            title: 'Select your IDP',
+          },
+          form: {
+            title: 'Configure Your IDP',
+            step: 'Step',
+            'form-step-1': {
+              'acs-url': 'ACS URL',
+              'entity-id': 'Entity ID',
+              button: 'Next',
+            },
+            'form-step-2': {
+              switch: {
+                auto: 'AUTOMATIC',
+                manual: 'MANUAL',
+              },
+              endpoint: 'SSO Endpoint',
+              sertificate: 'Public Certificate',
+              button: 'VALIDATE & SAVE',
+            },
           },
         },
       },

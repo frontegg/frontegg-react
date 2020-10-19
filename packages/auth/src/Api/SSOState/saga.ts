@@ -30,6 +30,10 @@ function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<Pa
       yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
     }
 
+    const samlMetadata = yield call(api.metadata.getSamlMetadata);
+    samlConfiguration.acsUrl = samlMetadata?.configuration?.acsUrl;
+    samlConfiguration.spEntityId = samlMetadata?.configuration?.spEntityId;
+
     const updateSamlConfiguration: IUpdateSamlConfiguration = omitProps(samlConfiguration, [
       'validated',
       'generatedVerification',

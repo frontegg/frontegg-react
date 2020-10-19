@@ -93,17 +93,7 @@
   }
 }
 
-.fe-sso-claim-domain {
-  &-page {
-    border-radius: var(--element-border-radius-sm);
-    padding: 1rem 1rem 1rem 2rem;
-    background-color: var(--color-gray-0);
-    display: flex;
-    width: 70rem;
-    max-width: 80%;
-    margin: 2rem auto;
-  }
-
+.fe-sso {
   &-guide {
     padding: 1rem 2rem 1rem 0;
     flex: 1;
@@ -140,6 +130,18 @@
       }
     }
   }
+}
+
+.fe-sso-claim-domain {
+  &-page {
+    border-radius: var(--element-border-radius-sm);
+    padding: 1rem 1rem 1rem 2rem;
+    background-color: var(--color-gray-0);
+    display: flex;
+    width: 70rem;
+    max-width: 80%;
+    margin: 2rem auto;
+  }
 
   &-form {
     flex: 1;
@@ -175,5 +177,85 @@
 @media screen and (max-width: 800px) {
   .fe-sso-claim-domain-page {
     flex-direction: column;
+  }
+}
+
+.fe-sso-idp-page {
+  margin: 2rem auto;
+  padding: 1rem 1rem 1rem 1.75rem;
+  background-color: var(--color-gray-0);
+  width: 78rem;
+  max-width: 100%;
+
+  &__title {
+    color: var(--color-gray-9);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  &__select {
+    padding-top: 1rem;
+  }
+
+  &__select-container {
+    background-color: var(--color-blue-gray-0);
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  &__select-item {
+    background-color: var(--color-white);
+    min-height: 5.5rem;
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.7rem;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-gray-9);
+    overflow: hidden;
+    border: 2px solid #ededf0;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+
+  &__select-item:hover {
+    border-color: var(--color-green-5);
+  }
+
+  &__config {
+    padding-top: 1rem;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+
+    &-header {
+      padding: 1rem 2.5rem;
+
+      &-step {
+        font-size: 0.875rem;
+        color: var(--color-gray-6);
+      }
+    }
+  }
+
+  &__progress-1,
+  &__progress-2 {
+    width: 50%;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 300ms;
+  }
+
+  &__progress-2 {
+    width: 100%;
+  }
+
+  &__step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
   }
 }

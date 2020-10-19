@@ -1,27 +1,28 @@
 import React, { FC, ReactElement } from 'react';
 import { Icon, useT } from '@frontegg/react-core';
 
-const transPrefix = 'auth.sso.claim-domain.guide';
+const prefixT = 'auth.sso.idp.guide';
 
 const Title: FC = (props) => {
   const { t } = useT();
-  const children = props.children ?? t(`${transPrefix}.title`);
-  return <div className='fe-sso-guide__title fe-mb-1'>{children}</div>;
+  const children = props.children ?? t(`${prefixT}.title`);
+  return <div className='fe-sso-idp-page__title fe-mb-1'>{children}</div>;
 };
 const Description: FC = (props) => {
   const { t } = useT();
-  const children = props.children ?? t(`${transPrefix}.description`);
+  const children = props.children ?? t(`${prefixT}.description`);
   return <div className='fe-sso-guide__description fe-mb-2'>{children}</div>;
 };
 
-type StepsProps = (props: { children?: ReactElement }) => ReactElement | null;
+type StepsProps = (props: { children: ReactElement }) => ReactElement | null;
 const Steps: StepsProps = (props) => {
   const { t } = useT();
   const steps = [
-    t(`${transPrefix}.steps-0`),
-    t(`${transPrefix}.steps-1`),
-    t(`${transPrefix}.steps-2`),
-    t(`${transPrefix}.steps-3`),
+    t(`${prefixT}.steps-0`),
+    t(`${prefixT}.steps-1`),
+    t(`${prefixT}.steps-2`),
+    t(`${prefixT}.steps-3`),
+    t(`${prefixT}.steps-4`),
   ];
   const children = props.children ?? <Step />;
   return (
@@ -53,21 +54,23 @@ type SubComponents = {
   Step: typeof Step;
 };
 
-const SSOClaimDomainGuide: FC<SSOClaimDomainGuideProps> & SubComponents = (props) => {
+const SSOConfigureIDPGuide: FC<SSOClaimDomainGuideProps> & SubComponents = (props) => {
   const children = props.children ?? (
     <>
       <Title />
       <Description />
-      <Steps />
+      <Steps>
+        <Step />
+      </Steps>
     </>
   );
 
   return <div className='fe-sso-guide'>{children}</div>;
 };
 
-SSOClaimDomainGuide.Title = Title;
-SSOClaimDomainGuide.Description = Description;
-SSOClaimDomainGuide.Steps = Steps;
-SSOClaimDomainGuide.Step = Step;
+SSOConfigureIDPGuide.Title = Title;
+SSOConfigureIDPGuide.Description = Description;
+SSOConfigureIDPGuide.Steps = Steps;
+SSOConfigureIDPGuide.Step = Step;
 
-export { SSOClaimDomainGuide };
+export { SSOConfigureIDPGuide };
