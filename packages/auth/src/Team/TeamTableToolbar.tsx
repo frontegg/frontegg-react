@@ -4,7 +4,7 @@ import { useAuthTeamActions } from '../hooks';
 
 export const TeamTableToolbar = () => {
   const { openAddUserDialog, loadUsers } = useAuthTeamActions();
-  const [inputValue, setInputValue] = useState(undefined);
+  const [inputValue, setInputValue] = useState<string | undefined>(undefined);
   const searchValue = useDebounce(inputValue, 400);
   const { t } = useT();
 
