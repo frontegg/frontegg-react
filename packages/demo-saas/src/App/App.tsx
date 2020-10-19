@@ -58,9 +58,9 @@ class App extends React.Component<any> {
             <Route exact path='/components' component={ComponentsPage} />
             <Route exact path='/components2' component={ComponentsPage2} />
             <ProtectedRoute path='/test' />
-            <ProtectedRoute path='/sso'>
+            <Route path='/sso'>
               <SSO.Page />
-            </ProtectedRoute>
+            </Route>
 
             <ProtectedRoute path='/profile' component={Profile.Page} />
             <ProtectedRoute path='/profile2' component={OldProfile} />

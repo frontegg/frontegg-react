@@ -9,7 +9,7 @@ export const SSOSteps: FC<HideOption> = (props) => {
   const rootPath = checkRootPath('SSOSteps should be rendered inside SSO component');
 
   const { samlConfiguration, loading } = useAuth((state) => state.ssoState);
-  if (!samlConfiguration?.enabled || props.hide) {
+  if (samlConfiguration?.enabled || props.hide) {
     return null;
   }
   if (loading) {

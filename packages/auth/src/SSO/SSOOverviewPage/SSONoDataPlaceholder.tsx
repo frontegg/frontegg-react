@@ -6,7 +6,7 @@ import { HideOption } from '../../interfaces';
 export const SSONoDataPlaceholder: FC<HideOption> = (props) => {
   const { t } = useT();
   const { samlConfiguration, loading } = useAuth((state) => state.ssoState);
-  if (samlConfiguration?.enabled || props.hide) {
+  if (!samlConfiguration?.enabled || props.hide) {
     return null;
   }
   if (loading) {
