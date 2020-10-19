@@ -1,19 +1,18 @@
 import React, { FC } from 'react';
-import { checkRootPath, Grid } from '@frontegg/react-core';
-import { Route } from 'react-router-dom';
-import { HideOption } from '../../interfaces';
+import { Grid } from '@frontegg/react-core';
 import { Icon, useT } from '@frontegg/react-core';
+import { AzureIcon, GoogleIcon, OktaIcon, SamlIcon } from './SSOVendors';
 
 export interface ItemProps {
-  img: string;
+  Icon: FC<React.SVGProps<SVGSVGElement>>;
   label: string;
 }
 
 const IDPS = [
-  { img: 'saml', label: 'SAML' },
-  { img: 'okta', label: 'Okta' },
-  { img: 'azure', label: 'Azure Active Directory' },
-  { img: 'google', label: 'Google Gsuite' },
+  { Icon: SamlIcon, label: 'SAML' },
+  { Icon: OktaIcon, label: 'Okta' },
+  { Icon: AzureIcon, label: 'Azure Active Directory' },
+  { Icon: GoogleIcon, label: 'Google Gsuite' },
 ];
 
 const prefixT = 'auth.sso.idp.select';
@@ -23,24 +22,24 @@ const Title: FC = (props) => {
   return <div className='fe-sso-idp-page__title fe-mb-2'>{children}</div>;
 };
 
-const Item: FC<ItemProps> = ({ img, label }) => {
+const Item: FC<ItemProps> = ({ Icon, label }) => {
   return (
     <div className='fe-sso-idp-page__select-item'>
-      <img />
+      <Icon width='2rem' height='2rem' />
       <div>{label}</div>
     </div>
   );
 };
 
-export const SSOConfigureIDPSelect: FC<HideOption> = () => {
+export const SSOConfigureIDPSelect: FC = () => {
   return (
     <div className='fe-sso-idp-page__select'>
       <Title />
       <div className='fe-sso-idp-page__select-container'>
-        <Grid>
-          {IDPS.map(({ img, label }) => (
-            <Grid>
-              <Item img={img} label={label} />
+        <Grid container>
+          {IDPS.map(({ Icon, label }) => (
+            <Grid item xs sm={12}>
+              <Item Icon={Icon} label={label} />
             </Grid>
           ))}
         </Grid>

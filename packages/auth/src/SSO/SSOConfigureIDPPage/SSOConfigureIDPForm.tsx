@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import { checkRootPath, Grid, useT, Input } from '@frontegg/react-core';
+import React, { FC, useState } from 'react';
+import { Grid, useT } from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
+import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
 
 export interface HeaderProps {
   step: number;
@@ -17,19 +18,30 @@ const Header: FC<HeaderProps> = (props) => {
   const { t } = useT();
   const children = props.children ?? <Title />;
   return (
-    <div className='fe-sso-idp-page__config-header'>
-      <Grid container justifyContent='space-between'>
+    <Grid container className='fe-sso-idp-page__config-header'>
+      <Grid item xs>
         {children}
-        <div className='fe-sso-idp-page__config-header-step'>{`${t(`${prefixT}.step`)} ${props.step}`}</div>
       </Grid>
-    </div>
+      <Grid item className='fe-sso-idp-page__config-header-step'>
+        {`${t(`common.step`, { num: props.step })}`}
+      </Grid>
+    </Grid>
   );
 };
 
+const Progress = ({ step }: { step: number }) => {
+  return <div className={`fe-sso-idp-page__progress-${step}`} />;
+};
+
 export const SSOConfigureIDPForm: FC<HideOption> = () => {
+  const [step, goToStep] = useState(1);
   return (
     <div className='fe-sso-idp-page__config'>
-      <Header step={1} />
+      <Header step={step} />
+      <Progress step={step} />
+
+      {step === 1 && <SSOConfigureIDPStep1 goToStep={goToStep} />}
+      {step === 2 && <SSOConfigureIDPStep2 goToStep={goToStep} />}
     </div>
   );
 };

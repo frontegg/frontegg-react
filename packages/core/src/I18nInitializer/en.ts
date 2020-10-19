@@ -15,6 +15,7 @@ export default {
       domain: 'Domain',
       proceed: 'Proceed',
       validate: 'Validate',
+      validated: 'Validated',
       email: 'Email',
       password: 'Password',
       'not-configured': 'Not Configured',
@@ -22,6 +23,8 @@ export default {
       'date-of-birth': 'Date of Birth',
       loading: 'Loading',
       'empty-items': 'No Items',
+      back: 'Back',
+      next: 'Next',
     },
     auth: {
       login: {
@@ -84,6 +87,7 @@ export default {
           'claim-domain': 'Claim Domain',
           'configure-your-idp': 'Configure Your IDP',
         },
+        'go-to-idp': 'Configure IDP',
         'claim-domain': {
           guide: {
             title: 'Guide',
@@ -114,7 +118,7 @@ export default {
             'steps-4': 'Click "Validate & Save"',
           },
           select: {
-            title: 'Select your IDP'
+            title: 'Select your IDP',
           },
           form: {
             title: 'Configure Your IDP',
@@ -122,19 +126,19 @@ export default {
             'form-step-1': {
               'acs-url': 'ACS URL',
               'entity-id': 'Entity ID',
-              button: 'Next'
+              button: 'Next',
             },
             'form-step-2': {
               switch: {
                 auto: 'AUTOMATIC',
-                manual: 'MANUAL'
+                manual: 'MANUAL',
               },
-              'endpoint': 'SSO Endpoint',
-              'sertificate': 'Public Certificate',
-              button: 'VALIDATE & SAVE'
-            }
-          }
-        }
+              endpoint: 'SSO Endpoint',
+              sertificate: 'Public Certificate',
+              button: 'VALIDATE & SAVE',
+            },
+          },
+        },
       },
       profile: {
         title: 'My Profile',

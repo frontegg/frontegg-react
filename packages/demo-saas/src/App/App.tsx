@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { AuthExamples } from '../auth-examples';
-import { ProtectedRoute, Profile, SSO, MFA, useAuthUser } from '@frontegg/react-auth';
+import { ProtectedRoute, Profile, SSO, useAuthUser } from '@frontegg/react-auth';
 import { Profile as OldProfile } from '@frontegg/react';
 import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';

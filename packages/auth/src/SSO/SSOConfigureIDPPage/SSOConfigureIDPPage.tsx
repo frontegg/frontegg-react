@@ -18,13 +18,13 @@ export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
 
   const children = props.children ?? (
     <Grid container spacing={4}>
-      <Grid item sm={4} md={3}>
+      <Grid item xs={12} sm={4} md={3}>
         <SSOConfigureIDPSelect />
       </Grid>
-      <Grid item sm={8} md={4}>
+      <Grid item xs={12} sm={8} md={4}>
         <SSOConfigureIDPGuide />
       </Grid>
-      <Grid item sm={12} md={5}>
+      <Grid item xs={12} sm={12} md={5}>
         <SSOConfigureIDPForm />
       </Grid>
     </Grid>
