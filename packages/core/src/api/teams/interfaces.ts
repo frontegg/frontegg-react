@@ -79,8 +79,10 @@ export type ILoadUsers = {
 export type IAddUser = {
   name: string;
   email: string;
-  permissions: string[];
+  roleIds: string[];
 };
+
+export type IUpdateUser = Partial<ITeamUser>;
 
 export type IResendActivationLink = {
   userId: string;

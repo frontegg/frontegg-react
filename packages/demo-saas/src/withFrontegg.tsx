@@ -31,11 +31,12 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // Select: SemanticLibrary.Select,
       // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
       // Tag: fronteggElements.Tag
-      Input: SemanticLibrary.Input,
-      Form: SemanticLibrary.Form,
-      Dialog: MaterialLibrary.Dialog,
+      // Input: SemanticLibrary.Input,
+      // Form: SemanticLibrary.Form,
+      // Dialog: MaterialLibrary.Dialog,
       // Loader: fronteggElements.Loader,
       // Button: fronteggElements.Button,
+      ...MaterialLibrary,
     }}
   >
     <Component />

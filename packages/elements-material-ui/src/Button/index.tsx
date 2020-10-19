@@ -55,7 +55,7 @@ export const Button: FC<ButtonProps> = (props) => {
   return (
     <MaterialButton {...buttonProps}>
       {children}
-      {loading && <Loader />}
+      {loading && <Loader center size={24} />}
     </MaterialButton>
   );
 };

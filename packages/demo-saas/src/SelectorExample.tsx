@@ -113,6 +113,14 @@ export const SelectorExample: FC = () => {
         getOptionLabel={getOptionLabel}
         // renderOption={renderOption}
       />
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <FE.Select options={top100Films} multiselect />
     </div>
   );
 };

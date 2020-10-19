@@ -1,5 +1,7 @@
 import React, { ComponentType, ReactNode } from 'react';
 import {
+  Cell,
+  CellProps,
   Column,
   HeaderGroup,
   HeaderProps,
@@ -21,6 +23,7 @@ import {
   UseSortByColumnProps,
   UseSortByOptions,
   UseSortByState,
+  UseTableColumnOptions,
   UseTableInstanceProps,
   UseTableOptions,
 } from 'react-table';
@@ -86,13 +89,21 @@ export interface TableColumnProps<T extends object = any> {
    * Defaults to ({ value }) => String(value)
    * Must return valid JSX
    */
-  Cell?: (data: T, index: number) => ReactNode;
+  Cell?: CellComponent;
 
   sortable?: boolean;
   Filter?: FilterComponent;
+
+  minWidth?: string | number;
+  maxWidth?: string | number;
 }
 
-export type FilterComponent<T = any> = ComponentType<{ value: T | null; setFilterValue: (value: T | null) => void }>;
+export type CellComponent<T extends {} = any> = Renderer<CellProps<T>>;
+export type FilterComponent<T = any> = ComponentType<{
+  value: T | null;
+  setFilterValue: (value: T | null) => void;
+  closePopup?: () => void;
+}>;
 
 export interface TableSort {
   id: string;
@@ -115,6 +126,7 @@ export type FeTableColumnProps<T extends object> = HeaderGroup<T> &
   UseRowSelectInstanceProps<T> & { Filter: FilterComponent };
 
 export type FeTableColumnOptions<T extends object> = Column<T> &
+  UseTableColumnOptions<T> &
   UseSortByColumnOptions<T> &
   UseFiltersColumnOptions<T> &
   UseRowSelectOptions<T>;

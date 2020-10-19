@@ -19,6 +19,8 @@ const useRowStyles = makeStyles({
   },
   cell: {
     wordWrap: 'break-word',
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 

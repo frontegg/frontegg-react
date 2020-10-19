@@ -10,7 +10,6 @@ export type TeamPageProps = BasePageProps;
 export const TeamPage: FC<TeamPageProps> = (props) => {
   reloadTeamIfNeeded();
 
-  console.log('TeamPage.render');
   const [rootPath] = useRootPath(props, '/team');
   useMemo(() => checkValidChildren('Team.Page', 'Team', props.children, { TeamLayout }), [props.children]);
 

@@ -85,7 +85,7 @@ export const Select: FC<SelectProps> = (props) => {
           label={props.label}
           fullWidth={fullWidth ?? true}
           style={{ minWidth: `${fullWidth ? '100%' : '14em'}` }}
-          variant='standard'
+          variant='outlined'
           color={color}
           InputProps={{
             ...params.InputProps,

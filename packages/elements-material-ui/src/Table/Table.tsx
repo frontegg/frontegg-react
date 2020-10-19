@@ -71,12 +71,13 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
   const tableRef = useRef<HTMLTableElement>(null);
   const columns = useMemo(() => {
     const columns = props.columns.map(
-      ({ sortable, Filter, ...rest }) =>
+      ({ sortable, Filter, Header, ...rest }) =>
         ({
           ...rest,
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
+          Header: Header ?? <div style={{ minWidth: rest.minWidth, maxWidth: rest.maxWidth }} />,
         } as FeTableColumnOptions<T>)
     );
     if (props.expandable) {

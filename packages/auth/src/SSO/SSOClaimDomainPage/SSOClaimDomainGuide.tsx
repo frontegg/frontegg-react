@@ -6,7 +6,7 @@ const transPrefix = 'auth.sso.claim-domain.guide';
 const Title: FC = (props) => {
   const { t } = useT();
   const children = props.children ?? t(`${transPrefix}.title`);
-  return <div className='fe-sso-claim-domain-guide__title fe-mb-1'>{children}</div>;
+  return <div className='fe-sso-claim-domain-guide__title fe-mb-2'>{children}</div>;
 };
 const Description: FC = (props) => {
   const { t } = useT();
@@ -14,7 +14,7 @@ const Description: FC = (props) => {
   return <div className='fe-sso-claim-domain-guide__description fe-mb-2'>{children}</div>;
 };
 
-type StepsProps = (props: { children: ReactElement }) => ReactElement | null;
+type StepsProps = (props: { children?: ReactElement }) => ReactElement | null;
 const Steps: StepsProps = (props) => {
   const { t } = useT();
   const steps = [
@@ -58,9 +58,7 @@ const SSOClaimDomainGuide: FC<SSOClaimDomainGuideProps> & SubComponents = (props
     <>
       <Title />
       <Description />
-      <Steps>
-        <Step />
-      </Steps>
+      <Steps />
     </>
   );
 

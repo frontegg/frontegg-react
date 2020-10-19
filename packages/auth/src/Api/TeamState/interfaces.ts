@@ -1,13 +1,12 @@
-import { ITeamUserRole, ITeamUser } from '@frontegg/react-core';
+import { ITeamUserRole, ITeamUser, TableSort, TableFilter } from '@frontegg/react-core';
 import { LoaderIndicatorState } from '../interfaces';
 
 export enum TeamStateKeys {
   USERS = 'USERS',
-  ADD_USER = 'ADD_USER',
-  SAVE_USER = 'SAVE_USER',
+  STATS = 'STATS',
+  UPDATE_USER = 'UPDATE_USER',
   DELETE_USER = 'DELETE_USER',
   RESEND_ACTIVATE_LINK = 'RESEND_ACTIVATE_LINK',
-  SEND_RESET_PASSWORD_LINK = 'SEND_RESET_PASSWORD_LINK',
 }
 
 export type TeamStateIndicator = {
@@ -37,9 +36,13 @@ export interface TeamState {
   errors: LoaderIndicatorState<TeamStateKeys>;
 
   users: ITeamUser[];
+  pageOffset: number;
   pageSize: number;
   totalPages: number;
   roles: ITeamUserRole[];
+
+  filter: TableFilter[];
+  sort: TableSort[];
 
   // users stats
   totalItems?: number;

@@ -26,11 +26,15 @@ export default {
       invite: 'Invite',
       cancel: 'Cancel',
       name: 'Name',
-
       'enter-name': 'Enter name',
       'enter-email': 'Enter email',
       permissions: 'Permissions',
       select: 'Select',
+      'joined-team': 'Joined Team',
+      'last-login': 'Last Login',
+      search: 'Search',
+      filter: 'Filter',
+      clear: 'Clear',
     },
     auth: {
       login: {
@@ -154,7 +158,8 @@ export default {
       team: {
         title: 'Team Management',
         subtitle: 'Total or {{totalItems}} team membders',
-        inviteUser: 'Invite User',
+        'invite-user': 'Invite User',
+        'search-users': 'Search by any text',
         'add-dialog': {
           title: 'Invite New Teammate',
         },

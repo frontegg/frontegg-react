@@ -1,24 +1,41 @@
-.fe-team__page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  max-height: 100%;
-  overflow: hidden;
-}
+.fe-team {
+  &__page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
 
-.fe-team__layout {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+  &__layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-.fe-team__table {
-  flex: 1;
-  overflow: hidden;
-}
+  &__table {
+    flex: 1;
+    overflow: hidden;
+  }
 
-.fe-team__table-toolbar {
-  padding: 1rem;
-  margin-top: -0.5rem;
+  &__table-toolbar {
+    padding: 0.5rem 2rem;
+    margin-top: -0.5rem;
+  }
+
+  &__profile-img {
+    height: 2.25rem;
+    width: 2.25rem;
+    border-radius: 50%;
+  }
+
+  &__filter-popup-md {
+    width: 20rem;
+  }
+
+  &__filter-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
 }

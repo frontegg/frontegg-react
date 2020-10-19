@@ -68,12 +68,18 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
 export class Input extends React.Component<InputProps> {
   render() {
     const { children, inForm, labelButton, ...rest } = this.props;
-    if (inForm) {
-      const inputProps = materialTextFieldMapper(rest);
-      return <MaterialTextField {...inputProps}>{children}</MaterialTextField>;
-    } else {
-      const inputProps = materialInputMapper(rest);
-      return <MaterialInput {...inputProps}>{children}</MaterialInput>;
-    }
+    const inputProps = materialTextFieldMapper(rest);
+    return (
+      <MaterialTextField {...inputProps} variant='outlined'>
+        {children}
+      </MaterialTextField>
+    );
+    // if (inForm) {
+    //   const inputProps = materialTextFieldMapper(rest);
+    //   return <MaterialTextField {...inputProps} variant='outlined'>{children}</MaterialTextField>;
+    // } else {
+    //   const inputProps = materialInputMapper(rest);
+    //   return <MaterialInput {...inputProps}>{children}</MaterialInput>;
+    // }
   }
 }

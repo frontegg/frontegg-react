@@ -17,7 +17,7 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
   const [filterValue, setFilterValue] = useState(column.filterValue);
-  const debounceFilters = useDebounce(filterValue, 500);
+  const debounceFilters = useDebounce(filterValue, 200);
 
   useEffect(() => onFilterChange?.(column, debounceFilters), [debounceFilters]);
 

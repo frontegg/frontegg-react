@@ -18,7 +18,7 @@ export const SSOClaimDomainValidateStep: FC = (props) => {
   }
   const children = props.children ?? (
     <>
-      <div className='fe-section-title fe-bold fe-mt-1 fe-mb-2'>{t(`${prefixT}.copy-info-to-txt-record`)}</div>
+      <div className='fe-section-title fe-bold fe-mt-2 fe-mb-4'>{t(`${prefixT}.copy-info-to-txt-record`)}</div>
       <Input inForm fullWidth readOnly value={recordName} label={t(`${prefixT}.record-name`)} />
       <Input inForm fullWidth readOnly value={recordValue} label={t(`${prefixT}.record-value`)} />
       <ErrorMessage error={error && t(`${prefixT}.validate-error`)} />
@@ -26,7 +26,7 @@ export const SSOClaimDomainValidateStep: FC = (props) => {
       <FButton
         loading={saving}
         formikDisableIfNotDirty={false}
-        className='fe-self-flex-end fe-mt-2'
+        className='fe-self-flex-end fe-mt-4'
         variant='primary'
         fullWidth={false}
         type='submit'

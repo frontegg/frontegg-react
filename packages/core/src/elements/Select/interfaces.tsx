@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Size, Theme } from '../../styles';
+import { FormFieldProps } from '../../ElementsFactory';
 
 export interface SelectOptionProps<T = any> {
   label: string;
@@ -12,7 +13,8 @@ export interface StateProps {
   disabled: boolean;
 }
 
-export interface SelectProps<T = any> {
+export interface SelectProps<T = any> extends FormFieldProps {
+  className?: string;
   name?: string;
   value?: T[];
   label?: string;
@@ -34,6 +36,5 @@ export interface SelectProps<T = any> {
   noOptionsText?: string;
   loadingText?: string;
 
-  size?: Size;
   theme?: Theme;
 }

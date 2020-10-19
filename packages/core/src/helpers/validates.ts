@@ -3,13 +3,13 @@ import { TFunction } from 'i18next';
 
 export const validatePassword = (t: TFunction) =>
   Yup.string()
-    .min(6, t('validation.min-length', { name: 'Password', limit: 6 }))
-    .required(t('validation.required-field', { name: 'password' }));
+    .min(6, t('validation.min-length', { name: t('common.password'), limit: 6 }))
+    .required(t('validation.required-field', { name: t('common.password') }));
 
 export const validateEmail = (t: TFunction) =>
   Yup.string()
     .email(t('validation.must-be-a-valid-email', 'Must be a valid email'))
-    .required(t('validation.required-field', { name: 'email' }));
+    .required(t('validation.required-field', { name: t('common.email') }));
 
 export const validateTwoFactorCode = (t: TFunction) =>
   Yup.string()

@@ -1,25 +1,39 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
+import { takeEvery, put, call, select, all } from 'redux-saga/effects';
 import { actions } from '../reducer';
-import {
-  api,
-  IAddUser,
-  ILoadUsers,
-  IResendActivationLink,
-  ISendResetPasswordLink,
-  ITeamUser,
-} from '@frontegg/react-core';
+import { api, IAddUser, ILoadUsers, IResendActivationLink, ITeamUser, IUpdateUser } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { WithCallback, WithSilentLoad } from '../interfaces';
 import { ISetAddUserDialog, ISetDeleteUserDialog, TeamStateKeys } from './interfaces';
 
-function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>) {
-  const { silentLoading, ...body } = payload;
-  const pageSize = payload.pageSize ?? (yield select((state) => state.auth.teamState.pageSize));
+function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any {
+  const { silentLoading } = payload;
+  const state = yield select((state) => state.auth.teamState);
+
+  const pageSize = payload.pageSize ?? state.pageSize;
+  const pageOffset = payload.pageSize ?? state.pageOffset;
+  const filter = payload.filter ?? state.filter;
+  const sort = payload.sort ?? state.sort;
+
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: !silentLoading }));
+  yield put(
+    actions.setTeamState({
+      pageSize,
+      pageOffset,
+      filter,
+      sort,
+    })
+  );
   try {
-    const { items: users, totalPages } = yield call(api.teams.loadUsers, { ...body, pageSize });
-    const roles = yield call(api.teams.loadAvailableRoles);
-    yield put(actions.setTeamState({ users, totalPages, pageSize, roles }));
+    const [{ items: users, totalPages }, { items: roles }] = yield all([
+      call(api.teams.loadUsers, {
+        pageSize,
+        pageOffset,
+        filter,
+        sort,
+      }),
+      call(api.teams.loadAvailableRoles),
+    ]);
+    yield put(actions.setTeamState({ users, totalPages, roles }));
   } catch (e) {
     yield put(actions.setTeamError({ key: TeamStateKeys.USERS, value: e.message }));
     yield put(actions.setTeamState({ totalPages: 0, users: [] }));
@@ -27,25 +41,63 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>) {
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: false }));
 }
 
+// function* loadStats() {
+//   yield put(actions.setTeamLoader({ key: TeamStateKeys.STATS, value: true }));
+//
+//   try {
+//     const stats = yield call(api.teams.loadStats);
+//
+//   } catch (e) {
+//     yield put(actions.setTeamError({ key: TeamStateKeys.STATS, value: e.message }));
+//   }
+//
+//   yield put(actions.setTeamLoader({ key: TeamStateKeys.STATS, value: false }));
+// }
+
 function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>) {
   const { callback, ...body } = payload;
   const teamState = yield select((state) => state.auth.teamState);
-  yield put(
-    actions.setTeamState({
-      addUserDialogState: {
-        ...teamState.addUserDialogState,
-        loading: true,
-      },
-    })
-  );
+  yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   try {
-    const newUser = yield call(api.teams.addUser, body);
+    const { item: newUser } = yield call(api.teams.addUser, body);
     callback?.(newUser);
+    yield put(
+      actions.setTeamState({
+        users: [newUser, ...teamState.users],
+        addUserDialogState: { open: false, loading: false },
+      })
+    );
   } catch (e) {
-    yield put(actions.setTeamError({ key: TeamStateKeys.ADD_USER, value: e.message }));
+    yield put(
+      actions.setTeamState({
+        addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
+      })
+    );
     callback?.(null, e.message);
   }
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.ADD_USER, value: false }));
+}
+
+function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamUser>>) {
+  const { callback, ...body } = payload;
+  const teamState = yield select((state) => state.auth.teamState);
+  yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
+  try {
+    const { item: newUser } = yield call(api.teams.updateUser, body);
+    callback?.(newUser);
+    yield put(
+      actions.setTeamState({
+        users: [newUser, ...teamState.users],
+        addUserDialogState: { open: false, loading: false },
+      })
+    );
+  } catch (e) {
+    yield put(
+      actions.setTeamState({
+        addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
+      })
+    );
+    callback?.(null, e.message);
+  }
 }
 
 function* resendActivationLink({ payload }: PayloadAction<WithCallback<IResendActivationLink, boolean>>) {
@@ -59,19 +111,6 @@ function* resendActivationLink({ payload }: PayloadAction<WithCallback<IResendAc
     callback?.(null, e.message);
   }
   yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_ACTIVATE_LINK, value: false }));
-}
-
-function* sendResetPasswordLink({ payload }: PayloadAction<WithCallback<ISendResetPasswordLink, boolean>>) {
-  const { callback, ...body } = payload;
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.SEND_RESET_PASSWORD_LINK, value: body.userId }));
-  try {
-    yield call(api.teams.sendResetPasswordLink, body);
-    callback?.(true);
-  } catch (e) {
-    yield put(actions.setTeamError({ key: TeamStateKeys.SEND_RESET_PASSWORD_LINK, value: e.message }));
-    callback?.(null, e.message);
-  }
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.SEND_RESET_PASSWORD_LINK, value: false }));
 }
 
 function* openAddUserDialog({ payload }: PayloadAction<ISetAddUserDialog | undefined>) {
@@ -132,7 +171,6 @@ export function* teamSagas() {
   yield takeEvery(actions.loadUsers, loadUsers);
   yield takeEvery(actions.addUser, addUser);
   yield takeEvery(actions.resendActivationLink, resendActivationLink);
-  yield takeEvery(actions.sendResetPasswordLink, sendResetPasswordLink);
   yield takeEvery(actions.openAddUserDialog, openAddUserDialog);
   yield takeEvery(actions.closeAddUserDialog, closeAddUserDialog);
   yield takeEvery(actions.openDeleteUserDialog, openDeleteUserDialog);

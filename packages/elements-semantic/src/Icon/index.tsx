@@ -22,6 +22,7 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   'sort-arrows-asc': 'trash',
   'sort-arrows-desc': 'trash',
   'person-add': 'add user',
+  'vertical-dots': 'ellipsis vertical',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

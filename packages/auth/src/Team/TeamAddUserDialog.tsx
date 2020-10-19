@@ -3,6 +3,7 @@ import { useAuthTeamState, useAuthTeamActions } from '../hooks';
 import {
   Button,
   Dialog,
+  ErrorMessage,
   FButton,
   FForm,
   FFormik,
@@ -56,10 +57,11 @@ export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
           permissions: validateArrayLength(t, 'Permissions'),
         })}
         initialValues={initialValues}
-        onSubmit={(values) => {
+        onSubmit={({ name, email, permissions }) => {
           addUser({
-            ...values,
-            permissions: values.permissions.map((v) => v.value),
+            name,
+            email,
+            roleIds: permissions.map((v) => v.value),
           });
         }}
       >
@@ -74,15 +76,17 @@ export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
             placeholder={t('common.select')}
             options={roleOptions}
           />
-          <Grid container className='fe-mt-2 fe-mb-1'>
+
+          <ErrorMessage error={error} />
+          <Grid container className='fe-mt-4 fe-mb-2'>
             <Grid xs item>
-              <Button size='large' fullWidth={false} onClick={() => closeAddUserDialog()}>
-                {t('cancel')}
+              <Button size='large' fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
+                {t('common.cancel')}
               </Button>
             </Grid>
             <Grid xs item className='fe-text-align-end'>
               <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
-                {t('invite')}
+                {t('common.invite')}
               </FButton>
             </Grid>
           </Grid>
