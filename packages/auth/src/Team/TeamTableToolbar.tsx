@@ -1,15 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Grid, Icon, Input, useT, useDebounce } from '@frontegg/react-core';
-import { useAuthTeamActions } from '../hooks';
+import { useAuthTeamActions, useAuthTeamState } from '../hooks';
 
 export const TeamTableToolbar = () => {
+  const filters = useAuthTeamState((state) => state.filter) ?? [];
   const { openAddUserDialog, loadUsers } = useAuthTeamActions();
   const [inputValue, setInputValue] = useState<string | undefined>(undefined);
   const searchValue = useDebounce(inputValue, 400);
   const { t } = useT();
 
   useEffect(() => {
-    inputValue && loadUsers({ id: 'searchFilter', value: searchValue, pageOffset: 0 });
+    const newFilters = [];
+    if (inputValue) {
+      newFilters.push({
+        id: 'searchFilter',
+        value: searchValue,
+      });
+    }
+    loadUsers({
+      pageOffset: 0,
+      filter: [...filters.filter((f) => f.id !== 'searchFilter'), ...newFilters],
+    });
   }, [searchValue]);
 
   return (
