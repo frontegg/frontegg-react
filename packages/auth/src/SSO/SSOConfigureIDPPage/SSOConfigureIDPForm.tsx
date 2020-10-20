@@ -1,10 +1,16 @@
 import React, { FC, useState } from 'react';
-import { Grid, useT } from '@frontegg/react-core';
+import { FFormik, FForm, Grid, useT } from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
 import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
+import { useAuth } from '../../hooks';
+import { SamlVendors } from './SSOVendors';
 
 export interface HeaderProps {
   step: number;
+}
+
+export interface SSOConfigureIDPForm {
+  samlVendor: SamlVendors;
 }
 
 const prefixT = 'auth.sso.idp.form';
@@ -33,15 +39,60 @@ const Progress = ({ step }: { step: number }) => {
   return <div className={`fe-sso-idp-page__progress-${step}`} />;
 };
 
-export const SSOConfigureIDPForm: FC<HideOption> = () => {
+export interface IInitialValues {
+  type?: SamlVendors;
+  ssoEndpoint?: string;
+  configSaml: string;
+  configFile?: File[];
+  signRequest?: boolean;
+  publicCertificate?: string;
+}
+
+const initialValues: IInitialValues = {
+  configSaml: 'manual',
+};
+
+export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPForm> = ({ samlVendor }) => {
   const [step, goToStep] = useState(1);
+  const { samlConfiguration } = useAuth((state) => state.ssoState);
+  const { Formik } = FFormik;
+
   return (
     <div className='fe-sso-idp-page__config'>
       <Header step={step} />
       <Progress step={step} />
-
-      {step === 1 && <SSOConfigureIDPStep1 goToStep={goToStep} />}
-      {step === 2 && <SSOConfigureIDPStep2 goToStep={goToStep} />}
+      <Formik
+        initialValues={{
+          type: samlVendor,
+          ...initialValues,
+          ...samlConfiguration,
+          signRequest: samlConfiguration?.signRequest ? 'yes' : 'no',
+          configSaml: samlConfiguration?.ssoEndpoint && samlConfiguration?.publicCertificate ? 'manual' : 'auto',
+        }}
+        enableReinitialize
+        onSubmit={({ type, ssoEndpoint, configSaml, publicCertificate, configFile, signRequest }) => {
+          if (type === 'Saml') {
+            if (configSaml === 'auto') {
+              console.log('auto');
+              // saveConfigurationsAuto({ configFile } as any);
+            } else {
+              // saveConfigurations({
+              //   ...samlConfiguration,
+              //   ssoEndpoint,
+              //   configSaml,
+              //   publicCertificate,
+              //   signRequest: signRequest === 'yes',
+              // } as any);
+              console.log('auto');
+            }
+          }
+        }}
+      >
+        <FForm>
+          {step === 1 && <SSOConfigureIDPStep1 goToStep={goToStep} />}
+          {step === 2 && <SSOConfigureIDPStep2 goToStep={goToStep} />}
+        </FForm>
+      </Formik>
     </div>
   );
 };

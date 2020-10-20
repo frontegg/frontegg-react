@@ -11,7 +11,7 @@ import { SamlVendors } from './SSOVendors';
 export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
   const rootPath = checkRootPath('SSOConfigureIDPPage must be rendered inside a SSORouter component');
   const { loading } = useAuth((state) => state.ssoState);
-  const [samlVendor, setSamlVendor] = useState(SamlVendors.Saml);
+  const [samlVendor, setSamlVendor] = useState<SamlVendors>(SamlVendors.Saml);
 
   if (loading) {
     return <Loader center />;
@@ -26,7 +26,7 @@ export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
         <SSOConfigureIDPGuide samlVendor={samlVendor} />
       </Grid>
       <Grid item xs={12} sm={12} md={5}>
-        <SSOConfigureIDPForm />
+        <SSOConfigureIDPForm samlVendor={samlVendor} />
       </Grid>
     </Grid>
   );

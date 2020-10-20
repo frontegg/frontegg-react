@@ -1,15 +1,22 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, ErrorMessage, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
+import Dropzone from 'react-dropzone';
+import { IInitialValues } from './SSOConfigureIDPForm';
+import { FFormik } from '@frontegg/react-core';
 
 export interface SSOConfigureIDPStepProps {
   goToStep: (step: number) => void;
 }
 
+export interface SSOAutomaticConfig {
+  configFile: File[];
+  setConfigFile: (file: File[]) => void;
+}
+
 export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   const { t } = useT();
   const { samlConfiguration } = useAuth((state) => state.ssoState);
-
   const validCallback = samlConfiguration?.acsUrl && samlConfiguration?.spEntityId;
   return (
     <div className='fe-sso-idp-page__step'>
@@ -35,27 +42,68 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   );
 };
 
-const SSOAutomaticConfig = () => {
-  return <></>;
+const SSOAutomaticConfig: FC<SSOAutomaticConfig> = ({ setConfigFile, configFile }) => {
+  const { t } = useT();
+
+  return (
+    <>
+      {configFile.length ? (
+        configFile[0].name
+      ) : (
+        <>
+          <div className='fe-sso-dnd-title'>{t('auth.dropzone.title')}</div>
+          <Dropzone onDrop={(acceptedFiles) => setConfigFile(acceptedFiles)} accept='text/xml'>
+            {({ getRootProps, getInputProps }) => (
+              <section className='fe-sso-dnd'>
+                <div className='fe-sso-dnd-container'>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <div className='fe-bold'>{t('auth.dropzone.dnd')}</div>
+                    <p>{t('auth.dropzone.description')}</p>
+                  </div>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+        </>
+      )}
+    </>
+  );
 };
+
 const SSOManualConfig = () => {
   return (
     <>
-      <Input label='SSO Endpoint' placeholder='URL from the SSO' />
-      <Input label='Public Certificate' placeholder='Provide Public Certificate' multiline />
+      <FInput name='ssoEndpoint' label='SSO Endpoint' placeholder='URL from the SSO' />
+      <FInput name='publicCertificate' label='Public Certificate' placeholder='Provide Public Certificate' multiline />
     </>
   );
 };
 
 export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
   const { t } = useT();
-  const [configType, setConfigType] = useState(false);
+  const { useFormikContext } = FFormik;
+  const { values, setFieldValue } = useFormikContext<IInitialValues>();
+  const [configFile, setConfigFile] = useState<File[]>([]);
+  const { configSaml } = values;
+
+  useEffect(() => {
+    setFieldValue('configFile', configFile);
+  }, [configFile]);
 
   return (
     <div className='fe-sso-idp-page__step'>
-      <SwitchToggle value={configType} onChange={setConfigType} labels={['Manual', 'Automatic']} />
+      <SwitchToggle
+        value={configSaml === 'auto' ? false : true}
+        onChange={(e) => setFieldValue('configSaml', e ? 'manual' : 'auto')}
+        labels={['Automatic', 'Manual']}
+      />
 
-      {configType ? <SSOAutomaticConfig /> : <SSOManualConfig />}
+      {configSaml === 'auto' ? (
+        <SSOAutomaticConfig configFile={configFile} setConfigFile={setConfigFile} />
+      ) : (
+        <SSOManualConfig />
+      )}
 
       <div className='fe-flex-spacer' />
       <Grid container justifyContent={'space-between'}>
