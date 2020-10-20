@@ -38,6 +38,9 @@ export default {
       search: 'Search',
       filter: 'Filter',
       clear: 'Clear',
+      instruction: 'Instruction',
+      'instruction-for': 'Instruction for',
+      finish: 'Finish',
     },
     auth: {
       login: {
@@ -129,6 +132,7 @@ export default {
             'steps-2': 'Click on next to step 2',
             'steps-3': 'Upload the IDP metadata XML',
             'steps-4': 'Click "Validate & Save"',
+            'step-by-step': 'Detailed step by step',
           },
           select: {
             title: 'Select your IDP',

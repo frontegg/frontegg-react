@@ -33,6 +33,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
   iconAction?: (e: MouseEvent) => void;
+  multiline?: boolean;
 }
 
 export interface SwitchToggleProps {

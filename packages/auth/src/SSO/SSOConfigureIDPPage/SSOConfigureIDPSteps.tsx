@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Button, ErrorMessage, FInput, Grid, Icon, Input, useT } from '@frontegg/react-core';
+import React, { FC, useState } from 'react';
+import { Button, ErrorMessage, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
 
 export interface SSOConfigureIDPStepProps {
@@ -35,13 +35,28 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   );
 };
 
-// TODO: fix styles after merge
+const SSOAutomaticConfig = () => {
+  return <></>;
+};
+const SSOManualConfig = () => {
+  return (
+    <>
+      <Input label='SSO Endpoint' placeholder='URL from the SSO' />
+      <Input label='Public Certificate' placeholder='Provide Public Certificate' multiline />
+    </>
+  );
+};
+
 export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
   const { t } = useT();
+  const [configType, setConfigType] = useState(false);
 
   return (
     <div className='fe-sso-idp-page__step'>
-      Step 2
+      <SwitchToggle value={configType} onChange={setConfigType} labels={['Manual', 'Automatic']} />
+
+      {configType ? <SSOAutomaticConfig /> : <SSOManualConfig />}
+
       <div className='fe-flex-spacer' />
       <Grid container justifyContent={'space-between'}>
         <Grid item xs>
@@ -50,8 +65,8 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
           </Button>
         </Grid>
         <Grid item xs style={{ textAlign: 'end' }}>
-          <Button size='large' variant='primary'>
-            {t('common.next')} <Icon className='fe-ml-1' name={'right-arrow'} />
+          <Button size='large' variant='primary' type='submit'>
+            {t('common.validate')}
           </Button>
         </Grid>
       </Grid>

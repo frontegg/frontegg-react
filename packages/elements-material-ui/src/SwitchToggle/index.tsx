@@ -15,7 +15,7 @@ export const SwitchToggle: FC<SwitchToggleProps> = (props) => {
   const { labels } = props;
   const { className, ...toggleProps } = mapper(props);
 
-  const toggle = <MaterialSwitch inputRef={ref} {...toggleProps} />;
+  const toggle = <MaterialSwitch color='primary' inputRef={ref} {...toggleProps} />;
 
   if (labels) {
     return (

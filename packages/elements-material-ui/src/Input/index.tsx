@@ -36,13 +36,27 @@ const materialInputMapper = (props: InputProps): MaterialInputProps => {
   return data;
 };
 const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
-  const { inForm, fullWidth, labelButton, error, prefixIcon, suffixIcon, iconAction, className, ...rest } = props;
+  const {
+    inForm,
+    fullWidth,
+    labelButton,
+    error,
+    prefixIcon,
+    suffixIcon,
+    iconAction,
+    className,
+    multiline,
+    ...rest
+  } = props;
   const data = {
     ...rest,
     className: classNames('fe-input__in-form', props.className),
     fullWidth,
     helperText: error,
     error,
+
+    multiline,
+    rows: multiline ? 6 : undefined,
   } as any;
 
   if (prefixIcon) {

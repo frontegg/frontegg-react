@@ -3,7 +3,7 @@ import { Button, Grid, Icon, Input, useT, useDebounce } from '@frontegg/react-co
 import { useAuthTeamActions, useAuthTeamState } from '../hooks';
 
 export const TeamTableToolbar = () => {
-  const filters = useAuthTeamState((state) => state.filter) ?? [];
+  const { filter: filters } = useAuthTeamState((state) => ({ filter: state.filter || [] }));
   const { openAddUserDialog, loadUsers } = useAuthTeamActions();
   const [inputValue, setInputValue] = useState<string | undefined>(undefined);
   const searchValue = useDebounce(inputValue, 400);

@@ -1,5 +1,12 @@
 import React, { FC } from 'react';
 
+export enum SamlVendors {
+  Saml = 'Saml',
+  Okta = 'Okta',
+  Azure = 'Azure',
+  Google = 'Google',
+}
+
 export const SamlIcon: FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' {...props} viewBox='0 0 20 20'>
@@ -69,3 +76,9 @@ export const GoogleIcon: FC<React.SVGProps<SVGSVGElement>> = (props) => {
     </svg>
   );
 };
+
+export const SamlDetails = () => <></>;
+
+export const OktaDetails = () => <></>;
+export const AzureDetails = () => <></>;
+export const GoogleDetails = () => <></>;
