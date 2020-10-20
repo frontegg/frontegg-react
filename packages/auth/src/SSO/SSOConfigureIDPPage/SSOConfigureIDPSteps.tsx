@@ -20,7 +20,7 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   const validCallback = samlConfiguration?.acsUrl && samlConfiguration?.spEntityId;
   return (
     <div className='fe-sso-idp-page__step'>
-      {validCallback ? (
+      {!validCallback ? (
         <>
           <Input size='large' readOnly inForm fullWidth label='ASC URL' value={samlConfiguration?.acsUrl} />
           <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} />

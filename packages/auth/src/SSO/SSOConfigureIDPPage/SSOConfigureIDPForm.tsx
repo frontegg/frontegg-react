@@ -83,7 +83,7 @@ export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPForm> = ({ saml
               //   publicCertificate,
               //   signRequest: signRequest === 'yes',
               // } as any);
-              console.log('auto');
+              console.log('manual');
             }
           }
         }}
