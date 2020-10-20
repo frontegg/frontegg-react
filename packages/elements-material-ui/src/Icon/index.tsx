@@ -13,6 +13,7 @@ import {
   IndeterminateCheckBoxRounded,
   WarningRounded,
   VisibilityOff,
+  AccessTime,
   Visibility,
 } from '@material-ui/icons';
 import './style.scss';
@@ -30,6 +31,7 @@ const iconMap: { [K in IconNames]: any } = {
   delete: DeleteRounded,
   visibility: Visibility,
   'visibility-off': VisibilityOff,
+  clock: AccessTime,
   'sort-arrows': DeleteRounded,
   'sort-arrows-asc': DeleteRounded,
   'sort-arrows-desc': DeleteRounded,

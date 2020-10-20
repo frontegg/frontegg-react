@@ -7,6 +7,7 @@ import { FeIcon } from '../elements/Icon/FeIcon';
 import { FeLoader } from '../elements/Loader/FeLoader';
 import { FePopup } from '../elements/Popup/FePopup';
 import { FeCheckbox } from '../elements/Checkbox/FeCheckbox';
+import { FeDatePicker } from '../elements/DatePicker/FeDatePicker';
 import { FeTag } from '../elements/Tag/FeTag';
 import { FeSelect } from '../elements/Select/FeSelect';
 import { FeAccordion } from '../elements/Accordion/FeAccordion';
@@ -24,6 +25,7 @@ export const fronteggElements: Partial<Elements> = {
   Icon: FeIcon,
   Popup: FePopup,
   Checkbox: FeCheckbox,
+  DatePicker: FeDatePicker,
   Select: FeSelect,
 };
 

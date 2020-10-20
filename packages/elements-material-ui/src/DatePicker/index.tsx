@@ -5,11 +5,10 @@ import MomentUtils from '@date-io/moment';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 const mapper = (props: DatePickerProps): any => {
-  const { defaultValue, format, onChange, ...rest } = props;
+  const { defaultValue, onChange, ...rest } = props;
   return {
     ...rest,
     variant: 'inline',
-    format: format || 'DD/MM/YYYY',
   } as any;
 };
 

@@ -5,11 +5,10 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import './style.scss';
 
 const mapper = (props: DatePickerProps): any => {
-  const { format, fullWidth, ...rest } = props;
+  const { fullWidth, ...rest } = props;
   return {
     ...rest,
     className: fullWidth ? 'full-width' : '',
-    format: format || 'DD/MM/YYYY',
   } as any;
 };
 

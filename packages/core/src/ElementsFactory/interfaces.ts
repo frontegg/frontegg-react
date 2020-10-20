@@ -17,7 +17,7 @@ import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
 import { SelectProps } from '../elements/Select';
-import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
+import { AccordionContentProps, AccordionHeaderProps, AccordionProps, DatePickerProps } from '../elements';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false

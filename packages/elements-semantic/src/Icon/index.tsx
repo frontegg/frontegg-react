@@ -11,6 +11,7 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   'right-arrow': 'angle right',
   visibility: 'eye slash',
   'visibility-off': 'eye',
+  clock: 'clock',
   copy: 'copy',
   checkmark: 'checkmark',
   indeterminate: 'minus',

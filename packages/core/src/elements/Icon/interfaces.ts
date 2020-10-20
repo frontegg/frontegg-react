@@ -3,8 +3,6 @@ import { Size } from '../../styles';
 
 export type IconNames =
   | 'up-arrow'
-  | 'visibility'
-  | 'visibility-off'
   | 'down-arrow'
   | 'left-arrow'
   | 'right-arrow'
@@ -17,7 +15,10 @@ export type IconNames =
   | 'filters'
   | 'sort-arrows'
   | 'sort-arrows-asc'
-  | 'sort-arrows-desc';
+  | 'sort-arrows-desc'
+  | 'visibility'
+  | 'visibility-off'
+  | 'clock';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;
