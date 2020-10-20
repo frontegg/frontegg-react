@@ -4,8 +4,8 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
-    "prettier-hook": "prettier --config ./.prettierrc.json --write package.json $(git diff --name-only | grep -E -i '(\\.(j|t)sx?)|(\\.json)$' | xargs)",
-    "prettier-check-hook": "prettier --config ./.prettierrc.json --check package.json $(git diff --name-only | grep -E -i '(\\.(j|t)sx?)|(\\.json)$' | xargs)",
+    "prettier-hook": "prettier --config ./.prettierrc.json --write package.json $(git diff --name-only --cached | grep -E -i '(\\.(j|t)sx?)|(\\.json)$' | xargs)",
+    "prettier-check-hook": "prettier --config ./.prettierrc.json --check package.json $(git diff --name-only --cached | grep -E -i '(\\.(j|t)sx?)|(\\.json)$' | xargs)",
     "prepublishOnly": "make move-package-json-to-dist"
   },
   "devDependencies": {

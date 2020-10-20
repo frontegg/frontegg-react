@@ -10,9 +10,9 @@ import { Icon } from './Icon';
 import { Dialog } from './Dialog';
 import { Popup } from './Popup';
 import { Checkbox } from './Checkbox';
-
 import { Tag } from './Tag';
 import { Accordion, AccordionContent, AccordionHeader } from './Accordion';
+import { Select } from './Select';
 
 export const type = 'semantic';
 export const version = '1.2.1';
@@ -32,4 +32,5 @@ export const uiLibrary: Partial<Elements> = {
   Popup,
   Checkbox,
   Tag,
+  Select,
 };

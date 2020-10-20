@@ -5,12 +5,24 @@ import {
   HeaderProps,
   IdType,
   Renderer,
+  TableInstance,
+  TableState,
+  UseExpandedOptions,
   UseFiltersColumnOptions,
   UseFiltersColumnProps,
+  UseFiltersOptions,
+  UseFiltersState,
+  UsePaginationInstanceProps,
+  UsePaginationOptions,
   UseRowSelectInstanceProps,
   UseRowSelectOptions,
+  UseRowSelectState,
   UseSortByColumnOptions,
   UseSortByColumnProps,
+  UseSortByOptions,
+  UseSortByState,
+  UseTableInstanceProps,
+  UseTableOptions,
 } from 'react-table';
 
 export interface TableProps<T extends object = {}> {
@@ -106,3 +118,20 @@ export type FeTableColumnOptions<T extends object> = Column<T> &
   UseSortByColumnOptions<T> &
   UseFiltersColumnOptions<T> &
   UseRowSelectOptions<T>;
+
+export type FeUseTable<T extends object> = UseTableOptions<T> &
+  UseFiltersOptions<T> &
+  UseSortByOptions<T> &
+  UseExpandedOptions<T> &
+  UseRowSelectOptions<T> &
+  UsePaginationOptions<T>;
+
+export type FeTableInstance<T extends object> = TableInstance<T> &
+  UseTableInstanceProps<T> &
+  UsePaginationInstanceProps<T> &
+  UseRowSelectInstanceProps<T>;
+
+export type FeTableState<T extends object> = TableState<T> &
+  UseFiltersState<T> &
+  UseSortByState<T> &
+  UseRowSelectState<T>;

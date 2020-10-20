@@ -24,7 +24,7 @@ export class ClassNameGenerator {
     }: ClassNameGeneratorOptions,
     ...extraClasses: (string | boolean | null | undefined)[]
   ) => {
-    const classes = classNames(prefixCls, className, {
+    return classNames(prefixCls, className, {
       [`${prefixCls}-${theme}`]: theme,
       [`${prefixCls}-${size}`]: size,
       [`${prefixCls}-clickable`]: isClickable,
@@ -35,7 +35,5 @@ export class ClassNameGenerator {
         .map((className) => `${prefixCls}-${className}`)
         .reduce((acc, curr) => ({ ...acc, [curr]: true }), {}),
     });
-
-    return classes;
   };
 }
