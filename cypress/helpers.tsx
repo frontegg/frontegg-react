@@ -111,7 +111,7 @@ export const checkEmailValidation = (emailSelector: string = '[name="email"]') =
   cy.get(emailSelector).focus().clear().type('invalid email').blur();
   cy.contains('Must be a valid email').should('be.visible');
   cy.get(emailSelector).focus().clear().blur();
-  cy.contains('The email is required').should('be.visible');
+  cy.contains('The Email is required').should('be.visible');
   cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
   cy.get(emailSelector).parents('.field').should('not.have.class', 'error');
 };

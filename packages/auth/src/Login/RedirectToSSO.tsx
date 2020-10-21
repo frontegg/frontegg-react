@@ -14,7 +14,7 @@ export const RedirectToSSO: FC<RedirectToSSOProps> = (props: RedirectToSSOProps)
   return (
     <>
       <div className='fe-center'>{t('auth.login.redirect-to-sso-message')}</div>
-      <Loader center />
+      <Loader />
     </>
   );
 };

@@ -15,7 +15,7 @@ export const LoginSuccessRedirect: FC<LoginSuccessRedirectProps> = (props) => {
   return (
     <>
       <div className='fe-center'> {t('auth.login.authentication-succeeded')}</div>
-      <Loader center />
+      <Loader />
     </>
   );
 };
