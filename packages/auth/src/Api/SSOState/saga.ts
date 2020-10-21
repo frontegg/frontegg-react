@@ -14,12 +14,36 @@ function* loadSSOConfigurations() {
   }
 }
 
+const getData = (file: File) =>
+  new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => resolve(reader.result);
+  });
+
+function* saveSSOConfigurationsFile({ payload }: PayloadAction<File[] | any>) {
+  const { configFile } = payload;
+  const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
+  let loaderKey: keyof SSOState = 'saving';
+  yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
+
+  try {
+    const metadata = yield getData(configFile[0]);
+    //@ts-ignore
+    const newSamlConfiguration = yield call(api.auth.updateSamlVendorMetadata({ metadata }));
+    yield console.log('result', newSamlConfiguration);
+    yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
+  } catch (e) {
+    yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, [loaderKey]: false }));
+  }
+}
+
 function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<Partial<ISamlConfiguration>>) {
   const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
 
-  let loaderKey: keyof SSOState = 'loading';
-  if (samlConfiguration?.domain !== oldSamlConfiguration.domain) {
-    loaderKey = 'saving';
+  let loaderKey: keyof SSOState = 'saving';
+  if (samlConfiguration?.enabled !== oldSamlConfiguration.enabled) {
+    loaderKey = 'loading';
   }
   try {
     const firstTimeConfigure = !samlConfiguration?.domain;
@@ -74,5 +98,6 @@ function* validateSSODomain() {
 export function* ssoSagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
+  yield takeEvery(actions.saveSSOConfigurationsFile, saveSSOConfigurationsFile);
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
 }

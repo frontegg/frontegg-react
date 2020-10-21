@@ -20,5 +20,8 @@ export const ssoActions = {
   saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: Partial<ISamlConfiguration>) => ({
     payload,
   })),
+  saveSSOConfigurationsFile: createAction(`${storeName}/saveSSOConfigurationsFile`, (payload: File[]) => ({
+    payload,
+  })),
   validateSSODomain: createAction(`${storeName}/validateSSODomain`),
 };

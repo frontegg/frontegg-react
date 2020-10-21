@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react';
-import { Grid, useT } from '@frontegg/react-core';
+import { FFormik, FForm, Grid, useT } from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
 import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
+import { useAuth } from '../../hooks';
+import { SamlVendors } from './SSOVendors';
 
 export interface HeaderProps {
   step: number;
@@ -33,15 +35,54 @@ const Progress = ({ step }: { step: number }) => {
   return <div className={`fe-sso-idp-page__progress-${step}`} />;
 };
 
+export interface IInitialValues {
+  ssoEndpoint?: string;
+  configSaml: string;
+  configFile?: File[];
+  signRequest?: boolean;
+  publicCertificate?: string;
+}
+
+const initialValues: IInitialValues = {
+  configSaml: 'manual',
+};
+
 export const SSOConfigureIDPForm: FC<HideOption> = () => {
   const [step, goToStep] = useState(1);
+  const { samlConfiguration, saveSSOConfigurations, saveSSOConfigurationsFile } = useAuth((state) => state.ssoState);
+  const { Formik } = FFormik;
+
   return (
     <div className='fe-sso-idp-page__config'>
       <Header step={step} />
       <Progress step={step} />
-
-      {step === 1 && <SSOConfigureIDPStep1 goToStep={goToStep} />}
-      {step === 2 && <SSOConfigureIDPStep2 goToStep={goToStep} />}
+      <Formik
+        initialValues={{
+          ...initialValues,
+          ...samlConfiguration,
+          signRequest: samlConfiguration?.signRequest ? 'yes' : 'no',
+          configSaml: samlConfiguration?.ssoEndpoint && samlConfiguration?.publicCertificate ? 'manual' : 'auto',
+        }}
+        enableReinitialize
+        onSubmit={({ ssoEndpoint, configSaml, publicCertificate, configFile, signRequest }) => {
+          if (configSaml === 'auto') {
+            saveSSOConfigurationsFile({ configFile } as any);
+          } else {
+            saveSSOConfigurations({
+              ...samlConfiguration,
+              ssoEndpoint,
+              configSaml,
+              publicCertificate,
+              signRequest: signRequest === 'yes',
+            } as any);
+          }
+        }}
+      >
+        <FForm>
+          {step === 1 && <SSOConfigureIDPStep1 goToStep={goToStep} />}
+          {step === 2 && <SSOConfigureIDPStep2 goToStep={goToStep} />}
+        </FForm>
+      </Formik>
     </div>
   );
 };

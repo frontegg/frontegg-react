@@ -17,8 +17,6 @@ import {
   validateSchema,
   validateTwoFactorCode,
 } from '@frontegg/react-core';
-import { Simulate } from 'react-dom/test-utils';
-import load = Simulate.load;
 
 const { Formik } = FFormik;
 

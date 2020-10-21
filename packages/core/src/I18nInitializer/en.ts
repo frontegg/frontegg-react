@@ -157,6 +157,11 @@ export default {
           },
         },
       },
+      dropzone: {
+        title: 'Metadata File',
+        dnd: 'Drag & Drop',
+        description: 'Click or drop an XML file with your configurations',
+      },
       profile: {
         title: 'My Profile',
         info: {
