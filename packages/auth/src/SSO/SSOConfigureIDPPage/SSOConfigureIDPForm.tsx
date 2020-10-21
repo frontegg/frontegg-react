@@ -9,10 +9,6 @@ export interface HeaderProps {
   step: number;
 }
 
-export interface SSOConfigureIDPForm {
-  samlVendor: SamlVendors;
-}
-
 const prefixT = 'auth.sso.idp.form';
 const Title: FC = (props) => {
   const { t } = useT();
@@ -40,7 +36,6 @@ const Progress = ({ step }: { step: number }) => {
 };
 
 export interface IInitialValues {
-  type?: SamlVendors;
   ssoEndpoint?: string;
   configSaml: string;
   configFile?: File[];
@@ -52,9 +47,9 @@ const initialValues: IInitialValues = {
   configSaml: 'manual',
 };
 
-export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPForm> = ({ samlVendor }) => {
+export const SSOConfigureIDPForm: FC<HideOption> = () => {
   const [step, goToStep] = useState(1);
-  const { samlConfiguration } = useAuth((state) => state.ssoState);
+  const { samlConfiguration, saveSSOConfigurations, saveSSOConfigurationsFile } = useAuth((state) => state.ssoState);
   const { Formik } = FFormik;
 
   return (
@@ -63,28 +58,23 @@ export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPForm> = ({ saml
       <Progress step={step} />
       <Formik
         initialValues={{
-          type: samlVendor,
           ...initialValues,
           ...samlConfiguration,
           signRequest: samlConfiguration?.signRequest ? 'yes' : 'no',
           configSaml: samlConfiguration?.ssoEndpoint && samlConfiguration?.publicCertificate ? 'manual' : 'auto',
         }}
         enableReinitialize
-        onSubmit={({ type, ssoEndpoint, configSaml, publicCertificate, configFile, signRequest }) => {
-          if (type === 'Saml') {
-            if (configSaml === 'auto') {
-              console.log('auto');
-              // saveConfigurationsAuto({ configFile } as any);
-            } else {
-              // saveConfigurations({
-              //   ...samlConfiguration,
-              //   ssoEndpoint,
-              //   configSaml,
-              //   publicCertificate,
-              //   signRequest: signRequest === 'yes',
-              // } as any);
-              console.log('manual');
-            }
+        onSubmit={({ ssoEndpoint, configSaml, publicCertificate, configFile, signRequest }) => {
+          if (configSaml === 'auto') {
+            saveSSOConfigurationsFile({ configFile } as any);
+          } else {
+            saveSSOConfigurations({
+              ...samlConfiguration,
+              ssoEndpoint,
+              configSaml,
+              publicCertificate,
+              signRequest: signRequest === 'yes',
+            } as any);
           }
         }}
       >

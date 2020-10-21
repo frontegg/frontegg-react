@@ -20,7 +20,7 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   const validCallback = samlConfiguration?.acsUrl && samlConfiguration?.spEntityId;
   return (
     <div className='fe-sso-idp-page__step'>
-      {!validCallback ? (
+      {validCallback ? (
         <>
           <Input size='large' readOnly inForm fullWidth label='ASC URL' value={samlConfiguration?.acsUrl} />
           <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} />
@@ -48,7 +48,12 @@ const SSOAutomaticConfig: FC<SSOAutomaticConfig> = ({ setConfigFile, configFile 
   return (
     <>
       {configFile.length ? (
-        configFile[0].name
+        <>
+          <div className='fe-sso-dnd-title'>{t('auth.dropzone.title')}</div>
+          <section className='fe-sso-dnd'>
+            <div className='fe-sso-dnd-container'>{configFile[0].name}</div>
+          </section>
+        </>
       ) : (
         <>
           <div className='fe-sso-dnd-title'>{t('auth.dropzone.title')}</div>
@@ -73,10 +78,10 @@ const SSOAutomaticConfig: FC<SSOAutomaticConfig> = ({ setConfigFile, configFile 
 
 const SSOManualConfig = () => {
   return (
-    <>
+    <div className='sso-endpoint-container'>
       <FInput name='ssoEndpoint' label='SSO Endpoint' placeholder='URL from the SSO' />
       <FInput name='publicCertificate' label='Public Certificate' placeholder='Provide Public Certificate' multiline />
-    </>
+    </div>
   );
 };
 
@@ -86,6 +91,7 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
   const { values, setFieldValue } = useFormikContext<IInitialValues>();
   const [configFile, setConfigFile] = useState<File[]>([]);
   const { configSaml } = values;
+  const { saving } = useAuth((state) => state.ssoState);
 
   useEffect(() => {
     setFieldValue('configFile', configFile);
@@ -113,7 +119,7 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
           </Button>
         </Grid>
         <Grid item xs style={{ textAlign: 'end' }}>
-          <Button size='large' variant='primary' type='submit'>
+          <Button loading={saving} size='large' variant='primary' type='submit'>
             {t('common.validate')}
           </Button>
         </Grid>

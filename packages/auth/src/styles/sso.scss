@@ -302,6 +302,10 @@
     }
   }
 
+  .sso-endpoint-container {
+    margin-top: 1rem;
+  }
+
   &__progress-1,
   &__progress-2 {
     width: 50%;
@@ -326,14 +330,14 @@
 .fe-sso-dnd {
   background-color: var(--color-gray-0);
   padding: 1rem;
-  height: 14rem;
+  height: 13.5rem;
   width: 100%;
   border-radius: 4px;
   color: var(--color-gray-9);
   margin-bottom: 2rem;
 
   &-title {
-    margin-top: 2rem;
+    margin-top: 1rem;
     color: var(--color-gray-9);
     font-size: 0.875rem;
     margin-bottom: 0.5rem;

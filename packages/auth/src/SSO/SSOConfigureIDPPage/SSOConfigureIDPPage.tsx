@@ -26,7 +26,7 @@ export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
         <SSOConfigureIDPGuide samlVendor={samlVendor} />
       </Grid>
       <Grid item xs={12} sm={12} md={5}>
-        <SSOConfigureIDPForm samlVendor={samlVendor} />
+        <SSOConfigureIDPForm />
       </Grid>
     </Grid>
   );
