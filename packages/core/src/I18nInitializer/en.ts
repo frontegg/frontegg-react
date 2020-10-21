@@ -41,6 +41,9 @@ export default {
       instruction: 'Instruction',
       'instruction-for': 'Instruction for',
       finish: 'Finish',
+      configure: 'Configure',
+      automatic: 'Automatic',
+      manual: 'Manual',
     },
     auth: {
       login: {
@@ -124,6 +127,7 @@ export default {
           },
         },
         idp: {
+          'error-ask-your-vendor': 'Ask your vendor to configure SSO before!',
           guide: {
             title: 'Guide',
             description: 'Helpful information explaining the process',
@@ -139,21 +143,13 @@ export default {
           },
           form: {
             title: 'Configure Your IDP',
-            step: 'Step',
-            'form-step-1': {
-              'acs-url': 'ACS URL',
-              'entity-id': 'Entity ID',
-              button: 'Next',
-            },
-            'form-step-2': {
-              switch: {
-                auto: 'AUTOMATIC',
-                manual: 'MANUAL',
-              },
-              endpoint: 'SSO Endpoint',
-              sertificate: 'Public Certificate',
-              button: 'VALIDATE & SAVE',
-            },
+            'acs-url': 'ACS URL',
+            'entity-id': 'Entity ID',
+            'metadata-file': 'Metadata File',
+            endpoint: 'SSO Endpoint',
+            certificate: 'Public Certificate',
+            'endpoint-desc': 'URL from the SSO',
+            'certificate-desc': 'Provide Public Certificate',
           },
         },
       },
@@ -213,6 +209,7 @@ export default {
     validation: {
       'must-be-a-valid-email': 'Must be a valid email',
       'must-be-a-valid-domain': 'Must be a valid domain',
+      'must-be-a-valid-url': 'Must be a valid URL',
       'passwords-must-match': 'Passwords must match',
       'required-field': 'The {{name}} is required',
       'min-length': '{{name}} must be at least {{limit}} characters',

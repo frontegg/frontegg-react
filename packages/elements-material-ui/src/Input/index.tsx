@@ -46,15 +46,16 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
     iconAction,
     className,
     multiline,
+    size,
     ...rest
   } = props;
   const data = {
     ...rest,
-    className: classNames('fe-input__in-form', props.className),
+    className: classNames(props.className, { 'fe-input__in-form': inForm }),
     fullWidth,
     helperText: error,
-    error,
-
+    error: !!error,
+    size: size === 'small' ? 'small' : 'medium',
     multiline,
     rows: multiline ? 6 : undefined,
   } as any;
@@ -81,7 +82,7 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
 
 export class Input extends React.Component<InputProps> {
   render() {
-    const { children, inForm, labelButton, ...rest } = this.props;
+    const { children, ...rest } = this.props;
     const inputProps = materialTextFieldMapper(rest);
     return (
       <MaterialTextField {...inputProps} variant='outlined'>

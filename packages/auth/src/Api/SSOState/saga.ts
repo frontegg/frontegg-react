@@ -21,25 +21,24 @@ const getData = (file: File) =>
     reader.onload = () => resolve(reader.result);
   });
 
-function* saveSSOConfigurationsFile({ payload }: PayloadAction<File[] | any>) {
-  const { configFile } = payload;
+function* saveSSOConfigurationsFile({ payload: configFile }: PayloadAction<File[]>) {
   const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
-  let loaderKey: keyof SSOState = 'saving';
+  const loaderKey: keyof SSOState = 'saving';
   yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
 
   try {
     const metadata = yield getData(configFile[0]);
-    //@ts-ignore
-    const newSamlConfiguration = yield call(api.auth.updateSamlVendorMetadata({ metadata }));
-    yield console.log('result', newSamlConfiguration);
+    const newSamlConfiguration = yield call(api.auth.updateSamlVendorMetadata, { metadata });
     yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
   } catch (e) {
     yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, [loaderKey]: false }));
   }
 }
 
-function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<Partial<ISamlConfiguration>>) {
+function* saveSSOConfigurations({ payload: newSamlConfiguration }: PayloadAction<Partial<ISamlConfiguration>>) {
   const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
+
+  const samlConfiguration = { ...oldSamlConfiguration, ...newSamlConfiguration };
 
   let loaderKey: keyof SSOState = 'saving';
   if (samlConfiguration?.enabled !== oldSamlConfiguration.enabled) {
@@ -51,6 +50,7 @@ function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<Pa
       yield put(actions.setSSOState({ samlConfiguration: { ...oldSamlConfiguration, ...samlConfiguration } }));
       return;
     } else {
+      console.log('loaderKey', loaderKey);
       yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
     }
 
@@ -64,6 +64,11 @@ function* saveSSOConfigurations({ payload: samlConfiguration }: PayloadAction<Pa
       'createdAt',
       'updatedAt',
     ]);
+    if (oldSamlConfiguration?.domain !== updateSamlConfiguration?.domain) {
+      updateSamlConfiguration.ssoEndpoint = '';
+      updateSamlConfiguration.publicCertificate = '';
+      updateSamlConfiguration.signRequest = false;
+    }
 
     const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
     yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));

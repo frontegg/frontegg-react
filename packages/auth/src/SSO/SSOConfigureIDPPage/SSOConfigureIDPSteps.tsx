@@ -1,17 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Button, ErrorMessage, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { Button, ErrorMessage, FButton, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
 import Dropzone from 'react-dropzone';
-import { IInitialValues } from './SSOConfigureIDPForm';
 import { FFormik } from '@frontegg/react-core';
+
+const { useField, useFormikContext } = FFormik;
 
 export interface SSOConfigureIDPStepProps {
   goToStep: (step: number) => void;
-}
-
-export interface SSOAutomaticConfig {
-  configFile: File[];
-  setConfigFile: (file: File[]) => void;
 }
 
 export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
@@ -26,7 +22,7 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
           <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} />
         </>
       ) : (
-        <ErrorMessage error={'Ask your vendor to configure SSO before!'} />
+        <ErrorMessage error={t('auth.sso.idp.error-ask-your-vendor')} />
       )}
 
       <div className='fe-flex-spacer' />
@@ -42,12 +38,14 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   );
 };
 
-const SSOAutomaticConfig: FC<SSOAutomaticConfig> = ({ setConfigFile, configFile }) => {
+const SSOAutomaticConfig: FC = () => {
   const { t } = useT();
+  const { useField } = FFormik;
+  const [{ value: configFile }, , { setValue: setConfigFile }] = useField('configFile');
 
   return (
     <>
-      {configFile.length ? (
+      {configFile?.length ? (
         <>
           <div className='fe-sso-dnd-title'>{t('auth.dropzone.title')}</div>
           <section className='fe-sso-dnd'>
@@ -77,51 +75,55 @@ const SSOAutomaticConfig: FC<SSOAutomaticConfig> = ({ setConfigFile, configFile 
 };
 
 const SSOManualConfig = () => {
+  const { t } = useT();
   return (
     <div className='sso-endpoint-container'>
-      <FInput name='ssoEndpoint' label='SSO Endpoint' placeholder='URL from the SSO' />
-      <FInput name='publicCertificate' label='Public Certificate' placeholder='Provide Public Certificate' multiline />
+      <FInput
+        name='ssoEndpoint'
+        label={t('auth.sso.idp.form.endpoint')}
+        placeholder={t('auth.sso.idp.form.endpoint-desc')}
+      />
+      <FInput
+        name='publicCertificate'
+        label={t('auth.sso.idp.form.certificate')}
+        placeholder={t('auth.sso.idp.form.certificate-desc')}
+        multiline
+      />
     </div>
   );
 };
 
 export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
   const { t } = useT();
-  const { useFormikContext } = FFormik;
-  const { values, setFieldValue } = useFormikContext<IInitialValues>();
-  const [configFile, setConfigFile] = useState<File[]>([]);
-  const { configSaml } = values;
-  const { saving } = useAuth((state) => state.ssoState);
 
-  useEffect(() => {
-    setFieldValue('configFile', configFile);
-  }, [configFile]);
+  const [{ value: configSaml }, , { setValue: setConfigSaml }] = useField<string>('configSaml');
+  const { touched, isValid, dirty } = useFormikContext();
+  const { saving, error, samlConfiguration } = useAuth((state) => state.ssoState);
+
+  const isDomainValidated = samlConfiguration?.validated ?? false;
+  const isIdpValidated = (samlConfiguration?.ssoEndpoint && isDomainValidated) as boolean;
 
   return (
     <div className='fe-sso-idp-page__step'>
       <SwitchToggle
-        value={configSaml === 'auto' ? false : true}
-        onChange={(e) => setFieldValue('configSaml', e ? 'manual' : 'auto')}
-        labels={['Automatic', 'Manual']}
+        value={configSaml !== 'auto'}
+        onChange={(toggle) => setConfigSaml(toggle ? 'manual' : 'auto')}
+        labels={[t('common.automatic'), t('common.manual')]}
       />
 
-      {configSaml === 'auto' ? (
-        <SSOAutomaticConfig configFile={configFile} setConfigFile={setConfigFile} />
-      ) : (
-        <SSOManualConfig />
-      )}
-
+      {configSaml === 'auto' ? <SSOAutomaticConfig /> : <SSOManualConfig />}
+      <ErrorMessage error={error} separator />
       <div className='fe-flex-spacer' />
-      <Grid container justifyContent={'space-between'}>
+      <Grid container>
         <Grid item xs>
           <Button size='large' onClick={() => props.goToStep(1)}>
             <Icon className='fe-mr-1' name={'left-arrow'} /> {t('common.back')}
           </Button>
         </Grid>
         <Grid item xs style={{ textAlign: 'end' }}>
-          <Button loading={saving} size='large' variant='primary' type='submit'>
-            {t('common.validate')}
-          </Button>
+          <FButton loading={!!saving} size='large' variant='primary' type='submit'>
+            {isIdpValidated && !dirty && isValid && !saving ? t('common.configured') : t('common.configure')}
+          </FButton>
         </Grid>
       </Grid>
     </div>

@@ -8,6 +8,7 @@ export * from './interfaces';
 export const ssoState: SSOState = {
   firstLoad: true,
   loading: true,
+  saving: false,
 };
 
 export const ssoStateReducers = {

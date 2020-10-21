@@ -37,6 +37,8 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // Loader: fronteggElements.Loader,
       // Button: fronteggElements.Button,
       ...MaterialLibrary,
+      // SwitchToggle: SemanticLibrary.SwitchToggle
+      // Tabs: SemanticLibrary.Tabs
     }}
   >
     <Component />

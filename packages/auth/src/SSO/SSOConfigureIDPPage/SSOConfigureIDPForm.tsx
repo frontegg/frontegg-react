@@ -1,9 +1,20 @@
-import React, { FC, useState } from 'react';
-import { FFormik, FForm, Grid, useT } from '@frontegg/react-core';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import {
+  FFormik,
+  FForm,
+  Grid,
+  useT,
+  validateSchema,
+  validateUrl,
+  validateLength,
+  validateRequired,
+  validateSchemaSync,
+} from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
 import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
 import { useAuth } from '../../hooks';
-import { SamlVendors } from './SSOVendors';
+
+const { Formik } = FFormik;
 
 export interface HeaderProps {
   step: number;
@@ -49,32 +60,51 @@ const initialValues: IInitialValues = {
 
 export const SSOConfigureIDPForm: FC<HideOption> = () => {
   const [step, goToStep] = useState(1);
-  const { samlConfiguration, saveSSOConfigurations, saveSSOConfigurationsFile } = useAuth((state) => state.ssoState);
-  const { Formik } = FFormik;
+  const { samlConfiguration, saveSSOConfigurations, saveSSOConfigurationsFile, saving } = useAuth(
+    (state) => state.ssoState
+  );
+  const { t } = useT();
+  const formikRef = useRef<FFormik.FormikProps<IInitialValues>>(null);
+
+  useEffect(() => formikRef.current?.setSubmitting?.(!!saving), [saving, formikRef]);
 
   return (
     <div className='fe-sso-idp-page__config'>
       <Header step={step} />
       <Progress step={step} />
       <Formik
+        innerRef={formikRef}
         initialValues={{
           ...initialValues,
           ...samlConfiguration,
-          signRequest: samlConfiguration?.signRequest ? 'yes' : 'no',
-          configSaml: samlConfiguration?.ssoEndpoint && samlConfiguration?.publicCertificate ? 'manual' : 'auto',
         }}
         enableReinitialize
-        onSubmit={({ ssoEndpoint, configSaml, publicCertificate, configFile, signRequest }) => {
+        validate={({ configSaml, configFile, ssoEndpoint, publicCertificate }) => {
           if (configSaml === 'auto') {
-            saveSSOConfigurationsFile({ configFile } as any);
+            return validateSchemaSync(
+              {
+                configFile: validateRequired(t('auth.sso.form.metadata-file'), t),
+              },
+              { configFile }
+            );
+          } else {
+            return validateSchemaSync(
+              {
+                ssoEndpoint: validateUrl(t('auth.sso.idp.form.endpoint'), t),
+                publicCertificate: validateRequired(t('auth.sso.idp.form.certificate'), t),
+              },
+              { ssoEndpoint, publicCertificate }
+            );
+          }
+        }}
+        onSubmit={({ ssoEndpoint, configSaml, publicCertificate, configFile }) => {
+          if (configSaml === 'auto') {
+            saveSSOConfigurationsFile(configFile!);
           } else {
             saveSSOConfigurations({
-              ...samlConfiguration,
               ssoEndpoint,
-              configSaml,
               publicCertificate,
-              signRequest: signRequest === 'yes',
-            } as any);
+            });
           }
         }}
       >

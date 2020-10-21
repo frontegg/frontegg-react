@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import { TableBody as MTableBody, TableRow, TableCell, CircularProgress } from '@material-ui/core';
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { TableExpandable } from './TableExpandable';
+import { Loader } from '../Loader';
 
 type TableTBodyProps<T extends object> = {
   loading?: boolean;
@@ -30,9 +31,9 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
   const classes = useRowStyles();
 
   return (
-    <MTableBody className='fe-table__tbody' {...getTableBodyProps()}>
-      {!loading ? (
-        rows.map((row) => {
+    <>
+      <MTableBody className='fe-table__tbody' {...getTableBodyProps()}>
+        {rows.map((row) => {
           prepareRow(row);
           return (
             <React.Fragment key={row.getRowProps().key}>
@@ -55,14 +56,17 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
               />
             </React.Fragment>
           );
-        })
-      ) : (
-        <TableRow>
-          <TableCell align='center'>
-            <CircularProgress className='fe-table-loading' size='sm' />
-          </TableCell>
-        </TableRow>
-      )}
-    </MTableBody>
+        })}
+
+        {loading && rows.length === 0 && (
+          <TableRow>
+            <TableCell align='center'>
+              <Loader size={24} />
+            </TableCell>
+          </TableRow>
+        )}
+      </MTableBody>
+      {loading && rows.length > 0 && <Loader center size={24} />}
+    </>
   );
 };

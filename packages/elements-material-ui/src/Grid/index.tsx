@@ -4,6 +4,7 @@ import { Grid as MaterialGrid, GridProps as MaterialGridProps } from '@material-
 
 const mapperMaterialProps = (props: GridProps): MaterialGridProps => ({
   ...props,
+  justify: props.justifyContent,
 });
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>((props, ref) => {
