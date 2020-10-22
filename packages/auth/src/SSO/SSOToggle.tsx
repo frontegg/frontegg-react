@@ -15,8 +15,9 @@ export const SSOToggle: FC<SwitchToggleProps & HideOption> = (props) => {
   const onEnabledDisabledChanged = useCallback(() => {
     saveSSOConfigurations({ ...samlConfiguration, enabled: !samlConfiguration?.enabled });
   }, [samlConfiguration]);
+
   return (
-    <div className='fe-center fe-mt-2'>
+    <div className='fe-center fe-mt-4'>
       <SwitchToggle
         loading={loading}
         value={samlEnabled}

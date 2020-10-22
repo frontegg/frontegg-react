@@ -28,7 +28,7 @@ export const ForgotPasswordSuccessRedirect: FC<ForgotPasswordSuccessRedirectProp
   }
   return (
     <>
-      <div className='fe-center fe-success-message fe-mb-2'>{t('auth.forgot-password.reset-email-sent')}</div>
+      <div className='fe-center fe-success-message fe-mb-4'>{t('auth.forgot-password.reset-email-sent')}</div>
       <Button
         fullWidth={true}
         onClick={() => {

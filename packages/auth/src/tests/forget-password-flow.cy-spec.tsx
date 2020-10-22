@@ -136,7 +136,7 @@ describe('Forgot Password Tests', () => {
     });
   });
 
-  it('ResetPassword Page should display success and redirec to login page', () => {
+  it('ResetPassword Page should display success and redirect to login page', () => {
     cy.server();
     mockAuthApi(false, false);
     cy.route({

@@ -4,7 +4,6 @@ import { AccordionContent } from './Accordion';
 import { AccordionHeader } from './Accordion';
 import { Button } from './Button';
 import { Input } from './Input';
-import { Form } from './Form';
 import { Loader } from './Loader';
 import { SwitchToggle } from './SwitchToggle';
 import { Tabs } from './Tabs';
@@ -25,7 +24,6 @@ export const uiLibrary: Partial<Elements> = {
   AccordionHeader,
   Button,
   Input,
-  Form,
   Loader,
   SwitchToggle,
   Tabs,

@@ -5,7 +5,6 @@ import { TabProps } from './interfaces';
 export * from './interfaces';
 export * from './FileInput';
 export * from './Input';
-export * from './Form';
 export * from './Dialog';
 
 export { ElementsFactory, fronteggElements };

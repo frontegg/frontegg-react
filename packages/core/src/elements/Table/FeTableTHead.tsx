@@ -59,7 +59,9 @@ export const FeTableTHead: FC<FeTableTHeadProps<any>> = <T extends object>(props
                 <FeTableSortColumn column={column} />
 
                 <div className='fe-table__spacer' />
-                {column.canFilter && <FeTableFilterColumn prefixCls={prefixCls} column={column} onFilterChange={onFilterChange} />}
+                {column.canFilter && (
+                  <FeTableFilterColumn prefixCls={prefixCls} column={column} onFilterChange={onFilterChange} />
+                )}
               </div>
             );
           })}

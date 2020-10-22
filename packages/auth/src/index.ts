@@ -19,6 +19,7 @@ export * from './ResetPassword';
 export * from './SSO';
 export * from './Profile';
 export * from './MFA';
+export * from './Team';
 
 export { AuthRoutes };
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({

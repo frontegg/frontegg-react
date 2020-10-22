@@ -7,6 +7,8 @@ import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
 import { Checkmark, Indeterminate } from './svgs/Checkmark';
 import { Delete } from './svgs/Actions';
+import { PersonAdd } from './svgs/PersonAdd';
+import { VerticalDots } from './svgs/VerticalDots';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'up-arrow': UpArrow,
@@ -22,6 +24,8 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   checkmark: Checkmark,
   indeterminate: Indeterminate,
   filters: Filters,
+  'person-add': PersonAdd,
+  'vertical-dots': VerticalDots,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {

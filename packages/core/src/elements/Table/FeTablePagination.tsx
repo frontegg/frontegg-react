@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Row } from 'react-table';
 import { FeIcon } from '../Icon/FeIcon';
 import { FeButton } from '../Button/FeButton';
 import classNames from 'classnames';

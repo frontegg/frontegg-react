@@ -7,7 +7,7 @@ export * from './Table';
 export * from './Icon';
 export * from './Popup';
 export * from './Checkbox';
-export * from './Table';
 export * from './Select';
 export * from './Accordion';
 export * from './SwitchToggle';
+export * from './Form';
