@@ -66,15 +66,15 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      <OldFronteggProvider
+      {/* <OldFronteggProvider
         contextOptions={{
           ...(props.context as any),
           tokenResolver: () => ContextHolder.getAccessToken() || '',
         }}
         plugins={[{ type: 'reports' }]}
-      >
-        {children}
-      </OldFronteggProvider>
+      > */}
+      {children}
+      {/* </OldFronteggProvider> */}
       {rcPortals}
     </>
   );
