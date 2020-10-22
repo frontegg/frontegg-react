@@ -66,6 +66,7 @@ input:checked + .fe-slider:before {
   &__label {
     margin: 0 1rem;
     transition: color 0.3s ease-in;
+    cursor: pointer;
     user-select: none;
 
     &:hover {
@@ -91,9 +92,6 @@ input:checked + .fe-slider:before {
 
     * {
       cursor: progress !important;
-    }
-    .fe-switch {
-      pointer-events: none;
     }
 
     .fe-slider:before,
