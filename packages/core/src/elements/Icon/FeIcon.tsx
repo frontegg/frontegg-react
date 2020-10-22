@@ -5,7 +5,7 @@ import { SortArrows, SortArrowsAsc, SortArrowsDesc } from './svgs/SortArrows';
 import { Visibility, VisibilityOff } from './svgs/Visibility';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
-import { Checkmark, Indeterminate } from './svgs/Checkmark';
+import { Checkmark, Indeterminate, MoreVert } from './svgs/Checkmark';
 import { Delete } from './svgs/Actions';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
@@ -22,6 +22,7 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   checkmark: Checkmark,
   indeterminate: Indeterminate,
   filters: Filters,
+  'more-vert': MoreVert,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {

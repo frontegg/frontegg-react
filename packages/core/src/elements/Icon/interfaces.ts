@@ -15,6 +15,7 @@ export type IconNames =
   | 'image'
   | 'delete'
   | 'filters'
+  | 'more-vert'
   | 'sort-arrows'
   | 'sort-arrows-asc'
   | 'sort-arrows-desc';
