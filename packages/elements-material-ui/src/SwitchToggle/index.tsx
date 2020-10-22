@@ -7,6 +7,7 @@ import classNames from 'classnames';
 const mapper = (props: SwitchToggleProps): MaterialSwitchProps => ({
   disabled: props.disabled || props.loading,
   checked: props.value,
+  readOnly: props.readOnly,
   onChange: (e, value) => props.onChange?.(value),
 });
 
