@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import { AuthExamples } from '../auth-examples';
 import { ProtectedRoute, Profile, SSO, MFA, useAuthUser } from '@frontegg/react-auth';
 import { Profile as OldProfile } from '@frontegg/react';
+import { WebhooksPage } from '@frontegg/react-webhooks';
 import { PageTabProps, useT } from '@frontegg/react-core';
 import { ComponentsPage } from '../ComponentsPage';
 import { withFrontegg } from '../withFrontegg';
@@ -52,6 +53,9 @@ class App extends React.Component<any> {
                 <div>
                   <Link to='/select'>Select Examples</Link>
                 </div>
+                <div>
+                  <Link to='/webhooks'>Webhooks</Link>
+                </div>
               </div>
             </Route>
             <Route path='/test-auth-user' component={TestPage} />
@@ -68,6 +72,7 @@ class App extends React.Component<any> {
             <Route exact path='/table' component={TableExample} />
             <Route exact path='/select' component={SelectorExample} />
             <Route exact path='/grids' component={GridExamples} />
+            <Route exact path='/webhooks' component={WebhooksPage} />
           </Switch>
         </AuthExamples>
       </div>
