@@ -14,6 +14,7 @@ import {
   WarningRounded,
   VisibilityOff,
   Visibility,
+  MoreVert,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -34,6 +35,7 @@ const iconMap: { [K in IconNames]: any } = {
   'sort-arrows-asc': DeleteRounded,
   'sort-arrows-desc': DeleteRounded,
   filters: DeleteRounded,
+  'more-vert': MoreVert,
 };
 
 export class Icon extends React.Component<IconProps> {
