@@ -17,6 +17,7 @@ import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
 import { SelectProps } from '../elements/Select';
+import { SwitchToggleProps } from '../elements/SwitchToggle';
 import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 import { FormProps } from '../elements/Form';
 
@@ -34,14 +35,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   suffixIcon?: ReactElement;
   iconAction?: (e: MouseEvent) => void;
   multiline?: boolean;
-}
-
-export interface SwitchToggleProps {
-  loading?: boolean;
-  disabled?: boolean;
-  value?: boolean;
-  labels?: [string, string];
-  onChange?: (toggled: boolean) => void;
 }
 
 export interface TabProps {
