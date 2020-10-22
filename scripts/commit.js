@@ -105,6 +105,7 @@ async function run() {
         { title: 'Demo Project', description: 'Changes affects `demo-saas` project', value: 'demo' },
         { title: 'Core Project', description: 'Changes affects `@frontegg/react-core` lib', value: 'core' },
         { title: 'Auth Project', description: 'Changes affects `@frontegg/react-auth` lib', value: 'auth' },
+        { title: 'Webhooks Project', description: 'Changes affects `@frontegg/react-webhooks` lib', value: 'webhooks' },
         {
           title: 'Elements Projects',
           description: 'Changes affects `@frontegg/react-elements-*` lib',
