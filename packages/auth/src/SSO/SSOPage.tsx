@@ -5,7 +5,7 @@ import { SSOHeader } from './SSOHeader';
 import { BasePageProps } from '../interfaces';
 
 export type SSOPageProps = BasePageProps;
-const SSOPage: FC<SSOPageProps> = (props) => {
+export const SSOPage: FC<SSOPageProps> = (props) => {
   const [rootPath] = useRootPath(props, '/sso');
   useMemo(() => checkValidChildren('SSO.Page', 'SSO', props.children, { SSORouter }), [props.children]);
 
@@ -22,5 +22,3 @@ const SSOPage: FC<SSOPageProps> = (props) => {
     </RootPathContext.Provider>
   );
 };
-
-export { SSOPage };

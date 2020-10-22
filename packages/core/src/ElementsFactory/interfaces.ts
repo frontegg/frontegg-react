@@ -18,6 +18,7 @@ import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
 import { SelectProps } from '../elements/Select';
 import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
+import { FormProps } from '../elements/Form';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -32,10 +33,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
   iconAction?: (e: MouseEvent) => void;
-}
-
-export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
-  as?: string; // default is true
+  multiline?: boolean;
 }
 
 export interface SwitchToggleProps {
@@ -51,10 +49,6 @@ export interface TabProps {
   activeTab: number;
   onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
 }
-
-type ComponentTypeOrForwardRef<P, REF> =
-  | ComponentType<P>
-  | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>;
 
 export type ElementProps = {
   Accordion: ComponentType<AccordionProps>;

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { checkRootPath, Loader } from '@frontegg/react-core';
+import { checkRootPath, Grid, Loader } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { SSOClaimDomainForm } from './SSOClaimDomainForm';
 import { SSOClaimDomainGuide } from './SSOClaimDomainGuide';
@@ -17,8 +17,14 @@ export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
   }
   const children = props.children ?? (
     <>
-      <SSOClaimDomainGuide />
-      <SSOClaimDomainForm />
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={6}>
+          <SSOClaimDomainGuide />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <SSOClaimDomainForm />
+        </Grid>
+      </Grid>
     </>
   );
 

@@ -14,6 +14,6 @@ const mapper = (props: LoaderProps): MaterialLoaderProps => {
   };
 };
 
-export const Loader: FC<LoaderProps> = (props) => {
-  return <CircularProgress {...mapper(props)} />;
+export const Loader: FC<LoaderProps & { size?: number }> = (props) => {
+  return <CircularProgress {...mapper(props)} size={props.size} />;
 };

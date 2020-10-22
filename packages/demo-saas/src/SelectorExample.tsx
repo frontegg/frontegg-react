@@ -29,7 +29,7 @@ const top100Films = [
 ];
 
 export const SelectorExample: FC = () => {
-  const [value, setValue] = useState<Array<any>>([]);
+  const [value, setValue] = useState<any[]>([{ label: 'The Matrix', value: '19991' }]);
 
   const [open, setOpen] = useState({
     material: false,
@@ -113,6 +113,14 @@ export const SelectorExample: FC = () => {
         getOptionLabel={getOptionLabel}
         // renderOption={renderOption}
       />
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <FE.Select options={top100Films} multiselect />
     </div>
   );
 };

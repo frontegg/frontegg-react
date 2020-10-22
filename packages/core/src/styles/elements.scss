@@ -150,6 +150,29 @@
   }
 }
 
+.fe-table-cell {
+  &__title {
+    font-size: 1rem;
+    color: var(--color-black);
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    color: var(--color-gray-6);
+  }
+  &__date-ago {
+    > div:first-child {
+      font-size: 0.9rem;
+      color: var(--color-black);
+    }
+
+    > div:last-child {
+      font-size: 0.85rem;
+      color: var(--color-gray-6);
+    }
+  }
+}
+
 @media screen and (max-width: 600px) {
   .fe-input__inline {
     width: 100% !important;

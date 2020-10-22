@@ -1,6 +1,12 @@
 import React, { FC, useCallback, useState } from 'react';
-import { TableFilter, TableSort, Input, FeTable } from '@frontegg/react-core';
+import { TableFilter, TableSort, Input, fronteggElements, Elements } from '@frontegg/react-core';
+import { uiLibrary as Se } from '@frontegg/react-elements-semantic';
+import { uiLibrary as Ma } from '@frontegg/react-elements-material-ui';
 
+const Frontegg = fronteggElements as Elements;
+const Material = Ma as Elements;
+const Semantic = Se as Elements;
+const { Table } = fronteggElements as Elements;
 const data = [
   {
     ip: '79.176.23.49',
@@ -1141,7 +1147,25 @@ export const ComponentsPage2: FC = () => {
   }, []);
   return (
     <div>
-      <FeTable
+      <div>
+        <Frontegg.Icon name='right-arrow' />
+        <Frontegg.Icon name='left-arrow' />
+        <Frontegg.Icon name='up-arrow' />
+        <Frontegg.Icon name='down-arrow' />
+      </div>
+      <div>
+        <Material.Icon name='right-arrow' />
+        <Material.Icon name='left-arrow' />
+        <Material.Icon name='up-arrow' />
+        <Material.Icon name='down-arrow' />
+      </div>
+      <div>
+        <Semantic.Icon name='right-arrow' />
+        <Semantic.Icon name='left-arrow' />
+        <Semantic.Icon name='up-arrow' />
+        <Semantic.Icon name='down-arrow' />
+      </div>
+      <Table
         columns={[
           {
             accessor: 'user',
@@ -1170,14 +1194,14 @@ export const ComponentsPage2: FC = () => {
         onPageChange={(pageSize, page) => {
           console.log(pageSize, page);
         }}
-        // expandable
-        // renderExpandedComponent={renderExpandedComponent}
+        expandable
+        renderExpandedComponent={renderExpandedComponent}
 
-        selection='multi'
-        onRowSelected={(selected) => {
-          console.log(selected);
-        }}
-        toolbar
+        // selection='multi'
+        // onRowSelected={(selected) => {
+        //   console.log(selected);
+        // }}
+        // toolbar
         // sortBy={sortBy}
         // onSortChange={(_sortBy) => {
         //   setSortBy(_sortBy);

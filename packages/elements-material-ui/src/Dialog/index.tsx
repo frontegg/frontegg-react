@@ -10,8 +10,8 @@ import './style.scss';
 
 const mapSize: any = {
   mini: 'xs',
-  tiny: 'sm',
-  small: 'md',
+  tiny: 'xs',
+  small: 'sm',
   large: 'lg',
   fullscreen: 'xl',
 };
@@ -19,7 +19,7 @@ const dialogPropsMapper = (props: DialogProps): MaterialDialogProps => ({
   open: props.open ?? false,
   onClose: props.onClose,
   className: props.className,
-  maxWidth: mapSize[props.size ?? 'small'],
+  maxWidth: props.size ? mapSize[props.size] : 'md',
   fullScreen: props.size === 'fullscreen',
   fullWidth: true,
 });

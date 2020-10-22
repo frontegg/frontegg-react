@@ -34,7 +34,7 @@ export const LoginWithSSO: FC<LoginWithSSOProps> = (props) => {
   }
   return (
     <div className='fe-login-component'>
-      <Loader center />
+      <Loader />
     </div>
   );
 };

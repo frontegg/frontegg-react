@@ -1,36 +1,22 @@
-.fe-mt-1 {
-  margin-top: 1rem !important;
+@mixin fe-space-helper($cls, $property) {
+  #{$cls}-1 {
+    #{$property}: 0.5rem;
+  }
+  #{$cls}-2 {
+    #{$property}: 1rem;
+  }
+  #{$cls}-3 {
+    #{$property}: 1.5rem;
+  }
+  #{$cls}-4 {
+    #{$property}: 2rem;
+  }
 }
 
-.fe-mt-2 {
-  margin-top: 2rem !important;
-}
-
-.fe-mb-1 {
-  margin-bottom: 1rem !important;
-}
-
-.fe-mb-2 {
-  margin-bottom: 2rem !important;
-}
-
-.fe-ml-1 {
-  margin-left: 1rem !important;
-}
-
-.fe-ml-2 {
-  margin-left: 2rem !important;
-}
-
-.fe-mr-1 {
-  margin-right: 1rem !important;
-}
-
-.fe-mr-2 {
-  margin-right: 2rem !important;
-}
-
-.fe-center {
+@include fe-space-helper('.fe-mt', margin-top) @include fe-space-helper('.fe-mb', margin-bottom) @include
+  fe-space-helper('.fe-ml', margin-left) @include fe-space-helper('.fe-mr', margin-right) @include
+  fe-space-helper('.fe-pt', padding-top) @include fe-space-helper('.fe-pb', padding-bottom) @include
+  fe-space-helper('.fe-pl', padding-left) @include fe-space-helper('.fe-pr', padding-right) .fe-center {
   text-align: center;
   align-items: center;
 }
@@ -39,12 +25,25 @@
   font-weight: bold;
 }
 
+.fe-text-align-end {
+  text-align: end;
+}
+
+.fe-text-align-start {
+  text-align: start;
+}
+
+.fe-text-align-center {
+  text-align: center;
+}
+
 .fe-error-message,
 .fe-success-message {
   flex: 1;
   font-weight: bold;
   color: #9a0000;
   margin-top: 1rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 
   ul {

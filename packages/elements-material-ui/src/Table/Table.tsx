@@ -41,7 +41,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   expandIcon: {
-    margin: '-12px 0',
+    margin: '-12px -12px',
   },
   checkBox: {
     margin: '-9px 0',
@@ -71,14 +71,16 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
   const tableRef = useRef<HTMLTableElement>(null);
   const columns = useMemo(() => {
     const columns = props.columns.map(
-      ({ sortable, Filter, ...rest }) =>
+      ({ sortable, Filter, Header, ...rest }) =>
         ({
           ...rest,
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
+          Header: Header ?? <div style={{ minWidth: rest.minWidth, maxWidth: rest.maxWidth }} />,
         } as FeTableColumnOptions<T>)
     );
+
     if (props.expandable) {
       columns.unshift({
         id: 'fe-expander',
@@ -306,6 +308,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         <TableBody
           getTableBodyProps={getTableBodyProps}
           prepareRow={prepareRow}
+          loading={props.loading}
           rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
           renderExpandedComponent={props.renderExpandedComponent}
         />

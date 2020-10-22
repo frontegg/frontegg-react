@@ -17,7 +17,7 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
   const [filterValue, setFilterValue] = useState(column.filterValue);
-  const debounceFilters = useDebounce(filterValue, 500);
+  const debounceFilters = useDebounce(filterValue, 200);
 
   useEffect(() => onFilterChange?.(column, debounceFilters), [debounceFilters]);
 
@@ -28,13 +28,13 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
       action={'click'}
       trigger={
         <span>
-        <FeIcon
-          key={1}
-          name='filters'
-          className={classNames(`${prefixCls}__filter-button`, {
-            [`${prefixCls}__active-filter}`]: column.filterValue != null,
-          })}
-        />
+          <FeIcon
+            key={1}
+            name='filters'
+            className={classNames(`${prefixCls}__filter-button`, {
+              [`${prefixCls}__active-filter}`]: column.filterValue != null,
+            })}
+          />
         </span>
       }
     />

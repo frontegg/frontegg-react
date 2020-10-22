@@ -9,13 +9,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
 
 export const FButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const { isValid, dirty } = useFormikContext();
-  const disableDirty = props.formikDisableIfNotDirty ?? true;
+  const { formikDisableIfNotDirty, disabled, ...restProps } = props;
+  const _disabled = disabled || !isValid || ((formikDisableIfNotDirty ?? true) && !dirty);
   return (
     <Button
       ref={ref}
       inForm
-      {...props}
-      disabled={!isValid || (disableDirty && !dirty)}
+      {...restProps}
+      disabled={_disabled}
       size={props.size ?? props.type === 'submit' ? 'large' : undefined}
       fullWidth={props.fullWidth ?? true}
     />

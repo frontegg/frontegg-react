@@ -22,8 +22,9 @@ export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
 
   return (
     <>
-      {React.cloneElement(trigger, { onClick: handleClick, ref })}
+      {React.cloneElement(trigger, { onClick: handleClick })}
       <Popover
+        ref={ref}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}

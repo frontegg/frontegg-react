@@ -1,17 +1,23 @@
 import { Get, Post, Put } from '../fetch';
 import Logger from '../../helpers/Logger';
-import { TEAMS_SERVICE_URL_V1, USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
+import {
+  TEAMS_ROLES_SERVICE_URL_V1,
+  TEAMS_STATS_SERVICE_URL_V1,
+  TEAMS_USERS_SERVICE_URL_V1,
+  USERS_SERVICE_URL_V1,
+  USERS_SERVICE_URL_V2,
+} from '../constants';
 import {
   IAddUser,
   IChangePassword,
   ILoadUsers,
   IResendActivationLink,
-  ISendResetPasswordLink,
   ITeamUserRole,
   ITeamStats,
   ITeamUser,
   IUpdateProfile,
   IUserProfile,
+  IUpdateUser,
 } from './interfaces';
 import { PaginationResult } from '../interfaces';
 
@@ -62,7 +68,20 @@ export async function changePassword(body: IChangePassword): Promise<void> {
  */
 export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<ITeamUser>> {
   logger.debug('loadUsers()', params);
-  return Get(`${TEAMS_SERVICE_URL_V1}`, params);
+
+  const filters = (params.filter || []).reduce((p, n) => ({ ...p, [n.id]: n.value }), {});
+  const sorts = params.sort?.length
+    ? {
+        sortBy: params.sort?.[0]?.id ?? 'name',
+        sortDirection: params.sort?.[0]?.desc ? 'desc' : 'asc',
+      }
+    : null;
+  return Get(TEAMS_USERS_SERVICE_URL_V1, {
+    pageOffset: params.pageOffset,
+    pageSize: params.pageSize,
+    ...filters,
+    ...sorts,
+  });
 }
 
 /**
@@ -72,7 +91,17 @@ export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<IT
  */
 export async function addUser(body: IAddUser): Promise<ITeamUser> {
   logger.debug('addUser()', body);
-  return Post(`${TEAMS_SERVICE_URL_V1}`, body);
+  return Post(TEAMS_USERS_SERVICE_URL_V1, body);
+}
+
+/**
+ * edit user roles in team
+ *
+ * ``authorized user``
+ */
+export async function updateUser(body: IUpdateUser): Promise<ITeamUser> {
+  logger.debug('editUser()', body);
+  return Put(TEAMS_USERS_SERVICE_URL_V1, body);
 }
 
 /**
@@ -82,7 +111,7 @@ export async function addUser(body: IAddUser): Promise<ITeamUser> {
  */
 export async function loadAvailableRoles(): Promise<ITeamUserRole[]> {
   logger.debug('loadAvailableRoles()');
-  return Get(`${TEAMS_SERVICE_URL_V1}/roles`);
+  return Get(TEAMS_ROLES_SERVICE_URL_V1);
 }
 
 /**
@@ -92,7 +121,7 @@ export async function loadAvailableRoles(): Promise<ITeamUserRole[]> {
  */
 export async function loadStats(): Promise<ITeamStats> {
   logger.debug('loadStats()');
-  return Get(`${TEAMS_SERVICE_URL_V1}/stats`);
+  return Get(TEAMS_STATS_SERVICE_URL_V1);
 }
 
 /**
@@ -102,15 +131,5 @@ export async function loadStats(): Promise<ITeamStats> {
  */
 export async function resendActivationLink(body: IResendActivationLink): Promise<void> {
   logger.debug('resendActivationLink()', body);
-  return Post(`${TEAMS_SERVICE_URL_V1}/resendActivationEmail`, body);
-}
-
-/**
- * send reset password link for a specific user
- *
- * ``authorized user``
- */
-export async function sendResetPasswordLink(body: ISendResetPasswordLink): Promise<void> {
-  logger.debug('resetUserPassword()', body);
-  return Post(`${TEAMS_SERVICE_URL_V1}/sendResetPassword`, body);
+  return Post(`${TEAMS_USERS_SERVICE_URL_V1}/${body.userId}/resendActivationEmail`, {});
 }
