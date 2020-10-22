@@ -17,6 +17,7 @@ import { CheckboxProps } from '../elements/Checkbox';
 import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
 import { SelectProps } from '../elements/Select';
+import { SwitchToggleProps } from '../elements/SwitchToggle';
 import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 
 export type FormFieldProps = {
@@ -36,14 +37,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 
 export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   as?: string; // default is true
-}
-
-export interface SwitchToggleProps {
-  loading?: boolean;
-  disabled?: boolean;
-  value?: boolean;
-  labels?: [string, string];
-  onChange?: (toggled: boolean) => void;
 }
 
 export interface TabProps {
