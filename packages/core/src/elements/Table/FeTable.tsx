@@ -1,5 +1,12 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
-import { FeTableColumnOptions, FeTableColumnProps, FeTableInstance, FeTableState, FeUseTable, TableProps } from './interfaces';
+import {
+  FeTableColumnOptions,
+  FeTableColumnProps,
+  FeTableInstance,
+  FeTableState,
+  FeUseTable,
+  TableProps,
+} from './interfaces';
 import {
   useTable,
   useFilters,
@@ -41,7 +48,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
           disableSortBy: !sortable,
           disableFilters: !Filter,
           Filter,
-        } as FeTableColumnOptions<T>),
+        } as FeTableColumnOptions<T>)
     );
     if (props.expandable) {
       columns.unshift({
@@ -81,7 +88,6 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     }
     return columns as Column<T>[];
   }, [props.columns, props.expandable]);
-
 
   const {
     getTableProps,
@@ -127,7 +133,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
       expandSubRows: false,
       initialState: {
         pageIndex: 0,
-        pageSize: props.pageSize ?? 0,
+        pageSize: props.pageSize ?? 20,
         selectedRowIds: props.selectedRowIds || {},
       },
     } as FeUseTable<T>,
@@ -136,7 +142,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     useExpanded,
     usePagination,
     useRowSelect,
-    useFlexLayout,
+    useFlexLayout
   ) as FeTableInstance<T>;
 
   checkTableProps(props);
@@ -161,7 +167,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         }
       }
     },
-    [props.onSortChange],
+    [props.onSortChange]
   );
 
   const onFilterChange = useCallback(
@@ -176,7 +182,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         column.setFilter(filterValue);
       }
     },
-    [props.onFilterChange],
+    [props.onFilterChange]
   );
 
   const onToggleAllRowsSelected = useCallback(
@@ -188,7 +194,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         toggleAllRowsSelected(value);
       }
     },
-    [props.onRowSelected],
+    [props.onRowSelected]
   );
 
   const onRowSelected = useCallback(
@@ -206,7 +212,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         toggleRowSelected(id, value);
       }
     },
-    [props.onRowSelected],
+    [props.onRowSelected]
   );
 
   useEffect(() => {
@@ -225,7 +231,6 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   useEffect(() => {
     !props.hasOwnProperty('selectedRowIds') && props.onRowSelected?.(tableState.selectedRowIds as any);
   }, [tableState.selectedRowIds]);
-
 
   const tableHeadProps: FeTableTHeadProps<T> = {
     prefixCls,
