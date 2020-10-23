@@ -3,12 +3,12 @@ import { Input, Grid, SwitchToggle, FeTable as Table, TableColumnProps, Button, 
 import classnames from 'classnames';
 import { fakeDate } from '../../consts';
 
-export interface WebhooksContentProps {
+export interface IntegrationsContentProps {
   className?: string;
   hiddenSearch?: boolean;
 }
 
-export const WebhooksContent: FC<WebhooksContentProps> = ({ className, hiddenSearch = false }) => {
+export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, hiddenSearch = false }) => {
   const columns: TableColumnProps<{}>[] = [
     {
       accessor: 'platform',

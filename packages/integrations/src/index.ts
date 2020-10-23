@@ -3,9 +3,9 @@ import { reducer, storeName } from './reducer';
 import { sagas } from './saga';
 import './index.scss';
 
-export * from './components/WebhooksPage';
+export * from './components/IntegrationsPage';
 
-export const WebhooksPlugin = (): PluginConfig => ({
+export const IntegrationsPlugin = (): PluginConfig => ({
   storeName,
   reducer,
   sagas,

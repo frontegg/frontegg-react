@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { PageHeader, PageHeaderProps, useT } from '@frontegg/react-core';
 
-export interface WebhooksHeadersProps extends Pick<PageHeaderProps, 'className' | 'titleClassName'> {}
+export interface IntegrationsHeadersProps extends Pick<PageHeaderProps, 'className' | 'titleClassName'> {}
 
-export const WebhookHeader: FC<WebhooksHeadersProps> = (props) => {
+export const IntegrationsHeader: FC<IntegrationsHeadersProps> = (props) => {
   const { t } = useT();
   return <PageHeader {...props} title={t('webhooks.headerTitle')} subTitle={t('webhooks.headerSubTitle')} />;
 };
