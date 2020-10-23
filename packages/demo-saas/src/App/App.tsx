@@ -54,7 +54,7 @@ class App extends React.Component<any> {
                   <Link to='/select'>Select Examples</Link>
                 </div>
                 <div>
-                  <Link to='/webhooks'>Webhooks</Link>
+                  <Link to='/integrations'>integrations</Link>
                 </div>
               </div>
             </Route>
@@ -72,7 +72,7 @@ class App extends React.Component<any> {
             <Route exact path='/table' component={TableExample} />
             <Route exact path='/select' component={SelectorExample} />
             <Route exact path='/grids' component={GridExamples} />
-            <Route exact path='/webhooks' component={IntegrationsPage} />
+            <Route exact path='/integrations' component={IntegrationsPage} />
           </Switch>
         </AuthExamples>
       </div>
