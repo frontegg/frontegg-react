@@ -19,7 +19,7 @@ export const IntegrationsPage: FC<IntegrationsPageProps> = ({
   contentClassName,
   ...contentProps
 }) => (
-  <div className={classnames('fe-webhooks-page', className)}>
+  <div className={classnames('fe-integrations-page', className)}>
     {children ?? (
       <>
         <IntegrationsHeader className={headClassName} titleClassName={titleClassName} />

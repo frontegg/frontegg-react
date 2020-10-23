@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { initialState } from './consts';
 
 export const { reducer, actions: webhooksActions, name: storeName } = createSlice({
-  name: 'webhooks',
+  name: 'integrations',
   initialState,
   reducers: {
     loadDataAction: (state) => ({ ...state, isLoading: true }),

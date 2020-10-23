@@ -5,5 +5,5 @@ export interface IntegrationsHeadersProps extends Pick<PageHeaderProps, 'classNa
 
 export const IntegrationsHeader: FC<IntegrationsHeadersProps> = (props) => {
   const { t } = useT();
-  return <PageHeader {...props} title={t('webhooks.headerTitle')} subTitle={t('webhooks.headerSubTitle')} />;
+  return <PageHeader {...props} title={t('integrations.headerTitle')} subTitle={t('integrations.headerSubTitle')} />;
 };

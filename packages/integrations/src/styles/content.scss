@@ -1,8 +1,48 @@
-.fe-webhooks {
+.fe-integrations {
   &-context {
     padding: 2rem;
-    .fe-webhooks-search {
+    .fe-integrations-search {
       margin-bottom: 2rem;
+    }
+  }
+
+  &-platform {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &-edit {
+    padding: 1rem 1.2rem;
+    flex-grow: 1;
+    
+    &-close {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      padding: 0;
+      &:focus {
+        outline: none;
+      }
+
+      &-icon {
+        display: inline-flex;
+        width: 1.4rem;
+        height: 1.4rem;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        background-color: #6d7278;
+        color: #f9fafc;
+      }
+    }
+
+    &-form {
+      padding: 2rem 0;
     }
   }
 }

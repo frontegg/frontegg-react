@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 export interface IWebhooksState {
   isLoading: boolean;
 }
@@ -5,7 +7,7 @@ export interface IWebhooksState {
 export interface IWebhooksData {
   id: string;
   platform: string;
-  category: string;
   active: boolean;
   events: number;
+  Form: FC;
 }

@@ -1,13 +1,18 @@
 import { IWebhooksState, IWebhooksData } from './types';
-import { Button, TableColumnProps, Icon } from '@frontegg/react-core';
+import {
+  IntegrationsSlack,
+  IntegrationsSMS,
+  IntegrationsWebhook,
+  IntegratorsEmail,
+} from './components/IntegrationsForms';
 
 export const initialState: IWebhooksState = {
   isLoading: false,
 };
 
 export const fakeDate: IWebhooksData[] = [
-  { id: '1', platform: 'Email', category: 'Messaging', active: true, events: 13 },
-  { id: '2', platform: 'In-app Bell', category: 'Messaging', active: false, events: 0 },
-  { id: '3', platform: 'SMS', category: 'Messaging', active: true, events: 5 },
-  { id: '4', platform: 'Slack', category: 'Messaging', active: true, events: 15 },
+  { id: '1', platform: 'Email', active: true, events: 13, Form: IntegratorsEmail },
+  { id: '2', platform: 'SMS', active: true, events: 5, Form: IntegrationsSMS },
+  { id: '3', platform: 'Slack', active: true, events: 15, Form: IntegrationsSlack },
+  { id: '4', platform: 'Webhook', active: false, events: 0, Form: IntegrationsWebhook },
 ];
