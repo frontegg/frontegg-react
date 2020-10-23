@@ -20,6 +20,7 @@ import { SelectProps } from '../elements/Select';
 import { SwitchToggleProps } from '../elements/SwitchToggle';
 import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 import { FormProps } from '../elements/Form';
+import { TabProps } from '../elements/Tabs';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -35,12 +36,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   suffixIcon?: ReactElement;
   iconAction?: (e: MouseEvent) => void;
   multiline?: boolean;
-}
-
-export interface TabProps {
-  items: ComponentType[];
-  activeTab: number;
-  onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
 }
 
 export type ElementProps = {

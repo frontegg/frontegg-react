@@ -15,6 +15,7 @@ import { FeAccordionContent } from '../elements/Accordion/FeAccordion';
 import { FeSwitchToggle } from '../elements/SwitchToggle/FeSwitchToggle';
 import { FeTable } from '../elements/Table/FeTable';
 import { FeForm } from '../elements/Form/FeForm';
+import { FeTabs } from '../elements/Tabs/FeTabs';
 
 export const fronteggElements: Partial<Elements> = {
   Accordion: FeAccordion,
@@ -31,6 +32,7 @@ export const fronteggElements: Partial<Elements> = {
   SwitchToggle: FeSwitchToggle,
   Table: FeTable,
   Form: FeForm,
+  Tabs: FeTabs,
 };
 
 export class ElementsFactory {

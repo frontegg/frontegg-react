@@ -11,3 +11,4 @@ export * from './Select';
 export * from './Accordion';
 export * from './SwitchToggle';
 export * from './Form';
+export * from './Tabs';
