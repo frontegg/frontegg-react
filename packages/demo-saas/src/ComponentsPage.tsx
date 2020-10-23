@@ -112,6 +112,11 @@ const elements: {
       { center: true, children: null },
     ],
   },
+  {
+    title: 'SwitchToggles',
+    type: 'SwitchToggle',
+    props: [{ labels: ['Disabled', 'Enabled'] }, {}],
+  },
 ];
 
 const AccordionByLib: FC<{ lib: Library }> = ({ lib }) => {
