@@ -9,7 +9,8 @@ import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
-import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
+// import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
+import { all, call } from 'redux-saga/effects';
 
 const isSSR = typeof window === 'undefined';
 
@@ -103,9 +104,11 @@ const FeState: FC<FeProviderProps> = (props) => {
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
   function* rootSaga() {
-    for (const plugin of props.plugins) {
-      yield plugin.sagas();
-    }
+    yield all(
+      props.plugins.map(function* ({ sagas }) {
+        yield sagas();
+      })
+    );
   }
 
   /* memorize redux store */
