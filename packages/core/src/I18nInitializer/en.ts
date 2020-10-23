@@ -158,9 +158,10 @@ export default {
         subtitle: 'Generate insights on your account usage',
       },
     },
-    webhooks: {
+    integrations: {
       headerTitle: 'Integrations',
       headerSubTitle: 'Connect your own APIs to important event notifications',
+      events: 'Events',
     },
   },
 };
