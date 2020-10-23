@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
-import { WebhooksPlugin } from '@frontegg/react-webhooks';
+import { IntegrationsPlugin } from '@frontegg/react-integrations';
 
 import { uiLibrary as SemanticLibrary } from '@frontegg/react-elements-semantic';
 import { uiLibrary as MaterialLibrary } from '@frontegg/react-elements-material-ui';
@@ -21,7 +21,7 @@ const plugins: PluginConfig[] = [
   AuthPlugin({
     injectAuthRoutes: false,
   }),
-  WebhooksPlugin(),
+  IntegrationsPlugin(),
 ];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
