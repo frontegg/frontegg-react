@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { Table, TableColumnProps, Tag, useT } from '@frontegg/react-core';
+import { Table, TableColumnProps, Tag, useT, Popup, Button, Grid, Icon, CellComponent } from '@frontegg/react-core';
 import { useAuthTeamActions, useAuthTeamState } from '../hooks';
 import { TeamState } from '../Api/TeamState';
 import { TeamRolesFilter } from './TeamTableFilters';
@@ -21,6 +21,32 @@ const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors,
   sort,
   filter,
 });
+
+const Options: CellComponent = (props) => {
+  const { resendActivationLink } = useAuthTeamActions();
+  return (
+    <Popup
+      trigger={
+        <Button iconButton>
+          <Icon name='vertical-dots' />
+        </Button>
+      }
+      action='click'
+      content={() => (
+        <Grid container direction='column'>
+          <Button
+            onClick={() => {
+              resendActivationLink({ userId: props.row.original.id });
+            }}
+          >
+            Resend Activation
+          </Button>
+          <Button>Delete User</Button>
+        </Grid>
+      )}
+    />
+  );
+};
 
 export const TeamTable: FC = (props) => {
   const { users, loaders, totalItems, sort, filter, pageSize, totalPages, errors, roles } = useAuthTeamState(
@@ -86,6 +112,15 @@ export const TeamTable: FC = (props) => {
         Header: t('common.last-login') ?? '',
         sortable: true,
         Cell: TeamTableLastLogin,
+      },
+      {
+        id: 'options',
+        accessor: 'userId',
+        minWidth: '2.25rem',
+        maxWidth: '2.25rem',
+        Header: '',
+        sortable: false,
+        Cell: Options,
       },
     ],
     [roles]

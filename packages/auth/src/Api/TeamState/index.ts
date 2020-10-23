@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IAddUser, ILoadUsers, IResendActivationLink, ITeamUser } from '@frontegg/react-core';
+import { IAddUser, IDeleteUser, ILoadUsers, IResendActivationLink, ITeamUser } from '@frontegg/react-core';
 import { ISetAddUserDialog, ISetDeleteUserDialog, TeamState, TeamStateIndicator, TeamStateKeys } from './interfaces';
 import { errorsReducerForKey, loadersReducerForKey, resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { WithCallback, WithSilentLoad } from '../interfaces';
@@ -38,6 +38,7 @@ export const teamActions = {
   loadUsers: createAction(`${storeName}/loadUsers`, (payload: WithSilentLoad<ILoadUsers>) => ({ payload })),
 
   addUser: createAction(`${storeName}/addUser`, (payload: WithCallback<IAddUser, ITeamUser>) => ({ payload })),
+  deleteUser: createAction(`${storeName}/deleteUser`, (payload: IDeleteUser) => ({ payload })),
 
   resendActivationLink: createAction(
     `${storeName}/resendActivationLink`,
