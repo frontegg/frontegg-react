@@ -10,3 +10,4 @@ export * from './Checkbox';
 export * from './Select';
 export * from './Accordion';
 export * from './Form';
+export * from './Tabs';

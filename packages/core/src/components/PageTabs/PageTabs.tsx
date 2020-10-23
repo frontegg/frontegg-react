@@ -1,6 +1,6 @@
 import React, { ComponentType, FC, useMemo, useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
-import { Tabs } from '../../ElementsFactory';
+import { Tabs } from '../../elements/Tabs';
 import { ContextHolder } from '../../api';
 
 export type PageTabProps = {
@@ -24,7 +24,6 @@ export const PageTabs: FC<TabsProps> = (props) => {
   const firstMatch = useMemo(() => findMatchPath(location.pathname, props.tabs), []);
   const [activeTab, setActiveTab] = useState(firstMatch);
   const items = useMemo(() => props.tabs.map(({ Title }) => Title), [props.tabs]);
-
   return (
     <div className='fe-tabs'>
       <Tabs

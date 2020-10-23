@@ -19,6 +19,7 @@ import { TableProps } from '../elements/Table';
 import { SelectProps } from '../elements/Select';
 import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 import { FormProps } from '../elements/Form';
+import { TabProps } from '../elements/Tabs';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -42,12 +43,6 @@ export interface SwitchToggleProps {
   value?: boolean;
   labels?: [string, string];
   onChange?: (toggled: boolean) => void;
-}
-
-export interface TabProps {
-  items: ComponentType[];
-  activeTab: number;
-  onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
 }
 
 export type ElementProps = {

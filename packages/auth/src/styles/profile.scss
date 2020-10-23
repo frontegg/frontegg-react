@@ -3,42 +3,6 @@
     border-bottom: none;
     margin-bottom: 0;
   }
-
-  .fe-tabs {
-    border-bottom: 2px solid var(--color-gray-2);
-    padding: 0 2rem;
-
-    .ui.menu {
-      margin-bottom: -2px;
-      border-bottom: 2px solid transparent;
-
-      .item {
-        color: var(--fe-header-tab-font-color);
-        font-weight: var(--fe-header-tab-font-weight);
-        padding: 0.8rem 0.2rem;
-        margin: -2px 1rem;
-        font-size: 1rem;
-
-        &:first-child {
-          margin-left: 0;
-        }
-
-        &:hover {
-          color: var(--fe-header-tab-hover-color, var(--color-success-75)) !important;
-        }
-
-        &.active {
-          color: var(--fe-header-tab-active-color, var(--color-success));
-          border-bottom: 2px solid var(--fe-header-tab-active-color, var(--color-success));
-
-          &:hover {
-            color: var(--fe-header-tab-active-hover-color, var(--color-success-75));
-            border-bottom: 2px solid var(--fe-header-tab-active-hover-color, var(--color-success-75));
-          }
-        }
-      }
-    }
-  }
 }
 
 .fe-profile-mfa-page,
