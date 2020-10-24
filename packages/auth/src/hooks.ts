@@ -5,7 +5,7 @@ import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
 import { teamActions, TeamState } from './Api/TeamState';
 
-const pluginName = 'auth';
+export const pluginName = 'auth';
 const pluginActions = actions;
 
 export type AuthMapper = {

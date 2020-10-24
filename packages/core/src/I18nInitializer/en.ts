@@ -44,6 +44,7 @@ export default {
       configure: 'Configure',
       automatic: 'Automatic',
       manual: 'Manual',
+      verify: 'Verify',
     },
     auth: {
       login: {
@@ -176,12 +177,14 @@ export default {
         },
       },
       mfa: {
-        title: 'Multi-Factor Authentication',
-        'two-factor': 'Two Factor authentication',
-        'enable-message': 'Enable 2FA to get an extra layer of security',
-        'disable-title': 'Disable Two-factor authentication',
+        title: 'Multi-factor Authentication',
+        'two-factor': 'Two-factor authentication',
+        'enable-message': 'Enable two-factor authentication to get an extra layer of security',
+        'disable-title': 'Disable two-factor authentication',
+        'enroll-button': 'Enroll MFA',
+        'disable-button': 'Disable MFA',
         verify: {
-          message: 'Enable 2FA to get an extra layer of security.',
+          message: 'Enable two-factor to get an extra layer of security.',
           'scan-qr-description-1': `Use your phone to scan the following QR code with `,
           'scan-qr-description-2': ` or other authenticator apps.`,
           'enter-generated-code': 'Enter the generated 6-digit code below.',
@@ -192,7 +195,7 @@ export default {
           'copy-and-save-code': `Copy and save the code, because we won't show it again. We don't scare you ;)`,
         },
         disable: {
-          message: 'Disable 2FA will remove an extra layer of security.',
+          message: 'Disable two-factor will remove an extra layer of security.',
           'enter-generated-code': 'Enter the generated 6-digit code',
         },
       },

@@ -3,6 +3,11 @@ import { actions } from '../reducer';
 import { api, IDisableMfa, IVerifyMfa } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { MFAStep } from './interfaces';
+import { mfaState } from './index';
+
+function* resetMfaState() {
+  yield put(actions.setMfaState(mfaState));
+}
 
 function* enrollMfa() {
   yield put(actions.setMfaState({ loading: true }));
@@ -47,6 +52,7 @@ function* disableMfa({ payload }: PayloadAction<IDisableMfa & { callback?: () =>
 }
 
 export function* mfaSagas() {
+  yield takeEvery(actions.resetMfaState, resetMfaState);
   yield takeEvery(actions.enrollMfa, enrollMfa);
   yield takeEvery(actions.verifyMfa, verifyMfa);
   yield takeEvery(actions.disableMfa, disableMfa);
