@@ -1,8 +1,7 @@
 import React, { FC, ReactElement, useState } from 'react';
-import { Button, Dialog, DialogContext, Icon, useT } from '@frontegg/react-core';
+import { Icon, useT } from '@frontegg/react-core';
 import { SamlVendors } from './SSOVendors';
 import { SSODialogInstruction } from './SSODialogInstruction';
-import { Link } from 'react-router-dom';
 
 const prefixT = 'auth.sso.idp.guide';
 

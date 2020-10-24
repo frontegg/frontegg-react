@@ -3,12 +3,16 @@ import { useT, Loader, checkRootPath } from '@frontegg/react-core';
 import { SSOStep } from './SSOStep';
 import { useAuth } from '../../hooks';
 import { HideOption } from '../../interfaces';
+import { useAuthSSOState } from '../hooks';
 
 export const SSOSteps: FC<HideOption> = (props) => {
   const { t } = useT();
   const rootPath = checkRootPath('SSOSteps should be rendered inside SSO component');
+  const { samlConfiguration, loading } = useAuthSSOState(({ samlConfiguration, loading }) => ({
+    samlConfiguration,
+    loading,
+  }));
 
-  const { samlConfiguration, loading } = useAuth((state) => state.ssoState);
   if (!samlConfiguration?.enabled || props.hide) {
     return null;
   }

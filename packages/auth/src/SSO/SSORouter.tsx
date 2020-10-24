@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { checkValidChildren, RootPathContext, useRootPath } from '@frontegg/react-core';
-import { SSOOverviewPage } from '../SSO/SSOOverviewPage';
-import { SSOClaimDomainPage } from '../SSO/SSOClaimDomainPage';
-import { SSOConfigureIDPPage } from '../SSO/SSOConfigureIDPPage';
+import { SSOOverviewPage } from './SSOOverviewPage';
+import { SSOClaimDomainPage } from './SSOClaimDomainPage';
+import { SSOConfigureIDPPage } from './SSOConfigureIDPPage';
 import { reloadSSOIfNeeded } from './helpers';
 import { SSOToggle } from './SSOToggle';
 import { BasePageProps } from '../interfaces';

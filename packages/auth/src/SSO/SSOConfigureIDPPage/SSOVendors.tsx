@@ -76,9 +76,3 @@ export const GoogleIcon: FC<React.SVGProps<SVGSVGElement>> = (props) => {
     </svg>
   );
 };
-
-export const SamlDetails = () => <></>;
-
-export const OktaDetails = () => <></>;
-export const AzureDetails = () => <></>;
-export const GoogleDetails = () => <></>;

@@ -3,14 +3,14 @@ import { checkRootPath, Grid, Loader } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { SSOClaimDomainForm } from './SSOClaimDomainForm';
 import { SSOClaimDomainGuide } from './SSOClaimDomainGuide';
-import { useAuth } from '../../hooks';
 import { HideOption, RouteWrapper } from '../../interfaces';
+import { useAuthSSOState } from '../hooks';
 
 export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
   const pagePath =
     props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
 
-  const { loading } = useAuth((state) => state.ssoState);
+  const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
 
   if (loading) {
     return <Loader center />;

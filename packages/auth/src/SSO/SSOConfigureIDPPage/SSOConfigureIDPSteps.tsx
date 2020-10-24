@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Button, ErrorMessage, FButton, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
 import Dropzone from 'react-dropzone';
 import { FFormik } from '@frontegg/react-core';
+import { useAuthSSOState } from '../hooks';
 
 const { useField, useFormikContext } = FFormik;
 
@@ -12,7 +12,8 @@ export interface SSOConfigureIDPStepProps {
 
 export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
   const { t } = useT();
-  const { samlConfiguration } = useAuth((state) => state.ssoState);
+  const { samlConfiguration } = useAuthSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
+
   const validCallback = samlConfiguration?.acsUrl && samlConfiguration?.spEntityId;
   return (
     <div className='fe-sso-idp-page__step'>
@@ -97,8 +98,13 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
   const { t } = useT();
 
   const [{ value: configSaml }, , { setValue: setConfigSaml }] = useField<string>('configSaml');
-  const { touched, isValid, dirty } = useFormikContext();
-  const { saving, error, samlConfiguration } = useAuth((state) => state.ssoState);
+  const { isValid, dirty } = useFormikContext();
+
+  const { samlConfiguration, saving, error } = useAuthSSOState(({ samlConfiguration, saving, error }) => ({
+    samlConfiguration,
+    saving,
+    error,
+  }));
 
   const isDomainValidated = samlConfiguration?.validated ?? false;
   const isIdpValidated = (samlConfiguration?.ssoEndpoint && isDomainValidated) as boolean;
@@ -116,7 +122,7 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
       <div className='fe-flex-spacer' />
       <Grid container>
         <Grid item xs>
-          <Button size='large' onClick={() => props.goToStep(1)}>
+          <Button isCancel size='large' onClick={() => props.goToStep(1)}>
             <Icon className='fe-mr-1' name={'left-arrow'} /> {t('common.back')}
           </Button>
         </Grid>

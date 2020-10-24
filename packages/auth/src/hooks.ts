@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
-import { bindActionCreators } from '@reduxjs/toolkit';
+import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
 import { teamActions, TeamState } from './Api/TeamState';
 
@@ -88,4 +88,10 @@ export const useAuthTeamState = <S extends object>(
 export const useAuthTeamActions = (): typeof teamActions => {
   const dispatch = useDispatch();
   return bindActionCreators(teamActions, dispatch);
+};
+
+export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer: T): CaseReducerActions<T> => {
+  const reducerKeys = Object.keys(reducer);
+  const reducerActions = reducerKeys.map((key) => ({ [key]: actions[key as keyof typeof actions] }));
+  return reducerActions.reduce((p, n) => ({ ...p, ...n }), {}) as CaseReducerActions<T>;
 };

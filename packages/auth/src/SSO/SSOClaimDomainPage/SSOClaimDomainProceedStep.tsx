@@ -1,13 +1,17 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { useT, FFormik, FButton, ErrorMessage } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
+import { useAuthSSOActions, useAuthSSOState } from '../hooks';
 
 const { useFormikContext } = FFormik;
 
-const prefixT = 'auth.sso.claim-domain.form';
 export const SSOClaimDomainProceedStep: FC = (props) => {
   const { t } = useT();
-  const { saving, error, samlConfiguration, setSSOState } = useAuth((state) => state.ssoState);
+  const { samlConfiguration, saving, error } = useAuthSSOState(({ samlConfiguration, saving, error }) => ({
+    samlConfiguration,
+    saving,
+    error,
+  }));
+  const { setSSOState } = useAuthSSOActions();
   const { values } = useFormikContext<{ domain: string }>();
 
   useEffect(() => {
