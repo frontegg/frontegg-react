@@ -1,5 +1,9 @@
 @import '../../styles/mixin.scss';
 
+.fe-icon-button {
+  border: unset !important;
+}
+
 .fe-button {
   position: relative;
   background: var(--color-white);

@@ -8,7 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   isCancel?: boolean;
   asLink?: boolean;
   loading?: boolean;
-
+  iconButton?: boolean;
   // @deprecated
   submit?: boolean;
   testId?: string;

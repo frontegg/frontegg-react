@@ -82,6 +82,10 @@ export type IAddUser = {
   roleIds: string[];
 };
 
+export type IDeleteUser = {
+  userId: string;
+};
+
 export type IUpdateUser = Partial<ITeamUser>;
 
 export type IResendActivationLink = {

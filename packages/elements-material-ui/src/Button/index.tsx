@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 import { ButtonProps } from '@frontegg/react-core';
-import { Button as MaterialButton, ButtonProps as MaterialButtonProps, makeStyles } from '@material-ui/core';
+import {
+  Button as MaterialButton,
+  ButtonProps as MaterialButtonProps,
+  makeStyles,
+  IconButton as MaterialIconButton,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import { Loader } from '../Loader';
 
@@ -52,6 +57,10 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
 export const Button: FC<ButtonProps> = (props) => {
   const { children, loading } = props;
   const buttonProps = mapper(props);
+  const { size, color, ...iconButtonProps } = buttonProps;
+  if (props.iconButton) {
+    return <MaterialIconButton {...iconButtonProps}>{children}</MaterialIconButton>;
+  }
   return (
     <MaterialButton {...buttonProps}>
       {children}

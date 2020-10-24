@@ -1,4 +1,4 @@
-import { Get, Post, Put } from '../fetch';
+import { Get, Post, Put, Delete } from '../fetch';
 import Logger from '../../helpers/Logger';
 import {
   TEAMS_ROLES_SERVICE_URL_V1,
@@ -18,6 +18,7 @@ import {
   IUpdateProfile,
   IUserProfile,
   IUpdateUser,
+  IDeleteUser,
 } from './interfaces';
 import { PaginationResult } from '../interfaces';
 
@@ -92,6 +93,16 @@ export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<IT
 export async function addUser(body: IAddUser): Promise<ITeamUser> {
   logger.debug('addUser()', body);
   return Post(TEAMS_USERS_SERVICE_URL_V1, body);
+}
+
+/**
+ * delete user from team, user will be deleted.
+ *
+ * ``authorized user``
+ */
+export async function deleteUser(body: IDeleteUser): Promise<ITeamUser> {
+  logger.debug('deleteUser()', body);
+  return Delete(`${TEAMS_USERS_SERVICE_URL_V1}/${body.userId}`);
 }
 
 /**
