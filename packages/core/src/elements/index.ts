@@ -1,5 +1,6 @@
 export * from './ErrorMessage';
 export * from './Button';
+export * from './Input';
 export * from './Loader';
 export * from './Tag';
 export * from './Grid';

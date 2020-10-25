@@ -1,5 +1,5 @@
 import React from 'react';
-import { ElementsFactory, Input } from '../../ElementsFactory';
+import { ElementsFactory } from '../../ElementsFactory';
 import { SelectProps } from './interfaces';
 import { useField, useFormikContext } from 'formik';
 

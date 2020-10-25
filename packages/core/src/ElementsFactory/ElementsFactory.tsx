@@ -12,6 +12,7 @@ import { FeSelect } from '../elements/Select/FeSelect';
 import { FeAccordion } from '../elements/Accordion/FeAccordion';
 import { FeAccordionHeader } from '../elements/Accordion/FeAccordion';
 import { FeAccordionContent } from '../elements/Accordion/FeAccordion';
+import { FeInput } from '../elements/Input/FeInput';
 import { FeSwitchToggle } from '../elements/SwitchToggle/FeSwitchToggle';
 import { FeTable } from '../elements/Table/FeTable';
 import { FeForm } from '../elements/Form/FeForm';
@@ -26,6 +27,7 @@ export const fronteggElements: Partial<Elements> = {
   Loader: FeLoader,
   Tag: FeTag,
   Button: FeButton,
+  Input: FeInput,
   Grid: FeGrid,
   Icon: FeIcon,
   Popup: FePopup,
