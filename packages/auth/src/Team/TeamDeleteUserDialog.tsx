@@ -27,18 +27,20 @@ export const TeamDeleteUserDialog: FC<TeamDeleteUserDialogProps> = (props) => {
       <p>{t('auth.team.deleteDialog.message', { email: isMe ? t('common.yourself') : email })}</p>
       <ErrorMessage error={error} />
 
-      <Grid container className='fe-mt-4 fe-mb-2'>
-        <Grid xs item>
-          <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeDeleteUserDialog()}>
-            {t('common.cancel')}
-          </Button>
+      <div className='fe-dialog__footer'>
+        <Grid container className='fe-mt-4 fe-mb-2'>
+          <Grid xs item>
+            <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeDeleteUserDialog()}>
+              {t('common.cancel')}
+            </Button>
+          </Grid>
+          <Grid xs item className='fe-text-align-end'>
+            <Button size='large' fullWidth={false} variant='danger' loading={loading} onClick={handleDeleteUser}>
+              {isMe ? t('auth.team.leaveTeam') : t('common.delete')}
+            </Button>
+          </Grid>
         </Grid>
-        <Grid xs item className='fe-text-align-end'>
-          <Button size='large' fullWidth={false} variant='danger' loading={loading} onClick={handleDeleteUser}>
-            {isMe ? t('auth.team.leaveTeam') : t('common.delete')}
-          </Button>
-        </Grid>
-      </Grid>
+      </div>
     </Dialog>
   );
 };

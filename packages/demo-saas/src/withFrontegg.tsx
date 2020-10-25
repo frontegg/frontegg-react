@@ -24,10 +24,12 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
     context={contextOptions}
     plugins={plugins}
     uiLibrary={{
+      // ...SemanticLibrary
       // ...MaterialLibrary,
-      // Input: SemanticLibrary.Input,
+      Input: SemanticLibrary.Input,
+      Form: SemanticLibrary.Form,
       // Dialog: SemanticLibrary.Dialog,
-      // Form: SemanticLibrary.Form,
+      // Dialog: SemanticLibrary.Dialog,
       // Select: SemanticLibrary.Select,
       // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
       // Tag: fronteggElements.Tag
@@ -36,7 +38,7 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // Dialog: MaterialLibrary.Dialog,
       // Loader: fronteggElements.Loader,
       // Button: fronteggElements.Button,
-      ...MaterialLibrary,
+      // ...MaterialLibrary,
       // SwitchToggle: SemanticLibrary.SwitchToggle
       // Tabs: SemanticLibrary.Tabs
     }}

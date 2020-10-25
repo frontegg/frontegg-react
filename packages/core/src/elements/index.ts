@@ -13,3 +13,4 @@ export * from './SwitchToggle';
 export * from './Form';
 export * from './Tabs';
 export * from './Menu';
+export * from './Dialog';

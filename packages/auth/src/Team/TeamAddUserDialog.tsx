@@ -70,18 +70,20 @@ export const TeamAddUserDialog: FC = (props) => {
           />
 
           <ErrorMessage error={error} />
-          <Grid container className='fe-mt-4 fe-mb-2'>
-            <Grid xs item>
-              <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
-                {t('common.cancel')}
-              </Button>
+          <div className='fe-dialog__footer'>
+            <Grid container className='fe-mt-4 fe-mb-2'>
+              <Grid xs item>
+                <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
+                  {t('common.cancel')}
+                </Button>
+              </Grid>
+              <Grid xs item className='fe-text-align-end'>
+                <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
+                  {t('common.invite')}
+                </FButton>
+              </Grid>
             </Grid>
-            <Grid xs item className='fe-text-align-end'>
-              <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
-                {t('common.invite')}
-              </FButton>
-            </Grid>
-          </Grid>
+          </div>
         </FForm>
       </Formik>
     </Dialog>

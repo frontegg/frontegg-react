@@ -7,7 +7,6 @@ import React, {
   RefAttributes,
 } from 'react';
 import { Size } from '../styles';
-import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { IconProps } from '../elements/Icon';
@@ -18,7 +17,8 @@ import { TagProps } from '../elements/Tag';
 import { TableProps } from '../elements/Table';
 import { SelectProps } from '../elements/Select';
 import { SwitchToggleProps } from '../elements/SwitchToggle';
-import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
+import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements/Accordion';
+import { DialogProps } from '../elements/Dialog';
 import { FormProps } from '../elements/Form';
 import { TabProps } from '../elements/Tabs';
 import { MenuProps } from '../elements/Menu';

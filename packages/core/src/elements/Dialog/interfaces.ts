@@ -1,5 +1,4 @@
-import React, { FC, ReactNode } from 'react';
-import { ElementsFactory } from './ElementsFactory';
+import { ReactNode } from 'react';
 
 export type DialogProps = {
   open?: boolean;
@@ -11,5 +10,3 @@ export type DialogProps = {
   className?: string;
   size?: 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen';
 };
-
-export const Dialog: FC<DialogProps> = (props) => React.createElement(ElementsFactory.getElement('Dialog'), props);
