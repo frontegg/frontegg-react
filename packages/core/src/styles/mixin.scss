@@ -1,39 +1,50 @@
-@mixin with-theme {
-  &-primary {
-    background-color: var(--color-primary-lighter);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary-lighter);
-    @content;
-  }
+@use "sass:list";
 
-  &-secondary {
-    background-color: var(--color-secondary-light);
-    color: var(--color-secondary-dark);
-    border: 1px solid var(--color-secondary-light);
-    @content;
-  }
+@mixin with-theme($apply-to: all) {
+  @if $apply-to == all {
+    &-primary,
+    &-secondary,
+    &-danger,
+    &-default,
+    &-disabled {
+      background-color: var(--theme-background);
+      color: var(--theme-color);
+      border: 1px solid var(--theme-background);
 
-  &-danger {
-    background-color: var(--color-danger-light);
-    color: var(--color-text-on-danger);
-    border: 1px solid var(--color-danger-light);
-    @content;
-  }
+      @content;
+    }
 
-  &-default {
-    background-color: var(--color-gray-1);
-    color: var(--color-black);
-    border: 1px solid var(--color-gray-4);
-    @content;
-  }
+    &-primary {
+      --theme-color: var(--color-primary);
+      --theme-background: var(--color-primary-lighter);
+    }
 
-  &-disabled {
-    background-color: var(--background-disabled);
-    color: var(--color-text-disabled);
-    border: none;
-    pointer-events: none;
-    cursor: default;
-    @content;
+    &-secondary {
+      --theme-color: var(--color-secondary);
+      --theme-background: var(--color-secondary-light);
+    }
+
+    &-danger {
+      --theme-color: var(--color-danger);
+      --theme-background: var(--color-danger-light);
+    }
+
+    &-default {
+      --theme-color: var(--color-gray-4);
+      --theme-background: var(--color-gray-1);
+    }
+
+    &-disabled {
+      --theme-color: var(--color-text-disabled);
+      --theme-background: var(--background-disabled);
+      border: none;
+      pointer-events: none;
+      cursor: default;
+    }
+  } @else {
+    &-#{$apply-to} {
+      @content;
+    }
   }
 }
 
@@ -66,19 +77,29 @@
 }
 
 @mixin with-size {
-  &-small {
-    padding: 0 var(--element-padding-sm);
-    height: var(--element-height-sm);
-    font-size: var(--element-font-size-sm);
-    border-radius: var(--element-border-radius-lg);
+  --size-icon: var(--element-icon-size);
+
+  &-small,
+  &-large {
+    padding: var(--size-padding);
+    height: var(--size-height);
+    font-size: var(--size-font-size);
+    border-radius: var(--size-border-radius);
     @content;
   }
 
+  &-small {
+    --size-padding: 0 var(--element-padding-sm);
+    --size-height: var(--element-height-sm);
+    --size-font-size: var(--element-font-size-sm);
+    --size-border-radius: var(--element-border-radius-lg);
+    --size-icon: var(--element-icon-size-sm);
+  }
+
   &-large {
-    padding: 0 var(--element-padding-lg);
-    height: var(--element-height-lg);
-    font-size: var(--element-font-size-lg);
-    border-radius: var(--element-border-radius-sm);
-    @content;
+    --size-padding: 0 var(--element-padding-lg);
+    --size-height: var(--element-height-lg);
+    --size-font-size: var(--element-font-size-lg);
+    --size-border-radius: var(--element-border-radius-sm);
   }
 }
