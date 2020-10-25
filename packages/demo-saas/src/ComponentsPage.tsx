@@ -54,68 +54,73 @@ const libs: Library[] = [
 const elements: {
   type: string;
   title: string;
-  props: any[];
+  propsOptions: { [prop: string]: any[] };
 }[] = [
+  {
+    title: 'Inputs',
+    type: 'Input',
+    propsOptions: {
+      variant: [undefined, 'default', 'primary', 'secondary', 'danger'],
+      fullWidth: [false, true],
+      error: [undefined, 'Some error'],
+      size: ['medium', 'small', 'large'],
+      disabled: [false, true],
+      label: [undefined, 'Some label'],
+      type: [undefined, 'text', 'password', 'search'],
+      multi: [false, true],
+      inForm: [false, true],
+      labelButton: [undefined, { children: 'label button' }],
+      placeholder: ['Placeholder'],
+    },
+  },
   {
     title: 'Buttons',
     type: 'Button',
-    props: [
-      { children: 'Regular Button' },
-      { variant: 'default', children: 'Default Button' },
-      { variant: 'primary', children: 'Primary Button' },
-      { variant: 'secondary', children: 'Secondary Button' },
-      { variant: 'danger', children: 'Danger Button' },
-      { isCancel: true, children: 'Cancel Button' },
-      { fullWidth: true, children: 'Full Width Button' },
-      { size: 'small', children: 'Small Button' },
-      { size: 'medium', children: 'Medium Button' },
-      { size: 'large', children: 'Large Button' },
-      { disabled: true, children: 'Disabled Button' },
-      { loading: true, children: 'Loading Button' },
-    ],
+    propsOptions: {
+      children: ['Button'],
+      variant: [undefined, 'default', 'primary', 'secondary', 'danger'],
+      isCancel: [false, true],
+      fullWidth: [false, true],
+      size: ['medium', 'small', 'large'],
+      disabled: [false, true],
+      loading: [false, true],
+    },
   },
   {
     title: 'Checkbox',
     type: 'Checkbox',
-    props: [
-      { label: 'Inline Checkbox 1' },
-      { label: 'Inline Checkbox 2' },
-      { label: 'Indeterminate Checkbox', indeterminate: true },
-      { label: 'FullWidth', fullWidth: true },
-    ],
+    propsOptions: {
+      label: ['Inline Checkbox 1', 'Inline Checkbox 2'],
+      indeterminate: [false, true],
+      fullWidth: [false, true],
+    },
   },
   {
     title: 'Tags',
     type: 'Tag',
-    props: [
-      { children: 'Some Tag' },
-      { children: 'Primary Tag', variant: 'primary' },
-      { children: 'Secondary Tag', variant: 'secondary' },
-      { children: 'Danger Tag', variant: 'danger' },
-      { children: 'Default Tag', variant: 'default' },
-      { children: 'Clickable Tag', onClick: console.log },
-      { children: 'Disabled Tag', disabled: true },
-      { children: 'Delete Tag', onDelete: console.log },
-      { children: 'Small Tag', size: 'small' },
-      { children: 'Medium Tag', size: 'medium' },
-      { children: 'Large Tag', size: 'large' },
-    ],
+    propsOptions: {
+      children: ['Tag', 'Some Long Tag'],
+      variant: [undefined, 'default', 'primary', 'secondary', 'danger'],
+      disabled: [false, true],
+      size: ['medium', 'small', 'large'],
+      onClick: [undefined, () => {}],
+      onDelete: [undefined, () => {}],
+    },
   },
   {
     title: 'Loaders',
     type: 'Loader',
-    props: [
-      { variant: 'default', children: null },
-      { variant: 'primary', children: null },
-      { variant: 'secondary', children: null },
-      { variant: 'danger', children: null },
-      { center: true, children: null },
-    ],
+    propsOptions: {
+      variant: [undefined, 'default', 'primary', 'secondary', 'danger'],
+      center: [false, true],
+    },
   },
   {
     title: 'SwitchToggles',
     type: 'SwitchToggle',
-    props: [{ labels: ['Disabled', 'Enabled'] }, {}],
+    propsOptions: {
+      labels: [['Disabled', 'Enabled']],
+    },
   },
 ];
 
@@ -174,7 +179,27 @@ const AccordionByLib: FC<{ lib: Library }> = ({ lib }) => {
   );
 };
 
+const initialState: {
+  [elementType: string]: {
+    [elementProp: string]: any;
+  };
+} = elements.reduce(
+  (aggElem, currElem) => ({
+    ...aggElem,
+    [currElem.type]: Object.keys(currElem.propsOptions).reduce(
+      (aggProp, currProp) => ({
+        ...aggProp,
+        [currProp]: currElem.propsOptions[currProp][0],
+      }),
+      {}
+    ),
+  }),
+  {}
+);
+
 export const ComponentsPage: FC = () => {
+  const [state, setState] = useState(initialState);
+
   return (
     <div>
       {/*<div style={{ maxWidth: '80%', margin: '20px auto 0' }}>*/}
@@ -191,14 +216,52 @@ export const ComponentsPage: FC = () => {
           </SubSection>
         ))}
       </Section>
+
       {elements.map((elem) => (
         <Section key={elem.title} title={elem.title}>
+          {Object.keys(elem.propsOptions).map((prop, index) => (
+            <div style={{ display: 'inline-block' }} key={index}>
+              {React.createElement(libs[2].elements.Select, {
+                label: prop,
+                fullWidth: false,
+                value: state[elem.type][prop],
+                getOptionLabel: (_) => `${_.label || _}`,
+                options: elem.propsOptions[prop]
+                  .filter((_) => _ !== undefined)
+                  .map((option) => ({ label: `${option}`, value: option })),
+                onChange: (_, newValues) => {
+                  setState({
+                    ...state,
+                    [elem.type]: {
+                      ...state[elem.type],
+                      [prop]: (newValues as any)?.value,
+                    },
+                  });
+                },
+              })}
+            </div>
+          ))}
           {libs.map((lib) => (
             <SubSection key={lib.title} title={lib.title}>
               {(lib.elements as any)[elem.type]
-                ? (elem.props as any).map((props: any, index: any) => {
-                    return React.createElement((lib.elements as any)[elem.type], { ...props, key: index });
-                  })
+                ? React.createElement((lib.elements as any)[elem.type], { ...state[elem.type] })
+                : `Elem ${elem.type} not found in lib ${lib.title}`}
+            </SubSection>
+          ))}
+          <br />
+          <br />
+          <br />
+          {libs.map((lib) => (
+            <SubSection key={lib.title} title={lib.title}>
+              {(lib.elements as any)[elem.type]
+                ? Object.keys(elem.propsOptions).map((prop: any, index: any) =>
+                    elem.propsOptions[prop].map((option, innerIndex) => {
+                      return React.createElement((lib.elements as any)[elem.type], {
+                        [prop]: option,
+                        key: `${index}-${innerIndex}`,
+                      });
+                    })
+                  )
                 : `Elem ${elem.type} not found in lib ${lib.title}`}
             </SubSection>
           ))}

@@ -13,6 +13,9 @@
   --element-height-lg: 2.875rem;
   --element-height-sm: 2rem;
 
+  --element-icon-size: 1.75rem;
+  --element-icon-size-sm: 1.5rem;
+
   --element-spacing: 0.5rem;
   --element-default-width: 300px;
 
@@ -51,27 +54,6 @@
 
   &:hover {
     text-decoration: underline;
-  }
-}
-
-.fe-label__with-button {
-  position: relative;
-
-  > button.button {
-    padding: 0.25rem;
-    background: transparent !important;
-
-    float: right;
-    position: absolute;
-    margin-right: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    font-size: 0.85rem;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }
 

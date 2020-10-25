@@ -9,6 +9,7 @@ export type IconNames =
   | 'indeterminate'
   | 'checkmark'
   | 'copy'
+  | 'search'
   | 'warning'
   | 'image'
   | 'delete'

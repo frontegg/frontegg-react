@@ -17,6 +17,21 @@ const useStyles = makeStyles({
       backgroundColor: 'var(--color-red-8)',
     },
   },
+  asLink: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    textTransform: 'none',
+    textDecoration: 'underline',
+    padding: 0,
+
+    '&:hover': {
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+      textTransform: 'none',
+      textDecoration: 'underline',
+      filter: 'brightness(0.8)',
+    },
+  },
 });
 
 const mapper = (props: ButtonProps): MaterialButtonProps => {
@@ -31,6 +46,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     onClick,
     isCancel,
     size,
+    asLink,
     transparent,
     ...restProps
   } = props;
@@ -50,6 +66,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     classes: {
       root: classNames(className, {
         [classes.dangerStyle]: variant === 'danger',
+        [classes.asLink]: asLink,
       }),
     },
   };

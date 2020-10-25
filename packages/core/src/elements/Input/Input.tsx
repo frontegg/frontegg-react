@@ -1,7 +1,7 @@
-import { InputProps } from './interfaces';
 import React from 'react';
-import { ElementsFactory } from './ElementsFactory';
+import { ElementsFactory } from '../../ElementsFactory/ElementsFactory';
 import { useField, useFormikContext } from 'formik';
+import { InputProps } from './interfaces';
 
 export const Input = (props: InputProps) => React.createElement(ElementsFactory.getElement('Input'), props);
 

@@ -1,15 +1,9 @@
-import React, {
-  MouseEvent,
-  ReactElement,
-  ComponentType,
-  ForwardRefExoticComponent,
-  PropsWithoutRef,
-  RefAttributes,
-} from 'react';
+import React, { ComponentType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 import { Size } from '../styles';
 import { DialogProps } from './Dialog';
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
+import { InputProps } from '../elements/Input';
 import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
@@ -28,24 +22,15 @@ export type FormFieldProps = {
   size?: Size;
 };
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
-  label?: string;
-  labelButton?: ButtonProps;
-  fullWidth?: boolean;
-  error?: string;
-  prefixIcon?: ReactElement;
-  suffixIcon?: ReactElement;
-  iconAction?: (e: MouseEvent) => void;
-  multiline?: boolean;
-}
+type ComponentTypeOrForwardRef<P, REF> =
+  | ComponentType<P>
+  | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<REF>>;
 
 export type ElementProps = {
   Accordion: ComponentType<AccordionProps>;
   AccordionHeader: ComponentType<AccordionHeaderProps>;
   AccordionContent: ComponentType<AccordionContentProps>;
-  Button:
-    | ComponentType<ButtonProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<ButtonProps> & RefAttributes<HTMLButtonElement>>;
+  Button: ComponentTypeOrForwardRef<ButtonProps, HTMLButtonElement>;
   Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
   Form: ComponentType<FormProps>;
@@ -54,18 +39,10 @@ export type ElementProps = {
   Icon: ComponentType<IconProps>;
   Tabs: ComponentType<TabProps>;
   Dialog: ComponentType<DialogProps>;
-  Checkbox:
-    | ComponentType<CheckboxProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>;
-  Grid:
-    | ComponentType<GridProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<GridProps> & RefAttributes<HTMLDivElement>>;
-  Table:
-    | ComponentType<TableProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<TableProps> & RefAttributes<HTMLTableElement>>;
-  Popup:
-    | ComponentType<PopupProps>
-    | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
+  Checkbox: ComponentTypeOrForwardRef<CheckboxProps, HTMLInputElement>;
+  Grid: ComponentTypeOrForwardRef<GridProps, HTMLDivElement>;
+  Table: ComponentTypeOrForwardRef<TableProps, HTMLTableElement>;
+  Popup: ComponentTypeOrForwardRef<PopupProps, HTMLDivElement>;
   Select: ComponentType<SelectProps>;
   Menu: ComponentType<MenuProps>;
 };
