@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/frontegg/frontegg-react/compare/v1.1.0...v1.2.0) (2020-10-25)
+
+
+### Bug Fixes
+
+* **ci:** add conventional-commits to prereleases ([#58](https://github.com/frontegg/frontegg-react/issues/58)) ([d0941cc](https://github.com/frontegg/frontegg-react/commit/d0941ccaa279dbb4901563f9f6391ffcbc44dc06))
+* **ci:** add pre-release action ([07bd99d](https://github.com/frontegg/frontegg-react/commit/07bd99db45c76d43a71b9e0aaf316e6720e9ad67))
+* **elements:** UI elements small fixes ([effb9bd](https://github.com/frontegg/frontegg-react/commit/effb9bd54186133184010c34874af212c040ef90))
+* **packaging:** downgrade typescript to 3.7.5 ([10294fc](https://github.com/frontegg/frontegg-react/commit/10294fc3f6c2f5ade727d2e05070a978fe1c1cc7))
+* **packaging:** remove tesrser from build steps ([a4ff453](https://github.com/frontegg/frontegg-react/commit/a4ff453ca63f5a0b0c4ae2399e0b63779f17d825))
+* **packaging:** revert typescript to 3.9.7 ([#56](https://github.com/frontegg/frontegg-react/issues/56)) ([cb1a4dd](https://github.com/frontegg/frontegg-react/commit/cb1a4ddf8c47f3a3ceb7a1bea6d81a800c8b4a84))
+* restore old react and checkout from release branch ([adbff2e](https://github.com/frontegg/frontegg-react/commit/adbff2e9b28248ae9d292b633fde4233b853a29c))
+
+
+### Features
+
+* **auth:** add SSO components ([#64](https://github.com/frontegg/frontegg-react/issues/64)) ([f083762](https://github.com/frontegg/frontegg-react/commit/f0837623073c1f9a636480c6a88d5969fb020a09))
+* **auth:** support all auth functionalities ([#70](https://github.com/frontegg/frontegg-react/issues/70)) ([26d725e](https://github.com/frontegg/frontegg-react/commit/26d725e2f386c6b4a703e4371fac8efef29676d1))
+* **core:** add dynamic elements for Frontegg Components ([#10](https://github.com/frontegg/frontegg-react/issues/10)) ([2bddbb2](https://github.com/frontegg/frontegg-react/commit/2bddbb2794ac0dc4af90c8df0f33b69a312e063a))
+* **core:** add FeSwitchToggle component ([#66](https://github.com/frontegg/frontegg-react/issues/66)) ([5b6c603](https://github.com/frontegg/frontegg-react/commit/5b6c603d912be45b1982c06b7f026badd8e82f1c))
+* **core:** Add FeTabs component ([3699299](https://github.com/frontegg/frontegg-react/commit/36992997e64907345a254a4b44580759705186bb)), closes [#67](https://github.com/frontegg/frontegg-react/issues/67)
+
+
+
+
+
 # [1.1.0](https://github.com/frontegg/frontegg-react/compare/v1.0.89...v1.1.0) (2020-10-14)
 
 
