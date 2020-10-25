@@ -16,6 +16,7 @@ import {
   Visibility,
   PersonAddRounded,
   MoreVertRounded,
+  SendRounded,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -38,6 +39,7 @@ const iconMap: { [K in IconNames]: any } = {
   'sort-arrows-desc': DeleteRounded,
   'person-add': PersonAddRounded,
   'vertical-dots': MoreVertRounded,
+  send: SendRounded,
 };
 
 export class Icon extends React.Component<IconProps> {

@@ -19,7 +19,8 @@ export type IconNames =
   | 'sort-arrows-asc'
   | 'sort-arrows-desc'
   | 'person-add'
-  | 'vertical-dots';
+  | 'vertical-dots'
+  | 'send';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

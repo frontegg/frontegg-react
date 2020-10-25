@@ -1,6 +1,14 @@
 import { takeEvery, put, call, select, all } from 'redux-saga/effects';
 import { actions } from '../reducer';
-import { api, IAddUser, ILoadUsers, IResendActivationLink, ITeamUser, IUpdateUser } from '@frontegg/react-core';
+import {
+  api,
+  IAddUser,
+  IDeleteUser,
+  ILoadUsers,
+  IResendActivationLink,
+  ITeamUser,
+  IUpdateUser,
+} from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { WithCallback, WithSilentLoad } from '../interfaces';
 import { ISetAddUserDialog, ISetDeleteUserDialog, TeamStateKeys } from './interfaces';
@@ -86,14 +94,36 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
     callback?.(newUser);
     yield put(
       actions.setTeamState({
-        users: [newUser, ...teamState.users],
-        addUserDialogState: { open: false, loading: false },
+        users: teamState.users.map((user: ITeamUser) => (user.id === newUser.id ? newUser : user)),
       })
     );
   } catch (e) {
     yield put(
       actions.setTeamState({
         addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
+      })
+    );
+    callback?.(null, e.message);
+  }
+}
+
+function* deleteUser({ payload }: PayloadAction<WithCallback<IDeleteUser, boolean>>) {
+  const { callback, ...body } = payload;
+  const teamState = yield select((state) => state.auth.teamState);
+  yield put(actions.setTeamState({ deleteUserDialogState: { ...teamState.deleteUserDialogState, loading: true } }));
+  try {
+    yield call(api.teams.deleteUser, body);
+    callback?.(true);
+    yield put(
+      actions.setTeamState({
+        users: teamState.users.filter((user: ITeamUser) => user.id !== body.userId),
+        deleteUserDialogState: { open: false, loading: false },
+      })
+    );
+  } catch (e) {
+    yield put(
+      actions.setTeamState({
+        deleteUserDialogState: { ...teamState.deleteUserDialogState, loading: false, error: e.message },
       })
     );
     callback?.(null, e.message);
@@ -170,6 +200,8 @@ function* closeDeleteUserDialog({ payload }: PayloadAction<any>) {
 export function* teamSagas() {
   yield takeEvery(actions.loadUsers, loadUsers);
   yield takeEvery(actions.addUser, addUser);
+  yield takeEvery(actions.updateUser, updateUser);
+  yield takeEvery(actions.deleteUser, deleteUser);
   yield takeEvery(actions.resendActivationLink, resendActivationLink);
   yield takeEvery(actions.openAddUserDialog, openAddUserDialog);
   yield takeEvery(actions.closeAddUserDialog, closeAddUserDialog);

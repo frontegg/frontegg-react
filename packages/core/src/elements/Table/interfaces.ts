@@ -53,7 +53,7 @@ export interface TableProps<T extends object = {}> {
   tableHeader?: boolean;
 
   data: T[];
-  // totalData: number;
+  totalData: number;
   rowKey: keyof T | string;
 
   isMultiSort?: boolean;
@@ -70,7 +70,7 @@ export interface TableColumnProps<T extends object = any> {
    * This string/function is used to build the data model for your column.
    * The data returned by an accessor should be primitive and sortable.
    */
-  accessor: string | IdType<T> | never;
+  accessor?: string | IdType<T> | never;
   /**
    * Required if accessor is a function
    * This is the unique ID for the column. It is used by reference in things like sorting, grouping, filtering etc.

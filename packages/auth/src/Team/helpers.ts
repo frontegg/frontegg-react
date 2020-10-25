@@ -1,5 +1,5 @@
-import { useAuth, useAuthTeamActions, useAuthTeamState } from '../hooks';
 import { useEffect } from 'react';
+import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
 export const reloadTeamIfNeeded = () => {
   const { loading, users } = useAuthTeamState(({ loaders, users }) => ({ loading: loaders.USERS, users }));

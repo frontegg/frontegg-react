@@ -1187,6 +1187,7 @@ export const ComponentsPage2: FC = () => {
           { accessor: 'ip', Header: 'IP ADDRESS', sortable: true },
         ]}
         data={data}
+        totalData={data.length}
         rowKey='frontegg_id'
         pagination='pages'
         pageSize={20}

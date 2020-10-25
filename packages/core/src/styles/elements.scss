@@ -171,6 +171,12 @@
       color: var(--color-gray-6);
     }
   }
+
+  &__avatar-img {
+    height: 2.25rem;
+    width: 2.25rem;
+    border-radius: 50%;
+  }
 }
 
 @media screen and (max-width: 600px) {

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Grid, Icon, Input, useT, useDebounce } from '@frontegg/react-core';
-import { useAuthTeamActions, useAuthTeamState } from '../hooks';
+import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
 export const TeamTableToolbar = () => {
   const { filter: filters } = useAuthTeamState((state) => ({ filter: state.filter || [] }));
@@ -25,7 +25,7 @@ export const TeamTableToolbar = () => {
 
   return (
     <div className='fe-team__table-toolbar'>
-      <Grid container spacing={2}>
+      <Grid container>
         <Grid item md={4} xs={6}>
           <Input
             size='small'

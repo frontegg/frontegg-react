@@ -1,14 +1,16 @@
 import React, { FC, useMemo } from 'react';
-import { Table, TableColumnProps, Tag, useT, Popup, Button, Grid, Icon, CellComponent } from '@frontegg/react-core';
-import { useAuthTeamActions, useAuthTeamState } from '../hooks';
+import { Table, TableColumnProps, Tag, useT } from '@frontegg/react-core';
+import { useAuthUserOrNull } from '../hooks';
 import { TeamState } from '../Api/TeamState';
-import { TeamRolesFilter } from './TeamTableFilters';
 import {
+  TeamTableActions,
+  TeamTableAvatarCell,
   TeamTableDescriptionCell,
   TeamTableJoinedTeam,
   TeamTableLastLogin,
   TeamTableTitleCell,
 } from './TeamTableCells';
+import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
 const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors, roles, sort, filter }: TeamState) => ({
   users,
@@ -22,36 +24,9 @@ const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors,
   filter,
 });
 
-const Options: CellComponent = (props) => {
-  const { resendActivationLink } = useAuthTeamActions();
-  return (
-    <Popup
-      trigger={
-        <Button iconButton>
-          <Icon name='vertical-dots' />
-        </Button>
-      }
-      action='click'
-      content={() => (
-        <Grid container direction='column'>
-          <Button
-            onClick={() => {
-              resendActivationLink({ userId: props.row.original.id });
-            }}
-          >
-            Resend Activation
-          </Button>
-          <Button>Delete User</Button>
-        </Grid>
-      )}
-    />
-  );
-};
-
 export const TeamTable: FC = (props) => {
-  const { users, loaders, totalItems, sort, filter, pageSize, totalPages, errors, roles } = useAuthTeamState(
-    stateMapper
-  );
+  const { users, loaders, totalItems, sort, pageSize, totalPages, roles } = useAuthTeamState(stateMapper);
+  const user = useAuthUserOrNull();
   const { loadUsers } = useAuthTeamActions();
   const { t } = useT();
   const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
@@ -62,15 +37,13 @@ export const TeamTable: FC = (props) => {
         accessor: 'profileImage',
         minWidth: '2.25rem',
         maxWidth: '2.25rem',
-        Cell: ({ value }) => {
-          return <img className='fe-team__profile-img' src={value} alt='Profile Image' />;
-        },
+        Cell: TeamTableAvatarCell,
       },
       {
         accessor: 'name',
         Header: t('common.name') ?? '',
         sortable: true,
-        Cell: TeamTableTitleCell,
+        Cell: TeamTableTitleCell(user?.id, t('common.me')),
       },
       {
         accessor: 'email',
@@ -80,7 +53,7 @@ export const TeamTable: FC = (props) => {
       },
       {
         accessor: 'roleIds',
-        Header: t('common.permissions') ?? '',
+        Header: t('common.roles') ?? '',
         Cell: ({
           value,
           row: {
@@ -99,28 +72,24 @@ export const TeamTable: FC = (props) => {
             </>
           );
         },
-        Filter: TeamRolesFilter,
       },
       {
         accessor: 'createdAt',
-        Header: t('common.joined-team') ?? '',
+        Header: t('common.joinedTeam') ?? '',
         sortable: true,
-        Cell: TeamTableJoinedTeam,
+        Cell: TeamTableJoinedTeam(t('common.pendingApproval')),
       },
       {
         accessor: 'lastLogin',
-        Header: t('common.last-login') ?? '',
+        Header: t('common.lastLogin') ?? '',
         sortable: true,
         Cell: TeamTableLastLogin,
       },
       {
-        id: 'options',
-        accessor: 'userId',
-        minWidth: '2.25rem',
-        maxWidth: '2.25rem',
-        Header: '',
-        sortable: false,
-        Cell: Options,
+        id: 'actions',
+        minWidth: '3.25rem',
+        maxWidth: '3.25rem',
+        Cell: TeamTableActions(user?.id),
       },
     ],
     [roles]
@@ -130,6 +99,7 @@ export const TeamTable: FC = (props) => {
     <div className='fe-team__table'>
       <Table
         data={users}
+        totalData={totalItems || users.length}
         columns={teamTableColumns}
         rowKey={'id'}
         pageSize={pageSize}

@@ -71,23 +71,12 @@ export const useAuthUser = (): User => {
   }
   return user;
 };
-
-type AuthTeamStateMapper<S extends object> = (state: TeamState) => S;
-const defaultAuthTeamStateMapper: any = (state: TeamState) => ({ ...state });
-export const useAuthTeamState = <S extends object>(
-  stateMapper: AuthTeamStateMapper<S> = defaultAuthTeamStateMapper
-): S => {
-  const dispatch = useDispatch();
-  const teamState = useSelector(
-    ({ [pluginName]: { teamState } }: { auth: AuthState }) => stateMapper(teamState),
+export const useAuthUserOrNull = (): User | null => {
+  const { user } = useSelector(
+    ({ [pluginName]: { user, routes, onRedirectTo } }: { auth: AuthState }) => ({ user }),
     memoEqual
   );
-  const bindedActions = bindActionCreators(teamActions, dispatch);
-  return { ...teamState, actions: bindedActions };
-};
-export const useAuthTeamActions = (): typeof teamActions => {
-  const dispatch = useDispatch();
-  return bindActionCreators(teamActions, dispatch);
+  return user || null;
 };
 
 export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer: T): CaseReducerActions<T> => {

@@ -7,14 +7,13 @@ import { TeamDeleteUserDialog } from './TeamDeleteUserDialog';
 
 export const TeamLayout: FC = (props) => {
   reloadTeamIfNeeded();
-  // console.log('TeamLayout.render');
 
   const children = props.children ?? (
     <>
       <TeamTableToolbar />
       <TeamTable />
       <TeamAddUserDialog />
-      {/*<TeamDeleteUserDialog />*/}
+      <TeamDeleteUserDialog />
     </>
   );
   return <div className='fe-team__layout'>{children}</div>;
