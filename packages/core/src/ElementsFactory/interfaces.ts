@@ -21,6 +21,7 @@ import { SwitchToggleProps } from '../elements/SwitchToggle';
 import { AccordionContentProps, AccordionHeaderProps, AccordionProps } from '../elements';
 import { FormProps } from '../elements/Form';
 import { TabProps } from '../elements/Tabs';
+import { MenuProps } from '../elements/Menu';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -66,6 +67,7 @@ export type ElementProps = {
     | ComponentType<PopupProps>
     | ForwardRefExoticComponent<PropsWithoutRef<PopupProps> & RefAttributes<HTMLDivElement>>;
   Select: ComponentType<SelectProps>;
+  Menu: ComponentType<MenuProps>;
 };
 
 export type ElementType = keyof ElementProps;

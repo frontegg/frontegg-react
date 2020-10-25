@@ -31,6 +31,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     onClick,
     isCancel,
     size,
+    transparent,
     ...restProps
   } = props;
   const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
@@ -44,7 +45,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     type,
     size,
     disabled: loading || disabled,
-    variant: isCancel ? 'text' : 'contained',
+    variant: isCancel || transparent ? 'text' : 'contained',
     color: variantColor,
     classes: {
       root: classNames(className, {

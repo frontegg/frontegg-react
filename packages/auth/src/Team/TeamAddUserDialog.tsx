@@ -1,5 +1,4 @@
 import React, { FC, useMemo } from 'react';
-import { useAuthTeamState, useAuthTeamActions } from '../hooks';
 import {
   Button,
   Dialog,
@@ -15,21 +14,17 @@ import {
   validateEmail,
   validateLength,
   validateSchema,
-  validateTwoFactorCode,
 } from '@frontegg/react-core';
+import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
 const { Formik } = FFormik;
-
-export interface TeamAddUserDialogProps {
-  open?: boolean;
-}
 
 type AddUserFormValues = {
   name: string;
   email: string;
-  permissions: { label: string; value: string }[];
+  roles: { label: string; value: string }[];
 };
-export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
+export const TeamAddUserDialog: FC = (props) => {
   const { open, error, loading, roles } = useAuthTeamState(({ addUserDialogState, roles }) => ({
     ...addUserDialogState,
     roles,
@@ -37,29 +32,28 @@ export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
   const { addUser, closeAddUserDialog } = useAuthTeamActions();
   const { t } = useT();
 
-  const isOpen = props.open ?? open;
   const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
 
   const initialValues: AddUserFormValues = {
     name: '',
     email: '',
-    permissions: [],
+    roles: [],
   };
 
   return (
-    <Dialog open={isOpen} size={'tiny'} header={t('auth.team.add-dialog.title')}>
+    <Dialog open={open} size={'tiny'} header={t('auth.team.add-dialog.title')}>
       <Formik
         validationSchema={validateSchema({
-          name: validateLength('Name', t),
+          name: validateLength(t('common.name'), t),
           email: validateEmail(t),
-          permissions: validateArrayLength(t, 'Permissions'),
+          roles: validateArrayLength(t, t('common.roles')),
         })}
         initialValues={initialValues}
-        onSubmit={({ name, email, permissions }) => {
+        onSubmit={({ name, email, roles }) => {
           addUser({
             name,
             email,
-            roleIds: permissions.map((v) => v.value),
+            roleIds: roles.map((v) => v.value),
           });
         }}
       >
@@ -67,9 +61,9 @@ export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
           <FInput label={t('common.name')} name='name' disabled={loading} placeholder={t('common.enter-name')} />
           <FInput label={t('common.email')} name='email' disabled={loading} placeholder={t('common.enter-email')} />
           <FSelect
-            label={t('common.permissions')}
+            label={t('common.roles')}
             multiselect
-            name='permissions'
+            name='roles'
             disabled={loading}
             placeholder={t('common.select')}
             options={roleOptions}
@@ -78,7 +72,7 @@ export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
           <ErrorMessage error={error} />
           <Grid container className='fe-mt-4 fe-mb-2'>
             <Grid xs item>
-              <Button size='large' fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
+              <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
                 {t('common.cancel')}
               </Button>
             </Grid>

@@ -28,6 +28,7 @@ export type DeleteUserDialogState = BaseDialogState & {
   loading?: boolean;
   error?: boolean;
   userId?: string;
+  email?: string;
 };
 export type ISetDeleteUserDialog = Omit<DeleteUserDialogState, 'loading' | 'error' | 'open'>;
 

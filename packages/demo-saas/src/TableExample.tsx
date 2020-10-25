@@ -1173,6 +1173,7 @@ export const TableExample: FC = () => {
           { accessor: 'ip', Header: 'Ip Address', sortable: true },
         ]}
         data={data}
+        totalData={data.length}
         rowKey='frontegg_id'
         pagination='pages'
         pageSize={10}

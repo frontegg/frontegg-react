@@ -5,6 +5,7 @@ import { Theme } from '../../styles';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, FormFieldProps {
   fullWidth?: boolean;
   variant?: Theme;
+  transparent?: boolean;
   isCancel?: boolean;
   asLink?: boolean;
   loading?: boolean;

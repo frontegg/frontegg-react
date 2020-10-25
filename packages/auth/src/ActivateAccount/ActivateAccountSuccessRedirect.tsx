@@ -10,7 +10,7 @@ export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectPr
   const { renderer } = props;
   const { t } = useT();
   const {
-    routes: { loginUrl },
+    routes: { logoutUrl },
     onRedirectTo,
     resetActivateState,
   } = useAuth(({ routes, onRedirectTo }) => ({ routes, onRedirectTo }));
@@ -21,13 +21,15 @@ export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectPr
   useEffect(() => {
     setTimeout(() => {
       resetActivateState();
-      onRedirectTo(loginUrl);
+      onRedirectTo(logoutUrl);
     }, 1000);
   }, []);
   return (
     <>
       <div className='fe-center fe-success-message'>{t('auth.activate-account.activation-succeeded')}</div>
-      <Loader center />
+      <div className='fe-relative fe-mt-4'>
+        <Loader center />
+      </div>
     </>
   );
 };

@@ -13,9 +13,11 @@ export const Pending: FC<PendingProps> = (props) => {
     return renderer(omitProps(props, ['renderer']));
   }
   return (
-    <div className='fe-center fe-success-message'>
-      {t('auth.account.pending-title')}
-      <Loader />
-    </div>
+    <>
+      <div className='fe-center fe-success-message'>{t('auth.account.pending-title')}</div>
+      <div className='fe-relative fe-mt-4'>
+        <Loader center />
+      </div>
+    </>
   );
 };

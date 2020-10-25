@@ -12,10 +12,10 @@ export const mfaState: MFAState = {
 
 export const mfaStateReducers = {
   setMfaState: typeReducerForKey<MFAState>('mfaState'),
-  resetMfaState: resetStateByKey<MFAState>('mfaState', { mfaState }),
 };
 
 export const mfaActions = {
+  resetMfaState: createAction(`${storeName}/resetMfaState`),
   enrollMfa: createAction(`${storeName}/enrollMfa`, (payload = {}) => ({ payload })),
   verifyMfa: createAction(`${storeName}/verifyMfa`, (payload: IVerifyMfa) => ({ payload })),
   disableMfa: createAction(`${storeName}/disableMfa`, (payload: IDisableMfa, callback?: () => void) => ({

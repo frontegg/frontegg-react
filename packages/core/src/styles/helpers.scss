@@ -1,24 +1,34 @@
 @mixin fe-space-helper($cls, $property) {
   #{$cls}-1 {
-    #{$property}: 0.5rem;
+    #{$property}: 0.5rem !important;
   }
   #{$cls}-2 {
-    #{$property}: 1rem;
+    #{$property}: 1rem !important;
   }
   #{$cls}-3 {
-    #{$property}: 1.5rem;
+    #{$property}: 1.5rem !important;
   }
   #{$cls}-4 {
-    #{$property}: 2rem;
+    #{$property}: 2rem !important;
   }
 }
 
-@include fe-space-helper('.fe-mt', margin-top) @include fe-space-helper('.fe-mb', margin-bottom) @include
-  fe-space-helper('.fe-ml', margin-left) @include fe-space-helper('.fe-mr', margin-right) @include
-  fe-space-helper('.fe-pt', padding-top) @include fe-space-helper('.fe-pb', padding-bottom) @include
-  fe-space-helper('.fe-pl', padding-left) @include fe-space-helper('.fe-pr', padding-right) .fe-center {
+@include fe-space-helper('.fe-mt', margin-top);
+@include fe-space-helper('.fe-mb', margin-bottom);
+@include fe-space-helper('.fe-ml', margin-left);
+@include fe-space-helper('.fe-mr', margin-right);
+@include fe-space-helper('.fe-pt', padding-top);
+@include fe-space-helper('.fe-pb', padding-bottom);
+@include fe-space-helper('.fe-pl', padding-left);
+@include fe-space-helper('.fe-pr', padding-right);
+
+.fe-center {
   text-align: center;
   align-items: center;
+}
+
+.fe-relative {
+  position: relative;
 }
 
 .fe-bold {

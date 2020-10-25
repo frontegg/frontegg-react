@@ -1,16 +1,14 @@
-import React, { FC, MouseEventHandler, ReactElement, useContext, useEffect, useMemo, useState } from 'react';
-import { Button, ButtonProps, checkValidChildren, useT } from '@frontegg/react-core';
-import { MFAEnrollDialog } from './MFAEnrollDialog';
-import { MFADisableDialog } from './MFADisableDialog';
-import { useAuth } from '../hooks';
+import React, { FC } from 'react';
+import { useT } from '@frontegg/react-core';
+import { useAuthUser } from '../hooks';
 import { MFAButton } from './MFAButton';
 
 const MFAStatus = () => {
-  const { user } = useAuth(({ user }) => ({ user }));
+  const user = useAuthUser();
   const { t } = useT();
   return (
     <div className='fe-mfa__content-title'>
-      {user?.mfaEnrolled ? (
+      {user.mfaEnrolled ? (
         <>
           {t('auth.mfa.two-factor')}: <span>{t('common.enabled')}</span>
         </>
@@ -22,7 +20,6 @@ const MFAStatus = () => {
 };
 
 export const MFALayout: FC = (props) => {
-  const { t } = useT();
   const children = props.children ?? (
     <>
       <MFAStatus />

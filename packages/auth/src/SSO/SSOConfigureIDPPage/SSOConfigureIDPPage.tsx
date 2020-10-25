@@ -2,15 +2,15 @@ import React, { FC, useState } from 'react';
 import { checkRootPath, Loader, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { HideOption } from '../../interfaces';
-import { useAuth } from '../../hooks';
 import { SSOConfigureIDPGuide } from './SSOConfigureIDPGuide';
 import { SSOConfigureIDPForm } from './SSOConfigureIDPForm';
 import { SSOConfigureIDPSelect } from './SSOConfigureIDPSelect';
 import { SamlVendors } from './SSOVendors';
+import { useAuthSSOState } from '../hooks';
 
 export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
   const rootPath = checkRootPath('SSOConfigureIDPPage must be rendered inside a SSORouter component');
-  const { loading } = useAuth((state) => state.ssoState);
+  const { loading } = useAuthSSOState(({ samlConfiguration, loading }) => ({ loading }));
   const [samlVendor, setSamlVendor] = useState<SamlVendors>(SamlVendors.Saml);
 
   if (loading) {

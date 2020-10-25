@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
-import { bindActionCreators } from '@reduxjs/toolkit';
+import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
 import { teamActions, TeamState } from './Api/TeamState';
 
-const pluginName = 'auth';
+export const pluginName = 'auth';
 const pluginActions = actions;
 
 export type AuthMapper = {
@@ -71,21 +71,16 @@ export const useAuthUser = (): User => {
   }
   return user;
 };
-
-type AuthTeamStateMapper<S extends object> = (state: TeamState) => S;
-const defaultAuthTeamStateMapper: any = (state: TeamState) => ({ ...state });
-export const useAuthTeamState = <S extends object>(
-  stateMapper: AuthTeamStateMapper<S> = defaultAuthTeamStateMapper
-): S => {
-  const dispatch = useDispatch();
-  const teamState = useSelector(
-    ({ [pluginName]: { teamState } }: { auth: AuthState }) => stateMapper(teamState),
+export const useAuthUserOrNull = (): User | null => {
+  const { user } = useSelector(
+    ({ [pluginName]: { user, routes, onRedirectTo } }: { auth: AuthState }) => ({ user }),
     memoEqual
   );
-  const bindedActions = bindActionCreators(teamActions, dispatch);
-  return { ...teamState, actions: bindedActions };
+  return user || null;
 };
-export const useAuthTeamActions = (): typeof teamActions => {
-  const dispatch = useDispatch();
-  return bindActionCreators(teamActions, dispatch);
+
+export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer: T): CaseReducerActions<T> => {
+  const reducerKeys = Object.keys(reducer);
+  const reducerActions = reducerKeys.map((key) => ({ [key]: actions[key as keyof typeof actions] }));
+  return reducerActions.reduce((p, n) => ({ ...p, ...n }), {}) as CaseReducerActions<T>;
 };

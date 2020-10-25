@@ -1,6 +1,6 @@
 import { Button, FilterComponent, Grid, Select, useT } from '@frontegg/react-core';
 import React, { useMemo, useState } from 'react';
-import { useAuthTeamState } from '../hooks';
+import { useAuthTeamState } from './hooks';
 
 export const TeamRolesFilter: FilterComponent = ({ value, setFilterValue, closePopup }) => {
   const { t } = useT();

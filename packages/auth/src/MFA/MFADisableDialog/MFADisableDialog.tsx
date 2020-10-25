@@ -10,22 +10,23 @@ import {
   validateSchema,
   validateTwoFactorCode,
 } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
 import { MFADisableDialogMessage } from './MFADisableDialogMessage';
 import { MFADisableDialogFooter } from './MFADisableDialogFooter';
 import { MFADisableDialogForm } from './MFADisableDialogForm';
 import { MFADisableDialogErrorMessage } from './MFADisableDialogErrorMessage';
+import { useAuthMfaActions } from '../hooks';
 
 const { Formik } = FFormik;
 
 export type MFADialogProps = DialogProps;
 export const MFADisableDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
-  const { resetMfaState, disableMfa } = useAuth();
+  const { resetMfaState, disableMfa } = useAuthMfaActions();
   const dialogProps = omitProps(props, ['children']);
   useEffect(() => {
     props.open && resetMfaState();
   }, [props.open]);
+
   const children = props.children ?? (
     <>
       <MFADisableDialogMessage />

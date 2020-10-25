@@ -15,6 +15,7 @@ import { Table } from './Table';
 import { Tag } from './Tag';
 import { Grid } from './Grid';
 import { Select } from './Select';
+import { Menu } from './Menu';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
@@ -35,4 +36,5 @@ export const uiLibrary: Partial<Elements> = {
   Table,
   Tag,
   Select,
+  Menu,
 };
