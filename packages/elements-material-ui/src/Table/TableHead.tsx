@@ -10,10 +10,13 @@ const useStyles = makeStyles((theme) => ({
     margin: '-9px 0',
   },
   head: {
+    position: 'sticky',
+    top: '0px',
+    zIndex: 10,
     '& > *': {
       position: 'sticky',
       top: '0px',
-      zIndex: 1,
+      zIndex: 10,
       background: theme.palette.background.paper,
     },
   },
