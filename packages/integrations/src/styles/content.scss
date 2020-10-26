@@ -17,17 +17,9 @@
   &-edit {
     padding: 1rem 1.2rem;
     flex-grow: 1;
-    
+
     &-close {
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
-      cursor: pointer;
       text-transform: uppercase;
-      padding: 0;
-      &:focus {
-        outline: none;
-      }
 
       &-icon {
         display: inline-flex;
@@ -43,6 +35,17 @@
 
     &-form {
       padding: 2rem 0;
+    }
+  }
+  
+  &-button-link {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding: 0;
+    &:focus {
+      outline: none;
     }
   }
 }

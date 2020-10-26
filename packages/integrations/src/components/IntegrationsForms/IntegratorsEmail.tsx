@@ -1,25 +1,42 @@
 import React, { FC } from 'react';
 import { FormikProps } from 'formik';
-import { Button, FInput, Grid, ISMSConfigurations, useT, validateSchema, validationPhone } from '@frontegg/react-core';
+import * as Yup from 'yup';
+import { Button, FInput, Grid, IEmailConfigurations, useT, validateEmail, validateSchema } from '@frontegg/react-core';
 import { IFormComponents } from '../../types';
 import { IntegrationsForm } from './IntegrationsForm';
 
-export const IntegrationsSMS: FC<IFormComponents> = ({ onClose }) => {
+export const IntegratorsEmail: FC<IFormComponents> = ({ onClose }) => {
   const { t } = useT();
   const validationSchema = validateSchema({
-    to: validationPhone(t),
+    from: validateEmail(t),
+    to: Yup.array().of(validateEmail(t)).min(1),
   });
+
   return (
-    <IntegrationsForm validationSchema={validationSchema} onClose={onClose} type='sms' initialValues={{ to: [''] }}>
-      {({ values: { to }, setFieldValue }: FormikProps<Omit<ISMSConfigurations, 'id'>>) => (
+    <IntegrationsForm
+      type='email'
+      initialValues={{ from: '', to: [''] }}
+      onClose={onClose}
+      validationSchema={validationSchema}
+    >
+      {({ values: { to }, setFieldValue }: FormikProps<Omit<IEmailConfigurations, 'id'>>) => (
         <>
+          <Grid item xs={1}>
+            <label>{t('integrations.email.from')}: </label>
+          </Grid>
+          <Grid item xs={9}>
+            <FInput name='from' />
+          </Grid>
+          <Grid item xs={2}>
+            &nbsp;
+          </Grid>
           {to.map((_, idx) => (
             <React.Fragment key={idx}>
               <Grid item xs={1}>
-                {idx === 0 && t('integrations.sms.to')}
+                {idx === 0 && `${t('integrations.email.to')}:`}
               </Grid>
               <Grid item xs={9}>
-                <FInput name={`to[${idx}]`} placeholder='+123456789012' />
+                <FInput name={`to[${idx}]`} />
               </Grid>
               <Grid item xs={2}>
                 <Button

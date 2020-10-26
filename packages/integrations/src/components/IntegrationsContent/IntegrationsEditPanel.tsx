@@ -7,6 +7,7 @@ export interface IIntegrationsEditPanel {
 
 export const IntegrationsEditPanel: FC<IIntegrationsEditPanel> = ({ onClose, children }) => {
   const { t } = useT();
+
   return (
     <div className='fe-integrations-edit'>
       <button className='fe-integrations-edit-close fe-integrations-button-link' onClick={onClose}>

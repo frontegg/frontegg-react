@@ -2,7 +2,7 @@ import React, { FC, useMemo, useRef, useState } from 'react';
 import { Input, Grid, SwitchToggle, FeTable as Table, TableColumnProps, Button, Icon } from '@frontegg/react-core';
 import classnames from 'classnames';
 import { fakeDate } from '../../consts';
-import { IWebhooksData } from '../../types';
+import { IIntegrationsData } from '../../types';
 import { IntegrationsEditPanel } from './IntegrationsEditPanel';
 
 export interface IntegrationsContentProps {
@@ -12,8 +12,8 @@ export interface IntegrationsContentProps {
 
 export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, hiddenSearch = false }) => {
   const [filter, setFilter] = useState<string>('');
-  const [edit, setEdit] = useState<{ width: number; data: IWebhooksData } | null>(null);
-  const toggleEdit = (newData: IWebhooksData, parent?: HTMLElement | Element | null) => {
+  const [edit, setEdit] = useState<{ width: number; data: IIntegrationsData } | null>(null);
+  const toggleEdit = (newData: IIntegrationsData, parent?: HTMLElement | Element | null) => {
     if (!parent || (edit && newData.id === edit.data.id)) {
       return setEdit(null);
     }
@@ -74,7 +74,7 @@ export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, h
           <Input placeholder='Search by title...' onChange={(e) => setFilter(e.target.value)} value={filter} />
         </Grid>
       )}
-      <Grid item container>
+      <Grid item container wrap='nowrap'>
         <Grid
           item
           style={edit ? { width: edit.width, flexGrow: 0 } : { flexGrow: 1 }}
@@ -84,7 +84,7 @@ export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, h
         </Grid>
         {edit && (
           <IntegrationsEditPanel onClose={() => setEdit(null)}>
-            {React.createElement(edit.data.Form)}
+            {React.createElement(edit.data.Form, { onClose: () => setEdit(null) })}
           </IntegrationsEditPanel>
         )}
       </Grid>
