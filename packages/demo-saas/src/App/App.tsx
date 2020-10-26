@@ -4,7 +4,7 @@ import { AuthExamples } from '../auth-examples';
 import { Profile as OldProfile } from '@frontegg/react';
 import { ProtectedRoute, Profile, SSO, MFA, useAuthUser, Team } from '@frontegg/react-auth';
 import { PageTabProps, useT } from '@frontegg/react-core';
-import { ComponentsPage } from '../ComponentsPage';
+import { ElementsPage } from '../Elements/ElementsPage';
 import { withFrontegg } from '../withFrontegg';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';
@@ -58,8 +58,8 @@ class App extends React.Component<any> {
             </div>
           </Route>
           <Route path='/test-auth-user' component={TestPage} />
-          <Route exact path='/components' component={ComponentsPage} />
           <Route exact path='/components2' component={ComponentsPage2} />
+          <Route path='/components' component={ElementsPage} />
           <ProtectedRoute path='/test' />
           <Route path='/sso'>
             <SSO.Page />
