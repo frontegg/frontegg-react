@@ -11,6 +11,7 @@ export default {
       close: 'Close',
       edit: 'Edit',
       done: 'Done',
+      save: 'Save',
       copied: 'Copied!',
       domain: 'Domain',
       proceed: 'Proceed',
@@ -151,6 +152,7 @@ export default {
       'min-length': '{{name}} must be at least {{limit}} characters',
       'max-length': '{{name}} must be up to {{limit}} characters',
       length: '{{name}} must be {{limit}} characters',
+      'invalid-phone': 'Invalid phone number',
     },
     reports: {
       'list-page': {
@@ -162,6 +164,13 @@ export default {
       headerTitle: 'Integrations',
       headerSubTitle: 'Connect your own APIs to important event notifications',
       events: 'Events',
+      email: {
+        from: 'From',
+        to: 'To',
+      },
+      sms: {
+        to: 'To',
+      },
     },
   },
 };
