@@ -48,6 +48,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     size,
     asLink,
     transparent,
+    iconButton,
     ...restProps
   } = props;
   const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
@@ -75,9 +76,13 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
 export const Button: FC<ButtonProps> = (props) => {
   const { children, loading } = props;
   const buttonProps = mapper(props);
-  const { size, color, ...iconButtonProps } = buttonProps;
+  const { fullWidth, size, ...iconButtonProps } = buttonProps;
   if (props.iconButton) {
-    return <MaterialIconButton {...iconButtonProps}>{children}</MaterialIconButton>;
+    return (
+      <MaterialIconButton size={size == 'large' ? 'medium' : size} {...iconButtonProps}>
+        {children}
+      </MaterialIconButton>
+    );
   }
   return (
     <MaterialButton {...buttonProps}>
