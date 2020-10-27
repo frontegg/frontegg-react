@@ -1,7 +1,12 @@
-import { IEmailConfigurations, ISlackSubscription, ISMSConfigurations } from '@frontegg/react-core';
+import {
+  IEmailConfigurations,
+  ISlackSubscription,
+  ISMSConfigurations,
+  IWebhooksConfigurations,
+} from '@frontegg/react-core';
 import { FC } from 'react';
 
-export type TForms = 'slack' | 'email' | 'sms';
+export type TForms = 'slack' | 'email' | 'sms' | 'webhooks';
 
 export type TFormsData =
   | Omit<ISlackSubscription, 'id'>
@@ -14,8 +19,12 @@ export interface IIntegrationsState {
   isLoading: boolean;
   forms: {
     isLoading: boolean;
-    data?: IIntegrationsSlack;
+    data?: IIntegrationsSlack | ISMSConfigurations | IEmailConfigurations | IWebhooksConfigurations;
     savedSuccess: boolean;
+  };
+  list: {
+    isLoading: boolean;
+    data?: IWebhooksConfigurations[];
   };
 }
 

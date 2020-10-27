@@ -1,4 +1,4 @@
 export * from './IntegrationsSMS';
 export * from './IntegrationsSlack';
-export * from './IntegrationsWebhook';
+export * from './IntegrationsWebhooks';
 export * from './IntegratorsEmail';

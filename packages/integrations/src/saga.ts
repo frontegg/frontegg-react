@@ -3,7 +3,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { integrationsActions } from './reducer';
 import { TForms, TFormsData } from './types';
 import { type2ApiGet, type2ApiPost } from './consts';
-import { ISubscription, IEmailConfigurations, Logger } from '@frontegg/react-core';
+import { ISubscription, IEmailConfigurations, Logger, api } from '@frontegg/react-core';
 
 const logger = Logger.from('IntegrationsSaga');
 
@@ -12,9 +12,9 @@ function* loadDataFunction() {
   yield put(integrationsActions.loadDataSuccess({}));
 }
 
-function* loadFormFunction({ payload }: PayloadAction<TForms>) {
+function* loadFormFunction({ payload }: PayloadAction<Exclude<TForms, 'webhooks'>>) {
   try {
-    const { data } = yield call(type2ApiGet[payload]);
+    const data = yield call(type2ApiGet[payload]);
     yield put(integrationsActions.loadFormSuccess(data || {}));
   } catch (e) {
     logger.error(e);
@@ -22,13 +22,25 @@ function* loadFormFunction({ payload }: PayloadAction<TForms>) {
   }
 }
 
-function* postFormFunction({ payload: { type, data } }: PayloadAction<{ type: TForms; data: TFormsData }>) {
+function* postFormFunction({
+  payload: { type, data },
+}: PayloadAction<{ type: Exclude<TForms, 'webhooks'>; data: TFormsData }>) {
   try {
-    const { data: result } = yield call(type2ApiPost[type], data);
-    yield put(integrationsActions.loadFormSuccess(result || {}));
+    yield call(type2ApiPost[type], data);
+    yield put(integrationsActions.postFormSuccess());
   } catch (e) {
     logger.error(e);
     yield put(integrationsActions.loadFormSuccess(data));
+  }
+}
+
+function* loadListFunction() {
+  try {
+    const data = yield call(api.integrations.getWebhooksConfigurations);
+    yield put(integrationsActions.loadListSuccess(data));
+  } catch (e) {
+    logger.error(e);
+    yield put(integrationsActions.loadListSuccess({}));
   }
 }
 
@@ -36,4 +48,5 @@ export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
   yield takeEvery(integrationsActions.loadFormAction, loadFormFunction);
   yield takeEvery(integrationsActions.postFormAction, postFormFunction);
+  yield takeEvery(integrationsActions.loadListAction, loadListFunction);
 }

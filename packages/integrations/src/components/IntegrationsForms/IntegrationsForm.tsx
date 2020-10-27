@@ -4,7 +4,7 @@ import { integrationsActions } from '../../reducer';
 import { IPluginState, TForms, TFormsData } from '../../types';
 
 export interface IIntegrationsForm {
-  type: TForms;
+  type: Exclude<TForms, 'webhooks'>;
   onClose(): void;
   validationSchema: any;
   initialValues: TFormsData;

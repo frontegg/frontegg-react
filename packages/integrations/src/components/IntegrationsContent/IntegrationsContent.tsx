@@ -12,7 +12,10 @@ export interface IntegrationsContentProps {
 
 export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, hiddenSearch = false }) => {
   const [filter, setFilter] = useState<string>('');
-  const [edit, setEdit] = useState<{ width: number; data: IIntegrationsData } | null>(null);
+  const [edit, setEdit] = useState<{ width: number; data: IIntegrationsData } | null>({
+    width: 217,
+    data: fakeDate[3],
+  });
   const toggleEdit = (newData: IIntegrationsData, parent?: HTMLElement | Element | null) => {
     if (!parent || (edit && newData.id === edit.data.id)) {
       return setEdit(null);
