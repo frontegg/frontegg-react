@@ -63,7 +63,7 @@ export const validationPhone = (t: TFunction) =>
       t('validation.invalid-phone', 'Invalid phone number')
     )
     .required(t('validation.required-field', { name: 'phone' }));
-    
+
 export const validateSchemaSync = (props: any, values: any) =>
   new Promise((resolve) => {
     validateSchema(props)
