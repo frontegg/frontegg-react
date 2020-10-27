@@ -12,6 +12,12 @@ import { FeSelect } from '../elements/Select/FeSelect';
 import { FeAccordion } from '../elements/Accordion/FeAccordion';
 import { FeAccordionHeader } from '../elements/Accordion/FeAccordion';
 import { FeAccordionContent } from '../elements/Accordion/FeAccordion';
+import { FeInput } from '../elements/Input/FeInput';
+import { FeSwitchToggle } from '../elements/SwitchToggle/FeSwitchToggle';
+import { FeTable } from '../elements/Table/FeTable';
+import { FeForm } from '../elements/Form/FeForm';
+import { FeTabs } from '../elements/Tabs/FeTabs';
+import { FeMenu } from '../elements/Menu/FeMenu';
 
 export const fronteggElements: Partial<Elements> = {
   Accordion: FeAccordion,
@@ -20,11 +26,17 @@ export const fronteggElements: Partial<Elements> = {
   Loader: FeLoader,
   Tag: FeTag,
   Button: FeButton,
+  Input: FeInput,
   Grid: FeGrid,
   Icon: FeIcon,
   Popup: FePopup,
   Checkbox: FeCheckbox,
   Select: FeSelect,
+  SwitchToggle: FeSwitchToggle,
+  Table: FeTable,
+  Form: FeForm,
+  Tabs: FeTabs,
+  Menu: FeMenu,
 };
 
 export class ElementsFactory {

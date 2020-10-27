@@ -7,8 +7,7 @@ import classNames from 'classnames';
 const mapper = (props: SwitchToggleProps): MaterialSwitchProps => ({
   disabled: props.disabled || props.loading,
   checked: props.value,
-  readOnly: props.readOnly,
-  onChange: (e, value) => props.onChange?.(value),
+  onChange: (e, value) => (props.readOnly ? undefined : props.onChange?.(value)),
 });
 
 export const SwitchToggle: FC<SwitchToggleProps> = (props) => {
@@ -16,7 +15,7 @@ export const SwitchToggle: FC<SwitchToggleProps> = (props) => {
   const { labels } = props;
   const { className, ...toggleProps } = mapper(props);
 
-  const toggle = <MaterialSwitch inputRef={ref} {...toggleProps} />;
+  const toggle = <MaterialSwitch color='primary' inputRef={ref} {...toggleProps} />;
 
   if (labels) {
     return (

@@ -8,8 +8,7 @@ const mapper = (props: SwitchToggleProps): CheckboxProps => ({
   disabled: props.disabled || props.loading,
   toggle: true,
   checked: props.value,
-  readOnly: props.readOnly,
-  onChange: (e, data) => props.onChange?.(!!data.checked),
+  onChange: (e, data) => (props.readOnly ? undefined : props.onChange?.(!!data.checked)),
 });
 
 export const SwitchToggle: FC<SwitchToggleProps> = (props) => {

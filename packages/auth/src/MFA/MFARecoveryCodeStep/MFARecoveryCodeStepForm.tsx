@@ -3,10 +3,11 @@ import { useT, Icon } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
 import classNames from 'classnames';
 import copy from 'clipboard-copy';
+import { useAuthMfaState } from '../hooks';
 
 export const MFARecoveryCodeStepForm: FC = (props) => {
   const { t } = useT();
-  const { recoveryCode } = useAuth((state) => state.mfaState);
+  const { recoveryCode } = useAuthMfaState(({ recoveryCode }) => ({ recoveryCode }));
   const [copiedMgsVisible, setCopiedMgsVisible] = useState(false);
 
   const copyRecoverCode = () => {

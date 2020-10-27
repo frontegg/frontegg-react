@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler, ReactElement, useContext, useState } from 'react';
-import { Button, checkValidChildren } from '@frontegg/react-core';
+import { Button, checkValidChildren, useT } from '@frontegg/react-core';
 import { MFAEnrollDialog } from './MFAEnrollDialog';
 import { MFADisableDialog } from './MFADisableDialog';
 import { useAuth } from '../hooks';
@@ -16,22 +16,24 @@ type MFAButtonProps = {
 
 const EnrollButton = (props: MFAButtonProps) => {
   const { user } = useAuth(({ user }) => ({ user }));
+  const { t } = useT();
   const { openEnrollDialog } = useContext(MFAButtonContext);
   if (user?.mfaEnrolled) {
     return null;
   }
-  const children = props.children ?? <Button type='submit'>Enroll Mfa</Button>;
+  const children = props.children ?? <Button type='submit'>{t('auth.mfa.enroll-button')}</Button>;
   return React.cloneElement(children as any, { onClick: openEnrollDialog });
 };
 const DisableButton = (props: MFAButtonProps) => {
   const { user } = useAuth(({ user }) => ({ user }));
+  const { t } = useT();
   if (!user?.mfaEnrolled) {
     return null;
   }
   const { openDisableDialog } = useContext(MFAButtonContext);
   const children = props.children ?? (
     <Button type='submit' variant='danger'>
-      Disable Mfa
+      {t('auth.mfa.disable-button')}
     </Button>
   );
   return React.cloneElement(children as any, { onClick: openDisableDialog });

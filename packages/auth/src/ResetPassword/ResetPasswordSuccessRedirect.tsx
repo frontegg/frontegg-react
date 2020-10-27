@@ -28,7 +28,9 @@ export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps>
   return (
     <>
       <div className='fe-center fe-success-message'>{t('auth.forgot-password.password-has-been-changed')}</div>
-      <Loader center />
+      <div className='fe-relative fe-mt-4'>
+        <Loader center />
+      </div>
     </>
   );
 };

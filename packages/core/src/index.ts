@@ -1,5 +1,3 @@
-import './styles/common.scss';
-
 export * from './FronteggProvider';
 
 export * from './api';

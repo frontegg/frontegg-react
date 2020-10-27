@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { AuthExamples } from '../auth-examples';
-import { ProtectedRoute, Profile, SSO, MFA, useAuthUser } from '@frontegg/react-auth';
 import { Profile as OldProfile } from '@frontegg/react';
 import { IntegrationsPage } from '@frontegg/react-integrations';
+import { ProtectedRoute, Profile, SSO, MFA, useAuthUser, Team } from '@frontegg/react-auth';
 import { PageTabProps, useT } from '@frontegg/react-core';
-import { ComponentsPage } from '../ComponentsPage';
+import { ElementsPage } from '../Elements/ElementsPage';
 import { withFrontegg } from '../withFrontegg';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';
@@ -29,52 +29,54 @@ MyTab.route = '/my-tab';
 
 class App extends React.Component<any> {
   render() {
+    console.log('App.render');
     return (
       <div className='app'>
-        <AuthExamples>
-          <Switch>
-            <Route exact path='/'>
+        <Switch>
+          <Route exact path='/'>
+            <div>
               <div>
-                <div>
-                  <Link to='/profile'>Profile</Link>
-                </div>
-                <div>
-                  <Link to='/sso'>SSO</Link>
-                </div>
-                <div>
-                  <Link to='/test-auth-user'>Test Auth User</Link>
-                </div>
-                <div>
-                  <Link to='/popup'>Popup Examples</Link>
-                </div>
-                <div>
-                  <Link to='/table'>Table Examples</Link>
-                </div>
-                <div>
-                  <Link to='/select'>Select Examples</Link>
-                </div>
-                <div>
-                  <Link to='/integrations'>integrations</Link>
-                </div>
+                <Link to='/profile'>Profile</Link>
               </div>
-            </Route>
-            <Route path='/test-auth-user' component={TestPage} />
-            <Route exact path='/components' component={ComponentsPage} />
-            <Route exact path='/components2' component={ComponentsPage2} />
-            <ProtectedRoute path='/test' />
-            <ProtectedRoute path='/sso'>
-              <SSO.Page />
-            </ProtectedRoute>
+              <div>
+                <Link to='/team'>Team</Link>
+              </div>
+              <div>
+                <Link to='/sso'>SSO</Link>
+              </div>
+              <div>
+                <Link to='/test-auth-user'>Test Auth User</Link>
+              </div>
+              <div>
+                <Link to='/popup'>Popup Examples</Link>
+              </div>
+              <div>
+                <Link to='/table'>Table Examples</Link>
+              </div>
+              <div>
+                <Link to='/select'>Select Examples</Link>
+              </div>
+              <div>
+                <Link to='/integrations'>integrations</Link>
+              </div>
+            </div>
+          </Route>
+          <Route path='/test-auth-user' component={TestPage} />
+          <Route exact path='/components2' component={ComponentsPage2} />
+          <Route path='/components' component={ElementsPage} />
+          <ProtectedRoute path='/test' />
+          <Route path='/sso'>
+            <SSO.Page />
+          </Route>
 
-            <ProtectedRoute path='/profile' component={Profile.Page} />
-            <ProtectedRoute path='/profile2' component={OldProfile} />
-            <Route exact path='/popup' component={PopupExample} />
-            <Route exact path='/table' component={TableExample} />
-            <Route exact path='/select' component={SelectorExample} />
-            <Route exact path='/grids' component={GridExamples} />
-            <Route exact path='/integrations' component={IntegrationsPage} />
-          </Switch>
-        </AuthExamples>
+          <ProtectedRoute path='/profile' component={Profile.Page} />
+          <Route path='/team' component={Team.Page} />
+          <Route exact path='/popup' component={PopupExample} />
+          <Route exact path='/table' component={TableExample} />
+          <Route exact path='/select' component={SelectorExample} />
+          <Route exact path='/grids' component={GridExamples} />
+          <Route exact path='/integrations' component={IntegrationsPage} />
+        </Switch>
       </div>
     );
   }

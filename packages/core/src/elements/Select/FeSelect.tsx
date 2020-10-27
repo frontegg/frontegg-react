@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { SelectProps, SelectOptionProps } from './interfaces';
 import Select, { components, MultiValueProps } from 'react-select';
 import { useT } from '../../hooks';
+import { ClassNameGenerator } from '../../styles';
+import classNames from 'classnames';
 
 export const FeSelect = (props: SelectProps) => {
   const [open, setOpen] = useState(false);
@@ -50,8 +52,22 @@ export const FeSelect = (props: SelectProps) => {
     }),
   };
 
+  const className = classNames(
+    ClassNameGenerator.generate({
+      prefixCls: 'fe-select',
+      className: props.className,
+      isFullWidth: props.fullWidth,
+    }),
+    {
+      'fe-input__in-form ': props.inForm,
+    }
+  );
+
   return (
     <Select
+      isDisabled={props.disabled}
+      name={props.name}
+      className={className}
       styles={customStyles}
       isMulti={multiselect ?? false}
       placeholder={label}
@@ -66,7 +82,7 @@ export const FeSelect = (props: SelectProps) => {
       noOptionsMessage={() => noOptionsText ?? t('common.empty-items')}
       onMenuOpen={() => (onOpen ? onOpen : setOpen(true))}
       onMenuClose={() => (onClose ? onClose : setOpen(false))}
-      onChange={(newValues, e: any) => onChange(e, newValues ?? [])}
+      onChange={(newValues, e: any) => onChange?.(e, newValues ?? [])}
       getOptionLabel={(option) => (getOptionLabel ? getOptionLabel(option) : option.label)}
     />
   );

@@ -1,10 +1,11 @@
 /* istanbul ignore file */
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
-import { bindActionCreators } from '@reduxjs/toolkit';
+import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
+import { teamActions, TeamState } from './Api/TeamState';
 
-const pluginName = 'auth';
+export const pluginName = 'auth';
 const pluginActions = actions;
 
 export type AuthMapper = {
@@ -69,4 +70,17 @@ export const useAuthUser = (): User => {
     return {} as User;
   }
   return user;
+};
+export const useAuthUserOrNull = (): User | null => {
+  const { user } = useSelector(
+    ({ [pluginName]: { user, routes, onRedirectTo } }: { auth: AuthState }) => ({ user }),
+    memoEqual
+  );
+  return user || null;
+};
+
+export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer: T): CaseReducerActions<T> => {
+  const reducerKeys = Object.keys(reducer);
+  const reducerActions = reducerKeys.map((key) => ({ [key]: actions[key as keyof typeof actions] }));
+  return reducerActions.reduce((p, n) => ({ ...p, ...n }), {}) as CaseReducerActions<T>;
 };

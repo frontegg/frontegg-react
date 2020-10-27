@@ -37,7 +37,7 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
 
   return (
     <div className='fe-profile-password-page'>
-      <div className='fe-section-title fe-bold fe-mb-2'>{t('common.password')}</div>
+      <div className='fe-section-title fe-bold fe-mb-4'>{t('common.password')}</div>
       <Formik
         initialValues={{
           password: '',

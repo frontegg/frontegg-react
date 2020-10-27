@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 import { TabProps } from '@frontegg/react-core';
 import { Tabs as MaterialTabs, TabsProps as MaterialTabsProps, Tab as MaterialTab } from '@material-ui/core';
 
-const mapper = ({ activeTab, onTabChange }: TabProps): MaterialTabsProps => ({
+const mapper = ({ activeTab, onTabChange, className }: TabProps): MaterialTabsProps => ({
   value: activeTab,
   onChange: ((event: any, value: any) => onTabChange(event, value)) as any,
+  className,
 });
 
 export const Tabs: FC<TabProps> = (props) => {

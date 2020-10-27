@@ -1,7 +1,89 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
+import {
+  Button,
+  Dialog,
+  ErrorMessage,
+  FButton,
+  FForm,
+  FFormik,
+  FInput,
+  FSelect,
+  Grid,
+  useT,
+  validateArrayLength,
+  validateEmail,
+  validateLength,
+  validateSchema,
+} from '@frontegg/react-core';
+import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
-export interface TeamAddUserDialogProps {}
+const { Formik } = FFormik;
 
-export const TeamAddUserDialog: FC<TeamAddUserDialogProps> = (props) => {
-  return <div className='fe-team-add-user-dialog'>TeamAddUserDialog</div>;
+type AddUserFormValues = {
+  name: string;
+  email: string;
+  roles: { label: string; value: string }[];
+};
+export const TeamAddUserDialog: FC = (props) => {
+  const { open, error, loading, roles } = useAuthTeamState(({ addUserDialogState, roles }) => ({
+    ...addUserDialogState,
+    roles,
+  }));
+  const { addUser, closeAddUserDialog } = useAuthTeamActions();
+  const { t } = useT();
+
+  const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
+
+  const initialValues: AddUserFormValues = {
+    name: '',
+    email: '',
+    roles: [],
+  };
+
+  return (
+    <Dialog open={open} size={'tiny'} header={t('auth.team.add-dialog.title')}>
+      <Formik
+        validationSchema={validateSchema({
+          name: validateLength(t('common.name'), t),
+          email: validateEmail(t),
+          roles: validateArrayLength(t, t('common.roles')),
+        })}
+        initialValues={initialValues}
+        onSubmit={({ name, email, roles }) => {
+          addUser({
+            name,
+            email,
+            roleIds: roles.map((v) => v.value),
+          });
+        }}
+      >
+        <FForm>
+          <FInput label={t('common.name')} name='name' disabled={loading} placeholder={t('common.enter-name')} />
+          <FInput label={t('common.email')} name='email' disabled={loading} placeholder={t('common.enter-email')} />
+          <FSelect
+            label={t('common.roles')}
+            multiselect
+            name='roles'
+            disabled={loading}
+            placeholder={t('common.select')}
+            options={roleOptions}
+          />
+
+          <ErrorMessage error={error} />
+          <Grid container className='fe-mt-4 fe-mb-2'>
+            <Grid xs item>
+              <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
+                {t('common.cancel')}
+              </Button>
+            </Grid>
+            <Grid xs item className='fe-text-align-end'>
+              <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
+                {t('common.invite')}
+              </FButton>
+            </Grid>
+          </Grid>
+        </FForm>
+      </Formik>
+    </Dialog>
+  );
 };

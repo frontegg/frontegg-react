@@ -1,0 +1,55 @@
+name: Publish PreRelease
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  createPullRequest:
+    if: |
+      github.event_name == 'issue_comment' &&
+      (github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'COLLABORATOR') &&
+      startsWith(github.event.comment.body, '/create-prerelease')
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node12.13.0-chrome80-ff74
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+          ref: "release/next"
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node_version: 12
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install Dependencies and Build Packages
+        run: make init
+      - name: Run Components Test
+        run: make test-component
+      - name: Git Identity
+        run: |
+          git config --global user.name 'frontegg'
+          git config --global user.email 'frontegg@users.noreply.github.com'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "init-author-name=Frontegg LTD" > .npmrc
+          echo "init-author-email=hello@frontegg.com" > .npmrc
+          echo "init-author-url=https://frontegg.com" > .npmrc
+          echo "init-license=MIT" > .npmrc
+          echo "@frontegg:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      - name: Commit Version UP
+        run: |
+          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha"
+          yarn lerna version prerelease --conventional-commits --conventional-prerelease --preid alpha --yes --no-push --no-changelog
+          yarn prettier-hook
+          yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
+          version=$(node -p 'require("./lerna.json").version')
+          git push origin 'v${version}'

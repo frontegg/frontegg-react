@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
+import { ContextOptions, fronteggElements, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { IntegrationsPlugin } from '@frontegg/react-integrations';
 
@@ -19,7 +19,6 @@ const contextOptions: ContextOptions = {
 
 const plugins: PluginConfig[] = [
   AuthPlugin({
-    injectAuthRoutes: false,
   }),
   IntegrationsPlugin(),
 ];
@@ -30,7 +29,21 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
     context={contextOptions}
     plugins={plugins}
     uiLibrary={{
-      ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
+      // ...MaterialLibrary,
+      // Input: SemanticLibrary.Input,
+      // Dialog: SemanticLibrary.Dialog,
+      // Form: SemanticLibrary.Form,
+      // Select: SemanticLibrary.Select,
+      // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
+      // Tag: fronteggElements.Tag
+      // Input: SemanticLibrary.Input,
+      // Form: SemanticLibrary.Form,
+      // Dialog: MaterialLibrary.Dialog,
+      // Loader: fronteggElements.Loader,
+      // Button: fronteggElements.Button,
+      ...MaterialLibrary,
+      // SwitchToggle: SemanticLibrary.SwitchToggle
+      // Tabs: SemanticLibrary.Tabs
     }}
   >
     <Component />

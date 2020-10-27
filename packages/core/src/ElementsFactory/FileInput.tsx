@@ -1,5 +1,5 @@
-import { InputProps } from './interfaces';
 import React, { FC } from 'react';
+import { InputProps } from '../elements/Input';
 import { ElementsFactory } from './ElementsFactory';
 import { useField, useFormikContext } from 'formik';
 import { useT } from '../hooks';

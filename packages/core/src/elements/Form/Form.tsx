@@ -1,8 +1,8 @@
-import { FormProps } from './interfaces';
 import React from 'react';
-import { ElementsFactory } from './ElementsFactory';
 import { Form as FormikForm } from 'formik';
 import classNames from 'classnames';
+import { FormProps } from './interfaces';
+import { ElementsFactory } from '../../ElementsFactory';
 
 export const Form = (props: FormProps) => React.createElement(ElementsFactory.getElement('Form'), props);
 

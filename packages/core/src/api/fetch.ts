@@ -175,7 +175,7 @@ export const Put = async (url: string, body?: any, opts?: Omit<RequestOptions, '
 export const Delete = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
   sendRequest({
     url,
-    method: 'PUT',
+    method: 'DELETE',
     contentType: 'application/json',
     body,
     ...opts,
@@ -184,7 +184,7 @@ export const Delete = async (url: string, body?: any, opts?: Omit<RequestOptions
 export const PostDownload = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
   sendRequest({
     url,
-    method: 'PUT',
+    method: 'GET',
     contentType: 'application/json',
     responseType: 'blob',
     body,

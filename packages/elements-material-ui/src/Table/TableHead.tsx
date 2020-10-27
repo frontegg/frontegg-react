@@ -12,8 +12,13 @@ const useStyles = makeStyles((theme) => ({
   head: {
     position: 'sticky',
     top: '0px',
-    zIndex: 1,
-    background: theme.palette.background.paper,
+    zIndex: 10,
+    '& > *': {
+      position: 'sticky',
+      top: '0px',
+      zIndex: 10,
+      background: theme.palette.background.paper,
+    },
   },
 }));
 
@@ -57,6 +62,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
             }
             return (
               <TableCell
+                padding='default'
                 {...column.getHeaderProps(
                   column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
                     ...p,
@@ -65,17 +71,19 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                 )}
               >
                 <Box display='flex' alignItems='center' justifyContent='space-between' flexWrap='nowrap'>
-                  <Box display='flex'>
-                    {column.render('Header')}
+                  <Box display='flex' flexGrow='1'>
                     {column.canSort ? (
                       <TableSortLabel
                         className='fe-sortLabel'
                         active={column.isSorted}
                         direction={column.isSortedDesc ? 'desc' : 'asc'}
-                      />
-                    ) : null}
+                      >
+                        {column.render('Header')}
+                      </TableSortLabel>
+                    ) : (
+                      <>{column.render('Header')}</>
+                    )}
                   </Box>
-
                   {column.canFilter && <TableFilterColumn column={column} onFilterChange={onFilterChange} />}
                 </Box>
               </TableCell>

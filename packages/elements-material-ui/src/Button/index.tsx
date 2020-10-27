@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 import { ButtonProps } from '@frontegg/react-core';
-import { Button as MaterialButton, ButtonProps as MaterialButtonProps, makeStyles } from '@material-ui/core';
+import {
+  Button as MaterialButton,
+  ButtonProps as MaterialButtonProps,
+  makeStyles,
+  IconButton as MaterialIconButton,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import { Loader } from '../Loader';
 
@@ -10,6 +15,21 @@ const useStyles = makeStyles({
     backgroundColor: 'var(--color-red-7)',
     '&:hover': {
       backgroundColor: 'var(--color-red-8)',
+    },
+  },
+  asLink: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    textTransform: 'none',
+    textDecoration: 'underline',
+    padding: 0,
+
+    '&:hover': {
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+      textTransform: 'none',
+      textDecoration: 'underline',
+      filter: 'brightness(0.8)',
     },
   },
 });
@@ -26,6 +46,9 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     onClick,
     isCancel,
     size,
+    asLink,
+    transparent,
+    iconButton,
     ...restProps
   } = props;
   const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
@@ -39,11 +62,12 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     type,
     size,
     disabled: loading || disabled,
-    variant: isCancel ? 'text' : 'contained',
+    variant: isCancel || transparent ? 'text' : 'contained',
     color: variantColor,
     classes: {
       root: classNames(className, {
         [classes.dangerStyle]: variant === 'danger',
+        [classes.asLink]: asLink,
       }),
     },
   };
@@ -52,10 +76,18 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
 export const Button: FC<ButtonProps> = (props) => {
   const { children, loading } = props;
   const buttonProps = mapper(props);
+  const { fullWidth, size, ...iconButtonProps } = buttonProps;
+  if (props.iconButton) {
+    return (
+      <MaterialIconButton size={size == 'large' ? 'medium' : size} {...iconButtonProps}>
+        {children}
+      </MaterialIconButton>
+    );
+  }
   return (
     <MaterialButton {...buttonProps}>
       {children}
-      {loading && <Loader />}
+      {loading && <Loader center size={24} />}
     </MaterialButton>
   );
 };

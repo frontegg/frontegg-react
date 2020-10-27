@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { Size, Theme } from '../../styles';
+import { FormFieldProps } from '../../ElementsFactory';
 
-export interface SelectOptionProps<T> {
+export interface SelectOptionProps<T = any> {
   label: string;
   value: T;
 }
@@ -12,11 +13,16 @@ export interface StateProps {
   disabled: boolean;
 }
 
-export interface SelectProps<T = any> {
-  value: T[];
+export interface SelectProps<T = any> extends FormFieldProps {
+  className?: string;
+  name?: string;
+  value?: T[];
   label?: string;
+  error?: string;
+  disabled?: boolean;
+  placeholder?: string;
   fullWidth?: boolean;
-  onChange: (e: Event, newValues: T[]) => void;
+  onChange?: (e: Event, newValues: T[]) => void;
   options: SelectOptionProps<T>[];
   multiselect?: boolean;
   loading?: boolean;
@@ -30,6 +36,5 @@ export interface SelectProps<T = any> {
   noOptionsText?: string;
   loadingText?: string;
 
-  size?: Size;
   theme?: Theme;
 }

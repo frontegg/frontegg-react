@@ -1149,7 +1149,7 @@ export const TableExample: FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', padding: '50px' }}>
       <h4>Material Table</h4>
       <ME.Table
         columns={[
@@ -1173,6 +1173,7 @@ export const TableExample: FC = () => {
           { accessor: 'ip', Header: 'Ip Address', sortable: true },
         ]}
         data={data}
+        totalData={data.length}
         rowKey='frontegg_id'
         pagination='pages'
         pageSize={10}

@@ -354,7 +354,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root.support-dark-mode {
     --color-text-on-primary: var(--color-gray-0);
 
     --color-white: #000;
@@ -638,4 +638,8 @@
     --color-blue-gray-8: #becacf;
     --color-blue-gray-9: #d2dbe0;
   }
+}
+
+.fe-color-danger {
+  color: var(--color-danger) !important;
 }
