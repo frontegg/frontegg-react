@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { Table, TableColumnProps, Tag, useT } from '@frontegg/react-core';
+import { Table, TableColumnProps, useT } from '@frontegg/react-core';
 import { useAuthUserOrNull } from '../hooks';
 import { TeamState } from '../Api/TeamState';
 import {
@@ -9,6 +9,7 @@ import {
   TeamTableJoinedTeam,
   TeamTableLastLogin,
   TeamTableTitleCell,
+  TeamTableRoles,
 } from './TeamTableCells';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
@@ -54,24 +55,7 @@ export const TeamTable: FC = (props) => {
       {
         accessor: 'roleIds',
         Header: t('common.roles') ?? '',
-        Cell: ({
-          value,
-          row: {
-            original: { id },
-          },
-        }) => {
-          const permissions = roleOptions.filter((role) => value.indexOf(role.value) !== -1) || [];
-          return (
-            <>
-              {permissions.map((permission) => (
-                <Tag className='fe-mr-1' key={permission.value}>
-                  {permission.label}
-                </Tag>
-              ))}
-              {loaders.UPDATE_USER === id}
-            </>
-          );
-        },
+        Cell: TeamTableRoles(user?.id, roleOptions),
       },
       {
         accessor: 'createdAt',
