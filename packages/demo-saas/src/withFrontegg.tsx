@@ -25,9 +25,9 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
     plugins={plugins}
     uiLibrary={{
       // ...SemanticLibrary
-      // ...MaterialLibrary,
-      Input: SemanticLibrary.Input,
-      Form: SemanticLibrary.Form,
+      ...MaterialLibrary,
+      // Input: SemanticLibrary.Input,
+      // Form: SemanticLibrary.Form,
       // Dialog: SemanticLibrary.Dialog,
       // Dialog: SemanticLibrary.Dialog,
       // Select: SemanticLibrary.Select,

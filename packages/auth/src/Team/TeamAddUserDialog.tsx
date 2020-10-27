@@ -71,7 +71,7 @@ export const TeamAddUserDialog: FC = (props) => {
 
           <ErrorMessage error={error} />
           <div className='fe-dialog__footer'>
-            <Grid container className='fe-mt-4 fe-mb-2'>
+            <Grid container>
               <Grid xs item>
                 <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
                   {t('common.cancel')}

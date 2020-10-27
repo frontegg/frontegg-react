@@ -29,7 +29,7 @@ export const TeamTableToolbar = () => {
         <Grid item md={4} xs={6}>
           <Input
             size='small'
-            label={t('auth.team.search-users')}
+            placeholder={t('auth.team.search-users')}
             fullWidth
             onChange={(e) => setInputValue(e.target.value)}
           />
