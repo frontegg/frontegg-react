@@ -87,7 +87,9 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
 
 function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamUser>>) {
   const { callback, ...body } = payload;
+  const { id: userId } = body;
   const teamState = yield select((state) => state.auth.teamState);
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: userId || '' }));
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   try {
     const { item: newUser } = yield call(api.teams.updateUser, body);
@@ -97,12 +99,14 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
         users: teamState.users.map((user: ITeamUser) => (user.id === newUser.id ? newUser : user)),
       })
     );
+    yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));
   } catch (e) {
     yield put(
       actions.setTeamState({
         addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
       })
     );
+    yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));
     callback?.(null, e.message);
   }
 }

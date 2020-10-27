@@ -96,11 +96,28 @@ type TRoles = {
 
 export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => (props) => {
   const permissions = roles?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
+  const { id: userId } = props.row.original;
+  const { updateUser } = useAuthTeamActions();
+  const { loading } = useAuthTeamState((state) => ({
+    loading: state.loaders.UPDATE_USER,
+  }));
   const checked = useCallback(
     (role) => {
       return permissions?.some((p) => p.value === role.value);
     },
     [permissions]
+  );
+  const onUpdateUser = useCallback(
+    (role: TRoles) => {
+      const { createdAt, customData, lastLogin, tenantId, vendorId, activatedForTenant, ...data } = props.row.original;
+      updateUser({
+        ...data,
+        roleIds: checked(role)
+          ? [...props.row.original.roleIds.filter((r: string) => r !== role.value)]
+          : [...props.row.original.roleIds, role.value],
+      });
+    },
+    [props.row.original]
   );
 
   return (
@@ -110,15 +127,20 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
           {permission.label}
         </Tag>
       ))}
-
       <Popup
         content={() => (
           <div className='fe-team__roles-dropdown'>
-            {roles?.map((item) => (
-              <Button fullWidth transparent>
+            {roles?.map((role) => (
+              <Button
+                key={role.value}
+                fullWidth
+                transparent
+                disabled={loading === userId}
+                onClick={() => onUpdateUser(role)}
+              >
                 <div>
-                  <Checkbox checked={checked(item)} />
-                  {item.label}
+                  <Checkbox checked={checked(role)} />
+                  {role.label}
                 </div>
               </Button>
             ))}
