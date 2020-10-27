@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useRef, useState } from 'react';
-import { Input, Grid, SwitchToggle, FeTable as Table, TableColumnProps, Button, Icon } from '@frontegg/react-core';
+import { Input, Grid, SwitchToggle, Table, TableColumnProps, Button, Icon } from '@frontegg/react-core';
 import classnames from 'classnames';
 import { fakeDate } from '../../consts';
 import { IIntegrationsData } from '../../types';
@@ -41,13 +41,10 @@ export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, h
           </div>
         ),
       },
-      // @ts-ignore
       { accessor: 'active', Header: 'Active', Cell: ({ value }) => <SwitchToggle value={value} readOnly /> },
-      // @ts-ignore
       { accessor: 'events', Header: 'Event', Cell: ({ value }) => <span className='fe-circle'>{value}</span> },
       {
         accessor: 'actions',
-        // @ts-ignore
         Cell: ({ row }) => (
           <Button
             onClick={(e) => toggleEdit(row.original, e.currentTarget.parentElement?.parentElement?.firstElementChild)}
@@ -83,7 +80,7 @@ export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className, h
           style={edit ? { width: edit.width, flexGrow: 0 } : { flexGrow: 1 }}
           className='fe-integrations-table'
         >
-          <Table rowKey='id' columns={columns} data={data} />
+          <Table rowKey='id' columns={columns} data={data} totalData={fakeDate.length} />
         </Grid>
         {edit && (
           <IntegrationsEditPanel onClose={() => setEdit(null)}>

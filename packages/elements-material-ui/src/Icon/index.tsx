@@ -39,7 +39,6 @@ const iconMap: { [K in IconNames]: any } = {
   'sort-arrows': DeleteRounded,
   'sort-arrows-asc': DeleteRounded,
   'sort-arrows-desc': DeleteRounded,
-  filters: DeleteRounded,
   'more-vert': MoreVert,
   search: Search,
   'person-add': PersonAddRounded,

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import classnames from 'classnames';
 
-import { FeTable as Table, IWebhooksConfigurations, TableColumnProps } from '@frontegg/react-core';
+import { Table, IWebhooksConfigurations, TableColumnProps } from '@frontegg/react-core';
 
 export interface IIntegrationsWebhooksList {
   data: IWebhooksConfigurations[];
@@ -19,5 +19,5 @@ const columns: TableColumnProps<{}>[] = [
 ];
 
 export const IntegrationsWebhooksList: FC<IIntegrationsWebhooksList> = ({ data }) => {
-  return <Table rowKey='_id' data={data} columns={columns} />;
+  return <Table rowKey='_id' data={data} columns={columns} totalData={data.length} />;
 };
