@@ -1,5 +1,5 @@
 import { Logger } from '../../helpers';
-import { INTEGRATIONS_SERVICE_URL_V1 } from '../constants';
+import { INTEGRATIONS_SERVICE_URL_V1, INTEGRATIONS_SERVICE_WEBHOOKS_URL } from '../constants';
 import { Get, Post } from '../fetch';
 import { IEmailConfigurations, ISMSConfigurations, ISubscription } from './interfaces';
 
@@ -33,4 +33,14 @@ export const getSMSConfiguration = () => {
 export const postSMSConfiguration = (data: ISMSConfigurations) => {
   logger.debug('postSMSConfiguration()', data);
   return Post(`${INTEGRATIONS_SERVICE_URL_V1}/sms`, data);
+};
+
+export const getWebhooksConfigurations = () => {
+  logger.debug('getWebhooksConfigurations()');
+  return Get(`${INTEGRATIONS_SERVICE_WEBHOOKS_URL}`);
+};
+
+export const postWebhooksConfiguration = (data: ISMSConfigurations) => {
+  logger.debug('postWebhooksConfiguration()', data);
+  return Post(`${INTEGRATIONS_SERVICE_WEBHOOKS_URL}`, data);
 };

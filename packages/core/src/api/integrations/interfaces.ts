@@ -26,3 +26,20 @@ export interface ISMSConfigurations {
   id: string;
   to: string[];
 }
+
+export interface IWebhooksConfigurations {
+  _id?: string;
+  displayName: string;
+  description: string;
+  eventKeys: { [key: string]: string }[] | string | any;
+  url: string;
+  secret: string;
+  invocations: {
+    count: string;
+    period: string;
+    percents: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+}
