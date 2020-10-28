@@ -27,7 +27,11 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
 
   return (
     <div className='fe-table__tbody' {...getTableBodyProps()}>
-      {!loading ? (
+      {loading && rows.length === 0 ? (
+        <div className='fe-text-align-center'>
+          <FeLoader />
+        </div>
+      ) : (
         rows.map((row) => {
           prepareRow(row);
           return (
@@ -47,10 +51,6 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
             </React.Fragment>
           );
         })
-      ) : (
-        <div className='fe-text-align-center'>
-          <FeLoader />
-        </div>
       )}
     </div>
   );
