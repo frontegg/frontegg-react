@@ -35,7 +35,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
             visible: onBackButtonClick,
           })}
         >
-          <Icon name='left-arrow' />
+          <Icon name='back' />
         </span>
         {title}
         {subTitle && <div className='fe-subtitle'>{subTitle}</div>}

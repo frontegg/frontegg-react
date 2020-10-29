@@ -135,7 +135,7 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
                 key={role.value}
                 fullWidth
                 transparent
-                disabled={loading === userId}
+                disabled={loading === userId || (checked(role) && permissions.length === 1)}
                 onClick={() => onUpdateUser(role)}
               >
                 <div>

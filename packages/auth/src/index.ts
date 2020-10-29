@@ -36,5 +36,8 @@ export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
   reducer,
   sagas,
   Listener: AuthListener,
-  WrapperComponent: options?.injectAuthRoutes ?? true ? AuthRoutes : undefined,
+  WrapperComponent:
+    options?.injectAuthRoutes ?? true
+      ? (props) => React.createElement(AuthRoutes, { ...options, ...props })
+      : undefined,
 });
