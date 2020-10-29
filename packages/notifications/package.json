@@ -1,0 +1,82 @@
+{
+  "name": "@frontegg/react-notifications",
+  "libName": "FronteggNotifications",
+  "version": "1.2.0",
+  "author": "Frontegg LTD",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "es2015": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
+    "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
+  },
+  "peerDependencies": {
+    "@frontegg/react-core": "^1.1.0"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "classnames": "^2.2.6",
+    "clipboard-copy": "^3.1.0",
+    "immer": "^7.0.3",
+    "react": ">16.8.6",
+    "react-is": ">16.8.6",
+    "react-router-dom": "^5.1.2",
+    "redux-saga": "^1.1.3",
+    "underscore": "^1.10.2",
+    "yup": "^0.28.3"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router": "^5.1.2",
+    "@types/react-router-dom": "^5.1.2",
+    "@types/underscore": "^1.10.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "all",
+    "jsxBracketSameLine": true,
+    "endOfLine": "lf",
+    "tabWidth": 2
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/",
+      "dist/"
+    ],
+    "globals": [
+      "describe",
+      "it",
+      "test",
+      "expect",
+      "afterAll",
+      "jest"
+    ]
+  },
+  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
+}
