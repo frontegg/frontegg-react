@@ -27,12 +27,7 @@ export const TeamTableToolbar = () => {
     <div className='fe-team__table-toolbar'>
       <Grid container>
         <Grid item md={4} xs={6}>
-          <Input
-            size='small'
-            label={t('auth.team.search-users')}
-            fullWidth
-            onChange={(e) => setInputValue(e.target.value)}
-          />
+          <Input placeholder={t('auth.team.search-users')} fullWidth onChange={(e) => setInputValue(e.target.value)} />
         </Grid>
         <Grid item md={8} xs={6} className='fe-text-align-end'>
           <Button variant='primary' size='large' onClick={() => openAddUserDialog()}>

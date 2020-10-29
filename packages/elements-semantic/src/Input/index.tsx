@@ -11,7 +11,7 @@ const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
   const data = {
     ...rest,
     fluid: fullWidth,
-    className: classNames('fe-input', className),
+    className: classNames('fe-semantic-input', className),
   } as any;
 
   if (prefixIcon) {

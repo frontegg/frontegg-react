@@ -103,7 +103,7 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
     rows: 4,
     type: type === 'password' && showPassword ? 'text' : type,
     multiline,
-    size: size === 'large' ? 'medium' : size,
+    size: size ? (size === 'large' ? 'medium' : size) : 'small',
     variant: 'outlined',
     color: variant === 'primary' || variant === 'secondary' ? variant : undefined,
     disabled: props.disabled || variant === 'disabled',
