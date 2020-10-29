@@ -12,7 +12,7 @@ import {
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
-import { initialState, reinitializeState } from '../initialState';
+import { WithCallback } from '../interfaces';
 
 function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -53,8 +53,7 @@ function* refreshToken() {
   } catch (e) {
     ContextHolder.setAccessToken(null);
     ContextHolder.setUser(null);
-    yield put(actions.setState(reinitializeState));
-    yield call(refreshMetadata);
+    yield put(actions.setState({ user: undefined, isAuthenticated: false }));
   }
 }
 
@@ -149,7 +148,9 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   }
 }
 
-function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWithMfa>) {
+function* loginWithMfa({
+  payload: { mfaToken, value, callback },
+}: PayloadAction<WithCallback<ILoginWithMfa, boolean>>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
@@ -162,11 +163,13 @@ function* loginWithMfa({ payload: { mfaToken, value } }: PayloadAction<ILoginWit
         isAuthenticated: true,
       })
     );
+    callback?.(true);
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
     }
   } catch (e) {
     yield put(actions.setLoginState({ error: e.message, loading: false }));
+    callback?.(false, e);
   }
 }
 
