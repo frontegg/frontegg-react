@@ -36,6 +36,7 @@ import { FeTablePagination, FeTablePaginationProps } from './FeTablePagination';
 import { FeTableToolbar } from './FeTableToolbar';
 import { FeCheckbox } from '../Checkbox/FeCheckbox';
 import { checkTableProps } from './TableUtils';
+import { FeLoader } from '../Loader/FeLoader';
 
 const prefixCls = 'fe-table';
 export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
@@ -271,6 +272,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         <FeTableTHead {...tableHeadProps} />
         <FeTableTBody loading={props.loading} {...tableBodyProps} />
 
+        {props.loading && rows.length > 0 && <FeLoader center size={24} />}
         {props.pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}
       </div>
     </div>

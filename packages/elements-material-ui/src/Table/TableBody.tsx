@@ -66,7 +66,6 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
           </TableRow>
         )}
       </MTableBody>
-      {loading && rows.length > 0 && <Loader center size={24} />}
     </>
   );
 };

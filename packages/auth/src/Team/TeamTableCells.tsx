@@ -1,4 +1,16 @@
-import { Button, CellComponent, Icon, Loader, Menu, MenuItemProps, TableCells, Tag, useT } from '@frontegg/react-core';
+import {
+  Button,
+  CellComponent,
+  Checkbox,
+  Icon,
+  Loader,
+  Menu,
+  MenuItemProps,
+  Popup,
+  TableCells,
+  Tag,
+  useT,
+} from '@frontegg/react-core';
 import React, { useCallback } from 'react';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
 
@@ -74,5 +86,73 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
         }
       />
     </div>
+  );
+};
+
+type TRoles = {
+  label: string;
+  value: string;
+};
+
+export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => (props) => {
+  const permissions = roles?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
+  const { id: userId } = props.row.original;
+  const { updateUser } = useAuthTeamActions();
+  const { loading } = useAuthTeamState((state) => ({
+    loading: state.loaders.UPDATE_USER,
+  }));
+  const checked = useCallback(
+    (role) => {
+      return permissions?.some((p) => p.value === role.value);
+    },
+    [permissions]
+  );
+  const onUpdateUser = useCallback(
+    (role: TRoles) => {
+      const { createdAt, customData, lastLogin, tenantId, vendorId, activatedForTenant, ...data } = props.row.original;
+      updateUser({
+        ...data,
+        roleIds: checked(role)
+          ? [...props.row.original.roleIds.filter((r: string) => r !== role.value)]
+          : [...props.row.original.roleIds, role.value],
+      });
+    },
+    [props.row.original]
+  );
+
+  return (
+    <>
+      {permissions.map((permission) => (
+        <Tag className='fe-mr-1' key={permission.value}>
+          {permission.label}
+        </Tag>
+      ))}
+      <Popup
+        content={() => (
+          <div className='fe-team__roles-dropdown'>
+            {roles?.map((role) => (
+              <Button
+                key={role.value}
+                fullWidth
+                transparent
+                disabled={loading === userId || (checked(role) && permissions.length === 1)}
+                onClick={() => onUpdateUser(role)}
+              >
+                <div>
+                  <Checkbox checked={checked(role)} />
+                  {role.label}
+                </div>
+              </Button>
+            ))}
+          </div>
+        )}
+        action='click'
+        trigger={
+          <Button iconButton size='small'>
+            <Icon name='down-arrow' />
+          </Button>
+        }
+      />
+    </>
   );
 };

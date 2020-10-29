@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from 'react';
-import { authPageWrapper } from '../components';
 import { Loader, omitProps, RendererFunctionFC } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 

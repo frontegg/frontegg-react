@@ -2,6 +2,7 @@ import React from 'react';
 import { Size } from '../../styles';
 
 export type IconNames =
+  | 'back'
   | 'up-arrow'
   | 'down-arrow'
   | 'left-arrow'

@@ -31,4 +31,14 @@
     font-size: 1rem;
     font-weight: bold;
   }
+
+  &__roles-dropdown {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    div {
+      width: 100%;
+      text-align: left;
+    }
+  }
 }

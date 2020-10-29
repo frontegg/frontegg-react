@@ -16,7 +16,7 @@ export const AuthListener: FC = () => {
       timer.current && clearInterval(timer.current);
       if (isAuthenticated) {
         const ttl = (user?.expiresIn || 20) * 1000 * 0.8;
-        timer.current = setTimeout(() => requestAuthorize(), ttl);
+        timer.current = setInterval(() => requestAuthorize(), ttl);
       }
     }
   };
