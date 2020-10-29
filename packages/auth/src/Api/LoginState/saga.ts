@@ -12,6 +12,7 @@ import {
 } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
+import { initialState, reinitializeState } from '../initialState';
 
 function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -52,7 +53,8 @@ function* refreshToken() {
   } catch (e) {
     ContextHolder.setAccessToken(null);
     ContextHolder.setUser(null);
-    yield put(actions.setState({ user: undefined, isAuthenticated: false }));
+    yield put(actions.setState(reinitializeState));
+    yield call(refreshMetadata);
   }
 }
 

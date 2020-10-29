@@ -86,7 +86,7 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
 }
 
 function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamUser>>) {
-  const { callback, ...body } = payload;
+  const { callback, profileImage, ...body } = payload;
   const { id: userId } = body;
   const teamState = yield select((state) => state.auth.teamState);
   yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: userId || '' }));
