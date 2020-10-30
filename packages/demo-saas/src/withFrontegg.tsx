@@ -16,7 +16,7 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin({})];
+const plugins: PluginConfig[] = [AuthPlugin()];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider
@@ -24,12 +24,10 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
     context={contextOptions}
     plugins={plugins}
     uiLibrary={{
-      // ...SemanticLibrary
-      ...MaterialLibrary,
+      // ...MaterialLibrary,
       // Input: SemanticLibrary.Input,
+      // Dialog: SemanticLibrary.Dialog,
       // Form: SemanticLibrary.Form,
-      // Dialog: SemanticLibrary.Dialog,
-      // Dialog: SemanticLibrary.Dialog,
       // Select: SemanticLibrary.Select,
       // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
       // Tag: fronteggElements.Tag
@@ -39,6 +37,7 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // Loader: fronteggElements.Loader,
       // Button: fronteggElements.Button,
       // ...MaterialLibrary,
+      ...SemanticLibrary,
       // SwitchToggle: SemanticLibrary.SwitchToggle
       // Tabs: SemanticLibrary.Tabs
     }}

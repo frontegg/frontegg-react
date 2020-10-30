@@ -1,0 +1,37 @@
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  overflow: auto;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 0 1em 1em 0;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+  background-color: white;
+
+  .link {
+    display: flex;
+    padding: 1em;
+    background-color: inherit;
+    transition: all 0.2s;
+
+    &-active {
+      background-image: linear-gradient(90deg, #c4aeff, #f6f6f6);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    &:focus {
+      filter: brightness(0.95);
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+
+    &:active {
+      filter: brightness(0.8);
+    }
+  }
+}

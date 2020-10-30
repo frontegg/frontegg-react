@@ -11,6 +11,7 @@ import { PersonAdd } from './svgs/PersonAdd';
 import { VerticalDots } from './svgs/VerticalDots';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
+  back: LeftArrow,
   'up-arrow': UpArrow,
   'down-arrow': DownArrow,
   'right-arrow': RightArrow,

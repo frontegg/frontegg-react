@@ -1,5 +1,26 @@
-.fe-input label {
+.fe-semantic-input label {
   font-weight: normal !important;
   font-size: 0.8em !important;
   display: block;
+}
+
+.fe-semantic-input .fe-label__with-button {
+  position: relative;
+
+  > button.button {
+    padding: 0.25rem;
+    background: transparent !important;
+
+    float: right;
+    position: absolute;
+    margin-right: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 0.85rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

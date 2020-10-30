@@ -2,6 +2,7 @@ import { LoginState, LoginStep } from './interfaces';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
 import { ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/react-core';
+import { WithCallback } from '../interfaces';
 
 export * from './interfaces';
 
@@ -21,7 +22,9 @@ export const loginActions = {
   preLogin: createAction(`${storeName}/preLogin`, (payload: IPreLogin) => ({ payload })),
   postLogin: createAction(`${storeName}/postLogin`, (payload: IPostLogin) => ({ payload })),
   login: createAction(`${storeName}/login`, (payload: ILogin) => ({ payload })),
-  loginWithMfa: createAction(`${storeName}/loginWithMfa`, (payload: ILoginWithMfa) => ({ payload })),
+  loginWithMfa: createAction(`${storeName}/loginWithMfa`, (payload: WithCallback<ILoginWithMfa, boolean>) => ({
+    payload,
+  })),
   recoverMfa: createAction(`${storeName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
   logout: createAction(`${storeName}/logout`, (payload: any) => ({ payload })),
 };
