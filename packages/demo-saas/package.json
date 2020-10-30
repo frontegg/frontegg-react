@@ -13,6 +13,7 @@
   "dependencies": {
     "@frontegg/react": "^0.3.11",
     "@frontegg/react-auth": "^1.2.0",
+    "@frontegg/react-notifications": "^1.2.0",
     "@frontegg/react-core": "^1.2.0",
     "@frontegg/react-elements-material-ui": "^1.2.0",
     "@frontegg/react-elements-semantic": "^1.2.0",

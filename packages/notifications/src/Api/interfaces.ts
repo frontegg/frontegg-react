@@ -1,23 +1,14 @@
 // import { LoaderIndicatorState } from '../interfaces';
-import { IMessages, IMessage } from '@frontegg/react-core';
-
-export enum NotificationsStateKeys {
-  MESSAGES = 'MESSAGES',
-}
-
-export type NotificationsStateIndicator = {
-  key: NotificationsStateKeys;
-  value: string | boolean;
-};
+import { IMessages, IMessage, INotificationMetadata } from '@frontegg/react-core';
 
 export interface NotificationsState {
-  loading: boolean;
-  error: string;
+  loading?: boolean;
+  error?: string;
   messages: IMessages;
   messagesToMarkAsRead: Array<IMessage>;
   switchValue: boolean;
   windowValue: boolean;
   viewAllValue: boolean;
   pollingFrequency: number;
-  // metadata?: NotificationsMetadata;
+  metadata?: INotificationMetadata;
 }

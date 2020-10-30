@@ -1,15 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { NotificationsState, NotificationsStateIndicator } from './interfaces';
 import { IUpdateNotificationStatus, IUpdateNotificationIsPinned } from '@frontegg/react-core';
-import { errorReducer, loadingReducer, resetNotificationsState, storeName, typeReducer } from './utils';
-import { notificationsState } from './initialState';
-
-export const notificationsStateReducers = {
-  setNotificationsLoader: loadingReducer,
-  setNotificationsError: errorReducer,
-  setNotificationsState: typeReducer,
-  resetNotificationsState: resetNotificationsState(notificationsState),
-};
+import { storeName } from './utils';
 
 export const notificationsActions = {
   loadMessages: createAction(`${storeName}/loadMessages`, (offset: number) => ({ payload: offset })),

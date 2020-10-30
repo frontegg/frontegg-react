@@ -9,8 +9,9 @@ import './index.scss';
 
 export * from './Api';
 export * from './hooks';
+export { Notifications } from './components/Notifications';
 
-export const AuthPlugin = (options?: NotificationsPluginOptions): PluginConfig => ({
+export const NotificationsPlugin = (options?: NotificationsPluginOptions): PluginConfig => ({
   storeName,
   preloadedState: {
     ...initialState,

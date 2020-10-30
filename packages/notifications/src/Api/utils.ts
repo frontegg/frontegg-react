@@ -2,9 +2,11 @@ import { NotificationsState } from './interfaces';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export const storeName = 'notifications';
-export const resetNotificationsState = (initialState: Partial<NotificationsState>) => ({
-  ...initialState,
-});
+export const resetNotificationsState = (initialState: NotificationsState) => {
+  return {
+    ...initialState,
+  };
+};
 
 export const typeReducer = {
   prepare: (payload: Partial<NotificationsState>) => ({ payload }),
@@ -23,6 +25,7 @@ export const loadingReducer = {
     loading: payload,
   }),
 };
+
 export const errorReducer = {
   prepare: (payload: string) => ({ payload }),
   reducer: (state: NotificationsState, { payload }: PayloadAction<string>): NotificationsState => ({

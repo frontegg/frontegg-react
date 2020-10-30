@@ -1,8 +1,6 @@
-// import { subSagaExampleSagas } from './SubState/saga';
 import { all, call } from 'redux-saga/effects';
+import { notificationsSagas } from './sagas';
 
 export function* sagas() {
-  yield all([
-    // call(subSagaExampleSagas),
-  ]);
+  yield all([call(notificationsSagas)]);
 }

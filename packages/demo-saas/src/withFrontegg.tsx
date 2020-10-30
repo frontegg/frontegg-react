@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { ContextOptions, fronteggElements, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
-
+import { NotificationsPlugin } from '@frontegg/react-notifications';
 import { uiLibrary as SemanticLibrary } from '@frontegg/react-elements-semantic';
 import { uiLibrary as MaterialLibrary } from '@frontegg/react-elements-material-ui';
 
@@ -16,7 +16,7 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin()];
+const plugins: PluginConfig[] = [AuthPlugin(), NotificationsPlugin()];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider
@@ -36,8 +36,8 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // Dialog: MaterialLibrary.Dialog,
       // Loader: fronteggElements.Loader,
       // Button: fronteggElements.Button,
-      // ...MaterialLibrary,
-      ...SemanticLibrary,
+      ...MaterialLibrary,
+      // ...SemanticLibrary,
       // SwitchToggle: SemanticLibrary.SwitchToggle
       // Tabs: SemanticLibrary.Tabs
     }}

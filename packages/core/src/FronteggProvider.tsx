@@ -10,6 +10,7 @@ import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom
 import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
+import { all, call } from 'redux-saga/effects';
 
 const isSSR = typeof window === 'undefined';
 
@@ -58,6 +59,7 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   }, [props.plugins]);
 
   const children = useMemo(() => {
+    console.log('compute the plugin wrappers');
     let combinedWrapper: any = props.children;
     const wrappers = props.plugins.filter((p) => p.WrapperComponent).map((p) => p.WrapperComponent!);
     wrappers.forEach((Wrapper) => (combinedWrapper = <Wrapper>{combinedWrapper}</Wrapper>));
@@ -105,9 +107,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
   function* rootSaga() {
-    for (const plugin of props.plugins) {
-      yield plugin.sagas();
-    }
+    yield all(props.plugins.map(({ sagas }) => call(sagas)));
   }
 
   /* memorize redux store */

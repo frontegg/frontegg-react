@@ -1,24 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NotificationsState } from './interfaces';
-import { storeName, typeReducer } from './utils';
-import { notificationsState } from './initialState';
-// import { subStateActions, subStateReducers } from './LoginState';
+import { errorReducer, loadingReducer, resetNotificationsState, storeName } from './utils';
+import { initialState } from './initialState';
+import { notificationsActions } from './actions';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
-  initialState: notificationsState,
+  initialState,
   reducers: {
     setState: (state: NotificationsState, { payload }: PayloadAction<Partial<NotificationsState>>) => ({
       ...state,
       ...payload,
     }),
-
-    // ...subStateReducers,
+    setNotificationsLoader: loadingReducer,
+    setNotificationsError: errorReducer,
+    resetNotificationsState: () => resetNotificationsState(initialState),
   },
 });
 
 const actions = {
-  // ...subStateActions,
+  ...sliceActions,
+  ...notificationsActions,
 };
 
 export type NotificationsActions = typeof actions;

@@ -1,0 +1,107 @@
+.fe-notifications {
+  &-window {
+    width: 380px;
+    &-items-container {
+      max-height: 550px;
+      overflow-y: auto;
+      margin: 0 -16px -16px -16px;
+      padding: 0 16px;
+    }
+    &-header {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      padding-bottom: 20px;
+      height: 32px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: -4px;
+      &__border {
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        margin: 0 -16px;
+        padding: 0;
+        border-bottom: 1px solid #dcdde1;
+      }
+      &__title {
+        color: #3c4a5a;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      &__counter {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    &-footer {
+      padding: 1rem 0;
+      &__button {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &-item {
+    position: relative;
+    padding: 16px;
+    margin-top: 10px;
+    min-height: 106px;
+    width: 348px;
+    border-radius: 3px;
+    background-color: #f9fafc;
+    &__main {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    &__icon {
+      width: 40px;
+      height: 40px;
+      background-color: lightsalmon;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    &__title {
+      color: #3c4a5a;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    &__desc {
+      color: #3c4a5a;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    &__time {
+      font-size: 12px;
+      color: #969cc2;
+    }
+    &__options-icon {
+      position: absolute;
+      right: 5px;
+      top: 10px;
+    }
+    &-options {
+      width: 196px;
+      height: 144px;
+      margin: -16px;
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      &__option {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        svg {
+          margin: 0 18px;
+        }
+        &:hover {
+          cursor: pointer;
+          background-color: #f0f2f6;
+        }
+      }
+    }
+  }
+}

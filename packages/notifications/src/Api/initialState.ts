@@ -1,8 +1,8 @@
 import { NotificationsState } from './interfaces';
 
-export const notificationsState: NotificationsState = {
-  // loaders: {},
-  // errors: {},
+export const initialState: NotificationsState = {
+  loading: false,
+  error: undefined,
   messages: {
     data: [],
     current: 0,
