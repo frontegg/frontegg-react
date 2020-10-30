@@ -40,8 +40,7 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // ...SemanticLibrary,
       // SwitchToggle: SemanticLibrary.SwitchToggle
       // Tabs: SemanticLibrary.Tabs
-    }}
-  >
+    }}>
     <Component />
   </FronteggProvider>
 );
