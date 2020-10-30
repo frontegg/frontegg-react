@@ -5,6 +5,7 @@ import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import classNames from 'classnames';
 
 const iconMap: { [K in IconNames]: SemanticICONS } = {
+  back: 'angle left',
   'up-arrow': 'angle up',
   'down-arrow': 'angle down',
   'left-arrow': 'angle left',

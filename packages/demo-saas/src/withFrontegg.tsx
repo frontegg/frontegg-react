@@ -17,7 +17,7 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin({}), IntegrationsPlugin()];
+const plugins: PluginConfig[] = [AuthPlugin(), IntegrationsPlugin()];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider
@@ -37,7 +37,8 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // Dialog: MaterialLibrary.Dialog,
       // Loader: fronteggElements.Loader,
       // Button: fronteggElements.Button,
-      ...MaterialLibrary,
+      // ...MaterialLibrary,
+      ...SemanticLibrary,
       // SwitchToggle: SemanticLibrary.SwitchToggle
       // Tabs: SemanticLibrary.Tabs
     }}

@@ -34,6 +34,7 @@ import {
 } from 'react-table';
 import { TableHead } from './TableHead';
 import { TableBody } from './TableBody';
+import { Loader } from '../Loader';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { TablePaginationActions } from './TablePaginationActions';
@@ -313,6 +314,8 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           renderExpandedComponent={props.renderExpandedComponent}
         />
       </MaUTable>
+
+      {props.loading && rows.length > 0 && <Loader center size={24} />}
       {props.pagination === 'pages' && (
         <TablePagination
           className={classes.footer}

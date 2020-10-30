@@ -38,7 +38,9 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
       validationSchema={validateSchema({
         code: validateTwoFactorCode(t),
       })}
-      onSubmit={async ({ code }) => loginWithMfa({ mfaToken: mfaToken || '', value: code })}
+      onSubmit={async ({ code }, { setSubmitting }) =>
+        loginWithMfa({ mfaToken: mfaToken || '', value: code, callback: () => setSubmitting(false) })
+      }
     >
       <FForm>
         <FInput aria-autocomplete={'none'} label={t('auth.login.please-enter-the-6-digit-code')} name='code' />

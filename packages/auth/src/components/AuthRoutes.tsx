@@ -39,7 +39,6 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
     loaderComponent: defaultLoaderComponent,
   };
 
-  console.log('AuthRoutes.render');
   const samlCallbackPath = useMemo(() => {
     const acsUrl = routes.samlCallbackUrl ?? ssoACS;
     if (!isLoading && acsUrl) {
