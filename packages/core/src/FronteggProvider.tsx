@@ -9,6 +9,7 @@ import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { ProxyComponent } from './ngSupport';
 
 const isSSR = typeof window === 'undefined';
 
@@ -21,19 +22,12 @@ export interface PluginConfig {
   WrapperComponent?: React.ComponentType<any>;
 }
 
-export interface FeProviderProps {
+export interface FeProviderProps extends ProxyComponent {
   context: ContextOptions;
   plugins: PluginConfig[];
   uiLibrary?: Partial<Elements>;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
-
-  // deprecated: FronteggProvider will detect if wrapped by ReactRouter, it not will wrap it self with BrowserRouter
-  withRouter?: boolean;
-
-  // internal use
-  _history?: any;
-  _resolvePortals?: (setPortals: any) => void;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -143,7 +137,6 @@ const FeState: FC<FeProviderProps> = (props) => {
 };
 
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
-  console.log('FronteggProvider.render');
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
 
