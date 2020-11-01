@@ -1,5 +1,5 @@
+/* tslint:disable:no-console */
 import { Get, Post, Put, Delete } from '../fetch';
-import Logger from '../../helpers/Logger';
 import {
   TEAMS_ROLES_SERVICE_URL_V1,
   TEAMS_STATS_SERVICE_URL_V1,
@@ -22,8 +22,6 @@ import {
 } from './interfaces';
 import { PaginationResult } from '../interfaces';
 
-const logger = Logger.from('TeamsApi');
-
 /*****************************************
  * Profile Api
  *****************************************/
@@ -35,7 +33,7 @@ const logger = Logger.from('TeamsApi');
  * ``authorized user``
  */
 export async function getProfile(params?: object): Promise<IUserProfile> {
-  logger.debug('getProfile()');
+  console.debug('getProfile()');
   return Get(`${USERS_SERVICE_URL_V2}/me`, params ?? { addRoles: true });
 }
 
@@ -44,7 +42,7 @@ export async function getProfile(params?: object): Promise<IUserProfile> {
  * ``authorized user``
  */
 export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUserProfile> {
-  logger.debug('updateProfile()', body);
+  console.debug('updateProfile()', body);
   return Put(`${USERS_SERVICE_URL_V2}/me`, body);
 }
 
@@ -55,7 +53,7 @@ export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUse
  * ``authorized user``
  */
 export async function changePassword(body: IChangePassword): Promise<void> {
-  logger.debug('changePassword()');
+  console.debug('changePassword()');
   return Post(`${USERS_SERVICE_URL_V1}/passwords/change`, body);
 }
 
@@ -68,7 +66,7 @@ export async function changePassword(body: IChangePassword): Promise<void> {
  * ``authorized user``
  */
 export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<ITeamUser>> {
-  logger.debug('loadUsers()', params);
+  console.debug('loadUsers()', params);
 
   const filters = (params.filter || []).reduce((p, n) => ({ ...p, [n.id]: n.value }), {});
   const sorts = params.sort?.length
@@ -91,7 +89,7 @@ export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<IT
  * ``authorized user``
  */
 export async function addUser(body: IAddUser): Promise<ITeamUser> {
-  logger.debug('addUser()', body);
+  console.debug('addUser()', body);
   return Post(TEAMS_USERS_SERVICE_URL_V1, body);
 }
 
@@ -101,7 +99,7 @@ export async function addUser(body: IAddUser): Promise<ITeamUser> {
  * ``authorized user``
  */
 export async function deleteUser(body: IDeleteUser): Promise<ITeamUser> {
-  logger.debug('deleteUser()', body);
+  console.debug('deleteUser()', body);
   return Delete(`${TEAMS_USERS_SERVICE_URL_V1}/${body.userId}`);
 }
 
@@ -111,7 +109,7 @@ export async function deleteUser(body: IDeleteUser): Promise<ITeamUser> {
  * ``authorized user``
  */
 export async function updateUser(body: IUpdateUser): Promise<ITeamUser> {
-  logger.debug('editUser()', body);
+  console.debug('editUser()', body);
   return Put(TEAMS_USERS_SERVICE_URL_V1, body);
 }
 
@@ -121,7 +119,7 @@ export async function updateUser(body: IUpdateUser): Promise<ITeamUser> {
  * ``authorized user``
  */
 export async function loadAvailableRoles(): Promise<ITeamUserRole[]> {
-  logger.debug('loadAvailableRoles()');
+  console.debug('loadAvailableRoles()');
   return Get(TEAMS_ROLES_SERVICE_URL_V1);
 }
 
@@ -131,7 +129,7 @@ export async function loadAvailableRoles(): Promise<ITeamUserRole[]> {
  * ``authorized user``
  */
 export async function loadStats(): Promise<ITeamStats> {
-  logger.debug('loadStats()');
+  console.debug('loadStats()');
   return Get(TEAMS_STATS_SERVICE_URL_V1);
 }
 
@@ -141,6 +139,6 @@ export async function loadStats(): Promise<ITeamStats> {
  * ``authorized user``
  */
 export async function resendActivationLink(body: IResendActivationLink): Promise<void> {
-  logger.debug('resendActivationLink()', body);
+  console.debug('resendActivationLink()', body);
   return Post(`${TEAMS_USERS_SERVICE_URL_V1}/${body.userId}/resendActivationEmail`, {});
 }

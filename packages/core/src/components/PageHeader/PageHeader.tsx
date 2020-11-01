@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, ReactNode } from 'react';
+import React, { FC, ReactElement, ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import { Tabs, TabProps } from '../../elements/Tabs';
 import { Icon } from '../../elements/Icon';
@@ -24,25 +24,27 @@ export const PageHeader: FC<PageHeaderProps> = ({
   childClassName,
   tabs,
   centerChildren,
-}) => (
-  <div className={classNames('fe-page-header', className, { 'fe-page-header__with-tabs': tabs })}>
-    <div className='fe-left'>
-      <div className={classNames(titleClassName, 'fe-title', { 'fe-title__back-button': onBackButtonClick })}>
-        <span
-          onClick={onBackButtonClick}
-          className={classNames('fe-back-button', {
-            'mt-2': subTitle,
-            visible: onBackButtonClick,
-          })}
-        >
-          <Icon name='back' />
-        </span>
-        {title}
-        {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
+}) => {
+  return (
+    <div className={classNames('fe-page-header', className, { 'fe-page-header__with-tabs': tabs })}>
+      <div className='fe-left'>
+        <div className={classNames(titleClassName, 'fe-title', { 'fe-title__back-button': onBackButtonClick })}>
+          <span
+            onClick={onBackButtonClick}
+            className={classNames('fe-back-button', {
+              'mt-2': subTitle,
+              visible: onBackButtonClick,
+            })}
+          >
+            <Icon name='back' />
+          </span>
+          {title}
+          {subTitle && <div className='fe-subtitle'>{subTitle}</div>}
+        </div>
+        {tabs && <Tabs {...tabs} />}
       </div>
-      {tabs && <Tabs {...tabs} />}
+      {centerChildren}
+      {children && <div className={classNames('fe-right', childClassName)}>{children}</div>}
     </div>
-    {centerChildren}
-    {children && <div className={classNames('fe-right', childClassName)}>{children}</div>}
-  </div>
-);
+  );
+};

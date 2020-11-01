@@ -1,7 +1,7 @@
 import React, { ComponentType, FC, useMemo, useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 import { Tabs } from '../../elements/Tabs';
-import { ContextHolder } from '../../api';
+import { ContextHolder } from '@frontegg/rest-api';
 
 export type PageTabProps = {
   Title: ComponentType;

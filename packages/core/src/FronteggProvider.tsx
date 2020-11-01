@@ -7,16 +7,10 @@ import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
-import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
-import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
+import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 const isSSR = typeof window === 'undefined';
-
-export type RedirectOptions = {
-  refresh?: boolean;
-  replace?: boolean;
-};
 
 export interface PluginConfig {
   storeName: string;
@@ -47,7 +41,6 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
-  console.log('FePlugins.render');
   const [rcPortals, setRcPortals] = useState([]);
   props._resolvePortals?.(setRcPortals);
   const listeners = useMemo(() => {
@@ -67,15 +60,7 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      <OldFronteggProvider
-        contextOptions={{
-          ...(props.context as any),
-          tokenResolver: () => ContextHolder.getAccessToken() || '',
-        }}
-        plugins={[{ type: 'reports' }]}
-      >
-        {children}
-      </OldFronteggProvider>
+      {children}
       {rcPortals}
     </>
   );
