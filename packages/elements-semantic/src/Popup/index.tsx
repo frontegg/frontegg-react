@@ -2,14 +2,6 @@ import React, { forwardRef } from 'react';
 import { PopupProps } from '@frontegg/react-core';
 import { PopupProps as SemanticPopupProps, Popup as SemanticPopup } from 'semantic-ui-react';
 
-const positions: any = {
-  t: 'top',
-  b: 'bottom',
-  l: 'left',
-  r: 'right',
-  c: 'center',
-};
-
 const mapper = ({
   action,
   position: { vertical, horizontal } = {
@@ -25,7 +17,7 @@ const mapper = ({
   } else if (horizontal === 'center') {
     position = `${vertical} center`;
   } else {
-    position = `${vertical}  ${horizontal}`;
+    position = `${vertical} ${horizontal}`;
   }
 
   return {
