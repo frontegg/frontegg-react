@@ -58,9 +58,22 @@ export const TeamAddUserDialog: FC = (props) => {
         }}
       >
         <FForm>
-          <FInput label={t('common.name')} name='name' disabled={loading} placeholder={t('common.enter-name')} />
-          <FInput label={t('common.email')} name='email' disabled={loading} placeholder={t('common.enter-email')} />
+          <FInput
+            label={t('common.name')}
+            size='large'
+            name='name'
+            disabled={loading}
+            placeholder={t('common.enter-name')}
+          />
+          <FInput
+            label={t('common.email')}
+            size='large'
+            name='email'
+            disabled={loading}
+            placeholder={t('common.enter-email')}
+          />
           <FSelect
+            size='large'
             label={t('common.roles')}
             multiselect
             name='roles'

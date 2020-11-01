@@ -1,4 +1,4 @@
-import { IUserProfile } from '../teams/interfaces';
+import { IUserProfile } from '..';
 
 export type IPreLogin = { email: string };
 export type IPostLogin = {
