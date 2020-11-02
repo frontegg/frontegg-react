@@ -7,6 +7,7 @@ import {
   DialogContent,
 } from '@material-ui/core';
 import './style.scss';
+import classNames from 'classnames';
 
 const mapSize: any = {
   mini: 'xs',
@@ -18,7 +19,7 @@ const mapSize: any = {
 const dialogPropsMapper = (props: DialogProps): MaterialDialogProps => ({
   open: props.open ?? false,
   onClose: props.onClose,
-  className: props.className,
+  className: classNames('fe-material-dialog', props.className),
   maxWidth: props.size ? mapSize[props.size] : 'md',
   fullScreen: props.size === 'fullscreen',
   fullWidth: true,

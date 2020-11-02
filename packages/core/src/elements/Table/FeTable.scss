@@ -10,7 +10,7 @@
   --fe-table-row-divider-width: 1px;
   --fe-table-row-divider-color: var(--color-gray-2);
 
-  --fe-table-cell-padding: var(--fe-table-header-padding);
+  --fe-table-cell-padding: 1rem;
   --fe-table-cell-height: 3.5rem;
   --fe-table-cell-font-size: 0.85rem;
   --fe-table-cell-font-color: var(--color-blue-gray-8);
@@ -133,6 +133,7 @@
     font-weight: bold;
     display: flex;
     align-items: center;
+    min-height: 5rem;
   }
 
   &__expand-button.fe-button {

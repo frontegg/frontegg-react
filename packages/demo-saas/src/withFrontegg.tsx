@@ -12,7 +12,8 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: `${window.location.protocol}//${host}`,
+  // baseUrl: `${window.location.protocol}//${host}`,
+  baseUrl: `https://ae758879005f.ngrok.io`,
   requestCredentials: 'include',
 };
 
@@ -40,7 +41,8 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
       // ...SemanticLibrary,
       // SwitchToggle: SemanticLibrary.SwitchToggle
       // Tabs: SemanticLibrary.Tabs
-    }}>
+    }}
+  >
     <Component />
   </FronteggProvider>
 );

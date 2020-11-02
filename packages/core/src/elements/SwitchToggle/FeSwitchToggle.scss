@@ -4,7 +4,7 @@
   width: 3rem;
   height: 1.4375rem;
   border-radius: 16px;
-  border: solid 1px #dcdde1;
+  border: solid 1px var(--element-border-color);
 }
 
 .fe-switch input {
@@ -32,7 +32,7 @@
   height: 1.4375rem;
   width: 1.4375rem;
   border-radius: 50%;
-  border: solid 1px var(--color-gray-4);
+  border: solid 1px var(--element-border-color);
   left: -1px;
   bottom: -1px;
   background-color: white;
@@ -42,11 +42,11 @@
 }
 
 input:checked + .fe-slider {
-  background-color: var(--color-yellow-7);
+  background-color: var(--color-primary);
 }
 
 input:focus + .fe-slider {
-  box-shadow: 0 0 1px (--color-yellow-7);
+  box-shadow: 0 0 1px var(--color-primary);
 }
 
 input:checked + .fe-slider:before {
@@ -57,7 +57,7 @@ input:checked + .fe-slider:before {
   &__with_labels {
     font-size: 0.9rem;
     text-transform: uppercase;
-    color: #99a6b9;
+    color: var(--color-text-disabled);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,13 +70,13 @@ input:checked + .fe-slider:before {
     user-select: none;
 
     &:hover {
-      color: black;
+      color: var(--color-text);
     }
   }
 
   &__active-left .fe-switch-toggle__label:first-child,
   &__active-right .fe-switch-toggle__label:last-child {
-    color: black;
+    color: var(--color-text);
     font-weight: bold;
   }
 

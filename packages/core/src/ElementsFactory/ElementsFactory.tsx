@@ -18,6 +18,7 @@ import { FeTable } from '../elements/Table/FeTable';
 import { FeForm } from '../elements/Form/FeForm';
 import { FeTabs } from '../elements/Tabs/FeTabs';
 import { FeMenu } from '../elements/Menu/FeMenu';
+import { FeDialog } from '../elements/Dialog/FeDialog';
 
 export const fronteggElements: Partial<Elements> = {
   Accordion: FeAccordion,
@@ -37,6 +38,7 @@ export const fronteggElements: Partial<Elements> = {
   Form: FeForm,
   Tabs: FeTabs,
   Menu: FeMenu,
+  Dialog: FeDialog,
 };
 
 export class ElementsFactory {

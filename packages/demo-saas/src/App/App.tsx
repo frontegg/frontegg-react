@@ -12,6 +12,7 @@ import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { NotificationsExample } from '../notifications-example';
+import { DialogExample } from '../DialogExample';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -77,6 +78,7 @@ class App extends React.Component<any> {
           <Route exact path='/table' component={TableExample} />
           <Route exact path='/select' component={SelectorExample} />
           <Route exact path='/grids' component={GridExamples} />
+          <Route exact path='/dialog' component={DialogExample} />
         </Switch>
       </div>
     );

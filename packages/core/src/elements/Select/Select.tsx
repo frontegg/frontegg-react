@@ -13,6 +13,7 @@ export const FSelect = (props: SelectProps & { name: string }) => {
   return (
     <Select
       {...props}
+      inForm
       name={name}
       value={inputProps.value}
       disabled={isSubmitting || props.disabled}
