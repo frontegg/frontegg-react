@@ -244,13 +244,10 @@ export default {
       headerTitle: 'Integrations',
       headerSubTitle: 'Connect your own APIs to important event notifications',
       events: 'Events',
-      email: {
-        from: 'From',
-        to: 'To',
-      },
-      sms: {
-        to: 'To',
-      },
+      sms: 'SMS',
+      email: 'Email',
+      slack: 'Slack',
+      webhooks: 'Webhooks',
     },
   },
 };
