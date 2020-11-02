@@ -22,7 +22,7 @@
       font-size: var(--element-font-size);
     }
   }
-  & > div {
+  & > div:not(.fe-loader) {
     min-height: auto;
     height: auto;
     margin-bottom: 3rem;
