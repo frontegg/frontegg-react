@@ -1,5 +1,5 @@
 import { Button, Grid, useT } from '@frontegg/react-core';
-import React, { CSSProperties, FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { CSSProperties, FC, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { IIntegrationsComponent } from '../interfaces';
 
 export interface IIntegrationsPanel extends IIntegrationsComponent {
@@ -11,9 +11,7 @@ export const IntegrationsPanel: FC<IIntegrationsPanel> = ({ children, show, onCl
   const divRef = useRef<HTMLDivElement>(null);
   const [style, setStyle] = useState<CSSProperties | undefined>();
 
-  // TODO need set here the resize event listener
-
-  useEffect(() => {
+  const countPosition = useCallback(() => {
     if (show && divRef.current) {
       const { top } = divRef.current.parentElement?.getBoundingClientRect() ?? { top: 0 };
       const { left, width } = document
@@ -22,8 +20,19 @@ export const IntegrationsPanel: FC<IIntegrationsPanel> = ({ children, show, onCl
         left: 0,
         width: 0,
       };
-      setStyle({ ...style, top: top + window.scrollX, left: left + width + window.scrollY });
+      setStyle({ ...style, top: top + window.scrollX, left: left + width });
     }
+  }, [style]);
+
+  useEffect(() => {
+    ['resize', 'scroll'].forEach((e) => window.addEventListener(e, countPosition));
+    () => {
+      return ['resize', 'scroll'].forEach((e) => window.removeEventListener(e, countPosition));
+    };
+  }, []);
+
+  useEffect(() => {
+    countPosition();
   }, [divRef, setStyle, show]);
 
   return show ? (
