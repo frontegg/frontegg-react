@@ -162,3 +162,6 @@ commit:
 
 pretty:
 	@yarn prettier-hook
+
+demo:
+	cd ./packages/demo-saas && yarn start
