@@ -110,10 +110,9 @@ const sendRequest = async (opts: RequestOptions) => {
   if (!response.ok) {
     let errorMessage;
     try {
-      errorMessage = await response.json();
-    } catch (e) {
       errorMessage = await response.text();
-    }
+      errorMessage = JSON.parse(errorMessage);
+    } catch (e) {}
     if (errorMessage.errors) {
       errorMessage = errorMessage.errors.join(', ');
     } else if (typeof errorMessage !== 'string') {
