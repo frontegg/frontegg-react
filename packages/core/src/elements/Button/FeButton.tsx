@@ -8,7 +8,7 @@ import './FeButton.scss';
 const prefixCls = 'fe-button';
 export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const { className, children, variant, size, loading, iconButton, fullWidth, ...restProps } = props;
-  const { isCancel, inForm, asLink, ...propsWithoutJunk } = restProps;
+  const { isCancel, inForm, asLink, transparent, ...propsWithoutJunk } = restProps;
 
   const disabled = props.disabled || loading;
 
@@ -23,7 +23,11 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
   });
 
   return (
-    <button ref={ref} className={classNames(classes, { ['fe-icon-button']: iconButton })} {...propsWithoutJunk}>
+    <button
+      ref={ref}
+      className={classNames(classes, { ['fe-icon-button']: iconButton, ['fe-button-transparent']: transparent })}
+      {...propsWithoutJunk}
+    >
       {children}
       {loading && <FeLoader />}
     </button>
