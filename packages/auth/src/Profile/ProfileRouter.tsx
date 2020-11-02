@@ -1,4 +1,4 @@
-import React, { Children, FC } from 'react';
+import React, { FC } from 'react';
 import { BasePageProps } from '../interfaces';
 import { reloadProfileIfNeeded } from './helpers';
 import {
