@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IDisableMfa, IVerifyMfa } from '@frontegg/react-core';
+import { IDisableMfa, IVerifyMfa } from '@frontegg/rest-api';
 import { MFAState, MFAStep } from './interfaces';
-import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
+import { storeName, typeReducerForKey } from '../utils';
 
 export * from './interfaces';
 

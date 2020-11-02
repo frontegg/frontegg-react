@@ -1,4 +1,4 @@
-import { ITeamUserRole, ITeamUser, TableSort, TableFilter } from '@frontegg/react-core';
+import { ITeamUserRole, ITeamUser, QuerySort, QueryFilter } from '@frontegg/rest-api';
 import { LoaderIndicatorState } from '../interfaces';
 
 export enum TeamStateKeys {
@@ -42,8 +42,8 @@ export interface TeamState {
   totalPages: number;
   roles: ITeamUserRole[];
 
-  filter: TableFilter[];
-  sort: TableSort[];
+  filter: QueryFilter[];
+  sort: QuerySort[];
 
   // users stats
   totalItems?: number;

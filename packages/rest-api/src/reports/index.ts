@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 import {
   IDownloadReport,
   IGetReport,
@@ -8,12 +9,8 @@ import {
   IScheduleReport,
   ISendReport,
 } from './interfaces';
-import { ContextHolder } from '../ContextHolder';
-import Logger from '../../helpers/Logger';
 import { Get, Post } from '../fetch';
 import { REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1, REPORTS_SERVICE_URL_V2 } from '../constants';
-
-const logger = Logger.from('ReportsApi');
 
 /**
  * Get all active tenant reports from reports service by active vendor.
@@ -22,7 +19,7 @@ const logger = Logger.from('ReportsApi');
  * @returns list of reports objects
  */
 async function getReports(body: IGetReports): Promise<IReportRecord[]> {
-  logger.debug('getReports()', body);
+  console.debug('getReports()', body);
   return Get(`${REPORTS_SERVICE_URL_V2}/tenant-reports`, body);
 }
 
@@ -33,7 +30,7 @@ async function getReports(body: IGetReports): Promise<IReportRecord[]> {
  * @throws exception if report not found.
  */
 async function getReport(body: IGetReport): Promise<IReportRecord> {
-  logger.debug('getReport()', body);
+  console.debug('getReport()', body);
   return Get(`${REPORTS_SERVICE_URL_V2}/${body.id}/tenant-reports`);
 }
 
@@ -45,7 +42,7 @@ async function getReport(body: IGetReport): Promise<IReportRecord> {
  * @throws exception if report not found or the data api unreached.
  */
 async function renderReport({ dataFilters, ...body }: IRenderReport): Promise<IRenderReportResponse> {
-  logger.debug('renderReport()', body);
+  console.debug('renderReport()', body);
   const html = await Get(
     `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`,
     {
@@ -65,7 +62,7 @@ async function renderReport({ dataFilters, ...body }: IRenderReport): Promise<IR
  * @throws exception if report not found or the data api unreached.
  */
 async function scheduleReport({ templateId, dataFilters, ...body }: IScheduleReport): Promise<IReportRecord> {
-  logger.debug('scheduleReport()', body);
+  console.debug('scheduleReport()', body);
   return Post(`${REPORTS_SERVICE_URL_V2}/${templateId}/tenant-reports`, {
     ...body,
     dataFilters: btoa(JSON.stringify(dataFilters || {})),
@@ -80,7 +77,7 @@ async function scheduleReport({ templateId, dataFilters, ...body }: IScheduleRep
  * @throws exception if report not found or the data api unreached.
  */
 async function downloadReport({ dataFilters, ...body }: IDownloadReport): Promise<void> {
-  logger.debug('downloadReport()', body);
+  console.debug('downloadReport()', body);
   const blob = await Get(
     `${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/preview-report`,
     {
@@ -116,6 +113,6 @@ async function downloadReport({ dataFilters, ...body }: IDownloadReport): Promis
  * @throws exception if report not found or the data api unreached.
  */
 async function sendReport(body: ISendReport): Promise<void> {
-  logger.debug('sendReport()', body);
+  console.debug('sendReport()', body);
   return Post(`${REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1}/tenant-reports`, body);
 }

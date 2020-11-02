@@ -1,15 +1,7 @@
 import { all, call, delay, put, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
-import {
-  api,
-  ContextHolder,
-  ILogin,
-  ILoginWithMfa,
-  IPostLogin,
-  IPreLogin,
-  IRecoverMFAToken,
-} from '@frontegg/react-core';
+import { api, ContextHolder, ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';

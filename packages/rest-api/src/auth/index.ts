@@ -1,6 +1,7 @@
+/* tslint:disable:no-console */
+
 import jwtDecode from 'jwt-decode';
 import { Get, Post, Put } from '../fetch';
-import Logger from '../../helpers/Logger';
 import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
 import {
   IActivateAccount,
@@ -23,8 +24,6 @@ import {
   IAcceptInvitation,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
-
-const logger = Logger.from('AuthApi');
 
 /*****************************************
  * Authentication
@@ -52,12 +51,12 @@ async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILo
  * else, return null
  */
 export async function preLogin(body: IPreLogin): Promise<string | null> {
-  logger.debug('preLogin()', body);
+  console.info('preLogin()', body);
   try {
     const { address } = await Post(`${AUTH_SERVICE_URL_V1}/user/saml/prelogin`, body);
     return address;
   } catch (e) {
-    logger.error('preLogin()', e);
+    console.error('preLogin()', e);
     return null;
   }
 }
@@ -68,7 +67,7 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
  * else, return null
  */
 export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
-  logger.debug('postLogin()');
+  console.debug('postLogin()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user/saml/postlogin`, body);
   return generateLoginResponse(data);
 }
@@ -84,7 +83,7 @@ export async function postLogin(body: IPostLogin): Promise<ILoginResponse> {
  * @throw exception if login failed
  */
 export async function login(body: ILogin): Promise<ILoginResponse> {
-  logger.debug('login()');
+  console.debug('login()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user`, body);
   return generateLoginResponse(data);
 }
@@ -96,7 +95,7 @@ export async function login(body: ILogin): Promise<ILoginResponse> {
  * @throw exception if generated code or mfaToken are incorrect
  */
 export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse> {
-  logger.debug('loginWithMfa()');
+  console.debug('loginWithMfa()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user/mfa/verify`, body);
   return generateLoginResponse(data);
 }
@@ -108,7 +107,7 @@ export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse>
  * @throws exception if activation failed
  */
 export async function activateAccount(body: IActivateAccount): Promise<void> {
-  logger.debug('activateAccount()');
+  console.debug('activateAccount()');
   return Post(`${USERS_SERVICE_URL_V1}/activate`, body);
 }
 
@@ -119,7 +118,7 @@ export async function activateAccount(body: IActivateAccount): Promise<void> {
  * @throws exception if activation failed
  */
 export async function acceptInvitation(body: IAcceptInvitation): Promise<void> {
-  logger.debug('acceptInvitation()');
+  console.debug('acceptInvitation()');
   return Post(`${USERS_SERVICE_URL_V1}/invitation/accept`, body);
 }
 
@@ -128,7 +127,7 @@ export async function acceptInvitation(body: IAcceptInvitation): Promise<void> {
  * the server will return ILoginResponse with new access Token and refresh token and store it in the browser cookies.
  */
 export async function refreshToken(): Promise<ILoginResponse> {
-  logger.debug('refreshToken()');
+  console.debug('refreshToken()');
   const data = await Post(`${AUTH_SERVICE_URL_V1}/user/token/refresh`);
   return generateLoginResponse(data);
 }
@@ -137,7 +136,7 @@ export async function refreshToken(): Promise<ILoginResponse> {
  * logout from server, invalidate access and refresh token, remove it from cookies.
  */
 export async function logout(): Promise<void> {
-  logger.debug('logout()');
+  console.debug('logout()');
   return Post(`${AUTH_SERVICE_URL_V1}/logout`);
 }
 
@@ -147,7 +146,7 @@ export async function logout(): Promise<void> {
  * @throws exception if the user not found
  */
 export async function forgotPassword(body: IForgotPassword): Promise<void> {
-  logger.debug('forgotPassword()', body);
+  console.debug('forgotPassword()', body);
   return Post(`${USERS_SERVICE_URL_V1}/passwords/reset`, body);
 }
 
@@ -158,7 +157,7 @@ export async function forgotPassword(body: IForgotPassword): Promise<void> {
  * @throws exception if the user not found, password validation failed or invalid token.
  */
 export async function resetPassword(body: IResetPassword): Promise<void> {
-  logger.debug('resetPassword()');
+  console.debug('resetPassword()');
   return Post(`${USERS_SERVICE_URL_V1}/passwords/reset/verify`, body);
 }
 
@@ -169,7 +168,7 @@ export async function resetPassword(body: IResetPassword): Promise<void> {
  * @throws exception if recovery code is not valid
  */
 export async function recoverMfaToken(body: IRecoverMFAToken): Promise<void> {
-  logger.debug('recoverMfaToken()', body);
+  console.debug('recoverMfaToken()', body);
   return Post(`${AUTH_SERVICE_URL_V1}/user/mfa/recover`, body);
 }
 
@@ -185,7 +184,7 @@ export async function recoverMfaToken(body: IRecoverMFAToken): Promise<void> {
  * ``authorized user``
  */
 export async function enrollMfa(): Promise<IEnrollMfaResponse> {
-  logger.debug('enrollMfa()');
+  console.debug('enrollMfa()');
   return Post(`${USERS_SERVICE_URL_V1}/mfa/enroll`);
 }
 
@@ -198,7 +197,7 @@ export async function enrollMfa(): Promise<IEnrollMfaResponse> {
  * ``authorized user``
  */
 export async function verifyMfa(body: IVerifyMfa): Promise<IVerifyMfaResponse> {
-  logger.debug('verifyMfa()', body);
+  console.debug('verifyMfa()', body);
   return Post(`${USERS_SERVICE_URL_V1}/mfa/enroll/verify`, body);
 }
 
@@ -209,7 +208,7 @@ export async function verifyMfa(body: IVerifyMfa): Promise<IVerifyMfaResponse> {
  * * ``authorized user``
  */
 export async function disableMfa(body: IDisableMfa): Promise<void> {
-  logger.debug('disableMfa()', body);
+  console.debug('disableMfa()', body);
   return Post(`${USERS_SERVICE_URL_V1}/mfa/disable`, body);
 }
 
@@ -224,7 +223,7 @@ export async function disableMfa(body: IDisableMfa): Promise<void> {
  * * ``authorized user``
  */
 export async function getSamlConfiguration(): Promise<ISamlConfiguration> {
-  logger.debug('getSamlConfiguration()');
+  console.debug('getSamlConfiguration()');
   return Get(`${SSO_SERVICE_URL_V1}/saml/configurations`);
 }
 
@@ -233,7 +232,7 @@ export async function getSamlConfiguration(): Promise<ISamlConfiguration> {
  * * ``authorized user``
  */
 export async function updateSamlConfiguration(body: IUpdateSamlConfiguration): Promise<ISamlConfiguration> {
-  logger.debug('updateSamlConfiguration()', body);
+  console.debug('updateSamlConfiguration()', body);
   return Post(`${SSO_SERVICE_URL_V1}/saml/configurations`, body);
 }
 
@@ -244,7 +243,7 @@ export async function updateSamlConfiguration(body: IUpdateSamlConfiguration): P
  * * ``authorized user``
  */
 export async function getSamlVendorConfiguration(): Promise<ISamlVendorConfigResponse> {
-  logger.debug('getSamlVendorConfiguration()');
+  console.debug('getSamlVendorConfiguration()');
   return Get(`${SSO_SERVICE_URL_V1}/saml/configurations/vendor-config`);
 }
 
@@ -255,7 +254,7 @@ export async function getSamlVendorConfiguration(): Promise<ISamlVendorConfigRes
  * * ``authorized user``
  */
 export async function updateSamlVendorMetadata(body: IUpdateSamlVendorMetadata): Promise<ISamlConfiguration> {
-  logger.debug('updateSamlVendorMetadata()', body);
+  console.debug('updateSamlVendorMetadata()', body);
   return Put(`${SSO_SERVICE_URL_V1}/saml/configurations/metadata`, body);
 }
 
@@ -266,6 +265,6 @@ export async function updateSamlVendorMetadata(body: IUpdateSamlVendorMetadata):
  * * ``authorized user``
  */
 export async function validateSamlDomain(): Promise<ISamlConfiguration> {
-  logger.debug('validateSamlDomain()');
+  console.debug('validateSamlDomain()');
   return Put(`${SSO_SERVICE_URL_V1}/saml/validations/domain`);
 }

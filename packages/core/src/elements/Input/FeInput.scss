@@ -101,7 +101,7 @@
       overflow: hidden;
 
       #{$class}__input {
-        padding: 0 var(--element-padding);
+        padding: var(--element-padding);
       }
     }
 

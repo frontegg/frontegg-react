@@ -81,7 +81,6 @@
   font-size: 21px;
   position: absolute;
   right: 20px;
-  top: 12px;
   font-weight: 700;
   line-height: 1;
   color: #000;
@@ -89,6 +88,8 @@
   filter: alpha(opacity=20);
   opacity: 0.2;
   text-decoration: none;
+  top: 1.5rem;
+  outline: none;
 }
 
 .fe-dialog-close-x:after {

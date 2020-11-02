@@ -8,7 +8,7 @@ import {
   IResendActivationLink,
   ITeamUser,
   IUpdateUser,
-} from '@frontegg/react-core';
+} from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { WithCallback, WithSilentLoad } from '../interfaces';
 import { ISetAddUserDialog, ISetDeleteUserDialog, TeamStateKeys } from './interfaces';
@@ -32,7 +32,7 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any
     })
   );
   try {
-    const [{ items: users, totalPages }, { items: roles }] = yield all([
+    const [{ items: users, totalPages, totalItems }, { items: roles }] = yield all([
       call(api.teams.loadUsers, {
         pageSize,
         pageOffset,
@@ -41,7 +41,7 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any
       }),
       call(api.teams.loadAvailableRoles),
     ]);
-    yield put(actions.setTeamState({ users, totalPages, roles }));
+    yield put(actions.setTeamState({ users, totalPages, totalItems, roles }));
   } catch (e) {
     yield put(actions.setTeamError({ key: TeamStateKeys.USERS, value: e.message }));
     yield put(actions.setTeamState({ totalPages: 0, users: [] }));

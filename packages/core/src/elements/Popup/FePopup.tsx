@@ -38,7 +38,7 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
               onClick: (e: MouseEvent) => e.stopPropagation(),
             })}
           >
-            {content}
+            {typeof content === 'function' ? content() : content}
           </div>
         );
       }}

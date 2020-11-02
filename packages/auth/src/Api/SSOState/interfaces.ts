@@ -1,4 +1,4 @@
-import { ISamlConfiguration } from '@frontegg/react-core';
+import { ISamlConfiguration } from '@frontegg/rest-api';
 
 export interface SSOState {
   firstLoad: boolean;

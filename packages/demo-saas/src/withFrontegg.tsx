@@ -12,8 +12,7 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  // baseUrl: `${window.location.protocol}//${host}`,
-  baseUrl: `https://ae758879005f.ngrok.io`,
+  baseUrl: `${window.location.protocol}//${host}`,
   requestCredentials: 'include',
 };
 

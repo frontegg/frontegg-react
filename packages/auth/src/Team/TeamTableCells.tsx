@@ -138,18 +138,12 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
         content={() => (
           <div className='fe-team__roles-dropdown'>
             {roles?.map((role) => (
-              <Button
-                key={role.value}
-                fullWidth
-                transparent
+              <Checkbox
+                label={role.label}
+                checked={checked(role)}
                 disabled={loading === userId || (checked(role) && permissions.length === 1)}
-                onClick={() => onUpdateUser(role)}
-              >
-                <div>
-                  <Checkbox checked={checked(role)} />
-                  {role.label}
-                </div>
-              </Button>
+                onChange={() => onUpdateUser(role)}
+              />
             ))}
           </div>
         )}

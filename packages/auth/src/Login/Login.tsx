@@ -9,7 +9,7 @@ import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
 import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
-import { useAuth } from '../hooks';
+import { useAuth, useIsAuthenticated } from '../hooks';
 
 type Components = {
   LoginSuccessRedirect: LoginSuccessRedirectProps;

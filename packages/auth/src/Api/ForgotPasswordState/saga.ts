@@ -1,7 +1,7 @@
 import { call, put, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { api, IForgotPassword, IResetPassword } from '@frontegg/react-core';
+import { api, IForgotPassword, IResetPassword } from '@frontegg/rest-api';
 import { ForgotPasswordStep } from './interfaces';
 
 function* forgotPassword({ payload }: PayloadAction<IForgotPassword>) {

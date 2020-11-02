@@ -1,7 +1,7 @@
 import { LoginState, LoginStep } from './interfaces';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
-import { ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/react-core';
+import { ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
 import { WithCallback } from '../interfaces';
 
 export * from './interfaces';

@@ -1,6 +1,5 @@
-import { ContextOptions } from '../interfaces';
-import { RedirectOptions } from '../FronteggProvider';
 import { IUserProfile } from './teams/interfaces';
+import { ContextOptions, RedirectOptions } from './interfaces';
 
 export class ContextHolder {
   private static instance: ContextHolder;
