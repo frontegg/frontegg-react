@@ -14,6 +14,7 @@
       height: 32px;
       justify-content: space-between;
       align-items: center;
+      background-color: var(--frontend-notifications-box-back-color);
       margin-top: -4px;
       &__border {
         border-left: none;
@@ -21,11 +22,11 @@
         border-top: none;
         margin: 0 -16px;
         padding: 0;
-        border-bottom: 1px solid #dcdde1;
+        border-bottom: 1px solid var(--frontend-notifications-box-border-color);
       }
       &__title {
         color: #3c4a5a;
-        font-size: 12px;
+        font-size: var(--frontend-notifications-box-font-size);
         font-weight: bold;
         text-transform: uppercase;
       }
@@ -38,7 +39,32 @@
     &-footer {
       padding: 1rem 0;
       &__button {
-        font-size: 12px;
+        color: var(--frontend-notifications-pagination-see-all-text-color);
+        font-size: var(--frontend-notifications-pagination-see-all-font-size);
+        font-weight: var(--frontend-notifications-pagination-see-all-text-weight);
+      }
+    }
+  }
+  &-item-unread {
+    background-color: var(--frontend-notifications-unread-row-background-color);
+    &__title {
+      color: var(--frontend-notifications-unread-row-title-color);
+      font-weight: var(--frontend-notifications-unread-row-title-font-weight);
+      font-size: var(--frontend-notifications-unread-row-title-font-size);
+      margin-bottom: 8px;
+    }
+    &__desc {
+      color: var(--frontend-notifications-unread-row-description-color);
+      font-size: var(--frontend-notifications-unread-row-description-font-size);
+      margin-bottom: 8px;
+      font-weight: var(--frontend-notifications-unread-row-description-font-weight);
+    }
+    &__time {
+      font-size: var(--frontend-notifications-unread-row-time-presentation-font-size);
+      color: var(--frontend-notifications-unread-row-time-presentation-color);
+    }
+    &__options-icon {
+      svg {
       }
     }
   }
@@ -50,7 +76,7 @@
     min-height: 106px;
     width: 348px;
     border-radius: 3px;
-    background-color: #f9fafc;
+    background-color: var(--frontend-notifications-row-background-color);
     &__main {
       display: flex;
       flex-direction: column;
@@ -64,23 +90,29 @@
       margin-right: 10px;
     }
     &__title {
-      color: #3c4a5a;
-      font-weight: bold;
+      color: var(--frontend-notifications-row-title-color);
+      font-weight: var(--frontend-notifications-row-title-font-weight);
+      font-size: var(--frontend-notifications-row-title-font-size);
       margin-bottom: 8px;
     }
     &__desc {
-      color: #3c4a5a;
-      font-size: 14px;
+      color: var(--frontend-notifications-row-description-color);
+      font-size: var(--frontend-notifications-row-description-font-size);
       margin-bottom: 8px;
+      font-weight: var(--frontend-notifications-row-description-font-weight);
     }
     &__time {
-      font-size: 12px;
-      color: #969cc2;
+      font-size: var(--frontend-notifications-row-time-presentation-font-size);
+      color: var(--frontend-notifications-row-time-presentation-color);
+      font-weight: var(--frontend-notifications-row-time-presentation-font-weight);
     }
     &__options-icon {
       position: absolute;
       right: 5px;
       top: 10px;
+      svg {
+        fill: var(--frontend-notifications-options-icon-color);
+      }
     }
     &-options {
       width: 196px;
