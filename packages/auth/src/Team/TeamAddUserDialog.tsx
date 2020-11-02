@@ -58,9 +58,22 @@ export const TeamAddUserDialog: FC = (props) => {
         }}
       >
         <FForm>
-          <FInput label={t('common.name')} name='name' disabled={loading} placeholder={t('common.enter-name')} />
-          <FInput label={t('common.email')} name='email' disabled={loading} placeholder={t('common.enter-email')} />
+          <FInput
+            label={t('common.name')}
+            size='large'
+            name='name'
+            disabled={loading}
+            placeholder={t('common.enter-name')}
+          />
+          <FInput
+            label={t('common.email')}
+            size='large'
+            name='email'
+            disabled={loading}
+            placeholder={t('common.enter-email')}
+          />
           <FSelect
+            size='large'
             label={t('common.roles')}
             multiselect
             name='roles'
@@ -70,18 +83,20 @@ export const TeamAddUserDialog: FC = (props) => {
           />
 
           <ErrorMessage error={error} />
-          <Grid container className='fe-mt-4 fe-mb-2'>
-            <Grid xs item>
-              <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
-                {t('common.cancel')}
-              </Button>
+          <div className='fe-dialog__footer'>
+            <Grid container>
+              <Grid xs item>
+                <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
+                  {t('common.cancel')}
+                </Button>
+              </Grid>
+              <Grid xs item className='fe-text-align-end'>
+                <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
+                  {t('common.invite')}
+                </FButton>
+              </Grid>
             </Grid>
-            <Grid xs item className='fe-text-align-end'>
-              <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
-                {t('common.invite')}
-              </FButton>
-            </Grid>
-          </Grid>
+          </div>
         </FForm>
       </Formik>
     </Dialog>

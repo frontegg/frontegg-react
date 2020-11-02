@@ -1,7 +1,8 @@
 import React, { FC, useCallback, useState } from 'react';
 import { SelectOptionProps, SelectProps, useT } from '@frontegg/react-core';
-import { TextField, Chip, CircularProgress } from '@material-ui/core';
+import { TextField, Chip, CircularProgress, makeStyles } from '@material-ui/core';
 import { Autocomplete, AutocompleteProps as MaterialSelectProps } from '@material-ui/lab';
+import classNames from 'classnames';
 
 const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectProps<true, true, false, true> => {
   const restProps: any = rest;
@@ -13,8 +14,13 @@ const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectPro
     multiple: !multiselect ? undefined : multiselect,
   };
 };
-
+const useStyles = makeStyles({
+  inForm: {
+    margin: '0.5rem 0 1rem',
+  },
+});
 export const Select: FC<SelectProps> = (props) => {
+  const styles = useStyles();
   const { t } = useT();
   const p = mapper(props);
   const [open, setOpen] = useState(false);
@@ -60,6 +66,7 @@ export const Select: FC<SelectProps> = (props) => {
 
   return (
     <Autocomplete
+      className={classNames({ [styles.inForm]: props.inForm })}
       multiple={multiple ?? false}
       options={options}
       size={size}

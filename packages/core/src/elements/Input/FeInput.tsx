@@ -69,7 +69,11 @@ export const FeInput: FC<InputProps> = (props) => {
           {label && <div className={`${prefixCls}__label`}>{label}</div>}
 
           {labelButton && (
-            <FeButton className={classNames(`${prefixCls}__label-button`, labelButton.className)} {...labelButton} />
+            <FeButton
+              tabIndex={-1}
+              className={classNames(`${prefixCls}__label-button`, labelButton.className)}
+              {...labelButton}
+            />
           )}
         </div>
       )}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ButtonProps } from '@frontegg/react-core';
 import { Button as SemanticButton, ButtonProps as SemanticButtonProps, Form } from 'semantic-ui-react';
-
+import classNames from 'classnames';
+import './style.scss';
 const mapper = (props: ButtonProps): SemanticButtonProps => {
   const {
     variant,
@@ -13,12 +14,19 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     loading,
     disabled,
     type,
+    iconButton,
+    className,
     isCancel,
+    transparent,
     ...rest
   } = props;
   return {
     ...rest,
     loading,
+    className: classNames({
+      'fe-semantic-button__icon-button': iconButton,
+      'fe-semantic-button__transparent': transparent,
+    }),
     disabled: loading || disabled,
     primary: variant === 'primary' ? true : undefined,
     secondary: variant === 'secondary' ? true : undefined,

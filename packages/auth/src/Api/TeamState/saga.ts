@@ -96,7 +96,7 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
     callback?.(newUser);
     yield put(
       actions.setTeamState({
-        users: teamState.users.map((user: ITeamUser) => (user.id === newUser.id ? newUser : user)),
+        users: teamState.users.map((user: ITeamUser) => (user.id === newUser.id ? { ...user, ...newUser } : user)),
       })
     );
     yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));

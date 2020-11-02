@@ -1,19 +1,26 @@
 import React, { FC } from 'react';
 import { MenuProps } from './interfaces';
-import { Button, Popup, Icon } from '..';
+import { FeButton } from '../Button/FeButton';
+import { FePopup } from '../Popup/FePopup';
+import { FeIcon } from '../Icon/FeIcon';
 
 export const FeMenu: FC<MenuProps> = (props) => {
   return (
     <div className='fe-menu'>
-      <Popup
+      <FePopup
         content={
           <>
             {props.items.map((item) => {
               return (
-                <Button transparent fullWidth className={item.className} onClick={(e: any) => item.onClick?.(e, item)}>
-                  {item.icon && <Icon className={item.iconClassName} name={item.icon} />}
+                <FeButton
+                  transparent
+                  fullWidth
+                  className={item.className}
+                  onClick={(e: any) => item.onClick?.(e, item)}
+                >
+                  {item.icon && <FeIcon className={item.iconClassName} name={item.icon} />}
                   {item.text}
-                </Button>
+                </FeButton>
               );
             })}
           </>

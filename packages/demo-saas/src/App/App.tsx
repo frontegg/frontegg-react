@@ -12,6 +12,7 @@ import { TableExample } from '../TableExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
+import { DialogExample } from '../DialogExample';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -78,6 +79,7 @@ class App extends React.Component<any> {
           <Route path='/connectivity'>
             <IntegrationsPage rootPath='/connectivity' />
           </Route>
+          <Route exact path='/dialog' component={DialogExample} />
         </Switch>
       </div>
     );

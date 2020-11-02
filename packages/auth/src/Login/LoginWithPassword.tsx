@@ -90,6 +90,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           <FInput
             name='email'
             type='email'
+            size='large'
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
@@ -97,6 +98,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
 
           {shouldDisplayPassword && (
             <FInput
+              size='large'
               label={t('auth.login.password')}
               labelButton={labelButtonProps(values)}
               type='password'
