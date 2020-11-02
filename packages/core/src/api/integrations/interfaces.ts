@@ -1,4 +1,4 @@
-export interface ISubscription {
+export interface ISlackConfigurations {
   id: string;
   slackSubscriptions: ISlackSubscription[];
 }
@@ -42,4 +42,47 @@ export interface IWebhooksConfigurations {
   createdAt: string;
   updatedAt: string;
   isActive: boolean;
+}
+
+export interface IMainField {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  vendorId: string;
+}
+
+export interface IEvent extends IMainField {
+  key: string;
+  displayName: string;
+  description?: string;
+  category?: string;
+  categoryId?: string;
+}
+
+export interface ICategory extends IMainField {
+  name: string;
+  events?: IEvent[];
+}
+
+export interface ISlackChannel {
+  id: string;
+  name: string;
+}
+
+export interface IChannelsMap {
+  id: string;
+  key: string;
+  categoryId: string;
+  vendorId: string;
+  displayName: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  category: {
+    id: string;
+    vendorId: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }

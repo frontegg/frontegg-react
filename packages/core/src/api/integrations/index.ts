@@ -1,7 +1,7 @@
 import { Logger } from '../../helpers';
-import { INTEGRATIONS_SERVICE_URL_V1, INTEGRATIONS_SERVICE_WEBHOOKS_URL } from '../constants';
+import { EVENT_RESOURCES_URL_V1, INTEGRATIONS_SERVICE_URL_V1, INTEGRATIONS_SERVICE_WEBHOOKS_URL } from '../constants';
 import { Get, Post } from '../fetch';
-import { IEmailConfigurations, ISMSConfigurations, ISubscription } from './interfaces';
+import { IEmailConfigurations, ISMSConfigurations, ISlackConfigurations } from './interfaces';
 
 const logger = Logger.from('IntegrationsApi');
 
@@ -10,9 +10,14 @@ export const getSlackConfiguration = () => {
   return Get(`${INTEGRATIONS_SERVICE_URL_V1}/slack`);
 };
 
-export const postSlackConfiguration = (data: ISubscription) => {
-  logger.debug('getSlackConfiguration()');
-  return Post(`${INTEGRATIONS_SERVICE_URL_V1}/slack`);
+export const getSlackChannels = () => {
+  logger.debug('getSlackChannels()');
+  return Get(`${INTEGRATIONS_SERVICE_URL_V1}/slack/channels`);
+};
+
+export const postSlackConfiguration = (data: ISlackConfigurations) => {
+  logger.debug('getSlackConfiguration()', data);
+  return Post(`${INTEGRATIONS_SERVICE_URL_V1}/slack`, data);
 };
 
 export const getEmailConfiguration = () => {
@@ -37,10 +42,20 @@ export const postSMSConfiguration = (data: ISMSConfigurations) => {
 
 export const getWebhooksConfigurations = () => {
   logger.debug('getWebhooksConfigurations()');
-  return Get(`${INTEGRATIONS_SERVICE_WEBHOOKS_URL}`);
+  return Get(INTEGRATIONS_SERVICE_WEBHOOKS_URL);
 };
 
 export const postWebhooksConfiguration = (data: ISMSConfigurations) => {
   logger.debug('postWebhooksConfiguration()', data);
-  return Post(`${INTEGRATIONS_SERVICE_WEBHOOKS_URL}`, data);
+  return Post(INTEGRATIONS_SERVICE_WEBHOOKS_URL, data);
+};
+
+export const getCategories = () => {
+  logger.debug('getCategories()');
+  return Get(`${EVENT_RESOURCES_URL_V1}/categories`);
+};
+
+export const getChannelMaps = (channels: string) => {
+  logger.debug('getChannelMaps()', channels);
+  return Get(EVENT_RESOURCES_URL_V1, { channels });
 };
