@@ -1,0 +1,30 @@
+.fe-integrations-panel {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: var(--body-bg);
+  z-index: 11;
+  padding: 1rem 1.2rem;
+
+  &-close {
+    width: 100%;
+    text-align: left;
+
+    &-icon {
+      display: inline-flex;
+      width: var(--element-icon-size-sm);
+      height: var(--element-icon-size-sm);
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      background-color: #6d7278;
+      color: #f9fafc;
+      font-size: var(--element-font-size);
+    }
+  }
+  & > div {
+    min-height: auto;
+    height: auto;
+    margin-bottom: 3rem;
+  }
+}

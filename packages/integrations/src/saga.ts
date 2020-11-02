@@ -1,52 +1,94 @@
-import { put, delay, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery, all, takeLatest } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { integrationsActions } from './reducer';
-import { TForms, TFormsData } from './types';
-import { type2ApiGet, type2ApiPost } from './consts';
-import { ISubscription, IEmailConfigurations, Logger, api } from '@frontegg/react-core';
+import { IIntegrationsState, TPlatform } from './interfaces';
+import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts';
+import {
+  IEmailConfigurations,
+  Logger,
+  ISMSConfigurations,
+  IWebhooksConfigurations,
+  ISlackConfigurations,
+  api,
+  IChannelsMap,
+} from '@frontegg/react-core';
 
 const logger = Logger.from('IntegrationsSaga');
 
+const addApi = ['categories', 'channelMap'];
+
 function* loadDataFunction() {
-  yield delay(100);
-  yield put(integrationsActions.loadDataSuccess({}));
+  const values = yield all([
+    ...channels.map(function* (ch: TPlatform) {
+      return yield loadFunction({ payload: { api: ch }, type: '' });
+    }),
+    yield loadFunction({ payload: { api: 'categories' }, type: '' }),
+    yield (function* () {
+      const res = yield all(
+        channels.map(function* (ch: TPlatform) {
+          return yield loadFunction({ payload: { api: 'channelMap', params: ch }, type: '' });
+        })
+      );
+      return res.reduce(
+        (acc: Record<TPlatform, IChannelsMap>, curr: IChannelsMap, idx: number) => ({
+          ...acc,
+          [`${channels[idx]}`]: curr,
+        }),
+        {}
+      );
+    })(),
+  ]);
+  const data = values.reduce(
+    (
+      acc: Omit<IIntegrationsState, 'isLoading'>,
+      curr: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[],
+      idx: number
+    ) =>
+      channels[idx]
+        ? {
+            ...acc,
+            [`${channels[idx]}`]: curr,
+            list: [
+              ...acc.list,
+              {
+                id: idx,
+                key: channels[idx],
+                events: channels2Platform[channels[idx]].events(curr),
+                active: channels2Platform[channels[idx]].isActive(curr),
+                platform: channels2Platform[channels[idx]].title,
+              },
+            ],
+          }
+        : { ...acc, [`${addApi[idx - channels.length]}`]: curr },
+    { list: [] }
+  );
+
+  yield put(integrationsActions.loadDataSuccess(data));
 }
 
-function* loadFormFunction({ payload }: PayloadAction<Exclude<TForms, 'webhooks'>>) {
+function* loadFunction({
+  payload: { api, params },
+}: PayloadAction<{ api: TPlatform | 'categories' | 'channelMap'; params?: string }>) {
   try {
-    const data = yield call(type2ApiGet[payload]);
-    yield put(integrationsActions.loadFormSuccess(data || {}));
+    const data = yield call(type2ApiGet[api], params);
+    return data;
   } catch (e) {
     logger.error(e);
-    yield put(integrationsActions.loadFormSuccess({}));
+    return null;
   }
 }
 
-function* postFormFunction({
-  payload: { type, data },
-}: PayloadAction<{ type: Exclude<TForms, 'webhooks'>; data: TFormsData }>) {
+function* loadSlackFunction() {
   try {
-    yield call(type2ApiPost[type], data);
-    yield put(integrationsActions.postFormSuccess());
+    const data = yield call(api.integrations.getSlackChannels);
+    yield put(integrationsActions.loadSlackSuccess(data));
   } catch (e) {
     logger.error(e);
-    yield put(integrationsActions.loadFormSuccess(data));
-  }
-}
-
-function* loadListFunction() {
-  try {
-    const data = yield call(api.integrations.getWebhooksConfigurations);
-    yield put(integrationsActions.loadListSuccess(data));
-  } catch (e) {
-    logger.error(e);
-    yield put(integrationsActions.loadListSuccess({}));
+    yield put(integrationsActions.loadSlackSuccess(null));
   }
 }
 
 export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
-  yield takeEvery(integrationsActions.loadFormAction, loadFormFunction);
-  yield takeEvery(integrationsActions.postFormAction, postFormFunction);
-  yield takeEvery(integrationsActions.loadListAction, loadListFunction);
+  yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
 }

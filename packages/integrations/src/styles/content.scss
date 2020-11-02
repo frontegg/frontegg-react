@@ -13,66 +13,9 @@
     align-items: center;
     cursor: pointer;
   }
-
-  &-edit {
-    padding: 1rem 1.2rem;
-    flex-grow: 1;
-
-    &-close {
-      text-transform: uppercase;
-
-      &-icon {
-        display: inline-flex;
-        width: 1.4rem;
-        height: 1.4rem;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-        background-color: #6d7278;
-        color: #f9fafc;
-      }
-    }
-
-    &-form {
-      padding: 2rem 0;
-    }
-  }
-
-  &-button-link {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    padding: 0;
-    &:focus {
-      outline: none;
-    }
-  }
-
-  &-status {
-    width: 1.4rem;
-    height: 1.4rem;
-    border: solid 0.125rem #d0d3e0;
-    border-radius: 50%;
-    position: relative;
-    &::after {
-      content: '\2713';
-      display: flex;
-      width: 1.3rem;
-      height: 1.3rem;
-      position: absolute;
-      left: -0.1rem;
-      top: 0;
-      justify-content: center;
-      align-items: center;
-      color: #d0d3e0;
-    }
-    &.fe-integrations-active {
-      border-color: #0baf60;
-      background-color: #d9f4e7;
-      &::after {
-        color: #0baf60;
-      }
-    }
+  &-button {
+    text-transform: uppercase;
+    width: 8rem;
+    font-weight: bold;
   }
 }
