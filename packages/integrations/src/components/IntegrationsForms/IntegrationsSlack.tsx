@@ -119,8 +119,9 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
         const { events = [] } = curr;
         return [
           ...acc,
-          ...events.map(({ isActive, slackEvents }) => ({
-            isActive: Array.isArray(isActive) ? isActive.some((i) => i === 'on') : isActive,
+          ...events.map(({ isActive, id, slackEvents }) => ({
+            id,
+            isActive,
             slackEvents,
           })),
         ];

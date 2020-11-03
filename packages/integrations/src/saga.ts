@@ -96,8 +96,9 @@ function* postDataFunction({
   data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
 }>) {
   try {
+    let newData;
     if (platform === 'slack') {
-      yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
+      newData = yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
     } else {
       yield call(type2ApiPost[platform], data);
     }
@@ -117,24 +118,49 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
   }
   const { slackSubscriptions: stateSlackSubscriptions } = slack;
   const { slackSubscriptions } = payload;
-  yield all(
-    slackSubscriptions
+  yield all([
+    ...slackSubscriptions
       .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
-        if (!curr.id) {
+        if (!curr.id && curr.slackEvents && curr.slackEvents[0].channelIds.length) {
           return [...acc, curr];
         }
         const el = stateSlackSubscriptions.find(
           ({ id, ...props }) => id === curr.id && JSON.stringify({ id, ...props }) !== JSON.stringify(curr)
         );
-        if (el) {
+        if (el && el.slackEvents && el.slackEvents[0].channelIds.length) {
           return [...acc, curr];
         }
         return acc;
       }, [])
       .map(function* (el: ISlackSubscription) {
-        return yield type2ApiPost.slack(el);
-      })
-  );
+        return yield call(type2ApiPost.slack, el);
+      }),
+    ...slackSubscriptions
+      .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
+        if (curr.id && !curr.slackEvents[0].channelIds.length) {
+          return [...acc, curr];
+        }
+        return acc;
+      }, [])
+      .map(function* (el) {
+        return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+      }),
+    // clean the old data
+    // ...stateSlackSubscriptions
+    //   // @ts-ignore
+    //   .reduce((acc, curr) => {
+    //     const el = slackSubscriptions.find(({ id }) => id === curr.id);
+    //     if (!el) {
+    //       return [...acc, curr];
+    //     }
+    //     return acc;
+    //   }, [])
+    //   // @ts-ignore
+    //   .map(function* (el) {
+    //     return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+    //   }),
+  ]);
+  return yield call(type2ApiGet.slack);
 }
 
 export function* sagas() {
