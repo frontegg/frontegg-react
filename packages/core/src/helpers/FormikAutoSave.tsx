@@ -3,18 +3,21 @@ import { FFormik, useDebounce } from '../hooks';
 
 export interface IFormikAutoSave {
   debounceMs?: number;
+  isSaving: boolean;
 }
 
-export const FormikAutoSave: FC<IFormikAutoSave> = ({ debounceMs = 500 }) => {
-  const { values, submitForm, initialValues, setSubmitting } = FFormik.useFormikContext();
+export const FormikAutoSave: FC<IFormikAutoSave> = ({ debounceMs = 500, isSaving }) => {
+  const { values, submitForm, initialValues, setSubmitting, isValid } = FFormik.useFormikContext();
 
   const saveData = useDebounce(values, debounceMs);
 
   useEffect(() => {
-    if (JSON.stringify(initialValues) !== JSON.stringify(saveData)) {
-      submitForm();
-      setSubmitting(false);
-    }
-  }, [saveData, submitForm, initialValues, setSubmitting]);
+    JSON.stringify(initialValues) !== JSON.stringify(saveData) && isValid && submitForm();
+  }, [saveData, submitForm, initialValues, setSubmitting, isValid]);
+
+  useEffect(() => {
+    !isSaving && setSubmitting(false);
+  }, [isSaving]);
+
   return null;
 };
