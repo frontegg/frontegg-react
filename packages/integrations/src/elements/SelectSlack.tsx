@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { FFormik, FSelect, SelectOptionProps, useSelector } from '@frontegg/react-core';
+import { FFormik, Select, SelectOptionProps, useSelector } from '@frontegg/react-core';
 import { IPluginState } from '../interfaces';
 
 export interface ISelectSlack {
@@ -7,6 +7,8 @@ export interface ISelectSlack {
 }
 
 export const SelectSlack: FC<ISelectSlack> = ({ name }) => {
+  const [{ value, ...inputProps }, {}, { setValue }] = FFormik.useField(name);
+  const { isSubmitting } = FFormik.useFormikContext();
   const { slackChannels } = useSelector(
     ({
       integrations: {
@@ -16,12 +18,20 @@ export const SelectSlack: FC<ISelectSlack> = ({ name }) => {
       slackChannels,
     })
   );
-  const {} = FFormik.useFormikContext();
 
   const slackOptions: SelectOptionProps<string>[] = useMemo(
     () => (slackChannels || [])?.map(({ name, id }) => ({ label: name, value: id })),
     [slackChannels]
   );
 
-  return <FSelect name={name} multiselect options={slackOptions} />;
+  return (
+    <Select
+      multiselect
+      {...inputProps}
+      options={slackOptions}
+      disabled={isSubmitting}
+      value={value?.map((elm: string) => slackOptions.find(({ value }) => value === elm))}
+      onChange={(e, newValue) => setValue(newValue.map(({ value }) => value))}
+    />
+  );
 };

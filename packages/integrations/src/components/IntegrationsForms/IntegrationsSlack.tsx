@@ -10,7 +10,6 @@ import {
   useDispatch,
   useSelector,
   ISlackConfigurations,
-  SelectOptionProps,
   ISlackSubscription,
   ISlackEvent,
 } from '@frontegg/react-core';
@@ -89,7 +88,9 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             {
               accessor: 'slackEvents',
               Header: 'CHANNELS',
-              Cell: () => <SelectSlack name={`data[${idx}].events[0].slackEvents[0].channelIds`} />,
+              Cell: ({ row: { index } }) => (
+                <SelectSlack name={`data[${idx}].events[[${index}].slackEvents[0].channelIds`} />
+              ),
             },
             {
               accessor: 'non',
@@ -120,12 +121,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
           ...acc,
           ...events.map(({ isActive, slackEvents }) => ({
             isActive: Array.isArray(isActive) ? isActive.some((i) => i === 'on') : isActive,
-            slackEvents: slackEvents?.map(({ channelIds, ...props }) => ({
-              ...props,
-              channelIds: channelIds.map((val: string | SelectOptionProps<string>) =>
-                typeof val === 'string' ? val : val.value
-              ),
-            })),
+            slackEvents,
           })),
         ];
       }, []),
