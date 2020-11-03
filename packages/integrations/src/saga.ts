@@ -146,19 +146,19 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
         return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
       }),
     // clean the old data
-    ...stateSlackSubscriptions
-      // @ts-ignore
-      .reduce((acc, curr) => {
-        const el = slackSubscriptions.find(({ id }) => id === curr.id);
-        if (!el) {
-          return [...acc, curr];
-        }
-        return acc;
-      }, [])
-      // @ts-ignore
-      .map(function* (el) {
-        return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
-      }),
+    // ...stateSlackSubscriptions
+    //   // @ts-ignore
+    //   .reduce((acc, curr) => {
+    //     const el = slackSubscriptions.find(({ id }) => id === curr.id);
+    //     if (!el) {
+    //       return [...acc, curr];
+    //     }
+    //     return acc;
+    //   }, [])
+    //   // @ts-ignore
+    //   .map(function* (el) {
+    //     return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+    //   }),
   ]);
   return yield call(type2ApiGet.slack);
 }
