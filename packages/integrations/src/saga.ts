@@ -163,8 +163,18 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
   return yield call(type2ApiGet.slack);
 }
 
+function* postCodeFunction({ payload }: PayloadAction<string>) {
+  try {
+    yield api.integrations.postSlackCode(payload);
+  } catch (e) {
+    logger.error(e);
+  }
+  yield put(integrationsActions.postCodeSuccess());
+}
+
 export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
   yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
   yield takeEvery(integrationsActions.postDataAction, postDataFunction);
+  yield takeEvery(integrationsActions.postCodeAction, postCodeFunction);
 }

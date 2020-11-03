@@ -18,14 +18,14 @@ import { platformForm } from '../consts';
 export const IntegrationsTable: FC = () => {
   const { t } = useT();
   const [edit, setEdit] = useState<IIntegrationsData | null>(
-    // null
-    {
-      key: 'slack',
-      id: 1,
-      platform: '',
-      active: true,
-      events: 1,
-    }
+    null
+    // {
+    //   key: 'slack',
+    //   id: 1,
+    //   platform: '',
+    //   active: true,
+    //   events: 1,
+    // }
   );
   const { isLoading, list } = useSelector(({ integrations: { isLoading, list } }: IPluginState) => ({
     isLoading,

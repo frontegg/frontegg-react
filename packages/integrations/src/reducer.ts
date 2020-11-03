@@ -29,6 +29,11 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
       reducer: (state, { payload }) => ({ ...state, slackChannels: { isLoading: false, data: payload } }),
     },
     cleanSlackData: (state) => ({ ...state, slackChannels: { isLoading: false } }),
+    postCodeAction: {
+      prepare: (payload: string) => ({ payload }),
+      reducer: (state) => ({ ...state, isSaving: true }),
+    },
+    postCodeSuccess: (state) => ({ ...state, isSaving: false }),
     postDataAction: {
       prepare: (
         platform: TPlatform,
