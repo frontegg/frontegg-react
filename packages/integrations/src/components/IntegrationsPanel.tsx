@@ -22,7 +22,7 @@ export const IntegrationsPanel: FC<IIntegrationsPanel> = ({ children, show, onCl
       };
       setStyle({ ...style, top: top + window.scrollX, left: left + width });
     }
-  }, [style]);
+  }, [style, show]);
 
   useEffect(() => {
     ['resize', 'scroll'].forEach((e) => window.addEventListener(e, countPosition));
