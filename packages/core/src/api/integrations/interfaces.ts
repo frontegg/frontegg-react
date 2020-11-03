@@ -4,7 +4,7 @@ export interface ISlackConfigurations {
 }
 
 export interface ISlackSubscription {
-  id: string;
+  id?: string;
   isActive: boolean;
   slackEvents: ISlackEvent[];
 }
