@@ -27,6 +27,11 @@ export const deleteSlackConfiguration = (data: Required<ISlackSubscription>) => 
   return Delete(`${INTEGRATIONS_SERVICE_URL_V1}/slack/subscriptions/${data.id}`);
 };
 
+export const postSlackCode = (code: string) => {
+  logger.debug('deleteSlackConfiguration()', { code });
+  return Post(`${INTEGRATIONS_SERVICE_URL_V1}/slack//applications/registrations`, { code });
+};
+
 export const getEmailConfiguration = () => {
   logger.debug('getEmailConfiguration()');
   return Get(`${INTEGRATIONS_SERVICE_URL_V1}/email`);
