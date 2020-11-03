@@ -7,6 +7,7 @@ import {
   IWebhooksConfigurations,
   IChannelsMap,
 } from '@frontegg/react-core';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhooks';
 
@@ -20,6 +21,7 @@ export interface IIntegrationsComponent {
 
 export interface IIntegrationsState {
   isLoading: boolean;
+  isSaving: boolean;
   list: IIntegrationsData[];
   sms?: ISMSConfigurations;
   email?: IEmailConfigurations;

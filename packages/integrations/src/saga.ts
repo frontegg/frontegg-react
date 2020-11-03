@@ -1,7 +1,7 @@
-import { put, call, takeEvery, all, takeLatest } from 'redux-saga/effects';
+import { put, call, takeEvery, all, takeLatest, delay, select } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { integrationsActions } from './reducer';
-import { IIntegrationsState, TPlatform } from './interfaces';
+import { IIntegrationsState, IPluginState, TPlatform } from './interfaces';
 import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts';
 import {
   IEmailConfigurations,
@@ -11,6 +11,7 @@ import {
   ISlackConfigurations,
   api,
   IChannelsMap,
+  ISlackSubscription,
 } from '@frontegg/react-core';
 
 const logger = Logger.from('IntegrationsSaga');
@@ -88,7 +89,56 @@ function* loadSlackFunction() {
   }
 }
 
+function* postDataFunction({
+  payload: { platform, data },
+}: PayloadAction<{
+  platform: TPlatform;
+  data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
+}>) {
+  try {
+    if (platform === 'slack') {
+      yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
+    } else {
+      yield call(type2ApiPost[platform], data);
+    }
+    yield put(integrationsActions.postDataSuccess());
+  } catch (e) {
+    logger.error(e);
+    yield put(integrationsActions.postDataSuccess());
+  }
+}
+
+function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
+  const {
+    integrations: { slack },
+  }: IPluginState = yield select();
+  if (!slack) {
+    return;
+  }
+  const { slackSubscriptions: stateSlackSubscriptions } = slack;
+  const { slackSubscriptions } = payload;
+  yield all(
+    slackSubscriptions
+      .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
+        if (!curr.id) {
+          return [...acc, curr];
+        }
+        const el = stateSlackSubscriptions.find(
+          ({ id, ...props }) => id === curr.id && JSON.stringify({ id, ...props }) !== JSON.stringify(curr)
+        );
+        if (el) {
+          return [...acc, curr];
+        }
+        return acc;
+      }, [])
+      .map(function* (el: ISlackSubscription) {
+        return yield type2ApiPost.slack(el);
+      })
+  );
+}
+
 export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
   yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
+  yield takeEvery(integrationsActions.postDataAction, postDataFunction);
 }

@@ -6,55 +6,73 @@ import {
   Loader,
   Table,
   TableColumnProps,
+  FormikAutoSave,
   useDispatch,
   useSelector,
+  ISlackConfigurations,
+  SelectOptionProps,
+  ISlackSubscription,
+  ISlackEvent,
 } from '@frontegg/react-core';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
 import { integrationsActions } from '../../reducer';
 import { filterCategories } from '../../utils';
-import { InputDebounce } from '../../elements/InputDebounce';
 import { SelectSlack } from '../../elements/SelectSlack';
+
+interface ITableData {
+  id: string;
+  name: string;
+  events: {
+    eventId: string;
+    id?: string;
+    isActive: boolean;
+    slackEvents?: ISlackEvent[];
+    displayName: string;
+  }[];
+}
 
 export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   const dispatch = useDispatch();
-  const { isLoading, categories, channelMap, slack } = useSelector(
+  const { isLoading, categories, channelMap, slack, isSaving } = useSelector(
     ({
       integrations: {
         slackChannels: { isLoading },
         categories,
         channelMap,
+        isSaving,
         slack,
       },
     }: IPluginState) => ({
       isLoading,
       categories,
       slack,
+      isSaving,
       channelMap: channelMap?.slack,
     })
   );
   const cleanCategory = filterCategories(categories, channelMap);
   const { slackSubscriptions } = slack ?? { slackSubscriptions: null };
 
-  const tablesData = useMemo(
+  const tablesData: ITableData[] | null = useMemo(
     () =>
-      cleanCategory &&
-      slackSubscriptions &&
-      cleanCategory.map(({ id, name, events }) => ({
-        id,
-        name,
-        events: events?.map(({ id, displayName, key }) => ({
-          displayName,
-          ...slackSubscriptions.find(({ slackEvents }) => slackEvents.some(({ eventKey }) => eventKey === key)),
-          id,
-        })),
-      })),
+      cleanCategory && slackSubscriptions
+        ? cleanCategory.map(({ id, name, events }) => ({
+            id,
+            name,
+            events: (events || []).map(({ id: eventId, displayName, key }) => ({
+              displayName,
+              isActive: false,
+              ...slackSubscriptions.find(({ slackEvents }) => slackEvents.some(({ eventKey }) => eventKey === key)),
+              eventId,
+            })),
+          }))
+        : null,
     [cleanCategory, slackSubscriptions]
   );
 
-  console.log({ tablesData });
   const columns = useMemo(
     () =>
-      (tablesData || [])?.map(
+      (tablesData || []).map(
         ({ name }, idx) =>
           [
             {
@@ -65,26 +83,18 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
               accessor: 'isActive',
               Header: 'ENABLED',
               Cell: ({ row: { index } }) => (
-                <FCheckbox
-                  inForm
-                  className='fe-integrations-checkbox'
-                  name={`values[${idx}].events[${index}].slackEvents[0].isActive`}
-                />
+                <FCheckbox className='fe-integrations-checkbox' name={`data[${idx}].events[${index}].isActive`} />
               ),
             },
             {
               accessor: 'slackEvents',
               Header: 'CHANNELS',
-              Cell: () => <SelectSlack name={`values[${idx}].events[0].slack`} />,
+              Cell: () => <SelectSlack name={`data[${idx}].events[0].slackEvents[0].channelIds`} />,
             },
             {
               accessor: 'non',
               Header: 'MESSAGE',
-              // Cell: ({ value }) => <InputDebounce value={value?.message || ''} onChange={(v) => console.log(v)} />,
-              Cell: ({ row: { index }, ...val }) => {
-                // console.log( });
-                return <FInput name={`values[${idx}].events[${index}].message`} />;
-              },
+              Cell: ({ row: { index } }) => <FInput name={`data[${idx}].events[${index}].slackEvents[0].message`} />,
             },
           ] as TableColumnProps<{}>[]
       ),
@@ -98,13 +108,40 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
     };
   }, [dispatch]);
 
+  const saveData = (data?: ITableData[]) => {
+    if (!slack || !data) return;
+    const { id } = slack;
+    const newData: ISlackConfigurations = {
+      id,
+      // @ts-ignore
+      slackSubscriptions: data.reduce((acc: ISlackSubscription[], curr: ITableData) => {
+        const { events = [] } = curr;
+        return [
+          ...acc,
+          ...events.map(({ isActive, slackEvents }) => ({
+            isActive: Array.isArray(isActive) ? isActive.some((i) => i === 'on') : isActive,
+            slackEvents: slackEvents?.map(({ channelIds, ...props }) => ({
+              ...props,
+              channelIds: channelIds.map((val: string | SelectOptionProps<string>) =>
+                typeof val === 'string' ? val : val.value
+              ),
+            })),
+          })),
+        ];
+      }, []),
+    };
+
+    dispatch(integrationsActions.postDataAction('slack', newData));
+  };
+
   return isLoading ? (
     <Loader center />
   ) : tablesData ? (
-    <FFormik.Formik initialValues={{ values: tablesData }} onSubmit={(val) => console.log(val)}>
+    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
       <FFormik.Form>
+        <FormikAutoSave isSaving={isSaving} />
         {(tablesData || []).map(({ id, events }, idx) => (
-          <Table rowKey='id' key={id} columns={columns[idx]} data={events || []} totalData={events?.length || 0} />
+          <Table rowKey='eventId' key={id} columns={columns[idx]} data={events || []} totalData={events?.length || 0} />
         ))}
       </FFormik.Form>
     </FFormik.Formik>

@@ -14,14 +14,6 @@ import {
 } from './components/IntegrationsForms';
 import { IIntegrationsState, IIntegrationsData, TPlatform, IIntegrationsComponent } from './interfaces';
 
-export const initialState: IIntegrationsState = {
-  isLoading: false,
-  list: [],
-  slackChannels: {
-    isLoading: false,
-  },
-};
-
 export const type2ApiGet: Record<TPlatform | 'categories' | 'channelMap', any> = {
   slack: api.integrations.getSlackConfiguration,
   email: api.integrations.getEmailConfiguration,
@@ -31,10 +23,11 @@ export const type2ApiGet: Record<TPlatform | 'categories' | 'channelMap', any> =
   channelMap: api.integrations.getChannelMaps,
 };
 
-export const type2ApiPost: Record<Exclude<TPlatform, 'webhooks'>, any> = {
+export const type2ApiPost: Record<TPlatform, any> = {
   slack: api.integrations.postSlackConfiguration,
   email: api.integrations.postEmailConfiguration,
   sms: api.integrations.postSMSConfiguration,
+  webhooks: api.integrations.postWebhooksConfiguration,
 };
 
 export const defaultRootPath = '/integrations';
