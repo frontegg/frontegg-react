@@ -16,7 +16,7 @@ export const getSlackChannels = () => {
 };
 
 export const postSlackConfiguration = (data: ISlackSubscription) => {
-  logger.debug('getSlackConfiguration()', data);
+  logger.debug('postSlackConfiguration()', data);
   if (data.id) {
     return Patch(`${INTEGRATIONS_SERVICE_URL_V1}/slack/subscription/${data.id}`, data);
   }
