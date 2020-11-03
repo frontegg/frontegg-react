@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import {
-  FCheckbox,
   FFormik,
   FInput,
   Loader,
@@ -17,6 +16,7 @@ import { IIntegrationsComponent, IPluginState } from '../../interfaces';
 import { integrationsActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
+import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 
 interface ITableData {
   id: string;
@@ -25,7 +25,7 @@ interface ITableData {
     eventId: string;
     id?: string;
     isActive: boolean;
-    slackEvents?: ISlackEvent[];
+    slackEvents?: Partial<ISlackEvent>[];
     displayName: string;
   }[];
 }
@@ -61,7 +61,14 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             events: (events || []).map(({ id: eventId, displayName, key }) => ({
               displayName,
               isActive: false,
-              ...slackSubscriptions.find(({ slackEvents }) => slackEvents.some(({ eventKey }) => eventKey === key)),
+              slackEvents: [
+                {
+                  eventKey: key,
+                },
+              ],
+              ...slackSubscriptions.find(({ slackEvents }) =>
+                (slackEvents || []).some(({ eventKey }) => eventKey === key)
+              ),
               eventId,
             })),
           }))
@@ -81,9 +88,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             {
               accessor: 'isActive',
               Header: 'ENABLED',
-              Cell: ({ row: { index } }) => (
-                <FCheckbox className='fe-integrations-checkbox' name={`data[${idx}].events[${index}].isActive`} />
-              ),
+              Cell: ({ row: { index } }) => <IntegrationCheckBox name={`data[${idx}].events[${index}].isActive`} />,
             },
             {
               accessor: 'slackEvents',
@@ -134,7 +139,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   return isLoading ? (
     <Loader center />
   ) : tablesData ? (
-    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
+    <FFormik.Formik enableReinitialize initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {(tablesData || []).map(({ id, events }, idx) => (

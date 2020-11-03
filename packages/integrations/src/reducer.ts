@@ -36,6 +36,12 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
       ) => ({ payload: { data, platform } }),
       reducer: (state) => ({ ...state, isSaving: true }),
     },
-    postDataSuccess: (state) => ({ ...state, isSaving: false }),
+    postDataSuccess: {
+      prepare: (payload: {
+        platform: TPlatform;
+        data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
+      }) => ({ payload, error: null, meta: '' }),
+      reducer: (state, { payload: { platform, data } }) => ({ ...state, isSaving: false, [`${platform}`]: data }),
+    },
   },
 });

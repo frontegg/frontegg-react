@@ -102,10 +102,10 @@ function* postDataFunction({
     } else {
       yield call(type2ApiPost[platform], data);
     }
-    yield put(integrationsActions.postDataSuccess());
+    yield put(integrationsActions.postDataSuccess({ platform, data: newData }));
   } catch (e) {
     logger.error(e);
-    yield put(integrationsActions.postDataSuccess());
+    yield put(integrationsActions.postDataSuccess({ platform, data }));
   }
 }
 
@@ -121,13 +121,13 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
   yield all([
     ...slackSubscriptions
       .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
-        if (!curr.id && curr.slackEvents && curr.slackEvents[0].channelIds.length) {
+        if (!curr.id && curr.slackEvents && curr.slackEvents[0].channelIds?.length) {
           return [...acc, curr];
         }
         const el = stateSlackSubscriptions.find(
           ({ id, ...props }) => id === curr.id && JSON.stringify({ id, ...props }) !== JSON.stringify(curr)
         );
-        if (el && el.slackEvents && el.slackEvents[0].channelIds.length) {
+        if (el && curr.slackEvents && curr.slackEvents[0].channelIds?.length) {
           return [...acc, curr];
         }
         return acc;
@@ -146,19 +146,19 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
         return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
       }),
     // clean the old data
-    // ...stateSlackSubscriptions
-    //   // @ts-ignore
-    //   .reduce((acc, curr) => {
-    //     const el = slackSubscriptions.find(({ id }) => id === curr.id);
-    //     if (!el) {
-    //       return [...acc, curr];
-    //     }
-    //     return acc;
-    //   }, [])
-    //   // @ts-ignore
-    //   .map(function* (el) {
-    //     return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
-    //   }),
+    ...stateSlackSubscriptions
+      // @ts-ignore
+      .reduce((acc, curr) => {
+        const el = slackSubscriptions.find(({ id }) => id === curr.id);
+        if (!el) {
+          return [...acc, curr];
+        }
+        return acc;
+      }, [])
+      // @ts-ignore
+      .map(function* (el) {
+        return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+      }),
   ]);
   return yield call(type2ApiGet.slack);
 }
