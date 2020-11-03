@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { ProtectedRoute, Profile, SSO, MFA, useAuthUser, Team } from '@frontegg/react-auth';
+import { ProtectedRoute, Profile, SSO, MFA, useAuthUser, Team, useAuth } from '@frontegg/react-auth';
 import { PageTabProps, useT } from '@frontegg/react-core';
 import { ElementsPage } from '../Elements/ElementsPage';
 import { withFrontegg } from '../withFrontegg';
@@ -10,6 +10,7 @@ import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { DialogExample } from '../DialogExample';
+import { LoginPage } from './LoginPage';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -25,56 +26,61 @@ MyTab.Title = (() => {
 }) as FC;
 MyTab.route = '/my-tab';
 
-class App extends React.Component<any> {
-  render() {
-    console.log('App.render');
-    return (
-      <div className='app'>
-        <Switch>
-          <Route exact path='/'>
+const App = () => {
+  const { logout } = useAuth();
+  return (
+    <div className='app'>
+      <Switch>
+        <Route exact path='/'>
+          <div>
             <div>
-              <div>
-                <Link to='/profile'>Profile</Link>
-              </div>
-              <div>
-                <Link to='/team'>Team</Link>
-              </div>
-              <div>
-                <Link to='/sso'>SSO</Link>
-              </div>
-              <div>
-                <Link to='/test-auth-user'>Test Auth User</Link>
-              </div>
-              <div>
-                <Link to='/popup'>Popup Examples</Link>
-              </div>
-              <div>
-                <Link to='/table'>Table Examples</Link>
-              </div>
-              <div>
-                <Link to='/select'>Select Examples</Link>
-              </div>
+              <Link to='/profile'>Profile</Link>
             </div>
-          </Route>
-          <Route path='/test-auth-user' component={TestPage} />
-          <Route exact path='/components2' component={ComponentsPage2} />
-          <Route path='/components' component={ElementsPage} />
-          <ProtectedRoute path='/test' />
-          <Route path='/sso'>
-            <SSO.Page />
-          </Route>
+            <div>
+              <Link to='/team'>Team</Link>
+            </div>
+            <div>
+              <Link to='/sso'>SSO</Link>
+            </div>
+            <div>
+              <Link to='/test-auth-user'>Test Auth User</Link>
+            </div>
+            <div>
+              <Link to='/popup'>Popup Examples</Link>
+            </div>
+            <div>
+              <Link to='/table'>Table Examples</Link>
+            </div>
+            <div>
+              <Link to='/select'>Select Examples</Link>
+            </div>
+          </div>
+        </Route>
+        <Route path='/test-auth-user' component={TestPage} />
+        <Route exact path='/components2' component={ComponentsPage2} />
+        <Route path='/components' component={ElementsPage} />
+        <ProtectedRoute path='/test' />
+        <Route path='/sso'>
+          <SSO.Page />
+        </Route>
 
-          <ProtectedRoute path='/profile' component={Profile.Page} />
-          <Route path='/team' component={Team.Page} />
-          <Route exact path='/popup' component={PopupExample} />
-          <Route exact path='/table' component={TableExample} />
-          <Route exact path='/select' component={SelectorExample} />
-          <Route exact path='/grids' component={GridExamples} />
-          <Route exact path='/dialog' component={DialogExample} />
-        </Switch>
+        <ProtectedRoute path='/profile' component={Profile.Page} />
+        <Route path='/team' component={Team.Page} />
+        <Route exact path='/popup' component={PopupExample} />
+        <Route exact path='/table' component={TableExample} />
+        <Route exact path='/select' component={SelectorExample} />
+        <Route exact path='/grids' component={GridExamples} />
+        <Route exact path='/dialog' component={DialogExample} />
+        <Route exact path='/account/login' component={LoginPage} />
+      </Switch>
+      <div
+        onClick={() => {
+          logout();
+        }}
+      >
+        Logout
       </div>
-    );
-  }
-}
-
+    </div>
+  );
+};
 export default withFrontegg(App);

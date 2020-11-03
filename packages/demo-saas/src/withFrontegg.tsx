@@ -16,7 +16,11 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin()];
+const plugins: PluginConfig[] = [
+  AuthPlugin({
+    injectAuthRoutes: false,
+  }),
+];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider

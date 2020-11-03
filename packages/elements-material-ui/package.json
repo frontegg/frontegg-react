@@ -13,17 +13,14 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "peerDependencies": {
-    "@frontegg/react-core": "^1.0.63",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1"
-  },
-  "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "classnames": "^2.2.6",
     "react": ">16.8.6",
-    "react-is": "^16.13.1",
+    "react-dom": ">16.8.6"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
     "react-popper-tooltip": "^3.1.0",
     "underscore": "^1.10.2"
   },

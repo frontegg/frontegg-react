@@ -1,5 +1,4 @@
 import React, { ComponentType, FC, ReactElement, ReactNode, useMemo } from 'react';
-import ownKeys = Reflect.ownKeys;
 
 export class EmptyRender extends React.Component<any, any> {
   render() {
@@ -85,7 +84,7 @@ export const buildPropsComponents = <P extends {}>(components: any, defaultCompo
   if (!components) {
     return defaultComponents;
   }
-  return ownKeys(defaultComponents as any)
+  return Object.keys(defaultComponents as any)
     .map((compName: any) => ({
       [compName as string]: buildDynamicComponent(components, compName as string, (defaultComponents as any)[compName]),
     }))
@@ -116,7 +115,7 @@ export const buildComponents = <P extends {}>(components: any, defaultComponents
   if (!components) {
     return defaultComponents;
   }
-  return ownKeys(defaultComponents as any)
+  return Object.keys(defaultComponents as any)
     .map((compName: any) => ({
       [compName as string]: generateComponent(components, compName as string, (defaultComponents as any)[compName]),
     }))
@@ -170,13 +169,11 @@ export const cloneComponentsWithProps = <P extends {}>(
 
 export class FronteggClass<
   COMPS,
-  P extends {
-    components?: ComponentsTypesWithProps<COMPS>;
-  } = {},
+  P extends { components?: ComponentsTypesWithProps<COMPS> } = {},
   S = {}
 > extends React.Component<P, S> {
-  declare compsProps: PartialInnerTypes<COMPS>;
-  declare comps: ComponentsTypes<COMPS>;
+  compsProps: PartialInnerTypes<COMPS>;
+  comps: ComponentsTypes<COMPS>;
 
   constructor(props: P, defaultComponents: ComponentsTypes<COMPS>) {
     super(props);
@@ -196,7 +193,7 @@ export const checkValidChildren = <T extends {}>(
     return true;
   }
   let _keys = Object.keys(requiredComponents);
-  const _values = Object.values(requiredComponents);
+  const _values = _keys.map((key) => (requiredComponents as any)[key]);
   React.Children.map(children, (child: any, index) => {
     const childIndex = _values.indexOf(child?.type);
     if (childIndex !== -1) {

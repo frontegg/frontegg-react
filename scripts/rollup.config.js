@@ -24,11 +24,30 @@ const distFolder = path.join(process.cwd(), './dist/');
 
 const isExternal = (id) => {
   const exact = [
-    'react-redux',
-    'formik',
-    'immer',
-    '@reduxjs/toolkit',
+    // "@reduxjs/toolkit",
+    // "classnames",
+    // "formik",
+    // "i18next",
+    // "jwt-decode",
+    // "moment",
+    // "react-i18next",
+    // "react-popper-tooltip",
+    // "react-redux",
+    // "react-select",
+    // "react-table",
+    // "rc-dialog",
+    // "redux-saga",
+    // "underscore",
+    // "yup"
+    // 'react',
+    // 'react-dom',
   ];
+  // const exact = [
+  //   'react-redux',
+  //   'formik',
+  //   'immer',
+  //   '@reduxjs/toolkit',
+  // ];
   const startWith = [
     '@babel/runtime',
     '.',
@@ -69,9 +88,9 @@ const commonPlugins = [
     sourceMap: false,
   }),
   isWatching && progress(),
-  isProduction && terser({
-    ecma: '6', module: true,
-  }),
+  // isProduction && terser({
+  //   ecma: '6', module: true,
+  // }),
 ];
 
 const esmPlugins = [
@@ -134,62 +153,71 @@ const umdPlugins = [
   }),
 ];
 
-export default [
-  {
-    input: './src/index.ts',
-    plugins: esmPlugins,
-    external: isExternal,
-    output: {
-      file: path.join(distFolder, 'index.esm.js'),
-      sourcemap: true,
-      format: 'esm',
-    },
+export default [{
+  input: './src/index.ts',
+  plugins: cjsPlugins,
+  external: isExternal,
+  output: {
+    file: path.join(distFolder, 'index.js'),
+    sourcemap: true,
+    format: 'cjs',
   },
-  ...(isWatching ? [] : [
-    {
-      input: './src/index.ts',
-      plugins: esPlugins,
-      external: isExternal,
-      output: {
-        file: path.join(distFolder, 'index.es.js'),
-        sourcemap: true,
-        format: 'es',
-      },
-    }, {
-      input: './src/index.ts',
-      plugins: cjsPlugins,
-      external: isExternal,
-      output: {
-        file: path.join(distFolder, 'index.js'),
-        sourcemap: true,
-        format: 'cjs',
-      },
-    },
-    // {
-    //   input: './src/index.ts',
-    //   plugins: umdPlugins,
-    //   external: [
-    //     'react',
-    //     'react-dom',
-    //     '@frontegg/react-core',
-    //     '@frontegg/react-auth',
-    //     '@frontegg/react-elements-material-ui',
-    //     '@frontegg/react-elements-semantic',
-    //   ],
-    //   output: {
-    //     globals: {
-    //       'react': 'React',
-    //       'react-dom': 'ReactDOM',
-    //       '@frontegg/react-core': 'FronteggCore',
-    //       '@frontegg/react-auth': 'FronteggAuth',
-    //       '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
-    //       '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
-    //     },
-    //     file: path.join(distFolder, 'index.umd.js'),
-    //     name: pkg.libName,
-    //     format: 'umd',
-    //   },
-    // }
-    ]),
+},
+  // {
+  //   input: './src/index.ts',
+  //   plugins: esmPlugins,
+  //   external: isExternal,
+  //   output: {
+  //     file: path.join(distFolder, 'index.esm.js'),
+  //     sourcemap: true,
+  //     format: 'esm',
+  //   },
+  // },
+  // ...(isWatching ? [] : [
+  //   {
+  //     input: './src/index.ts',
+  //     plugins: esPlugins,
+  //     external: isExternal,
+  //     output: {
+  //       file: path.join(distFolder, 'index.es.js'),
+  //       sourcemap: true,
+  //       format: 'es',
+  //     },
+  //   }, {
+  //     input: './src/index.ts',
+  //     plugins: cjsPlugins,
+  //     external: isExternal,
+  //     output: {
+  //       file: path.join(distFolder, 'index.js'),
+  //       sourcemap: true,
+  //       format: 'cjs',
+  //     },
+  //   },
+  // {
+  //   input: './src/index.ts',
+  //   plugins: umdPlugins,
+  //   external: [
+  //     'react',
+  //     'react-dom',
+  //     '@frontegg/react-core',
+  //     '@frontegg/react-auth',
+  //     '@frontegg/react-elements-material-ui',
+  //     '@frontegg/react-elements-semantic',
+  //   ],
+  //   output: {
+  //     globals: {
+  //       'react': 'React',
+  //       'react-dom': 'ReactDOM',
+  //       '@frontegg/react-core': 'FronteggCore',
+  //       '@frontegg/react-auth': 'FronteggAuth',
+  //       '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
+  //       '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
+  //     },
+  //     file: path.join(distFolder, 'index.umd.js'),
+  //     name: pkg.libName,
+  //     format: 'umd',
+  //   },
+  // }
+  // ]),
 ];
 
