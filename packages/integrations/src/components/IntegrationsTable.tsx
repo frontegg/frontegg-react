@@ -39,7 +39,7 @@ export const IntegrationsTable: FC = () => {
       Cell: ({ value, row, allColumns }) => (
         <Button transparent fullWidth onClick={() => setEdit(row.original)}>
           <div className='fe-integrations-platform'>
-            {t(value)} <Icon name='right-arrow' />
+            {t(value)} <Icon className='fe-integrations-platform-right-arrow' name='right-arrow' />
           </div>
         </Button>
       ),
