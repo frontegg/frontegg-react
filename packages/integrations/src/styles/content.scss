@@ -12,6 +12,11 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+
+    &-right-arrow {
+      height: 1.3rem;
+      width: 1.3rem;
+    }
   }
   &-button {
     text-transform: uppercase;
