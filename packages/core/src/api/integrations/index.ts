@@ -1,7 +1,7 @@
 import { Logger } from '../../helpers';
 import { EVENT_RESOURCES_URL_V1, INTEGRATIONS_SERVICE_URL_V1, INTEGRATIONS_SERVICE_WEBHOOKS_URL } from '../constants';
-import { Get, Patch, Post } from '../fetch';
-import { IEmailConfigurations, ISMSConfigurations, ISlackConfigurations } from './interfaces';
+import { Get, Patch, Post, Delete } from '../fetch';
+import { IEmailConfigurations, ISMSConfigurations, ISlackConfigurations, ISlackSubscription } from './interfaces';
 
 const logger = Logger.from('IntegrationsApi');
 
@@ -15,12 +15,16 @@ export const getSlackChannels = () => {
   return Get(`${INTEGRATIONS_SERVICE_URL_V1}/slack/channels`);
 };
 
-export const postSlackConfiguration = (data: ISlackConfigurations) => {
+export const postSlackConfiguration = (data: ISlackSubscription) => {
   logger.debug('getSlackConfiguration()', data);
   if (data.id) {
-    return Patch(`${INTEGRATIONS_SERVICE_URL_V1}/slack/subscriptions/${data.id}`, data);
+    return Patch(`${INTEGRATIONS_SERVICE_URL_V1}/slack/subscription/${data.id}`, data);
   }
   return Post(`${INTEGRATIONS_SERVICE_URL_V1}/slack/subscriptions`, data);
+};
+export const deleteSlackConfiguration = (data: Required<ISlackSubscription>) => {
+  logger.debug('deleteSlackConfiguration()', data);
+  return Delete(`${INTEGRATIONS_SERVICE_URL_V1}/slack/subscriptions/${data.id}`);
 };
 
 export const getEmailConfiguration = () => {
