@@ -15,6 +15,7 @@ export const FeSelect = (props: SelectProps) => {
     onClose,
     options,
     onOpen,
+    name,
     open: openProps,
     loading,
     noOptionsText,
@@ -23,6 +24,7 @@ export const FeSelect = (props: SelectProps) => {
     getOptionLabel,
     renderOption,
     fullWidth,
+    onBlur,
   } = props;
 
   const getState = useCallback(
@@ -66,7 +68,7 @@ export const FeSelect = (props: SelectProps) => {
   return (
     <Select
       isDisabled={props.disabled}
-      name={props.name}
+      name={name}
       className={className}
       styles={customStyles}
       isMulti={multiselect ?? false}
@@ -78,6 +80,9 @@ export const FeSelect = (props: SelectProps) => {
       isLoading={loading ?? false}
       closeMenuOnSelect={false}
       open={openProps ?? open}
+      onBlur={(e) => {
+        onBlur && onBlur({ ...e, target: { ...e.target, name } });
+      }}
       loadingMessage={() => loadingText ?? `${t('common.loading')}...`}
       noOptionsMessage={() => noOptionsText ?? t('common.empty-items')}
       onMenuOpen={() => (onOpen ? onOpen : setOpen(true))}

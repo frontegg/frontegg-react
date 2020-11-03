@@ -6,7 +6,7 @@ import { FeIcon } from '../Icon/FeIcon';
 
 const prefixCls = 'fe-checkbox';
 export const FeCheckbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
-  const { className, label, disabled, fullWidth, indeterminate, inForm, name } = props;
+  const { className, label, disabled, fullWidth, indeterminate, inForm, name, onBlur } = props;
   const [_checked, _setChecked] = useState(props.defaultChecked);
 
   const checked = props.hasOwnProperty('checked') ? props.checked : _checked;
@@ -30,7 +30,14 @@ export const FeCheckbox = forwardRef<HTMLInputElement, CheckboxProps>((props, re
       })}
     >
       <div className={`${prefixCls}__content`}>
-        <input type='checkbox' ref={ref} checked={indeterminate || checked} onChange={toggleCheck} name={name} />
+        <input
+          type='checkbox'
+          ref={ref}
+          checked={indeterminate || checked}
+          onChange={toggleCheck}
+          name={name}
+          onBlur={onBlur}
+        />
         <span className={`${prefixCls}__input`}>
           <FeIcon name={indeterminate ? 'indeterminate' : 'checkmark'} />
         </span>
