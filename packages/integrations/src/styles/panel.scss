@@ -2,10 +2,16 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  background-color: var(--body-bg);
+  // background-color: var(--body-bg);
+  background-color: var(--color-white);
   z-index: 11;
   padding: 1rem 1.2rem;
   overflow-y: auto;
+  &-btn {
+    background-color: var(--color-gray-0);
+    height: 3rem;
+    margin-top: -1rem !important;
+  }
   &-close {
     width: 100%;
     text-align: left;

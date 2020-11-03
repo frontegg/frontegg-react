@@ -38,7 +38,7 @@ export const IntegrationsPanel: FC<IIntegrationsPanel> = ({ children, show, onCl
   return show ? (
     <div className='fe-integrations-panel' ref={divRef} style={style}>
       <div>
-        <Button transparent onClick={onClose} fullWidth>
+        <Button className='fe-integrations-panel-btn' transparent onClick={onClose} fullWidth>
           <div className='fe-integrations-panel-close'>
             <span className='fe-integrations-panel-close-icon fe-mr-3'>&#10005;</span>
             {t('integrations.events')}
