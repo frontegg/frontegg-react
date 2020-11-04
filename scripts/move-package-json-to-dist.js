@@ -44,6 +44,11 @@ function movePackageJson(packagePath) {
 
 
   fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(newPkg, null, 2), { encoding: 'utf8' });
+  if (fs.existsSync(`${packagePath}/README.md`)) {
+    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(`${packagePath}/README.md`), { encoding: 'utf8' });
+  } else if (packagePath.indexOf('/core') !== -1) {
+    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(path.join(__dirname, `../README.md`)), { encoding: 'utf8' });
+  }
 }
 
 movePackageJson(process.argv[2]);
