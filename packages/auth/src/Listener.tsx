@@ -5,7 +5,7 @@ import { useAuth } from './hooks';
 const stateMapper = ({ isAuthenticated, user }: AuthState) => ({ isAuthenticated, user });
 
 export const AuthListener: FC = () => {
-  const timer = useRef<number>(0);
+  const timer = useRef<any>(0);
   const { isAuthenticated, user, requestAuthorize } = useAuth(stateMapper);
 
   const updateSessionTimer = (firstTime: boolean = false) => {

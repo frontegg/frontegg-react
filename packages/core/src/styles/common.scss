@@ -4,6 +4,13 @@
 @import './elements.scss';
 @import './helpers.scss';
 
+:root {
+  font-size: 14px;
+}
+* {
+  box-sizing: border-box;
+}
+
 .frontegg {
   box-sizing: border-box;
   margin: 0;

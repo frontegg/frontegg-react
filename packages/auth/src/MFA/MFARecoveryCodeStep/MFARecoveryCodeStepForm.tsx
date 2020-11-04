@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { useT, Icon } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
 import classNames from 'classnames';
 import copy from 'clipboard-copy';
 import { useAuthMfaState } from '../hooks';

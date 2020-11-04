@@ -16,31 +16,37 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin()];
+const plugins: PluginConfig[] = [
+  AuthPlugin({
+    // injectAuthRoutes: false,
+  }),
+];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider
     debugMode
     context={contextOptions}
     plugins={plugins}
-    uiLibrary={{
-      // ...MaterialLibrary,
-      // Input: SemanticLibrary.Input,
-      // Dialog: SemanticLibrary.Dialog,
-      // Form: SemanticLibrary.Form,
-      // Select: SemanticLibrary.Select,
-      // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
-      // Tag: fronteggElements.Tag
-      // Input: SemanticLibrary.Input,
-      // Form: SemanticLibrary.Form,
-      // Dialog: MaterialLibrary.Dialog,
-      // Loader: fronteggElements.Loader,
-      // Button: fronteggElements.Button,
-      ...MaterialLibrary,
-      // ...SemanticLibrary,
-      // SwitchToggle: SemanticLibrary.SwitchToggle
-      // Tabs: SemanticLibrary.Tabs
-    }}
+    uiLibrary={
+      {
+        // ...MaterialLibrary,
+        // Input: SemanticLibrary.Input,
+        // Dialog: SemanticLibrary.Dialog,
+        // Form: SemanticLibrary.Form,
+        // Select: SemanticLibrary.Select,
+        // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
+        // Tag: fronteggElements.Tag
+        // Input: SemanticLibrary.Input,
+        // Form: SemanticLibrary.Form,
+        // Dialog: MaterialLibrary.Dialog,
+        // Loader: fronteggElements.Loader,
+        // Button: fronteggElements.Button,
+        // ...MaterialLibrary,
+        // ...SemanticLibrary,
+        // SwitchToggle: SemanticLibrary.SwitchToggle
+        // Tabs: SemanticLibrary.Tabs
+      }
+    }
   >
     <Component />
   </FronteggProvider>

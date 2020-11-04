@@ -43,9 +43,9 @@ export const validateUrl = (name: string, t: TFunction) =>
     .url(t('validation.must-be-a-valid-url', 'Must be a valid URL'))
     .required(t('validation.required-field', { name }));
 
-export const validateLength = (name: string, t: TFunction) =>
+export const validateLength = (name: string, limit: number, t: TFunction) =>
   Yup.string()
-    .min(6, t('validation.min-length', { name, limit: 2 }))
+    .min(limit, t('validation.min-length', { name, limit }))
     .required(t('validation.required-field', { name }));
 
 export const validateRequired = (name: string, t: TFunction) =>

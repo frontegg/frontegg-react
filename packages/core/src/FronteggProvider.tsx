@@ -91,9 +91,6 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
-    if (fronteggStore && !isSSR && !window.Cypress) {
-      return fronteggStore;
-    }
     // @ts-ignore
     const devTools = process.env.NODE_ENV === 'development' || props.debugMode ? { name: 'Frontegg Store' } : undefined;
     const reducer = combineReducers({

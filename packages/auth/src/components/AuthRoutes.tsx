@@ -6,7 +6,7 @@ import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
 import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
-import { AuthPageProps, PageComponentProps } from '../interfaces';
+import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 
