@@ -1,5 +1,5 @@
 import { Loader, RootPathContext, useDispatch, useSelector } from '@frontegg/react-core';
-import React, { FC, useContext, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { FC, useContext, useLayoutEffect } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import { IPluginState } from '../interfaces';
 import { integrationsActions } from '../reducer';
@@ -9,6 +9,7 @@ export const IntegrationsSlackAuthSuccess: FC = () => {
   const path = useContext(RootPathContext);
   const { search } = useLocation();
   const { isSaving } = useSelector(({ integrations: { isSaving } }: IPluginState) => ({ isSaving }));
+
   useLayoutEffect(() => {
     if (search) {
       const query = new URLSearchParams(search);
@@ -17,5 +18,9 @@ export const IntegrationsSlackAuthSuccess: FC = () => {
       }
     }
   }, [search]);
-  return isSaving ? <Loader center /> : <Redirect to={path || '/'} />;
+
+  if (isSaving) {
+    return <Loader center />;
+  }
+  return <Redirect to={{ pathname: path || '/', state: { open: 'slack' } }} />;
 };

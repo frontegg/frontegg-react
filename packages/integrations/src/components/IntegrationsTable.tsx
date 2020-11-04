@@ -1,4 +1,5 @@
-import React, { FC, useContext, useMemo, useState } from 'react';
+import React, { FC, useLayoutEffect, useMemo, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import {
   Button,
   Grid,
@@ -11,26 +12,25 @@ import {
   useSelector,
   useT,
 } from '@frontegg/react-core';
-import { IIntegrationsData, IPluginState } from '../interfaces';
+import { IIntegrationsData, IPluginState, TPlatform } from '../interfaces';
 import { IntegrationsPanel } from './IntegrationsPanel';
 import { platformForm } from '../consts';
 
+interface ILocationState {
+  open: TPlatform;
+}
+
 export const IntegrationsTable: FC = () => {
   const { t } = useT();
-  const [edit, setEdit] = useState<IIntegrationsData | null>(
-    null
-    // {
-    //   key: 'slack',
-    //   id: 1,
-    //   platform: '',
-    //   active: true,
-    //   events: 1,
-    // }
-  );
+  const { replace } = useHistory();
+  const { state: locationState, ...location } = useLocation<ILocationState>();
+  const [edit, setEdit] = useState<IIntegrationsData | null>(null);
+
   const { isLoading, list } = useSelector(({ integrations: { isLoading, list } }: IPluginState) => ({
     isLoading,
     list,
   }));
+
   const columns: TableColumnProps<IIntegrationsData>[] = [
     {
       accessor: 'platform',
@@ -61,6 +61,7 @@ export const IntegrationsTable: FC = () => {
     },
     // { accessor: 'icon', Cell: () => <Icon name='more-vert' />, maxWidth: 10 },
   ];
+
   const [filter, setFilter] = useState<string>('');
 
   const data = useMemo(() => {
@@ -68,9 +69,20 @@ export const IntegrationsTable: FC = () => {
     return list.filter(({ platform }) => reg.test(platform));
   }, [filter, list]);
 
-  return isLoading ? (
-    <Loader center />
-  ) : (
+  useLayoutEffect(() => {
+    locationState && data?.length && setEdit(data.find(({ key }) => key === locationState.open) ?? null);
+  }, [locationState, data]);
+
+  if (isLoading) {
+    return <Loader center />;
+  }
+
+  const onCloseEdit = () => {
+    locationState && replace(location);
+    setEdit(null);
+  };
+
+  return (
     <>
       <Grid container className='fe-integrations-list' direction='column'>
         <div className='fe-integrations-search'>
@@ -79,8 +91,8 @@ export const IntegrationsTable: FC = () => {
 
         <div>
           <Table rowKey='id' columns={columns} data={data} totalData={list.length} />
-          <IntegrationsPanel show={!!edit} onClose={() => setEdit(null)}>
-            {edit && React.createElement(platformForm[edit.key], { onClose: () => setEdit(null) })}
+          <IntegrationsPanel show={!!edit} onClose={onCloseEdit}>
+            {edit && React.createElement(platformForm[edit.key], { onClose: onCloseEdit })}
           </IntegrationsPanel>
         </div>
       </Grid>

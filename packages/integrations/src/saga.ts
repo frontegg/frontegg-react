@@ -75,7 +75,7 @@ function* loadFunction({
     return data;
   } catch (e) {
     logger.error(e);
-    return null;
+    return undefined;
   }
 }
 
@@ -175,10 +175,10 @@ function* postCodeFunction({ payload }: PayloadAction<string>) {
 function* loadSlackPermissions() {
   try {
     const { clientId } = yield call(api.integrations.getSlackScope);
-    yield put(integrationsActions.loadScopeSucess(clientId));
+    yield put(integrationsActions.loadScopeSuccess(clientId));
   } catch (e) {
     logger.error(e);
-    yield put(integrationsActions.loadSlackSuccess(null));
+    yield put(integrationsActions.loadScopeSuccess(null));
   }
 }
 

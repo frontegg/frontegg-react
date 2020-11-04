@@ -22,7 +22,7 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
   reducers: {
     loadDataAction: (state) => ({ ...state, isLoading: true }),
     loadScope: (state) => ({ ...state, slackChannels: { ...state.slackChannels, isLoadingScope: true } }),
-    loadScopeSucess: (state, { payload }) => ({
+    loadScopeSuccess: (state, { payload }) => ({
       ...state,
       slackChannels: { ...state.slackChannels, clientId: payload, isLoadingScope: false },
     }),

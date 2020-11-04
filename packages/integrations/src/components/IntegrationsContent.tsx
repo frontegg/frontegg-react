@@ -16,10 +16,7 @@ export const IntegrationsContent: FC<IntegrationsContentProps> = ({ className })
   return (
     <div className={classnames('fe-integrations-context', className)}>
       <Route exact path={`${path}`} component={IntegrationsTable} />
-      <Route exact path={`${path}/success`} component={IntegrationsSlackAuthSuccess} />
-      <Route path={`${path}/*`}>
-        <Redirect to={path || '/'} />
-      </Route>
+      <Route path={`${path}/success`} component={IntegrationsSlackAuthSuccess} />
     </div>
   );
 };
