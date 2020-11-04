@@ -4,7 +4,7 @@ import {
   ISlackConfigurations,
   ISMSConfigurations,
   IWebhooksConfigurations,
-} from '@frontegg/react-core';
+} from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
 import { IIntegrationsState, TPlatform } from './interfaces';
 

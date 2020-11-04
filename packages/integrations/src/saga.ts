@@ -5,16 +5,13 @@ import { IIntegrationsState, IPluginState, TPlatform } from './interfaces';
 import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts';
 import {
   IEmailConfigurations,
-  Logger,
   ISMSConfigurations,
   IWebhooksConfigurations,
   ISlackConfigurations,
   api,
   IChannelsMap,
   ISlackSubscription,
-} from '@frontegg/react-core';
-
-const logger = Logger.from('IntegrationsSaga');
+} from '@frontegg/rest-api';
 
 const addApi = ['categories', 'channelMap'];
 
@@ -74,7 +71,7 @@ function* loadFunction({
     const data = yield call(type2ApiGet[api], params);
     return data;
   } catch (e) {
-    logger.error(e);
+    console.error(e);
     return undefined;
   }
 }
@@ -84,7 +81,7 @@ function* loadSlackFunction() {
     const data = yield call(api.integrations.getSlackChannels);
     yield put(integrationsActions.loadSlackSuccess(data));
   } catch (e) {
-    logger.error(e);
+    console.error(e);
     yield put(integrationsActions.loadSlackSuccess(null));
   }
 }
@@ -104,7 +101,7 @@ function* postDataFunction({
     }
     yield put(integrationsActions.postDataSuccess({ platform, data: newData }));
   } catch (e) {
-    logger.error(e);
+    console.error(e);
     yield put(integrationsActions.postDataSuccess({ platform, data }));
   }
 }
@@ -167,7 +164,7 @@ function* postCodeFunction({ payload }: PayloadAction<string>) {
   try {
     yield api.integrations.postSlackCode(payload);
   } catch (e) {
-    logger.error(e);
+    console.error(e);
   }
   yield put(integrationsActions.postCodeSuccess());
 }
@@ -177,7 +174,7 @@ function* loadSlackPermissions() {
     const { clientId } = yield call(api.integrations.getSlackScope);
     yield put(integrationsActions.loadScopeSuccess(clientId));
   } catch (e) {
-    logger.error(e);
+    console.error(e);
     yield put(integrationsActions.loadScopeSuccess(null));
   }
 }

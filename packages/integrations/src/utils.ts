@@ -1,8 +1,7 @@
-import { ICategory, IChannelsMap } from '@frontegg/react-core';
 import { useMemo } from 'react';
-import { TPlatform } from './interfaces';
+import { ICategory, IChannelsMap } from '@frontegg/rest-api';
 
-export const filterCategories = (categories?: ICategory[], channelMap?: IChannelsMap[]) =>
+export const filterCategories = (categories?: ICategory[], channelMap?: IChannelsMap[]): ICategory[] | undefined =>
   useMemo(() => {
     if (categories && channelMap) {
       return categories

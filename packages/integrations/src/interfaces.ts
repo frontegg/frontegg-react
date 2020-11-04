@@ -6,7 +6,7 @@ import {
   ISMSConfigurations,
   IWebhooksConfigurations,
   IChannelsMap,
-} from '@frontegg/react-core';
+} from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhooks';

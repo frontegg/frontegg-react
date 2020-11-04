@@ -8,10 +8,8 @@ import {
   FormikAutoSave,
   useDispatch,
   useSelector,
-  ISlackConfigurations,
-  ISlackSubscription,
-  ISlackEvent,
 } from '@frontegg/react-core';
+import { ISlackConfigurations, ISlackEvent } from '@frontegg/rest-api';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
 import { integrationsActions } from '../../reducer';
 import { filterCategories } from '../../utils';

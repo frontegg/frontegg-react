@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { Button, FInput, Grid, IEmailConfigurations, useT, validateEmail, validateSchema } from '@frontegg/react-core';
+import { Button, FInput, Grid, useT, validateEmail, validateSchema } from '@frontegg/react-core';
 import { IIntegrationsComponent } from '../../interfaces';
 import { IntegrationsForm } from './IntegrationsForm';
 

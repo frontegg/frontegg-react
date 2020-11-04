@@ -1,15 +1,8 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import { FormikProps } from 'formik';
 import {
-  Button,
   FInput,
-  Grid,
-  ISMSConfigurations,
-  useT,
   Loader,
   FFormik,
-  validateSchema,
-  validationPhone,
   TableColumnProps,
   FCheckbox,
   useDispatch,
@@ -18,8 +11,6 @@ import {
 } from '@frontegg/react-core';
 import { filterCategories } from '../../utils';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
-import { IntegrationsForm } from './IntegrationsForm';
-import { integrationsActions } from '../../reducer';
 import { SelectSlack } from '../../elements/SelectSlack';
 
 const smsData = {
