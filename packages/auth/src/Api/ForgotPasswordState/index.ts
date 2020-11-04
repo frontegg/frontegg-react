@@ -1,6 +1,6 @@
-import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
-import { IForgotPassword, IResetPassword } from '@frontegg/react-core';
+import { IForgotPassword, IResetPassword } from '@frontegg/rest-api';
+import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { ForgotPasswordState, ForgotPasswordStep } from './interfaces';
 
 export * from './interfaces';

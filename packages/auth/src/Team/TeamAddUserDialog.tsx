@@ -44,7 +44,6 @@ export const TeamAddUserDialog: FC = (props) => {
     <Dialog open={open} size={'tiny'} header={t('auth.team.add-dialog.title')}>
       <Formik
         validationSchema={validateSchema({
-          name: validateLength(t('common.name'), t),
           email: validateEmail(t),
           roles: validateArrayLength(t, t('common.roles')),
         })}

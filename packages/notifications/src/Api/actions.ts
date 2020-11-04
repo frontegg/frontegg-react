@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IUpdateNotificationStatus, IUpdateNotificationIsPinned } from '@frontegg/react-core';
+import { IUpdateNotificationStatus, IUpdateNotificationIsPinned } from '@frontegg/rest-api';
 import { storeName } from './utils';
 
 export const notificationsActions = {

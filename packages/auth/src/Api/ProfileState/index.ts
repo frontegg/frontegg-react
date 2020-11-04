@@ -1,7 +1,7 @@
 import { ProfileState } from './interfaces';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
-import { IChangePassword, IUserProfile } from '@frontegg/react-core';
+import { IChangePassword, IUserProfile } from '@frontegg/rest-api';
 
 export * from './interfaces';
 

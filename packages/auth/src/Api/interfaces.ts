@@ -1,5 +1,5 @@
 import { AuthPageProps, AuthPageRoutes } from '../interfaces';
-import { IUserProfile, RedirectOptions } from '@frontegg/react-core';
+import { IUserProfile, RedirectOptions } from '@frontegg/rest-api';
 import { ActivateState } from './ActivateState';
 import { LoginState } from './LoginState';
 import { ForgotPasswordState } from './ForgotPasswordState';

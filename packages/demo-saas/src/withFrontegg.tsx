@@ -12,36 +12,42 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  // baseUrl: `${window.location.protocol}//${host}`,
-  baseUrl: `https://ae758879005f.ngrok.io`,
+  baseUrl: `${window.location.protocol}//${host}`,
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin(), NotificationsPlugin()];
+const plugins: PluginConfig[] = [
+  AuthPlugin({
+    // injectAuthRoutes: false,
+  }),
+  NotificationsPlugin(),
+];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider
     debugMode
     context={contextOptions}
     plugins={plugins}
-    uiLibrary={{
-      // ...MaterialLibrary,
-      // Input: SemanticLibrary.Input,
-      // Dialog: SemanticLibrary.Dialog,
-      // Form: SemanticLibrary.Form,
-      // Select: SemanticLibrary.Select,
-      // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
-      // Tag: fronteggElements.Tag
-      // Input: SemanticLibrary.Input,
-      // Form: SemanticLibrary.Form,
-      // Dialog: MaterialLibrary.Dialog,
-      // Loader: fronteggElements.Loader,
-      // Button: fronteggElements.Button,
-      ...MaterialLibrary,
-      // ...SemanticLibrary,
-      // SwitchToggle: SemanticLibrary.SwitchToggle
-      // Tabs: SemanticLibrary.Tabs
-    }}
+    uiLibrary={
+      {
+        // ...MaterialLibrary,
+        // Input: SemanticLibrary.Input,
+        // Dialog: SemanticLibrary.Dialog,
+        // Form: SemanticLibrary.Form,
+        // Select: SemanticLibrary.Select,
+        // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
+        // Tag: fronteggElements.Tag
+        // Input: SemanticLibrary.Input,
+        // Form: SemanticLibrary.Form,
+        // Dialog: MaterialLibrary.Dialog,
+        // Loader: fronteggElements.Loader,
+        // Button: fronteggElements.Button,
+        // ...MaterialLibrary,
+        // ...SemanticLibrary,
+        // SwitchToggle: SemanticLibrary.SwitchToggle
+        // Tabs: SemanticLibrary.Tabs
+      }
+    }
   >
     <Component />
   </FronteggProvider>

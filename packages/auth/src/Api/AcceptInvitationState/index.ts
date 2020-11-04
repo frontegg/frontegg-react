@@ -1,7 +1,7 @@
+import { createAction } from '@reduxjs/toolkit';
+import { IAcceptInvitation } from '@frontegg/rest-api';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { AcceptInvitationState, AcceptInvitationStep } from './interfaces';
-import { createAction } from '@reduxjs/toolkit';
-import { IAcceptInvitation } from '@frontegg/react-core';
 
 export * from './interfaces';
 

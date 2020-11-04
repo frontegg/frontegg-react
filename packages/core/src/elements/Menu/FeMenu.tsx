@@ -3,6 +3,7 @@ import { MenuProps } from './interfaces';
 import { FeButton } from '../Button/FeButton';
 import { FePopup } from '../Popup/FePopup';
 import { FeIcon } from '../Icon/FeIcon';
+import classNames from 'classnames';
 
 export const FeMenu: FC<MenuProps> = (props) => {
   return (
@@ -15,10 +16,12 @@ export const FeMenu: FC<MenuProps> = (props) => {
                 <FeButton
                   transparent
                   fullWidth
-                  className={item.className}
+                  className={classNames('fe-menu-item__button', item.className)}
                   onClick={(e: any) => item.onClick?.(e, item)}
                 >
-                  {item.icon && <FeIcon className={item.iconClassName} name={item.icon} />}
+                  {item.icon && (
+                    <FeIcon className={classNames('fe-menu-item__icon', item.iconClassName)} name={item.icon} />
+                  )}
                   {item.text}
                 </FeButton>
               );

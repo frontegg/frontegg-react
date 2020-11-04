@@ -1,5 +1,5 @@
-import { ContextOptions, KeyValuePair } from '../interfaces';
 import { ContextHolder } from './ContextHolder';
+import { ContextOptions, KeyValuePair } from './interfaces';
 
 interface RequestOptions {
   url: string;
@@ -15,7 +15,6 @@ interface RequestOptions {
 async function getBaseUrl(context: ContextOptions): Promise<string> {
   let baseUrl = context.baseUrl;
   const prefix = context.urlPrefix || 'frontegg';
-  // Append everything we need to the base url
   if (!baseUrl.endsWith('/')) {
     baseUrl += '/';
   }
@@ -111,10 +110,9 @@ const sendRequest = async (opts: RequestOptions) => {
   if (!response.ok) {
     let errorMessage;
     try {
-      errorMessage = await response.json();
-    } catch (e) {
       errorMessage = await response.text();
-    }
+      errorMessage = JSON.parse(errorMessage);
+    } catch (e) {}
     if (errorMessage.errors) {
       errorMessage = errorMessage.errors.join(', ');
     } else if (typeof errorMessage !== 'string') {

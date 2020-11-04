@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/demo-saas",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
@@ -11,12 +11,11 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
-    "@frontegg/react": "^0.3.11",
-    "@frontegg/react-auth": "^1.2.0",
-    "@frontegg/react-notifications": "^1.2.0",
-    "@frontegg/react-core": "^1.2.0",
-    "@frontegg/react-elements-material-ui": "^1.2.0",
-    "@frontegg/react-elements-semantic": "^1.2.0",
+    "@frontegg/react-auth": "^1.3.0",
+    "@frontegg/react-core": "^1.3.0",
+    "@frontegg/react-notifications": "^1.3.0",
+    "@frontegg/react-elements-material-ui": "^1.3.0",
+    "@frontegg/react-elements-semantic": "^1.3.0",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "i18next": "^19.6.3",

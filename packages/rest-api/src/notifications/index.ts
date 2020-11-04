@@ -1,9 +1,6 @@
 import { Get, Post, Put } from '../fetch';
-import Logger from '../../helpers/Logger';
 import { NOTIFICATIONS_SERVICE_URL } from '../constants';
 import { ILoadMessages, IMessage, IUpdateNotificationStatus, IUpdateNotificationIsPinned } from './interfaces';
-
-const logger = Logger.from('Notifications api');
 
 /*****************************************
  * Notifications Api
@@ -14,7 +11,7 @@ const logger = Logger.from('Notifications api');
  */
 
 export async function getNotifications(params: ILoadMessages): Promise<Array<IMessage>> {
-  logger.debug('getNotifications()');
+  console.debug('getNotifications()');
   return Get(`${NOTIFICATIONS_SERVICE_URL}`, { params });
 }
 
@@ -23,7 +20,7 @@ export async function getNotifications(params: ILoadMessages): Promise<Array<IMe
  */
 
 export async function updateNotificationStatus(params: IUpdateNotificationStatus): Promise<void> {
-  logger.debug('getNotifications()');
+  console.debug('getNotifications()');
   return Put(`${NOTIFICATIONS_SERVICE_URL}/status`, { params });
 }
 
@@ -31,9 +28,9 @@ export async function updateNotificationStatus(params: IUpdateNotificationStatus
  * update Notification pin status
  */
 
-export async function updateNotificationIsPinned(params: IUpdateNotificationIsPinned): Promise<void> {
+export async function updateNotificationIsPinned(params: IUpdateNotificationIsPinned): Promise<any> {
   const { notificationId, pinStatus } = params;
-  logger.debug('getNotifications()');
+  console.debug('getNotifications()');
   return Put(`${NOTIFICATIONS_SERVICE_URL}/${pinStatus}`, { notificationId });
 }
 
@@ -42,6 +39,6 @@ export async function updateNotificationIsPinned(params: IUpdateNotificationIsPi
  */
 
 export async function markAllAsRead(): Promise<void> {
-  logger.debug('getNotifications()');
+  console.debug('getNotifications()');
   return Post(`${NOTIFICATIONS_SERVICE_URL}/status/mark-all-read`);
 }

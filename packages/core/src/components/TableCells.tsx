@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { CellComponent } from '../elements/Table';
 import moment from 'moment';
 import { CellProps } from 'react-table';
 

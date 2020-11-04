@@ -1,7 +1,7 @@
 import { SSOState } from './interfaces';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
-import { CaseReducerActions, CaseReducers, createAction } from '@reduxjs/toolkit';
-import { ISamlConfiguration } from '@frontegg/react-core';
+import { createAction } from '@reduxjs/toolkit';
+import { ISamlConfiguration } from '@frontegg/rest-api';
 
 export * from './interfaces';
 

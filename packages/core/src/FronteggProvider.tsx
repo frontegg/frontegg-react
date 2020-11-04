@@ -7,17 +7,12 @@ import { ContextOptions } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
-import { ContextHolder } from './api';
 import { Elements, ElementsFactory } from './ElementsFactory';
-import { FronteggProvider as OldFronteggProvider } from '@frontegg/react';
+import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { ProxyComponent } from './ngSupport';
 import { all, call } from 'redux-saga/effects';
 
 const isSSR = typeof window === 'undefined';
-
-export type RedirectOptions = {
-  refresh?: boolean;
-  replace?: boolean;
-};
 
 export interface PluginConfig {
   storeName: string;
@@ -28,19 +23,12 @@ export interface PluginConfig {
   WrapperComponent?: React.ComponentType<any>;
 }
 
-export interface FeProviderProps {
+export interface FeProviderProps extends ProxyComponent {
   context: ContextOptions;
   plugins: PluginConfig[];
   uiLibrary?: Partial<Elements>;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
-
-  // deprecated: FronteggProvider will detect if wrapped by ReactRouter, it not will wrap it self with BrowserRouter
-  withRouter?: boolean;
-
-  // internal use
-  _history?: any;
-  _resolvePortals?: (setPortals: any) => void;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -48,7 +36,6 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
-  console.log('FePlugins.render');
   const [rcPortals, setRcPortals] = useState([]);
   props._resolvePortals?.(setRcPortals);
   const listeners = useMemo(() => {
@@ -69,15 +56,7 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   return (
     <>
       {listeners}
-      <OldFronteggProvider
-        contextOptions={{
-          ...(props.context as any),
-          tokenResolver: () => ContextHolder.getAccessToken() || '',
-        }}
-        plugins={[{ type: 'reports' }]}
-      >
-        {children}
-      </OldFronteggProvider>
+      {children}
       {rcPortals}
     </>
   );
@@ -112,9 +91,6 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
-    if (fronteggStore && !isSSR && !window.Cypress) {
-      return fronteggStore;
-    }
     // @ts-ignore
     const devTools = process.env.NODE_ENV === 'development' || props.debugMode ? { name: 'Frontegg Store' } : undefined;
     const reducer = combineReducers({
@@ -158,7 +134,6 @@ const FeState: FC<FeProviderProps> = (props) => {
 };
 
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
-  console.log('FronteggProvider.render');
   ContextHolder.setContext(props.context);
   ElementsFactory.setElements(props.uiLibrary);
 

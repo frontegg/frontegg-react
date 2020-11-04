@@ -1,5 +1,5 @@
 // import { LoaderIndicatorState } from '../interfaces';
-import { IMessages, IMessage, INotificationMetadata } from '@frontegg/react-core';
+import { IMessages, IMessage, INotificationMetadata } from '@frontegg/rest-api';
 
 export interface NotificationsState {
   loading?: boolean;
@@ -12,3 +12,5 @@ export interface NotificationsState {
   pollingFrequency: number;
   metadata?: INotificationMetadata;
 }
+
+export type MessageId = string | number;

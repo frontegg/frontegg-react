@@ -1,6 +1,7 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { actions } from '../reducer';
-import { api, ISamlConfiguration, IUpdateSamlConfiguration, omitProps } from '@frontegg/react-core';
+import { api, ISamlConfiguration, IUpdateSamlConfiguration } from '@frontegg/rest-api';
+import { omitProps } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { SSOState } from './interfaces';
 

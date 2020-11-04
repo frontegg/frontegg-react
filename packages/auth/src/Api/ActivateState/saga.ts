@@ -1,7 +1,7 @@
 import { call, put, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { api, IActivateAccount } from '@frontegg/react-core';
+import { api, IActivateAccount } from '@frontegg/rest-api';
 import { ActivateStep } from './interfaces';
 
 function* activateAccount({ payload }: PayloadAction<IActivateAccount>) {
