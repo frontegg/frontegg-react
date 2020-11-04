@@ -51,5 +51,5 @@ jobs:
           yarn lerna version prerelease --conventional-commits --conventional-prerelease --preid alpha --yes --no-push --no-changelog
           yarn prettier-hook
           yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
-          version=$(node -p 'require("./lerna.json").version')
-          git push origin 'v${version}'
+#          version=$(node -p 'require("./lerna.json").version')
+#          git push origin 'v${version}'

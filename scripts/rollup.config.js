@@ -153,14 +153,14 @@ const umdPlugins = [
   }),
 ];
 
-export default [{
+export default [ {
   input: './src/index.ts',
-  plugins: cjsPlugins,
+  plugins: esmPlugins,
   external: isExternal,
   output: {
-    file: path.join(distFolder, 'index.js'),
+    file: path.join(distFolder, 'index.esm.js'),
     sourcemap: true,
-    format: 'cjs',
+    format: 'esm',
   },
 },
   ...(isWatching ? [] : [
@@ -173,14 +173,14 @@ export default [{
         sourcemap: true,
         format: 'es',
       },
-    }, {
+    },{
       input: './src/index.ts',
-      plugins: esmPlugins,
+      plugins: cjsPlugins,
       external: isExternal,
       output: {
-        file: path.join(distFolder, 'index.esm.js'),
+        file: path.join(distFolder, 'index.js'),
         sourcemap: true,
-        format: 'esm',
+        format: 'cjs',
       },
     },
     // {

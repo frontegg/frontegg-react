@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, FButton, useDialog, useT } from '@frontegg/react-core';
+import { Button, FButton, Grid, useDialog, useT } from '@frontegg/react-core';
 import { useAuthMfaState } from '../hooks';
 
 export const MFAVerifyStepFooter: FC = (props) => {
@@ -8,12 +8,18 @@ export const MFAVerifyStepFooter: FC = (props) => {
   const { t } = useT();
   return (
     <div className='fe-dialog__footer'>
-      <Button className='fe-mr-2' isCancel onClick={onClose}>
-        {t('common.cancel')}
-      </Button>
-      <FButton type='submit' fullWidth={false} variant='primary' loading={loading}>
-        {t('common.verify')}
-      </FButton>
+      <Grid container>
+        <Grid xs item>
+          <Button className='fe-mr-2' isCancel onClick={onClose}>
+            {t('common.cancel')}
+          </Button>
+        </Grid>
+        <Grid xs item className='fe-text-align-end'>
+          <FButton type='submit' fullWidth={false} variant='primary' loading={loading}>
+            {t('common.verify')}
+          </FButton>
+        </Grid>
+      </Grid>
     </div>
   );
 };
