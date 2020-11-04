@@ -50,22 +50,22 @@
     background-color: #511557;
     border-radius: 4px;
     display: inline-flex;
-    height: 48px;
+    height: 3rem;
     align-items: center;
     font-weight: bold;
     position: relative;
     svg {
-      width: 24px;
-      height: 24px;
-      margin: 0 16px;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0 1rem;
     }
     span {
-      margin: 0 32px 0 24px;
+      margin: 0 2rem 0 1.5rem;
     }
     &:before {
       content: '';
       position: absolute;
-      left: 56px;
+      left: 3.5rem;
       display: block;
       width: 0;
       top: 0;
