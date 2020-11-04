@@ -11,7 +11,9 @@ export const TeamHeader: FC<TeamHeaderProps> = (props) => {
   const customProps: Partial<PageHeaderProps> = {
     className: classNames('fe-team__header', props.className),
     title: props.title ?? t('auth.team.title'),
-    subTitle: props.subTitle ?? (loaders.USERS ? t('common.loading') : t('auth.team.subtitle', { totalItems })),
+    subTitle:
+      props.subTitle ??
+      (loaders.USERS ? t('common.loading') : t('auth.team.subtitle', { totalItems: `${totalItems ?? 0}` })),
   };
   return <PageHeader {...props} {...customProps} />;
 };

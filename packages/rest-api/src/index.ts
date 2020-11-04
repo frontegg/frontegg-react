@@ -7,6 +7,7 @@ import * as integrations from './integrations';
 
 import { ContextHolder, FronteggContext } from './ContextHolder';
 
+export * from './interfaces';
 export * from './auth/interfaces';
 export * from './teams/interfaces';
 export * from './metadata/interfaces';

@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IAddUser, IDeleteUser, ILoadUsers, IResendActivationLink, ITeamUser, IUpdateUser } from '@frontegg/react-core';
-import { ISetAddUserDialog, ISetDeleteUserDialog, TeamState, TeamStateIndicator, TeamStateKeys } from './interfaces';
+import { IAddUser, IDeleteUser, ILoadUsers, IResendActivationLink, ITeamUser, IUpdateUser } from '@frontegg/rest-api';
+import { ISetAddUserDialog, ISetDeleteUserDialog, TeamState, TeamStateIndicator } from './interfaces';
 import { errorsReducerForKey, loadersReducerForKey, resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { WithCallback, WithSilentLoad } from '../interfaces';
 

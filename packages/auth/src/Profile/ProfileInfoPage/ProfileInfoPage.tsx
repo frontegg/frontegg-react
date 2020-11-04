@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { PageTabProps, useT, FFormik, IUserProfile, FForm } from '@frontegg/react-core';
+import { PageTabProps, useT, FFormik, FForm } from '@frontegg/react-core';
 import { ProfileImageUploader } from './ProfileImageUploader';
 import { ProfileBasicInformation } from './ProfileBasicInformation';
 import { useAuthProfile } from '../helpers';
-import { useAuth } from '../../hooks';
 
 const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = (props) => {

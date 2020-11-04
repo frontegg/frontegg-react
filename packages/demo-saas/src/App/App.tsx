@@ -1,8 +1,5 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { AuthExamples } from '../auth-examples';
-import { Profile as OldProfile } from '@frontegg/react';
-import { IntegrationsPage } from '@frontegg/react-integrations';
 import { ProtectedRoute, Profile, SSO, MFA, useAuthUser, Team } from '@frontegg/react-auth';
 import { PageTabProps, useT } from '@frontegg/react-core';
 import { ElementsPage } from '../Elements/ElementsPage';
@@ -13,6 +10,7 @@ import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { DialogExample } from '../DialogExample';
+import { IntegrationsPage } from '@frontegg/react-integrations';
 
 const TestPage: FC = () => {
   const user = useAuthUser();

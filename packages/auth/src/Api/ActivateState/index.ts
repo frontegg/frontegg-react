@@ -1,7 +1,7 @@
+import { createAction } from '@reduxjs/toolkit';
+import { IActivateAccount } from '@frontegg/rest-api';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { ActivateState, ActivateStep } from './interfaces';
-import { createAction } from '@reduxjs/toolkit';
-import { IActivateAccount } from '@frontegg/react-core';
 
 export * from './interfaces';
 

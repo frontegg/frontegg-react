@@ -1,4 +1,4 @@
-import { TableFilter, TableSort } from '../../elements/Table';
+import { QueryFilter, QuerySort } from '../interfaces';
 
 export type IUserProfile = {
   id: string;
@@ -70,8 +70,8 @@ export type IChangePassword = {
 
 export type ILoadUsers = {
   silentLoading?: boolean;
-  filter?: TableFilter[];
-  sort?: TableSort[];
+  filter?: QueryFilter[];
+  sort?: QuerySort[];
   pageOffset: number;
   pageSize?: number;
 };

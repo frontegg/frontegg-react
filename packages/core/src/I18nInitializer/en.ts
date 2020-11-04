@@ -208,7 +208,7 @@ export default {
       },
       team: {
         title: 'Team Management',
-        subtitle: 'Total or {{totalItems}} team members',
+        subtitle: 'Total of {{totalItems}} team members',
         'invite-user': 'Invite User',
         'search-users': 'Search by any text',
         resendActivation: 'Resend activation email',

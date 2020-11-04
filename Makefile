@@ -114,6 +114,7 @@ test-unit: ##@3 Tests unit test with jest
 
 build: ##@4 Build build all packages
 	${MAKE} build-cli
+	${MAKE} build-rest-api
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
@@ -148,6 +149,10 @@ move-package-json-to-dist:
 		| sed 's|^./packages/||' \
 		| xargs -I '{}' sh -c 'node scripts/move-package-json-to-dist.js ./packages/{}'
 
+prerelease-version-upgrade-%:
+	@find ./packages -type d -maxdepth 1 ! -path ./packages \
+  		| sed 's|^./packages/||' \
+  		| xargs -I '{}' sh -c 'node scripts/update-prerelease-version.js "./packages/{}" "${*}"'
 
 ########################################################################################################################
 #

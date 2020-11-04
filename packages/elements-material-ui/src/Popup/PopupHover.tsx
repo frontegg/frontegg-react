@@ -8,7 +8,7 @@ const debounceDelay = 100;
 export const PopupHover = forwardRef<HTMLElement, IPopoverProps>((props, ref) => {
   const { trigger, content, anchorOrigin, transformOrigin, mountNode } = props;
 
-  const debounceRef = useRef<number>(0);
+  const debounceRef = useRef<any>(0);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 

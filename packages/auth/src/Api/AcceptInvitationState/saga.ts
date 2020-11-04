@@ -1,7 +1,7 @@
 import { call, put, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { api, IAcceptInvitation } from '@frontegg/react-core';
+import { api, IAcceptInvitation } from '@frontegg/rest-api';
 import { AcceptInvitationStep } from './interfaces';
 
 function* acceptInvitation({ payload }: PayloadAction<IAcceptInvitation>) {

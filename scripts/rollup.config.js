@@ -24,11 +24,30 @@ const distFolder = path.join(process.cwd(), './dist/');
 
 const isExternal = (id) => {
   const exact = [
-    'react-redux',
-    'formik',
-    'immer',
-    '@reduxjs/toolkit',
+    // "@reduxjs/toolkit",
+    // "classnames",
+    // "formik",
+    // "i18next",
+    // "jwt-decode",
+    // "moment",
+    // "react-i18next",
+    // "react-popper-tooltip",
+    // "react-redux",
+    // "react-select",
+    // "react-table",
+    // "rc-dialog",
+    // "redux-saga",
+    // "underscore",
+    // "yup"
+    // 'react',
+    // 'react-dom',
   ];
+  // const exact = [
+  //   'react-redux',
+  //   'formik',
+  //   'immer',
+  //   '@reduxjs/toolkit',
+  // ];
   const startWith = [
     '@babel/runtime',
     '.',
@@ -69,9 +88,9 @@ const commonPlugins = [
     sourceMap: false,
   }),
   isWatching && progress(),
-  isProduction && terser({
-    ecma: '6', module: true,
-  }),
+  // isProduction && terser({
+  //   ecma: '6', module: true,
+  // }),
 ];
 
 const esmPlugins = [
@@ -134,17 +153,16 @@ const umdPlugins = [
   }),
 ];
 
-export default [
-  {
-    input: './src/index.ts',
-    plugins: esmPlugins,
-    external: isExternal,
-    output: {
-      file: path.join(distFolder, 'index.esm.js'),
-      sourcemap: true,
-      format: 'esm',
-    },
+export default [ {
+  input: './src/index.ts',
+  plugins: esmPlugins,
+  external: isExternal,
+  output: {
+    file: path.join(distFolder, 'index.esm.js'),
+    sourcemap: true,
+    format: 'esm',
   },
+},
   ...(isWatching ? [] : [
     {
       input: './src/index.ts',
@@ -155,7 +173,7 @@ export default [
         sourcemap: true,
         format: 'es',
       },
-    }, {
+    },{
       input: './src/index.ts',
       plugins: cjsPlugins,
       external: isExternal,
@@ -190,6 +208,6 @@ export default [
     //     format: 'umd',
     //   },
     // }
-    ]),
+  ]),
 ];
 

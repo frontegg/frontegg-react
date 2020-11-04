@@ -1,4 +1,4 @@
-import { IUserProfile } from '@frontegg/react-core';
+import { IUserProfile } from '@frontegg/rest-api';
 
 export interface ProfileState {
   loading: boolean;

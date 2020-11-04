@@ -1,7 +1,5 @@
 export * from './FronteggProvider';
 
-export * from './api';
-
 export * from './interfaces';
 export * from './HOCs';
 export * from './hooks';

@@ -47,9 +47,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Commit Version UP
         run: |
-          echo "Publishing DEV version - v${{ steps.changelog.outputs.version }}-alpha"
-          yarn lerna version prerelease --conventional-commits --conventional-prerelease --preid alpha --yes --no-push --no-changelog
-          yarn prettier-hook
-          yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version
           version=$(node -p 'require("./lerna.json").version')
-          git push origin 'v${version}'
+          echo "Publishing DEV version - v${version}-alpha.${{ github.GITHUB_RUN_ID }}"
+          make prerelease-version-upgrade-${version}-alpha.${{ github.GITHUB_RUN_ID }}
+          yarn lerna publish from-package --dist-tag next --force-publish --contents dist --yes --no-git-tag-version --no-push
