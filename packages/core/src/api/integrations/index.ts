@@ -10,6 +10,11 @@ export const getSlackConfiguration = () => {
   return Get(`${INTEGRATIONS_SERVICE_URL_V1}/slack`);
 };
 
+export const getSlackScope = () => {
+  logger.debug('getSlackConfiguration()');
+  return Get(`${INTEGRATIONS_SERVICE_URL_V1}/slack/applications`);
+};
+
 export const getSlackChannels = () => {
   logger.debug('getSlackChannels()');
   return Get(`${INTEGRATIONS_SERVICE_URL_V1}/slack/channels`);

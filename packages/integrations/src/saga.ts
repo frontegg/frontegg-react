@@ -172,9 +172,20 @@ function* postCodeFunction({ payload }: PayloadAction<string>) {
   yield put(integrationsActions.postCodeSuccess());
 }
 
+function* loadSlackPermissions() {
+  try {
+    const { clientId } = yield call(api.integrations.getSlackScope);
+    yield put(integrationsActions.loadScopeSucess(clientId));
+  } catch (e) {
+    logger.error(e);
+    yield put(integrationsActions.loadSlackSuccess(null));
+  }
+}
+
 export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
   yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
   yield takeEvery(integrationsActions.postDataAction, postDataFunction);
   yield takeEvery(integrationsActions.postCodeAction, postCodeFunction);
+  yield takeEvery(integrationsActions.loadScope, loadSlackPermissions);
 }

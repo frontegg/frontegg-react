@@ -21,6 +21,11 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
   initialState,
   reducers: {
     loadDataAction: (state) => ({ ...state, isLoading: true }),
+    loadScope: (state) => ({ ...state, slackChannels: { ...state.slackChannels, isLoadingScope: true } }),
+    loadScopeSucess: (state, { payload }) => ({
+      ...state,
+      slackChannels: { ...state.slackChannels, clientId: payload, isLoadingScope: false },
+    }),
     loadDataSuccess: (state, { payload }) => ({ ...state, isLoading: false, ...payload }),
     cleanData: () => ({ isLoading: false, isSaving: false, list: [], slackChannels: { isLoading: false } }),
     loadSlackActions: (state) => ({ ...state, slackChannels: { isLoading: true } }),

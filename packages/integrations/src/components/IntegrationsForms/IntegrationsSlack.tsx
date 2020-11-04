@@ -17,6 +17,7 @@ import { integrationsActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { IntegrationsSlackAuth } from './IntegrationsSlackAuth';
 
 interface ITableData {
   id: string;
@@ -32,17 +33,19 @@ interface ITableData {
 
 export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   const dispatch = useDispatch();
-  const { isLoading, categories, channelMap, slack, isSaving } = useSelector(
+  const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
     ({
       integrations: {
-        slackChannels: { isLoading },
+        slackChannels: { isLoading, clientId, data: slackChannels },
         categories,
         channelMap,
         isSaving,
         slack,
       },
     }: IPluginState) => ({
+      slackChannels,
       isLoading,
+      clientId,
       categories,
       slack,
       isSaving,
@@ -136,9 +139,19 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
     dispatch(integrationsActions.postDataAction('slack', newData));
   };
 
-  return isLoading ? (
-    <Loader center />
-  ) : tablesData ? (
+  if (isLoading) {
+    return <Loader center />;
+  }
+
+  if (!isLoading && !slackChannels?.length) {
+    return <IntegrationsSlackAuth />;
+  }
+
+  if (!tablesData?.length) {
+    return <> Required configure the connectivity</>;
+  }
+
+  return (
     <FFormik.Formik enableReinitialize initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
@@ -147,7 +160,5 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
         ))}
       </FFormik.Form>
     </FFormik.Formik>
-  ) : (
-    <> Required configure the connectivity</>
   );
 };

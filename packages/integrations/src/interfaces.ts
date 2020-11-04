@@ -31,7 +31,9 @@ export interface IIntegrationsState {
   channelMap?: Record<TPlatform, IChannelsMap[]>;
   slackChannels: {
     isLoading: boolean;
+    isLoadingScope?: boolean;
     data?: ISlackChannel[];
+    clientId?: string;
   };
 }
 

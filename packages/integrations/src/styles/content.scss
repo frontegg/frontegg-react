@@ -24,3 +24,56 @@
     font-weight: bold;
   }
 }
+
+.fe-slack-auth {
+  border-radius: 5px;
+  background-color: var(--color-gray-0);
+  padding: 1rem;
+  &-container {
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid var(--color-gray-3);
+    padding: 4rem 8rem;
+  }
+  &__txt {
+    margin-bottom: 1.3rem;
+    color: var(--color-gray-5);
+  }
+  &__txt-strong {
+    font-weight: bold;
+    color: var(--color-gray-9);
+    margin-bottom: 1.3rem;
+  }
+  &__btn {
+    color: white;
+    text-decoration: none;
+    background-color: #511557;
+    border-radius: 4px;
+    display: inline-flex;
+    height: 48px;
+    align-items: center;
+    font-weight: bold;
+    position: relative;
+    svg {
+      width: 24px;
+      height: 24px;
+      margin: 0 16px;
+    }
+    span {
+      margin: 0 32px 0 24px;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      left: 56px;
+      display: block;
+      width: 0;
+      top: 0;
+      bottom: 0;
+      border-left: solid 1px #804386;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
