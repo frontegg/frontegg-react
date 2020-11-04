@@ -21,7 +21,7 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
     }
   });
 
-  fs.writeFileSync(`${packagePath}/package.json`, JSON.stringify(pkg), { encoding: 'utf-8' });
+  fs.writeFileSync(`${packagePath}/package.json`, JSON.stringify(pkg, null, 2), { encoding: 'utf-8' });
 }
 
 updatePreReleaseVersion(process.argv[2], process.argv[3]);
