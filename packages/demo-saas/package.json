@@ -11,9 +11,9 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
-    "@frontegg/react": "^0.3.11",
     "@frontegg/react-auth": "^1.3.0",
     "@frontegg/react-core": "^1.3.0",
+    "@frontegg/react-notifications": "^1.3.0",
     "@frontegg/react-elements-material-ui": "^1.3.0",
     "@frontegg/react-elements-semantic": "^1.3.0",
     "@reduxjs/toolkit": "^1.4.0",

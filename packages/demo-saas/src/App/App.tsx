@@ -9,6 +9,7 @@ import { TableExample } from '../TableExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
+import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
 
 const TestPage: FC = () => {
@@ -54,6 +55,9 @@ class App extends React.Component<any> {
               <div>
                 <Link to='/select'>Select Examples</Link>
               </div>
+              <div>
+                <Link to='/notifications'>Notifications Example</Link>
+              </div>
             </div>
           </Route>
           <Route path='/test-auth-user' component={TestPage} />
@@ -63,7 +67,9 @@ class App extends React.Component<any> {
           <Route path='/sso'>
             <SSO.Page />
           </Route>
-
+          <Route path='/notifications'>
+            <NotificationsExample />
+          </Route>
           <ProtectedRoute path='/profile' component={Profile.Page} />
           <Route path='/team' component={Team.Page} />
           <Route exact path='/popup' component={PopupExample} />
