@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export { useSelector, useDispatch };
 export { FFormik };
 export const useT = (): UseTranslationResponse => useTranslation();
+export * from './helpers/useSearch';
 
 export function useDebounce<T>(value: T, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
