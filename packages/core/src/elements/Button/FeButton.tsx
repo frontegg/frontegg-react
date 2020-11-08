@@ -37,7 +37,7 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
   return (
     <button ref={ref} className={classNames(classes, { ['fe-icon-button']: iconButton })} type={type} {...restProps}>
       {children}
-      {loading && <FeLoader />}
+      {loading && <FeLoader size={size === 'small' ? 18 : 24} />}
     </button>
   );
 });

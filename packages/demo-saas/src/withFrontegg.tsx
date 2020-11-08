@@ -1,9 +1,7 @@
 import React, { ComponentType } from 'react';
-import { ContextOptions, fronteggElements, FronteggProvider, PluginConfig } from '@frontegg/react-core';
+import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { NotificationsPlugin } from '@frontegg/react-notifications';
-import { uiLibrary as SemanticLibrary } from '@frontegg/react-elements-semantic';
-import { uiLibrary as MaterialLibrary } from '@frontegg/react-elements-material-ui';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
@@ -16,39 +14,10 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [
-  AuthPlugin({
-    // injectAuthRoutes: false,
-  }),
-  NotificationsPlugin(),
-];
+const plugins: PluginConfig[] = [AuthPlugin({}), NotificationsPlugin({})];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider
-    debugMode
-    context={contextOptions}
-    plugins={plugins}
-    uiLibrary={
-      {
-        // ...MaterialLibrary,
-        // Input: SemanticLibrary.Input,
-        // Dialog: SemanticLibrary.Dialog,
-        // Form: SemanticLibrary.Form,
-        // Select: SemanticLibrary.Select,
-        // ...(localStorage.getItem('library') === 'material' ? MaterialLibrary : SemanticLibrary),
-        // Tag: fronteggElements.Tag
-        // Input: SemanticLibrary.Input,
-        // Form: SemanticLibrary.Form,
-        // Dialog: MaterialLibrary.Dialog,
-        // Loader: fronteggElements.Loader,
-        // Button: fronteggElements.Button,
-        // ...MaterialLibrary,
-        // ...SemanticLibrary,
-        // SwitchToggle: SemanticLibrary.SwitchToggle
-        // Tabs: SemanticLibrary.Tabs
-      }
-    }
-  >
+  <FronteggProvider debugMode context={contextOptions} plugins={plugins}>
     <Component />
   </FronteggProvider>
 );

@@ -2,6 +2,7 @@ import { PopupPosition, PopupProps } from './interfaces';
 import React, { forwardRef, useMemo, cloneElement, MouseEvent } from 'react';
 import Popup from 'react-popper-tooltip';
 import './FePopup.scss';
+import classNames from 'classnames';
 
 const preparePosition = (p?: PopupPosition): any => {
   if (!p) {
@@ -20,7 +21,7 @@ const preparePosition = (p?: PopupPosition): any => {
 };
 
 export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
-  const { position, trigger, action, content, mountNode } = props;
+  const { position, trigger, action, content, className, mountNode } = props;
   const placement = useMemo(() => preparePosition(position), [position]);
 
   return (
@@ -34,7 +35,7 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
           <div
             {...getTooltipProps({
               ref,
-              className: 'fe-popup__container',
+              className: classNames('fe-popup__container', className),
               onClick: (e: MouseEvent) => e.stopPropagation(),
             })}
           >
@@ -44,12 +45,17 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
       }}
     >
       {({ getTriggerProps, triggerRef: ref }) => {
-        return React.cloneElement(trigger, {
-          ...getTriggerProps({
-            ref,
-            onClick: (e: MouseEvent) => e.stopPropagation(),
-          }),
-        });
+        return (
+          <span
+            ref={ref}
+            {...getTriggerProps({
+              ref,
+              onClick: (e: MouseEvent) => e.stopPropagation(),
+            })}
+          >
+            {trigger}
+          </span>
+        );
       }}
     </Popup>
   );

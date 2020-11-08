@@ -6,7 +6,7 @@ import './FeLoader.scss';
 
 const prefixCls = 'fe-loader';
 export const FeLoader = forwardRef<HTMLDivElement, LoaderProps>((props, ref) => {
-  const { className, center, children, variant = 'primary', ...restProps } = props;
+  const { className, center, children, variant = 'primary', size, ...restProps } = props;
 
   const classes = ClassNameGenerator.generate(
     {
@@ -23,7 +23,15 @@ export const FeLoader = forwardRef<HTMLDivElement, LoaderProps>((props, ref) => 
   });
 
   return (
-    <div ref={ref} className={classes} {...restProps}>
+    <div
+      ref={ref}
+      className={classes}
+      {...restProps}
+      style={{
+        width: size ?? 24,
+        height: size ?? 24,
+      }}
+    >
       <span className={innerClasses} />
     </div>
   );
