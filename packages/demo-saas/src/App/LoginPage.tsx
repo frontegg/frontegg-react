@@ -4,9 +4,7 @@ import { useAuth } from '@frontegg/react-auth';
 
 export const LoginPage: FC = () => {
   const { t } = useT();
-  const { step, loading, error, login, preLogin, loginWithMfa } = useAuth((state) => state.loginState);
-
-  console.log(step);
+  const { loading, error, login } = useAuth((state) => state.loginState);
   if (loading) {
     return <div>Loading...</div>;
   }

@@ -28,7 +28,6 @@ MyTab.route = '/my-tab';
 
 class App extends React.Component<any> {
   render() {
-    console.log('App.render');
     return (
       <div className='app'>
         <Switch>
