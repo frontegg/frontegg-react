@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler, ReactElement, useContext, useState } from 'react';
-import { Button, checkValidChildren, useT } from '@frontegg/react-core';
+import { Button, checkValidChildren, useT, ProxyComponent, useProxyComponent } from '@frontegg/react-core';
 import { MFAEnrollDialog } from './MFAEnrollDialog';
 import { MFADisableDialog } from './MFADisableDialog';
 import { useAuth } from '../hooks';
@@ -43,7 +43,8 @@ type SubComponents = {
   EnrollButton: typeof EnrollButton;
   DisableButton: typeof EnrollButton;
 };
-export const MFAButton: FC & SubComponents = (props) => {
+
+export const MFAButton: FC<ProxyComponent> & SubComponents = (props) => {
   const [enrollOpen, setEnrollOpen] = useState(false);
   const [disableOpen, setDisableOpen] = useState(false);
 
@@ -51,6 +52,7 @@ export const MFAButton: FC & SubComponents = (props) => {
   const openDisableDialog = () => setDisableOpen(true);
 
   checkValidChildren('MFAButton', 'MFAButton', props.children, { EnrollButton, DisableButton });
+  const proxyPortals = useProxyComponent(props);
   const children = props.children ?? (
     <>
       <EnrollButton />
@@ -68,6 +70,8 @@ export const MFAButton: FC & SubComponents = (props) => {
       {children}
       <MFAEnrollDialog open={enrollOpen} onClose={() => setEnrollOpen(false)} />
       <MFADisableDialog open={disableOpen} onClose={() => setDisableOpen(false)} />
+
+      {proxyPortals}
     </MFAButtonContext.Provider>
   );
 };

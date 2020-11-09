@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useT } from '@frontegg/react-core';
+import { useT, useProxyComponent, ProxyComponent } from '@frontegg/react-core';
 import { useAuthUser } from '../hooks';
 import { MFAButton } from './MFAButton';
 
@@ -19,7 +19,10 @@ const MFAStatus = () => {
   );
 };
 
-export const MFALayout: FC = (props) => {
+export interface MFALayoutProps extends ProxyComponent {}
+
+export const MFALayout: FC<MFALayoutProps> = (props) => {
+  const proxyPortals = useProxyComponent(props);
   const children = props.children ?? (
     <>
       <MFAStatus />
@@ -29,6 +32,8 @@ export const MFALayout: FC = (props) => {
   return (
     <div className='fe-mfa-layout fe-card-container'>
       <div className='fe-card-content'>{children}</div>
+
+      {proxyPortals}
     </div>
   );
 };

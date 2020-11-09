@@ -1,13 +1,20 @@
 import React, { FC, useMemo } from 'react';
-import { checkValidChildren, RootPathContext, useRootPath } from '@frontegg/react-core';
+import {
+  checkValidChildren,
+  RootPathContext,
+  useRootPath,
+  useProxyComponent,
+  ProxyComponent,
+} from '@frontegg/react-core';
 import { BasePageProps } from '../interfaces';
 import { TeamLayout } from './TeamLayout';
 import { TeamHeader } from './TeamHeader';
 import { reloadTeamIfNeeded } from './helpers';
 
-export type TeamPageProps = BasePageProps;
+export interface TeamPageProps extends BasePageProps, ProxyComponent {}
 
 export const TeamPage: FC<TeamPageProps> = (props) => {
+  const proxyPortals = useProxyComponent(props);
   reloadTeamIfNeeded();
 
   const [rootPath] = useRootPath(props, '/team');
@@ -19,10 +26,11 @@ export const TeamPage: FC<TeamPageProps> = (props) => {
       <TeamLayout />
     </>
   );
-
   return (
     <RootPathContext.Provider value={rootPath}>
       <div className='fe-team__page'>{children}</div>
+
+      {proxyPortals}
     </RootPathContext.Provider>
   );
 };
