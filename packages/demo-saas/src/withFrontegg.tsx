@@ -2,6 +2,7 @@ import React, { ComponentType } from 'react';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { NotificationsPlugin } from '@frontegg/react-notifications';
+import { uiLibrary } from '@frontegg/react-elements-material-ui';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
@@ -17,7 +18,7 @@ const contextOptions: ContextOptions = {
 const plugins: PluginConfig[] = [AuthPlugin({}), NotificationsPlugin({})];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider debugMode context={contextOptions} plugins={plugins}>
+  <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
     <Component />
   </FronteggProvider>
 );

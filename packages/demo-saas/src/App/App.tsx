@@ -83,4 +83,4 @@ class App extends React.Component<any> {
   }
 }
 
-export default withFrontegg(App);
+export default App;
