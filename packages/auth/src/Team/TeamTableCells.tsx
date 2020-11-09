@@ -128,9 +128,9 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
   );
 
   return (
-    <>
+    <div className='fe-flex'>
       {permissions.map((permission) => (
-        <Tag className='fe-mr-1' key={permission.value}>
+        <Tag className='fe-mr-1 fe-mb-1 fe-mt-1' size='small' key={permission.value}>
           {permission.label}
         </Tag>
       ))}
@@ -139,9 +139,10 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
           <div className='fe-team__roles-dropdown'>
             {roles?.map((role) => (
               <Checkbox
+                key={role.label}
                 label={role.label}
                 checked={checked(role)}
-                disabled={loading === userId || (checked(role) && permissions.length === 1)}
+                disabled={loading === userId}
                 onChange={() => onUpdateUser(role)}
               />
             ))}
@@ -154,6 +155,6 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
           </Button>
         }
       />
-    </>
+    </div>
   );
 };

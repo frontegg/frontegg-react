@@ -11,6 +11,7 @@ import { Elements, ElementsFactory } from './ElementsFactory';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { ProxyComponent } from './ngSupport';
 import { all, call } from 'redux-saga/effects';
+import { Middleware } from 'redux';
 
 const isSSR = typeof window === 'undefined';
 
@@ -29,6 +30,7 @@ export interface FeProviderProps extends ProxyComponent {
   uiLibrary?: Partial<Elements>;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
+  storeMiddlewares?: Middleware[];
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -46,7 +48,6 @@ const FePlugins: FC<FeProviderProps> = (props) => {
   }, [props.plugins]);
 
   const children = useMemo(() => {
-    console.log('compute the plugin wrappers');
     let combinedWrapper: any = props.children;
     const wrappers = props.plugins.filter((p) => p.WrapperComponent).map((p) => p.WrapperComponent!);
     wrappers.forEach((Wrapper) => (combinedWrapper = <Wrapper>{combinedWrapper}</Wrapper>));
@@ -63,7 +64,6 @@ const FePlugins: FC<FeProviderProps> = (props) => {
 };
 
 const FeState: FC<FeProviderProps> = (props) => {
-  console.log('FeState.render');
   const history = useHistory();
   const location = useLocation();
   const taskRef = useRef<Task>();
@@ -91,6 +91,9 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
+    // if (fronteggStore != null) {
+    //   return fronteggStore;
+    // }
     // @ts-ignore
     const devTools = process.env.NODE_ENV === 'development' || props.debugMode ? { name: 'Frontegg Store' } : undefined;
     const reducer = combineReducers({
@@ -110,7 +113,12 @@ const FeState: FC<FeProviderProps> = (props) => {
         {}
       ),
     };
-    fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
+    fronteggStore = configureStore({
+      reducer,
+      preloadedState,
+      middleware: [...middleware, ...(props.storeMiddlewares ?? [])],
+      devTools,
+    });
     taskRef.current = sagaMiddleware.run(rootSaga);
     return fronteggStore;
   }, []);

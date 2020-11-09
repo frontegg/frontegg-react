@@ -2,31 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import { App } from './App';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { withFrontegg } from './withFrontegg';
+import { BrowserRouter } from 'react-router-dom';
 
-function counter(state = 0, action: any) {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'DECREMENT':
-      return state - 1;
-    default:
-      return state;
-  }
-}
-
-// Create a Redux store holding the state of your app.
-// Its API is { subscribe, dispatch, getState }.
-const store = createStore(counter);
+const AppWithFrontegg = withFrontegg(App);
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    {/*<BrowserRouter>*/}
-    <App />
-    {/*</BrowserRouter>*/}
-  </Provider>,
-  // </React.StrictMode>
+  <BrowserRouter>
+    <AppWithFrontegg />
+  </BrowserRouter>,
   document.getElementById('root')
 );

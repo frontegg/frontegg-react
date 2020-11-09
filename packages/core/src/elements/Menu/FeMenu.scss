@@ -1,2 +1,33 @@
-.fe-menu-item {
+.fe-menu {
+  &__popup {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: var(--element-padding);
+    background: var(--color-white);
+    cursor: pointer;
+
+    &__with-icons {
+      padding-left: 3rem;
+    }
+
+    &__icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    &:hover {
+      background: var(--color-gray-2);
+    }
+  }
 }

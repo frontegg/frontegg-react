@@ -12,7 +12,6 @@ import {
   useT,
   validateArrayLength,
   validateEmail,
-  validateLength,
   validateSchema,
 } from '@frontegg/react-core';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
@@ -45,14 +44,15 @@ export const TeamAddUserDialog: FC = (props) => {
       <Formik
         validationSchema={validateSchema({
           email: validateEmail(t),
-          roles: validateArrayLength(t, t('common.roles')),
         })}
         initialValues={initialValues}
-        onSubmit={({ name, email, roles }) => {
+        onSubmit={({ name, email, roles }, { setSubmitting }) => {
+          setSubmitting(true);
           addUser({
             name,
             email,
             roleIds: roles.map((v) => v.value),
+            callback: () => setSubmitting(false),
           });
         }}
       >

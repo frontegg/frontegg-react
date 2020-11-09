@@ -11,7 +11,6 @@ const mapper = ({
   inForm,
   indeterminate,
   fullWidth,
-  onChange,
   type,
   className,
   size,

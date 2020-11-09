@@ -1,5 +1,19 @@
-//@import url('https://cdn.jsdelivr.net/npm/@frontegg/react-dev/vendor.min.css');
-@import url('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css');
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-width: 320px;
+  background: #fff;
+  font-family: 'Nunito Sans', Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 #root,
 .app {

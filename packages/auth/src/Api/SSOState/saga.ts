@@ -51,7 +51,6 @@ function* saveSSOConfigurations({ payload: newSamlConfiguration }: PayloadAction
       yield put(actions.setSSOState({ samlConfiguration: { ...oldSamlConfiguration, ...samlConfiguration } }));
       return;
     } else {
-      console.log('loaderKey', loaderKey);
       yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
     }
 

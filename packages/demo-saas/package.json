@@ -14,38 +14,18 @@
     "@frontegg/react-auth": "^1.3.0",
     "@frontegg/react-core": "^1.3.0",
     "@frontegg/react-notifications": "^1.3.0",
-    "@frontegg/react-elements-material-ui": "^1.3.0",
-    "@frontegg/react-elements-semantic": "^1.3.0",
-    "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
-    "i18next": "^19.6.3",
-    "moment": "^2.27.0",
     "react": ">16.8.6",
     "react-dom": ">16.8.6",
-    "react-i18next": "^11.7.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
-    "redux-saga": "^1.1.3",
-    "semantic-ui-react": "^1.2.1",
-    "underscore": "^1.10.2"
+    "redux-saga": "^1.1.3"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.10",
-    "@types/i18next": "^13.0.0",
-    "@types/moment": "^2.13.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
-    "@types/react-i18next": "^8.1.0",
     "@types/react-router-dom": "^5.1.2",
-    "@types/underscore": "^1.10.2",
     "react-scripts": "^3.4.3"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "testPathIgnorePatterns": [
-      "dist/"
-    ]
   },
   "browserslist": {
     "production": [
@@ -57,30 +37,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "prettier": {
-    "printWidth": 120,
-    "semi": true,
-    "singleQuote": true,
-    "jsxSingleQuote": true,
-    "trailingComma": "all",
-    "jsxBracketSameLine": true,
-    "endOfLine": "lf",
-    "tabWidth": 2
-  },
-  "standard": {
-    "ignore": [
-      "node_modules/",
-      "dist/"
-    ],
-    "globals": [
-      "describe",
-      "it",
-      "test",
-      "expect",
-      "afterAll",
-      "jest"
     ]
   }
 }

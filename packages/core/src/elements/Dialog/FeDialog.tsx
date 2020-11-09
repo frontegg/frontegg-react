@@ -5,7 +5,6 @@ import './FeDialog.scss';
 
 export const FeDialog: FC<DialogProps> = (props) => {
   const { open, header, children, onClose } = props;
-  console.log(open);
   return (
     <Dialog
       visible={open}

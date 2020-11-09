@@ -7,6 +7,7 @@ export type PopupPosition = {
 export type PopupAction = 'hover' | 'click' | 'focus';
 
 export interface PopupProps {
+  className?: string;
   position?: PopupPosition;
   content: ReactNode;
   action: PopupAction;
