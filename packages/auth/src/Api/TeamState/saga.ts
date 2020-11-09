@@ -67,7 +67,13 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
   const teamState = yield select((state) => state.auth.teamState);
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   try {
-    const { item: newUser } = yield call(api.teams.addUser, body);
+    const { item } = yield call(api.teams.addUser, body);
+    const { item: newUser } = yield call(api.teams.updateUser, {
+      id: item.id,
+      name: item.name,
+      email: item.email,
+      roleIds: item.roleIds,
+    });
     callback?.(newUser);
     yield put(
       actions.setTeamState({

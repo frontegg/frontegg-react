@@ -4,7 +4,7 @@ import { AuthState } from '../Api';
 import { bindActionCreators, CaseReducerActions } from '@reduxjs/toolkit';
 import { pluginName, sliceReducerActionsBy } from '../hooks';
 
-type AuthTeamStateMapper<S extends object> = (state: TeamState) => S;
+export type AuthTeamStateMapper<S extends object> = (state: TeamState) => S;
 const defaultAuthTeamStateMapper: any = (state: TeamState) => ({ ...state });
 
 export const useAuthTeamState = <S extends object>(

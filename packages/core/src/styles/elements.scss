@@ -141,6 +141,9 @@
   &__description {
     font-size: 0.9rem;
     color: var(--color-gray-6);
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   &__date-ago {
     > div:first-child {
