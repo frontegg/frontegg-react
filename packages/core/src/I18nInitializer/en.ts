@@ -247,7 +247,7 @@ export default {
       sms: 'SMS',
       email: 'Email',
       slack: 'Slack',
-      webhooks: 'Webhooks',
+      webhook: 'Webhooks',
     },
   },
 };
