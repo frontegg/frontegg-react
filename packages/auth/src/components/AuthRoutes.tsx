@@ -177,7 +177,7 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
         }
       })}
 
-      <Route path='*'>{children}</Route>
+      <Route path='*' component={() => <>{children}</>} />
     </Switch>
   );
 };
