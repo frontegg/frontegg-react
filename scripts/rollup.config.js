@@ -23,7 +23,7 @@ console.warn('****************************************');
 const distFolder = path.join(process.cwd(), './dist/');
 
 const isExternal = (id) => {
-  const exact = [
+  const internal = [
     // "@reduxjs/toolkit",
     // "classnames",
     // "formik",
@@ -32,7 +32,7 @@ const isExternal = (id) => {
     // "moment",
     // "react-i18next",
     // "react-popper-tooltip",
-    // "react-redux",
+    "react-redux",
     // "react-select",
     // "react-table",
     // "rc-dialog",
@@ -55,7 +55,7 @@ const isExternal = (id) => {
   const contains = [
     'style-inject',
   ];
-  if (exact.includes(id)) {
+  if (internal.includes(id)) {
     return false;
   }
   if (startWith.find(s => id.indexOf(s) === 0)) {
