@@ -52,11 +52,11 @@ export const TeamTable: FC = (props) => {
         sortable: true,
         Cell: TeamTableDescriptionCell,
       },
-      {
+      ...(roles.length > 0 ? [{
         accessor: 'roleIds',
         Header: t('common.roles') ?? '',
         Cell: TeamTableRoles(user?.id, roleOptions),
-      },
+      }] : []),
       {
         accessor: 'createdAt',
         Header: t('common.joinedTeam') ?? '',
@@ -76,7 +76,7 @@ export const TeamTable: FC = (props) => {
         Cell: TeamTableActions(user?.id),
       },
     ],
-    [roles]
+    [roles],
   );
 
   return (
