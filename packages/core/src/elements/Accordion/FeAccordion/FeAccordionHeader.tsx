@@ -17,7 +17,7 @@ export const FeAccordionHeader = forwardRef<HTMLDivElement, AccordionHeaderProps
     expanded && 'expanded'
   );
 
-  const toggleExpanded = useCallback(() => setExpanded(!expanded), [expanded]);
+  const toggleExpanded = useCallback(() => setExpanded(!expanded), [expanded, setExpanded]);
 
   return (
     <div ref={ref} className={classes} onClick={toggleExpanded} {...rest}>
