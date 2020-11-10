@@ -2,7 +2,7 @@ import React, { FC, useCallback, useMemo } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { IWebhooksConfigurations } from '@frontegg/rest-api';
-import { NotFound, SwitchToggle, Table, TableColumnProps, useSearch, useSelector } from '@frontegg/react-core';
+import { Button, NotFound, SwitchToggle, Table, TableColumnProps, useSearch, useSelector } from '@frontegg/react-core';
 import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories } from '../../utils';
@@ -37,6 +37,10 @@ export const IntegrationsWebhooksList: FC = () => {
     },
     [Location, locationState]
   );
+
+  const onNewEvent = useCallback(() => {
+    historyReplace({ ...location, state: { ...locationState, view: 'edit' } });
+  }, [Location, locationState]);
 
   const countOfEvents = useCallback(
     (eventKeys: string[]) =>
@@ -99,8 +103,11 @@ export const IntegrationsWebhooksList: FC = () => {
   );
 
   return (
-    <div>
+    <div className='fe-integrations-webhook-list'>
       {Search}
+      <Button className='fe-integrations-webhook-add' variant='primary' onClick={onNewEvent}>
+        ADD NEW HOOK
+      </Button>
       {data.length ? (
         <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
       ) : (

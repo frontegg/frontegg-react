@@ -1,4 +1,14 @@
 .fe-integrations-webhook {
+  &-list {
+    position: relative;
+  }
+
+  &-add {
+    position: absolute;
+    right: var(--element-spacing);
+    top: var(--element-spacing);
+  }
+
   &-event {
     margin-right: var(--element-spacing);
     position: relative;
