@@ -1,6 +1,6 @@
 import { EVENT_RESOURCES_URL_V1, INTEGRATIONS_SERVICE_URL_V1, INTEGRATIONS_SERVICE_WEBHOOKS_URL } from '../constants';
 import { Get, Patch, Post, Delete } from '../fetch';
-import { IEmailConfigurations, ISMSConfigurations, ISlackConfigurations, ISlackSubscription } from './interfaces';
+import { IEmailConfigurations, ISMSConfigurations, ISlackSubscription, IWebhooksSaveData } from './interfaces';
 
 export const getSlackConfiguration = () => {
   console.debug('getSlackConfiguration()');
@@ -59,9 +59,13 @@ export const getWebhooksConfigurations = () => {
   return Get(INTEGRATIONS_SERVICE_WEBHOOKS_URL);
 };
 
-export const postWebhooksConfiguration = (data: ISMSConfigurations) => {
+export const postWebhooksConfiguration = (data: IWebhooksSaveData) => {
   console.debug('postWebhooksConfiguration()', data);
-  return Post(INTEGRATIONS_SERVICE_WEBHOOKS_URL, data);
+  if (data._id) {
+    return Patch(`${INTEGRATIONS_SERVICE_WEBHOOKS_URL}/${data._id}`, data);
+  } else {
+    return Post(INTEGRATIONS_SERVICE_WEBHOOKS_URL, data);
+  }
 };
 
 export const getCategories = () => {

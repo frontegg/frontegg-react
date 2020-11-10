@@ -27,6 +27,7 @@ export interface ISMSConfigurations {
   to: string[];
 }
 export interface IWebhooksSaveData {
+  _id?: string;
   displayName: string;
   description: string;
   url: string;
@@ -34,8 +35,8 @@ export interface IWebhooksSaveData {
   eventKeys: string[];
   isActive: boolean;
 }
-export interface IWebhooksConfigurations extends IWebhooksSaveData {
-  _id?: string;
+export interface IWebhooksConfigurations extends Omit<IWebhooksSaveData, '_id'> {
+  _id: string;
   invocations: number;
   createdAt: string;
   updatedAt: string;
