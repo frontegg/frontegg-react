@@ -4,6 +4,7 @@ import {
   ISlackConfigurations,
   ISMSConfigurations,
   IWebhooksConfigurations,
+  IWebhooksSaveData,
 } from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
 import { IIntegrationsState, TPlatform } from './interfaces';
@@ -42,14 +43,14 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
     postDataAction: {
       prepare: (
         platform: TPlatform,
-        data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[]
+        data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksSaveData
       ) => ({ payload: { data, platform } }),
       reducer: (state) => ({ ...state, isSaving: true }),
     },
     postDataSuccess: {
       prepare: (payload: {
-        platform: TPlatform;
-        data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
+        platform?: TPlatform;
+        data?: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
       }) => ({ payload, error: null, meta: '' }),
       reducer: (state, { payload: { platform, data } }) => ({ ...state, isSaving: false, [`${platform}`]: data }),
     },

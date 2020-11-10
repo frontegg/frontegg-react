@@ -4,6 +4,7 @@ import {
   FFormik,
   FInput,
   Grid,
+  useDispatch,
   useSelector,
   useT,
   validateRequired,
@@ -15,6 +16,7 @@ import { AccordingCategories } from '../../elements/AccordingCategories';
 import { SelectWebhook } from '../../elements/SelectWebhook';
 import { filterCategories } from '../../utils';
 import { IPluginState } from '../../interfaces';
+import { integrationsActions } from '../../reducer';
 
 export interface IIntegrationsWebhooksForm {
   data: IWebhooksSaveData | null;
@@ -22,6 +24,7 @@ export interface IIntegrationsWebhooksForm {
 
 export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }) => {
   const t = useT();
+  const dispatch = useDispatch();
   const { categories, channelMap } = useSelector(({ integrations: { categories, channelMap } }: IPluginState) => ({
     categories,
     channelMap: channelMap && channelMap.webhook,
@@ -36,7 +39,9 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
     <FFormik.Formik
       // validationSchema={validationSchema}
       initialValues={{ ...initialValues, ...data }}
-      onSubmit={(val) => console.log(val)}
+      onSubmit={(val) => {
+        dispatch(integrationsActions.postDataAction('webhook', val));
+      }}
     >
       <FFormik.Form>
         <Grid container wrap='nowrap'>

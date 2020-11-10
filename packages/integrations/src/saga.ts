@@ -4,13 +4,14 @@ import { integrationsActions } from './reducer';
 import { IIntegrationsState, IPluginState, TPlatform } from './interfaces';
 import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts';
 import {
-  IEmailConfigurations,
-  ISMSConfigurations,
-  IWebhooksConfigurations,
-  ISlackConfigurations,
   api,
   IChannelsMap,
+  IWebhooksSaveData,
+  ISMSConfigurations,
   ISlackSubscription,
+  IEmailConfigurations,
+  ISlackConfigurations,
+  IWebhooksConfigurations,
 } from '@frontegg/rest-api';
 
 const addApi = ['categories', 'channelMap'];
@@ -90,20 +91,19 @@ function* postDataFunction({
   payload: { platform, data },
 }: PayloadAction<{
   platform: TPlatform;
-  data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
+  data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksSaveData;
 }>) {
   try {
-    let newData;
     if (platform === 'slack') {
-      newData = yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
+      yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
     } else {
       yield call(type2ApiPost[platform], data);
     }
-    yield put(integrationsActions.postDataSuccess({ platform, data: newData }));
   } catch (e) {
     console.error(e);
-    yield put(integrationsActions.postDataSuccess({ platform, data }));
   }
+  const newData = yield loadFunction({ payload: { api: platform }, type: '' });
+  yield put(integrationsActions.postDataSuccess({ platform, data: newData }));
 }
 
 function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {

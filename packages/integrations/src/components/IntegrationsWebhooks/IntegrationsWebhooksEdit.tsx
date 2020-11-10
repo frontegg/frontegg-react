@@ -1,8 +1,7 @@
-import { Tabs, useSelector } from '@frontegg/react-core';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useLayoutEffect } from 'react';
+import { Tabs, usePrevious, useSelector } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
 import { IPluginState } from '../../interfaces';
-import { filterCategories } from '../../utils';
 import { IntegrationsWebhooksForm } from './IntegrationsWebhooksForm';
 import { IntegrationsWebhooksLog } from './IntegrationsWebhooksLog';
 import { IWebhookLocationState } from './interfaces';
@@ -15,11 +14,20 @@ export const IntegrationsWebhooksEdit: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  const { webhook } = useSelector(({ integrations: { webhook } }: IPluginState) => ({
+  const { webhook, isSaving } = useSelector(({ integrations: { webhook, isSaving } }: IPluginState) => ({
     webhook,
+    isSaving,
   }));
 
+  const prevIsSaving = usePrevious(isSaving);
+
   const data = webhook?.find(({ _id }) => _id === locationState.id);
+
+  useLayoutEffect(() => {
+    prevIsSaving &&
+      !isSaving &&
+      historyReplace({ ...location, state: { ...locationState, view: 'list', id: undefined } });
+  }, [prevIsSaving, isSaving, historyReplace, location, locationState]);
 
   const onChangeTab = useCallback(
     (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => {
