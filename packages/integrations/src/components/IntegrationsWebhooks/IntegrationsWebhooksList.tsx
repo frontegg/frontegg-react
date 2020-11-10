@@ -61,7 +61,10 @@ export const IntegrationsWebhooksList: FC = () => {
         accessor: 'displayName',
         Header: 'TITLE',
         Cell: ({ value, row }) => (
-          <div className='fe-integrations-webhook-cell' onClick={() => onEdit(row.original._id)}>
+          <div
+            className='fe-integrations-webhook-cell fe-integrations-webhook-cell-link'
+            onClick={() => onEdit(row.original._id)}
+          >
             <div>{value}</div>
             <div>{row.original.description}</div>
           </div>

@@ -6,11 +6,10 @@ import { IWebhookLocationState } from './interfaces';
 
 export const IntegrationsWebhooks: FC = () => {
   const {
-    replace: historyReplace,
-    location: { state: locationState, ...location },
+    location: { state: locationState },
   } = useHistory<IWebhookLocationState>();
 
-  return locationState.view || locationState.view !== 'list' ? (
+  return !locationState.view || locationState.view === 'list' ? (
     <IntegrationsWebhooksList />
   ) : (
     <IntegrationsWebhooksEdit />
