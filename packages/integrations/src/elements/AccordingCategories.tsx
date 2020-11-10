@@ -1,10 +1,20 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { Grid, Icon, FFormik, Checkbox, Accordion, AccordionHeader, AccordionContent } from '@frontegg/react-core';
+import {
+  Grid,
+  Icon,
+  useT,
+  FFormik,
+  Checkbox,
+  Accordion,
+  AccordionHeader,
+  AccordionContent,
+} from '@frontegg/react-core';
 import { selectedEvents } from '../utils';
 import { ICategory } from '@frontegg/rest-api';
 import { IWebhookComponent } from '../components/IntegrationsWebhooks/interfaces';
 
 export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) => {
+  const { t } = useT();
   const [{ value }, {}, { setValue }] = FFormik.useField<string[]>('eventKeys');
   const [expanded, setExpanded] = useState<string[]>([]);
 
@@ -77,7 +87,9 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
                   <Icon name={expanded.includes(id) ? 'down-arrow' : 'right-arrow'} />
                 </Grid>
                 <Grid className='fe-integrations-webhook-according-events-name'>{name}</Grid>
-                <Grid>Selected: {selected}</Grid>
+                <Grid>
+                  {t('common.selected')}: {selected}
+                </Grid>
               </Grid>
             </AccordionHeader>
             <AccordionContent>
@@ -86,7 +98,7 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
                   checked={eventObject?.names.includes(name)}
                   className='fe-integrations-webhook-check-all'
                   onChange={() => onCategoryChange(category)}
-                  label={`SELECT ALL IN THE ${name.toUpperCase()} CATEGORY`}
+                  label={t('integrations.selectAll', { name: name.toUpperCase() })}
                 />
               </div>
               {events?.map(({ id, displayName, key }) => (

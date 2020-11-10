@@ -46,7 +46,7 @@ export const channels2Platform: Record<
     isActive: (data) => !!(data as ISMSConfigurations)?.to?.length,
   },
   email: {
-    title: 'integrations.email',
+    title: 'common.email',
     events: (data) => (data as IEmailConfigurations)?.to?.length || 0,
     isActive: (data) => !!(data as IEmailConfigurations)?.to?.length,
   },

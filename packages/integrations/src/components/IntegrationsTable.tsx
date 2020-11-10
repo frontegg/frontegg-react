@@ -38,7 +38,7 @@ export const IntegrationsTable: FC = () => {
   const columns: TableColumnProps<IIntegrationsData>[] = [
     {
       accessor: 'platform',
-      Header: () => <span id='fe-integrations-firstColumn'>Platform </span>,
+      Header: () => <span id='fe-integrations-firstColumn'>{t('common.platform')}</span>,
       maxWidth: 90,
       Cell: ({ value, row, allColumns }) => (
         <Button
@@ -55,8 +55,16 @@ export const IntegrationsTable: FC = () => {
         </Button>
       ),
     },
-    { accessor: 'active', Header: 'Active', Cell: ({ value }) => <SwitchToggle value={value} readOnly /> },
-    { accessor: 'events', Header: 'Event', Cell: ({ value }) => <span className='fe-circle'>{value}</span> },
+    {
+      accessor: 'active',
+      Header: t('common.active') || '',
+      Cell: ({ value }) => <SwitchToggle value={value} readOnly />,
+    },
+    {
+      accessor: 'events',
+      Header: t('common.events') || '',
+      Cell: ({ value }) => <span className='fe-circle'>{value}</span>,
+    },
     {
       accessor: 'actions',
       Cell: ({ row }) => (
@@ -65,7 +73,7 @@ export const IntegrationsTable: FC = () => {
           variant={row.original.active ? 'primary' : 'secondary'}
           onClick={() => setEdit(row.original)}
         >
-          {row.original.active ? 'Configure' : 'Install'}
+          {row.original.active ? t('common.configure') : t('common.install')}
         </Button>
       ),
       maxWidth: 80,

@@ -1,14 +1,17 @@
-import React, { FC, useCallback, useLayoutEffect } from 'react';
-import { Button, Icon, Tabs, usePrevious, useSelector } from '@frontegg/react-core';
+import React, { FC, useCallback, useLayoutEffect, useMemo } from 'react';
+import { Button, Icon, Tabs, usePrevious, useSelector, useT } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
 import { IPluginState } from '../../interfaces';
 import { IntegrationsWebhooksForm } from './IntegrationsWebhooksForm';
 import { IntegrationsWebhooksLog } from './IntegrationsWebhooksLog';
 import { IWebhookLocationState } from './interfaces';
 
-const items = ['Details', 'Logs'].map((el) => () => <>{el}</>);
+const itemsArray = ['common.detail', 'common.logs'];
 
 export const IntegrationsWebhooksEdit: FC = () => {
+  const { t } = useT();
+  const items = useMemo(() => itemsArray.map((el) => () => <>{t(el)}</>), [t]);
+
   const {
     replace: historyReplace,
     location: { state: locationState, ...location },
@@ -44,7 +47,7 @@ export const IntegrationsWebhooksEdit: FC = () => {
         <Button transparent onClick={onBack}>
           <Icon name='left-arrow' />
         </Button>
-        {data?.displayName ?? 'Add New Hook'}
+        {data?.displayName ?? t('integrations.addNewHook')}
       </div>
       <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />
       {locationState.view === 'edit' ? <IntegrationsWebhooksForm data={data ?? null} /> : <IntegrationsWebhooksLog />}

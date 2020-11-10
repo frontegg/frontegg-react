@@ -2,7 +2,16 @@ import React, { FC, useCallback, useMemo } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { IWebhooksConfigurations } from '@frontegg/rest-api';
-import { Button, NotFound, SwitchToggle, Table, TableColumnProps, useSearch, useSelector } from '@frontegg/react-core';
+import {
+  useT,
+  Table,
+  Button,
+  NotFound,
+  useSearch,
+  useSelector,
+  SwitchToggle,
+  TableColumnProps,
+} from '@frontegg/react-core';
 import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories } from '../../utils';
@@ -14,6 +23,7 @@ interface IEventCount {
 }
 
 export const IntegrationsWebhooksList: FC = () => {
+  const { t } = useT();
   const {
     replace: historyReplace,
     location: { state: locationState, ...location },
@@ -63,7 +73,7 @@ export const IntegrationsWebhooksList: FC = () => {
     () => [
       {
         accessor: 'displayName',
-        Header: 'TITLE',
+        Header: t('common.title').toUpperCase(),
         Cell: ({ value, row }) => (
           <div
             className='fe-integrations-webhook-cell fe-integrations-webhook-cell-link'
@@ -76,17 +86,17 @@ export const IntegrationsWebhooksList: FC = () => {
       },
       {
         accessor: 'eventKeys',
-        Header: 'EVENTS',
+        Header: t('common.events').toUpperCase(),
         Cell: ({ value }) => <EventsCell events={value} />,
       },
       {
         accessor: 'invocations',
-        Header: 'INVOCATIONS',
+        Header: t('common.invocations').toUpperCase(),
         Cell: ({ value }) => <div className='fe-integrations-webhook-cell'>{value || 0}</div>,
       },
       {
         accessor: 'createdAt',
-        Header: 'CREATED AT',
+        Header: t('common.createdAt').toUpperCase(),
         Cell: ({ value }) => {
           const date = moment.utc(value).local();
           return (
@@ -97,16 +107,20 @@ export const IntegrationsWebhooksList: FC = () => {
           );
         },
       },
-      { accessor: 'isActive', Header: 'STATUS', Cell: ({ value }) => <SwitchToggle value={value} /> },
+      {
+        accessor: 'isActive',
+        Header: t('common.status').toUpperCase(),
+        Cell: ({ value }) => <SwitchToggle value={value} />,
+      },
     ],
-    [onEdit, countOfEvents]
+    [t, onEdit, countOfEvents]
   );
 
   return (
     <div className='fe-integrations-webhook-list'>
       {Search}
       <Button className='fe-integrations-webhook-add' variant='primary' onClick={onNewEvent}>
-        ADD NEW HOOK
+        {t('integrations.addNewHook')}
       </Button>
       {data.length ? (
         <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
