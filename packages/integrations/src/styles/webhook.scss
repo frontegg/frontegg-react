@@ -1,0 +1,48 @@
+.fe-integrations-webhook {
+  &-event {
+    margin-right: var(--element-spacing);
+    position: relative;
+    &::after {
+      content: ' ,';
+      position: absolute;
+      top: 0;
+      left: 100%;
+      display: block;
+    }
+    &:nth-last-child(1) {
+      margin-right: 0;
+      &::after {
+        content: none;
+      }
+    }
+  }
+
+  &-cell {
+    justify-self: stretch;
+    align-self: stretch;
+    flex-grow: 1;
+    &-link {
+      cursor: pointer;
+    }
+  }
+
+  &-settings {
+    padding: var(--element-padding);
+  }
+
+  &-check {
+    &-item {
+      padding-left: var(--element-padding);
+    }
+  }
+  &-according {
+    &-events-name {
+      flex-grow: 1;
+    }
+  }
+  &-option {
+    &-category {
+      background-color: var(--color-gray-1);
+    }
+  }
+}

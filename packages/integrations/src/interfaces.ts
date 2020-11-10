@@ -9,7 +9,7 @@ import {
 } from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export type TPlatform = 'slack' | 'email' | 'sms' | 'webhooks';
+export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
 export interface IPluginState {
   integrations: IIntegrationsState;
@@ -26,7 +26,7 @@ export interface IIntegrationsState {
   sms?: ISMSConfigurations;
   email?: IEmailConfigurations;
   slack?: ISlackConfigurations;
-  webhooks?: IWebhooksConfigurations[];
+  webhook?: IWebhooksConfigurations[];
   categories?: ICategory[];
   channelMap?: Record<TPlatform, IChannelsMap[]>;
   slackChannels: {

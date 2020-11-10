@@ -13,3 +13,21 @@ export const filterCategories = (categories?: ICategory[], channelMap?: IChannel
     }
     return undefined;
   }, [categories, channelMap]);
+
+export const selectedEvents = (events?: string[]): { names: string[]; eventKeys: string[] } | undefined =>
+  useMemo(
+    () =>
+      events?.reduce(
+        (acc: { names: string[]; eventKeys: string[] }, curr) => {
+          if (/\.\*$/.test(curr)) {
+            const val = curr.replace(/\.\*$/, '');
+            !acc.names.includes(val) && acc.names.push(val);
+          } else if (!acc.eventKeys.includes(curr)) {
+            acc.eventKeys.push(curr);
+          }
+          return acc;
+        },
+        { names: [], eventKeys: [] }
+      ),
+    [events]
+  );
