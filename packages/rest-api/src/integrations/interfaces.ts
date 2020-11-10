@@ -1,3 +1,5 @@
+import { string } from 'yargs';
+
 export interface ISlackConfigurations {
   id: string;
   slackSubscriptions: ISlackSubscription[];
@@ -86,4 +88,18 @@ export interface IChannelsMap {
     createdAt: string;
     updatedAt: string;
   };
+}
+
+export interface IWebhookLogsResponse {
+  count: number;
+  rows: IWebhookLog[];
+}
+export interface IWebhookLog {
+  body: string;
+  createdAt: string;
+  id: string;
+  statusCode: string;
+  tenantId: string;
+  vendorId: string;
+  webhookId: string;
 }
