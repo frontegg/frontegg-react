@@ -26,14 +26,16 @@ export interface ISMSConfigurations {
   id: string;
   to: string[];
 }
-
-export interface IWebhooksConfigurations {
-  _id?: string;
+export interface IWebhooksSaveData {
   displayName: string;
   description: string;
-  eventKeys: { [key: string]: string }[] | string | any;
   url: string;
   secret: string;
+  eventKeys: string[];
+  isActive: boolean;
+}
+export interface IWebhooksConfigurations extends IWebhooksSaveData {
+  _id?: string;
   invocations: {
     count: string;
     period: string;
@@ -41,7 +43,6 @@ export interface IWebhooksConfigurations {
   };
   createdAt: string;
   updatedAt: string;
-  isActive: boolean;
 }
 
 export interface IMainField {
