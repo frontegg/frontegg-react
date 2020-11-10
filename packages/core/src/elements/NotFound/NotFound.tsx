@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import classnames from 'classnames';
+import { useT } from '../..';
 
 export interface INotFound {
   className?: string;
 }
 
-export const NotFound: FC<INotFound> = ({ className, children }) => (
-  <div className={classnames(className, 'fe-not-found-data')}>{children ?? 'No Data Found'}</div>
-);
+export const NotFound: FC<INotFound> = ({ className, children }) => {
+  const { t } = useT();
+  return <div className={classnames(className, 'fe-not-found-data')}>{children ?? t('common.notFound')}</div>;
+};
