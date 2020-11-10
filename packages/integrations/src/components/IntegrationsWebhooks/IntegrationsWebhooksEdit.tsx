@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useLayoutEffect } from 'react';
-import { Tabs, usePrevious, useSelector } from '@frontegg/react-core';
+import { Button, Icon, Tabs, usePrevious, useSelector } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
 import { IPluginState } from '../../interfaces';
 import { IntegrationsWebhooksForm } from './IntegrationsWebhooksForm';
@@ -23,11 +23,13 @@ export const IntegrationsWebhooksEdit: FC = () => {
 
   const data = webhook?.find(({ _id }) => _id === locationState.id);
 
+  const onBack = useCallback(() => {
+    historyReplace({ ...location, state: { ...locationState, view: 'list', id: undefined } });
+  }, [historyReplace, location, locationState]);
+
   useLayoutEffect(() => {
-    prevIsSaving &&
-      !isSaving &&
-      historyReplace({ ...location, state: { ...locationState, view: 'list', id: undefined } });
-  }, [prevIsSaving, isSaving, historyReplace, location, locationState]);
+    prevIsSaving && !isSaving && onBack();
+  }, [prevIsSaving, isSaving, onBack]);
 
   const onChangeTab = useCallback(
     (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => {
@@ -38,7 +40,12 @@ export const IntegrationsWebhooksEdit: FC = () => {
 
   return (
     <div>
-      <div>{data?.displayName ?? 'Add New Hook'}</div>
+      <div>
+        <Button transparent onClick={onBack}>
+          <Icon name='left-arrow' />
+        </Button>
+        {data?.displayName ?? 'Add New Hook'}
+      </div>
       <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />
       {locationState.view === 'edit' ? <IntegrationsWebhooksForm data={data ?? null} /> : <IntegrationsWebhooksLog />}
     </div>
