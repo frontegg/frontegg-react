@@ -10,5 +10,9 @@ export const IntegrationsWebhooks: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  return locationState.view !== 'list' ? <IntegrationsWebhooksEdit /> : <IntegrationsWebhooksList />;
+  return locationState.view || locationState.view !== 'list' ? (
+    <IntegrationsWebhooksList />
+  ) : (
+    <IntegrationsWebhooksEdit />
+  );
 };
