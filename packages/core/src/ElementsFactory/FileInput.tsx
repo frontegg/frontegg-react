@@ -43,7 +43,7 @@ export const FFileInput: FC<InputProps & { name: string }> = (props) => {
     <FileInput
       {...props}
       type='file'
-      style={{ display: 'hidden', ...props.style }}
+      style={{ display: 'none', ...props.style }}
       onChange={async (e) => {
         e.persist();
         const selectedFile = e.target.files?.[0];

@@ -15,13 +15,20 @@ function* loadProfile() {
   }
 }
 
-function* saveProfile({ payload }: PayloadAction<Partial<IUserProfile>>) {
+function* saveProfile({ payload: { profilePictureUrl, ...payload } }: PayloadAction<Partial<IUserProfile>>) {
   yield put(actions.setProfileState({ saving: true }));
   try {
     const oldProfileData = yield select((state) => state.auth.profileState.profile);
+
+    let newProfilePictureUrl = oldProfileData.profilePictureUrl;
+    if (profilePictureUrl !== oldProfileData.profilePictureUrl) {
+      newProfilePictureUrl = yield call(api.teams.updateProfileImage, { profileImage: profilePictureUrl });
+    }
+
     const newProfileData = {
       ...oldProfileData,
       ...payload,
+      profilePictureUrl: newProfilePictureUrl,
     };
     const profile = yield call(api.teams.updateProfile, newProfileData);
     const currentUser = yield select((state) => state.auth.user);

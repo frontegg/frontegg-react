@@ -1,6 +1,7 @@
 /* tslint:disable:no-console */
 import { Get, Post, Put, Delete } from '../fetch';
 import {
+  TEAMS_PROFILE_SERVICE_URL,
   TEAMS_ROLES_SERVICE_URL_V1,
   TEAMS_STATS_SERVICE_URL_V1,
   TEAMS_USERS_SERVICE_URL_V1,
@@ -19,6 +20,7 @@ import {
   IUserProfile,
   IUpdateUser,
   IDeleteUser,
+  IUpdateProfileImage,
 } from './interfaces';
 import { PaginationResult } from '../interfaces';
 
@@ -44,6 +46,15 @@ export async function getProfile(params?: object): Promise<IUserProfile> {
 export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUserProfile> {
   console.debug('updateProfile()', body);
   return Put(`${USERS_SERVICE_URL_V2}/me`, body);
+}
+
+/**
+ * update user profile image
+ * ``authorized user``
+ */
+export async function updateProfileImage(body: Partial<IUpdateProfileImage>): Promise<string> {
+  console.debug('updateProfileImage()', body);
+  return Put(`${TEAMS_PROFILE_SERVICE_URL}/me/image/v1`, body);
 }
 
 /**

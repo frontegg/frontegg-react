@@ -89,8 +89,11 @@
       font-size: 1.4rem;
       font-weight: bold;
       line-height: 1.5;
-      margin-bottom: 2rem;
+      margin-bottom: 0rem;
       text-overflow: ellipsis;
+    }
+    .fe-profile-email {
+      margin-bottom: 2rem;
     }
 
     input[type='file'] {
