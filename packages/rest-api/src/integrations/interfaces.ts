@@ -36,11 +36,7 @@ export interface IWebhooksSaveData {
 }
 export interface IWebhooksConfigurations extends IWebhooksSaveData {
   _id?: string;
-  invocations: {
-    count: string;
-    period: string;
-    percents: string;
-  };
+  invocations: number;
   createdAt: string;
   updatedAt: string;
 }
