@@ -11,6 +11,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
+export type TWebhookStatus = 'success' | 'failed';
 export interface IPluginState {
   integrations: IIntegrationsState;
 }
@@ -22,6 +23,7 @@ export interface IIntegrationsComponent {
 export interface IIntegrationsState {
   isLoading: boolean;
   isSaving: boolean;
+  isTesting?: boolean;
   list: IIntegrationsData[];
   sms?: ISMSConfigurations;
   email?: IEmailConfigurations;
@@ -35,6 +37,7 @@ export interface IIntegrationsState {
     data?: ISlackChannel[];
     clientId?: string;
   };
+  testResult?: IWebhookTestResult;
 }
 
 export interface IIntegrationsData {
@@ -47,4 +50,9 @@ export interface IIntegrationsData {
 
 export interface IRootPath {
   rootPath?: string;
+}
+
+export interface IWebhookTestResult {
+  status: TWebhookStatus;
+  message?: string;
 }

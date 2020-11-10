@@ -45,14 +45,25 @@
       padding-left: var(--element-padding);
     }
   }
+
   &-according {
     &-events-name {
       flex-grow: 1;
     }
   }
+
   &-option {
     &-category {
       background-color: var(--color-gray-1);
+    }
+  }
+
+  &-dialog {
+    &-success .fe-dialog-content {
+      border-left: solid 1rem var(--color-success);
+    }
+    &-failed .fe-dialog-content {
+      border-left: solid 1rem var(--color-danger);
     }
   }
 }

@@ -5,9 +5,10 @@ import {
   ISMSConfigurations,
   IWebhooksConfigurations,
   IWebhooksSaveData,
+  IWebhookTest,
 } from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
-import { IIntegrationsState, TPlatform } from './interfaces';
+import { IIntegrationsState, TPlatform, TWebhookStatus } from './interfaces';
 
 export const initialState: IIntegrationsState = {
   isLoading: false,
@@ -54,5 +55,18 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
       }) => ({ payload, error: null, meta: '' }),
       reducer: (state, { payload: { platform, data } }) => ({ ...state, isSaving: false, [`${platform}`]: data }),
     },
+    postWebhookTestAction: {
+      prepare: (payload: IWebhookTest) => ({ payload }),
+      reducer: (state) => ({ ...state, isTesting: true }),
+    },
+    postWebhookTestSuccess: {
+      prepare: (status: TWebhookStatus, message: string) => ({ payload: { status, message }, meta: '', error: null }),
+      reducer: (state, { payload }) => ({ ...state, isTesting: false, testResult: payload }),
+    },
+    cleanWebhookTestMessage: (state) => ({
+      ...state,
+      testResult: { status: state.testResult?.status ?? 'success', message: undefined },
+    }),
+    cleanWebhookTestData: (state) => ({ ...state, testResult: undefined }),
   },
 });

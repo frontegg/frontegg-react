@@ -12,6 +12,7 @@ import {
   IEmailConfigurations,
   ISlackConfigurations,
   IWebhooksConfigurations,
+  IWebhookTest,
 } from '@frontegg/rest-api';
 
 const addApi = ['categories', 'channelMap'];
@@ -179,10 +180,25 @@ function* loadSlackPermissions() {
   }
 }
 
+function* postWebhookTestFunction({ payload }: PayloadAction<IWebhookTest>) {
+  try {
+    const { statusCode, body } = yield call(api.integrations.postWebhookTest, payload);
+    if ([201, 200].includes(statusCode)) {
+      yield put(integrationsActions.postWebhookTestSuccess('success', JSON.stringify(body, null, 2)));
+    } else {
+      yield put(integrationsActions.postWebhookTestSuccess('failed', body.toString()));
+    }
+  } catch (e) {
+    console.error(e);
+    yield put(integrationsActions.postWebhookTestSuccess('failed', e.toString()));
+  }
+}
+
 export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
   yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
   yield takeEvery(integrationsActions.postDataAction, postDataFunction);
   yield takeEvery(integrationsActions.postCodeAction, postCodeFunction);
   yield takeEvery(integrationsActions.loadScope, loadSlackPermissions);
+  yield takeEvery(integrationsActions.postWebhookTestAction, postWebhookTestFunction);
 }
