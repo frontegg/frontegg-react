@@ -1,14 +1,21 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { AuthState } from './Api';
 import { useAuth } from './hooks';
+import { ContextHolder, FronteggContext } from '@frontegg/rest-api';
 
-const stateMapper = ({ isAuthenticated, user, isLoading }: AuthState) => ({ isAuthenticated, user, isLoading });
+const stateMapper = ({ isAuthenticated, user, isLoading, routes }: AuthState) => ({
+  isAuthenticated,
+  user,
+  isLoading,
+  routes,
+});
 
 const AuthStateKey = 'fe-auth-state';
 
 export const AuthListener: FC = () => {
   const timer = useRef<any>(0);
-  const { isAuthenticated, user, requestAuthorize, isLoading } = useAuth(stateMapper);
+  const { isAuthenticated, user, requestAuthorize, isLoading, routes, logout } = useAuth(stateMapper);
+  ContextHolder.setLogout(logout, routes.logoutUrl);
 
   const updateSessionTimer = (firstTime: boolean = false) => {
     timer.current && clearInterval(timer.current);

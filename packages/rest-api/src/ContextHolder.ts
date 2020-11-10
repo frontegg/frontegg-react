@@ -7,6 +7,7 @@ export class ContextHolder {
   private accessToken: string | null = null;
   private user: IUserProfile | null = null;
   private onRedirectTo: (path: string, opts?: RedirectOptions) => void = (path) => (window.location.href = path);
+  private logout: (callback?: () => void) => void = () => (window.location.href = '/account/logout');
 
   private constructor() {}
 
@@ -34,6 +35,16 @@ export class ContextHolder {
     ContextHolder.getInstance().onRedirectTo = onRedirectTo;
   }
 
+  public static setLogout(logout: (callback?: () => void) => void, logoutUrl: string) {
+    ContextHolder.getInstance().logout = (callback?: () => void) => {
+      if (!callback) {
+        ContextHolder.onRedirectTo(logoutUrl);
+      } else {
+        logout(callback);
+      }
+    };
+  }
+
   public static getContext(): ContextOptions {
     return (
       ContextHolder.getInstance().context ?? {
@@ -54,10 +65,16 @@ export class ContextHolder {
   public static onRedirectTo(path: string, opts?: RedirectOptions) {
     return ContextHolder.getInstance().onRedirectTo(path, opts);
   }
+
+  public static logout(callback?: () => void) {
+    return ContextHolder.getInstance().logout(callback);
+  }
 }
 
 export const FronteggContext = {
   getContext: (): ContextOptions => ContextHolder.getContext(),
   getAccessToken: (): string | null => ContextHolder.getAccessToken(),
   getUser: (): IUserProfile | null => ContextHolder.getUser(),
+  onRedirectTo: (path: string, opts: RedirectOptions) => ContextHolder.onRedirectTo(path, opts),
+  logout: (callback?: () => void) => ContextHolder.logout(callback),
 };
