@@ -26,12 +26,15 @@ export interface ISMSConfigurations {
   id: string;
   to: string[];
 }
-export interface IWebhooksSaveData {
+
+export interface IWebhookTest {
+  url: string;
+  secret: string;
+}
+export interface IWebhooksSaveData extends IWebhookTest {
   _id?: string;
   displayName: string;
   description: string;
-  url: string;
-  secret: string;
   eventKeys: string[];
   isActive: boolean;
 }
