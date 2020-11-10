@@ -1,4 +1,4 @@
-import { takeEvery, put, call, select, all } from 'redux-saga/effects';
+import { takeLatest, put, call, select, all, takeEvery } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import {
   api,
@@ -18,10 +18,9 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any
   const state = yield select((state) => state.auth.teamState);
 
   const pageSize = payload.pageSize ?? state.pageSize;
-  const pageOffset = payload.pageSize ?? state.pageOffset;
+  const pageOffset = payload.pageOffset ?? state.pageOffset;
   const filter = payload.filter ?? state.filter;
   const sort = payload.sort ?? state.sort;
-
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: !silentLoading }));
   yield put(
     actions.setTeamState({
@@ -95,8 +94,21 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
   const { callback, profileImage, ...body } = payload;
   const { id: userId } = body;
   const teamState = yield select((state) => state.auth.teamState);
+  let oldUserData = {};
   yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: userId || '' }));
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
+  yield put(
+    actions.setTeamState({
+      addUserDialogState: { ...teamState.addUserDialogState, loading: true },
+      users: teamState.users.map((user: ITeamUser) => {
+        if (user.id === body.id) {
+          oldUserData = { ...user };
+          return { ...user, ...body };
+        }
+        return user;
+      }),
+    })
+  );
   try {
     const { item: newUser } = yield call(api.teams.updateUser, body);
     callback?.(newUser);
@@ -110,6 +122,7 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
     yield put(
       actions.setTeamState({
         addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
+        users: teamState.users.map((user: ITeamUser) => (user.id === body.id ? { ...user, ...oldUserData } : user)),
       })
     );
     yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));
@@ -208,7 +221,7 @@ function* closeDeleteUserDialog({ payload }: PayloadAction<any>) {
 }
 
 export function* teamSagas() {
-  yield takeEvery(actions.loadUsers, loadUsers);
+  yield takeLatest(actions.loadUsers, loadUsers);
   yield takeEvery(actions.addUser, addUser);
   yield takeEvery(actions.updateUser, updateUser);
   yield takeEvery(actions.deleteUser, deleteUser);
