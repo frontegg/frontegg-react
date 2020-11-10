@@ -124,8 +124,9 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
       manualFilters: !!props.onFilterChange,
       manualPagination: !!props.onPageChange,
       manualRowSelectedKey: props.rowKey,
-      pageCount: props.pageCount ?? 0,
-      useControlledState: (state1: any) =>
+      pageCount: !!props.onPageChange ? props.pageCount : undefined,
+      autoResetPage: !props.onPageChange,
+      useControlledState: (state1: any, meta) =>
         ({
           ...state1,
           sortBy: props.sortBy ?? state1.sortBy,

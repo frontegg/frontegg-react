@@ -105,6 +105,7 @@
       background: var(--color-gray-2);
     }
   }
+
   &__active-filter {
     color: var(--color-primary-dark);
     background: var(--color-gray-2);
@@ -115,6 +116,10 @@
     overflow-x: hidden;
     flex: 1;
     -webkit-overflow-scrolling: touch;
+
+    &__loading {
+      opacity: 0.8;
+    }
   }
 
   &__tr {
