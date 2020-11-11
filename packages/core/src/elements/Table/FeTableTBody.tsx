@@ -57,7 +57,12 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
   const { getTableBodyProps, prepareRow, rows, renderExpandedComponent } = props;
 
   return (
-    <div className='fe-table__tbody' {...getTableBodyProps()}>
+    <div
+      className={classNames('fe-table__tbody', {
+        'fe-table__tbody__loading': props.loading,
+      })}
+      {...getTableBodyProps()}
+    >
       {rows.map((row) => (
         <FeTableTBodyRow
           key={row.id}

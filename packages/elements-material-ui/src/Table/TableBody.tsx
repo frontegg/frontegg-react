@@ -4,6 +4,7 @@ import { TableBody as MTableBody, TableRow, TableCell, CircularProgress } from '
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { TableExpandable } from './TableExpandable';
 import { Loader } from '../Loader';
+import classNames from 'classnames';
 
 type TableTBodyProps<T extends object> = {
   loading?: boolean;
@@ -32,7 +33,12 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
 
   return (
     <>
-      <MTableBody className='fe-table__tbody' {...getTableBodyProps()}>
+      <MTableBody
+        className={classNames('fe-table__tbody', {
+          'fe-table__tbody__loading': loading,
+        })}
+        {...getTableBodyProps()}
+      >
         {rows.map((row) => {
           prepareRow(row);
           return (

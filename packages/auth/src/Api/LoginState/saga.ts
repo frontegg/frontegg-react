@@ -176,7 +176,7 @@ function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
   }
 }
 
-function* logout({ payload }: PayloadAction<any>) {
+function* logout({ payload }: PayloadAction<() => void>) {
   yield put(actions.setState({ isLoading: true }));
   try {
     yield call(api.auth.logout);
@@ -184,7 +184,7 @@ function* logout({ payload }: PayloadAction<any>) {
     console.error(e);
   }
   yield put(actions.setState({ isLoading: false }));
-  payload();
+  payload?.();
 }
 
 export function* loginSagas() {

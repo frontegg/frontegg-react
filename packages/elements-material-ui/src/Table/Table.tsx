@@ -163,14 +163,16 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
       manualFilters: !!props.onFilterChange,
       manualPagination: !!props.onPageChange,
       manualRowSelectedKey: props.rowKey,
-      pageCount: props.pageCount ?? 0,
-      useControlledState: (state1: any) =>
-        ({
+      pageCount: !!props.onPageChange ? props.pageCount : undefined,
+      autoResetPage: !props.onPageChange,
+      useControlledState: (state1: any) => {
+        return {
           ...state1,
           sortBy: props.sortBy ?? state1.sortBy,
           filters: props.filters ?? state1.filters,
           selectedRowIds: props.selectedRowIds ?? state1.selectedRowIds,
-        } as TableState<T> & UseFiltersState<T> & UseSortByState<T> & UseRowSelectState<T>),
+        } as TableState<T> & UseFiltersState<T> & UseSortByState<T> & UseRowSelectState<T>;
+      },
       expandSubRows: false,
       initialState: {
         pageIndex: 0,
@@ -321,7 +323,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           className={classes.footer}
           rowsPerPageOptions={[]}
           component='div'
-          count={rows.length}
+          count={props.totalData || rows.length}
           rowsPerPage={tableState.pageSize}
           page={tableState.pageIndex}
           onChangePage={(e, page) => onPageChangeHandler(page)}

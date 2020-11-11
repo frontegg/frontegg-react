@@ -9,7 +9,7 @@ import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
-import { ProxyComponent } from './ngSupport';
+import { ProxyComponent, useProxyComponent } from './ngSupport';
 import { all, call } from 'redux-saga/effects';
 import { Middleware } from 'redux';
 
@@ -38,8 +38,7 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
-  const [rcPortals, setRcPortals] = useState([]);
-  props._resolvePortals?.(setRcPortals);
+  const proxyPortals = useProxyComponent(props);
   const listeners = useMemo(() => {
     return props.plugins
       .filter((p) => p.Listener)
@@ -58,7 +57,7 @@ const FePlugins: FC<FeProviderProps> = (props) => {
     <>
       {listeners}
       {children}
-      {rcPortals}
+      {proxyPortals}
     </>
   );
 };
