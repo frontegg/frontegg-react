@@ -1,0 +1,35 @@
+.fe-audits {
+  $class: &;
+
+  &__expand-content {
+    gap: var(--element-height) 0;
+    padding: var(--element-height) var(--element-spacing);
+
+    #{$class}__property {
+      position: relative;
+      display: flex;
+      padding: 0 var(--element-spacing);
+
+      #{$class}__vertical-dash {
+        position: absolute;
+        left: 0;
+        top: 2px;
+        bottom: 2px;
+        background-color: #acabab;
+        width: 2px;
+      }
+
+      #{$class}__property-name {
+        color: var(--color-gray-5);
+        font-size: var(--element-font-size);
+        line-height: 1.24;
+        margin-bottom: var(--element-spacing);
+      }
+
+      #{$class}__property-value {
+        color: var(--color-gray-4);
+        font-size: var(--element-font-size);
+      }
+    }
+  }
+}

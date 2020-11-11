@@ -3,6 +3,7 @@ import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-
 import { AuthPlugin } from '@frontegg/react-auth';
 import { NotificationsPlugin } from '@frontegg/react-notifications';
 import { uiLibrary } from '@frontegg/react-elements-material-ui';
+import { AuditsPlugin } from '@frontegg/react-audits';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
@@ -11,11 +12,11 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: `${window.location.protocol}//${host}`,
+  baseUrl: 'http://localhost:3000', //`${window.location.protocol}//${host}`,
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin({}), NotificationsPlugin({})];
+const plugins: PluginConfig[] = [AuthPlugin({}), NotificationsPlugin(), AuditsPlugin()];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>

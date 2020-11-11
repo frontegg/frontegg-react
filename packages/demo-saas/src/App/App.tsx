@@ -11,6 +11,7 @@ import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
+import { AuditsExample } from 'auditsExample';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -57,6 +58,9 @@ class App extends React.Component<any> {
               <div>
                 <Link to='/notifications'>Notifications Example</Link>
               </div>
+              <div>
+                <Link to='/audits'>Audits Example</Link>
+              </div>
             </div>
           </Route>
           <Route path='/test-auth-user' component={TestPage} />
@@ -69,6 +73,7 @@ class App extends React.Component<any> {
           <Route path='/notifications'>
             <NotificationsExample />
           </Route>
+          <Route path='/audits' component={AuditsExample} />
           <ProtectedRoute path='/profile' component={Profile.Page} />
           <Route path='/team' component={Team.Page} />
           <Route exact path='/popup' component={PopupExample} />

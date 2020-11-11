@@ -1,5 +1,5 @@
 import { Get } from '../fetch';
-import { IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
+import { IAuditsMetadata, IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
 
 async function getMetadata(body: IGetMetadata) {
   const data = await Get('/metadata', body);
@@ -11,3 +11,5 @@ async function getMetadata(body: IGetMetadata) {
 export const getNotificationsMetadata = async (): Promise<INotificationMetadata> =>
   getMetadata({ entityName: 'notifications' });
 export const getSamlMetadata = async (): Promise<ISamlMetadata> => getMetadata({ entityName: 'saml' });
+
+export const getAuditsMetadata = async (): Promise<IAuditsMetadata> => getMetadata({ entityName: 'audits' });

@@ -3,6 +3,7 @@
   "version": "1.6.0",
   "private": true,
   "author": "Frontegg LTD",
+  "proxy": "https://live.frontegg.com",
   "scripts": {
     "start": "react-scripts start",
     "cy-start": "OPEN_BROWSER=false && react-scripts -r @cypress/instrument-cra start",
@@ -11,6 +12,7 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
+    "@frontegg/react-audits": "^1.6.0",
     "@frontegg/react-auth": "^1.6.0",
     "@frontegg/react-core": "^1.6.0",
     "@frontegg/react-notifications": "^1.6.0",

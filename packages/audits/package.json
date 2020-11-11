@@ -1,0 +1,74 @@
+{
+  "name": "@frontegg/react-audits",
+  "libName": "FronteggAudits",
+  "version": "1.5.0",
+  "author": "Frontegg LTD",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "es2015": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
+    "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "classnames": "^2.2.6",
+    "redux-saga": "^1.1.3"
+  },
+  "devDependencies": {
+    "@frontegg/react-core": "^1.5.0",
+    "@frontegg/rest-api": "^1.5.0",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.8"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "dist/"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "all",
+    "jsxBracketSameLine": true,
+    "endOfLine": "lf",
+    "tabWidth": 2
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/",
+      "dist/"
+    ],
+    "globals": [
+      "describe",
+      "it",
+      "test",
+      "expect",
+      "afterAll",
+      "jest"
+    ]
+  },
+  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
+}
