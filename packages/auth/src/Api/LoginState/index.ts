@@ -26,5 +26,5 @@ export const loginActions = {
     payload,
   })),
   recoverMfa: createAction(`${storeName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
-  logout: createAction(`${storeName}/logout`, (payload: any) => ({ payload })),
+  logout: createAction(`${storeName}/logout`, (payload?: () => void) => ({ payload })),
 };

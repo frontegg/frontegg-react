@@ -52,11 +52,15 @@ export const TeamTable: FC = (props) => {
         sortable: true,
         Cell: TeamTableDescriptionCell,
       },
-      {
-        accessor: 'roleIds',
-        Header: t('common.roles') ?? '',
-        Cell: TeamTableRoles(user?.id, roleOptions),
-      },
+      ...(roles.length > 0
+        ? [
+            {
+              accessor: 'roleIds',
+              Header: t('common.roles') ?? '',
+              Cell: TeamTableRoles(user?.id, roleOptions),
+            },
+          ]
+        : []),
       {
         accessor: 'createdAt',
         Header: t('common.joinedTeam') ?? '',
@@ -92,6 +96,7 @@ export const TeamTable: FC = (props) => {
         loading={!!loaders.USERS}
         sortBy={sort}
         onSortChange={(sortBy) => loadUsers({ sort: sortBy, pageOffset: 0 })}
+        onPageChange={(pageSize, pageOffset) => loadUsers({ pageSize, pageOffset })}
       />
     </div>
   );

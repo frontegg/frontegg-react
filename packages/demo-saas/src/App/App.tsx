@@ -9,6 +9,7 @@ import { TableExample } from '../TableExample';
 import { ComponentsPage2 } from '../ComponentsPage2';
 import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
+import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
 import { IntegrationsPage } from '@frontegg/react-integrations';
 
@@ -28,7 +29,6 @@ MyTab.route = '/my-tab';
 
 class App extends React.Component<any> {
   render() {
-    console.log('App.render');
     return (
       <div className='app'>
         <Switch>
@@ -57,6 +57,7 @@ class App extends React.Component<any> {
               </div>
               <div>
                 <Link to='/connectivity'>Integrations</Link>
+                <Link to='/notifications'>Notifications Example</Link>
               </div>
             </div>
           </Route>
@@ -67,7 +68,9 @@ class App extends React.Component<any> {
           <Route path='/sso'>
             <SSO.Page />
           </Route>
-
+          <Route path='/notifications'>
+            <NotificationsExample />
+          </Route>
           <ProtectedRoute path='/profile' component={Profile.Page} />
           <Route path='/team' component={Team.Page} />
           <Route exact path='/popup' component={PopupExample} />
@@ -84,4 +87,4 @@ class App extends React.Component<any> {
   }
 }
 
-export default withFrontegg(App);
+export default App;

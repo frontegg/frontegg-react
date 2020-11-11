@@ -4,6 +4,7 @@ export * from './saga';
 export { storeName } from './utils';
 
 export * from './ActivateState/interfaces';
+export * from './AcceptInvitationState/interfaces';
 export * from './LoginState/interfaces';
 export * from './ForgotPasswordState/interfaces';
 export * from './MfaState/interfaces';

@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { CheckboxProps } from '@frontegg/react-core';
+import './style.scss';
 import {
   Checkbox as MaterialCheckbox,
   CheckboxProps as MaterialCheckboxProps,
@@ -11,7 +12,6 @@ const mapper = ({
   inForm,
   indeterminate,
   fullWidth,
-  onChange,
   type,
   className,
   size,
@@ -20,7 +20,9 @@ const mapper = ({
   defaultChecked,
   ...rest
 }: CheckboxProps): MaterialCheckboxProps => ({
-  className: classNames('fe-material-checkbox', className),
+  className: classNames('fe-material-checkbox', className, {
+    'fe-material-checkbox__disabled': rest.disabled,
+  }),
   size: size === 'large' ? undefined : size,
   color: 'primary',
   title: label,

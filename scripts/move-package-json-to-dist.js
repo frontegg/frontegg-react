@@ -23,7 +23,6 @@ function movePackageJson(packagePath) {
     'react',
     'react-dom',
     'react-router-dom',
-    '@frontegg/react',
     '@frontegg/react-core',
     '@frontegg/react-auth',
     '@frontegg/react-elements-semantic',

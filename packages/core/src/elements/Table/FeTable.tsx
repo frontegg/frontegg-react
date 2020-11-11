@@ -124,8 +124,9 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
       manualFilters: !!props.onFilterChange,
       manualPagination: !!props.onPageChange,
       manualRowSelectedKey: props.rowKey,
-      pageCount: props.pageCount ?? 0,
-      useControlledState: (state1: any) =>
+      pageCount: !!props.onPageChange ? props.pageCount : undefined,
+      autoResetPage: !props.onPageChange,
+      useControlledState: (state1: any, meta) =>
         ({
           ...state1,
           sortBy: props.sortBy ?? state1.sortBy,
@@ -244,13 +245,10 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     selectedFlatRows,
   };
 
-  const tableBodyProps: FeTableTBodyProps<T> = {
-    prefixCls,
-    getTableBodyProps,
-    prepareRow,
-    renderExpandedComponent: props.renderExpandedComponent,
-    rows: (props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[],
-  };
+  const tableRows: (Row<T> & UseExpandedRowProps<T>)[] = useMemo(
+    () => (props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[],
+    [page, rows, props.pagination]
+  );
 
   const tablePaginationProps: FeTablePaginationProps<T> = {
     pageIndex: tableState.pageIndex,
@@ -271,7 +269,13 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         {props.toolbar && <FeTableToolbar />}
 
         <FeTableTHead {...tableHeadProps} />
-        <FeTableTBody loading={props.loading} {...tableBodyProps} />
+        <FeTableTBody
+          prefixCls={prefixCls}
+          prepareRow={prepareRow}
+          getTableBodyProps={getTableBodyProps}
+          renderExpandedComponent={props.renderExpandedComponent}
+          rows={tableRows}
+        />
 
         {props.loading && rows.length > 0 && <FeLoader center size={24} />}
         {props.pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}

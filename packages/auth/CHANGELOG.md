@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/frontegg/frontegg-react/compare/v1.4.0...v1.5.0) (2020-11-10)
+
+
+### Bug Fixes
+
+* export missing interface AcceptInvitationState ([#92](https://github.com/frontegg/frontegg-react/issues/92)) ([9981fe1](https://github.com/frontegg/frontegg-react/commit/9981fe1921d1517aea1a4aa4c484a4974bbc464a))
+
+
+### Features
+
+* sync session between tabs on Auth Listener ([f2bfa04](https://github.com/frontegg/frontegg-react/commit/f2bfa04bb452f8a5ad165b4f9c382ce3fb07e105))
+
+
+
+
+
+# [1.4.0](https://github.com/frontegg/frontegg-react/compare/v1.3.0...v1.4.0) (2020-11-09)
+
+
+### Bug Fixes
+
+* add option to add user without roles ([4d17333](https://github.com/frontegg/frontegg-react/commit/4d17333fc0f157d3c5d4462f20d8f2269b579a65))
+* css enhancements ([317e875](https://github.com/frontegg/frontegg-react/commit/317e8756e7c56deaa0d4c16ce699a7b9ebe5f2e5))
+* disable angular render children ([658dbbf](https://github.com/frontegg/frontegg-react/commit/658dbbf05319224caf326adca2b90da23eedefe0))
+* **teams:** remove roles columns if no roles configured ([7078eba](https://github.com/frontegg/frontegg-react/commit/7078ebaa57cfd46ed9f644e7802a354853c28fb9))
+* remove logs ([16b0976](https://github.com/frontegg/frontegg-react/commit/16b09762f77e8c4491e1570b954a1c04511ba53f))
+
+
+
+
+
 # [1.3.0](https://github.com/frontegg/frontegg-react/compare/v1.2.0...v1.3.0) (2020-11-04)
 
 

@@ -10,7 +10,9 @@ import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
-import { ProxyComponent } from './ngSupport';
+import { ProxyComponent, useProxyComponent } from './ngSupport';
+import { all, call } from 'redux-saga/effects';
+import { Middleware } from 'redux';
 
 const isSSR = typeof window === 'undefined';
 
@@ -29,6 +31,7 @@ export interface FeProviderProps extends ProxyComponent {
   uiLibrary?: Partial<Elements>;
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
+  storeMiddlewares?: Middleware[];
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -36,8 +39,7 @@ const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: f
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {
-  const [rcPortals, setRcPortals] = useState([]);
-  props._resolvePortals?.(setRcPortals);
+  const proxyPortals = useProxyComponent(props);
   const listeners = useMemo(() => {
     return props.plugins
       .filter((p) => p.Listener)
@@ -56,13 +58,12 @@ const FePlugins: FC<FeProviderProps> = (props) => {
     <>
       {listeners}
       {children}
-      {rcPortals}
+      {proxyPortals}
     </>
   );
 };
 
 const FeState: FC<FeProviderProps> = (props) => {
-  console.log('FeState.render');
   const history = useHistory();
   const location = useLocation();
   const taskRef = useRef<Task>();
@@ -85,15 +86,14 @@ const FeState: FC<FeProviderProps> = (props) => {
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
   function* rootSaga() {
-    yield all(
-      props.plugins.map(function* ({ sagas }) {
-        yield sagas();
-      })
-    );
+    yield all(props.plugins.map(({ sagas }) => call(sagas)));
   }
 
   /* memorize redux store */
   const store = useMemo(() => {
+    // if (fronteggStore != null) {
+    //   return fronteggStore;
+    // }
     // @ts-ignore
     const devTools = process.env.NODE_ENV === 'development' || props.debugMode ? { name: 'Frontegg Store' } : undefined;
     const reducer = combineReducers({
@@ -113,7 +113,12 @@ const FeState: FC<FeProviderProps> = (props) => {
         {}
       ),
     };
-    fronteggStore = configureStore({ reducer, preloadedState, middleware, devTools });
+    fronteggStore = configureStore({
+      reducer,
+      preloadedState,
+      middleware: [...middleware, ...(props.storeMiddlewares ?? [])],
+      devTools,
+    });
     taskRef.current = sagaMiddleware.run(rootSaga);
     return fronteggStore;
   }, []);

@@ -67,6 +67,14 @@
   font-size: 1rem;
 }
 
-.fe-flex-spacer {
-  flex: 1;
+.fe {
+  &-flex {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    align-items: center;
+  }
+  &-flex-spacer {
+    flex: 1;
+  }
 }

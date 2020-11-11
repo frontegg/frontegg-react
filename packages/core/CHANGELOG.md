@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/frontegg/frontegg-react/compare/v1.4.0...v1.5.0) (2020-11-10)
+
+**Note:** Version bump only for package @frontegg/react-core
+
+
+
+
+
+# [1.4.0](https://github.com/frontegg/frontegg-react/compare/v1.3.0...v1.4.0) (2020-11-09)
+
+
+### Bug Fixes
+
+* add option to add user without roles ([4d17333](https://github.com/frontegg/frontegg-react/commit/4d17333fc0f157d3c5d4462f20d8f2269b579a65))
+* remove default font-size from root css ([ad774e9](https://github.com/frontegg/frontegg-react/commit/ad774e95b1199efaf53951f3b2a0df52c1bd2900)), closes [#90](https://github.com/frontegg/frontegg-react/issues/90)
+* remove memorized store ([b4d2b25](https://github.com/frontegg/frontegg-react/commit/b4d2b2550c3c54220866fbc7540014b279aa12f9))
+
+
+### Features
+
+* notifications plugin ([#78](https://github.com/frontegg/frontegg-react/issues/78)) ([0439d17](https://github.com/frontegg/frontegg-react/commit/0439d179ed5c0abae510b7d132dbf03ae907f7f6))
+
+
+
+
+
 # [1.3.0](https://github.com/frontegg/frontegg-react/compare/v1.2.0...v1.3.0) (2020-11-04)
 
 
