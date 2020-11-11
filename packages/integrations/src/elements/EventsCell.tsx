@@ -36,11 +36,15 @@ export const EventsCell: FC<IEventsCell> = React.memo(({ events }) => {
   return (
     <div className='fe-integrations-webhook-cell'>
       <div className='fe-integrations-webhook-row'>
-        {data?.map(({ id, name, events }, idx) => (
-          <span key={id} className='fe-integrations-webhook-event'>
-            {name}({events?.length ?? 0})
-          </span>
-        ))}
+        {data && data.length ? (
+          data.map(({ id, name, events }, idx) => (
+            <span key={id} className='fe-integrations-webhook-event'>
+              {name}({events?.length ?? 0})
+            </span>
+          ))
+        ) : (
+          <>&nbsp;</>
+        )}
       </div>
       <div className='fe-integrations-webhook-description'>
         {data?.reduce((acc, cur) => acc + (cur.events?.length || 0), 0)} total

@@ -31,6 +31,7 @@
     justify-self: stretch;
     align-self: stretch;
     flex-grow: 1;
+
     &-link {
       cursor: pointer;
     }
@@ -41,8 +42,19 @@
   }
 
   &-check {
-    &-item {
+    margin-bottom: var(--element-padding);
+    &.fe-check-item {
       padding-left: var(--element-padding);
+    }
+
+    .fe-checkbox__input {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    input:checked + .fe-checkbox__input .fe-icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
@@ -62,9 +74,11 @@
     &-success .fe-dialog-content {
       border-left: solid 1rem var(--color-success);
     }
+
     &-failed .fe-dialog-content {
       border-left: solid 1rem var(--color-danger);
     }
+
     &-more {
       .fe-dialog-header {
         height: auto;
@@ -102,6 +116,7 @@
       border-radius: 50%;
       transform: translateY(-50%);
     }
+
     &.fe-status-failed {
       background-color: var(--color-danger-25);
       color: var(--color-danger);
@@ -113,5 +128,16 @@
 
   &-detail {
     text-decoration: underline;
+  }
+
+  &-accordion-icon {
+    background-color: var(--color-primary-lighter);
+    color: var(--color-primary-darker);
+    margin-right: var(--element-spacing);
+    border-radius: var(--element-border-radius-sm);
+  }
+
+  &-description {
+    color: var(--color-gray-5);
   }
 }

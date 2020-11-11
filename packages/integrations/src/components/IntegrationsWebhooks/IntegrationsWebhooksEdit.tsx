@@ -49,7 +49,7 @@ export const IntegrationsWebhooksEdit: FC = () => {
         </Button>
         {data?.displayName ?? t('integrations.addNewHook')}
       </div>
-      <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />
+      {data && <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />}
       {locationState.view === 'edit' ? <IntegrationsWebhooksForm data={data ?? null} /> : <IntegrationsWebhooksLog />}
     </div>
   );

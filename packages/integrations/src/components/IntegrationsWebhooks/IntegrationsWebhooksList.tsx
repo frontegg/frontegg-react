@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import { IWebhooksConfigurations } from '@frontegg/rest-api';
+import { IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
 import {
   useT,
   Table,
@@ -9,6 +9,7 @@ import {
   NotFound,
   useSearch,
   useSelector,
+  useDispatch,
   SwitchToggle,
   TableColumnProps,
 } from '@frontegg/react-core';
@@ -16,6 +17,7 @@ import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories } from '../../utils';
 import { EventsCell } from '../../elements/EventsCell';
+import { integrationsActions } from '../../reducer';
 
 interface IEventCount {
   name: string;
@@ -24,6 +26,7 @@ interface IEventCount {
 
 export const IntegrationsWebhooksList: FC = () => {
   const { t } = useT();
+  const dispatch = useDispatch();
   const {
     replace: historyReplace,
     location: { state: locationState, ...location },
@@ -69,6 +72,13 @@ export const IntegrationsWebhooksList: FC = () => {
     [cleanCategory]
   );
 
+  const onChangeStatus = useCallback(
+    (data: IWebhooksSaveData) => {
+      dispatch(integrationsActions.postDataAction('webhook', { ...data, isActive: !data.isActive }));
+    },
+    [dispatch]
+  );
+
   const columns: TableColumnProps<IWebhooksConfigurations>[] = useMemo(
     () => [
       {
@@ -80,7 +90,7 @@ export const IntegrationsWebhooksList: FC = () => {
             onClick={() => onEdit(row.original._id)}
           >
             <div>{value}</div>
-            <div>{row.original.description}</div>
+            <div className='fe-integrations-webhook-description'>{row.original.description}</div>
           </div>
         ),
       },
@@ -102,7 +112,7 @@ export const IntegrationsWebhooksList: FC = () => {
           return (
             <div className='fe-integrations-webhook-cell'>
               <div>{date.fromNow()}</div>
-              <div>{date.format('D/M/YYYY hh:mm')}</div>
+              <div className='fe-integrations-webhook-description'>{date.format('D/M/YYYY hh:mm')}</div>
             </div>
           );
         },
@@ -110,10 +120,10 @@ export const IntegrationsWebhooksList: FC = () => {
       {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
-        Cell: ({ value }) => <SwitchToggle value={value} />,
+        Cell: ({ value, row }) => <SwitchToggle value={value} onChange={() => onChangeStatus(row.original)} />,
       },
     ],
-    [t, onEdit, countOfEvents]
+    [t, onEdit, countOfEvents, onChangeStatus]
   );
 
   return (

@@ -84,7 +84,10 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
             <AccordionHeader>
               <Grid container alignItems='center' wrap='nowrap'>
                 <Grid>
-                  <Icon name={expanded.includes(id) ? 'down-arrow' : 'right-arrow'} />
+                  <Icon
+                    name={expanded.includes(id) ? 'down-arrow' : 'right-arrow'}
+                    className='fe-integrations-webhook-accordion-icon'
+                  />
                 </Grid>
                 <Grid className='fe-integrations-webhook-according-events-name'>{name}</Grid>
                 <Grid>
@@ -96,7 +99,7 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
               <div>
                 <Checkbox
                   checked={eventObject?.names.includes(name)}
-                  className='fe-integrations-webhook-check-all'
+                  className='fe-integrations-webhook-check fe-check-all'
                   onChange={() => onCategoryChange(category)}
                   label={t('integrations.selectAll', { name: name.toUpperCase() })}
                 />
@@ -104,7 +107,7 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
               {events?.map(({ id, displayName, key }) => (
                 <div key={id}>
                   <Checkbox
-                    className='fe-integrations-webhook-check-item'
+                    className='fe-integrations-webhook-check fe-check-item'
                     label={displayName}
                     size='large'
                     onChange={() => onEventChange(category, key)}
