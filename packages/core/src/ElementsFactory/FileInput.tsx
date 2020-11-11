@@ -16,29 +16,11 @@ const toBase64 = (file?: File) =>
     reader.onerror = (error) => reject(error);
   });
 
-const getImageDimension = (file: File) =>
-  new Promise<{ width: number; height: number }>((resolve, reject) => {
-    const img = new Image();
-    const objectUrl = URL.createObjectURL(file);
-    img.onload = () => {
-      const result = { width: img.width, height: img.height };
-      URL.revokeObjectURL(objectUrl);
-      resolve(result);
-    };
-    img.onerror = () => {
-      const result = { width: 0, height: 0 };
-      URL.revokeObjectURL(objectUrl);
-      resolve(result);
-    };
-
-    img.src = objectUrl;
-  });
-
 export const FileInput = (props: InputProps) => React.createElement(ElementsFactory.getElement('Input'), props);
-export const FFileInput: FC<InputProps & { name: string }> = (props) => {
-  const { t } = useT();
+export const FFileInput: FC<InputProps & { name: string }> = ({ validation, ...props }) => {
   const [field] = useField(props.name);
   const { setFieldError } = useFormikContext();
+
   return (
     <FileInput
       {...props}
@@ -49,11 +31,12 @@ export const FFileInput: FC<InputProps & { name: string }> = (props) => {
         const selectedFile = e.target.files?.[0];
 
         if (selectedFile) {
-          const { width, height } = await getImageDimension(selectedFile);
-          if (width < 256 || height < 256) {
-            setFieldError(field.name, t('auth.profile.info.invalid-profile-photo'));
+          const errorMessage = (await validation?.(selectedFile)) ?? null;
+          if (errorMessage) {
+            setFieldError(field.name, errorMessage);
             return;
           }
+
           const content = await toBase64(selectedFile);
           field.onChange(field.name)(content);
         } else {

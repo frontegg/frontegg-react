@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { AuthState } from './Api';
 import { useAuth } from './hooks';
-import { ContextHolder, FronteggContext } from '@frontegg/rest-api';
+import { ContextHolder } from '@frontegg/rest-api';
 
 const stateMapper = ({ isAuthenticated, user, isLoading, routes }: AuthState) => ({
   isAuthenticated,

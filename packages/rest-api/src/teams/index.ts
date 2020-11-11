@@ -52,9 +52,10 @@ export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUse
  * update user profile image
  * ``authorized user``
  */
-export async function updateProfileImage(body: Partial<IUpdateProfileImage>): Promise<string> {
+
+export async function updateProfileImage(body: FormData): Promise<string> {
   console.debug('updateProfileImage()', body);
-  return Put(`${TEAMS_PROFILE_SERVICE_URL}/me/image/v1`, body);
+  return Put(`${TEAMS_PROFILE_SERVICE_URL}/me/image/v1`, body, { responseType: 'plain', contentType: undefined });
 }
 
 /**
