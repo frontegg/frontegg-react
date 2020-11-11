@@ -1,13 +1,13 @@
 import React, { FC, useMemo } from 'react';
 import { SSORouter } from './SSORouter';
-import { useRootPath, checkValidChildren, RootPathContext } from '@frontegg/react-core';
+import { useRootPath, RootPathContext, useProxyComponent, ProxyComponent } from '@frontegg/react-core';
 import { SSOHeader } from './SSOHeader';
 import { BasePageProps } from '../interfaces';
 
-export type SSOPageProps = BasePageProps;
+export type SSOPageProps = BasePageProps & ProxyComponent;
 export const SSOPage: FC<SSOPageProps> = (props) => {
   const [rootPath] = useRootPath(props, '/sso');
-  useMemo(() => checkValidChildren('SSO.Page', 'SSO', props.children, { SSORouter }), [props.children]);
+  const proxyPortals = useProxyComponent(props);
 
   const children = props.children ?? (
     <>
@@ -18,7 +18,10 @@ export const SSOPage: FC<SSOPageProps> = (props) => {
 
   return (
     <RootPathContext.Provider value={rootPath}>
-      <div className='fe-sso-page'>{children}</div>
+      <div className='fe-sso-page'>
+        {children}
+        {proxyPortals}
+      </div>
     </RootPathContext.Provider>
   );
 };
