@@ -65,5 +65,53 @@
     &-failed .fe-dialog-content {
       border-left: solid 1rem var(--color-danger);
     }
+    &-more {
+      .fe-dialog-header {
+        height: auto;
+        .fe-dialog-title {
+          width: 95%;
+          padding: var(--element-padding-lg);
+        }
+      }
+      .fe-dialog-body {
+        background-color: var(--color-gray-1);
+      }
+      &-date {
+        padding-left: var(--element-padding);
+        color: var(--color-gray-5);
+        font-weight: normal;
+      }
+    }
+  }
+
+  &-status {
+    border-radius: 2rem;
+    position: relative;
+    padding: 0.5rem 2rem;
+    background-color: var(--color-success-25);
+    color: var(--color-success);
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 0.5rem;
+      height: 0.5rem;
+      top: 50%;
+      left: 1rem;
+      background-color: var(--color-success);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    &.fe-status-failed {
+      background-color: var(--color-danger-25);
+      color: var(--color-danger);
+      &:before {
+        background-color: var(--color-danger);
+      }
+    }
+  }
+
+  &-detail {
+    text-decoration: underline;
   }
 }

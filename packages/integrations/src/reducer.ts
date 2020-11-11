@@ -3,6 +3,7 @@ import {
   ISlackChannel,
   ISlackConfigurations,
   ISMSConfigurations,
+  IWebhookLogsResponse,
   IWebhooksConfigurations,
   IWebhooksSaveData,
   IWebhookTest,
@@ -68,5 +69,14 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
       testResult: { status: state.testResult?.status ?? 'success', message: undefined },
     }),
     cleanWebhookTestData: (state) => ({ ...state, testResult: undefined }),
+    loadWebhookLogsAction: {
+      prepare: (id: string, offset: number = 0, limit: number = 10) => ({ payload: { id, offset, limit } }),
+      reducer: (state) => ({ ...state, webhookLogs: { ...state.webhookLogs, isLoading: true } }),
+    },
+    loadWebhookLogsSuccess: {
+      prepare: (payload?: IWebhookLogsResponse) => ({ payload, error: null, meta: '' }),
+      reducer: (state, { payload }) => ({ ...state, webhookLogs: { isLoading: false, ...payload } }),
+    },
+    cleanWebhookLogsData: (state) => ({ ...state, webhookLogs: undefined }),
   },
 });

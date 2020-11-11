@@ -194,6 +194,18 @@ function* postWebhookTestFunction({ payload }: PayloadAction<IWebhookTest>) {
   }
 }
 
+function* loadWebhookLogsFunction({
+  payload: { id, limit, offset },
+}: PayloadAction<{ id: string; offset: number; limit: number }>) {
+  try {
+    const data = yield call(api.integrations.getWebhookLog, id, offset, limit);
+    yield put(integrationsActions.loadWebhookLogsSuccess(data));
+  } catch (e) {
+    console.error(e);
+    yield put(integrationsActions.loadWebhookLogsSuccess());
+  }
+}
+
 export function* sagas() {
   yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
   yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
@@ -201,4 +213,5 @@ export function* sagas() {
   yield takeEvery(integrationsActions.postCodeAction, postCodeFunction);
   yield takeEvery(integrationsActions.loadScope, loadSlackPermissions);
   yield takeEvery(integrationsActions.postWebhookTestAction, postWebhookTestFunction);
+  yield takeLatest(integrationsActions.loadWebhookLogsAction, loadWebhookLogsFunction);
 }

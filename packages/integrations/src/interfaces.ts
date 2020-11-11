@@ -6,6 +6,7 @@ import {
   ISMSConfigurations,
   IWebhooksConfigurations,
   IChannelsMap,
+  IWebhookLogsResponse,
 } from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 
@@ -38,6 +39,7 @@ export interface IIntegrationsState {
     clientId?: string;
   };
   testResult?: IWebhookTestResult;
+  webhookLogs?: IWebhookLogs;
 }
 
 export interface IIntegrationsData {
@@ -55,4 +57,8 @@ export interface IRootPath {
 export interface IWebhookTestResult {
   status: TWebhookStatus;
   message?: string;
+}
+
+export interface IWebhookLogs extends Partial<IWebhookLogsResponse> {
+  isLoading: boolean;
 }
