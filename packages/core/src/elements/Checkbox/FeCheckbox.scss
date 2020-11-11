@@ -73,6 +73,7 @@
 
   input:checked + .fe-checkbox__input {
     border-color: var(--fe-checkbox-active-color, var(--color-primary));
+    background-color: var(--fe-checkbox-active-color, var(--color-primary));
     color: var(--fe-checkbox-icon-color, var(--color-primary));
     border-width: 0.5rem;
 
