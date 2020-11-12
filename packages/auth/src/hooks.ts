@@ -4,6 +4,7 @@ import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
 import { actions, AuthActions, AuthState, User } from './Api';
 import { teamActions, TeamState } from './Api/TeamState';
+import { useMemo } from 'react';
 
 export const pluginName = 'auth';
 const pluginActions = actions;
@@ -23,7 +24,7 @@ const defaultMapper: AuthMapper = {
 
 export const useAuth = <S extends object>(stateMapper: AuthStateMapper<S> = defaultMapper.state): S & AuthActions => {
   const dispatch = useDispatch();
-  const bindedActions = bindActionCreators(pluginActions, dispatch);
+  const bindedActions = useMemo(() => bindActionCreators(pluginActions, dispatch), [pluginActions, dispatch]);
   const state = useSelector((state: any) => stateMapper(state[pluginName]), memoEqual);
   return {
     ...(state as S),

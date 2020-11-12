@@ -32,7 +32,7 @@ export type ComponentRenderer<P, M = {}, A = {}> = (
 ) => ReactElement | null;
 
 export function memoEqual(prevProps: any, nextProps: any) {
-  return Object.keys(nextProps).reduce((p: boolean, next: any) => {
+  const equal = Object.keys(nextProps).reduce((p: boolean, next: any) => {
     if (typeof prevProps[next] === 'function' && typeof nextProps[next] === 'function') {
       return p;
     }
@@ -42,6 +42,7 @@ export function memoEqual(prevProps: any, nextProps: any) {
       return p;
     }
   }, true);
+  return equal;
 }
 
 export function memoEqualNoChildren(prevProps: any, nextProps: any) {
