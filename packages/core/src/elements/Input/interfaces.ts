@@ -13,7 +13,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   fullWidth?: boolean;
   multiline?: boolean;
   error?: string;
-  validation?: (value: File) => Promise<string | null>;
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
   onSearch?: (text: InputProps['value']) => void;

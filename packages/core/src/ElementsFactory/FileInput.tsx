@@ -16,8 +16,12 @@ const toBase64 = (file?: File) =>
     reader.onerror = (error) => reject(error);
   });
 
-export const FileInput = (props: InputProps) => React.createElement(ElementsFactory.getElement('Input'), props);
-export const FFileInput: FC<InputProps & { name: string }> = ({ validation, ...props }) => {
+export type FileInputProps = InputProps & {
+  validation?: (value: File) => Promise<string | null>;
+};
+
+export const FileInput = (props: FileInputProps) => React.createElement(ElementsFactory.getElement('Input'), props);
+export const FFileInput: FC<FileInputProps & { name: string }> = ({ validation, ...props }) => {
   const [field] = useField(props.name);
   const { setFieldError } = useFormikContext();
 
