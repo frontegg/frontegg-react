@@ -17,22 +17,22 @@ import {
 
 const addApi = ['categories', 'channelMap'];
 
-function* loadDataFunction() {
+function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | undefined>) {
   const values = yield all([
-    ...channels.map(function* (ch: TPlatform) {
+    ...payload.map(function* (ch: TPlatform) {
       return yield loadFunction({ payload: { api: ch }, type: '' });
     }),
     yield loadFunction({ payload: { api: 'categories' }, type: '' }),
     yield (function* () {
       const res = yield all(
-        channels.map(function* (ch: TPlatform) {
+        payload.map(function* (ch: TPlatform) {
           return yield loadFunction({ payload: { api: 'channelMap', params: ch }, type: '' });
         })
       );
       return res.reduce(
         (acc: Record<TPlatform, IChannelsMap>, curr: IChannelsMap, idx: number) => ({
           ...acc,
-          [`${channels[idx]}`]: curr,
+          [`${payload[idx]}`]: curr,
         }),
         {}
       );
@@ -44,22 +44,22 @@ function* loadDataFunction() {
       curr: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[],
       idx: number
     ) =>
-      channels[idx]
+      payload[idx]
         ? {
             ...acc,
-            [`${channels[idx]}`]: curr,
+            [`${payload[idx]}`]: curr,
             list: [
               ...acc.list,
               {
                 id: idx,
-                key: channels[idx],
-                events: channels2Platform[channels[idx]].events(curr),
-                active: channels2Platform[channels[idx]].isActive(curr),
-                platform: channels2Platform[channels[idx]].title,
+                key: payload[idx],
+                events: channels2Platform[payload[idx]].events(curr),
+                active: channels2Platform[payload[idx]].isActive(curr),
+                platform: channels2Platform[payload[idx]].title,
               },
             ],
           }
-        : { ...acc, [`${addApi[idx - channels.length]}`]: curr },
+        : { ...acc, [`${addApi[idx - payload.length]}`]: curr },
     { list: [] }
   );
 

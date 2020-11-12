@@ -18,7 +18,7 @@ export interface IPluginState {
 }
 
 export interface IIntegrationsComponent {
-  onClose(): void;
+  onClose?(): void;
 }
 
 export interface IIntegrationsState {

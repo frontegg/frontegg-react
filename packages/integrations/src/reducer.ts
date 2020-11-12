@@ -23,7 +23,10 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
   name: 'integrations',
   initialState,
   reducers: {
-    loadDataAction: (state) => ({ ...state, isLoading: true }),
+    loadDataAction: {
+      prepare: (payload?: TPlatform[]) => ({ payload }),
+      reducer: (state) => ({ ...state, isLoading: true }),
+    },
     loadScope: (state) => ({ ...state, slackChannels: { ...state.slackChannels, isLoadingScope: true } }),
     loadScopeSuccess: (state, { payload }) => ({
       ...state,

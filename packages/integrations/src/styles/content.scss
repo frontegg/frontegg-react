@@ -6,6 +6,10 @@
     }
   }
 
+  &-component {
+    padding: var(--element-padding);
+  }
+
   &-platform {
     display: flex;
     width: 100%;
