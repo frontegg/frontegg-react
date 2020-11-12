@@ -10,7 +10,7 @@ import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
-import { IntegrationsPage } from '@frontegg/react-integrations';
+import { IntegrationsPage, SlackComponent, WebhookComponent } from '@frontegg/react-integrations';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -26,7 +26,8 @@ const menus = [
   { to: '/table', title: 'Table Examples', component: TableExample },
   { to: '/select', title: 'Select Examples', component: SelectorExample },
   { to: '/connectivity', title: 'Integrations', children: <IntegrationsPage rootPath='/connectivity' /> },
-  { to: '/webhook', title: 'Integrations', children: <IntegrationsPage rootPath='/connectivity' /> },
+  { to: '/webhook', title: 'Webhook', component: WebhookComponent },
+  { to: '/slack', title: 'Slack', component: SlackComponent },
   { to: '/notifications', title: 'Notifications Example', children: <NotificationsExample /> },
   { to: '/components2', component: ComponentsPage2, exact: true },
   { to: '/components', component: ElementsPage },
@@ -43,7 +44,7 @@ class App extends React.Component<any> {
               {menus.map(
                 ({ to, title }, idx) =>
                   title && (
-                    <div>
+                    <div key={idx}>
                       <Link to={to}>{title}</Link>{' '}
                     </div>
                   )
