@@ -1,62 +1,91 @@
-import React, { FC } from 'react';
-import { FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Button, FInput, Grid, useT, validateEmail, validateSchema } from '@frontegg/react-core';
-import { IIntegrationsComponent } from '../../interfaces';
-import { IntegrationsForm } from './IntegrationsForm';
+import React, { FC, useMemo } from 'react';
+import {
+  FFormik,
+  FInput,
+  FormikAutoSave,
+  NotFound,
+  Table,
+  TableColumnProps,
+  useDispatch,
+  useSelector,
+  useT,
+  validateEmail,
+  validateSchema,
+} from '@frontegg/react-core';
+import { IIntegrationsComponent, IPluginState } from '../../interfaces';
+import { filterCategories } from '../../utils';
+import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 
 export const IntegratorsEmail: FC<IIntegrationsComponent> = ({ onClose }) => {
-  return <div>Email</div>;
-  // const { t } = useT();
-  // const validationSchema = validateSchema({
-  //   from: validateEmail(t),
-  //   to: Yup.array().of(validateEmail(t)).min(1),
-  // });
+  const { t } = useT();
+  const dispatch = useDispatch();
 
-  // return (
-  //   <IntegrationsForm
-  //     type='email'
-  //     initialValues={{ from: '', to: [''] }}
-  //     onClose={onClose}
-  //     validationSchema={validationSchema}
-  //   >
-  //     {({ values: { to }, setFieldValue }: FormikProps<Omit<IEmailConfigurations, 'id'>>) => (
-  //       <>
-  //         <Grid item xs={1}>
-  //           <label>{t('integrations.email.from')}: </label>
-  //         </Grid>
-  //         <Grid item xs={9}>
-  //           <FInput name='from' />
-  //         </Grid>
-  //         <Grid item xs={2}>
-  //           &nbsp;
-  //         </Grid>
-  //         {to.map((_, idx) => (
-  //           <React.Fragment key={idx}>
-  //             <Grid item xs={1}>
-  //               {idx === 0 && `${t('integrations.email.to')}:`}
-  //             </Grid>
-  //             <Grid item xs={9}>
-  //               <FInput name={`to[${idx}]`} />
-  //             </Grid>
-  //             <Grid item xs={2}>
-  //               <Button
-  //                 disabled={to.length === 1}
-  //                 onClick={() => setFieldValue('to', [...to.slice(0, idx), ...to.slice(idx + 1)])}
-  //               >
-  //                 -
-  //               </Button>
-  //             </Grid>
-  //           </React.Fragment>
-  //         ))}
-  //         <Grid item xs={10}>
-  //           &nbsp;
-  //         </Grid>
-  //         <Grid item xs={2}>
-  //           <Button onClick={() => setFieldValue('to', [...to, ''])}>+</Button>
-  //         </Grid>
-  //       </>
-  //     )}
-  //   </IntegrationsForm>
-  // );
+  const { categories, channelMap, email, isSaving } = useSelector(
+    ({ integrations: { email, isSaving, categories, channelMap } }: IPluginState) => ({
+      email,
+      isSaving,
+      categories,
+      channelMap: channelMap?.email,
+    })
+  );
+  const cleanCategory = filterCategories(categories, channelMap);
+
+  const tablesData = useMemo(
+    () =>
+      cleanCategory &&
+      cleanCategory.map(({ id, name, events }) => ({
+        id,
+        name,
+        events: events?.map(({ id, displayName, key }: any) => ({
+          displayName,
+          // ...smsData.smsSubscriptions.find(({ smsEvents }) => smsEvents.some(({ eventKey }) => eventKey === key)),
+          id,
+        })),
+      })),
+    [cleanCategory, email]
+  );
+
+  const columns = useMemo(
+    () =>
+      (tablesData || [])?.map(
+        ({ name }, idx) =>
+          [
+            {
+              accessor: 'displayName',
+              Header: name,
+            },
+            {
+              accessor: 'isActive',
+              Header: t('common.enable').toUpperCase(),
+              Cell: ({ row: { index } }) => <FIntegrationCheckBox name={`data[${idx}].events[${index}].isActive`} />,
+            },
+            {
+              accessor: 'smsEvents',
+              Header: t('common.channels').toUpperCase(),
+              Cell: () => <FInput name={`values[${idx}].events[0].sms`} />,
+            },
+            {
+              accessor: 'non',
+              Header: t('common.message').toUpperCase(),
+              Cell: ({ row: { index } }) => {
+                return <FInput name={`values[${idx}].events[${index}].message`} />;
+              },
+            },
+          ] as TableColumnProps<{}>[]
+      ),
+    [tablesData, t]
+  );
+
+  return tablesData ? (
+    <FFormik.Formik initialValues={{ values: tablesData }} onSubmit={(val) => console.log(val)}>
+      <FFormik.Form>
+        <FormikAutoSave isSaving={isSaving} />
+        {(tablesData || []).map(({ id, events }, idx) => (
+          <Table rowKey='id' key={id} columns={columns[idx]} data={events || []} totalData={events?.length || 0} />
+        ))}
+      </FFormik.Form>
+    </FFormik.Formik>
+  ) : (
+    <NotFound />
+  );
 };
