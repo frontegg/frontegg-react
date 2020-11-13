@@ -1,17 +1,23 @@
-import { FFormik } from '@frontegg/react-core';
+import React, { FC, InputHTMLAttributes } from 'react';
 import classnames from 'classnames';
-import React, { FC } from 'react';
+import { FFormik } from '@frontegg/react-core';
 
 export interface IIntegrationCheckBox {
   name: string;
 }
 
-export const IntegrationCheckBox: FC<IIntegrationCheckBox> = ({ name }) => {
+export const FIntegrationCheckBox: FC<IIntegrationCheckBox> = ({ name }) => {
   const [{ value, ...inputProps }, {}, { setValue }] = FFormik.useField(name);
 
-  return (
-    <label className={classnames('fe-integration-checkbox', { active: !!value })}>
-      <input {...inputProps} type='checkbox' checked={value} onChange={(e) => setValue(!value)} />
-    </label>
-  );
+  return <IntegrationCheckBox {...inputProps} name={name} checked={!!value} onChange={(e) => setValue(!value)} />;
 };
+
+export const IntegrationCheckBox: FC<Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'size'>> = ({
+  checked,
+  onChange,
+  ...inputProps
+}) => (
+  <label className={classnames('fe-integration-checkbox', { active: !!checked })}>
+    <input {...inputProps} type='checkbox' checked={checked} onChange={onChange} />
+  </label>
+);

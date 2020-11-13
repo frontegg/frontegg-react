@@ -12,10 +12,16 @@
 
   &-platform {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
+    margin: calc(-1 * var(--fe-table-cell-padding));
+    height: auto;
+    flex-grow: 1;
+    align-self: stretch;
+    background-color: var(--color-gray-0);
+    &.fe-integrations-active {
+      background-color: var(--color-gray-2);
+    }
 
     &-right-arrow {
       height: 1.3rem;

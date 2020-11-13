@@ -18,6 +18,7 @@ import { IWebhookLocationState } from './interfaces';
 import { filterCategories } from '../../utils';
 import { EventsCell } from '../../elements/EventsCell';
 import { integrationsActions } from '../../reducer';
+import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 
 interface IEventCount {
   name: string;
@@ -95,6 +96,12 @@ export const IntegrationsWebhooksList: FC = () => {
         ),
       },
       {
+        accessor: 'isActive',
+        Header: t('common.status').toUpperCase(),
+        // Cell: ({ value, row }) => <SwitchToggle value={value} onChange={() => onChangeStatus(row.original)} />,
+        Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
+      },
+      {
         accessor: 'eventKeys',
         Header: t('common.events').toUpperCase(),
         Cell: ({ value }) => <EventsCell events={value} />,
@@ -116,11 +123,6 @@ export const IntegrationsWebhooksList: FC = () => {
             </div>
           );
         },
-      },
-      {
-        accessor: 'isActive',
-        Header: t('common.status').toUpperCase(),
-        Cell: ({ value, row }) => <SwitchToggle value={value} onChange={() => onChangeStatus(row.original)} />,
       },
     ],
     [t, onEdit, countOfEvents, onChangeStatus]

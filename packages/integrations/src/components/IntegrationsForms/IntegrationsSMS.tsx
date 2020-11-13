@@ -27,7 +27,7 @@ const smsData = {
   ],
 };
 
-export const IntegrationsSMS: FC<IIntegrationsComponent> = ({ onClose }) => {
+export const IntegrationsSMS: FC<IIntegrationsComponent> = () => {
   const dispatch = useDispatch();
 
   const { isLoading, categories, channelMap, sms } = useSelector(

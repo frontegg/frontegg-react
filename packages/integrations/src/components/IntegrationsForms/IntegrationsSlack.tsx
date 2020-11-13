@@ -1,20 +1,21 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import {
-  FFormik,
+  useT,
+  Table,
   FInput,
   Loader,
-  Table,
-  TableColumnProps,
-  FormikAutoSave,
+  FFormik,
   useDispatch,
   useSelector,
+  FormikAutoSave,
+  TableColumnProps,
 } from '@frontegg/react-core';
 import { ISlackConfigurations, ISlackEvent } from '@frontegg/rest-api';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
 import { integrationsActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
-import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 import { IntegrationsSlackAuth } from './IntegrationsSlackAuth';
 
 interface ITableData {
@@ -30,23 +31,24 @@ interface ITableData {
 }
 
 export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
+  const { t } = useT();
   const dispatch = useDispatch();
   const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
     ({
       integrations: {
-        slackChannels: { isLoading, clientId, data: slackChannels },
+        slack,
+        isSaving,
         categories,
         channelMap,
-        isSaving,
-        slack,
+        slackChannels: { isLoading, clientId, data: slackChannels },
       },
     }: IPluginState) => ({
-      slackChannels,
-      isLoading,
-      clientId,
-      categories,
       slack,
+      clientId,
       isSaving,
+      isLoading,
+      categories,
+      slackChannels,
       channelMap: channelMap?.slack,
     })
   );
@@ -88,24 +90,24 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             },
             {
               accessor: 'isActive',
-              Header: 'ENABLED',
-              Cell: ({ row: { index } }) => <IntegrationCheckBox name={`data[${idx}].events[${index}].isActive`} />,
+              Header: t('common.enabled').toUpperCase(),
+              Cell: ({ row: { index } }) => <FIntegrationCheckBox name={`data[${idx}].events[${index}].isActive`} />,
             },
             {
               accessor: 'slackEvents',
-              Header: 'CHANNELS',
+              Header: t('common.channels').toUpperCase(),
               Cell: ({ row: { index } }) => (
                 <SelectSlack name={`data[${idx}].events[[${index}].slackEvents[0].channelIds`} />
               ),
             },
             {
               accessor: 'non',
-              Header: 'MESSAGE',
+              Header: t('common.message').toUpperCase(),
               Cell: ({ row: { index } }) => <FInput name={`data[${idx}].events[${index}].slackEvents[0].message`} />,
             },
           ] as TableColumnProps<{}>[]
       ),
-    [tablesData]
+    [tablesData, t]
   );
 
   useEffect(() => {
