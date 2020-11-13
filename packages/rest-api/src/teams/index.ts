@@ -78,8 +78,6 @@ export async function changePassword(body: IChangePassword): Promise<void> {
  * ``authorized user``
  */
 export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<ITeamUser>> {
-  console.debug('loadUsers()', params);
-
   const filters = (params.filter || []).reduce((p, n) => ({ ...p, [n.id]: n.value }), {});
   const sorts = params.sort?.length
     ? {
