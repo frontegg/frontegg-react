@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { actions, AuditsState, AuditsActions, storeName } from './Api';
+import { actions, AuditsState, AuditsActions, storeName } from '../Api';
 
 const stateMapper = (state: AuditsState) => state;
 

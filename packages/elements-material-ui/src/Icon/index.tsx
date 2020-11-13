@@ -19,6 +19,9 @@ import {
   PersonAddRounded,
   MoreVertRounded,
   SendRounded,
+  Cached,
+  CalendarToday,
+  FlashOn,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -44,6 +47,9 @@ const iconMap: { [K in IconNames]: any } = {
   'person-add': PersonAddRounded,
   'vertical-dots': MoreVertRounded,
   send: SendRounded,
+  refresh: Cached,
+  'calendar-today': CalendarToday,
+  flash: FlashOn,
 };
 
 export class Icon extends React.Component<IconProps> {

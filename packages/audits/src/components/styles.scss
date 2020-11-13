@@ -1,35 +1,144 @@
 .fe-audits {
   $class: &;
 
+  &__vertical-dash {
+    height: 100%;
+    vertical-align: middle;
+    background-color: var(--color-gray-5);
+    width: 4px;
+  }
+
+  &__header {
+    padding: var(--element-padding);
+
+    #{$class}__title-container {
+      font-size: 2rem;
+      font-weight: 900;
+      width: auto;
+
+      #{$class}__last-updated {
+        color: var(--color-gray-5);
+        font-size: var(--element-font-size);
+        display: inline-flex;
+      }
+
+      #{$class}__refresh {
+        color: var(--color-info);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      #{$class}__spin {
+        animation: spin 0.8s infinite linear;
+        pointer-events: none;
+        color: var(--color-disabled);
+      }
+    }
+
+    #{$class}__stats-container {
+      gap: 0 var(--element-padding);
+      width: auto;
+
+      #{$class}__stat {
+        border: 1px solid var(--color-gray-4);
+        padding: var(--element-spacing) var(--element-padding);
+        gap: 0 var(--element-padding);
+        display: inline-flex;
+
+        #{$class}__stat-value {
+          font-size: 1.5rem;
+          font-weight: 900;
+        }
+
+        #{$class}__stat-name {
+          color: var(--color-gray-5);
+          font-size: var(--element-font-size-sm);
+        }
+
+        #{$class}__stat-icon {
+          padding: var(--element-padding);
+          border-radius: var(--element-border-radius);
+          position: relative;
+          margin: auto;
+
+          svg {
+            width: var(--element-height-lg);
+            vertical-align: middle;
+          }
+
+          &__primary {
+            background-color: var(--color-primary-light);
+            svg {
+              color: var(--color-primary-darker);
+            }
+          }
+
+          &__danger {
+            background-color: var(--color-danger-50);
+            svg {
+              color: var(--color-danger-darker);
+            }
+          }
+        }
+      }
+    }
+  }
+
   &__expand-content {
     gap: var(--element-height) 0;
     padding: var(--element-height) var(--element-spacing);
 
     #{$class}__property {
-      position: relative;
       display: flex;
+      gap: 0 var(--element-spacing);
+      flex-wrap: nowrap;
       padding: 0 var(--element-spacing);
 
-      #{$class}__vertical-dash {
-        position: absolute;
-        left: 0;
-        top: 2px;
-        bottom: 2px;
-        background-color: #acabab;
-        width: 2px;
-      }
-
       #{$class}__property-name {
-        color: var(--color-gray-5);
+        color: var(--color-gray-7);
         font-size: var(--element-font-size);
         line-height: 1.24;
         margin-bottom: var(--element-spacing);
       }
 
       #{$class}__property-value {
-        color: var(--color-gray-4);
+        color: var(--color-gray-5);
         font-size: var(--element-font-size);
       }
+
+      #{$class}__sevirity-text {
+        &-info {
+          color: var(--color-info);
+        }
+        &-high,
+        &-error {
+          color: var(--color-danger);
+        }
+        &-medium,
+        &-attention {
+          color: var(--color-warning);
+        }
+      }
+
+      #{$class}__sevirity-background {
+        &-info {
+          background-color: var(--color-info);
+        }
+        &-high,
+        &-error {
+          background-color: var(--color-danger);
+        }
+        &-medium,
+        &-attention {
+          background-color: var(--color-warning);
+        }
+      }
     }
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(-360deg);
   }
 }

@@ -6,9 +6,11 @@ import { Visibility, VisibilityOff } from './svgs/Visibility';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
 import { Checkmark, Indeterminate } from './svgs/Checkmark';
-import { Delete, Search, Send } from './svgs/Actions';
+import { Delete, Search, Send, Refresh } from './svgs/Actions';
 import { PersonAdd } from './svgs/PersonAdd';
 import { VerticalDots } from './svgs/VerticalDots';
+import { CalendarToday } from './svgs/CalendarToday';
+import { Flash } from './svgs/Flash';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   back: LeftArrow,
@@ -29,6 +31,9 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'person-add': PersonAdd,
   'vertical-dots': VerticalDots,
   send: Send,
+  refresh: Refresh,
+  'calendar-today': CalendarToday,
+  flash: Flash,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {

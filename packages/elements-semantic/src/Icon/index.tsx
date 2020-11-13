@@ -26,6 +26,9 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   'person-add': 'add user',
   'vertical-dots': 'ellipsis vertical',
   send: 'send',
+  refresh: 'refresh',
+  'calendar-today': 'calendar outline',
+  flash: 'lightning',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

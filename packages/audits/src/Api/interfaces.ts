@@ -1,5 +1,6 @@
 import { ContextOptions, ThemeOptions } from '@frontegg/react-core';
 import { AuditRowData, SortDirectionType } from '@frontegg/rest-api';
+import { Moment } from 'moment';
 
 export interface DataSorting {
   sortDirection: SortDirectionType;
@@ -32,6 +33,7 @@ export interface AuditsState {
   filters: Array<Filter>;
   context: ContextOptions | null;
   rowsData: Array<AuditRowData>;
+  lastUpdated: Moment;
   isLoading: boolean;
   totalToday: number;
   headerProps: Array<HeaderProps>;

@@ -1,30 +1,29 @@
 import React, { FC, useMemo } from 'react';
 import { Grid, Input, Loader, Table } from '@frontegg/react-core';
-import { useAudits } from '../hooks';
-import { defaultItemsPerPage, HeaderProps } from '../Api';
+import { useAudits } from '../helpers/hooks';
+import { defaultItemsPerPage } from '../Api';
 import { AuditRowData } from '@frontegg/rest-api';
+import { renderExpandedComponent } from './renderExpandedComponent';
+import { AuditsHeader } from './AuditsHeader';
 import './styles.scss';
 
-const prefixCls = 'fe-audits';
-
-const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: AuditRowData) => {
-  return (
-    <Grid container className={`${prefixCls}__expand-content`}>
-      {headersToShow
-        .filter((_) => data.hasOwnProperty(_.name))
-        .map((header) => (
-          <Grid key={header.name} direction='column' wrap='nowrap' xs={3} className={`${prefixCls}__property`}>
-            <span className={`${prefixCls}__vertical-dash`} />
-            <span className={`${prefixCls}__property-name`}>{header.displayName}:</span>
-            <span className={`${prefixCls}__property-value`}>{data[header.name]}</span>
-          </Grid>
-        ))}
-    </Grid>
-  );
-};
+export const prefixCls = 'fe-audits';
 
 export const Audits: FC = () => {
-  const { isLoading, headerProps, rowsData, total, onPageChange, setDataSorting, setFilterData } = useAudits();
+  const {
+    isLoading,
+    error,
+    headerProps,
+    startLoading,
+    lastUpdated,
+    rowsData,
+    total,
+    onPageChange,
+    totalToday,
+    severeThisWeek,
+    setDataSorting,
+    setFilterData,
+  } = useAudits();
 
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
 
@@ -33,7 +32,8 @@ export const Audits: FC = () => {
   }
 
   return (
-    <div>
+    <Grid container direction='column' wrap='nowrap' className={prefixCls}>
+      <AuditsHeader />
       <Table<AuditRowData>
         columns={headerProps
           .filter((_) => _.showInTable)
@@ -76,6 +76,6 @@ export const Audits: FC = () => {
           setFilterData(filters.map(({ id, value }) => ({ key: id, value })));
         }}
       />
-    </div>
+    </Grid>
   );
 };
