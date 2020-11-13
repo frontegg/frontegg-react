@@ -183,7 +183,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
   } catch (e) {
     console.error(e);
   }
-  yield put(actions.setState({ isLoading: false }));
+  yield put(actions.setState({ isLoading: false, isAuthenticated: false, user: null }));
   payload?.();
 }
 

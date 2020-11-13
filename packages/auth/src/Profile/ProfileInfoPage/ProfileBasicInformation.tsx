@@ -6,11 +6,6 @@ const { useFormikContext } = FFormik;
 export const ProfileBasicInformation: FC = () => {
   const { t } = useT();
   const { saving } = useAuth((state) => state.profileState);
-
-  const formikContext = useFormikContext();
-  useEffect(() => {
-    formikContext.setSubmitting(saving ?? false);
-  }, [saving]);
   return (
     <div className='fe-profile-basic-information'>
       <div className='fe-section-title fe-bold fe-mb-2'>{t('auth.profile.info.title2')}</div>

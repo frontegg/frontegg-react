@@ -1,5 +1,13 @@
-import React, { FC } from 'react';
-import { PageTabProps, useT, FFormik, FForm } from '@frontegg/react-core';
+import React, { FC, useRef } from 'react';
+import {
+  PageTabProps,
+  useT,
+  FFormik,
+  FForm,
+  validateSchema,
+  validateLength,
+  validateEmail,
+} from '@frontegg/react-core';
 import { ProfileImageUploader } from './ProfileImageUploader';
 import { ProfileBasicInformation } from './ProfileBasicInformation';
 import { useAuthProfile } from '../helpers';
@@ -7,6 +15,7 @@ import { useAuthProfile } from '../helpers';
 const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = (props) => {
   const { profile, saveProfile } = useAuthProfile();
+  const { t } = useT();
 
   const children = props.children ?? (
     <>
@@ -22,9 +31,31 @@ export const ProfileInfoPage: FC & PageTabProps = (props) => {
         name: profile?.name ?? '',
         email: profile?.email ?? '',
       }}
+      validationSchema={validateSchema({
+        name: validateLength(t('common.name'), 2, t),
+        email: validateEmail(t),
+      })}
       enableReinitialize
-      onSubmit={(values) => {
-        saveProfile(values);
+      onSubmit={(values, { resetForm, setSubmitting }) => {
+        saveProfile({
+          ...values,
+          callback: (profile) => {
+            setSubmitting(false);
+            if (profile) {
+              resetForm({
+                isSubmitting: false,
+                submitCount: 0,
+                errors: {},
+                touched: {},
+                values: {
+                  profilePictureUrl: profile?.profilePictureUrl ?? '',
+                  name: profile?.name ?? '',
+                  email: profile?.email ?? '',
+                } as any,
+              });
+            }
+          },
+        });
       }}
     >
       <FForm>
