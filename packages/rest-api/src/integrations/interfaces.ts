@@ -20,12 +20,14 @@ export interface ISlackEvent {
 
 export interface IEmailConfigurations {
   id: string;
+  eventKey: string;
   from: string;
   to: string[];
 }
 
 export interface ISMSConfigurations {
   id: string;
+  eventKey: string;
   to: string[];
 }
 
