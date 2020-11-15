@@ -28,7 +28,7 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any
       pageOffset,
       filter,
       sort,
-    }),
+    })
   );
   try {
     const [{ items: users, totalPages, totalItems }, { items: roles }] = yield all([
@@ -65,13 +65,13 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
       actions.setTeamState({
         users: [newUser, ...teamState.users],
         addUserDialogState: { open: false, loading: false },
-      }),
+      })
     );
   } catch (e) {
     yield put(
       actions.setTeamState({
         addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
-      }),
+      })
     );
     callback?.(null, e.message);
   }
@@ -93,7 +93,7 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
         }
         return user;
       }),
-    }),
+    })
   );
   try {
     if (oldUserData.roleIds.length > 0 && body.roleIds?.length === 0) {
@@ -103,7 +103,17 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
     callback?.(newUser);
     yield put(
       actions.setTeamState({
-        users: teamState.users.map((user: ITeamUser) => (user.id === newUser.id ? { ...user, ...newUser } : user)),
+        users: teamState.users.map((user: ITeamUser) =>
+          user.id === newUser.id
+            ? {
+                ...user,
+                ...newUser,
+                createdAt: user.createdAt,
+                customData: user.customData,
+                lastLogin: user.lastLogin,
+              }
+            : user
+        ),
       })
     );
     yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));
@@ -112,7 +122,7 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
       actions.setTeamState({
         addUserDialogState: { ...teamState.addUserDialogState, loading: false, error: e.message },
         users: teamState.users.map((user: ITeamUser) => (user.id === body.id ? { ...user, ...oldUserData } : user)),
-      }),
+      })
     );
     yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));
     callback?.(null, e.message);
@@ -130,13 +140,13 @@ function* deleteUser({ payload }: PayloadAction<WithCallback<IDeleteUser, boolea
       actions.setTeamState({
         users: teamState.users.filter((user: ITeamUser) => user.id !== body.userId),
         deleteUserDialogState: { open: false, loading: false },
-      }),
+      })
     );
   } catch (e) {
     yield put(
       actions.setTeamState({
         deleteUserDialogState: { ...teamState.deleteUserDialogState, loading: false, error: e.message },
-      }),
+      })
     );
     callback?.(null, e.message);
   }
@@ -164,7 +174,7 @@ function* openAddUserDialog({ payload }: PayloadAction<ISetAddUserDialog | undef
         error: false,
         ...payload,
       },
-    }),
+    })
   );
 }
 
@@ -178,7 +188,7 @@ function* closeAddUserDialog({ payload }: PayloadAction<any>) {
         error: false,
         open: false,
       },
-    }),
+    })
   );
 }
 
@@ -191,7 +201,7 @@ function* openDeleteUserDialog({ payload }: PayloadAction<ISetDeleteUserDialog |
         error: false,
         ...payload,
       },
-    }),
+    })
   );
 }
 
@@ -205,7 +215,7 @@ function* closeDeleteUserDialog({ payload }: PayloadAction<any>) {
         error: false,
         open: false,
       },
-    }),
+    })
   );
 }
 
