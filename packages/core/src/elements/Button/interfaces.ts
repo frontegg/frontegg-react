@@ -11,6 +11,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean;
   iconButton?: boolean;
 
+  // @deprecated
+  submit?: boolean;
+  testId?: string;
+
   // internal use
   formikDisableIfNotDirty?: boolean; // default true
 }
