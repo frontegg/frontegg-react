@@ -1,11 +1,12 @@
 import React, { FC, useMemo } from 'react';
-import { Grid, Input, Loader, Table } from '@frontegg/react-core';
+import { Grid, Input, Loader, Table, TableColumnProps } from '@frontegg/react-core';
 import { useAudits } from '../helpers/hooks';
 import { defaultItemsPerPage } from '../Api';
 import { AuditRowData } from '@frontegg/rest-api';
 import { renderExpandedComponent } from './renderExpandedComponent';
 import { AuditsHeader } from './AuditsHeader';
 import './styles.scss';
+import { getAuditsTableCells } from './AuditsTableCell';
 
 export const prefixCls = 'fe-audits';
 
@@ -27,6 +28,27 @@ export const Audits: FC = () => {
 
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
 
+  const columns = useMemo(() => {
+    return headerProps
+      .filter((_) => _.showInTable)
+      .map(
+        (header): TableColumnProps => ({
+          accessor: header.name,
+          Header: header.displayName,
+          sortable: header.sortable,
+          Cell: getAuditsTableCells(header.name),
+          Filter: ({ value, setFilterValue }) =>
+            header.filterable ? (
+              <Input
+                label={`Filter by ${header.displayName}`}
+                value={value}
+                onChange={(e) => setFilterValue(e.target.value)}
+              />
+            ) : null,
+        })
+      );
+  }, [headerProps]);
+
   if (!headerProps.length) {
     return <Loader center />;
   }
@@ -35,21 +57,7 @@ export const Audits: FC = () => {
     <Grid container direction='column' wrap='nowrap' className={prefixCls}>
       <AuditsHeader />
       <Table<AuditRowData>
-        columns={headerProps
-          .filter((_) => _.showInTable)
-          .map((header) => ({
-            accessor: header.name,
-            Header: header.displayName,
-            sortable: header.sortable,
-            Filter: ({ value, setFilterValue }) =>
-              header.filterable ? (
-                <Input
-                  label={`Filter by ${header.displayName}`}
-                  value={value}
-                  onChange={(e) => setFilterValue(e.target.value)}
-                />
-              ) : null,
-          }))}
+        columns={columns}
         data={rowsData}
         totalData={total}
         loading={isLoading}

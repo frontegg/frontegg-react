@@ -13,7 +13,7 @@ interface StatProps {
 export const Stat: FC<StatProps> = ({ stat, statName, iconName, severity }) => (
   <div className={`${prefixCls}__stat`}>
     <span className={`${prefixCls}__vertical-dash`} />
-    <Grid container direction='column' alignItems='flex-start'>
+    <Grid container direction='column' alignItems='flex-start' justifyContent='space-around'>
       <span className={`${prefixCls}__stat-value`}>{stat}</span>
       <span className={`${prefixCls}__stat-name`}>{statName}</span>
     </Grid>

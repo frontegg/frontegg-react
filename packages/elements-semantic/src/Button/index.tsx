@@ -10,7 +10,6 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     inForm,
     submit,
     formikDisableIfNotDirty,
-    testId,
     loading,
     disabled,
     type,
@@ -32,7 +31,6 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     secondary: variant === 'secondary' ? true : undefined,
     color: variant === 'danger' ? 'red' : undefined,
     fluid: fullWidth,
-    'test-id': testId,
     type: submit ? 'submit' : type ?? 'button',
   };
 };

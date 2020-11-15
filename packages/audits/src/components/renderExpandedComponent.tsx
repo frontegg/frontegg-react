@@ -14,7 +14,7 @@ export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: 
           <Grid key={header.name} item xs={3} className={`${prefixCls}__property`}>
             <span
               className={classNames(`${prefixCls}__vertical-dash`, {
-                [`${prefixCls}__sevirity-background-${data.severity.toLowerCase()}`]: header.name === 'severity',
+                [`${prefixCls}__severity-background-${data.severity.toLowerCase()}`]: header.name === 'severity',
               })}
             />
 
@@ -23,7 +23,7 @@ export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: 
 
               <span
                 className={classNames(`${prefixCls}__property-value`, {
-                  [`${prefixCls}__sevirity-text-${data.severity.toLowerCase()}`]: header.name === 'severity',
+                  [`${prefixCls}__severity-text-${data.severity.toLowerCase()}`]: header.name === 'severity',
                 })}
               >
                 {data[header.name]}

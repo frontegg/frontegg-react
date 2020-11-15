@@ -12,7 +12,7 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: 'http://localhost:3000', //`${window.location.protocol}//${host}`,
+  baseUrl: `${window.location.protocol}//${host}`,
   requestCredentials: 'include',
 };
 

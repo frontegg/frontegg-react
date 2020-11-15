@@ -1,11 +1,87 @@
 .fe-audits {
   $class: &;
+  overflow: hidden;
+  max-height: 100vh;
+
+  .fe-page-header {
+    min-height: 8rem;
+    margin-bottom: 0;
+  }
 
   &__vertical-dash {
     height: 100%;
     vertical-align: middle;
-    background-color: var(--color-gray-5);
-    width: 4px;
+    background-color: var(--color-gray-3);
+    width: 6px;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  &__refresh {
+    color: var(--color-info);
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    margin: -0.5rem 0.5rem;
+  }
+
+  &__spin {
+    animation: spin 0.8s infinite linear;
+    pointer-events: none;
+    color: var(--color-disabled);
+  }
+
+  #{$class}__stats-container {
+    display: flex;
+    justify-content: flex-end;
+
+    #{$class}__stat {
+      border: 1px solid var(--color-gray-2);
+      padding: var(--element-spacing);
+      display: inline-flex;
+      border-radius: var(--element-border-radius-sm);
+      margin-left: 1rem;
+      min-width: 14rem;
+
+      #{$class}__stat-value {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+
+      #{$class}__stat-name {
+        color: var(--color-gray-5);
+        font-size: var(--element-font-size-sm);
+      }
+
+      #{$class}__stat-icon {
+        padding: var(--element-padding);
+        border-radius: var(--element-border-radius);
+        position: relative;
+        margin: auto;
+
+        svg {
+          width: var(--element-height-lg);
+          vertical-align: middle;
+        }
+
+        &__primary {
+          background-color: var(--color-green-0);
+
+          svg {
+            color: var(--color-green-5);
+          }
+        }
+
+        &__danger {
+          background-color: var(--color-red-0);
+
+          svg {
+            color: var(--color-red-5);
+          }
+        }
+      }
+    }
   }
 
   &__header {
@@ -21,67 +97,12 @@
         font-size: var(--element-font-size);
         display: inline-flex;
       }
-
-      #{$class}__refresh {
-        color: var(--color-info);
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      #{$class}__spin {
-        animation: spin 0.8s infinite linear;
-        pointer-events: none;
-        color: var(--color-disabled);
-      }
     }
+  }
 
-    #{$class}__stats-container {
-      gap: 0 var(--element-padding);
-      width: auto;
-
-      #{$class}__stat {
-        border: 1px solid var(--color-gray-4);
-        padding: var(--element-spacing) var(--element-padding);
-        gap: 0 var(--element-padding);
-        display: inline-flex;
-
-        #{$class}__stat-value {
-          font-size: 1.5rem;
-          font-weight: 900;
-        }
-
-        #{$class}__stat-name {
-          color: var(--color-gray-5);
-          font-size: var(--element-font-size-sm);
-        }
-
-        #{$class}__stat-icon {
-          padding: var(--element-padding);
-          border-radius: var(--element-border-radius);
-          position: relative;
-          margin: auto;
-
-          svg {
-            width: var(--element-height-lg);
-            vertical-align: middle;
-          }
-
-          &__primary {
-            background-color: var(--color-primary-light);
-            svg {
-              color: var(--color-primary-darker);
-            }
-          }
-
-          &__danger {
-            background-color: var(--color-danger-50);
-            svg {
-              color: var(--color-danger-darker);
-            }
-          }
-        }
-      }
-    }
+  &__severity {
+    height: 1rem;
+    padding: 0 0.5rem;
   }
 
   &__expand-content {
@@ -106,28 +127,32 @@
         font-size: var(--element-font-size);
       }
 
-      #{$class}__sevirity-text {
+      #{$class}__severity-text {
         &-info {
           color: var(--color-info);
         }
+
         &-high,
         &-error {
           color: var(--color-danger);
         }
+
         &-medium,
         &-attention {
           color: var(--color-warning);
         }
       }
 
-      #{$class}__sevirity-background {
+      #{$class}__severity-background {
         &-info {
           background-color: var(--color-info);
         }
+
         &-high,
         &-error {
           background-color: var(--color-danger);
         }
+
         &-medium,
         &-attention {
           background-color: var(--color-warning);

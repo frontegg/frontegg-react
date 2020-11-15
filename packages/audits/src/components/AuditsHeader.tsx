@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Grid, Icon } from '@frontegg/react-core';
+import { Icon, PageHeader } from '@frontegg/react-core';
 import { useAudits } from '../helpers/hooks';
 import { getLastUpdatedTime } from '../helpers/getLastUpdatedTime';
 import { Stat } from './Stat';
@@ -16,10 +16,10 @@ export const AuditsHeader: FC = () => {
   }, []);
 
   return (
-    <Grid container justifyContent='space-between' className={`${prefixCls}__header`}>
-      <Grid container direction='column' alignItems='flex-start' className={`${prefixCls}__title-container`}>
-        <span className={`${prefixCls}__title`}>Audit Logs</span>
-        <span className={`${prefixCls}__last-updated`}>
+    <PageHeader
+      title='Audit Logs'
+      subTitle={
+        <>
           Last updated {getLastUpdatedTime(lastUpdated)}
           <Icon
             name='refresh'
@@ -28,12 +28,13 @@ export const AuditsHeader: FC = () => {
               [`${prefixCls}__spin`]: isLoading,
             })}
           />
-        </span>
-      </Grid>
-      <Grid container className={`${prefixCls}__stats-container`}>
+        </>
+      }
+    >
+      <div className={`${prefixCls}__stats-container`}>
         <Stat stat={totalToday} statName='Total Today' iconName='calendar-today' severity='primary' />
         <Stat stat={severeThisWeek} statName='Severe This Week' iconName='flash' severity='danger' />
-      </Grid>
-    </Grid>
+      </div>
+    </PageHeader>
   );
 };
