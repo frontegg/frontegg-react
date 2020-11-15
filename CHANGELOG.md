@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/frontegg/frontegg-react/compare/v1.6.0...v1.6.1) (2020-11-15)
+
+
+### Bug Fixes
+
+* **auth:** fix multiple call to loadUsers while mounting TeamTable ([4a51547](https://github.com/frontegg/frontegg-react/commit/4a51547cf5cd86905d3c760af13016a3751bab0b))
+* **auth:** fix remove last role in TeamTable ([22d2ff6](https://github.com/frontegg/frontegg-react/commit/22d2ff60715249c13c7a454f255a371170504887))
+* **auth:** redirect user to login with two-factor after saml if required ([e6abd6a](https://github.com/frontegg/frontegg-react/commit/e6abd6a04ff6b7e62eb335cd71c19382cdd9472a))
+* **auth:** remain user data after editing roles in TeamTable ([186aaa4](https://github.com/frontegg/frontegg-react/commit/186aaa4827f87dd27d35375d1c35fd8a1818c6d6)), closes [#99](https://github.com/frontegg/frontegg-react/issues/99)
+* disable store caching in cypress tests ([4f5e5f5](https://github.com/frontegg/frontegg-react/commit/4f5e5f5b0cbbd74794fc8ae36770223a1356bf2a))
+* fix multiple store initialization in strict-mode ([a569f86](https://github.com/frontegg/frontegg-react/commit/a569f86b37292e71b985c3a2e54610121ab419ce))
+* restore test-id to forgot password button ([b8a4ab4](https://github.com/frontegg/frontegg-react/commit/b8a4ab448c5c3fd45e7ad4a1189242d27d3f5822))
+
+
+
+
+
 # [1.6.0](https://github.com/frontegg/frontegg-react/compare/v1.5.0...v1.6.0) (2020-11-12)
 
 
