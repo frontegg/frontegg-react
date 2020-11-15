@@ -237,6 +237,111 @@ describe('Login Tests', () => {
     });
   });
 
+  it('Login, WITH SAML tenant, WITH email, with two-factor', () => {
+    cy.server();
+    mockAuthApi(false, true);
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      status: 200,
+      response: { address: SSO_PATH },
+      delay: 200,
+    }).as('preLogin');
+
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
+    });
+
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata']);
+    cy.get('.loader').should('not.be.visible');
+
+    const passwordSelector = '[name="password"]';
+    const submitSelector = 'button[type=submit]';
+    const codeSelector = '[name="code"]';
+
+    cy.get(submitSelector).contains('Continue').should('be.disabled');
+    checkEmailValidation();
+    cy.get(submitSelector).contains('Continue').should('not.be.disabled');
+
+    cy.get(passwordSelector).should('not.exist');
+    cy.get(submitSelector).contains('Continue').click();
+    cy.get(submitSelector).should('have.class', 'loading');
+
+    cy.get(passwordSelector).should('not.exist');
+
+    cy.wait('@preLogin').its('request.body').should('deep.equal', { email: EMAIL_1 });
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq(SSO_PATH);
+    });
+
+    cy.wait(1000);
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+      status: 200,
+      response: {
+        mfaRequired: true,
+        mfaToken: MFA_TOKEN,
+      },
+    }).as('refreshToken');
+    navigateTo(defaultAuthPlugin.routes.authenticatedUrl);
+
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
+    });
+
+    cy.wait(['@refreshToken']);
+
+    cy.contains('Please enter the 6 digit code').should('be.visible');
+
+    const validCode = '123123';
+    cy.get(codeSelector).focus().type('111').blur();
+    cy.get(codeSelector).parents('.field').should('have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('be.disabled');
+    cy.get(codeSelector).focus().clear().type(validCode).blur();
+    cy.get(codeSelector).parents('.field').should('not.have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('not.be.disabled');
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
+      status: 400,
+      response: { errors: ['invalid code'] },
+      delay: 200,
+    }).as('verifyMfa');
+
+    cy.get(submitSelector).contains('Login').click();
+    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.contains('invalid code').should('be.visible');
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
+      status: 200,
+      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
+      delay: 200,
+    }).as('verifyMfa');
+    cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/users/v2/me`,
+      status: 200,
+      response: { name: 'name', email: 'email' },
+      delay: 200,
+    }).as('me');
+    cy.get(submitSelector).contains('Login').click();
+    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.wait('@me');
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/');
+    });
+  });
+
   it('Login, NO SAML, Two-Factor', () => {
     cy.server();
     mockAuthApi(false, false);

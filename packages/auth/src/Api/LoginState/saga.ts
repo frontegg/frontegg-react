@@ -34,13 +34,33 @@ function* refreshMetadata() {
 
 function* refreshToken() {
   try {
-    const { routes } = yield select((state) => state.auth);
+    const { routes, onRedirectTo } = yield select((state) => state.auth);
     const user = yield call(api.auth.refreshToken);
-    ContextHolder.setAccessToken(user.accessToken);
-    ContextHolder.setUser(user);
-    yield put(actions.setState({ user, isAuthenticated: true }));
-    if (location.pathname.endsWith(routes.loginUrl)) {
-      yield afterAuthNavigation();
+
+    if (user.mfaRequired && user.mfaToken) {
+      ContextHolder.setAccessToken(null);
+      ContextHolder.setUser(null);
+      yield put(
+        actions.setState({
+          user: undefined,
+          isAuthenticated: false,
+          loginState: {
+            mfaToken: user.mfaToken,
+            mfaRequired: user.mfaRequired,
+            loading: false,
+            error: undefined,
+            step: LoginStep.loginWithTwoFactor,
+          },
+        })
+      );
+      onRedirectTo(routes.loginUrl);
+    } else {
+      ContextHolder.setAccessToken(user.accessToken);
+      ContextHolder.setUser(user);
+      yield put(actions.setState({ user, isAuthenticated: true }));
+      if (location.pathname.endsWith(routes.loginUrl)) {
+        yield afterAuthNavigation();
+      }
     }
   } catch (e) {
     ContextHolder.setAccessToken(null);
