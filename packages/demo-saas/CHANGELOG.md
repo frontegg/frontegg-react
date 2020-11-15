@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/frontegg/frontegg-react/compare/v1.6.0...v1.6.1) (2020-11-15)
+
+
+### Bug Fixes
+
+* fix multiple store initialization in strict-mode ([a569f86](https://github.com/frontegg/frontegg-react/commit/a569f86b37292e71b985c3a2e54610121ab419ce))
+
+
+
+
+
 # [1.6.0](https://github.com/frontegg/frontegg-react/compare/v1.5.0...v1.6.0) (2020-11-12)
 
 **Note:** Version bump only for package @frontegg/demo-saas
