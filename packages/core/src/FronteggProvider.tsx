@@ -90,7 +90,7 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   /* memorize redux store */
   const store = useMemo(() => {
-    if (fronteggStore != null) {
+    if (!window.Cypress && fronteggStore != null) {
       return fronteggStore;
     }
     // @ts-ignore
