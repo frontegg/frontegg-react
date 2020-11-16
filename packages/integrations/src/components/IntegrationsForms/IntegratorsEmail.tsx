@@ -61,7 +61,7 @@ export const IntegratorsEmail: FC<IIntegrationsComponent> = ({ onClose }) => {
             },
             {
               accessor: 'smsEvents',
-              Header: t('common.channels').toUpperCase(),
+              Header: t('common.emails').toUpperCase(),
               Cell: () => <FInput name={`values[${idx}].events[0].sms`} />,
             },
             {

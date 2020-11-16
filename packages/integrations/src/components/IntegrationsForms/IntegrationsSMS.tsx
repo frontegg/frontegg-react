@@ -60,7 +60,7 @@ export const IntegrationsSMS: FC<IIntegrationsComponent> = () => {
             },
             {
               accessor: 'smsEvents',
-              Header: t('common.channels').toUpperCase(),
+              Header: t('common.phones').toUpperCase(),
               Cell: () => <FInput name={`values[${idx}].events[0].sms`} />,
             },
             {
