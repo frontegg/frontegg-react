@@ -22,6 +22,7 @@ export const SSOToggle: FC<SwitchToggleProps & HideOption> = (props) => {
   return (
     <div className='fe-center fe-mt-4'>
       <SwitchToggle
+        data-test-id="sso-toggle"
         loading={loading}
         value={samlEnabled}
         labels={[t('common.disabled'), t('common.enabled')]}

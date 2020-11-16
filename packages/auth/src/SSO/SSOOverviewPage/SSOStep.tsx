@@ -19,7 +19,7 @@ export class SSOStep extends React.Component<SSOStepProps> {
         <div className='fe-sso-step__inner'>
           <div className='fe-sso-step__header'>
             <span>{t('common.step', { num })}</span>
-            <span className='fe-sso-step__checkmark'>{configured && <Icon name='checkmark' />}</span>
+            <span className='fe-sso-step__checkmark' data-test-id="IDP-checkmark">{configured && <Icon name='checkmark' data-test-id="domain-checkmark"/>}</span>
           </div>
           <div className='fe-sso-step__title'>{title}</div>
           <div className='fe-sso-step__subtitle'>{subtitle}</div>
