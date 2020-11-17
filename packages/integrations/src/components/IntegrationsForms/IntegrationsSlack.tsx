@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import {
   useT,
   Table,
@@ -10,7 +10,7 @@ import {
   FormikAutoSave,
   TableColumnProps,
 } from '@frontegg/react-core';
-import { ISlackConfigurations, ISlackEvent } from '@frontegg/rest-api';
+import { ISlackConfigurations, ISlackEvent, ISlackSubscription } from '@frontegg/rest-api';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
 import { integrationsActions } from '../../reducer';
 import { filterCategories } from '../../utils';
@@ -117,27 +117,30 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
     };
   }, [dispatch]);
 
-  const saveData = (data?: ITableData[]) => {
-    if (!slack || !data) return;
-    const { id } = slack;
-    const newData: ISlackConfigurations = {
-      id,
-      // @ts-ignore
-      slackSubscriptions: data.reduce((acc: ISlackSubscription[], curr: ITableData) => {
-        const { events = [] } = curr;
-        return [
-          ...acc,
-          ...events.map(({ isActive, id, slackEvents }) => ({
-            id,
-            isActive,
-            slackEvents,
-          })),
-        ];
-      }, []),
-    };
+  const saveData = useCallback(
+    (data?: ITableData[]) => {
+      if (!slack || !data) return;
+      const { id } = slack;
+      const newData: ISlackConfigurations = {
+        id,
+        // @ts-ignore
+        slackSubscriptions: data.reduce((acc: ISlackSubscription[], curr: ITableData) => {
+          const { events = [] } = curr;
+          return [
+            ...acc,
+            ...events.map(({ isActive, id, slackEvents }) => ({
+              id,
+              isActive,
+              slackEvents,
+            })),
+          ];
+        }, []),
+      };
 
-    dispatch(integrationsActions.postDataAction('slack', newData));
-  };
+      dispatch(integrationsActions.postDataAction('slack', newData));
+    },
+    [dispatch, slack]
+  );
 
   if (isLoading) {
     return <Loader center />;

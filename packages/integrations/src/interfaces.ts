@@ -1,14 +1,12 @@
 import {
   ICategory,
-  ISlackChannel,
-  IEmailConfigurations,
-  ISlackConfigurations,
-  ISMSConfigurations,
-  IWebhooksConfigurations,
   IChannelsMap,
+  ISlackChannel,
+  ISlackConfigurations,
   IWebhookLogsResponse,
+  IWebhooksConfigurations,
+  IEmailConfigResponse,
 } from '@frontegg/rest-api';
-import { PayloadAction } from '@reduxjs/toolkit';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
@@ -26,8 +24,8 @@ export interface IIntegrationsState {
   isSaving: boolean;
   isTesting?: boolean;
   list: IIntegrationsData[];
-  sms?: ISMSConfigurations;
-  email?: IEmailConfigurations;
+  sms?: IEmailConfigResponse[];
+  email?: IEmailConfigResponse[];
   slack?: ISlackConfigurations;
   webhook?: IWebhooksConfigurations[];
   categories?: ICategory[];

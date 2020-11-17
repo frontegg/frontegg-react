@@ -1,12 +1,11 @@
 import {
-  IEmailConfigurations,
-  ISlackChannel,
-  ISlackConfigurations,
-  ISMSConfigurations,
-  IWebhookLogsResponse,
-  IWebhooksConfigurations,
-  IWebhooksSaveData,
   IWebhookTest,
+  ISlackChannel,
+  IWebhooksSaveData,
+  ISlackConfigurations,
+  IWebhookLogsResponse,
+  IEmailConfigResponse,
+  IWebhooksConfigurations,
 } from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
 import { IIntegrationsState, TPlatform, TWebhookStatus } from './interfaces';
@@ -46,16 +45,15 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
     },
     postCodeSuccess: (state) => ({ ...state, isSaving: false }),
     postDataAction: {
-      prepare: (
-        platform: TPlatform,
-        data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksSaveData
-      ) => ({ payload: { data, platform } }),
+      prepare: (platform: TPlatform, data: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksSaveData) => ({
+        payload: { data, platform },
+      }),
       reducer: (state) => ({ ...state, isSaving: true }),
     },
     postDataSuccess: {
       prepare: (payload: {
         platform?: TPlatform;
-        data?: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[];
+        data?: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[];
       }) => ({ payload, error: null, meta: '' }),
       reducer: (state, { payload: { platform, data } }) => ({ ...state, isSaving: false, [`${platform}`]: data }),
     },

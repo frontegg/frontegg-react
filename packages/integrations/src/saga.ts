@@ -6,14 +6,14 @@ import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts
 import {
   api,
   IChannelsMap,
+  IWebhookTest,
   IWebhooksSaveData,
-  ISMSConfigurations,
   ISlackSubscription,
-  IEmailConfigurations,
+  IEmailConfigResponse,
   ISlackConfigurations,
   IWebhooksConfigurations,
-  IWebhookTest,
 } from '@frontegg/rest-api';
+import { date } from 'yup';
 
 const addApi = ['categories', 'channelMap'];
 
@@ -41,7 +41,7 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
   const data = values.reduce(
     (
       acc: Omit<IIntegrationsState, 'isLoading'>,
-      curr: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksConfigurations[],
+      curr: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[],
       idx: number
     ) =>
       payload[idx]
@@ -92,11 +92,13 @@ function* postDataFunction({
   payload: { platform, data },
 }: PayloadAction<{
   platform: TPlatform;
-  data: ISMSConfigurations | IEmailConfigurations | ISlackConfigurations | IWebhooksSaveData;
+  data: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksSaveData;
 }>) {
   try {
     if (platform === 'slack') {
       yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
+    } else if (['sms', 'email'].includes(platform)) {
+      yield postEmailSMSData({ payload: data as IEmailConfigResponse[], type: platform });
     } else {
       yield call(type2ApiPost[platform], data);
     }
@@ -159,6 +161,63 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
     //   }),
   ]);
   return yield call(type2ApiGet.slack);
+}
+
+function* postEmailSMSData({ payload, type }: PayloadAction<IEmailConfigResponse[]>) {
+  const { integrations }: IPluginState = yield select();
+  const stateData = integrations[type as 'email' | 'sms'];
+  if (!stateData) return;
+  try {
+    yield all([
+      // create new
+      ...payload
+        .reduce((acc: IEmailConfigResponse[], curr) => {
+          const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
+          if (!state && curr.subscriptions[0].recipients.filter((el) => el).length) {
+            return [...acc, curr];
+          }
+          return acc;
+        }, [])
+        .map(function* (data) {
+          return yield call(api.integrations.postEmailConfiguration, data);
+        }),
+      // update exists
+      ...payload
+        .reduce((acc: IEmailConfigResponse[], curr) => {
+          const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
+          if (state && JSON.stringify(state) !== JSON.stringify(curr)) {
+            return [...acc, curr];
+          }
+          return acc;
+        }, [])
+        .map(function* (data) {
+          const { subscriptions, eventKey } = data;
+          const { id = '', enabled, ...body } = subscriptions[0];
+          return yield all([
+            yield call(api.integrations.putEmailSubscriptions, id, eventKey, { ...body, enabled }),
+            yield call(api.integrations.patchEmailConfiguration, { eventKey, enabled }),
+          ]);
+        }),
+      // delete record with empty recipients
+      // ...payload
+      //   .reduce((acc: IEmailConfigResponse[], curr) => {
+      //     const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
+      //     if (
+      //       state &&
+      //       state.subscriptions[0].recipients.length &&
+      //       !curr.subscriptions[0].recipients.filter((el) => !!el).length
+      //     ) {
+      //       return [...acc, curr];
+      //     }
+      //     return acc;
+      //   }, [])
+      //   .map(function* ({ eventKey, subscriptions }) {
+      //     return call(api.integrations.deleteEmailSubscriptions, eventKey, subscriptions[0].id || '');
+      //   }),
+    ]);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function* postCodeFunction({ payload }: PayloadAction<string>) {

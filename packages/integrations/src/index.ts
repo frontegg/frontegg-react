@@ -9,6 +9,7 @@ export * from './components/IntegrationsHeader';
 
 export const WebhookComponent = makeComponent({ type: 'webhook', defaultPath: '/webhook' });
 export const SlackComponent = makeComponent({ type: 'slack', defaultPath: '/slack' });
+export const EmailComponent = makeComponent({ type: 'email', defaultPath: '/emails' });
 
 export const IntegrationsPlugin = (): PluginConfig => ({
   storeName,

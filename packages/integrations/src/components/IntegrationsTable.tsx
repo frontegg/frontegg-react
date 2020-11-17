@@ -123,8 +123,6 @@ export const IntegrationsTable: FC = () => {
     return <Loader center />;
   }
 
-  console.log(data);
-
   return (
     <>
       <Grid container className='fe-integrations-list' direction='column'>

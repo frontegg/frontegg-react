@@ -10,8 +10,8 @@ import {
   useSearch,
   useSelector,
   useDispatch,
-  SwitchToggle,
   TableColumnProps,
+  Loader,
 } from '@frontegg/react-core';
 import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
@@ -33,9 +33,10 @@ export const IntegrationsWebhooksList: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  const { webhook, categories, channelMap } = useSelector(
-    ({ integrations: { webhook, categories, channelMap } }: IPluginState) => ({
+  const { webhook, categories, channelMap, isLoading } = useSelector(
+    ({ integrations: { isLoading, webhook, categories, channelMap } }: IPluginState) => ({
       webhook,
+      isLoading,
       categories,
       channelMap: channelMap && channelMap.webhook,
     })
@@ -127,6 +128,10 @@ export const IntegrationsWebhooksList: FC = () => {
     ],
     [t, onEdit, countOfEvents, onChangeStatus]
   );
+
+  if (isLoading) {
+    return <Loader center />;
+  }
 
   return (
     <div className='fe-integrations-webhook-list'>
