@@ -10,7 +10,7 @@ import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
-import { IntegrationsPage, SlackComponent, WebhookComponent } from '@frontegg/react-integrations';
+import { EmailComponent, IntegrationsPage, SlackComponent, WebhookComponent } from '@frontegg/react-integrations';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -28,6 +28,7 @@ const menus = [
   { to: '/connectivity', title: 'Integrations', children: <IntegrationsPage rootPath='/connectivity' /> },
   { to: '/webhook', title: 'Webhook', component: WebhookComponent },
   { to: '/slack', title: 'Slack', component: SlackComponent },
+  { to: '/emails', title: 'Email', component: EmailComponent },
   { to: '/notifications', title: 'Notifications Example', children: <NotificationsExample /> },
   { to: '/components2', component: ComponentsPage2, exact: true },
   { to: '/components', component: ElementsPage },
