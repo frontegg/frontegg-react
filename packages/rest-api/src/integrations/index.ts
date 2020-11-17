@@ -1,11 +1,16 @@
-import { EVENT_RESOURCES_URL_V1, INTEGRATIONS_SERVICE_URL_V1, INTEGRATIONS_SERVICE_WEBHOOKS_URL } from '../constants';
-import { Get, Patch, Post, Delete } from '../fetch';
 import {
-  IEmailConfigurations,
-  ISMSConfigurations,
-  ISlackSubscription,
-  IWebhooksSaveData,
+  EVENT_RESOURCES_URL_V1,
+  INTEGRATIONS_SERVICE_URL_V1,
+  INTEGRATIONS_SERVICE_URL_V2,
+  INTEGRATIONS_SERVICE_WEBHOOKS_URL,
+} from '../constants';
+import { Get, Patch, Post, Delete, Put } from '../fetch';
+import {
   IWebhookTest,
+  IWebhooksSaveData,
+  ISlackSubscription,
+  IEmailConfigResponse,
+  IEmailSubscriptionResponse,
 } from './interfaces';
 
 export const getSlackConfiguration = () => {
@@ -40,24 +45,51 @@ export const postSlackCode = (code: string) => {
   return Post(`${INTEGRATIONS_SERVICE_URL_V1}/slack//applications/registrations`, { code });
 };
 
-export const getEmailConfiguration = () => {
+export const getEmailConfiguration = (): Promise<IEmailConfigResponse[]> => {
   console.debug('getEmailConfiguration()');
-  return Get(`${INTEGRATIONS_SERVICE_URL_V1}/email`);
+  return Get(`${INTEGRATIONS_SERVICE_URL_V1}/emails`);
 };
 
-export const postEmailConfiguration = (data: IEmailConfigurations) => {
-  console.debug('postEmailConfiguration()', data);
-  return Post(`${INTEGRATIONS_SERVICE_URL_V1}/email`, data);
+export const postEmailConfiguration = ({ eventKey, ...data }: IEmailConfigResponse): Promise<null> => {
+  console.debug('postEmailConfiguration()', { ...data, eventKey });
+  return Post(`${INTEGRATIONS_SERVICE_URL_V1}/emails/${eventKey}`, data);
 };
 
-export const getSMSConfiguration = () => {
+export const patchEmailConfiguration = ({
+  eventKey,
+  enabled,
+}: Pick<IEmailConfigResponse, 'eventKey' | 'enabled'>): Promise<null> => {
+  console.debug('patchEmailConfiguration()', { eventKey, enabled });
+  return Patch(`${INTEGRATIONS_SERVICE_URL_V1}/emails/${eventKey}`, { enabled });
+};
+
+export const deleteEmailSubscriptions = (eventKey: string, subscriptionId: string): Promise<null> => {
+  console.debug('deleteEmailSubscriptions()', { eventKey, subscriptionId });
+  return Delete(`${INTEGRATIONS_SERVICE_URL_V1}/emails/${eventKey}/subscriptions/${subscriptionId}`);
+};
+
+export const putEmailSubscriptions = (
+  subscriptionId: string,
+  eventKey: string,
+  data: IEmailSubscriptionResponse
+): Promise<null> => {
+  console.debug('putEmailSubscriptions()', { ...data, subscriptionId, eventKey });
+  return Put(`${INTEGRATIONS_SERVICE_URL_V1}/emails/${eventKey}/subscriptions/${subscriptionId}`, data);
+};
+
+export const deleteEmailConfiguration = (eventKey: string): Promise<null> => {
+  console.debug('pdeleteEmailConfigurationutEmailConfiguration()', { eventKey });
+  return Delete(`${INTEGRATIONS_SERVICE_URL_V1}/emails/${eventKey}`);
+};
+
+export const getSMSConfiguration = (): Promise<IEmailConfigResponse[]> => {
   console.debug('getSMSConfiguration()');
-  return Get(`${INTEGRATIONS_SERVICE_URL_V1}/sms`);
+  return Get(`${INTEGRATIONS_SERVICE_URL_V2}/sms`);
 };
 
-export const postSMSConfiguration = (data: ISMSConfigurations) => {
+export const postSMSConfiguration = (data: IEmailConfigResponse[]) => {
   console.debug('postSMSConfiguration()', data);
-  return Post(`${INTEGRATIONS_SERVICE_URL_V1}/sms`, data);
+  return Post(`${INTEGRATIONS_SERVICE_URL_V2}/sms`, data);
 };
 
 export const getWebhooksConfigurations = () => {

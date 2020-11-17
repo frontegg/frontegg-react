@@ -18,17 +18,17 @@ export interface ISlackEvent {
   message?: string;
 }
 
-export interface IEmailConfigurations {
-  id: string;
+export interface IEmailConfigResponse {
   eventKey: string;
-  from: string;
-  to: string[];
+  enabled: boolean;
+  subscriptions: IEmailSubscriptionResponse[];
 }
 
-export interface ISMSConfigurations {
-  id: string;
-  eventKey: string;
-  to: string[];
+export interface IEmailSubscriptionResponse {
+  id?: string;
+  name: string;
+  enabled: boolean;
+  recipients: string[];
 }
 
 export interface IWebhookTest {
