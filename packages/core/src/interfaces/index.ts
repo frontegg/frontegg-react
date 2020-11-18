@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { AuthActions } from '@frontegg/react-auth';
 
 declare global {
   interface Window {
@@ -100,4 +101,8 @@ export interface ContextOptions {
   currentUserRoles?: string[];
   currentUserPermissions?: string[];
   urlPrefix?: string;
+}
+
+export interface ListenerProps<T> {
+  resolveActions?: (storeName: string, actions: T) => void;
 }

@@ -31,6 +31,10 @@ export const useAuth = <S extends object>(stateMapper: AuthStateMapper<S> = defa
     ...bindedActions,
   };
 };
+export const useAuthActions = (): AuthActions => {
+  const dispatch = useDispatch();
+  return useMemo(() => bindActionCreators(pluginActions, dispatch), [pluginActions]);
+};
 
 /**
  * ```jsx
