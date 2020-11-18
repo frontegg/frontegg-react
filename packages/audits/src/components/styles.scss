@@ -100,9 +100,116 @@
     }
   }
 
+  &__subHeader {
+    padding: var(--fe-header-padding);
+    &-top {
+      display: flex;
+      justify-content: space-between;
+      input {
+        min-width: 31rem;
+      }
+    }
+  }
+
+  &__ipCell {
+    &-countryCode,
+    &-ipAddress {
+      display: inline-block;
+    }
+    &-countryCode {
+      color: #3c4a5a;
+      min-width: 1.85rem;
+      margin-right: 0.85rem;
+    }
+    &-ipAddress {
+      cursor: pointer;
+      color: #9699a3;
+      text-decoration: underline;
+    }
+    &-window {
+      &-container {
+        display: flex;
+        min-width: 25rem;
+      }
+      &-title {
+        color: #3c4a5a;
+        background-color: var(--color-gray-0);
+        font-size: 12px;
+        padding: 0.85rem 1rem;
+        text-transform: uppercase;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+      }
+      &-map {
+        width: 15.75rem;
+        height: 10.4375rem;
+      }
+    }
+
+    &-item {
+      &-name {
+        font-weight: bold;
+        color: #3c4a5a;
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        margin-top: 0;
+      }
+      &-desc {
+        margin-top: 0;
+        font-size: 0.875rem;
+        color: #9699a3;
+        margin-right: 2rem;
+      }
+    }
+
+    &-mapMark {
+      background-color: rgb(156, 0, 39);
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+  }
+
   &__severity {
-    height: 1rem;
-    padding: 0 0.5rem;
+    padding: 0.25rem 1rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+
+    &-dot {
+      width: 6px;
+      height: 6px;
+      display: block;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      margin-top: -1px;
+    }
+
+    &-info {
+      color: var(--color-info);
+      background-color: var(--background-info);
+      span {
+        background-color: var(--color-info);
+      }
+    }
+
+    &-high,
+    &-error {
+      color: var(--color-danger);
+      background-color: var(--color-danger-light);
+      span {
+        background-color: var(--color-danger);
+      }
+    }
+
+    &-medium,
+    &-attention {
+      color: var(--color-warning);
+      background-color: var(--background-warning);
+      span {
+        background-color: var(--color-warning);
+      }
+    }
   }
 
   &__expand-content {
