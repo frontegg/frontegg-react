@@ -66,6 +66,7 @@ export default {
       secretKey: 'Secret Key',
       select: 'Select',
       selected: 'Selected',
+      sms: 'SMS',
       status: 'Status',
       step: 'Step {{num}}',
       success: 'Success',
@@ -278,6 +279,10 @@ export default {
       updateHook: 'Update hook',
       webhook: 'Webhooks',
       selectAll: 'SELECT ALL IN THE {{name}} CATEGORY',
+      recipients: {
+        wrongEmail: 'One of the emails is wrong',
+        wrongPhone: 'One of the phone numbers is wrong',
+      },
     },
   },
 };
