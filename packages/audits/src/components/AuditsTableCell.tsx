@@ -9,7 +9,8 @@ const AuditsTag: CellComponent = (props) => {
     <div
       className={classNames('fe-audits__severity', {
         [`${prefixCls}__severity-${props.value?.toLowerCase?.()}`]: props.value,
-      })}>
+      })}
+    >
       <span className='fe-audits__severity-dot' />
       {props.value}
     </div>

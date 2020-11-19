@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import { FeIcon } from '../Icon/FeIcon';
 import { FeTableColumnProps } from './interfaces';
@@ -32,7 +32,7 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
             key={1}
             name='filters'
             className={classNames(`${prefixCls}__filter-button`, {
-              [`${prefixCls}__active-filter}`]: column.filterValue != null,
+              [`${prefixCls}__active-filter`]: column.filterValue != null,
             })}
           />
         </span>

@@ -7,6 +7,8 @@ import { renderExpandedComponent } from './renderExpandedComponent';
 import { AuditsHeader } from './AuditsHeader';
 import './styles.scss';
 import { getAuditsTableCells } from './AuditsTableCell';
+import { AuditsSubHeader } from './AuditsSubHeader';
+import { Filter } from './Filter';
 
 export const prefixCls = 'fe-audits';
 
@@ -18,6 +20,7 @@ export const Audits: FC = () => {
     startLoading,
     lastUpdated,
     rowsData,
+    filters,
     total,
     onPageChange,
     totalToday,
@@ -25,7 +28,6 @@ export const Audits: FC = () => {
     setDataSorting,
     setFilterData,
   } = useAudits();
-
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
 
   const columns = useMemo(() => {
@@ -37,12 +39,14 @@ export const Audits: FC = () => {
           Header: header.displayName,
           sortable: header.sortable,
           Cell: getAuditsTableCells(header.name),
-          Filter: ({ value, setFilterValue }) =>
+          Filter: ({ value, setFilterValue, closePopup }) =>
             header.filterable ? (
-              <Input
-                label={`Filter by ${header.displayName}`}
+              <Filter
+                name={header.displayName}
                 value={value}
-                onChange={(e) => setFilterValue(e.target.value)}
+                setFilterValue={setFilterValue}
+                closePopup={closePopup}
+                type={header.type}
               />
             ) : null,
         })
@@ -56,6 +60,7 @@ export const Audits: FC = () => {
   return (
     <Grid container direction='column' wrap='nowrap' className={prefixCls}>
       <AuditsHeader />
+      <AuditsSubHeader />
       <Table<AuditRowData>
         columns={columns}
         data={rowsData}
@@ -79,7 +84,7 @@ export const Audits: FC = () => {
             sortDirection: tabelSorts[0].desc ? 'desc' : 'asc',
           });
         }}
-        // filters={filters}
+        filters={filters ? filters.map((f) => ({ id: f.key, value: f.value })) : []}
         onFilterChange={(filters) => {
           setFilterData(filters.map(({ id, value }) => ({ key: id, value })));
         }}

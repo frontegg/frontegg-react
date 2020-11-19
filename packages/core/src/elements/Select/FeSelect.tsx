@@ -76,7 +76,7 @@ export const FeSelect = (props: SelectProps) => {
       components={renderOption ? { MultiValueLabel } : {}}
       options={options}
       isLoading={loading ?? false}
-      closeMenuOnSelect={false}
+      {...(multiselect && { closeMenuOnSelect: false })}
       open={openProps ?? open}
       loadingMessage={() => loadingText ?? `${t('common.loading')}...`}
       noOptionsMessage={() => noOptionsText ?? t('common.empty-items')}

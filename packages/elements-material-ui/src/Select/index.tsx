@@ -72,7 +72,7 @@ export const Select: FC<SelectProps> = (props) => {
       size={size}
       value={value}
       loading={loading}
-      disableCloseOnSelect
+      {...(multiple && { disableCloseOnSelect: true })}
       filterSelectedOptions
       open={propOpen ?? open}
       noOptionsText={noOptionsText ?? t('common.empty-items')}

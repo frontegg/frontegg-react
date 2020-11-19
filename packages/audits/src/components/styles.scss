@@ -109,6 +109,43 @@
         min-width: 31rem;
       }
     }
+    &-filters {
+      margin-top: 2rem;
+      text-align: left;
+    }
+    &-tag {
+      .MuiChip-label {
+        display: flex;
+      }
+      svg {
+        width: 15px;
+        height: 15px;
+        margin-left: 0.75rem;
+        margin-right: 0 !important;
+        cursor: pointer;
+      }
+      margin-right: 0.875rem;
+    }
+  }
+
+  &__filter {
+    &-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-title {
+      color: #3c4a5a;
+      background-color: var(--color-gray-0);
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.85rem 1rem;
+      text-transform: uppercase;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    &-main {
+      margin-bottom: 1rem;
+    }
   }
 
   &__ipCell {
@@ -118,8 +155,8 @@
     }
     &-countryCode {
       color: #3c4a5a;
-      min-width: 1.85rem;
-      margin-right: 0.85rem;
+      min-width: 1.2rem;
+      margin-right: 0.5rem;
     }
     &-ipAddress {
       cursor: pointer;
@@ -134,7 +171,7 @@
       &-title {
         color: #3c4a5a;
         background-color: var(--color-gray-0);
-        font-size: 12px;
+        font-size: 0.75rem;
         padding: 0.85rem 1rem;
         text-transform: uppercase;
         border-radius: 4px;

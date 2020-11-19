@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { CellComponent, Popup, Loader } from '@frontegg/react-core';
 import { api } from '@frontegg/rest-api';
 import { prefixCls } from './Audits';
@@ -27,7 +27,7 @@ const defaultCenter = {
 
 const MapMark = () => <div className={`${prefixCls}__ipCell-mapMark`} />;
 
-export const AuditsTableIpCell: CellComponent = (props) => {
+export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
   const [state, setState] = useState<AuditsTableIpAdressState>({
     loading: false,
     data: {
@@ -102,7 +102,7 @@ export const AuditsTableIpCell: CellComponent = (props) => {
       action='click'
       trigger={
         <div className={`${prefixCls}__ipCell`}>
-          <div className={`${prefixCls}__ipCell-countryCode`}>{data.country_code ?? ''}</div>
+          <div className={`${prefixCls}__ipCell-countryCode`}>{data.location.country_flag_emoji ?? ''}</div>
           <div className={`${prefixCls}__ipCell-ipAddress`}>{props.value}</div>
         </div>
       }
@@ -123,7 +123,8 @@ export const AuditsTableIpCell: CellComponent = (props) => {
                     lat: data.latitude ? data.latitude : defaultCenter.lat,
                     lng: data.longitude ? data.longitude : defaultCenter.lng,
                   }}
-                  defaultZoom={data.longitude ? 11 : 0}>
+                  defaultZoom={data.longitude ? 11 : 0}
+                >
                   {data.longitude && (
                     <MapMark
                       //@ts-ignore

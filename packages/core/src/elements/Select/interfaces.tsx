@@ -16,7 +16,7 @@ export interface StateProps {
 export interface SelectProps<T = any> extends FormFieldProps {
   className?: string;
   name?: string;
-  value?: T[];
+  value?: T[] | SelectOptionProps;
   label?: string;
   error?: string;
   disabled?: boolean;

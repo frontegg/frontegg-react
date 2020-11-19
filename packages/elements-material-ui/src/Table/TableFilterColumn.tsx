@@ -32,6 +32,10 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
     onFilterChange?.(column, debounceFilters);
   }, [debounceFilters]);
 
+  useEffect(() => {
+    setFilterValue(column.filterValue);
+  }, [column.filterValue]);
+
   const closePopup = useCallback(() => {
     if (popupRef.current) {
       (popupRef.current.children[0] as any)?.click?.();

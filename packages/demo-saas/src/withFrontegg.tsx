@@ -16,10 +16,10 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin({}), NotificationsPlugin(), AuditsPlugin()];
+const plugins: PluginConfig[] = [NotificationsPlugin(), AuditsPlugin()];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
+  <FronteggProvider debugMode context={contextOptions} plugins={plugins}>
     <Component />
   </FronteggProvider>
 );
