@@ -92,6 +92,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
               accessor: 'isActive',
               Header: t('common.enabled').toUpperCase(),
               Cell: ({ row: { index } }) => <FIntegrationCheckBox name={`data[${idx}].events[${index}].isActive`} />,
+              maxWidth: 30,
             },
             {
               accessor: 'slackEvents',

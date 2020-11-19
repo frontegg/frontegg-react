@@ -99,8 +99,8 @@ export const IntegrationsWebhooksList: FC = () => {
       {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
-        // Cell: ({ value, row }) => <SwitchToggle value={value} onChange={() => onChangeStatus(row.original)} />,
         Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
+        maxWidth: 30,
       },
       {
         accessor: 'eventKeys',

@@ -127,6 +127,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
               accessor: 'enabled',
               Header: t('common.enable').toUpperCase(),
               Cell: ({ row: { index } }) => <FIntegrationCheckBox name={`data[${idx}].events[${index}].enabled`} />,
+              maxWidth: 30,
             },
             {
               accessor: 'smsEvents',
