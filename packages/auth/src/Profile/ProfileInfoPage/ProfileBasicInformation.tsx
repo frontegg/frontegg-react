@@ -12,10 +12,10 @@ export const ProfileBasicInformation: FC = () => {
 
       <Grid container spacing={1}>
         <Grid item xs>
-          <FInput name='name' label={t('auth.profile.info.user-name')} />
+          <FInput name='name' label={t('auth.profile.info.user-name')} data-test-id='fill-name' />
         </Grid>
         <Grid item xs>
-          <FInput name='email' label={t('common.email')} disabled />
+          <FInput name='email' label={t('common.email')} disabled data-test-id='fill-email' />
         </Grid>
         {/*<Grid item xs>*/}
         {/*  <FInput name='country' label={t('common.country')} />*/}
@@ -24,7 +24,7 @@ export const ProfileBasicInformation: FC = () => {
         {/*  <FInput name='birthdate' label={t('common.date-of-birth')} />*/}
         {/*</Grid>*/}
         <Grid item xs={12}>
-          <FButton variant='primary' type='submit' fullWidth={false} loading={saving}>
+          <FButton variant='primary' type='submit' fullWidth={false} loading={saving} data-test-id='updateinfo-btn'>
             Update Profile
           </FButton>
         </Grid>
