@@ -56,20 +56,21 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
         }}
       >
         <FForm>
-          <div className='fe-row'>
-            <FInput className='fe-input__inline' type='password' name='password' label={'Current Password'} />
+          <div className='fe-row' >
+            <FInput className='fe-input__inline' type='password' name='password' label={'Current Password'} data-test-id="currentpass"/>
           </div>
           <div className='fe-row'>
-            <FInput className='fe-input__inline' type='password' name='newPassword' label={'New Password'} />
+            <FInput className='fe-input__inline' type='password' name='newPassword' label={'New Password'} data-test-id="newpass"/>
             <FInput
               className='fe-input__inline'
               type='password'
               name='confirmNewPassword'
               label={'Repeat New Password'}
+              data-test-id="repeatass"
             />
           </div>
           <ErrorMessage error={error} onError={onError} separator style={{ textAlign: 'left', marginBottom: '2rem' }} />
-          <FButton type='submit' variant='primary' fullWidth={false} loading={loading}>
+          <FButton type='submit' variant='primary' fullWidth={false} loading={loading} data-test-id="changepass-btn">
             {successMessage || t('auth.profile.password-settings.button')}
           </FButton>
         </FForm>
