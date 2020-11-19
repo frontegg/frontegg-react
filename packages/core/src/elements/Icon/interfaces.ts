@@ -25,7 +25,9 @@ export type IconNames =
   | 'sort-arrows-desc'
   | 'person-add'
   | 'vertical-dots'
-  | 'send';
+  | 'send'
+  | 'pdf'
+  | 'csv';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

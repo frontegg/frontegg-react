@@ -11,6 +11,8 @@ import { PersonAdd } from './svgs/PersonAdd';
 import { VerticalDots } from './svgs/VerticalDots';
 import { CalendarToday } from './svgs/CalendarToday';
 import { Flash } from './svgs/Flash';
+import { Csv } from './svgs/Csv';
+import { Pdf } from './svgs/Pdf';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   back: LeftArrow,
@@ -34,6 +36,8 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   refresh: Refresh,
   'calendar-today': CalendarToday,
   flash: Flash,
+  csv: Csv,
+  pdf: Pdf,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {

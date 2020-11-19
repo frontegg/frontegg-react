@@ -102,6 +102,11 @@
 
   &__subHeader {
     padding: var(--fe-header-padding);
+
+    &-menuIcon {
+      fill: var(--color-primary);
+    }
+
     &-top {
       display: flex;
       justify-content: space-between;
@@ -113,7 +118,11 @@
       margin-top: 2rem;
       text-align: left;
     }
+
     &-tag {
+      b {
+        margin-right: 0.25rem;
+      }
       .MuiChip-label {
         display: flex;
       }
@@ -129,6 +138,7 @@
   }
 
   &__filter {
+    min-width: 16rem;
     &-buttons {
       display: flex;
       justify-content: space-between;
@@ -141,10 +151,15 @@
       padding: 0.85rem 1rem;
       text-transform: uppercase;
       border-radius: 4px;
-      margin-bottom: 1rem;
+      margin: -1rem -1rem 1rem -1rem;
     }
     &-main {
       margin-bottom: 1rem;
+    }
+    &-border {
+      border: none;
+      border-top: 1px solid #ebedf2;
+      margin: 1rem -1rem;
     }
   }
 
@@ -176,6 +191,7 @@
         text-transform: uppercase;
         border-radius: 4px;
         margin-bottom: 1rem;
+        font-weight: 600;
       }
       &-map {
         width: 15.75rem;

@@ -22,6 +22,8 @@ import {
   Cached,
   CalendarToday,
   FlashOn,
+  PictureAsPdf,
+  GridOn,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -50,6 +52,8 @@ const iconMap: { [K in IconNames]: any } = {
   refresh: Cached,
   'calendar-today': CalendarToday,
   flash: FlashOn,
+  pdf: PictureAsPdf,
+  csv: GridOn,
 };
 
 export class Icon extends React.Component<IconProps> {

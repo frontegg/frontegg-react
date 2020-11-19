@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useState, useEffect } from 'react';
 import { Input, Button, useT, Grid, Select } from '@frontegg/react-core';
 import { getFilterType, getFilterTime, timeOptions, severityOptions } from '../helpers/filterHelper';
 import { prefixCls } from './Audits';
@@ -13,9 +13,13 @@ export interface FilterProps {
 
 export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, type, name }) => {
   const { t } = useT();
-  const [inputState, setInputState] = useState<string | number>(value);
+  const [inputState, setInputState] = useState<string>(`${value ?? ''}`);
   const [timeSelectState, setTimeSelectState] = useState<any>(timeOptions[0]);
   const [severitySelectState, setSeveritySelectState] = useState<any>(severityOptions[0]);
+
+  useEffect(() => {
+    value && type === 'Severity' ? setSeveritySelectState({ label: value, value }) : null;
+  }, []);
 
   const filter = useCallback(() => {
     switch (type) {
@@ -48,6 +52,7 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
       default:
         return (
           <Input
+            autoFocus
             fullWidth
             label={`Filter by ${name}`}
             onChange={(e) => setInputState(e.target.value)}
@@ -55,11 +60,19 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
           />
         );
     }
-  }, [type, setInputState, inputState, setTimeSelectState, timeSelectState]);
+  }, [
+    type,
+    setInputState,
+    inputState,
+    setTimeSelectState,
+    timeSelectState,
+    setSeveritySelectState,
+    severitySelectState,
+  ]);
 
   const handleFilter = useCallback(() => {
     getFilterType(type) === 'input'
-      ? inputState && setFilterValue(inputState)
+      ? !!inputState.trim() && setFilterValue(inputState)
       : setFilterValue(type === 'Timestamp' ? getFilterTime(timeSelectState.value) : severitySelectState.value);
   }, [type, setFilterValue, inputState, severitySelectState, timeSelectState]);
 
@@ -75,9 +88,9 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
         <div className={`${prefixCls}__filter-title`}>Filter by {name}</div>
 
         <div className={`${prefixCls}__filter-main`}>{filter()}</div>
-
+        <hr className={`${prefixCls}__filter-border`} />
         <Grid container spacing={2}>
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <Button
               fullWidth
               onClick={() => {
@@ -85,11 +98,10 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
                 closePopup?.();
               }}
             >
-              {t('common.cancel')}
+              {value ? t('common.clear') : t('common.cancel')}
             </Button>
           </Grid>
-          <Grid item xs={2} />
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <Button type='submit' fullWidth variant='primary'>
               {t('common.filter')}
             </Button>

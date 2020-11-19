@@ -2,7 +2,15 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Dropdown, DropdownProps, Flag, Image } from 'semantic-ui-react';
 import { SelectProps, SelectOptionProps, useT } from '@frontegg/react-core';
 
-const mapper = ({ multiselect, options, getOptionLabel, onChange, error, ...rest }: SelectProps): DropdownProps => {
+const mapper = ({
+  multiselect,
+  options,
+  getOptionLabel,
+  onChange,
+  error,
+  value,
+  ...rest
+}: SelectProps): DropdownProps => {
   const semanticOptions = options.map((o: SelectOptionProps<string>) => ({
     value: o.value,
     text: o.label,
@@ -62,7 +70,7 @@ export const Select = (props: SelectProps) => {
   }, []);
 
   const preparedValue = useMemo(() => {
-    return value?.map((v) => v.value);
+    return Array.isArray(value) ? value?.map((v) => v.value) : value?.value;
   }, [value]);
 
   const onHandleChange = useCallback(
@@ -85,7 +93,7 @@ export const Select = (props: SelectProps) => {
       onOpen={() => (onOpen ? onOpen() : setOpen(true))}
       onClose={() => (onClose ? onClose() : setOpen(false))}
       multiple={multiple ?? false}
-      placeholder={value && value.length ? '' : label}
+      placeholder={value ? '' : label}
       onChange={(e, data) => onHandleChange(e, data.value)}
       renderLabel={(option, _index, state) => renderLabel(option, state)}
       noResultsMessage={optionsMessage}
