@@ -4,9 +4,10 @@ import { IPluginState } from '../interfaces';
 
 export interface ISelectSlack {
   name: string;
+  disabled: boolean;
 }
 
-export const SelectSlack: FC<ISelectSlack> = ({ name }) => {
+export const SelectSlack: FC<ISelectSlack> = ({ name, disabled }) => {
   const [{ value, ...inputProps }, {}, { setValue }] = FFormik.useField(name);
   const { isSubmitting } = FFormik.useFormikContext();
   const { slackChannels } = useSelector(
@@ -29,7 +30,7 @@ export const SelectSlack: FC<ISelectSlack> = ({ name }) => {
       multiselect
       {...inputProps}
       options={slackOptions}
-      disabled={isSubmitting}
+      disabled={isSubmitting || disabled}
       value={value?.map((elm: string) => slackOptions.find(({ value }) => value === elm))}
       onChange={(e, newValue) => setValue(newValue.map(({ value }) => value))}
     />

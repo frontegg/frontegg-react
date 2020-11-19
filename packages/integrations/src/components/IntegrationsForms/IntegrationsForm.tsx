@@ -1,4 +1,5 @@
 import {
+  CellComponent,
   FFormik,
   FInput,
   FormikAutoSave,
@@ -20,14 +21,16 @@ import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 interface ITableData {
   id: string;
   name: string;
-  events?: {
-    displayName: string;
-    id: string;
-    enabled: boolean;
-    eventKey: string;
-    recipients: string;
-    subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
-  }[];
+  events?: IEventData[];
+}
+
+interface IEventData {
+  displayName: string;
+  id: string;
+  enabled: boolean;
+  eventKey: string;
+  recipients: string;
+  subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
 }
 interface IIntegrationsForm extends IIntegrationsComponent {
   form: 'email' | 'sms';
@@ -114,6 +117,11 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
     [cleanCategory, data]
   );
 
+  const Input = useCallback(
+    ({ name, disabled }: { name: string; disabled: boolean }) => <FInput disabled={disabled} name={name} />,
+    [tablesData]
+  );
+
   const columns = useMemo(
     () =>
       (tablesData || [])?.map(
@@ -130,9 +138,14 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
               maxWidth: 30,
             },
             {
-              accessor: 'smsEvents',
+              accessor: 'events',
               Header: t(form === 'email' ? 'common.emails' : 'common.sms').toUpperCase(),
-              Cell: ({ row: { index } }) => <FInput name={`data[${idx}].events[${index}].recipients`} />,
+              Cell: ({
+                row: {
+                  index,
+                  original: { enabled },
+                },
+              }) => <FInput disabled={!enabled} name={`data[${idx}].events[${index}].recipients`} />,
             },
             // {
             //   accessor: 'non',
@@ -141,7 +154,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
             //     return <FInput name={`data[${idx}].events[${index}].message`} disabled />;
             //   },
             // },
-          ] as TableColumnProps<ITableData>[]
+          ] as TableColumnProps<IEventData>[]
       ),
     [tablesData, t]
   );

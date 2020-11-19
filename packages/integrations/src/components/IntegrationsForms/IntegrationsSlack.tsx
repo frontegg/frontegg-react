@@ -21,13 +21,14 @@ import { IntegrationsSlackAuth } from './IntegrationsSlackAuth';
 interface ITableData {
   id: string;
   name: string;
-  events: {
-    eventId: string;
-    id?: string;
-    isActive: boolean;
-    slackEvents?: Partial<ISlackEvent>[];
-    displayName: string;
-  }[];
+  events: IEventData[];
+}
+interface IEventData {
+  eventId: string;
+  id?: string;
+  isActive: boolean;
+  slackEvents?: Partial<ISlackEvent>[];
+  displayName: string;
 }
 
 export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
@@ -97,16 +98,26 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             {
               accessor: 'slackEvents',
               Header: t('common.channels').toUpperCase(),
-              Cell: ({ row: { index } }) => (
-                <SelectSlack name={`data[${idx}].events[[${index}].slackEvents[0].channelIds`} />
+              Cell: ({
+                row: {
+                  index,
+                  original: { isActive },
+                },
+              }) => (
+                <SelectSlack disabled={!isActive} name={`data[${idx}].events[[${index}].slackEvents[0].channelIds`} />
               ),
             },
             {
               accessor: 'non',
               Header: t('common.message').toUpperCase(),
-              Cell: ({ row: { index } }) => <FInput name={`data[${idx}].events[${index}].slackEvents[0].message`} />,
+              Cell: ({
+                row: {
+                  index,
+                  original: { isActive },
+                },
+              }) => <FInput disabled={!isActive} name={`data[${idx}].events[${index}].slackEvents[0].message`} />,
             },
-          ] as TableColumnProps<{}>[]
+          ] as TableColumnProps<IEventData>[]
       ),
     [tablesData, t]
   );
