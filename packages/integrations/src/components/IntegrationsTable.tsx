@@ -18,7 +18,6 @@ import {
 import { IIntegrationsData, IPluginState, TPlatform } from '../interfaces';
 import { IntegrationsPanel } from './IntegrationsPanel';
 import { platformForm } from '../consts';
-import { combineReducers } from '@reduxjs/toolkit';
 
 interface ILocationState {
   open: TPlatform;

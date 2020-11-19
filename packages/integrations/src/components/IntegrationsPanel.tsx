@@ -1,5 +1,6 @@
 import { Button, Grid, useT } from '@frontegg/react-core';
 import React, { CSSProperties, FC, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { number } from 'yargs';
 import { IIntegrationsComponent } from '../interfaces';
 
 export interface IIntegrationsPanel extends IIntegrationsComponent {
@@ -20,16 +21,16 @@ export const IntegrationsPanel: FC<IIntegrationsPanel> = ({ children, show, onCl
         left: 0,
         width: 0,
       };
-      setStyle({ ...style, top: top + window.scrollX, left: left + width });
+      setStyle({ top: top + window.scrollX, left: left + width });
     }
-  }, [style, show]);
+  }, [show]);
 
   useEffect(() => {
     ['resize', 'scroll'].forEach((e) => window.addEventListener(e, countPosition));
     () => {
       return ['resize', 'scroll'].forEach((e) => window.removeEventListener(e, countPosition));
     };
-  }, []);
+  }, [countPosition]);
 
   useEffect(() => {
     countPosition();
