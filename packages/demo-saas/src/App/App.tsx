@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { ProtectedRoute, Profile, SSO, useAuthUser, Team } from '@frontegg/react-auth';
-import { PageTabProps, useT } from '@frontegg/react-core';
 import { ElementsPage } from '../Elements/ElementsPage';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';
@@ -17,6 +16,7 @@ import {
   SMSComponent,
   WebhookComponent,
 } from '@frontegg/react-integrations';
+import { Icons } from 'pages/Icons';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -41,6 +41,7 @@ const menus = [
   { to: '/components', component: ElementsPage },
   { to: '/grids', component: GridExamples },
   { to: '/dialog', component: DialogExample },
+  { to: '/icons', component: Icons },
 ];
 class App extends React.Component<any> {
   render() {
