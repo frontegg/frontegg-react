@@ -1,4 +1,4 @@
-import { api, IEmailConfigResponse, ISlackConfigurations, IWebhooksConfigurations } from '@frontegg/rest-api';
+import { api, IEmailSMSConfigResponse, ISlackConfigurations, IWebhooksConfigurations } from '@frontegg/rest-api';
 import { FC } from 'react';
 import { IntegrationsSlack, IntegrationsSMS, IntegratorsEmail } from './components/IntegrationsForms';
 import { IntegrationsWebhooks } from './components/IntegrationsWebhooks';
@@ -28,19 +28,19 @@ export const channels2Platform: Record<
   TPlatform,
   {
     title: string;
-    events(data: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]): number;
-    isActive(data: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]): boolean;
+    events(data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]): number;
+    isActive(data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]): boolean;
   }
 > = {
   sms: {
     title: 'integrations.sms',
-    events: (data) => (data as IEmailConfigResponse[])?.length || 0,
-    isActive: (data) => !!(data as IEmailConfigResponse[])?.length,
+    events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
+    isActive: (data) => !!(data as IEmailSMSConfigResponse[])?.length,
   },
   email: {
     title: 'common.email',
-    events: (data) => (data as IEmailConfigResponse[])?.length || 0,
-    isActive: (data) => !!(data as IEmailConfigResponse[])?.length,
+    events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
+    isActive: (data) => !!(data as IEmailSMSConfigResponse[])?.length,
   },
   slack: {
     title: 'integrations.slack',

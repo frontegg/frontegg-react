@@ -5,7 +5,7 @@ import {
   ISlackConfigurations,
   IWebhookLogsResponse,
   IWebhooksConfigurations,
-  IEmailConfigResponse,
+  IEmailSMSConfigResponse,
 } from '@frontegg/rest-api';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
@@ -24,8 +24,8 @@ export interface IIntegrationsState {
   isSaving: boolean;
   isTesting?: boolean;
   list: IIntegrationsData[];
-  sms?: IEmailConfigResponse[];
-  email?: IEmailConfigResponse[];
+  sms?: IEmailSMSConfigResponse[];
+  email?: IEmailSMSConfigResponse[];
   slack?: ISlackConfigurations;
   webhook?: IWebhooksConfigurations[];
   categories?: ICategory[];

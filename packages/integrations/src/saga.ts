@@ -9,7 +9,7 @@ import {
   IWebhookTest,
   IWebhooksSaveData,
   ISlackSubscription,
-  IEmailConfigResponse,
+  IEmailSMSConfigResponse,
   ISlackConfigurations,
   IWebhooksConfigurations,
 } from '@frontegg/rest-api';
@@ -41,7 +41,7 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
   const data = values.reduce(
     (
       acc: Omit<IIntegrationsState, 'isLoading'>,
-      curr: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[],
+      curr: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[],
       idx: number
     ) =>
       payload[idx]
@@ -92,13 +92,13 @@ function* postDataFunction({
   payload: { platform, data },
 }: PayloadAction<{
   platform: TPlatform;
-  data: IEmailConfigResponse[] | ISlackConfigurations | IWebhooksSaveData;
+  data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksSaveData;
 }>) {
   try {
     if (platform === 'slack') {
       yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
     } else if (['sms', 'email'].includes(platform)) {
-      yield postEmailSMSData({ payload: data as IEmailConfigResponse[], type: platform });
+      yield postEmailSMSData({ payload: data as IEmailSMSConfigResponse[], type: platform });
     } else {
       yield call(type2ApiPost[platform], data);
     }
@@ -163,7 +163,7 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
   return yield call(type2ApiGet.slack);
 }
 
-function* postEmailSMSData({ payload, type }: PayloadAction<IEmailConfigResponse[]>) {
+function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[]>) {
   const { integrations }: IPluginState = yield select();
   const stateData = integrations[type as 'email' | 'sms'];
   if (!stateData) return;
@@ -171,7 +171,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailConfigResponse
     yield all([
       // create new
       ...payload
-        .reduce((acc: IEmailConfigResponse[], curr) => {
+        .reduce((acc: IEmailSMSConfigResponse[], curr) => {
           const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
           if (!state && curr.subscriptions[0].recipients.filter((el) => el).length) {
             return [...acc, curr];
@@ -179,11 +179,14 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailConfigResponse
           return acc;
         }, [])
         .map(function* (data) {
-          return yield call(api.integrations.postEmailConfiguration, data);
+          return yield call(
+            type === 'email' ? api.integrations.postEmailConfiguration : api.integrations.postSMSConfiguration,
+            data
+          );
         }),
       // update exists
       ...payload
-        .reduce((acc: IEmailConfigResponse[], curr) => {
+        .reduce((acc: IEmailSMSConfigResponse[], curr) => {
           const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
           if (state && JSON.stringify(state) !== JSON.stringify(curr)) {
             return [...acc, curr];
@@ -194,26 +197,38 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailConfigResponse
           const { subscriptions, eventKey } = data;
           const { id = '', enabled, ...body } = subscriptions[0];
           return yield all([
-            yield call(api.integrations.putEmailSubscriptions, id, eventKey, { ...body, enabled }),
-            yield call(api.integrations.patchEmailConfiguration, { eventKey, enabled }),
+            yield call(
+              type === 'email' ? api.integrations.patchEmailConfiguration : api.integrations.patchEmailConfiguration,
+              { eventKey, enabled }
+            ),
+            yield call(
+              type === 'email' ? api.integrations.putEmailSubscriptions : api.integrations.putSMSSubscriptions,
+              id,
+              eventKey,
+              { ...body, enabled }
+            ),
           ]);
         }),
       // delete record with empty recipients
-      // ...payload
-      //   .reduce((acc: IEmailConfigResponse[], curr) => {
-      //     const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
-      //     if (
-      //       state &&
-      //       state.subscriptions[0].recipients.length &&
-      //       !curr.subscriptions[0].recipients.filter((el) => !!el).length
-      //     ) {
-      //       return [...acc, curr];
-      //     }
-      //     return acc;
-      //   }, [])
-      //   .map(function* ({ eventKey, subscriptions }) {
-      //     return call(api.integrations.deleteEmailSubscriptions, eventKey, subscriptions[0].id || '');
-      //   }),
+      ...payload
+        .reduce((acc: IEmailSMSConfigResponse[], curr) => {
+          const state = stateData.find(({ eventKey }) => eventKey === curr.eventKey);
+          if (
+            state &&
+            state.subscriptions[0].recipients.length &&
+            !curr.subscriptions[0].recipients.filter((el) => !!el).length
+          ) {
+            return [...acc, curr];
+          }
+          return acc;
+        }, [])
+        .map(function* ({ eventKey, subscriptions }) {
+          return call(
+            type === 'email' ? api.integrations.deleteEmailSubscriptions : api.integrations.deleteEmailSubscriptions,
+            eventKey,
+            subscriptions[0].id || ''
+          );
+        }),
     ]);
   } catch (e) {
     console.error(e);
