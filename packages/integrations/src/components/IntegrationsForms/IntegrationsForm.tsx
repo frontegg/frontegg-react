@@ -1,5 +1,4 @@
 import {
-  CellComponent,
   FFormik,
   FInput,
   FormikAutoSave,
@@ -160,7 +159,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
   );
 
   const saveData = useCallback(
-    (formData: ITableData[]) => {
+    (formData: ITableData[], setSubmitting) => {
       const newData: IEmailSMSConfigResponse[] = formData.reduce((acc: IEmailSMSConfigResponse[], curr: ITableData) => {
         const { events = [] } = curr;
         return [
@@ -175,7 +174,11 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
           ),
         ];
       }, []);
-      JSON.stringify(newData) !== JSON.stringify(data) && dispatch(integrationsActions.postDataAction(form, newData));
+      if (JSON.stringify(newData) !== JSON.stringify(data)) {
+        dispatch(integrationsActions.postDataAction(form, newData));
+      } else {
+        setSubmitting(false);
+      }
     },
     [dispatch, data]
   );
@@ -189,7 +192,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
       enableReinitialize
       initialValues={{ data: tablesData }}
       validate={validate}
-      onSubmit={(val) => saveData(val.data)}
+      onSubmit={(val, { setSubmitting }) => saveData(val.data, setSubmitting)}
     >
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
