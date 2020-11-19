@@ -50,7 +50,6 @@ export const getFilterName = (filter: Filter) => {
 
 export const getFilterValue = (filter: Filter | any) => {
   if (filter.key === 'createdAt') {
-    console.log(filter.value);
     return moment(filter.value.$gt).format('YYYY/MM/DD h:mm A');
   }
   return filter.value;

@@ -14,8 +14,8 @@ export const AuditsSubHeader: FC = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if(!!search.trim()) {
-              setFilterData([...filters.filter(f => f.key !== 'Search'), { key: 'Search', value: search }]);
+            if (!!search.trim()) {
+              setFilterData([...filters.filter((f) => f.key !== 'Search'), { key: 'Search', value: search }]);
             }
           }}
         >
