@@ -5,7 +5,7 @@ import { SortArrows, SortArrowsAsc, SortArrowsDesc } from './svgs/SortArrows';
 import { Visibility, VisibilityOff } from './svgs/Visibility';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
-import { Checkmark, Indeterminate, MoreVert } from './svgs/Checkmark';
+import { Checkmark, Indeterminate } from './svgs/Checkmark';
 import { Delete, Search, Send } from './svgs/Actions';
 import { PersonAdd } from './svgs/PersonAdd';
 import { VerticalDots } from './svgs/VerticalDots';
@@ -26,7 +26,6 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   search: Search,
   indeterminate: Indeterminate,
   filters: Filters,
-  'more-vert': MoreVert,
   'person-add': PersonAdd,
   'vertical-dots': VerticalDots,
   send: Send,

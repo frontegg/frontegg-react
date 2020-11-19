@@ -17,7 +17,6 @@ export type IconNames =
   | 'visibility'
   | 'visibility-off'
   | 'filters'
-  | 'more-vert'
   | 'sort-arrows'
   | 'sort-arrows-asc'
   | 'sort-arrows-desc'

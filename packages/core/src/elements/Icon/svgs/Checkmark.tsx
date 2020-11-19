@@ -48,30 +48,3 @@ export const Indeterminate = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElem
     </svg>
   );
 });
-
-export const MoreVert = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => {
-  const {
-    xmlns = 'http://www.w3.org/2000/svg',
-    viewBox = '0 0 24 24',
-    className,
-    width = '2rem',
-    height = '2rem',
-    ...svgProps
-  } = props;
-  return (
-    <svg
-      {...svgProps}
-      ref={ref}
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      xmlns={xmlns}
-      className={classNames('fe-icon', className)}
-    >
-      <path
-        fill='currentColor'
-        d='M12 7a2 2 0 1 0-2-2a2 2 0 0 0 2 2zm0 10a2 2 0 1 0 2 2a2 2 0 0 0-2-2zm0-7a2 2 0 1 0 2 2a2 2 0 0 0-2-2z'
-      />
-    </svg>
-  );
-});
