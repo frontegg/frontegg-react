@@ -144,6 +144,12 @@ const plugins = [
 ];
 ```
 
+## Implementing custom React UI on top of Frontegg API
+Implementation of custom and dedicated UI on top of the Frontegg `stateful` API is available by following our docs on the [React API section](https://github.com/frontegg/frontegg-react/tree/master/packages/auth/src/Api).  
+
+In case you want to implement your states on top of our stateless API follow our docs on the [REST API section](https://github.com/frontegg/frontegg-react/tree/master/packages/rest-api/src/auth). 
+
+
 ## Contributing
 
 The main purpose of this repository is to continue developing Frontegg React to making it faster and easier to use.
