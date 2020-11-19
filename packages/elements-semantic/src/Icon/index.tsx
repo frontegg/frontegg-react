@@ -22,7 +22,6 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   'sort-arrows': 'trash',
   'sort-arrows-asc': 'trash',
   'sort-arrows-desc': 'trash',
-  'more-vert': 'ellipsis vertical',
   search: 'search',
   'person-add': 'add user',
   'vertical-dots': 'ellipsis vertical',
