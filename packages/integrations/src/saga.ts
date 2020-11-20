@@ -13,7 +13,6 @@ import {
   ISlackConfigurations,
   IWebhooksConfigurations,
 } from '@frontegg/rest-api';
-import { date } from 'yup';
 
 const addApi = ['categories', 'channelMap'];
 
@@ -254,6 +253,16 @@ function* loadSlackPermissions() {
   }
 }
 
+function* deleteWebhookConfigFunction({ payload }: PayloadAction<string>) {
+  try {
+    yield call(api.integrations.deleteWebhooksConfiguration, payload);
+  } catch (e) {
+    console.error(e);
+  }
+  const newData = yield loadFunction({ payload: { api: 'webhook' }, type: '' });
+  if (newData) yield put(integrationsActions.postDataSuccess({ platform: 'webhook', data: newData }));
+}
+
 function* postWebhookTestFunction({ payload }: PayloadAction<IWebhookTest>) {
   try {
     const { statusCode, body } = yield call(api.integrations.postWebhookTest, payload);
@@ -286,6 +295,7 @@ export function* sagas() {
   yield takeEvery(integrationsActions.postDataAction, postDataFunction);
   yield takeEvery(integrationsActions.postCodeAction, postCodeFunction);
   yield takeEvery(integrationsActions.loadScope, loadSlackPermissions);
+  yield takeEvery(integrationsActions.deleteWebhookConfigAction, deleteWebhookConfigFunction);
   yield takeEvery(integrationsActions.postWebhookTestAction, postWebhookTestFunction);
   yield takeLatest(integrationsActions.loadWebhookLogsAction, loadWebhookLogsFunction);
 }

@@ -1,17 +1,21 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
 import {
+  Icon,
+  Menu,
   useT,
+  Grid,
   Table,
   Button,
+  Loader,
+  Dialog,
   NotFound,
   useSearch,
-  useSelector,
   useDispatch,
+  useSelector,
   TableColumnProps,
-  Loader,
 } from '@frontegg/react-core';
 import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
@@ -33,14 +37,21 @@ export const IntegrationsWebhooksList: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  const { webhook, categories, channelMap, isLoading } = useSelector(
-    ({ integrations: { isLoading, webhook, categories, channelMap } }: IPluginState) => ({
+  const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
+
+  const { webhook, isSaving, categories, channelMap, isLoading } = useSelector(
+    ({ integrations: { isLoading, isSaving, webhook, categories, channelMap } }: IPluginState) => ({
       webhook,
+      isSaving,
       isLoading,
       categories,
       channelMap: channelMap && channelMap.webhook,
     })
   );
+
+  useLayoutEffect(() => {
+    !isSaving && onRemove(null);
+  }, [isSaving, onRemove]);
 
   const cleanCategory = filterCategories(categories, channelMap);
 
@@ -125,8 +136,25 @@ export const IntegrationsWebhooksList: FC = () => {
           );
         },
       },
+      {
+        accessor: 'action',
+        maxWidth: 50,
+        Cell: ({ row }) => (
+          <Menu
+            trigger={
+              <Button iconButton>
+                <Icon name='vertical-dots' size='small' />
+              </Button>
+            }
+            items={[
+              { text: t('common.edit'), icon: 'edit', onClick: () => onEdit(row.original._id) },
+              { text: t('common.remove'), icon: 'delete', onClick: () => onRemove(row.original) },
+            ]}
+          />
+        ),
+      },
     ],
-    [t, onEdit, countOfEvents, onChangeStatus]
+    [t, onEdit, onRemove, countOfEvents, onChangeStatus]
   );
 
   if (isLoading) {
@@ -144,6 +172,33 @@ export const IntegrationsWebhooksList: FC = () => {
       ) : (
         <NotFound />
       )}
+      <Dialog header={t('integrations.deleteWebhook')} open={!!remove} onClose={() => onRemove(null)}>
+        {!!remove && (
+          <>
+            <div className='fe-mb-4'>{t('integrations.queryDeleteWebhook', { name: remove?.displayName })}</div>
+            <div className='fe-integrations-webhook-dialog-action'>
+              <Grid container spacing={2} justifyContent='flex-end'>
+                <Grid item>
+                  <Button variant='default' onClick={() => onRemove(null)}>
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant='danger'
+                    loading={isSaving}
+                    onClick={() => {
+                      dispatch(integrationsActions.deleteWebhookConfigAction(remove._id));
+                    }}
+                  >
+                    Accept
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          </>
+        )}
+      </Dialog>
     </div>
   );
 };

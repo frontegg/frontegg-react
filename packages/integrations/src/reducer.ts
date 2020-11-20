@@ -31,7 +31,7 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
       ...state,
       slackChannels: { ...state.slackChannels, clientId: payload, isLoadingScope: false },
     }),
-    loadDataSuccess: (state, { payload }) => ({ ...state, isLoading: false, ...payload }),
+    loadDataSuccess: (state, { payload }) => ({ ...state, isLoading: false, isSaving: false, ...payload }),
     cleanData: () => ({ isLoading: false, isSaving: false, list: [], slackChannels: { isLoading: false } }),
     loadSlackActions: (state) => ({ ...state, slackChannels: { isLoading: true } }),
     loadSlackSuccess: {
@@ -56,6 +56,10 @@ export const { reducer, actions: integrationsActions, name: storeName } = create
         data?: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[];
       }) => ({ payload, error: null, meta: '' }),
       reducer: (state, { payload: { platform, data } }) => ({ ...state, isSaving: false, [`${platform}`]: data }),
+    },
+    deleteWebhookConfigAction: {
+      prepare: (payload: string) => ({ payload }),
+      reducer: (state) => ({ ...state, isSaving: true }),
     },
     postWebhookTestAction: {
       prepare: (payload: IWebhookTest) => ({ payload }),

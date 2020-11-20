@@ -73,6 +73,7 @@ export const IntegrationsWebhooksLog: FC = () => {
   const { isLoading, rows, count } = useMemo(() => webhookLogs ?? { isLoading: true, count: 0, rows: [] }, [
     webhookLogs,
   ]);
+
   const {
     location: { state: locationState },
   } = useHistory<IWebhookLocationState>();

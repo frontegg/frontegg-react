@@ -104,7 +104,7 @@ export const IntegrationsTable: FC = () => {
         Cell: actionCell,
         maxWidth: 80,
       },
-      // { accessor: 'icon', Header: locationState?.open || '', Cell: () => <Icon name='more-vert' />, maxWidth: 10 },
+      // { accessor: 'icon', Header: locationState?.open || '', Cell: () => <Icon name='vertical-dots' />, maxWidth: 10 },
     ],
     [actionCell, platformCell]
   );
