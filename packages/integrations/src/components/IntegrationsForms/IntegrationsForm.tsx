@@ -1,6 +1,7 @@
 import {
   FFormik,
   FInput,
+  FInputChip,
   FormikAutoSave,
   Loader,
   NotFound,
@@ -28,7 +29,7 @@ interface IEventData {
   id: string;
   enabled: boolean;
   eventKey: string;
-  recipients: string;
+  recipients: string[];
   subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
 }
 interface IIntegrationsForm extends IIntegrationsComponent {
@@ -55,11 +56,11 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
         const { events = [] } = data;
         return {
           events: events.map(({ enabled, recipients }) => {
-            if (enabled && recipients.trim() === '') {
+            if (enabled && recipients.length) {
               return { recipients: t('integration.recipients.required') };
             } else if (
+              // TODO fix the validation
               recipients
-                .split(' ')
                 .filter((e) => !!e)
                 .some((e) =>
                   form === 'email' ? !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(e) : !/^\+?\d{12}$/.test(e)
@@ -106,7 +107,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
                 id,
                 displayName,
                 ...config,
-                recipients: recipients.join(' '),
+                recipients,
                 subscriptions,
               };
             }),
@@ -144,7 +145,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
                   index,
                   original: { enabled },
                 },
-              }) => <FInput disabled={!enabled} name={`data[${idx}].events[${index}].recipients`} />,
+              }) => <FInputChip disabled={!enabled} name={`data[${idx}].events[${index}].recipients`} />,
             },
             // {
             //   accessor: 'non',
@@ -168,7 +169,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
             ({ enabled, eventKey, recipients, subscriptions }): IEmailSMSConfigResponse => ({
               enabled,
               eventKey,
-              subscriptions: [{ ...subscriptions, enabled, recipients: recipients.split(' ').filter((el) => !!el) }],
+              subscriptions: [{ ...subscriptions, enabled, recipients: recipients.filter((el) => !!el) }],
             }),
             []
           ),
