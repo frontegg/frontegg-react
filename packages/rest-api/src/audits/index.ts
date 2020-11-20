@@ -16,7 +16,7 @@ export async function getAudits(params: IGetAuditsParams): Promise<IAudits> {
 }
 
 /**
- * update Notification status
+ * get Audits Stats
  */
 
 export async function getAuditsStats(params: IGetAuditsStatsParams): Promise<IAuditsStats> {

@@ -35,3 +35,16 @@ export interface IAuditsMetadata extends IBaseMetadata {
   entityName: 'audits';
   theme: IMetadataTheme;
 }
+
+export interface IMetadataIp {
+  latitude: number;
+  longitude: number;
+  city: string | null;
+  country_name: string | null;
+  country_code: string | null;
+  zip: string | null;
+  location: {
+    country_flag?: string | null;
+    country_flag_emoji?: string | null;
+  };
+}

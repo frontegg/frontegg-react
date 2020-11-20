@@ -1,5 +1,5 @@
 import { Get } from '../fetch';
-import { IAuditsMetadata, IGetMetadata, INotificationMetadata, ISamlMetadata } from './interfaces';
+import { IAuditsMetadata, IGetMetadata, IMetadataIp, INotificationMetadata, ISamlMetadata } from './interfaces';
 
 async function getMetadata(body: IGetMetadata) {
   const data = await Get('/metadata', body);
@@ -21,4 +21,4 @@ export const getSamlMetadata = async (): Promise<ISamlMetadata> => getMetadata({
 
 export const getAuditsMetadata = async (): Promise<IAuditsMetadata> => getMetadata({ entityName: 'audits' });
 
-export const getIpAdressMetadata = async (ip: string): Promise<any> => getIpMetadata(ip);
+export const getIpAdressMetadata = async (ip: string): Promise<IMetadataIp> => getIpMetadata(ip);
