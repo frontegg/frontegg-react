@@ -133,6 +133,11 @@ export const postWebhooksConfiguration = (data: IWebhooksSaveData) => {
   }
 };
 
+export const deleteWebhooksConfiguration = (id: string): Promise<null> => {
+  console.debug('deleteWebhooksConfiguration()', id);
+  return Delete(`${INTEGRATIONS_SERVICE_WEBHOOKS_URL}/${id}`);
+};
+
 export const getWebhookLog = (id: string, offset: number = 0, limit: number = 10) => {
   console.debug('getWebhookLog()', id);
   const query = new URLSearchParams({ id, offset: `${offset}`, limit: `${limit}` });
