@@ -23,7 +23,6 @@ const preparePosition = (p?: PopupPosition): any => {
 export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
   const { position, trigger, action, content, className, mountNode } = props;
   const placement = useMemo(() => preparePosition(position), [position]);
-
   return (
     <Popup
       ref={ref}

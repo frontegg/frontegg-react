@@ -46,12 +46,12 @@ export const AuditsSubHeader: FC = () => {
                 />
               </Tag>
             ))}
-          {filters && filters.length >= 2 && (
+          {filters && filters.filter((f) => f.key !== 'filter').length >= 2 && (
             <Button
               transparent
               size='small'
               className={`${prefixCls}__subHeader-clearAll`}
-              onClick={() => setFilterData([])}
+              onClick={() => setFilterData(filters.filter((f) => f.key === 'filter'))}
             >
               clear all
             </Button>

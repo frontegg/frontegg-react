@@ -18,13 +18,27 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
 }: FeTableFilterColumnProps<T>) => {
   const [filterValue, setFilterValue] = useState(column.filterValue);
   const debounceFilters = useDebounce(filterValue, 200);
+  const popupRef = useRef<any>(null);
 
   useEffect(() => onFilterChange?.(column, debounceFilters), [debounceFilters]);
+
+  const closePopup = useCallback(() => {
+    if (popupRef.current) {
+      popupRef.current.hideTooltip();
+    }
+  }, [popupRef]);
 
   const FilterComponent = column.Filter;
   return (
     <FePopup
-      content={<FilterComponent value={filterValue} setFilterValue={(value) => setFilterValue(value)} />}
+      ref={popupRef}
+      content={
+        <FilterComponent
+          closePopup={closePopup}
+          value={filterValue}
+          setFilterValue={(value) => setFilterValue(value)}
+        />
+      }
       action={'click'}
       trigger={
         <span>
