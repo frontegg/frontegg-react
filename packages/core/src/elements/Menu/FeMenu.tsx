@@ -12,9 +12,10 @@ export const FeMenu: FC<MenuProps> = (props) => {
       className={'fe-menu__popup'}
       content={
         <div className='fe-menu'>
-          {props.items.map((item) => {
+          {props.items.map((item, idx) => {
             return (
               <div
+                key={idx}
                 onClick={(e: any) => item.onClick?.(e, item)}
                 className={classNames('fe-menu-item', item.className, { 'fe-menu-item__with-icons': withIcons })}
               >
