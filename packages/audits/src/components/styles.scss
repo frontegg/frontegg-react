@@ -164,11 +164,11 @@
   }
 
   &__ipCell {
-    &-countryCode,
+    &-countryFlag,
     &-ipAddress {
       display: inline-block;
     }
-    &-countryCode {
+    &-countryFlag {
       color: #3c4a5a;
       min-width: 1.2rem;
       margin-right: 0.5rem;
@@ -196,6 +196,9 @@
       &-map {
         width: 15.75rem;
         height: 10.4375rem;
+      }
+      &-info {
+        padding-left: 1rem;
       }
     }
 
