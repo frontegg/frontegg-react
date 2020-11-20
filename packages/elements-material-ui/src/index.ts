@@ -16,6 +16,7 @@ import { Tag } from './Tag';
 import { Grid } from './Grid';
 import { Select } from './Select';
 import { Menu } from './Menu';
+import { InputChip } from './InputChip';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
@@ -31,6 +32,7 @@ export const uiLibrary: Partial<Elements> = {
   Icon,
   Dialog,
   Grid,
+  InputChip,
   Popup,
   Checkbox,
   Table,
