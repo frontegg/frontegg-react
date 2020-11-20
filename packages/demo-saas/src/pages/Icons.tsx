@@ -3,31 +3,32 @@ import React, { FC } from 'react';
 
 const icons: IconNames[] = [
   'back',
-  'up-arrow',
-  'down-arrow',
-  'left-arrow',
-  'right-arrow',
-  'indeterminate',
   'checkmark',
   'copy',
-  'search',
-  'warning',
-  'image',
   'delete',
-  'visibility',
-  'visibility-off',
+  'down-arrow',
+  'edit',
   'filters',
-  'sort-arrows',
+  'image',
+  'indeterminate',
+  'left-arrow',
+  'person-add',
+  'right-arrow',
+  'search',
+  'send',
   'sort-arrows-asc',
   'sort-arrows-desc',
-  'person-add',
+  'sort-arrows',
+  'up-arrow',
   'vertical-dots',
-  'send',
+  'visibility-off',
+  'visibility',
+  'warning',
 ];
 export const Icons: FC = () => (
   <Grid container spacing={4} className='fe-pt-2 fe-pb-2 fe-pr-2 fe-pl-2'>
     {icons.map((name, idx) => (
-      <Grid item key={idx}>
+      <Grid item key={idx} className='fe-center'>
         <Icon name={name} />
         <div>{name}</div>
       </Grid>
