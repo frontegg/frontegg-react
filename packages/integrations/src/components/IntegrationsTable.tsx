@@ -127,7 +127,7 @@ export const IntegrationsTable: FC = () => {
       <Grid container className='fe-integrations-list' direction='column'>
         {Search}
 
-        <div>
+        <div className={classnames({ ['fe-integrations-panel-shown']: !!edit })}>
           {data?.length ? <Table rowKey='id' columns={columns} data={data} totalData={list.length} /> : <NotFound />}
           <IntegrationsPanel show={!!edit} onClose={onCloseEdit}>
             {edit && React.createElement(platformForm[edit.key], { onClose: onCloseEdit })}

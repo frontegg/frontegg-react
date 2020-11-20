@@ -92,7 +92,7 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
               </Grid>
               <Grid item className='fe-integrations-webhook-settings' xs={6}>
                 <h2>{t('integrations.eventSettings')}</h2>
-                <div>
+                <div className='fe-integrations-webhook-settings__frame'>
                   <h3>{t('integrations.selectEvents')}</h3>
                   <SelectWebhook cleanCategory={cleanCategory} />
                   <h3>{t('integrations.manageCategories')}</h3>
