@@ -16,3 +16,4 @@ export * from './Tabs';
 export * from './Menu';
 export * from './Dialog';
 export * from './NotFound';
+export * from './InputChip';
