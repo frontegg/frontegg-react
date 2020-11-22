@@ -22,7 +22,6 @@ export function* afterAuthNavigation() {
 function* refreshMetadata() {
   let isSSOAuth;
   let ssoACS = null;
-  // TODO: check if social login
   try {
     const metadata = yield call(api.metadata.getSamlMetadata);
     ssoACS = metadata?.configuration?.acsUrl;
@@ -31,7 +30,6 @@ function* refreshMetadata() {
     isSSOAuth = false;
   }
   yield put(actions.setState({ isSSOAuth, ssoACS }));
-  //yield put(actions.setLoginState({ loginProviders: [] }));
 }
 
 export function* refreshToken() {
