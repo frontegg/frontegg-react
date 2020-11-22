@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import { AuthActions } from '@frontegg/react-auth';
 
 declare global {
   interface Window {
