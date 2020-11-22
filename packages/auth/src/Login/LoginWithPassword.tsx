@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useEffect } from 'react';
+import React, { ComponentType, createElement, FC, useEffect, useState, Suspense } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import { LoginStep } from '../Api/LoginState';
 import {
@@ -13,6 +13,7 @@ import {
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+import { SocialLoginsWithWrapper } from '../SocialLogins'
 
 const { Formik } = FFormik;
 
@@ -48,6 +49,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     setForgotPasswordState,
     resetLoginState,
     onRedirectTo,
+    // loginProviders
   } = authState;
   const backToPreLogin = () => setLoginState({ step: LoginStep.preLogin });
 
@@ -78,6 +80,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   });
 
   return (
+    <>
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={validateSchema(validationSchema)}
@@ -116,5 +119,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
         </FForm>
       )}
     </Formik>
+      <SocialLoginsWithWrapper action={'Login'}/>
+    </>
   );
 };

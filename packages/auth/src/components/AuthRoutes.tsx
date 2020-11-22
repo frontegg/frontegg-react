@@ -9,6 +9,7 @@ import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
+import { SocialLoginsSuccess, SocialLoginsSuccessPageComponent } from '../SocialLogins';
 
 const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
   routes,
@@ -94,6 +95,11 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       header: perPageProps?.loginWithSSO ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
       headerImg: perPageProps?.loginWithSSO ?? headerImg,
     },
+    SocialLoginsSuccessProps: {
+      ...perPageProps?.loginWithSSO,
+      header: perPageProps?.loginWithSSO ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.loginWithSSO ?? headerImg,
+    },
   };
 
   if (pageProps.loaderComponent && isLoading) {
@@ -142,18 +148,23 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       defaultComponent: AcceptInvitationPage,
       standaloneComponent: AcceptInvitation,
       props: computedPerPageProps.acceptInvitationProps,
+    },{
+      id: 'socialLoginCallback',
+      path: routes.socialLoginCallbackUrl,
+      defaultComponent: SocialLoginsSuccessPageComponent,
+      standaloneComponent: SocialLoginsSuccess,
     },
-    ...(samlCallbackPath
-      ? [
-          {
-            id: 'loginWithSSO',
-            path: samlCallbackPath || '',
-            defaultComponent: LoginWithSSOPage,
-            standaloneComponent: LoginWithSSO,
-            props: computedPerPageProps.loginWithSSOProps,
-          },
-        ]
-      : []),
+    // ...(samlCallbackPath
+    //   ? [
+    //       {
+    //         id: 'loginWithSSO',
+    //         path: samlCallbackPath || '',
+    //         defaultComponent: LoginWithSSOPage,
+    //         standaloneComponent: LoginWithSSO,
+    //         props: computedPerPageProps.loginWithSSOProps,
+    //       },
+    //     ]
+    //   : []),
   ];
 
   return (

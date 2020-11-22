@@ -6,6 +6,7 @@ import { activateSagas } from './ActivateState/saga';
 import { acceptInvitationSagas } from './AcceptInvitationState/saga';
 import { loginSagas } from './LoginState/saga';
 import { teamSagas } from './TeamState/saga';
+import { socialLoginsSaga } from './SocialLogins/saga';
 import { all, call } from 'redux-saga/effects';
 
 export function* sagas() {
@@ -18,5 +19,6 @@ export function* sagas() {
     call(profileSagas),
     call(mfaSagas),
     call(teamSagas),
+    call(socialLoginsSaga),
   ]);
 }

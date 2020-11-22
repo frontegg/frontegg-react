@@ -2,7 +2,9 @@ import React, { ComponentType } from 'react';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { NotificationsPlugin } from '@frontegg/react-notifications';
-import { uiLibrary } from '@frontegg/react-elements-material-ui';
+// import { uiLibrary } from '@frontegg/react-elements-material-ui';
+// import { uiLibrary } from '@frontegg/react-elements-semantic';
+const uiLibrary  = undefined;
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =

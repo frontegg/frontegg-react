@@ -6,7 +6,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';
 
-function* afterAuthNavigation() {
+export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
   let { authenticatedUrl } = routes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
@@ -22,6 +22,7 @@ function* afterAuthNavigation() {
 function* refreshMetadata() {
   let isSSOAuth;
   let ssoACS = null;
+  // TODO: check if social login
   try {
     const metadata = yield call(api.metadata.getSamlMetadata);
     ssoACS = metadata?.configuration?.acsUrl;
@@ -30,9 +31,10 @@ function* refreshMetadata() {
     isSSOAuth = false;
   }
   yield put(actions.setState({ isSSOAuth, ssoACS }));
+  //yield put(actions.setLoginState({ loginProviders: [] }));
 }
 
-function* refreshToken() {
+export function* refreshToken() {
   try {
     const { routes } = yield select((state) => state.auth);
     const user = yield call(api.auth.refreshToken);

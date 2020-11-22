@@ -221,6 +221,14 @@ export default {
           message: "You are about to remove '{{email}}' from this account. Are you sure?",
         },
       },
+      'social-logins': {
+        login: {
+          'button-text': 'Login with {{providerName}}'
+        },
+        error: {
+          'invalid-callback-url': 'Invalid callback url'
+        }
+      }
     },
     validation: {
       'must-be-a-valid-email': 'Must be a valid email',

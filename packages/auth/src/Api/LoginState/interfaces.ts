@@ -17,4 +17,6 @@ export interface LoginState {
   mfaRequired?: boolean;
   mfaToken?: string;
   email?: string;
+
+  // TODO: login-providers
 }

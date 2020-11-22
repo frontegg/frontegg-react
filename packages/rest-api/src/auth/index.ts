@@ -2,7 +2,7 @@
 
 import jwtDecode from 'jwt-decode';
 import { Get, Post, Put } from '../fetch';
-import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
+import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2, IDENTITY_SSO_SERVICE_URL_V1} from '../constants';
 import {
   IActivateAccount,
   IDisableMfa,
@@ -21,9 +21,10 @@ import {
   IUpdateSamlVendorMetadata,
   IVerifyMfa,
   IVerifyMfaResponse,
-  IAcceptInvitation,
+  IAcceptInvitation, ISocialLoginProviderConfiguration, ILoginViaSocialLogin,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
+import { SocialLoginsProvidersEnum } from './interfaces';
 
 /*****************************************
  * Authentication
@@ -267,4 +268,24 @@ export async function updateSamlVendorMetadata(body: IUpdateSamlVendorMetadata):
 export async function validateSamlDomain(): Promise<ISamlConfiguration> {
   console.debug('validateSamlDomain()');
   return Put(`${SSO_SERVICE_URL_V1}/saml/validations/domain`);
+}
+
+
+/**
+ *  Get social logins providers configurations for vendor
+ * @return array of providers configurations
+ */
+export async function getSocialLoginsProviders(): Promise<ISocialLoginProviderConfiguration[]> {
+  console.debug('getSocialLoginsProviders()');
+  return Get(IDENTITY_SSO_SERVICE_URL_V1);
+}
+
+
+/**
+ * Login using social login
+ * @return cookie with refresh token
+ */
+export async function loginViaSocialLogin({provider, code}: ILoginViaSocialLogin): Promise<void> {
+  console.debug('loginViaSocialLogin()');
+  return Post(`${AUTH_SERVICE_URL_V1}/user/sso/${provider}/postlogin`, {}, {params: {code}});
 }

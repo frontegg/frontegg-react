@@ -8,6 +8,6 @@ async function getMetadata(body: IGetMetadata) {
   throw new Error(`metadata not found: ${body.entityName}`);
 }
 
-export const getNotificationsMetadata = async (): Promise<INotificationMetadata> =>
-  getMetadata({ entityName: 'notifications' });
+export const getNotificationsMetadata = async (): Promise<INotificationMetadata> => getMetadata({ entityName: 'notifications' });
 export const getSamlMetadata = async (): Promise<ISamlMetadata> => getMetadata({ entityName: 'saml' });
+
