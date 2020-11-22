@@ -12,12 +12,3 @@ export * from './ngSupport';
 export * from './ElementsFactory';
 
 export { memoEqual } from './helpers/DynamicComponent';
-
-import { createElement } from 'react';
-import { createPortal, render } from 'react-dom';
-
-export const DOMProxy = {
-  createElement,
-  createPortal,
-  render,
-};

@@ -14,8 +14,6 @@ export interface TeamPageProps extends BasePageProps, ProxyComponent {}
 
 export const TeamPage: FC<TeamPageProps> = (props) => {
   const proxyPortals = useProxyComponent(props);
-
-  const [rootPath] = useRootPath(props, '/team');
   useMemo(() => checkValidChildren('Team.Page', 'Team', props.children, { TeamLayout }), [props.children]);
 
   const children = props.children ?? (
@@ -25,10 +23,9 @@ export const TeamPage: FC<TeamPageProps> = (props) => {
     </>
   );
   return (
-    <RootPathContext.Provider value={rootPath}>
+    <>
       <div className='fe-team__page'>{children}</div>
-
       {proxyPortals}
-    </RootPathContext.Provider>
+    </>
   );
 };

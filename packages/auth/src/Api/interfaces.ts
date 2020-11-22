@@ -6,7 +6,7 @@ import { ForgotPasswordState } from './ForgotPasswordState';
 import { SSOState } from './SSOState';
 import { ProfileState } from './ProfileState';
 import { MFAState } from './MfaState';
-import { TeamState, TeamStateKeys } from './TeamState';
+import { TeamState } from './TeamState';
 import { AcceptInvitationState } from './AcceptInvitationState';
 
 export type WithSilentLoad<T> = T & {
