@@ -8,8 +8,10 @@ import { BrowserRouter } from 'react-router-dom';
 const AppWithFrontegg = withFrontegg(App);
 
 ReactDOM.render(
-  <BrowserRouter>
-    <AppWithFrontegg />
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <AppWithFrontegg />
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById('root')
 );

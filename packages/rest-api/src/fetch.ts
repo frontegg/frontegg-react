@@ -40,7 +40,7 @@ async function prepareUrl(context: ContextOptions, url: string, params?: any): P
 
 async function buildRequestHeaders(
   context: ContextOptions,
-  contentType: string = 'application/json'
+  contentType: string | undefined
 ): Promise<Record<string, string>> {
   const authToken = await (context?.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
@@ -98,7 +98,7 @@ const sendRequest = async (opts: RequestOptions) => {
   const url = await prepareUrl(context, opts.url, opts.params);
 
   const response = await fetch(url, {
-    body: opts.body ? JSON.stringify(opts.body) : null,
+    body: opts.body ? (opts.contentType === 'application/json' ? JSON.stringify(opts.body) : opts.body) : null,
     method: opts.method ?? 'GET',
     headers: {
       ...headers,
@@ -108,6 +108,9 @@ const sendRequest = async (opts: RequestOptions) => {
   });
 
   if (!response.ok) {
+    if (response.status === 413) {
+      throw new Error('Error request is too large');
+    }
     let errorMessage;
     try {
       errorMessage = await response.text();

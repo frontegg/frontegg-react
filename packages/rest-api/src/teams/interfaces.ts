@@ -6,6 +6,7 @@ export type IUserProfile = {
   mfaEnrolled: boolean;
   name: string;
   phoneNumber: string;
+  profileImage?: string;
   profilePictureUrl: string;
   roles: string[];
   permissions: string[];
@@ -61,6 +62,10 @@ export type IUpdateProfile = {
   dateOfBirth: number;
   // profile picture in base64
   profilePicture: string;
+};
+
+export type IUpdateProfileImage = {
+  profileImage: string;
 };
 
 export type IChangePassword = {

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.6.2) (2020-11-19)
+
+**Note:** Version bump only for package @frontegg/react-cli
+
+
+
+
+
+## [1.6.1](https://github.com/frontegg/frontegg-react/compare/v1.6.0...v1.6.1) (2020-11-15)
+
+**Note:** Version bump only for package @frontegg/react-cli
+
+
+
+
+
+# [1.6.0](https://github.com/frontegg/frontegg-react/compare/v1.5.0...v1.6.0) (2020-11-12)
+
+**Note:** Version bump only for package @frontegg/react-cli
+
+
+
+
+
 # [1.5.0](https://github.com/frontegg/frontegg-react/compare/v1.4.0...v1.5.0) (2020-11-10)
 
 **Note:** Version bump only for package @frontegg/react-cli

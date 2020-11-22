@@ -1,6 +1,7 @@
 /* tslint:disable:no-console */
 import { Get, Post, Put, Delete } from '../fetch';
 import {
+  TEAMS_PROFILE_SERVICE_URL,
   TEAMS_ROLES_SERVICE_URL_V1,
   TEAMS_STATS_SERVICE_URL_V1,
   TEAMS_USERS_SERVICE_URL_V1,
@@ -19,6 +20,7 @@ import {
   IUserProfile,
   IUpdateUser,
   IDeleteUser,
+  IUpdateProfileImage,
 } from './interfaces';
 import { PaginationResult } from '../interfaces';
 
@@ -47,6 +49,16 @@ export async function updateProfile(body: Partial<IUpdateProfile>): Promise<IUse
 }
 
 /**
+ * update user profile image
+ * ``authorized user``
+ */
+
+export async function updateProfileImage(body: FormData): Promise<string> {
+  console.debug('updateProfileImage()', body);
+  return Put(`${TEAMS_PROFILE_SERVICE_URL}/me/image/v1`, body, { responseType: 'plain', contentType: undefined });
+}
+
+/**
  * change user password by providing current password and the new password.
  *
  * @throws exception if the current password incorrect or new password validation failed.
@@ -66,8 +78,6 @@ export async function changePassword(body: IChangePassword): Promise<void> {
  * ``authorized user``
  */
 export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<ITeamUser>> {
-  console.debug('loadUsers()', params);
-
   const filters = (params.filter || []).reduce((p, n) => ({ ...p, [n.id]: n.value }), {});
   const sorts = params.sort?.length
     ? {

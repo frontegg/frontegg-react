@@ -48,19 +48,6 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: false }));
 }
 
-// function* loadStats() {
-//   yield put(actions.setTeamLoader({ key: TeamStateKeys.STATS, value: true }));
-//
-//   try {
-//     const stats = yield call(api.teams.loadStats);
-//
-//   } catch (e) {
-//     yield put(actions.setTeamError({ key: TeamStateKeys.STATS, value: e.message }));
-//   }
-//
-//   yield put(actions.setTeamLoader({ key: TeamStateKeys.STATS, value: false }));
-// }
-
 function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>) {
   const { callback, ...body } = payload;
   const teamState = yield select((state) => state.auth.teamState);
@@ -94,7 +81,7 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
   const { callback, profileImage, ...body } = payload;
   const { id: userId } = body;
   const teamState = yield select((state) => state.auth.teamState);
-  let oldUserData = {};
+  const oldUserData = teamState.users.find((user: ITeamUser) => user.id === body.id);
   yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: userId || '' }));
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   yield put(
@@ -102,7 +89,6 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
       addUserDialogState: { ...teamState.addUserDialogState, loading: true },
       users: teamState.users.map((user: ITeamUser) => {
         if (user.id === body.id) {
-          oldUserData = { ...user };
           return { ...user, ...body };
         }
         return user;
@@ -110,11 +96,24 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
     })
   );
   try {
+    if (oldUserData.roleIds.length > 0 && body.roleIds?.length === 0) {
+      body.roleIds = [''];
+    }
     const { item: newUser } = yield call(api.teams.updateUser, body);
     callback?.(newUser);
     yield put(
       actions.setTeamState({
-        users: teamState.users.map((user: ITeamUser) => (user.id === newUser.id ? { ...user, ...newUser } : user)),
+        users: teamState.users.map((user: ITeamUser) =>
+          user.id === newUser.id
+            ? {
+                ...user,
+                ...newUser,
+                createdAt: user.createdAt,
+                customData: user.customData,
+                lastLogin: user.lastLogin,
+              }
+            : user
+        ),
       })
     );
     yield put(actions.setTeamLoader({ key: TeamStateKeys.UPDATE_USER, value: false }));
