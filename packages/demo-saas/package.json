@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/demo-saas",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
@@ -11,9 +11,9 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
-    "@frontegg/react-auth": "^1.6.2",
-    "@frontegg/react-core": "^1.6.2",
-    "@frontegg/react-notifications": "^1.6.2",
+    "@frontegg/react-auth": "^1.7.0",
+    "@frontegg/react-core": "^1.7.0",
+    "@frontegg/react-notifications": "^1.7.0",
     "classnames": "^2.2.6",
     "react": ">16.8.6",
     "react-dom": ">16.8.6",
