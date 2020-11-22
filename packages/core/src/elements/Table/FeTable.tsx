@@ -270,6 +270,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
 
         <FeTableTHead {...tableHeadProps} />
         <FeTableTBody
+          loading={props.loading}
           prefixCls={prefixCls}
           prepareRow={prepareRow}
           getTableBodyProps={getTableBodyProps}

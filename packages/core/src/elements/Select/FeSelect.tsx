@@ -30,17 +30,17 @@ export const FeSelect = (props: SelectProps) => {
       selected: option.selectProps.isSelected,
       disabled: option.selectProps.isDisabled,
       index: option.selectProps.options?.findIndex(
-        (o: SelectOptionProps<string>) => o.value === option.selectProps.value,
+        (o: SelectOptionProps<string>) => o.value === option.selectProps.value
       ),
     }),
-    [],
+    []
   );
 
   const MultiValueLabel = useCallback(
     (props) => (
       <components.MultiValueLabel {...props}>{renderOption?.(props.data, getState(props))}</components.MultiValueLabel>
     ),
-    [renderOption],
+    [renderOption]
   );
 
   const customStyles = {
@@ -64,7 +64,7 @@ export const FeSelect = (props: SelectProps) => {
     }),
     {
       'fe-input__in-form ': props.inForm,
-    },
+    }
   );
 
   return (
