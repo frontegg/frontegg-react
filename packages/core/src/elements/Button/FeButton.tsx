@@ -20,6 +20,7 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
     asLink,
     type = 'button',
     transparent,
+    testId,
     ...restProps
   } = props;
 
@@ -40,6 +41,7 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
       ref={ref}
       className={classNames(classes, { ['fe-icon-button']: iconButton || transparent })}
       type={type}
+      test-id={testId}
       {...restProps}
     >
       {children}
