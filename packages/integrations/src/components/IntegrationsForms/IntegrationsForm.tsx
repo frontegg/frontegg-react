@@ -56,14 +56,15 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
         const { events = [] } = data;
         return {
           events: events.map(({ enabled, recipients }) => {
-            if (enabled && recipients.length) {
+            if (enabled && !recipients.length) {
               return { recipients: t('integration.recipients.required') };
             } else if (
-              // TODO fix the validation
+              enabled &&
               recipients
                 .filter((e) => !!e)
-                .some((e) =>
-                  form === 'email' ? !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(e) : !/^\+?\d{12}$/.test(e)
+                .some(
+                  (e) =>
+                    !(form === 'email' ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(e) : /^\+?\d{12}$/.test(e))
                 )
             ) {
               return {
