@@ -8,16 +8,20 @@ export * from './interfaces';
 export const socialLoginsState: SocialLoginsState = {
   firstLoad: true,
   loading: false,
-  error: ''
-}
+  error: '',
+};
 
 export const socialLoginsStateReducer = {
   setSocialLoginsState: typeReducerForKey<SocialLoginsState>('socialLoginsState'),
-  resetSocialLoginsState: resetStateByKey<SocialLoginsState>('socialLoginsState', {socialLoginsState}),
-}
+  resetSocialLoginsState: resetStateByKey<SocialLoginsState>('socialLoginsState', { socialLoginsState }),
+};
 
 export const socialLoginsActions = {
   loadSocialLoginsConfiguration: createAction(`${storeName}/loadSocialLoginsConfiguration`),
-  loginViaSocialLogin: createAction(`${storeName}/loginViaSocialLogin`, (payload: ILoginViaSocialLogin)=> ({payload})),
-  setSocialLoginError: createAction(`${storeName}/setSocialLoginError`, (payload: ISetSocialLoginError)=> ({payload})),
-}
+  loginViaSocialLogin: createAction(`${storeName}/loginViaSocialLogin`, (payload: ILoginViaSocialLogin) => ({
+    payload,
+  })),
+  setSocialLoginError: createAction(`${storeName}/setSocialLoginError`, (payload: ISetSocialLoginError) => ({
+    payload,
+  })),
+};

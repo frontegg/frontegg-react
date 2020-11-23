@@ -2,35 +2,41 @@ import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
 import { useAuth } from '../hooks';
 import { useContext, useMemo } from 'react';
 import { AuthState } from '../Api';
-import { ISocialLoginProviderConfiguration, SocialLoginsProvidersEnum } from '@frontegg/rest-api';
+import { ISocialLoginProviderConfiguration, SocialLoginsProviders } from '@frontegg/rest-api';
 import { SocialLoginsContext } from './SocialLogins';
 
 const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
 
-export type UrlCreatorConfigType = ISocialLoginProviderConfiguration & {state: string}
+export type UrlCreatorConfigType = ISocialLoginProviderConfiguration & { state: string };
 
-export const createSocialLoginState = (state: ISocialLoginCallbackState): string => JSON.stringify(state)
+export const createSocialLoginState = (state: ISocialLoginCallbackState): string => JSON.stringify(state);
 
-export const useRedirectUrl = (urlCreator: (config: UrlCreatorConfigType) => string, socialLoginType: SocialLoginsProvidersEnum): string | null => {
+export const useRedirectUrl = (
+  urlCreator: (config: UrlCreatorConfigType) => string,
+  socialLoginType: SocialLoginsProviders
+): string | null => {
   const { action } = useSocialLoginContext();
   const { socialLoginsConfig } = useAuth(stateMapper);
-  const config = useMemo(() => socialLoginsConfig?.find(({ type }) => type.toLowerCase() === socialLoginType.toLowerCase()), [socialLoginsConfig]);
+  const config = useMemo(
+    () => socialLoginsConfig?.find(({ type }) => type.toLowerCase() === socialLoginType.toLowerCase()),
+    [socialLoginsConfig]
+  );
 
   const redirectUrl: string | undefined = useMemo(() => {
-      if (config) {
-        return urlCreator({
-          ...config,
-          state: createSocialLoginState({ provider: socialLoginType, action }),
-        });
-      }
-    }, [config?.clientId, config?.redirectUrl, action]);
+    if (config) {
+      return urlCreator({
+        ...config,
+        state: createSocialLoginState({ provider: socialLoginType, action }),
+      });
+    }
+  }, [config?.clientId, config?.redirectUrl, action]);
 
-  if(!config?.active || !redirectUrl) {
-    return null
+  if (!config?.active || !redirectUrl) {
+    return null;
   }
 
-  return redirectUrl
-}
+  return redirectUrl;
+};
 
 export const useSocialLoginContext = (): ISocialLoginsContext => {
   const context = useContext(SocialLoginsContext);

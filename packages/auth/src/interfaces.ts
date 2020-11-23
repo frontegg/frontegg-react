@@ -55,6 +55,7 @@ export interface PerPageHeader {
   activateAccount?: ReactNode;
   acceptInvitation?: ReactNode;
   loginWithSSO?: ReactNode;
+  socialLoginsSuccess?: ReactNode;
 }
 
 export type HeaderProps = { header?: ReactNode; headerImg?: string };
@@ -67,6 +68,7 @@ export interface PerPageProps {
   activateAccount?: ActivateAccountProps & HeaderProps;
   acceptInvitation?: AcceptInvitationProps & HeaderProps;
   loginWithSSO?: LoginWithSSOProps & HeaderProps;
+  socialLoginsSuccess?: HeaderProps;
 }
 
 export type PageComponentProps = HeaderProps & {

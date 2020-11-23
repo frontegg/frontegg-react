@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { SocialLoginButton } from '../SocialLoginButton';
 import { GoogleIcon } from './GoogleIcon';
-import { FronteggContext, SocialLoginsProvidersEnum } from '@frontegg/rest-api';
+import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
 import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
-
 
 const createGoogleUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {
   const searchParams: URLSearchParams = new URLSearchParams({
@@ -19,22 +18,26 @@ const createGoogleUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
   return url.toString();
 };
 
-
 const LoginWithGoogle: FC = (props) => {
   const { action } = useSocialLoginContext();
 
-  const redirectUrl = useRedirectUrl(createGoogleUrl, SocialLoginsProvidersEnum.Google)
+  const redirectUrl = useRedirectUrl(createGoogleUrl, SocialLoginsProviders.Google);
 
-  const defaultButton = <SocialLoginButton action={action} name={SocialLoginsProvidersEnum.Google}>
-    <GoogleIcon/>
-  </SocialLoginButton>;
+  const defaultButton = (
+    <SocialLoginButton action={action} name={SocialLoginsProviders.Google}>
+      <GoogleIcon />
+    </SocialLoginButton>
+  );
 
   if (redirectUrl) {
-    return <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { refresh: true })}>{props.children || defaultButton}</div>;
+    return (
+      <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { refresh: true })}>
+        {props.children || defaultButton}
+      </div>
+    );
   }
 
   return null;
-
 };
 
 export default LoginWithGoogle;

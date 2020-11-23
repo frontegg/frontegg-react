@@ -35,7 +35,7 @@ export const initialState: AuthState = {
     acceptInvitationUrl: '/account/invitation/accept',
     forgetPasswordUrl: '/account/forget-password',
     resetPasswordUrl: '/account/reset-password',
-    socialLoginCallbackUrl: '/account/social/success'
+    socialLoginCallbackUrl: '/account/social/success',
   },
   onRedirectTo: () => {},
 

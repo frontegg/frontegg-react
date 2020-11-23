@@ -4,7 +4,7 @@ import { AuthPlugin } from '@frontegg/react-auth';
 import { NotificationsPlugin } from '@frontegg/react-notifications';
 // import { uiLibrary } from '@frontegg/react-elements-material-ui';
 // import { uiLibrary } from '@frontegg/react-elements-semantic';
-const uiLibrary  = undefined;
+const uiLibrary = undefined;
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
@@ -17,7 +17,12 @@ const contextOptions: ContextOptions = {
   requestCredentials: 'include',
 };
 
-const plugins: PluginConfig[] = [AuthPlugin({}), NotificationsPlugin({})];
+const plugins: PluginConfig[] = [
+  AuthPlugin({
+    headerImg: 'https://lh3.googleusercontent.com/9s-9zONYk4NZvLlHVMIF5cGCzrx7PjZYQ3uow5P8Rj2Mt_XHWygV3gOt75_iI1YtTg',
+  }),
+  NotificationsPlugin({}),
+];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
   <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>

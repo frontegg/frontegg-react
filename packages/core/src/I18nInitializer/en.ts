@@ -223,12 +223,12 @@ export default {
       },
       'social-logins': {
         login: {
-          'button-text': 'Login with {{providerName}}'
+          'button-text': 'Login with {{providerName}}',
         },
         error: {
-          'invalid-callback-url': 'Invalid callback url'
-        }
-      }
+          'invalid-callback-url': 'Invalid callback url',
+        },
+      },
     },
     validation: {
       'must-be-a-valid-email': 'Must be a valid email',

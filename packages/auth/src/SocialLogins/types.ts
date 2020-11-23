@@ -1,12 +1,14 @@
-import { SocialLoginsProvidersEnum } from '@frontegg/rest-api';
-
-export type SocialLoginsActions = 'Login'
+import { SocialLoginsProviders } from '@frontegg/rest-api';
 
 export interface ISocialLoginCallbackState {
-  provider: SocialLoginsProvidersEnum;
+  provider: SocialLoginsProviders;
   action: SocialLoginsActions;
 }
 
 export interface ISocialLoginsContext {
-  action: SocialLoginsActions
+  action: SocialLoginsActions;
+}
+
+export enum SocialLoginsActions {
+  Login = 'login',
 }
