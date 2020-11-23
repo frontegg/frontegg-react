@@ -97,10 +97,11 @@ const esmPlugins = [
   ...commonPlugins,
   ts({
     tsconfig: `${process.cwd()}/tsconfig.json`,
-    useTsconfigDeclarationDir: false,
+    useTsconfigDeclarationDir: true,
     tsconfigOverride: {
       'compilerOptions': {
-        'declaration': false,
+        'declaration': true,
+        'declarationDir': distFolder,
         'target': 'ES6',
         'module': 'ES6',
       },
@@ -112,11 +113,10 @@ const esPlugins = [
   ...commonPlugins,
   ts({
     tsconfig: `${process.cwd()}/tsconfig.json`,
-    useTsconfigDeclarationDir: true,
+    useTsconfigDeclarationDir: false,
     tsconfigOverride: {
       'compilerOptions': {
-        'declaration': true,
-        'declarationDir': distFolder,
+        'declaration': false,
         'target': 'ES5',
         'module': 'ES6',
       },
@@ -155,23 +155,23 @@ const umdPlugins = [
 
 export default [ {
   input: './src/index.ts',
-  plugins: esPlugins,
+  plugins: esmPlugins,
   external: isExternal,
   output: {
-    file: path.join(distFolder, 'index.es.js'),
+    file: path.join(distFolder, 'index.esm.js'),
     sourcemap: true,
-    format: 'es',
+    format: 'esm',
   },
 },
   ...(isWatching ? [] : [
     {
       input: './src/index.ts',
-      plugins: esmPlugins,
+      plugins: esPlugins,
       external: isExternal,
       output: {
-        file: path.join(distFolder, 'index.esm.js'),
+        file: path.join(distFolder, 'index.es.js'),
         sourcemap: true,
-        format: 'esm',
+        format: 'es',
       },
     },{
       input: './src/index.ts',

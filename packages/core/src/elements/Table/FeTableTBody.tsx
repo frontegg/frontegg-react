@@ -1,19 +1,9 @@
-import React, { FC, memo, useEffect, useMemo } from 'react';
-import { FeTableColumnProps } from './interfaces';
+import React, { FC, memo, useMemo } from 'react';
 import classNames from 'classnames';
-import {
-  HeaderGroup,
-  Row,
-  TableBodyPropGetter,
-  TableBodyProps,
-  TableSortByToggleProps,
-  UseExpandedRowProps,
-} from 'react-table';
-import { FeTableSortColumn } from './FeTableSortColumn';
-import { FeTableFilterColumn } from './FeTableFilterColumn';
+import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { FeTableExpandable } from './FeTableExpandable';
-import { FeLoader } from '../Loader/FeLoader';
 import { shallowEqual } from 'react-redux';
+import { FeLoader } from '../Loader/FeLoader';
 
 export type FeTableTBodyProps<T extends object> = {
   loading?: boolean;
@@ -29,32 +19,29 @@ export type FeTableTBodyRowProps<T extends object> = {
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
 };
 
-export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = memo(
-  (props: FeTableTBodyRowProps<any>) => {
-    const { prepareRow, row, renderExpandedComponent } = props;
+export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = (props: FeTableTBodyRowProps<any>) => {
+  const { prepareRow, row, renderExpandedComponent } = props;
 
-    useMemo(() => {
-      prepareRow(row);
-    }, [row]);
+  useMemo(() => {
+    prepareRow(row);
+  }, [row]);
 
-    return (
-      <>
-        <div className={classNames('fe-table__tr', { 'is-expanded': row.isExpanded })} {...row.getRowProps()}>
-          {row.cells.map((cell) => (
-            <div className='fe-table__tr-td' {...cell.getCellProps()}>
-              {cell.render('Cell')}
-            </div>
-          ))}
-        </div>
-        <FeTableExpandable isExpanded={row.isExpanded} row={row} renderExpandedComponent={renderExpandedComponent} />
-      </>
-    );
-  },
-  (prevProps, nextProps) => shallowEqual(prevProps.row.original, nextProps.row.original)
-);
+  return (
+    <>
+      <div className={classNames('fe-table__tr', { 'is-expanded': row.isExpanded })} {...row.getRowProps()}>
+        {row.cells.map((cell) => (
+          <div className='fe-table__tr-td' {...cell.getCellProps()}>
+            {cell.render('Cell')}
+          </div>
+        ))}
+      </div>
+      <FeTableExpandable isExpanded={row.isExpanded} row={row} renderExpandedComponent={renderExpandedComponent} />
+    </>
+  );
+};
 
 export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props: FeTableTBodyProps<T>) => {
-  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent } = props;
+  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading } = props;
 
   return (
     <div
@@ -71,6 +58,13 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
           renderExpandedComponent={renderExpandedComponent}
         />
       ))}
+      {loading && rows.length === 0 && (
+        <div className={classNames('fe-table__tr')}>
+          <div className={classNames('fe-table__tr-td fe-table__tr-td-loader')}>
+            <FeLoader size={24} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

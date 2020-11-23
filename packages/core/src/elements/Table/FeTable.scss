@@ -139,6 +139,11 @@
     display: flex;
     align-items: center;
     min-height: 5rem;
+
+    &-loader {
+      text-align: center;
+      justify-content: center;
+    }
   }
 
   &__expand-button.fe-button {
