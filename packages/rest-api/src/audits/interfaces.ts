@@ -38,3 +38,28 @@ export interface IAuditsStats {
   totalToday: number;
   severeThisWeek: number;
 }
+
+export interface IExportAudits {
+  headerProps: HeaderProps[];
+  sortDirection: SortDirectionType;
+  sortBy: string;
+  filter: string;
+  offset: number;
+  format: 'csv' | 'pdf';
+}
+
+export interface HeaderProps {
+  _id: string;
+  name: string;
+  type: string;
+  sortable: boolean;
+  filterable: boolean;
+  displayName: string;
+  showInTable: boolean;
+  showInMoreInfo: string;
+  Json?: any;
+}
+
+export interface FiltersObj {
+  [key: string]: string;
+}

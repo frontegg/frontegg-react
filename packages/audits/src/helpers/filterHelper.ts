@@ -12,7 +12,7 @@ export const getFilterType = (type: string): 'input' | 'select' => {
   }
 };
 
-export const getFilterTime = (time: 'last_day' | 'last_week' | 'last_month' | 'last_year') => {
+export const getFilterTime = (time: TimeValues) => {
   let value;
   switch (time) {
     case 'last_day':
@@ -48,23 +48,41 @@ export const getFilterName = (filter: Filter) => {
   }
 };
 
-export const getFilterValue = (filter: Filter | any) => {
+export const getTimeDiff = (time: string) => {
+  const currentTime = moment();
+  const diff = currentTime.diff(time, 'day');
+  return diff <= 1 ? 'last_day' : diff <= 7 ? 'last_week' : diff <= 30 ? 'last_month' : 'last_year';
+};
+
+export const getFilterValue = (filter: any) => {
   if (filter.key === 'createdAt') {
     return moment(filter.value.$gt).format('YYYY/MM/DD h:mm A');
   }
   return filter.value;
 };
 
-export const timeOptions = [
+export const timeOptions: Array<TimeOptions> = [
   { label: 'Last Day', value: 'last_day' },
   { label: 'Last Week', value: 'last_week' },
   { label: 'Last Month', value: 'last_month' },
   { label: 'Last Year', value: 'last_year' },
 ];
 
-export const severityOptions = [
+export const severityOptions: Array<SeverityOptions> = [
   { label: 'Info', value: 'Info' },
   { label: 'Medium', value: 'Medium' },
   { label: 'High', value: 'High' },
   { label: 'Critical', value: 'Critical' },
 ];
+
+type TimeValues = 'last_day' | 'last_week' | 'last_month' | 'last_year';
+type SeverityValues = 'Info' | 'Medium' | 'High' | 'Critical';
+export interface TimeOptions {
+  label: string;
+  value: TimeValues;
+}
+
+export interface SeverityOptions {
+  label: string;
+  value: SeverityValues;
+}

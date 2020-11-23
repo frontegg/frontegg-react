@@ -1,18 +1,29 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useMemo } from 'react';
 import { prefixCls } from './Audits';
 import { useAudits } from '../helpers/hooks';
 import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps } from '@frontegg/react-core';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
 
-const downloadItems: MenuItemProps[] = [
-  { icon: 'pdf', iconClassName: 'fe-audits__subHeader-menuIcon', text: <div>Download Pdf</div> },
-  { icon: 'csv', iconClassName: 'fe-audits__subHeader-menuIcon', text: <div>Download Csv</div> },
-];
-
 export const AuditsSubHeader: FC = () => {
-  const { filters, setFilterData } = useAudits();
+  const { filters, setFilterData, exportCSV, exportPDF } = useAudits();
   const [search, setSearch] = useState('');
   const searchValue = useDebounce(search, 400);
+
+  const downloadItems: MenuItemProps[] = useMemo(
+    () => [
+      {
+        icon: 'pdf',
+        iconClassName: 'fe-audits__subHeader-menuIcon',
+        text: <div onClick={() => exportPDF()}>Download Pdf</div>,
+      },
+      {
+        icon: 'csv',
+        iconClassName: 'fe-audits__subHeader-menuIcon',
+        text: <div onClick={() => exportCSV()}>Download Csv</div>,
+      },
+    ],
+    [exportPDF, exportCSV]
+  );
 
   useEffect(() => {
     if (!!search.trim()) {

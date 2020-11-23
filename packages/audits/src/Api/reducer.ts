@@ -88,8 +88,8 @@ export const actions = {
   loadAudits: createAction<LoadAudits>(`${name}/loadAudits`),
   removeFilter: createAction<Filter>(`${name}/removeFilter`),
   filterData: createAction<Filter>(`${name}/filterData`),
-  exportCSV: createAction<Filter>(`${name}/exportCSV`),
-  exportPDF: createAction<Filter>(`${name}/exportPDF`),
+  exportCSV: createAction(`${name}/exportCSV`),
+  exportPDF: createAction(`${name}/exportPDF`),
   deleteAudits: createAction<Filter>(`${name}/deleteAudits`),
 };
 

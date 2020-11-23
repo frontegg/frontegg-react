@@ -1,24 +1,44 @@
 import React, { FC, useCallback, useState, useEffect } from 'react';
 import { Input, Button, useT, Grid, Select } from '@frontegg/react-core';
-import { getFilterType, getFilterTime, timeOptions, severityOptions } from '../helpers/filterHelper';
+import {
+  getFilterType,
+  getFilterTime,
+  timeOptions,
+  severityOptions,
+  getTimeDiff,
+  TimeOptions,
+  SeverityOptions,
+} from '../helpers/filterHelper';
 import { prefixCls } from './Audits';
 
 export interface FilterProps {
   name: string;
   type: string;
-  value: string | number;
+  value: any;
   closePopup: (() => void) | undefined;
   setFilterValue: (value: any) => void;
+}
+
+interface SelectState {
+  time: TimeOptions;
+  severity: SeverityOptions;
 }
 
 export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, type, name }) => {
   const { t } = useT();
   const [inputState, setInputState] = useState<string>(`${value ?? ''}`);
-  const [timeSelectState, setTimeSelectState] = useState<any>(timeOptions[0]);
-  const [severitySelectState, setSeveritySelectState] = useState<any>(severityOptions[0]);
+  const [selectState, setSelectState] = useState<SelectState>({
+    time: timeOptions[0],
+    severity: severityOptions[0],
+  });
 
   useEffect(() => {
-    value && type === 'Severity' ? setSeveritySelectState({ label: value, value }) : null;
+    if (value) {
+      type === 'Severity' ? setSelectState({ ...selectState, severity: { label: value, value } }) : null;
+      type === 'Timestamp'
+        ? setSelectState({ ...selectState, time: timeOptions.filter((o) => o.value === getTimeDiff(value.$gt))[0] })
+        : null;
+    }
   }, []);
 
   const filter = useCallback(() => {
@@ -29,9 +49,10 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
             fullWidth
             size='small'
             placeholder='select'
-            value={timeSelectState}
+            value={selectState.time}
             onChange={(_e, newValues) => {
-              setTimeSelectState(newValues);
+              //@ts-ignore
+              setSelectState({ time: newValues });
             }}
             options={timeOptions}
           />
@@ -42,9 +63,10 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
             fullWidth
             size='small'
             placeholder='select'
-            value={severitySelectState}
+            value={selectState.severity}
             onChange={(_e, newValues) => {
-              setSeveritySelectState(newValues);
+              //@ts-ignore
+              setSelectState(newValues);
             }}
             options={severityOptions}
           />
@@ -60,21 +82,15 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
           />
         );
     }
-  }, [
-    type,
-    setInputState,
-    inputState,
-    setTimeSelectState,
-    timeSelectState,
-    setSeveritySelectState,
-    severitySelectState,
-  ]);
+  }, [type, inputState, setInputState, selectState, setSelectState]);
 
-  const handleFilter = useCallback(() => {
-    getFilterType(type) === 'input'
-      ? !!inputState.trim() && setFilterValue(inputState)
-      : setFilterValue(type === 'Timestamp' ? getFilterTime(timeSelectState.value) : severitySelectState.value);
-  }, [type, setFilterValue, inputState, severitySelectState, timeSelectState]);
+  const handleFilter = useCallback(
+    () =>
+      getFilterType(type) === 'input'
+        ? !!inputState.trim() && setFilterValue(inputState)
+        : setFilterValue(type === 'Timestamp' ? getFilterTime(selectState.time.value) : selectState.severity.value),
+    [type, inputState, selectState]
+  );
 
   return (
     <div className={`${prefixCls}__filter`}>

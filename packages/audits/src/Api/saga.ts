@@ -112,28 +112,32 @@ function* filterDataFunction({ payload }: FilterDataProps) {
   yield put(actions.setFilterData(newFilters));
 }
 
-// function* exportAuditsFunction(format: string) {
-//   const { context, filters, sortBy, sortDirection, filter, headerProps } = yield select();
-//   try {
-//     const blob = yield Download(`/audits/export/${format}`, { properties: headerProps }, {
-//       sortDirection,
-//       sortBy,
-//       filter,
-//       ...filterToObject(filters),
-//       offset: 0
-//     });
+function* exportAuditsFunction(format: 'csv' | 'pdf') {
+  const { filters, sortBy, sortDirection, filter, headerProps } = yield select();
+  const f2o = filterToObject(filters);
 
-//     var newBlob = new Blob([blob], { type: `application/${format}` });
+  try {
+    const blob = yield api.audits.exportAudits({
+      format,
+      headerProps,
+      sortDirection,
+      sortBy,
+      filter,
+      ...f2o,
+      offset: 0,
+    });
 
-//     const fileURL = URL.createObjectURL(newBlob);
-//     let tempLink = document.createElement('a');
-//     tempLink.href = fileURL;
-//     tempLink.setAttribute('download', `audits.${format}`);
-//     tempLink.click();
-//   } catch (e) {
-//     logger.error('failed to export audits - ', e);
-//   }
-// }
+    var newBlob = new Blob([blob], { type: `application/${format}` });
+
+    const fileURL = URL.createObjectURL(newBlob);
+    let tempLink = document.createElement('a');
+    tempLink.href = fileURL;
+    tempLink.setAttribute('download', `audits.${format}`);
+    tempLink.click();
+  } catch (e) {
+    logger.error('failed to export audits - ', e);
+  }
+}
 
 export function* sagas() {
   yield takeLatest(actions.initData, initDataFunction);
@@ -150,6 +154,6 @@ export function* sagas() {
     ],
     loadAuditsFunction
   );
-  // yield takeEvery(exportCSV, () => exportAuditsFunction('csv'));
-  // yield takeEvery(exportPDF, () => exportAuditsFunction('pdf'));
+  yield takeLatest(actions.exportCSV, () => exportAuditsFunction('csv'));
+  yield takeLatest(actions.exportPDF, () => exportAuditsFunction('pdf'));
 }
