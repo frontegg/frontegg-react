@@ -9,7 +9,8 @@ export const FeDialog: FC<DialogProps> = (props) => {
     <Dialog
       visible={open}
       title={header}
-      onClose={onClose}
+      closable={true}
+      onClose={() => onClose?.()}
       width={600}
       prefixCls='fe-dialog'
       animation='zoom'

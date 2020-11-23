@@ -23,7 +23,7 @@ export const TeamDeleteUserDialog: FC<TeamDeleteUserDialogProps> = (props) => {
   const isOpen = !!userId && open;
 
   return (
-    <Dialog open={isOpen} size={'tiny'} header={t('auth.team.deleteDialog.title')}>
+    <Dialog open={isOpen} size={'tiny'} onClose={closeDeleteUserDialog} header={t('auth.team.deleteDialog.title')}>
       <p>{t('auth.team.deleteDialog.message', { email: isMe ? t('common.yourself') : email })}</p>
       <ErrorMessage error={error} />
 

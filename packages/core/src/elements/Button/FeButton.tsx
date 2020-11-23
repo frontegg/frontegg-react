@@ -19,6 +19,7 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
     inForm,
     asLink,
     type = 'button',
+    transparent,
     ...restProps
   } = props;
 
@@ -35,7 +36,12 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
   });
 
   return (
-    <button ref={ref} className={classNames(classes, { ['fe-icon-button']: iconButton })} type={type} {...restProps}>
+    <button
+      ref={ref}
+      className={classNames(classes, { ['fe-icon-button']: iconButton || transparent })}
+      type={type}
+      {...restProps}
+    >
       {children}
       {loading && <FeLoader size={size === 'small' ? 18 : 24} />}
     </button>
