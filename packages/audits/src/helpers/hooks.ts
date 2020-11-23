@@ -1,3 +1,4 @@
+import { AuditsActions } from './../Api/reducer';
 /* istanbul ignore file */
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
@@ -9,14 +10,11 @@ const stateMapper = (state: AuditsState) => state;
 export const useAudits = () => {
   const auditsState = useSelector((state: any) => stateMapper(state[storeName]), memoEqual);
   return {
-    ...auditsState
-  }
-}
+    ...auditsState,
+  };
+};
 
-export const useAuditsActions = () => {
+export const useAuditsActions = (): AuditsActions => {
   const dispatch = useDispatch();
-  const bindedActions = bindActionCreators(actions, dispatch);
-  return {
-    ...bindedActions
-  }
-}
+  return bindActionCreators(actions, dispatch);
+};

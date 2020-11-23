@@ -24,12 +24,7 @@ export const Audits: FC = () => {
     totalToday,
     severeThisWeek,
   } = useAudits();
-  const {
-    startLoading,
-    onPageChange,
-    setDataSorting,
-    setFilterData,
-  } = useAuditsActions()
+  const { onPageChange, setDataSorting, setFilterData } = useAuditsActions();
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
 
   const columns = useMemo(() => {
