@@ -21,7 +21,6 @@ export const loginActions = {
   requestAuthorize: createAction(`${storeName}/requestAuthorize`, (payload: boolean = false) => ({ payload })),
   preLogin: createAction(`${storeName}/preLogin`, (payload: IPreLogin) => ({ payload })),
   postLogin: createAction(`${storeName}/postLogin`, (payload: IPostLogin) => ({ payload })),
-  // postSocialLogin: createAction(`${storeName}/postSocialLogin`, (payload: IPostLogin) => ({ payload })),
   login: createAction(`${storeName}/login`, (payload: ILogin) => ({ payload })),
   loginWithMfa: createAction(`${storeName}/loginWithMfa`, (payload: WithCallback<ILoginWithMfa, boolean>) => ({
     payload,
