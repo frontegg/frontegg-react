@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Table, Popup, Icon, FeTablePagination } from '@frontegg/react-core';
+import { Table, Popup, Icon } from '@frontegg/react-core';
 import classNames from 'classnames';
 import { prefixCls } from './Audits';
 import { AuditsTableIpCell } from './AuditsTableIpCell';
@@ -58,16 +58,6 @@ export const AuditsTableJson: FC<AuditsTableJsonProps> = ({ json }) => {
               </span>
             )
           )}
-          <FeTablePagination
-            pageIndex={1}
-            pageCount={4}
-            pageOptions={[1, 2, 3, 4]}
-            canPreviousPage
-            canNextPage
-            gotoPage={() => console.log('gotopage')}
-            previousPage={() => console.log('prevPage')}
-            nextPage={() => console.log('nexPage')}
-          />
         </div>
       }
     />
