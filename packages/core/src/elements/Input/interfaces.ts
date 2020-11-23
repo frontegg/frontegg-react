@@ -6,7 +6,7 @@ import { ButtonProps } from '../Button';
 export type InputType = 'text' | 'password' | 'search' | 'file' | 'email';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>, FormFieldProps {
-  label?: string;
+  label?: JSX.Element | string;
   type?: InputType;
   variant?: Theme;
   labelButton?: ButtonProps;

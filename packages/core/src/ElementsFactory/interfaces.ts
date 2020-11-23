@@ -3,6 +3,7 @@ import { Size } from '../styles';
 import { GridProps } from '../elements/Grid';
 import { ButtonProps } from '../elements/Button';
 import { InputProps } from '../elements/Input';
+import { IInputChip } from '../elements/InputChip';
 import { IconProps } from '../elements/Icon';
 import { PopupProps } from '../elements/Popup';
 import { LoaderProps } from '../elements/Loader';
@@ -33,6 +34,7 @@ export type ElementProps = {
   Button: ComponentTypeOrForwardRef<ButtonProps, HTMLButtonElement>;
   Tag: ComponentType<TagProps>;
   Input: ComponentType<InputProps>;
+  InputChip: ComponentType<IInputChip>;
   Form: ComponentType<FormProps>;
   Loader: ComponentType<LoaderProps>;
   SwitchToggle: ComponentType<SwitchToggleProps>;

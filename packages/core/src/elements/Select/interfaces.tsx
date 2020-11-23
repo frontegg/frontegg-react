@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, FocusEventHandler } from 'react';
 import { Size, Theme } from '../../styles';
 import { FormFieldProps } from '../../ElementsFactory';
 
@@ -32,6 +32,7 @@ export interface SelectProps<T = any> extends FormFieldProps {
   open?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
+  onBlur?: FocusEventHandler<HTMLElement & { name?: string }>;
 
   noOptionsText?: string;
   loadingText?: string;

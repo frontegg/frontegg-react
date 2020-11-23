@@ -40,6 +40,10 @@ export type AuthPageRoutes = {
      * the url to reach the idp redirect after successful SAML response
      */
     samlCallbackUrl?: string;
+    /**
+     * the url to reach the idp redirect after successful SAML response
+     */
+    socialLoginCallbackUrl?: string;
   };
 };
 
@@ -51,6 +55,7 @@ export interface PerPageHeader {
   activateAccount?: ReactNode;
   acceptInvitation?: ReactNode;
   loginWithSSO?: ReactNode;
+  socialLoginsSuccess?: ReactNode;
 }
 
 export type HeaderProps = { header?: ReactNode; headerImg?: string };
@@ -63,6 +68,7 @@ export interface PerPageProps {
   activateAccount?: ActivateAccountProps & HeaderProps;
   acceptInvitation?: AcceptInvitationProps & HeaderProps;
   loginWithSSO?: LoginWithSSOProps & HeaderProps;
+  socialLoginsSuccess?: HeaderProps;
 }
 
 export type PageComponentProps = HeaderProps & {

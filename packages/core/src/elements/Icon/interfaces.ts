@@ -3,11 +3,6 @@ import { Size } from '../../styles';
 
 export type IconNames =
   | 'back'
-  | 'up-arrow'
-  | 'down-arrow'
-  | 'left-arrow'
-  | 'right-arrow'
-  | 'indeterminate'
   | 'checkmark'
   | 'copy'
   | 'search'
@@ -17,17 +12,27 @@ export type IconNames =
   | 'flash'
   | 'image'
   | 'delete'
-  | 'visibility'
-  | 'visibility-off'
+  | 'down-arrow'
+  | 'edit'
   | 'filters'
-  | 'sort-arrows'
+  | 'image'
+  | 'indeterminate'
+  | 'left-arrow'
+  | 'person-add'
+  | 'right-arrow'
+  | 'search'
+  | 'send'
   | 'sort-arrows-asc'
   | 'sort-arrows-desc'
-  | 'person-add'
+  | 'sort-arrows'
+  | 'up-arrow'
   | 'vertical-dots'
   | 'send'
   | 'pdf'
-  | 'csv';
+  | 'csv'
+  | 'visibility-off'
+  | 'visibility'
+  | 'warning';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

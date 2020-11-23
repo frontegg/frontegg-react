@@ -96,3 +96,24 @@ export type ISamlVendorMetadata = {
 export type IUpdateSamlVendorMetadata = {
   metadata: string;
 };
+
+export enum SocialLoginsProviders {
+  Google = 'google',
+  Github = 'github',
+}
+
+export interface ISocialLoginProviderConfiguration {
+  type: SocialLoginsProviders;
+  clientId: string;
+  redirectUrl: string;
+  active: boolean;
+}
+
+export interface ILoginViaSocialLogin {
+  code: string;
+  provider: SocialLoginsProviders;
+}
+
+export interface ISetSocialLoginError {
+  error: string;
+}

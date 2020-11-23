@@ -164,6 +164,10 @@
   }
 }
 
+.fe-search {
+  margin-bottom: var(--element-padding-lg);
+}
+
 @media screen and (max-width: 600px) {
   .fe-input__inline {
     width: 100% !important;

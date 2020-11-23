@@ -32,6 +32,7 @@ export const Select: FC<SelectProps> = (props) => {
     onChange,
     options,
     onOpen,
+    onBlur,
     onClose,
     multiple,
     fullWidth,
@@ -66,6 +67,7 @@ export const Select: FC<SelectProps> = (props) => {
 
   return (
     <Autocomplete
+      {...p}
       className={classNames({ [styles.inForm]: props.inForm })}
       multiple={multiple ?? false}
       options={options}
@@ -89,6 +91,7 @@ export const Select: FC<SelectProps> = (props) => {
       renderInput={(params) => (
         <TextField
           {...params}
+          name={props.name}
           label={props.label}
           fullWidth={fullWidth ?? true}
           style={{ minWidth: `${fullWidth ? '100%' : '14em'}` }}

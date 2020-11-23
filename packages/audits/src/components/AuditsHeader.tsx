@@ -8,7 +8,7 @@ import { prefixCls } from './Audits';
 
 export const AuditsHeader: FC = () => {
   const { lastUpdated, isLoading, totalToday, severeThisWeek } = useAudits();
-  const { startLoading } = useAuditsActions()
+  const { startLoading } = useAuditsActions();
   const [_, forceUpdate] = useState();
   useEffect(() => {
     const intervalId = setInterval(() => forceUpdate(undefined), 30000);

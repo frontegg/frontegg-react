@@ -5,8 +5,9 @@ import { api, ContextHolder, ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IReco
 import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';
+import { loadSocialLoginsConfigurations } from '../SocialLogins/saga';
 
-function* afterAuthNavigation() {
+export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
   let { authenticatedUrl } = routes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
@@ -32,7 +33,7 @@ function* refreshMetadata() {
   yield put(actions.setState({ isSSOAuth, ssoACS }));
 }
 
-function* refreshToken() {
+export function* refreshToken() {
   try {
     const { routes, onRedirectTo } = yield select((state) => state.auth);
     const user = yield call(api.auth.refreshToken);
@@ -75,6 +76,7 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   if (firstTime) {
     yield put(actions.setState({ isLoading: true }));
     calls.push(call(refreshMetadata));
+    calls.push(call(loadSocialLoginsConfigurations));
   }
   yield all(calls);
   yield put(actions.setState({ isLoading: false }));

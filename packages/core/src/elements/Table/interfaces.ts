@@ -89,7 +89,7 @@ export interface TableColumnProps<T extends object = any> {
    * Defaults to ({ value }) => String(value)
    * Must return valid JSX
    */
-  Cell?: CellComponent;
+  Cell?: CellComponent<T>;
 
   sortable?: boolean;
   Filter?: FilterComponent;

@@ -34,6 +34,11 @@
     border-radius: var(--element-border-radius-sm);
   }
 
+  &-transparent {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
   &-loader {
     color: transparent !important;
     text-shadow: none !important;

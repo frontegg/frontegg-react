@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.7.0) (2020-11-22)
+
+
+### Features
+
+* resolve saga actions outside fronteggprovider ([7878beb](https://github.com/frontegg/frontegg-react/commit/7878bebf49b5131fcdf16bbd21c1bcab03c2d1ae))
+
+
+
+
+
 ## [1.6.2](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.6.2) (2020-11-19)
 
 **Note:** Version bump only for package @frontegg/react-auth

@@ -1,0 +1,142 @@
+.fe-integrations-context {
+  .fe-input {
+    &__inner {
+      border-radius: var(--element-border-radius);
+      border-color: var(--color-gray-1);
+      background-color: var(--color-gray-1);
+    }
+  }
+  .fe-search {
+    .fe-input {
+      &__inner {
+        padding: 0 var(--element-padding) 0 1.5rem;
+        position: relative;
+        &:before {
+          color: var(--color-gray-4);
+          position: absolute;
+          top: 50%;
+          font-size: 1.25rem;
+          line-height: 1rem;
+          left: 0.5rem;
+          margin-top: -0.5rem;
+          content: '\260C';
+          transform: rotate(100deg);
+        }
+      }
+    }
+  }
+  .fe-table {
+    &__thead-tr-th {
+      font-weight: bold;
+      &:first-child {
+        flex: 0 0 268px !important;
+        width: 268px !important;
+
+        + div {
+          justify-content: center;
+          .fe-table__spacer {
+            flex: 0;
+          }
+        }
+      }
+    }
+    &__tbody {
+      overflow-y: hidden;
+    }
+    &__tr-td {
+      &:first-child {
+        flex: 0 0 268px !important;
+        width: 268px !important;
+        + div {
+          justify-content: center;
+        }
+
+        .fe-button {
+          background-color: transparent;
+          font-weight: bold;
+          color: #3c4a5a;
+          font-size: 1.125rem;
+          &:hover {
+            background-color: lighten(#eaeaeb, 6);
+          }
+          &.fe-integrations-active {
+            background-color: #eaeaeb;
+          }
+        }
+      }
+    }
+    .fe-circle {
+      display: inline-block;
+      background-color: #f3f5f9;
+      border-radius: 50%;
+      min-width: 3rem;
+      padding: 0 8px;
+      height: 3rem;
+      line-height: 3rem;
+      text-align: center;
+    }
+  }
+  .fe-integrations-panel-shown {
+    display: flex;
+
+    .fe-table__container {
+      flex: 0 0 268px;
+      width: 268px;
+      overflow: visible;
+
+      .fe-table {
+        min-width: 268px !important;
+        &__thead {
+          &-tr-th {
+            display: none;
+            &:first-child {
+              display: flex;
+              flex: 0 0 100%;
+              width: 100%;
+            }
+          }
+        }
+        &__tr-td {
+          display: none;
+          &:first-child {
+            display: flex;
+            flex: 0 0 100%;
+            width: 100%;
+          }
+        }
+      }
+    }
+    .fe-integrations-panel {
+      .fe-table__container {
+        float: 0 1 100%;
+        width: auto;
+      }
+      .fe-table {
+        overflow: visible;
+        &__thead {
+          &-tr-th {
+            display: flex;
+            justify-content: flex-start;
+            color: #99a6b9;
+            &:first-child {
+              flex: 150 0 auto !important;
+              width: 150px !important;
+              color: var(--fe-table-header-font-color);
+            }
+          }
+        }
+        &__tr-td {
+          display: flex;
+          justify-content: flex-start;
+          &:first-child {
+            flex: 150 0 auto !important;
+            width: 150px !important;
+          }
+        }
+        &__tbody {
+          overflow: visible;
+        }
+      }
+    }
+  }
+}

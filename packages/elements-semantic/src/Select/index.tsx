@@ -9,6 +9,7 @@ const mapper = ({
   onChange,
   error,
   value,
+  onBlur,
   ...rest
 }: SelectProps): DropdownProps => {
   const semanticOptions = options.map((o: SelectOptionProps<string>) => ({
@@ -38,6 +39,7 @@ export const Select = (props: SelectProps) => {
     open: openProps,
     onClose,
     fullWidth,
+    onBlur,
     value,
     onChange,
     options: propsOptions,
@@ -83,11 +85,13 @@ export const Select = (props: SelectProps) => {
 
   return (
     <Dropdown
+      {...p}
       search
       selection
       value={preparedValue}
       fluid={fullWidth ?? true}
       open={openProps ?? open}
+      onBlur={(e, data) => onBlur?.({ ...e, target: { ...e.target, name: data.name } } as any)}
       options={options}
       loading={loading}
       onOpen={() => (onOpen ? onOpen() : setOpen(true))}
