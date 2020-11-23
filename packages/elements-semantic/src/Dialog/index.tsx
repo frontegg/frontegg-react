@@ -21,7 +21,7 @@ export const Dialog: FC<DialogProps> = (props) => {
   const modalProps = dialogPropsMapper(props);
   return (
     <Modal {...modalProps}>
-      <Modal.Header className='fe-dialog__header'>{props.header}</Modal.Header>
+      {props.header && <Modal.Header className='fe-dialog__header'>{props.header}</Modal.Header>}
       <Modal.Content className='fe-dialog__content'>{props.children}</Modal.Content>
     </Modal>
   );

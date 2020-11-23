@@ -2,7 +2,15 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Dropdown, DropdownProps, Flag, Image } from 'semantic-ui-react';
 import { SelectProps, SelectOptionProps, useT } from '@frontegg/react-core';
 
-const mapper = ({ multiselect, options, getOptionLabel, onChange, error, ...rest }: SelectProps): DropdownProps => {
+const mapper = ({
+  multiselect,
+  options,
+  getOptionLabel,
+  onChange,
+  error,
+  onBlur,
+  ...rest
+}: SelectProps): DropdownProps => {
   const semanticOptions = options.map((o: SelectOptionProps<string>) => ({
     value: o.value,
     text: o.label,
@@ -30,6 +38,7 @@ export const Select = (props: SelectProps) => {
     open: openProps,
     onClose,
     fullWidth,
+    onBlur,
     value,
     onChange,
     options: propsOptions,
@@ -75,11 +84,13 @@ export const Select = (props: SelectProps) => {
 
   return (
     <Dropdown
+      {...p}
       search
       selection
       value={preparedValue}
       fluid={fullWidth ?? true}
       open={openProps ?? open}
+      onBlur={(e, data) => onBlur?.({ ...e, target: { ...e.target, name: data.name } } as any)}
       options={options}
       loading={loading}
       onOpen={() => (onOpen ? onOpen() : setOpen(true))}

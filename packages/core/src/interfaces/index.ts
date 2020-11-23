@@ -101,3 +101,7 @@ export interface ContextOptions {
   currentUserPermissions?: string[];
   urlPrefix?: string;
 }
+
+export interface ListenerProps<T> {
+  resolveActions?: (storeName: string, actions: T) => void;
+}

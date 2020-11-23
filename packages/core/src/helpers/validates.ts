@@ -56,6 +56,14 @@ export const validateArrayLength = (t: TFunction, name: string) =>
 
 export const validateSchema = (props: any) => Yup.object(props);
 
+export const validationPhone = (t: TFunction) =>
+  Yup.string()
+    .matches(
+      /^(?!\b(0)\1+\b)(\+?\d{1,3}[. -]?)?\(?\d{3}\)?([. -]?)\d{3}\3\d{4}$/,
+      t('validation.invalid-phone', 'Invalid phone number')
+    )
+    .required(t('validation.required-field', { name: 'phone' }));
+
 export const validateSchemaSync = (props: any, values: any) =>
   new Promise((resolve) => {
     validateSchema(props)
