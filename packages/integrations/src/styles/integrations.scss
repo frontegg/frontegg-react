@@ -1,7 +1,6 @@
 .fe-integrations-context {
   .fe-input {
     &__inner {
-      width: 268px;
       border-radius: var(--element-border-radius);
       border-color: var(--color-gray-1);
       background-color: var(--color-gray-1);
@@ -10,6 +9,7 @@
   .fe-search {
     .fe-input {
       &__inner {
+        width: 268px;
         padding: 0 var(--element-padding) 0 1.5rem;
         position: relative;
         &:before {
