@@ -1,14 +1,18 @@
 import React, { FC, useRef } from 'react';
+import classNames from 'classnames';
 import { IInputChip } from './interfaces';
 import { FeGrid } from '../Grid/FeGrid';
 import { FeChip } from '../Chip/FeChip';
 import './FeInputChip.scss';
 
-export const FeInputChip: FC<IInputChip> = ({ chips, label, inputValue, onDelete, ...inputProps }) => {
+export const FeInputChip: FC<IInputChip> = ({ chips, label, inputValue, onDelete, fullWidth, ...inputProps }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className='fe-input fe-inputChip' onClick={() => inputRef.current && inputRef.current.focus()}>
+    <div
+      className={classNames('fe-input fe-inputChip', { 'fe-input-full-width': fullWidth })}
+      onClick={() => inputRef.current && inputRef.current.focus()}
+    >
       {!!label && <div>{label}</div>}
       <FeGrid container className='fe-input__inner'>
         {chips.map((val, idx) => (
