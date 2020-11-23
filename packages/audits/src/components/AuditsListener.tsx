@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react';
-import { useAudits } from '../helpers/hooks';
+import { useAuditsActions } from '../helpers/hooks';
 
 export const AuditsListener: FC = () => {
-  const { initData } = useAudits();
+  const { initData } = useAuditsActions();
   useEffect(() => {
     initData();
   }, []);

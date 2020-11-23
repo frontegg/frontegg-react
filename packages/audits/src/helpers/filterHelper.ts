@@ -22,10 +22,10 @@ export const getFilterTime = (time: TimeValues) => {
       value = moment().utc().subtract(7, 'days').toISOString();
       break;
     case 'last_month':
-      value = moment().utc().subtract(30, 'days').toISOString();
+      value = moment().utc().subtract(1, 'months').toISOString();
       break;
     case 'last_year':
-      value = moment().utc().subtract(365, 'days').toISOString();
+      value = moment().utc().subtract(1, 'years').toISOString();
       break;
     default:
       value = moment().utc().toISOString();

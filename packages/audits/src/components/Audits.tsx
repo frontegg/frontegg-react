@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { Grid, Input, Loader, Table, TableColumnProps } from '@frontegg/react-core';
-import { useAudits } from '../helpers/hooks';
+import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { defaultItemsPerPage } from '../Api';
 import { AuditRowData } from '@frontegg/rest-api';
 import { renderExpandedComponent } from './renderExpandedComponent';
@@ -17,17 +17,19 @@ export const Audits: FC = () => {
     isLoading,
     error,
     headerProps,
-    startLoading,
     lastUpdated,
     rowsData,
     filters,
     total,
-    onPageChange,
     totalToday,
     severeThisWeek,
+  } = useAudits();
+  const {
+    startLoading,
+    onPageChange,
     setDataSorting,
     setFilterData,
-  } = useAudits();
+  } = useAuditsActions()
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
 
   const columns = useMemo(() => {

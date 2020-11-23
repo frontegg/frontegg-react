@@ -41,7 +41,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
     isAllRowsSelected,
   } = props;
   const classes = useStyles();
-  console.log(headerGroups, 'headerGroups');
+
   return (
     <MaterialTableHead className={classes.head}>
       {headerGroups.map((headerGroup) => (

@@ -22,13 +22,13 @@ export const AuditsSubHeader: FC = () => {
         text: <div onClick={() => exportCSV()}>Download Csv</div>,
       },
     ],
-    [exportPDF, exportCSV]
+    [exportPDF, exportCSV],
   );
 
   useEffect(() => {
-    if (!!search.trim()) {
-      setFilterData([...filters.filter((f) => f.key !== 'filter'), { key: 'filter', value: search }]);
-    }
+    !!search.trim()
+      ? setFilterData([...filters.filter((f) => f.key !== 'filter'), { key: 'filter', value: search }])
+      : setFilterData([...filters.filter((f) => f.key !== 'filter')]);
   }, [searchValue]);
 
   return (
@@ -62,8 +62,7 @@ export const AuditsSubHeader: FC = () => {
               transparent
               size='small'
               className={`${prefixCls}__subHeader-clearAll`}
-              onClick={() => setFilterData(filters.filter((f) => f.key === 'filter'))}
-            >
+              onClick={() => setFilterData(filters.filter((f) => f.key === 'filter'))}>
               clear all
             </Button>
           )}
