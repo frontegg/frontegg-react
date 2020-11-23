@@ -1,20 +1,23 @@
+import React, { FC, useCallback, useMemo, useState } from 'react';
+import classnames from 'classnames';
 import {
-  FFormik,
-  FInput,
-  FInputChip,
-  FormikAutoSave,
-  Loader,
-  NotFound,
+  Icon,
+  useT,
   Table,
-  TableColumnProps,
+  Button,
+  FInput,
+  Loader,
+  FFormik,
+  NotFound,
+  FInputChip,
   useDispatch,
   useSelector,
-  useT,
+  FormikAutoSave,
+  TableColumnProps,
 } from '@frontegg/react-core';
-import React, { FC, useCallback, useMemo } from 'react';
+import { IEmailSMSConfigResponse, IEmailSMSSubscriptionResponse } from '@frontegg/rest-api';
 import { integrationsActions } from '../../reducer';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
-import { IEmailSMSConfigResponse, IEmailSMSSubscriptionResponse } from '@frontegg/rest-api';
 import { filterCategories } from '../../utils';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 
@@ -39,6 +42,8 @@ interface IIntegrationsForm extends IIntegrationsComponent {
 export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
   const { t } = useT();
   const dispatch = useDispatch();
+
+  const [opens, setOpens] = useState<number[]>([]);
 
   const { categories, channelMap, data, isSaving, isLoading } = useSelector(
     ({ integrations: { isLoading, isSaving, categories, channelMap, ...integrations } }: IPluginState) => ({
@@ -130,7 +135,19 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
           [
             {
               accessor: 'displayName',
-              Header: name,
+              Header: () => (
+                <Button
+                  transparent
+                  iconButton
+                  className='fe-integrations-accordion-button'
+                  onClick={() => {
+                    setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                  }}
+                >
+                  <Icon name={opens.includes(idx) ? 'down-arrow' : 'right-arrow'} />
+                  {name}
+                </Button>
+              ),
             },
             {
               accessor: 'enabled',
@@ -146,7 +163,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
                   index,
                   original: { enabled },
                 },
-              }) => <FInputChip disabled={!enabled} name={`data[${idx}].events[${index}].recipients`} />,
+              }) => <FInputChip disabled={!enabled} name={`data[${idx}].events[${index}].recipients`} fullWidth />,
             },
             // {
             //   accessor: 'non',
@@ -157,7 +174,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
             // },
           ] as TableColumnProps<IEventData>[]
       ),
-    [tablesData, t]
+    [tablesData, t, opens]
   );
 
   const saveData = useCallback(
@@ -199,7 +216,14 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {(tablesData || []).map(({ id, events }, idx) => (
-          <Table rowKey='id' key={id} columns={columns[idx]} data={events || []} totalData={events?.length || 0} />
+          <Table
+            rowKey='id'
+            key={id}
+            columns={columns[idx]}
+            data={events || []}
+            totalData={events?.length || 0}
+            className={classnames('fe-integrations-table-accordion', { 'fe-integrations-open': opens.includes(idx) })}
+          />
         ))}
       </FFormik.Form>
     </FFormik.Formik>

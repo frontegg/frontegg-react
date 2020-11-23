@@ -1,9 +1,12 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import classnames from 'classnames';
 import {
   useT,
+  Icon,
   Table,
   FInput,
   Loader,
+  Button,
   FFormik,
   useDispatch,
   useSelector,
@@ -34,6 +37,8 @@ interface IEventData {
 export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   const { t } = useT();
   const dispatch = useDispatch();
+  const [opens, setOpens] = useState<number[]>([]);
+
   const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
     ({
       integrations: {
@@ -87,7 +92,19 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
           [
             {
               accessor: 'displayName',
-              Header: name,
+              Header: () => (
+                <Button
+                  transparent
+                  iconButton
+                  className='fe-integrations-accordion-button'
+                  onClick={() => {
+                    setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                  }}
+                >
+                  <Icon name={opens.includes(idx) ? 'down-arrow' : 'right-arrow'} />
+                  {name}
+                </Button>
+              ),
             },
             {
               accessor: 'isActive',
@@ -119,7 +136,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             },
           ] as TableColumnProps<IEventData>[]
       ),
-    [tablesData, t]
+    [tablesData, t, opens]
   );
 
   useEffect(() => {
@@ -171,7 +188,14 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {(tablesData || []).map(({ id, events }, idx) => (
-          <Table rowKey='eventId' key={id} columns={columns[idx]} data={events || []} totalData={events?.length || 0} />
+          <Table
+            rowKey='eventId'
+            key={id}
+            columns={columns[idx]}
+            data={events || []}
+            totalData={events?.length || 0}
+            className={classnames('fe-integrations-table-accordion', { 'fe-integrations-open': opens.includes(idx) })}
+          />
         ))}
       </FFormik.Form>
     </FFormik.Formik>
