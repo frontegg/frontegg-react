@@ -9,6 +9,7 @@ import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
+import { SocialLoginsSuccess, SocialLoginsSuccessPageComponent } from '../SocialLogins';
 
 const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
   routes,
@@ -61,38 +62,44 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
   const computedPerPageProps = {
     loginProps: {
       ...perPageProps?.login,
-      header: perPageProps?.login ?? pageHeader?.login ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.login ?? headerImg,
+      header: perPageProps?.login?.header ?? pageHeader?.login ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.login?.headerImg ?? headerImg,
     },
     logoutProps: {
       ...perPageProps?.logout,
-      header: perPageProps?.logout ?? pageHeader?.logout ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.logout ?? headerImg,
+      header: perPageProps?.logout?.header ?? pageHeader?.logout ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.logout?.headerImg ?? headerImg,
     },
     forgotPasswordProps: {
       ...perPageProps?.forgotPassword,
-      header: perPageProps?.forgotPassword ?? pageHeader?.forgotPassword ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.forgotPassword ?? headerImg,
+      header: perPageProps?.forgotPassword?.header ?? pageHeader?.forgotPassword ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.forgotPassword?.headerImg ?? headerImg,
     },
     resetPasswordProps: {
       ...perPageProps?.resetPassword,
-      header: perPageProps?.resetPassword ?? pageHeader?.resetPassword ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.resetPassword ?? headerImg,
+      header: perPageProps?.resetPassword?.header ?? pageHeader?.resetPassword ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.resetPassword?.headerImg ?? headerImg,
     },
     activateAccountProps: {
       ...perPageProps?.activateAccount,
-      header: perPageProps?.activateAccount ?? pageHeader?.activateAccount ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.activateAccount ?? headerImg,
+      header: perPageProps?.activateAccount?.header ?? pageHeader?.activateAccount ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.activateAccount?.headerImg ?? headerImg,
     },
     acceptInvitationProps: {
       ...perPageProps?.acceptInvitation,
-      header: perPageProps?.acceptInvitation ?? pageHeader?.acceptInvitation ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.acceptInvitation ?? headerImg,
+      header: perPageProps?.acceptInvitation?.header ?? pageHeader?.acceptInvitation ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.acceptInvitation?.headerImg ?? headerImg,
     },
     loginWithSSOProps: {
       ...perPageProps?.loginWithSSO,
-      header: perPageProps?.loginWithSSO ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
-      headerImg: perPageProps?.loginWithSSO ?? headerImg,
+      header: perPageProps?.loginWithSSO?.header ?? pageHeader?.loginWithSSO ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.loginWithSSO?.headerImg ?? headerImg,
+    },
+    socialLoginsSuccessProps: {
+      ...perPageProps?.socialLoginsSuccess,
+      header:
+        perPageProps?.socialLoginsSuccess?.header ?? pageHeader?.socialLoginsSuccess ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.socialLoginsSuccess?.headerImg ?? headerImg,
     },
   };
 
@@ -142,6 +149,13 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       defaultComponent: AcceptInvitationPage,
       standaloneComponent: AcceptInvitation,
       props: computedPerPageProps.acceptInvitationProps,
+    },
+    {
+      id: 'socialLoginCallback',
+      path: routes.socialLoginCallbackUrl,
+      defaultComponent: SocialLoginsSuccessPageComponent,
+      standaloneComponent: SocialLoginsSuccess,
+      props: computedPerPageProps.socialLoginsSuccessProps,
     },
     ...(samlCallbackPath
       ? [
