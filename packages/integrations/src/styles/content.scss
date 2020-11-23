@@ -12,7 +12,6 @@
 
   &-platform {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin: calc(-1 * var(--fe-table-cell-padding));
     height: auto;
@@ -27,7 +26,24 @@
       height: 1.3rem;
       width: 1.3rem;
     }
+
+    &-icon {
+      margin: 1rem 2rem 1rem 0;
+      background-color: #f7f8fa;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.6rem;
+      height: 4.6rem;
+      border-radius: 50%;
+    }
+
+    &-title {
+      flex-grow: 1;
+      text-align: left;
+    }
   }
+
   &-button {
     text-transform: uppercase;
     width: 8rem;
