@@ -119,6 +119,7 @@ build: ##@4 Build build all packages
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
 	${MAKE} build-auth
+	${MAKE} build-integrations
 	${MAKE} build-notifications
 
 build-%: ##@4 Build build a specific package
@@ -168,3 +169,5 @@ commit:
 pretty:
 	@yarn prettier-hook
 
+demo:
+	cd ./packages/demo-saas && yarn start

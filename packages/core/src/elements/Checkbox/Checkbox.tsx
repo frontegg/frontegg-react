@@ -8,8 +8,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref)
 );
 
 export const FCheckbox = forwardRef<HTMLInputElement, CheckboxProps & { name: string }>((props, ref) => {
-  const [inputProps, { touched, error }] = useField(props.name);
+  const [inputProps, { touched, error }, { setValue }] = useField(props.name);
   const { onChange } = props;
+
   return (
     <Checkbox
       ref={ref}
@@ -19,7 +20,8 @@ export const FCheckbox = forwardRef<HTMLInputElement, CheckboxProps & { name: st
       fullWidth={props.fullWidth ?? true}
       onChange={(e) => {
         onChange?.(e);
-        inputProps.onChange(e);
+        // inputProps.onChange(e);
+        setValue(inputProps.value === undefined ? true : inputProps.value === true ? false : true);
       }}
       error={touched && error ? error : undefined}
     />

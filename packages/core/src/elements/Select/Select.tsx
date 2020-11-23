@@ -16,6 +16,7 @@ export const FSelect = (props: SelectProps & { name: string }) => {
       inForm
       name={name}
       value={inputProps.value}
+      onBlur={inputProps.onBlur}
       disabled={isSubmitting || props.disabled}
       fullWidth={props.fullWidth ?? true}
       onChange={(e, newValues) => {

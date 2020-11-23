@@ -19,6 +19,7 @@ import { FeForm } from '../elements/Form/FeForm';
 import { FeTabs } from '../elements/Tabs/FeTabs';
 import { FeMenu } from '../elements/Menu/FeMenu';
 import { FeDialog } from '../elements/Dialog/FeDialog';
+import { FeInputChip } from '../elements/InputChip/FeInputChip';
 
 export const fronteggElements: Partial<Elements> = {
   Accordion: FeAccordion,
@@ -28,6 +29,7 @@ export const fronteggElements: Partial<Elements> = {
   Tag: FeTag,
   Button: FeButton,
   Input: FeInput,
+  InputChip: FeInputChip,
   Grid: FeGrid,
   Icon: FeIcon,
   Popup: FePopup,

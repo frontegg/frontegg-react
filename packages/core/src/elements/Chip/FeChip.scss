@@ -1,0 +1,23 @@
+.fe-chip {
+  display: inline-flex;
+  background-color: var(--color-primary-light);
+  height: var(--element-height-sm);
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  border-radius: var(--element-height-sm);
+
+  & > *:nth-child(1) {
+    margin-left: var(--element-spacing);
+  }
+
+  & > *:nth-last-child(1) {
+    margin-right: var(--element-spacing);
+  }
+
+  &-delete {
+    padding: 0;
+    margin-left: var(--element-spacing);
+  }
+}

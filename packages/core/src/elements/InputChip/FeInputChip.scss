@@ -1,0 +1,9 @@
+.fe-inputChip {
+  .fe-chip {
+    margin-right: var(--element-spacing);
+  }
+  .fe-input__inner {
+    height: auto;
+    min-height: var(--element-height);
+  }
+}

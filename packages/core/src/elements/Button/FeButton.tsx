@@ -38,7 +38,7 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
   return (
     <button
       ref={ref}
-      className={classNames(classes, { ['fe-icon-button']: iconButton || transparent })}
+      className={classNames(classes, { ['fe-icon-button']: iconButton, ['fe-button-transparent']: transparent })}
       type={type}
       {...restProps}
     >

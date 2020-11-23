@@ -4,6 +4,7 @@ import * as metadata from './metadata';
 import * as reports from './reports';
 import * as notifications from './notifications';
 import * as fetch from './fetch';
+import * as integrations from './integrations';
 
 import { ContextHolder, FronteggContext } from './ContextHolder';
 
@@ -12,6 +13,7 @@ export * from './auth/interfaces';
 export * from './teams/interfaces';
 export * from './metadata/interfaces';
 export * from './reports/interfaces';
+export * from './integrations/interfaces';
 export * from './notifications/interfaces';
 
 const api = {
@@ -19,6 +21,7 @@ const api = {
   teams,
   metadata,
   reports,
+  integrations,
   notifications,
 };
 
