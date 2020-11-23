@@ -170,7 +170,6 @@
     border-bottom: none;
 
     &.is-expanded {
-      padding: 2rem 2rem 2rem 5rem;
       border-bottom: var(--fe-table-row-divider-width) solid var(--fe-table-row-divider-color);
       opacity: 1;
       max-height: 400px;

@@ -50,6 +50,7 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
             size='small'
             placeholder='select'
             value={selectState.time}
+            disableMenuPortalTarget
             onChange={(_e, newValues) => {
               //@ts-ignore
               setSelectState({ time: newValues });
@@ -64,6 +65,7 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
             size='small'
             placeholder='select'
             value={selectState.severity}
+            disableMenuPortalTarget
             onChange={(_e, newValues) => {
               //@ts-ignore
               setSelectState(newValues);

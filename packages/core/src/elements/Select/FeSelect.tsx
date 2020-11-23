@@ -25,6 +25,7 @@ export const FeSelect = (props: SelectProps) => {
     renderOption,
     fullWidth,
     onBlur,
+    disableMenuPortalTarget,
   } = props;
 
   const getState = useCallback(
@@ -82,7 +83,7 @@ export const FeSelect = (props: SelectProps) => {
       width={fullWidth ? '100%' : 'max-content'}
       components={renderOption ? { MultiValueLabel } : {}}
       options={options}
-      menuPortalTarget={document.body}
+      menuPortalTarget={disableMenuPortalTarget ? undefined : document.body}
       isLoading={loading ?? false}
       {...(multiselect && { closeMenuOnSelect: false })}
       onBlur={(e) => {

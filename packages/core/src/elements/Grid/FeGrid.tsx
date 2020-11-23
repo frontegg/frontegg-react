@@ -35,7 +35,7 @@ export const FeGrid = forwardRef<HTMLDivElement, GridProps>((props, ref) => {
           [`fe-wrap-xs-${String(wrap)}`]: wrap !== 'wrap',
           [`fe-align-items-xs-${String(alignItems)}`]: alignItems !== 'stretch',
           [`fe-align-content-xs-${String(alignContent)}`]: alignContent !== 'stretch',
-          [`fe-justify-xs-${String(justifyContent)}`]: justifyContent !== 'flex-start',
+          [`fe-justify-content-xs-${String(justifyContent)}`]: justifyContent !== 'flex-start',
           [`fe-grid-xs-${String(xs)}`]: xs,
           [`fe-grid-sm-${String(sm)}`]: sm,
           [`fe-grid-md-${String(md)}`]: md,

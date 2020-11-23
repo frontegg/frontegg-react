@@ -28,7 +28,6 @@ export interface SelectProps<T = any> extends FormFieldProps {
   loading?: boolean;
   getOptionLabel?: (option: SelectOptionProps<T>) => string;
   renderOption?: (option: SelectOptionProps<T>, state: StateProps) => ReactNode;
-
   open?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
@@ -38,4 +37,6 @@ export interface SelectProps<T = any> extends FormFieldProps {
   loadingText?: string;
 
   theme?: Theme;
+
+  disableMenuPortalTarget?: boolean;
 }
