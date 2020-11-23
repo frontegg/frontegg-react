@@ -140,4 +140,25 @@
       }
     }
   }
+  .fe-integrations-table-accordion {
+    .fe-table__tbody {
+      display: none;
+      margin-bottom: var(--element-padding-lg);
+    }
+    &.fe-integrations-open .fe-table__tbody {
+      display: block;
+    }
+
+    .fe-integrations-accordion-button {
+      padding: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      text-transform: inherit;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
 }
