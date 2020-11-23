@@ -17,9 +17,9 @@ export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) 
     fullWidth,
     isCancel,
     inForm,
-    transparent,
     asLink,
     type = 'button',
+    transparent,
     ...restProps
   } = props;
 
