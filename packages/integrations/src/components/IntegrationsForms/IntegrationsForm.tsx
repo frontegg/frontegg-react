@@ -5,7 +5,6 @@ import {
   useT,
   Table,
   Button,
-  FInput,
   Loader,
   FFormik,
   NotFound,
@@ -65,9 +64,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
         const { events = [] } = data;
         return {
           events: events.map(({ enabled, recipients }) => {
-            if (enabled && !recipients.length) {
-              return { recipients: t('integration.recipients.required') };
-            } else if (
+            if (
               enabled &&
               recipients
                 .filter((e) => !!e)
