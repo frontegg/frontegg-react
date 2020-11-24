@@ -21,7 +21,7 @@ import { FeMenu } from '../elements/Menu/FeMenu';
 import { FeDialog } from '../elements/Dialog/FeDialog';
 import { FeInputChip } from '../elements/InputChip/FeInputChip';
 
-export const fronteggElements: Partial<Elements> = {
+export const fronteggElements: Elements = {
   Accordion: FeAccordion,
   AccordionHeader: FeAccordionHeader,
   AccordionContent: FeAccordionContent,

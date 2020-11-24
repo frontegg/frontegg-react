@@ -13,6 +13,7 @@ import {
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
@@ -78,43 +79,46 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   });
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={validateSchema(validationSchema)}
-      onSubmit={async ({ email, password }) => {
-        shouldDisplayPassword ? login({ email, password }) : preLogin({ email });
-      }}
-    >
-      {({ values }) => (
-        <FForm>
-          <FInput
-            name='email'
-            type='email'
-            size='large'
-            label={t('auth.login.email')}
-            placeholder='name@example.com'
-            onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
-          />
-
-          {shouldDisplayPassword && (
+    <>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={validateSchema(validationSchema)}
+        onSubmit={async ({ email, password }) => {
+          shouldDisplayPassword ? login({ email, password }) : preLogin({ email });
+        }}
+      >
+        {({ values }) => (
+          <FForm>
             <FInput
+              name='email'
+              type='email'
               size='large'
-              label={t('auth.login.password')}
-              labelButton={labelButtonProps(values)}
-              type='password'
-              name='password'
-              placeholder={t('auth.login.enter-your-password')}
-              disabled={!shouldDisplayPassword}
+              label={t('auth.login.email')}
+              placeholder='name@example.com'
+              onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
             />
-          )}
 
-          <FButton type='submit' fullWidth variant={'primary'} loading={loading}>
-            {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
-          </FButton>
+            {shouldDisplayPassword && (
+              <FInput
+                size='large'
+                label={t('auth.login.password')}
+                labelButton={labelButtonProps(values)}
+                type='password'
+                name='password'
+                placeholder={t('auth.login.enter-your-password')}
+                disabled={!shouldDisplayPassword}
+              />
+            )}
 
-          <ErrorMessage separator error={error} />
-        </FForm>
-      )}
-    </Formik>
+            <FButton type='submit' fullWidth variant={'primary'} loading={loading}>
+              {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
+            </FButton>
+
+            <ErrorMessage separator error={error} />
+          </FForm>
+        )}
+      </Formik>
+      <SocialLoginsLoginWithWrapper />
+    </>
   );
 };

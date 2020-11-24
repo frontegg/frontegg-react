@@ -10,6 +10,7 @@ import { ssoActions, ssoStateReducers } from './SSOState';
 import { mfaActions, mfaStateReducers } from './MfaState';
 import { profileActions, profileStateReducers } from './ProfileState';
 import { teamActions, teamStateReducers } from './TeamState';
+import { socialLoginsActions, socialLoginsStateReducer } from './SocialLogins';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
@@ -26,6 +27,7 @@ const { reducer, actions: sliceActions } = createSlice({
     ...profileStateReducers,
     ...mfaStateReducers,
     ...teamStateReducers,
+    ...socialLoginsStateReducer,
   },
 });
 
@@ -39,6 +41,7 @@ const actions = {
   ...profileActions,
   ...mfaActions,
   ...teamActions,
+  ...socialLoginsActions,
 };
 
 export type AuthActions = typeof actions;
