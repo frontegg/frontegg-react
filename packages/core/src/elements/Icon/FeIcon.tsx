@@ -13,6 +13,7 @@ import { CalendarToday } from './svgs/CalendarToday';
 import { Flash } from './svgs/Flash';
 import { Csv } from './svgs/Csv';
 import { Pdf } from './svgs/Pdf';
+import { List } from './svgs/List';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'down-arrow': DownArrow,
@@ -39,6 +40,7 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   csv: Csv,
   pdf: Pdf,
   visibility: Visibility,
+  list: List,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {

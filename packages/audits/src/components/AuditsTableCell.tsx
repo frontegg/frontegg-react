@@ -3,6 +3,7 @@ import { CellComponent, TableCells } from '@frontegg/react-core';
 import classNames from 'classnames';
 import { prefixCls } from './Audits';
 import { AuditsTableIpCell } from './AuditsTableIpCell';
+import { AuditsTableJson } from './AuditsTableJson';
 
 const AuditsTag: CellComponent = (props) => {
   return (
@@ -27,6 +28,8 @@ export const getAuditsTableCells = (column: string): CellComponent => {
       return AuditsTag;
     case 'ip':
       return AuditsTableIpCell;
+    case 'json':
+      return AuditsTableJson;
     default:
       return TableCells.Description;
   }

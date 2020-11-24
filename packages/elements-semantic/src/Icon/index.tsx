@@ -32,6 +32,7 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   csv: 'grid layout',
   visibility: 'eye',
   warning: 'warning sign',
+  list: 'trash',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

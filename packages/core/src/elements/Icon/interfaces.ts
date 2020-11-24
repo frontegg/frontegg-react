@@ -32,7 +32,8 @@ export type IconNames =
   | 'csv'
   | 'visibility-off'
   | 'visibility'
-  | 'warning';
+  | 'warning'
+  | 'list';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

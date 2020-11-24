@@ -1,14 +1,14 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
 import { prefixCls } from './Audits';
 import { useAudits, useAuditsActions } from '../helpers/hooks';
-import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps } from '@frontegg/react-core';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
+import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps } from '@frontegg/react-core';
 
 export const AuditsSubHeader: FC = () => {
   const { filters } = useAudits();
   const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
   const [search, setSearch] = useState('');
-  const searchValue = useDebounce(search, 400);
+  const searchValue = useDebounce(search, 500);
 
   const downloadItems: MenuItemProps[] = useMemo(
     () => [

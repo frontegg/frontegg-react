@@ -3,6 +3,7 @@ export type SortDirectionType = 'asc' | 'desc';
 export interface AuditRowData {
   _id: string;
   ip: string;
+  json: Array<any>; /// todo
   action: string;
   resource: string;
   time: string;
@@ -57,7 +58,6 @@ export interface HeaderProps {
   displayName: string;
   showInTable: boolean;
   showInMoreInfo: string;
-  Json?: any;
 }
 
 export interface FiltersObj {

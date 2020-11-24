@@ -134,6 +134,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
           selectedRowIds: props.selectedRowIds ?? state1.selectedRowIds,
         } as FeTableState<T>),
       expandSubRows: false,
+      autoResetExpanded: false,
       initialState: {
         pageIndex: 0,
         pageSize: props.pageSize,

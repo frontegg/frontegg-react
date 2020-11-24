@@ -25,6 +25,10 @@ import {
   KeyboardArrowLeftRounded,
   KeyboardArrowRightRounded,
   IndeterminateCheckBoxRounded,
+  ArrowUpward,
+  ArrowDownward,
+  FilterList,
+  Subject,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -33,8 +37,8 @@ const iconMap: { [K in IconNames]: any } = {
   'left-arrow': KeyboardArrowLeftRounded,
   'person-add': PersonAddRounded,
   'right-arrow': KeyboardArrowRightRounded,
-  'sort-arrows-asc': DeleteRounded,
-  'sort-arrows-desc': DeleteRounded,
+  'sort-arrows-asc': ArrowUpward,
+  'sort-arrows-desc': ArrowDownward,
   'sort-arrows': DeleteRounded,
   'up-arrow': KeyboardArrowUpRounded,
   'vertical-dots': MoreVertRounded,
@@ -44,7 +48,7 @@ const iconMap: { [K in IconNames]: any } = {
   copy: FileCopyRounded,
   delete: DeleteRounded,
   edit: Edit,
-  filters: DeleteRounded,
+  filters: FilterList,
   image: ImageRounded,
   indeterminate: IndeterminateCheckBoxRounded,
   search: Search,
@@ -56,6 +60,7 @@ const iconMap: { [K in IconNames]: any } = {
   csv: GridOn,
   visibility: Visibility,
   warning: WarningRounded,
+  list: Subject,
 };
 
 export class Icon extends React.Component<IconProps> {

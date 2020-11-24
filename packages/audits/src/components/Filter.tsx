@@ -8,6 +8,8 @@ import {
   getTimeDiff,
   TimeOptions,
   SeverityOptions,
+  FProps,
+  TimeValues,
 } from '../helpers/filterHelper';
 import { prefixCls } from './Audits';
 
@@ -19,79 +21,103 @@ export interface FilterProps {
   setFilterValue: (value: any) => void;
 }
 
-interface SelectState {
-  time: TimeOptions;
-  severity: SeverityOptions;
-}
+const AlphaNumericFilter: FC<FProps> = ({ value, onChange }) => {
+  const [inputState, setInputState] = useState<string>(`${value ?? ''}`);
+
+  return (
+    <Input
+      autoFocus
+      fullWidth
+      label={`Filter by ${name}`}
+      onChange={(e) => {
+        setInputState(e.target.value);
+        onChange(e.target.value);
+      }}
+      value={`${inputState ?? ''}`}
+    />
+  );
+};
+
+const SeverityFilter: FC<FProps> = ({ value, onChange }) => {
+  const [selectState, setSelectState] = useState<SeverityOptions>(severityOptions[0]);
+
+  useEffect(() => {
+    onChange(selectState.value);
+    if (value) {
+      setSelectState(severityOptions.filter((o) => o.value === value)[0]);
+    }
+  }, []);
+
+  const handleSelect = useCallback(
+    (value) => {
+      setSelectState(value);
+      onChange(value.value);
+    },
+    [setSelectState, onChange]
+  );
+
+  return (
+    <Select
+      fullWidth
+      size='small'
+      placeholder='select'
+      value={selectState}
+      disableMenuPortalTarget
+      onChange={(_e, newValues) => handleSelect(newValues)}
+      options={severityOptions}
+    />
+  );
+};
+
+const TimeStampFilter: FC<FProps> = ({ value, onChange }) => {
+  const [selectState, setSelectState] = useState<TimeOptions>(timeOptions[0]);
+
+  useEffect(() => {
+    onChange(selectState.value);
+    if (value) {
+      setSelectState(timeOptions.filter((o) => o.value === getTimeDiff(value))[0]);
+    }
+  }, []);
+
+  const handleSelect = useCallback((value) => {
+    setSelectState(value);
+    onChange(value.value);
+  }, []);
+
+  return (
+    <Select
+      fullWidth
+      size='small'
+      placeholder='select'
+      value={selectState}
+      disableMenuPortalTarget
+      onChange={(_e, newValues) => handleSelect(newValues)}
+      options={timeOptions}
+    />
+  );
+};
 
 export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, type, name }) => {
   const { t } = useT();
-  const [inputState, setInputState] = useState<string>(`${value ?? ''}`);
-  const [selectState, setSelectState] = useState<SelectState>({
-    time: timeOptions[0],
-    severity: severityOptions[0],
-  });
-
-  useEffect(() => {
-    if (value) {
-      type === 'Severity' ? setSelectState({ ...selectState, severity: { label: value, value } }) : null;
-      type === 'Timestamp'
-        ? setSelectState({ ...selectState, time: timeOptions.filter((o) => o.value === getTimeDiff(value.$gt))[0] })
-        : null;
-    }
-  }, []);
+  const [state, setState] = useState<string>('');
 
   const filter = useCallback(() => {
     switch (type) {
       case 'Timestamp':
-        return (
-          <Select
-            fullWidth
-            size='small'
-            placeholder='select'
-            value={selectState.time}
-            disableMenuPortalTarget
-            onChange={(_e, newValues) => {
-              //@ts-ignore
-              setSelectState({ time: newValues });
-            }}
-            options={timeOptions}
-          />
-        );
+        return <TimeStampFilter value={value} onChange={(value) => setState(value)} />;
       case 'Severity':
-        return (
-          <Select
-            fullWidth
-            size='small'
-            placeholder='select'
-            value={selectState.severity}
-            disableMenuPortalTarget
-            onChange={(_e, newValues) => {
-              //@ts-ignore
-              setSelectState(newValues);
-            }}
-            options={severityOptions}
-          />
-        );
+        return <SeverityFilter value={value} onChange={(value) => setState(value)} />;
       default:
-        return (
-          <Input
-            autoFocus
-            fullWidth
-            label={`Filter by ${name}`}
-            onChange={(e) => setInputState(e.target.value)}
-            value={`${inputState ?? ''}`}
-          />
-        );
+        return <AlphaNumericFilter value={value} onChange={(value) => setState(value)} />;
     }
-  }, [type, inputState, setInputState, selectState, setSelectState]);
+  }, [type, value]);
 
   const handleFilter = useCallback(
     () =>
       getFilterType(type) === 'input'
-        ? !!inputState.trim() && setFilterValue(inputState)
-        : setFilterValue(type === 'Timestamp' ? getFilterTime(selectState.time.value) : selectState.severity.value),
-    [type, inputState, selectState]
+        ? !!state.trim() && setFilterValue(state)
+        : setFilterValue(type === 'Timestamp' ? getFilterTime(state as TimeValues) : state),
+    [type, state]
   );
 
   return (

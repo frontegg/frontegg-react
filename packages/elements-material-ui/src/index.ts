@@ -17,6 +17,7 @@ import { Grid } from './Grid';
 import { Select } from './Select';
 import { Menu } from './Menu';
 import { InputChip } from './InputChip';
+import { Pagination } from './Pagination';
 
 export const type = 'material-ui';
 export const version = '4.11.0';
@@ -39,4 +40,5 @@ export const uiLibrary: Partial<Elements> = {
   Tag,
   Select,
   Menu,
+  Pagination,
 };

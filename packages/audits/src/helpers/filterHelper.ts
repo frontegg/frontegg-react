@@ -48,9 +48,9 @@ export const getFilterName = (filter: Filter) => {
   }
 };
 
-export const getTimeDiff = (time: string) => {
+export const getTimeDiff = (time: any) => {
   const currentTime = moment();
-  const diff = currentTime.diff(time, 'day');
+  const diff = currentTime.diff(time.$gt, 'day');
   return diff <= 1 ? 'last_day' : diff <= 7 ? 'last_week' : diff <= 30 ? 'last_month' : 'last_year';
 };
 
@@ -75,7 +75,7 @@ export const severityOptions: Array<SeverityOptions> = [
   { label: 'Critical', value: 'Critical' },
 ];
 
-type TimeValues = 'last_day' | 'last_week' | 'last_month' | 'last_year';
+export type TimeValues = 'last_day' | 'last_week' | 'last_month' | 'last_year';
 type SeverityValues = 'Info' | 'Medium' | 'High' | 'Critical';
 export interface TimeOptions {
   label: string;
@@ -85,4 +85,9 @@ export interface TimeOptions {
 export interface SeverityOptions {
   label: string;
   value: SeverityValues;
+}
+
+export interface FProps {
+  value: string;
+  onChange: (val: string) => void;
 }
