@@ -9,7 +9,7 @@ export interface IUseSearchProps<T> {
   className?: string; // className for the root Element
   inputClassName?: string; // className for the input element
   debounce?: number; // the debounce before filter data
-  callBack?(value: T, reg: RegExp): boolean; // If need filtered more than by one field
+  filterFunction?(value: T[], reg: RegExp, isEmpty: boolean): T[] | undefined | null; // If need filtered more than by one field
 }
 
 export function useSearch<T extends {}>({
@@ -19,16 +19,19 @@ export function useSearch<T extends {}>({
   className,
   inputClassName,
   debounce = 500,
-  callBack,
+  filterFunction,
 }: IUseSearchProps<T>): [T[], JSX.Element] {
-  const ref = useRef(null);
   const [filter, setFilter] = useState('');
 
   const filterDebounce = useDebounce(filter, debounce);
 
   const filteredData = useMemo(() => {
     const reg = new RegExp(filterDebounce.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-    return data?.filter((el) => (callBack ? callBack(el, reg) : reg.test(`${el[filteredBy]}`))) ?? [];
+    return (
+      (filterFunction
+        ? filterFunction(data || [], reg, filterDebounce.trim() === '')
+        : data?.filter((el) => reg.test(`${el[filteredBy]}`))) ?? []
+    );
   }, [filterDebounce, data]);
 
   const Search = useMemo(
