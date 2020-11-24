@@ -9,131 +9,6 @@ import { AuditsTableJson } from './AuditsTableJson';
 import moment from 'moment';
 
 export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: AuditRowData) => {
-  const d: { [key: string]: any } = {
-    ...data,
-    json: [
-      {
-        UserId: 'saoifs12312smc',
-        userName: 'Max',
-        longDescription: `This is a very long text
-    And will not fit into one…`,
-        userRole: 'admin',
-      },
-      {
-        UserId: 's32rdamc',
-        userName: 'Aviad',
-        longDescription: `This is a very long text
-    And will not fit into one…`,
-        userRole: 'superAdmin',
-      },
-      {
-        UserId: 'zxcas',
-        userName: 'Blamama',
-        longDescription: `This is a very long text
-    And will not fit into one…`,
-        userRole: 'superAdmin',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Sergey',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-      {
-        UserId: 'dwwxcwcw',
-        userName: 'Jack',
-        longDescription: `This is a very long text
-    And will not fit into one`,
-        userRole: 'user',
-      },
-    ],
-  };
-
   const getValue = (type: string, data: any) => {
     switch (type) {
       case 'Json':
@@ -150,7 +25,7 @@ export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: 
   return (
     <Grid container className={`${prefixCls}__expand-content`}>
       {headersToShow
-        .filter((_) => d.hasOwnProperty(_.name))
+        .filter((_) => data.hasOwnProperty(_.name))
         .map((header) => (
           <Grid key={header.name} item xs={3} className={`${prefixCls}__property`}>
             <span
@@ -166,7 +41,7 @@ export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: 
                   [`${prefixCls}__severity-text-${data.severity.toLowerCase()}`]: header.name === 'severity',
                 })}
               >
-                {getValue(header.type, d[header.name])}
+                {getValue(header.type, data[header.name])}
               </span>
             </Grid>
           </Grid>

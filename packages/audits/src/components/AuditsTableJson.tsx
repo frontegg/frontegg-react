@@ -43,8 +43,10 @@ export const AuditsTableJson: FC<CellComponent | any> = (props) => {
                 <span key={idx} className={`${prefixCls}__jsonMenu-itemGroup ${prefixCls}__jsonMenu-itemGroup--string`}>
                   <div key={idx} className={`${prefixCls}__jsonMenu-item`}>
                     <span className={classNames(`${prefixCls}__jsonMenu-dash`)} />
-                    <div className='jsonMenu__name'>{(page - 1) * pageSize + (idx + 1)}</div>
-                    <div className={`${prefixCls}__jsonMenu-desc`}>{object}</div>
+                    <div>
+                      <div className={`${prefixCls}__jsonMenu-name`}>{(page - 1) * pageSize + (idx + 1)}</div>
+                      <div className={`${prefixCls}__jsonMenu-desc`}>{object}</div>
+                    </div>
                   </div>
                 </span>
               ) : (
