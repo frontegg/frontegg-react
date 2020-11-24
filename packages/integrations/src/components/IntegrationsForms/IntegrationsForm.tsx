@@ -47,6 +47,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
   const dispatch = useDispatch();
 
   const [opens, setOpens] = useState<number[]>([]);
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
   const { categories, channelMap, data, isSaving, isLoading } = useSelector(
     ({ integrations: { isLoading, isSaving, categories, channelMap, ...integrations } }: IPluginState) => ({
@@ -151,11 +152,6 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
     [cleanCategory, data]
   );
 
-  const Input = useCallback(
-    ({ name, disabled }: { name: string; disabled: boolean }) => <FInput disabled={disabled} name={name} />,
-    [tablesData]
-  );
-
   const columns = useMemo(
     () =>
       (tablesData || [])?.map(
@@ -221,13 +217,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
                 : null;
             })
             .filter((e) => !!e) as ITableData[]);
-      setOpens(
-        isEmpty
-          ? []
-          : Array(result.length)
-              .fill('')
-              .map((_, idx) => idx)
-      );
+      setIsFiltering(!isEmpty);
       return result;
     },
   });
@@ -254,7 +244,9 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
               columns={columns[index]}
               data={events || []}
               totalData={events?.length || 0}
-              className={classnames('fe-integrations-table-accordion', { 'fe-integrations-open': opens.includes(idx) })}
+              className={classnames('fe-integrations-table-accordion', {
+                'fe-integrations-open': opens.includes(idx) || isFiltering,
+              })}
             />
           ))
         ) : (

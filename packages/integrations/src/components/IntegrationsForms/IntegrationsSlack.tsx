@@ -41,6 +41,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   const { t } = useT();
   const dispatch = useDispatch();
   const [opens, setOpens] = useState<number[]>([]);
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
   const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
     ({
@@ -172,13 +173,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
                 : null;
             })
             .filter((e) => !!e) as ITableData[]);
-      setOpens(
-        isEmpty
-          ? []
-          : Array(result.length)
-              .fill('')
-              .map((_, idx) => idx)
-      );
+      setIsFiltering(!isEmpty);
       return result;
     },
   });
@@ -233,7 +228,9 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
               columns={columns[index]}
               data={events || []}
               totalData={events?.length || 0}
-              className={classnames('fe-integrations-table-accordion', { 'fe-integrations-open': opens.includes(idx) })}
+              className={classnames('fe-integrations-table-accordion', {
+                'fe-integrations-open': opens.includes(idx) || isFiltering,
+              })}
             />
           ))
         ) : (
