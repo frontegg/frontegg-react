@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-core",
   "libName": "FronteggCore",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -13,7 +13,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/rest-api": "^1.7.0",
+    "@frontegg/rest-api": "^1.8.0",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
