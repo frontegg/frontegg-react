@@ -18,7 +18,13 @@ export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & { Googl
 const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
 
 export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLoginsProps) => {
-  const { firstLoad, socialLoginsConfig, error } = useAuth(stateMapper);
+  const { firstLoad, socialLoginsConfig, error, loadSocialLoginsConfiguration } = useAuth(stateMapper);
+
+  useEffect(() => {
+    if (firstLoad) {
+      loadSocialLoginsConfiguration();
+    }
+  }, [firstLoad]);
 
   if (error) {
     return <div className='fe-error-message'>{error}</div>;
