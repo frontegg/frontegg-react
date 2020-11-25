@@ -96,7 +96,7 @@ export const IntegrationsWebhooksList: FC = () => {
     () => [
       {
         accessor: 'displayName',
-        Header: t('common.title').toUpperCase(),
+        Header: t('common.title') || '',
         Cell: ({ value, row }) => (
           <div
             className='fe-integrations-webhook-cell fe-integrations-webhook-cell-link'
@@ -109,23 +109,24 @@ export const IntegrationsWebhooksList: FC = () => {
       },
       {
         accessor: 'isActive',
-        Header: t('common.status').toUpperCase(),
+        Header: t('common.status') || '',
         Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
-        maxWidth: 30,
+        maxWidth: 40,
       },
       {
         accessor: 'eventKeys',
-        Header: t('common.events').toUpperCase(),
+        Header: t('common.events') || '',
         Cell: ({ value }) => <EventsCell events={value} />,
       },
       {
         accessor: 'invocations',
-        Header: t('common.invocations').toUpperCase(),
+        Header: t('common.invocations') || '',
         Cell: ({ value }) => <div className='fe-integrations-webhook-cell'>{value || 0}</div>,
+        maxWidth: 60,
       },
       {
         accessor: 'createdAt',
-        Header: t('common.createdAt').toUpperCase(),
+        Header: t('common.createdAt') || '',
         Cell: ({ value }) => {
           const date = moment.utc(value).local();
           return (
@@ -138,11 +139,12 @@ export const IntegrationsWebhooksList: FC = () => {
       },
       {
         accessor: 'action',
-        maxWidth: 50,
+        maxWidth: 40,
         Cell: ({ row }) => (
           <Menu
+            className='fe-integrations-panel-menu'
             trigger={
-              <Button iconButton>
+              <Button iconButton className='fe-integrations-panel-menu-button'>
                 <Icon name='vertical-dots' size='small' />
               </Button>
             }

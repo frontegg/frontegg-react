@@ -29,6 +29,7 @@
   .fe-table {
     &__thead-tr-th {
       font-weight: bold;
+      text-transform: none;
       &:first-child {
         flex: 0 0 268px !important;
         width: 268px !important;
@@ -118,7 +119,6 @@
           &-tr-th {
             display: flex;
             justify-content: flex-start;
-            color: #99a6b9;
             &:first-child {
               flex: 150 0 auto !important;
               width: 150px !important;
@@ -128,6 +128,7 @@
         }
         &__tr-td {
           display: flex;
+          font-weight: 500;
           justify-content: flex-start;
           &:first-child {
             flex: 150 0 auto !important;
