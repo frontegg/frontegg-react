@@ -4,26 +4,27 @@ import {
   useT,
   Icon,
   Table,
+  FInput,
   Loader,
   Button,
   FFormik,
-  NotFound,
-  useSearch,
   useDispatch,
   useSelector,
   FormikAutoSave,
   TableColumnProps,
+  useSearch,
+  NotFound,
 } from '@frontegg/react-core';
 import { ISlackConfigurations, ISlackSubscription } from '@frontegg/rest-api';
-import { IIntegrationsComponent, IPluginState, ISlackEventData, ISlackTableData } from '../../interfaces';
-import { integrationsActions } from '../../reducer';
+import { IConnectivityComponent, IPluginState, ISlackEventData, ISlackTableData } from '../../interfaces';
+import { connectivityActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
-import { IntegrationsSlackAuth } from './IntegrationsSlackAuth';
+import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
 import { MessageSlack } from '../../elements/MessgaeSlack';
 
-export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
+export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
   const dispatch = useDispatch();
   const [opens, setOpens] = useState<number[]>([]);
@@ -31,7 +32,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
 
   const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
     ({
-      integrations: {
+      connectivity: {
         slack,
         isSaving,
         categories,
@@ -90,7 +91,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
                 <Button
                   transparent
                   iconButton
-                  className='fe-integrations-accordion-button'
+                  className='fe-connectivity-accordion-button'
                   onClick={() => {
                     !isFiltering && setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
                   }}
@@ -102,7 +103,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             },
             {
               accessor: 'isActive',
-              Header: t('common.enabled') || '',
+              Header: t('common.enabled'),
               Cell: ({ row: { index: rowIndex } }) => (
                 <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].isActive`} />
               ),
@@ -110,12 +111,12 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
             },
             {
               accessor: 'slackEvents',
-              Header: t('common.channels') || '',
+              Header: t('common.channels'),
               Cell: ({ row: { index: rowIndex } }) => <SelectSlack eventIdx={rowIndex} dataIdx={index} />,
             },
             {
               accessor: 'non',
-              Header: t('common.message') || '',
+              Header: t('common.message'),
               Cell: ({ row: { index: rowIndex } }) => <MessageSlack eventIdx={rowIndex} dataIdx={index} />,
             },
           ] as TableColumnProps<ISlackEventData>[]
@@ -124,9 +125,9 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   );
 
   useEffect(() => {
-    dispatch(integrationsActions.loadSlackActions());
+    dispatch(connectivityActions.loadSlackActions());
     return () => {
-      dispatch(integrationsActions.cleanSlackData());
+      dispatch(connectivityActions.cleanSlackData());
     };
   }, [dispatch]);
 
@@ -169,7 +170,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
         }, []),
       };
 
-      dispatch(integrationsActions.postDataAction('slack', newData));
+      dispatch(connectivityActions.postDataAction('slack', newData));
     },
     [dispatch, slack]
   );
@@ -179,7 +180,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   }
 
   if (!isLoading && !slackChannels?.length) {
-    return <IntegrationsSlackAuth />;
+    return <ConnectivitySlackAuth />;
   }
 
   if (!tablesData?.length) {
@@ -199,8 +200,8 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
               columns={columns[index]}
               data={events || []}
               totalData={events?.length || 0}
-              className={classnames('fe-integrations-table-accordion', {
-                'fe-integrations-open': opens.includes(idx) || isFiltering,
+              className={classnames('fe-connectivity-table-accordion', {
+                'fe-connectivity-open': opens.includes(idx) || isFiltering,
               })}
             />
           ))

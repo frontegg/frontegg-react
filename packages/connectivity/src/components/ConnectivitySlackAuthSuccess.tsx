@@ -2,19 +2,19 @@ import { Loader, RootPathContext, useDispatch, useSelector } from '@frontegg/rea
 import React, { FC, useContext, useLayoutEffect } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import { IPluginState } from '../interfaces';
-import { integrationsActions } from '../reducer';
+import { connectivityActions } from '../reducer';
 
-export const IntegrationsSlackAuthSuccess: FC = () => {
+export const ConnectivitySlackAuthSuccess: FC = () => {
   const dispatch = useDispatch();
   const path = useContext(RootPathContext);
   const { search } = useLocation();
-  const { isSaving } = useSelector(({ integrations: { isSaving } }: IPluginState) => ({ isSaving }));
+  const { isSaving } = useSelector(({ connectivity: { isSaving } }: IPluginState) => ({ isSaving }));
 
   useLayoutEffect(() => {
     if (search) {
       const query = new URLSearchParams(search);
       if (query.has('code')) {
-        dispatch(integrationsActions.postCodeAction(query.get('code') || ''));
+        dispatch(connectivityActions.postCodeAction(query.get('code') || ''));
       }
     }
   }, [search]);

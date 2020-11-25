@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { Grid, useSelector, Loader, useDispatch } from '@frontegg/react-core';
-import { SlackIcon } from '../../elements/IntegrationsIcons';
+import { SlackIcon } from '../../elements/ConnectivityIcons';
 import { IPluginState } from '../../interfaces';
-import { integrationsActions } from '../../reducer';
+import { connectivityActions } from '../../reducer';
 
 const defaultScope = ['chat:write', 'channels:read', 'chat:write.public', 'users:read', 'users:read.email'];
 
-export const IntegrationsSlackAuth: FC<any> = () => {
+export const ConnectivitySlackAuth: FC<any> = () => {
   const dispatch = useDispatch();
   const { isLoadingScope, clientId = '' } = useSelector(
     ({
-      integrations: {
+      connectivity: {
         slackChannels: { isLoadingScope, clientId },
       },
     }: IPluginState) => ({
@@ -20,10 +20,10 @@ export const IntegrationsSlackAuth: FC<any> = () => {
   );
 
   useEffect(() => {
-    dispatch(integrationsActions.loadScope());
+    dispatch(connectivityActions.loadScope());
   }, []);
 
-  const redirectUrl = (function () {
+  const redirectUrl = (() => {
     const url = new URL(window.location.href);
     url.search = '';
     url.hash = '';

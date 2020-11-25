@@ -1,4 +1,4 @@
-import React, { forwardRef, MouseEvent, useCallback, useRef, useState } from 'react';
+import React, { forwardRef, MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { IPopoverProps } from './types';
@@ -28,6 +28,14 @@ export const PopupHover = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
   const onMouseEnterPopup = useCallback((e: MouseEvent<HTMLElement>) => {
     clearTimeout(debounceRef.current);
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      props.onOpen?.();
+    } else {
+      props.onClose?.();
+    }
+  }, [open]);
 
   return (
     <>

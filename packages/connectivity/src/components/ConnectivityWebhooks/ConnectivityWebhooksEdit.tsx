@@ -2,13 +2,13 @@ import React, { FC, useCallback, useLayoutEffect, useMemo } from 'react';
 import { Button, Icon, Tabs, usePrevious, useSelector, useT } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
 import { IPluginState } from '../../interfaces';
-import { IntegrationsWebhooksForm } from './IntegrationsWebhooksForm';
-import { IntegrationsWebhooksLog } from './IntegrationsWebhooksLog';
+import { ConnectivityWebhooksForm } from './ConnectivityWebhooksForm';
+import { ConnectivityWebhooksLog } from './ConnectivityWebhooksLog';
 import { IWebhookLocationState } from './interfaces';
 
 const itemsArray = ['common.detail', 'common.logs'];
 
-export const IntegrationsWebhooksEdit: FC = () => {
+export const ConnectivityWebhooksEdit: FC = () => {
   const { t } = useT();
   const items = useMemo(() => itemsArray.map((el) => () => <>{t(el)}</>), [t]);
 
@@ -17,7 +17,7 @@ export const IntegrationsWebhooksEdit: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  const { webhook, isSaving } = useSelector(({ integrations: { webhook, isSaving } }: IPluginState) => ({
+  const { webhook, isSaving } = useSelector(({ connectivity: { webhook, isSaving } }: IPluginState) => ({
     webhook,
     isSaving,
   }));
@@ -42,15 +42,15 @@ export const IntegrationsWebhooksEdit: FC = () => {
   );
 
   return (
-    <div className='fe-integrations__content'>
-      <div className='fe-integrations__content-heading'>
+    <div className='fe-connectivity__content'>
+      <div className='fe-connectivity__content-heading'>
         <Button transparent onClick={onBack}>
           <Icon name='left-arrow' />
         </Button>
-        {data?.displayName ?? t('integrations.addNewHook')}
+        {data?.displayName ?? t('connectivity.addNewHook')}
       </div>
       {data && <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />}
-      {locationState.view === 'edit' ? <IntegrationsWebhooksForm data={data ?? null} /> : <IntegrationsWebhooksLog />}
+      {locationState.view === 'edit' ? <ConnectivityWebhooksForm data={data ?? null} /> : <ConnectivityWebhooksLog />}
     </div>
   );
 };

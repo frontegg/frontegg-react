@@ -13,7 +13,7 @@ import { SocialLoginsState, socialLoginsState } from './SocialLogins';
 export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
 };
-export type WithCallback<T, R> = T & {
+export type WithCallback<T = {}, R = boolean> = T & {
   callback?: (data: R | null, error?: string) => void;
 };
 export type LoaderIndicatorState<T extends string> = Partial<

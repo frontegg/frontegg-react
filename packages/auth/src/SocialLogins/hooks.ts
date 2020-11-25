@@ -3,7 +3,7 @@ import { useAuth } from '../hooks';
 import { useContext, useMemo } from 'react';
 import { AuthState } from '../Api';
 import { ISocialLoginProviderConfiguration, SocialLoginsProviders } from '@frontegg/rest-api';
-import { SocialLoginsContext } from './SocialLogins';
+import { SocialLoginsContext } from './SocialLoginContext';
 
 const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
 

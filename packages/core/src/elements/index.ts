@@ -14,6 +14,7 @@ export * from './SwitchToggle';
 export * from './Form';
 export * from './Tabs';
 export * from './Menu';
+export * from './MenuItem';
 export * from './Dialog';
 export * from './NotFound';
 export * from './InputChip';

@@ -65,8 +65,6 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
     input && (input.value = '');
   }, [profileImageField]);
 
-  console.log('TT', profileImageField.value, profile?.profilePictureUrl);
-
   const children = loading ? (
     <Loader center />
   ) : (

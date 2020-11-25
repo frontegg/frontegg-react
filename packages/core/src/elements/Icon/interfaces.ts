@@ -33,7 +33,11 @@ export type IconNames =
   | 'visibility-off'
   | 'visibility'
   | 'warning'
-  | 'list';
+  | 'list'
+  | 'warning'
+  | 'exit'
+  | 'swap'
+  | 'profile';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

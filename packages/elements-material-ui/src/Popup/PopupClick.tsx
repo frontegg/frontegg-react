@@ -1,4 +1,4 @@
-import React, { useCallback, forwardRef, useState } from 'react';
+import React, { useCallback, forwardRef, useState, useEffect } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { useStyles } from './styles';
@@ -18,7 +18,21 @@ export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
   const handleClose = useCallback(() => {
     setAnchorEl(null);
     setOpen(false);
+    props.onClose?.();
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      props.onOpen?.();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    debugger;
+    if (props.open != null) {
+      setOpen(props.open);
+    }
+  }, [props.open]);
 
   return (
     <>

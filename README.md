@@ -82,7 +82,7 @@ ReactDOM.render(
 - [Team Management Plugin](packages/teams)
 - [Notifications Plugin](packages/notifications)
 - [Reports Plugin](packages/reports)
-- [Integrations Plugin](packages/integrations)
+- [Connectivity Plugin](packages/connectivity)
 
 
 ## Contributing

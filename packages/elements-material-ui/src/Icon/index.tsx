@@ -29,6 +29,9 @@ import {
   ArrowDownward,
   FilterList,
   Subject,
+  ExitToAppRounded,
+  CachedRounded,
+  FaceRounded,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -61,6 +64,9 @@ const iconMap: { [K in IconNames]: any } = {
   visibility: Visibility,
   warning: WarningRounded,
   list: Subject,
+  exit: ExitToAppRounded,
+  swap: CachedRounded,
+  profile: FaceRounded,
 };
 
 export class Icon extends React.Component<IconProps> {

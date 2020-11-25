@@ -22,17 +22,17 @@ import { AccordingCategories } from '../../elements/AccordingCategories';
 import { SelectWebhook } from '../../elements/SelectWebhook';
 import { filterCategories } from '../../utils';
 import { IPluginState } from '../../interfaces';
-import { integrationsActions } from '../../reducer';
+import { connectivityActions } from '../../reducer';
 
-export interface IIntegrationsWebhooksForm {
+export interface IConnectivityWebhooksForm {
   data: IWebhooksSaveData | null;
 }
 
-export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }) => {
+export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }) => {
   const { t } = useT();
   const dispatch = useDispatch();
   const { categories, channelMap, isTesting, testResult } = useSelector(
-    ({ integrations: { categories, channelMap, isTesting, testResult } }: IPluginState) => ({
+    ({ connectivity: { categories, channelMap, isTesting, testResult } }: IPluginState) => ({
       categories,
       channelMap: channelMap && channelMap.webhook,
       isTesting,
@@ -41,7 +41,7 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
   );
   useEffect(() => {
     return () => {
-      dispatch(integrationsActions.cleanWebhookTestData());
+      dispatch(connectivityActions.cleanWebhookTestData());
     };
   }, [dispatch]);
 
@@ -49,7 +49,7 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
     displayName: validateRequired(t('common.displayName'), t),
     url: validateUrl('URL', t),
     secret: validateLength(t('common.secretKey'), 8, t),
-    eventKeys: validateArrayLength(t, t('integrations.events')),
+    eventKeys: validateArrayLength(t, t('connectivity.events')),
   });
 
   const cleanCategory = filterCategories(categories, channelMap);
@@ -60,20 +60,20 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
         validationSchema={validationSchema}
         initialValues={{ ...initialValues, ...data }}
         onSubmit={(val) => {
-          dispatch(integrationsActions.postDataAction('webhook', val));
+          dispatch(connectivityActions.postDataAction('webhook', val));
         }}
       >
         {({ values: { secret, url } }) => (
           <FFormik.Form>
             <Grid container wrap='nowrap'>
-              <Grid item className='fe-integrations-webhook-settings' xs={6}>
-                <h2>{t('integrations.generalSettings')}</h2>
-                <FInput label={t('common.displayName')} name='displayName' placeholder={t('integrations.inputName')} />
+              <Grid item className='fe-connectivity-webhook-settings' xs={6}>
+                <h2>{t('connectivity.generalSettings')}</h2>
+                <FInput label={t('common.displayName')} name='displayName' placeholder={t('connectivity.inputName')} />
                 <FInput
                   label={t('common.description')}
                   name='description'
                   multiline
-                  placeholder={t('integrations.shortDescription')}
+                  placeholder={t('connectivity.shortDescription')}
                 />
                 <FInput label='URL' name='url' placeholder='https://' />
                 <FInput
@@ -95,24 +95,24 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
                 />
                 <Grid container justifyContent='space-between'>
                   <Grid>
-                    <FButton type='submit'>{t('integrations.updateHook').toUpperCase()}</FButton>
+                    <FButton type='submit'>{t('connectivity.updateHook').toUpperCase()}</FButton>
                   </Grid>
                   <Grid>
                     <Button
                       loading={isTesting}
-                      onClick={() => dispatch(integrationsActions.postWebhookTestAction({ secret, url }))}
+                      onClick={() => dispatch(connectivityActions.postWebhookTestAction({ secret, url }))}
                     >
-                      {testResult?.status.toUpperCase() ?? t('integrations.testHook').toUpperCase()}
+                      {testResult?.status.toUpperCase() ?? t('connectivity.testHook').toUpperCase()}
                     </Button>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item className='fe-integrations-webhook-settings' xs={6}>
-                <h2>{t('integrations.eventSettings')}</h2>
-                <div className='fe-integrations-webhook-settings__frame'>
-                  <h3>{t('integrations.selectEvents')}</h3>
+              <Grid item className='fe-connectivity-webhook-settings' xs={6}>
+                <h2>{t('connectivity.eventSettings')}</h2>
+                <div className='fe-connectivity-webhook-settings__frame'>
+                  <h3>{t('connectivity.selectEvents')}</h3>
                   <SelectWebhook cleanCategory={cleanCategory} />
-                  <h3>{t('integrations.manageCategories')}</h3>
+                  <h3>{t('connectivity.manageCategories')}</h3>
                   <AccordingCategories cleanCategory={cleanCategory} />
                 </div>
               </Grid>
@@ -121,9 +121,9 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
         )}
       </FFormik.Formik>
       <Dialog
-        className={`fe-integrations-webhook-dialog-${testResult?.status || ''}`}
+        className={`fe-connectivity-webhook-dialog-${testResult?.status || ''}`}
         open={!!testResult?.message}
-        onClose={() => dispatch(integrationsActions.cleanWebhookTestMessage())}
+        onClose={() => dispatch(connectivityActions.cleanWebhookTestMessage())}
       >
         <pre>{testResult?.message}</pre>
       </Dialog>

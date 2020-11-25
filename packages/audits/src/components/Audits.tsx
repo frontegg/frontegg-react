@@ -2,28 +2,16 @@ import React, { FC, useMemo } from 'react';
 import { Grid, Input, Loader, Table, TableColumnProps } from '@frontegg/react-core';
 import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { defaultItemsPerPage } from '../Api';
-import { AuditRowData } from '@frontegg/rest-api';
 import { renderExpandedComponent } from './renderExpandedComponent';
 import { AuditsHeader } from './AuditsHeader';
 import './styles.scss';
 import { getAuditsTableCells } from './AuditsTableCell';
 import { AuditsSubHeader } from './AuditsSubHeader';
 import { Filter } from './Filter';
-
-export const prefixCls = 'fe-audits';
+import { prefixCls } from './constants';
 
 export const Audits: FC = () => {
-  const {
-    isLoading,
-    error,
-    headerProps,
-    lastUpdated,
-    rowsData,
-    filters,
-    total,
-    totalToday,
-    severeThisWeek,
-  } = useAudits();
+  const { isLoading, headerProps, rowsData, filters, total } = useAudits();
   const { onPageChange, setDataSorting, setFilterData } = useAuditsActions();
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
 
@@ -58,7 +46,7 @@ export const Audits: FC = () => {
     <Grid container direction='column' wrap='nowrap' className={prefixCls}>
       <AuditsHeader />
       <AuditsSubHeader />
-      <Table<AuditRowData>
+      <Table
         columns={columns}
         data={rowsData}
         totalData={total}

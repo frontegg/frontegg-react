@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Table, Popup, Icon, Pagination, CellComponent } from '@frontegg/react-core';
 import classNames from 'classnames';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 
 const pageSize = 2;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { CellComponent, TableCells } from '@frontegg/react-core';
 import classNames from 'classnames';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 import { AuditsTableIpCell } from './AuditsTableIpCell';
 import { AuditsTableJson } from './AuditsTableJson';
 

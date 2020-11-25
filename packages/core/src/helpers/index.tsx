@@ -6,7 +6,6 @@ export * from './validates';
 export * from './DynamicComponent';
 export * from './RootPathContext';
 export * from './DialogContext';
-export * from './FormikAutoSave';
 export { default as Logger } from './Logger';
 
 export function omitProps<T>(props: any, keys: string[]): T {

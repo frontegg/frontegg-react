@@ -13,7 +13,7 @@ export const SelectSlack: FC<ISelectSlack> = ({ eventIdx, dataIdx }) => {
   const { values, isSubmitting } = FFormik.useFormikContext<{ data: ISlackTableData[] }>();
   const { slackChannels } = useSelector(
     ({
-      integrations: {
+      connectivity: {
         slackChannels: { data: slackChannels },
       },
     }: IPluginState) => ({

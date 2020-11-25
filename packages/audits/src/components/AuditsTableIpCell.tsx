@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 import { api } from '@frontegg/rest-api';
 import GoogleMapReact from 'google-map-react';
 import { CellComponent, Popup, Loader } from '@frontegg/react-core';

@@ -1,18 +1,18 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import moment from 'moment';
 import { Grid } from '@frontegg/react-core';
 import { HeaderProps } from '../Api';
 import { AuditRowData } from '@frontegg/rest-api';
 import classNames from 'classnames';
-import { prefixCls } from './Audits';
 import { AuditsTableIpCell } from './AuditsTableIpCell';
 import { AuditsTableJson } from './AuditsTableJson';
-import moment from 'moment';
+import { prefixCls } from './constants';
 
 export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: AuditRowData) => {
   const getValue = (type: string, data: any) => {
     switch (type) {
       case 'Json':
-        return <AuditsTableJson value={data}></AuditsTableJson>;
+        return <AuditsTableJson value={data} />;
       case 'IpAddress':
         return <AuditsTableIpCell value={data} />;
       case 'Timestamp':

@@ -9,7 +9,7 @@ export interface IEventsCell {
 }
 
 export const EventsCell: FC<IEventsCell> = React.memo(({ events }) => {
-  const { categories, channelMap } = useSelector(({ integrations: { categories, channelMap } }: IPluginState) => ({
+  const { categories, channelMap } = useSelector(({ connectivity: { categories, channelMap } }: IPluginState) => ({
     categories,
     channelMap: channelMap && channelMap.webhook,
   }));
@@ -34,11 +34,11 @@ export const EventsCell: FC<IEventsCell> = React.memo(({ events }) => {
   );
 
   return (
-    <div className='fe-integrations-webhook-cell'>
-      <div className='fe-integrations-webhook-row'>
+    <div className='fe-connectivity-webhook-cell'>
+      <div className='fe-connectivity-webhook-row'>
         {data && data.length ? (
           data.map(({ id, name, events }, idx) => (
-            <span key={id} className='fe-integrations-webhook-event'>
+            <span key={id} className='fe-connectivity-webhook-event'>
               {name}({events?.length ?? 0})
             </span>
           ))
@@ -46,7 +46,7 @@ export const EventsCell: FC<IEventsCell> = React.memo(({ events }) => {
           <>&nbsp;</>
         )}
       </div>
-      <div className='fe-integrations-webhook-description'>
+      <div className='fe-connectivity-webhook-description'>
         {data?.reduce((acc, cur) => acc + (cur.events?.length || 0), 0)} total
       </div>
     </div>

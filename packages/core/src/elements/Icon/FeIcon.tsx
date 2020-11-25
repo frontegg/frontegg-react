@@ -6,8 +6,8 @@ import { Visibility, VisibilityOff } from './svgs/Visibility';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
 import { Checkmark, Indeterminate } from './svgs/Checkmark';
-import { Delete, Search, Send, Refresh, Edit } from './svgs/Actions';
-import { PersonAdd } from './svgs/PersonAdd';
+import { Delete, Search, Send, Refresh, Edit, Exit, Swap } from './svgs/Actions';
+import { PersonAdd, Profile } from './svgs/PersonAdd';
 import { VerticalDots } from './svgs/VerticalDots';
 import { CalendarToday } from './svgs/CalendarToday';
 import { Flash } from './svgs/Flash';
@@ -41,6 +41,9 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   pdf: Pdf,
   visibility: Visibility,
   list: List,
+  exit: Exit,
+  swap: Swap,
+  profile: Profile,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {

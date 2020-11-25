@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { MenuProps } from './interfaces';
 import { FePopup } from '../Popup/FePopup';
-import { FeIcon } from '../Icon/FeIcon';
-import classNames from 'classnames';
 import './FeMenu.scss';
+import { FeMenuItem } from '../MenuItem/FeMenuItem';
+import classNames from 'classnames';
 
 export const FeMenu: FC<MenuProps> = (props) => {
   const withIcons = props.items.reduce((p, n) => p || !!n.icon, false);
@@ -12,20 +12,9 @@ export const FeMenu: FC<MenuProps> = (props) => {
       className={classNames('fe-menu__popup', props.className)}
       content={
         <div className='fe-menu'>
-          {props.items.map((item, idx) => {
-            return (
-              <div
-                key={idx}
-                onClick={(e: any) => item.onClick?.(e, item)}
-                className={classNames('fe-menu-item', item.className, { 'fe-menu-item__with-icons': withIcons })}
-              >
-                {item.icon && (
-                  <FeIcon className={classNames('fe-menu-item__icon', item.iconClassName)} name={item.icon} />
-                )}
-                {item.text}
-              </div>
-            );
-          })}
+          {props.items.map((item, idx) => (
+            <FeMenuItem key={idx} withIcons={withIcons} {...item} />
+          ))}
         </div>
       }
       action={'click'}

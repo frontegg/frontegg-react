@@ -1,7 +1,7 @@
-import { put, call, takeEvery, all, takeLatest, delay, select } from 'redux-saga/effects';
+import { put, call, takeEvery, all, takeLatest, select } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { integrationsActions } from './reducer';
-import { IIntegrationsState, IPluginState, TPlatform } from './interfaces';
+import { connectivityActions } from './reducer';
+import { IConnectivityState, IPluginState, TPlatform } from './interfaces';
 import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts';
 import {
   api,
@@ -39,7 +39,7 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
   ]);
   const data = values.reduce(
     (
-      acc: Omit<IIntegrationsState, 'isLoading'>,
+      acc: Omit<IConnectivityState, 'isLoading'>,
       curr: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[],
       idx: number
     ) =>
@@ -63,7 +63,7 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
     { list: [] }
   );
 
-  yield put(integrationsActions.loadDataSuccess(data));
+  yield put(connectivityActions.loadDataSuccess(data));
 }
 
 function* loadFunction({
@@ -80,11 +80,11 @@ function* loadFunction({
 
 function* loadSlackFunction() {
   try {
-    const data = yield call(api.integrations.getSlackChannels);
-    yield put(integrationsActions.loadSlackSuccess(data));
+    const data = yield call(api.connectivity.getSlackChannels);
+    yield put(connectivityActions.loadSlackSuccess(data));
   } catch (e) {
     console.error(e);
-    yield put(integrationsActions.loadSlackSuccess(null));
+    yield put(connectivityActions.loadSlackSuccess(null));
   }
 }
 
@@ -106,12 +106,12 @@ function* postDataFunction({
     console.error(e);
   }
   const newData = yield loadFunction({ payload: { api: platform }, type: '' });
-  yield put(integrationsActions.postDataSuccess({ platform, data: newData }));
+  yield put(connectivityActions.postDataSuccess({ platform, data: newData }));
 }
 
 function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
   const {
-    integrations: { slack },
+    connectivity: { slack },
   }: IPluginState = yield select();
   if (!slack) {
     return;
@@ -143,7 +143,7 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
         return acc;
       }, [])
       .map(function* (el) {
-        return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+        return yield call(api.connectivity.deleteSlackConfiguration, el as Required<ISlackSubscription>);
       }),
     // clean the old data
     // ...stateSlackSubscriptions
@@ -157,15 +157,14 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
     //   }, [])
     //   // @ts-ignore
     //   .map(function* (el) {
-    //     return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+    //     return yield call(api.connectivity.deleteSlackConfiguration, el as Required<ISlackSubscription>);
     //   }),
   ]);
-  return;
 }
 
 function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[]>) {
-  const { integrations }: IPluginState = yield select();
-  const stateData = integrations[type as 'email' | 'sms'];
+  const { connectivity }: IPluginState = yield select();
+  const stateData = connectivity[type as 'email' | 'sms'];
   if (!stateData) return;
   try {
     yield all([
@@ -180,7 +179,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
         }, [])
         .map(function* (data) {
           return yield call(
-            type === 'email' ? api.integrations.postEmailConfiguration : api.integrations.postSMSConfiguration,
+            type === 'email' ? api.connectivity.postEmailConfiguration : api.connectivity.postSMSConfiguration,
             data
           );
         }),
@@ -198,11 +197,11 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
           const { id = '', enabled, ...body } = subscriptions[0];
           return yield all([
             yield call(
-              type === 'email' ? api.integrations.patchEmailConfiguration : api.integrations.patchEmailConfiguration,
+              type === 'email' ? api.connectivity.patchEmailConfiguration : api.connectivity.patchEmailConfiguration,
               { eventKey, enabled }
             ),
             yield call(
-              type === 'email' ? api.integrations.putEmailSubscriptions : api.integrations.putSMSSubscriptions,
+              type === 'email' ? api.connectivity.putEmailSubscriptions : api.connectivity.putSMSSubscriptions,
               id,
               eventKey,
               { ...body, enabled }
@@ -224,7 +223,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
         }, [])
         .map(function* ({ eventKey, subscriptions }) {
           return call(
-            type === 'email' ? api.integrations.deleteEmailSubscriptions : api.integrations.deleteEmailSubscriptions,
+            type === 'email' ? api.connectivity.deleteEmailSubscriptions : api.connectivity.deleteEmailSubscriptions,
             eventKey,
             subscriptions[0].id || ''
           );
@@ -237,44 +236,44 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
 
 function* postCodeFunction({ payload }: PayloadAction<string>) {
   try {
-    yield api.integrations.postSlackCode(payload);
+    yield api.connectivity.postSlackCode(payload);
   } catch (e) {
     console.error(e);
   }
-  yield put(integrationsActions.postCodeSuccess());
+  yield put(connectivityActions.postCodeSuccess());
 }
 
 function* loadSlackPermissions() {
   try {
-    const { clientId } = yield call(api.integrations.getSlackScope);
-    yield put(integrationsActions.loadScopeSuccess(clientId));
+    const { clientId } = yield call(api.connectivity.getSlackScope);
+    yield put(connectivityActions.loadScopeSuccess(clientId));
   } catch (e) {
     console.error(e);
-    yield put(integrationsActions.loadScopeSuccess(null));
+    yield put(connectivityActions.loadScopeSuccess(null));
   }
 }
 
 function* deleteWebhookConfigFunction({ payload }: PayloadAction<string>) {
   try {
-    yield call(api.integrations.deleteWebhooksConfiguration, payload);
+    yield call(api.connectivity.deleteWebhooksConfiguration, payload);
   } catch (e) {
     console.error(e);
   }
   const newData = yield loadFunction({ payload: { api: 'webhook' }, type: '' });
-  if (newData) yield put(integrationsActions.postDataSuccess({ platform: 'webhook', data: newData }));
+  if (newData) yield put(connectivityActions.postDataSuccess({ platform: 'webhook', data: newData }));
 }
 
 function* postWebhookTestFunction({ payload }: PayloadAction<IWebhookTest>) {
   try {
-    const { statusCode, body } = yield call(api.integrations.postWebhookTest, payload);
+    const { statusCode, body } = yield call(api.connectivity.postWebhookTest, payload);
     if ([201, 200].includes(statusCode)) {
-      yield put(integrationsActions.postWebhookTestSuccess('success', JSON.stringify(body, null, 2)));
+      yield put(connectivityActions.postWebhookTestSuccess('success', JSON.stringify(body, null, 2)));
     } else {
-      yield put(integrationsActions.postWebhookTestSuccess('failed', body.toString()));
+      yield put(connectivityActions.postWebhookTestSuccess('failed', body.toString()));
     }
   } catch (e) {
     console.error(e);
-    yield put(integrationsActions.postWebhookTestSuccess('failed', e.toString()));
+    yield put(connectivityActions.postWebhookTestSuccess('failed', e.toString()));
   }
 }
 
@@ -282,21 +281,21 @@ function* loadWebhookLogsFunction({
   payload: { id, limit, offset },
 }: PayloadAction<{ id: string; offset: number; limit: number }>) {
   try {
-    const data = yield call(api.integrations.getWebhookLog, id, offset, limit);
-    yield put(integrationsActions.loadWebhookLogsSuccess(data));
+    const data = yield call(api.connectivity.getWebhookLog, id, offset, limit);
+    yield put(connectivityActions.loadWebhookLogsSuccess(data));
   } catch (e) {
     console.error(e);
-    yield put(integrationsActions.loadWebhookLogsSuccess());
+    yield put(connectivityActions.loadWebhookLogsSuccess());
   }
 }
 
 export function* sagas() {
-  yield takeEvery(integrationsActions.loadDataAction, loadDataFunction);
-  yield takeLatest(integrationsActions.loadSlackActions, loadSlackFunction);
-  yield takeEvery(integrationsActions.postDataAction, postDataFunction);
-  yield takeEvery(integrationsActions.postCodeAction, postCodeFunction);
-  yield takeEvery(integrationsActions.loadScope, loadSlackPermissions);
-  yield takeEvery(integrationsActions.deleteWebhookConfigAction, deleteWebhookConfigFunction);
-  yield takeEvery(integrationsActions.postWebhookTestAction, postWebhookTestFunction);
-  yield takeLatest(integrationsActions.loadWebhookLogsAction, loadWebhookLogsFunction);
+  yield takeEvery(connectivityActions.loadDataAction, loadDataFunction);
+  yield takeLatest(connectivityActions.loadSlackActions, loadSlackFunction);
+  yield takeEvery(connectivityActions.postDataAction, postDataFunction);
+  yield takeEvery(connectivityActions.postCodeAction, postCodeFunction);
+  yield takeEvery(connectivityActions.loadScope, loadSlackPermissions);
+  yield takeEvery(connectivityActions.deleteWebhookConfigAction, deleteWebhookConfigFunction);
+  yield takeEvery(connectivityActions.postWebhookTestAction, postWebhookTestFunction);
+  yield takeLatest(connectivityActions.loadWebhookLogsAction, loadWebhookLogsFunction);
 }

@@ -21,7 +21,7 @@ import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories } from '../../utils';
 import { EventsCell } from '../../elements/EventsCell';
-import { integrationsActions } from '../../reducer';
+import { connectivityActions } from '../../reducer';
 import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 
 interface IEventCount {
@@ -29,7 +29,7 @@ interface IEventCount {
   count: number;
 }
 
-export const IntegrationsWebhooksList: FC = () => {
+export const ConnectivityWebhooksList: FC = () => {
   const { t } = useT();
   const dispatch = useDispatch();
   const {
@@ -40,7 +40,7 @@ export const IntegrationsWebhooksList: FC = () => {
   const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
 
   const { webhook, isSaving, categories, channelMap, isLoading } = useSelector(
-    ({ integrations: { isLoading, isSaving, webhook, categories, channelMap } }: IPluginState) => ({
+    ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap } }: IPluginState) => ({
       webhook,
       isSaving,
       isLoading,
@@ -87,7 +87,7 @@ export const IntegrationsWebhooksList: FC = () => {
 
   const onChangeStatus = useCallback(
     (data: IWebhooksSaveData) => {
-      dispatch(integrationsActions.postDataAction('webhook', { ...data, isActive: !data.isActive }));
+      dispatch(connectivityActions.postDataAction('webhook', { ...data, isActive: !data.isActive }));
     },
     [dispatch]
   );
@@ -96,43 +96,42 @@ export const IntegrationsWebhooksList: FC = () => {
     () => [
       {
         accessor: 'displayName',
-        Header: t('common.title') || '',
+        Header: t('common.title').toUpperCase(),
         Cell: ({ value, row }) => (
           <div
-            className='fe-integrations-webhook-cell fe-integrations-webhook-cell-link'
+            className='fe-connectivity-webhook-cell fe-connectivity-webhook-cell-link'
             onClick={() => onEdit(row.original._id)}
           >
             <div>{value}</div>
-            <div className='fe-integrations-webhook-description'>{row.original.description}</div>
+            <div className='fe-connectivity-webhook-description'>{row.original.description}</div>
           </div>
         ),
       },
       {
         accessor: 'isActive',
-        Header: t('common.status') || '',
+        Header: t('common.status').toUpperCase(),
         Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
-        maxWidth: 40,
+        maxWidth: 30,
       },
       {
         accessor: 'eventKeys',
-        Header: t('common.events') || '',
+        Header: t('common.events').toUpperCase(),
         Cell: ({ value }) => <EventsCell events={value} />,
       },
       {
         accessor: 'invocations',
-        Header: t('common.invocations') || '',
-        Cell: ({ value }) => <div className='fe-integrations-webhook-cell'>{value || 0}</div>,
-        maxWidth: 60,
+        Header: t('common.invocations').toUpperCase(),
+        Cell: ({ value }) => <div className='fe-connectivity-webhook-cell'>{value || 0}</div>,
       },
       {
         accessor: 'createdAt',
-        Header: t('common.createdAt') || '',
+        Header: t('common.createdAt').toUpperCase(),
         Cell: ({ value }) => {
           const date = moment.utc(value).local();
           return (
-            <div className='fe-integrations-webhook-cell'>
+            <div className='fe-connectivity-webhook-cell'>
               <div>{date.fromNow()}</div>
-              <div className='fe-integrations-webhook-description'>{date.format('D/M/YYYY hh:mm')}</div>
+              <div className='fe-connectivity-webhook-description'>{date.format('D/M/YYYY hh:mm')}</div>
             </div>
           );
         },
@@ -142,15 +141,15 @@ export const IntegrationsWebhooksList: FC = () => {
         maxWidth: 40,
         Cell: ({ row }) => (
           <Menu
-            className='fe-integrations-panel-menu'
+            className='fe-connectivity-panel-menu'
             trigger={
-              <Button iconButton className='fe-integrations-panel-menu-button'>
+              <Button iconButton className='fe-connectivity-panel-menu-button'>
                 <Icon name='vertical-dots' size='small' />
               </Button>
             }
             items={[
-              { text: t('common.edit'), icon: 'edit', onClick: () => onEdit(row.original._id) },
-              { text: t('common.remove'), icon: 'delete', onClick: () => onRemove(row.original) },
+              { text: t('common.edit'), icon: <Icon name='edit' />, onClick: () => onEdit(row.original._id) },
+              { text: t('common.remove'), icon: <Icon name='delete' />, onClick: () => onRemove(row.original) },
             ]}
           />
         ),
@@ -164,21 +163,21 @@ export const IntegrationsWebhooksList: FC = () => {
   }
 
   return (
-    <div className='fe-integrations-webhook-list'>
+    <div className='fe-connectivity-webhook-list'>
       {Search}
-      <Button className='fe-integrations-webhook-add' variant='primary' onClick={onNewEvent}>
-        {t('integrations.addNewHook')}
+      <Button className='fe-connectivity-webhook-add' variant='primary' onClick={onNewEvent}>
+        {t('connectivity.addNewHook')}
       </Button>
       {data.length ? (
         <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
       ) : (
         <NotFound />
       )}
-      <Dialog header={t('integrations.deleteWebhook')} open={!!remove} onClose={() => onRemove(null)}>
+      <Dialog header={t('connectivity.deleteWebhook')} open={!!remove} onClose={() => onRemove(null)}>
         {!!remove && (
           <>
-            <div className='fe-mb-4'>{t('integrations.queryDeleteWebhook', { name: remove?.displayName })}</div>
-            <div className='fe-integrations-webhook-dialog-action'>
+            <div className='fe-mb-4'>{t('connectivity.queryDeleteWebhook', { name: remove?.displayName })}</div>
+            <div className='fe-connectivity-webhook-dialog-action'>
               <Grid container spacing={2} justifyContent='flex-end'>
                 <Grid item>
                   <Button variant='default' onClick={() => onRemove(null)}>
@@ -190,7 +189,7 @@ export const IntegrationsWebhooksList: FC = () => {
                     variant='danger'
                     loading={isSaving}
                     onClick={() => {
-                      dispatch(integrationsActions.deleteWebhookConfigAction(remove._id));
+                      dispatch(connectivityActions.deleteWebhookConfigAction(remove._id));
                     }}
                   >
                     Accept

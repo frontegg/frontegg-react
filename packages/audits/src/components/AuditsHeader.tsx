@@ -4,7 +4,7 @@ import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { getLastUpdatedTime } from '../helpers/getLastUpdatedTime';
 import { Stat } from './Stat';
 import classNames from 'classnames';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 
 export const AuditsHeader: FC = () => {
   const { lastUpdated, isLoading, totalToday, severeThisWeek } = useAudits();

@@ -11,7 +11,7 @@ import {
   FProps,
   TimeValues,
 } from '../helpers/filterHelper';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 
 export interface FilterProps {
   name: string;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Grid, Icon, IconNames } from '@frontegg/react-core';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 import classNames from 'classnames';
 
 interface StatProps {

@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
-import { prefixCls } from './Audits';
+import { prefixCls } from './constants';
 import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
 import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps } from '@frontegg/react-core';
@@ -13,12 +13,12 @@ export const AuditsSubHeader: FC = () => {
   const downloadItems: MenuItemProps[] = useMemo(
     () => [
       {
-        icon: 'pdf',
+        icon: <Icon name='pdf' />,
         iconClassName: 'fe-audits__subHeader-menuIcon',
         text: <div onClick={() => exportPDF()}>Download Pdf</div>,
       },
       {
-        icon: 'csv',
+        icon: <Icon name='csv' />,
         iconClassName: 'fe-audits__subHeader-menuIcon',
         text: <div onClick={() => exportCSV()}>Download Csv</div>,
       },

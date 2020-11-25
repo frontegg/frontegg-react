@@ -14,18 +14,18 @@ export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
 export type TWebhookStatus = 'success' | 'failed';
 export interface IPluginState {
-  integrations: IIntegrationsState;
+  connectivity: IConnectivityState;
 }
 
-export interface IIntegrationsComponent {
+export interface IConnectivityComponent {
   onClose?(): void;
 }
 
-export interface IIntegrationsState {
+export interface IConnectivityState {
   isLoading: boolean;
   isSaving: boolean;
   isTesting?: boolean;
-  list: IIntegrationsData[];
+  list: IConnectivityData[];
   sms?: IEmailSMSConfigResponse[];
   email?: IEmailSMSConfigResponse[];
   slack?: ISlackConfigurations;
@@ -42,7 +42,7 @@ export interface IIntegrationsState {
   webhookLogs?: IWebhookLogs;
 }
 
-export interface IIntegrationsData {
+export interface IConnectivityData {
   id: number;
   platform: string;
   key: TPlatform;

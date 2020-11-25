@@ -47,13 +47,14 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     isCancel,
     size,
     asLink,
-    transparent,
     iconButton,
+    transparent,
     ...restProps
   } = props;
   const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
 
   const classes = useStyles();
+  const calculatedVariant = isCancel || transparent ? 'text' : 'contained';
 
   return {
     ...restProps,
@@ -62,7 +63,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     type,
     size,
     disabled: loading || disabled,
-    variant: isCancel || transparent ? 'text' : 'contained',
+    variant: calculatedVariant,
     color: variantColor,
     classes: {
       root: classNames(className, {
@@ -79,7 +80,7 @@ export const Button: FC<ButtonProps> = (props) => {
   const { fullWidth, size, ...iconButtonProps } = buttonProps;
   if (props.iconButton) {
     return (
-      <MaterialIconButton size={size == 'large' ? 'medium' : size} {...iconButtonProps}>
+      <MaterialIconButton size={size === 'large' ? 'medium' : size} {...iconButtonProps}>
         {children}
       </MaterialIconButton>
     );

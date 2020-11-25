@@ -15,19 +15,19 @@ import {
   TableColumnProps,
   CellComponent,
 } from '@frontegg/react-core';
-import { IIntegrationsData, IPluginState, TPlatform } from '../interfaces';
-import { IntegrationsPanel } from './IntegrationsPanel';
+import { IConnectivityData, IPluginState, TPlatform } from '../interfaces';
+import { ConnectivityPanel } from './ConnectivityPanel';
 import { platformForm } from '../consts';
 
 interface ILocationState {
   open: TPlatform;
 }
 
-interface IData extends IIntegrationsData {
+interface IData extends IConnectivityData {
   isSelect: boolean;
 }
 
-export const IntegrationsTable: FC = () => {
+export const ConnectivityTable: FC = () => {
   const { t } = useT();
   const {
     replace: historyReplace,
@@ -35,7 +35,7 @@ export const IntegrationsTable: FC = () => {
   } = useHistory<ILocationState>();
   const [edit, setEdit] = useState<IData | null>(null);
 
-  const { isLoading, list } = useSelector(({ integrations: { isLoading, list } }: IPluginState) => ({
+  const { isLoading, list } = useSelector(({ connectivity: { isLoading, list } }: IPluginState) => ({
     isLoading,
     list,
   }));
@@ -51,19 +51,19 @@ export const IntegrationsTable: FC = () => {
       <Button
         transparent
         fullWidth
-        className={classnames('fe-integrations-platform', {
-          'fe-integrations-active': original.isSelect,
+        className={classnames('fe-connectivity-platform', {
+          'fe-connectivity-active': original.isSelect,
         })}
         onClick={() => {
           setEdit(original);
           historyReplace({ ...location, state: { open: original.key } });
         }}
       >
-        <div className='fe-integrations-platform-icon'>
+        <div className='fe-connectivity-platform-icon'>
           <original.image />
         </div>
-        <div className='fe-integrations-platform-title'>{t(value)}</div>
-        <Icon className='fe-integrations-platform-right-arrow' name='right-arrow' />
+        <div className='fe-connectivity-platform-title'>{t(value)}</div>
+        <Icon className='fe-connectivity-platform-right-arrow' name='right-arrow' />
       </Button>
     ),
     [historyReplace, setEdit, location]
@@ -72,7 +72,7 @@ export const IntegrationsTable: FC = () => {
   const actionCell = useCallback(
     ({ row }): CellComponent<IData> => (
       <Button
-        className='fe-integrations-button'
+        className='fe-connectivity-button'
         variant={row.original.active ? 'primary' : 'secondary'}
         onClick={() => {
           setEdit(row.original);
@@ -89,7 +89,7 @@ export const IntegrationsTable: FC = () => {
     () => [
       {
         accessor: 'platform',
-        Header: () => <span id='fe-integrations-firstColumn'>{t('common.platform')}</span>,
+        Header: () => <span id='fe-connectivity-firstColumn'>{t('common.platform')}</span>,
         maxWidth: 90,
         Cell: platformCell,
       },
@@ -128,14 +128,14 @@ export const IntegrationsTable: FC = () => {
 
   return (
     <>
-      <Grid container className='fe-integrations-list' direction='column'>
+      <Grid container className='fe-connectivity-list' direction='column'>
         {Search}
 
-        <div className={classnames({ ['fe-integrations-panel-shown']: !!edit })}>
+        <div className={classnames({ ['fe-connectivity-panel-shown']: !!edit })}>
           {data?.length ? <Table rowKey='id' columns={columns} data={data} totalData={list.length} /> : <NotFound />}
-          <IntegrationsPanel show={!!edit} onClose={onCloseEdit}>
+          <ConnectivityPanel show={!!edit} onClose={onCloseEdit}>
             {edit && React.createElement(platformForm[edit.key], { onClose: onCloseEdit })}
-          </IntegrationsPanel>
+          </ConnectivityPanel>
         </div>
       </Grid>
     </>
