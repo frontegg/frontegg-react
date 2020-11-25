@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import { Loader } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 import { AuthState } from '../Api';
