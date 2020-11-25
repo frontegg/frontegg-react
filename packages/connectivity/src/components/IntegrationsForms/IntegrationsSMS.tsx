@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IIntegrationsComponent } from '../../interfaces';
-import { IntegrationsForm } from './IntegrationsForm';
+import { IConnectivityComponent } from '../../interfaces';
+import { ConnectivityForm } from './ConnectivityForm';
 
-export const IntegrationsSMS: FC<IIntegrationsComponent> = () => <IntegrationsForm form='sms' />;
+export const ConnectivitySMS: FC<IConnectivityComponent> = () => <ConnectivityForm form='sms' />;

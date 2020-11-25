@@ -2,17 +2,17 @@ import React, { FC, useEffect, useLayoutEffect } from 'react';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { RootPathContext, useDispatch } from '@frontegg/react-core';
-import { IntegrationsContentProps } from '../components/IntegrationsContent';
+import { ConnectivityContentProps } from '../components/ConnectivityContent';
 import { TPlatform } from '../interfaces';
 import { platformForm } from '../consts';
-import { integrationsActions } from '../reducer';
+import { connectivityActions } from '../reducer';
 
 export interface IMakeComponent {
   type: TPlatform;
   defaultPath: string;
 }
 
-export const makeComponent = ({ type, defaultPath }: IMakeComponent): FC<IntegrationsContentProps> => ({
+export const makeComponent = ({ type, defaultPath }: IMakeComponent): FC<ConnectivityContentProps> => ({
   rootPath = defaultPath,
   className,
 }) => {
@@ -27,16 +27,16 @@ export const makeComponent = ({ type, defaultPath }: IMakeComponent): FC<Integra
   }, [historyReplace, location, state]);
 
   useLayoutEffect(() => {
-    dispatch(integrationsActions.loadDataAction([type]));
+    dispatch(connectivityActions.loadDataAction([type]));
     return () => {
-      dispatch(integrationsActions.cleanData());
+      dispatch(connectivityActions.cleanData());
     };
   }, [dispatch]);
 
   const Component = platformForm[type];
   return (
     <RootPathContext.Provider value={rootPath}>
-      <div className={classnames('fe-integrations-component', className)}>
+      <div className={classnames('fe-connectivity-component', className)}>
         <Component />
       </div>
     </RootPathContext.Provider>

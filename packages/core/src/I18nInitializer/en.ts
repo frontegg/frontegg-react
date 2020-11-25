@@ -273,14 +273,14 @@ export default {
         subtitle: 'Generate insights on your account usage',
       },
     },
-    integrations: {
+    connectivity: {
       addNewHook: 'Add new hook',
       deleteWebhook: 'Delete webhook',
       queryDeleteWebhook: 'Are you sure what you want delete the "{{name}}" webhook?',
       eventSettings: 'Event settings',
       generalSettings: 'General settings',
       headerSubTitle: 'Connect your own APIs to important event notifications',
-      headerTitle: 'Integrations',
+      headerTitle: 'Connectivity',
       inputName: 'Input name...',
       manageCategories: 'Manage categories',
       selectEvents: 'Select events',

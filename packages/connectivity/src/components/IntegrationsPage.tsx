@@ -1,20 +1,20 @@
 import React, { FC, useEffect } from 'react';
 import classnames from 'classnames';
-import { IntegrationsContent, IntegrationsContentProps } from './IntegrationsContent';
-import { IntegrationsHeader, IntegrationsHeadersProps } from './IntegrationsHeader';
+import { ConnectivityContent, ConnectivityContentProps } from './ConnectivityContent';
+import { ConnectivityHeader, ConnectivityHeadersProps } from './ConnectivityHeader';
 import { RootPathContext, useDispatch, useRootPath } from '@frontegg/react-core';
 import { defaultRootPath } from '../consts';
-import { integrationsActions } from '../reducer';
+import { connectivityActions } from '../reducer';
 
-export interface IIntegrationsPage
-  extends Omit<IntegrationsContentProps, 'className'>,
-    Omit<IntegrationsHeadersProps, 'className'> {
+export interface IConnectivityPage
+  extends Omit<ConnectivityContentProps, 'className'>,
+    Omit<ConnectivityHeadersProps, 'className'> {
   className?: string;
   headClassName?: string;
   contentClassName?: string;
 }
 
-export const IntegrationsPage: FC<IIntegrationsPage> = ({
+export const ConnectivityPage: FC<IConnectivityPage> = ({
   children,
   className,
   rootPath = defaultRootPath,
@@ -25,19 +25,19 @@ export const IntegrationsPage: FC<IIntegrationsPage> = ({
 }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(integrationsActions.loadDataAction());
+    dispatch(connectivityActions.loadDataAction());
     return () => {
-      dispatch(integrationsActions.cleanData());
+      dispatch(connectivityActions.cleanData());
     };
   }, []);
 
   return (
     <RootPathContext.Provider value={rootPath}>
-      <div className={classnames('fe-integrations-page', className)}>
+      <div className={classnames('fe-connectivity-page', className)}>
         {children ?? (
           <>
-            <IntegrationsHeader className={headClassName} titleClassName={titleClassName} />
-            <IntegrationsContent className={contentClassName} {...contentProps} />
+            <ConnectivityHeader className={headClassName} titleClassName={titleClassName} />
+            <ConnectivityContent className={contentClassName} {...contentProps} />
           </>
         )}
       </div>

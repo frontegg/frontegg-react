@@ -2,7 +2,7 @@ import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'reac
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { Button, Dialog, Grid, Table, TableColumnProps, useDispatch, useSelector, useT } from '@frontegg/react-core';
-import { integrationsActions } from '../../reducer';
+import { connectivityActions } from '../../reducer';
 import { IWebhookLocationState } from './interfaces';
 import { IWebhookLog } from '@frontegg/rest-api';
 import { IPluginState } from '../../interfaces';
@@ -14,12 +14,12 @@ interface IWebhookData extends IWebhookLog {
 }
 
 const defaultPageSize = 7;
-export const IntegrationsWebhooksLog: FC = () => {
+export const ConnectivityWebhooksLog: FC = () => {
   const { t } = useT();
 
   const validateStatus = (status: string) => {
     const result = +status >= 200 && +status <= 399 ? 'success' : 'failed';
-    return <span className={`fe-integrations-webhook-status fe-status-${result}`}>{t(`common.${result}`)}</span>;
+    return <span className={`fe-connectivity-webhook-status fe-status-${result}`}>{t(`common.${result}`)}</span>;
   };
 
   const formatDate = (date: string) => {
@@ -30,7 +30,7 @@ export const IntegrationsWebhooksLog: FC = () => {
   const dispatch = useDispatch();
   const [moreInfo, setMoreInfo] = useState<IWebhookData | null>(null);
 
-  const { webhookLogs } = useSelector(({ integrations: { webhookLogs } }: IPluginState) => ({ webhookLogs }));
+  const { webhookLogs } = useSelector(({ connectivity: { webhookLogs } }: IPluginState) => ({ webhookLogs }));
 
   const data = useMemo(
     () =>
@@ -60,7 +60,7 @@ export const IntegrationsWebhooksLog: FC = () => {
       {
         accessor: 'body',
         Cell: ({ row }) => (
-          <Button transparent onClick={() => setMoreInfo(row.original)} className='fe-integrations-webhook-detail'>
+          <Button transparent onClick={() => setMoreInfo(row.original)} className='fe-connectivity-webhook-detail'>
             {t('common.detail').toUpperCase()}
           </Button>
         ),
@@ -79,7 +79,7 @@ export const IntegrationsWebhooksLog: FC = () => {
   const loadData = useCallback(
     (pageSize: number, page: number) => {
       locationState.id &&
-        dispatch(integrationsActions.loadWebhookLogsAction(locationState.id, page * pageSize, pageSize));
+        dispatch(connectivityActions.loadWebhookLogsAction(locationState.id, page * pageSize, pageSize));
     },
     [dispatch, locationState.id]
   );
@@ -87,7 +87,7 @@ export const IntegrationsWebhooksLog: FC = () => {
   useLayoutEffect(() => {
     loadData(defaultPageSize, 0);
     return () => {
-      dispatch(integrationsActions.cleanWebhookLogsData());
+      dispatch(connectivityActions.cleanWebhookLogsData());
     };
   }, [dispatch, loadData]);
 
@@ -107,13 +107,13 @@ export const IntegrationsWebhooksLog: FC = () => {
       <Dialog
         open={!!moreInfo}
         onClose={() => setMoreInfo(null)}
-        className='fe-integrations-webhook-dialog-more'
+        className='fe-connectivity-webhook-dialog-more'
         header={
           moreInfo && (
             <Grid container justifyContent='space-between' alignItems='center'>
               <Grid item>
                 <h3>{t('common.logDetails')}</h3>
-                {moreInfo.now} <span className='fe-integrations-webhook-dialog-more-date'>{moreInfo.date}</span>
+                {moreInfo.now} <span className='fe-connectivity-webhook-dialog-more-date'>{moreInfo.date}</span>
               </Grid>
               <Grid>{moreInfo.status}</Grid>
             </Grid>

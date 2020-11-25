@@ -12,11 +12,11 @@ import { DialogExample } from '../DialogExample';
 import { AuditsExample } from 'auditsExample';
 import {
   EmailComponent,
-  IntegrationsPage,
+  ConnectivityPage,
   SlackComponent,
   SMSComponent,
   WebhookComponent,
-} from '@frontegg/react-integrations';
+} from '@frontegg/react-connectivity';
 import { Icons } from 'pages/Icons';
 
 const TestPage: FC = () => {
@@ -32,7 +32,7 @@ const menus = [
   { to: '/popup', title: 'Popup Examples', component: PopupExample },
   { to: '/table', title: 'Table Examples', component: TableExample },
   { to: '/select', title: 'Select Examples', component: SelectorExample },
-  { to: '/connectivity', title: 'Integrations', children: <IntegrationsPage rootPath='/connectivity' /> },
+  { to: '/connectivity', title: 'Connectivity', children: <ConnectivityPage rootPath='/connectivity' /> },
   { to: '/webhook', title: 'Webhook', component: WebhookComponent },
   { to: '/slack', title: 'Slack', component: SlackComponent },
   { to: '/emails', title: 'Email', component: EmailComponent },

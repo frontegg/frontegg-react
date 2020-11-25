@@ -1,27 +1,27 @@
 import { api, IEmailSMSConfigResponse, ISlackConfigurations, IWebhooksConfigurations } from '@frontegg/rest-api';
 import { FC } from 'react';
-import { IntegrationsSlack, IntegrationsSMS, IntegratorsEmail } from './components/IntegrationsForms';
-import { IntegrationsWebhooks } from './components/IntegrationsWebhooks';
+import { ConnectivitySlack, ConnectivitySMS, ConnectivityEmail } from './components/ConnectivityForms';
+import { ConnectivityWebhooks } from './components/ConnectivityWebhooks';
 import { BellSvg, EmailSvg, SlackSvg, SmsSvg } from './elements/Svgs';
-import { TPlatform, IIntegrationsComponent } from './interfaces';
+import { TPlatform, IConnectivityComponent } from './interfaces';
 
 export const type2ApiGet: Record<TPlatform | 'categories' | 'channelMap', any> = {
-  slack: api.integrations.getSlackConfiguration,
-  email: api.integrations.getEmailConfiguration,
-  sms: api.integrations.getSMSConfiguration,
-  webhook: api.integrations.getWebhooksConfigurations,
-  categories: api.integrations.getCategories,
-  channelMap: api.integrations.getChannelMaps,
+  slack: api.connectivity.getSlackConfiguration,
+  email: api.connectivity.getEmailConfiguration,
+  sms: api.connectivity.getSMSConfiguration,
+  webhook: api.connectivity.getWebhooksConfigurations,
+  categories: api.connectivity.getCategories,
+  channelMap: api.connectivity.getChannelMaps,
 };
 
 export const type2ApiPost: Record<TPlatform, any> = {
-  slack: api.integrations.postSlackConfiguration,
-  email: api.integrations.postEmailConfiguration,
-  sms: api.integrations.postSMSConfiguration,
-  webhook: api.integrations.postWebhooksConfiguration,
+  slack: api.connectivity.postSlackConfiguration,
+  email: api.connectivity.postEmailConfiguration,
+  sms: api.connectivity.postSMSConfiguration,
+  webhook: api.connectivity.postWebhooksConfiguration,
 };
 
-export const defaultRootPath = '/integrations';
+export const defaultRootPath = '/connectivity';
 
 export const channels: TPlatform[] = ['email', 'slack', 'sms', 'webhook'];
 
@@ -35,7 +35,7 @@ export const channels2Platform: Record<
   }
 > = {
   sms: {
-    title: 'integrations.sms',
+    title: 'connectivity.sms',
     events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
     isActive: (data) => !!(data as IEmailSMSConfigResponse[])?.length,
     image: SmsSvg,
@@ -47,22 +47,22 @@ export const channels2Platform: Record<
     image: EmailSvg,
   },
   slack: {
-    title: 'integrations.slack',
+    title: 'connectivity.slack',
     events: (data) => (data as ISlackConfigurations)?.slackSubscriptions?.length || 0,
     isActive: (data) => !!(data as ISlackConfigurations)?.slackSubscriptions,
     image: SlackSvg,
   },
   webhook: {
-    title: 'integrations.webhook',
+    title: 'connectivity.webhook',
     events: (data) => (data as IWebhooksConfigurations[])?.length || 0,
     isActive: (data) => !!(data as IWebhooksConfigurations[])?.length,
     image: BellSvg,
   },
 };
 
-export const platformForm: Record<TPlatform, FC<IIntegrationsComponent>> = {
-  sms: IntegrationsSMS,
-  webhook: IntegrationsWebhooks,
-  slack: IntegrationsSlack,
-  email: IntegratorsEmail,
+export const platformForm: Record<TPlatform, FC<IConnectivityComponent>> = {
+  sms: ConnectivitySMS,
+  webhook: ConnectivityWebhooks,
+  slack: ConnectivitySlack,
+  email: ConnectivityEmail,
 };

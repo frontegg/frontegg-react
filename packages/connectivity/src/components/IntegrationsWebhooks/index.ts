@@ -1,1 +1,1 @@
-export * from './IntegrationsWebhooks';
+export * from './ConnectivityWebhooks';

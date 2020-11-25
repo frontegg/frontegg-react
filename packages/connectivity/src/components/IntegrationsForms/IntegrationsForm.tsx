@@ -16,8 +16,8 @@ import {
   useSearch,
 } from '@frontegg/react-core';
 import { IEmailSMSConfigResponse, IEmailSMSSubscriptionResponse } from '@frontegg/rest-api';
-import { integrationsActions } from '../../reducer';
-import { IIntegrationsComponent, IPluginState } from '../../interfaces';
+import { connectivityActions } from '../../reducer';
+import { IConnectivityComponent, IPluginState } from '../../interfaces';
 import { filterCategories } from '../../utils';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 import { all } from 'redux-saga/effects';
@@ -37,11 +37,11 @@ interface IEventData {
   recipients: string[];
   subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
 }
-interface IIntegrationsForm extends IIntegrationsComponent {
+interface IConnectivityForm extends IConnectivityComponent {
   form: 'email' | 'sms';
 }
 
-export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
+export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
   const { t } = useT();
   const dispatch = useDispatch();
 
@@ -49,9 +49,9 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
   const { categories, channelMap, data, isSaving, isLoading } = useSelector(
-    ({ integrations: { isLoading, isSaving, categories, channelMap, ...integrations } }: IPluginState) => ({
+    ({ connectivity: { isLoading, isSaving, categories, channelMap, ...connectivity } }: IPluginState) => ({
       isLoading,
-      data: integrations[form],
+      data: connectivity[form],
       isSaving,
       categories,
       channelMap: channelMap && channelMap[form],
@@ -75,7 +75,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
             ) {
               return {
                 recipients: t(
-                  form === 'email' ? 'integrations.recipients.wrongEmail' : 'integrations.recipients.wrongPhone'
+                  form === 'email' ? 'connectivity.recipients.wrongEmail' : 'connectivity.recipients.wrongPhone'
                 ),
               };
             }
@@ -108,7 +108,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
         ];
       }, []);
       if (JSON.stringify(newData) !== JSON.stringify(data)) {
-        dispatch(integrationsActions.postDataAction(form, newData));
+        dispatch(connectivityActions.postDataAction(form, newData));
       } else {
         setSubmitting(false);
       }
@@ -160,7 +160,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
                 <Button
                   transparent
                   iconButton
-                  className='fe-integrations-accordion-button'
+                  className='fe-connectivity-accordion-button'
                   onClick={() => {
                     setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
                   }}
@@ -241,8 +241,8 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
               columns={columns[index]}
               data={events || []}
               totalData={events?.length || 0}
-              className={classnames('fe-integrations-table-accordion', {
-                'fe-integrations-open': opens.includes(idx) || isFiltering,
+              className={classnames('fe-connectivity-table-accordion', {
+                'fe-connectivity-open': opens.includes(idx) || isFiltering,
               })}
             />
           ))

@@ -8,9 +8,9 @@ import {
   IWebhooksConfigurations,
 } from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
-import { IIntegrationsState, TPlatform, TWebhookStatus } from './interfaces';
+import { IConnectivityState, TPlatform, TWebhookStatus } from './interfaces';
 
-export const initialState: IIntegrationsState = {
+export const initialState: IConnectivityState = {
   isLoading: false,
   isSaving: false,
   list: [],
@@ -18,8 +18,8 @@ export const initialState: IIntegrationsState = {
     isLoading: false,
   },
 };
-export const { reducer, actions: integrationsActions, name: storeName } = createSlice({
-  name: 'integrations',
+export const { reducer, actions: connectivityActions, name: storeName } = createSlice({
+  name: 'connectivity',
   initialState,
   reducers: {
     loadDataAction: {

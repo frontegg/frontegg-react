@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FC, useCallback, useMemo } from 'react';
-import { FFormik, Select, SelectOptionProps, StateProps } from '@frontegg/react-core';
-import { IWebhookComponent } from '../components/IntegrationsWebhooks/interfaces';
+import React, { FC, useCallback, useMemo } from 'react';
+import { FFormik, Select, SelectOptionProps } from '@frontegg/react-core';
+import { IWebhookComponent } from '../components/ConnectivityWebhooks/interfaces';
 
 export const SelectWebhook: FC<IWebhookComponent> = ({ cleanCategory }) => {
   const [{ value: formikValue }, {}, { setValue }] = FFormik.useField<string[]>('eventKeys');

@@ -1,4 +1,4 @@
-.fe-integrations-context {
+.fe-connectivity-context {
   .fe-input {
     &__inner {
       border-radius: var(--element-border-radius);
@@ -60,7 +60,7 @@
           &:hover {
             background-color: lighten(#eaeaeb, 6);
           }
-          &.fe-integrations-active {
+          &.fe-connectivity-active {
             background-color: #eaeaeb;
           }
         }
@@ -77,7 +77,7 @@
       text-align: center;
     }
   }
-  .fe-integrations-panel-shown {
+  .fe-connectivity-panel-shown {
     display: flex;
 
     .fe-table__container {
@@ -107,7 +107,7 @@
         }
       }
     }
-    .fe-integrations-panel {
+    .fe-connectivity-panel {
       .fe-table__container {
         float: 0 1 100%;
         width: auto;
@@ -140,16 +140,16 @@
       }
     }
   }
-  .fe-integrations-table-accordion {
+  .fe-connectivity-table-accordion {
     .fe-table__tbody {
       display: none;
       margin-bottom: var(--element-padding-lg);
     }
-    &.fe-integrations-open .fe-table__tbody {
+    &.fe-connectivity-open .fe-table__tbody {
       display: block;
     }
 
-    .fe-integrations-accordion-button {
+    .fe-connectivity-accordion-button {
       padding: 0;
       font-size: inherit;
       font-weight: inherit;
@@ -161,7 +161,7 @@
       }
     }
   }
-  .fe-integrations__content {
+  .fe-connectivity__content {
     &-heading {
       border-bottom: 1px solid #edeef0;
       min-height: 5rem;
@@ -206,7 +206,7 @@
       margin: 0 -24px 0 -14px;
       padding: 16px 24px 16px 16px;
       border-bottom: 1px solid #e9eef7;
-      .fe-integrations-webhook-accordion-icon {
+      .fe-connectivity-webhook-accordion-icon {
         background-color: #e4f9ef;
       }
     }

@@ -11,7 +11,7 @@ import {
 } from '@frontegg/react-core';
 import { selectedEvents } from '../utils';
 import { ICategory } from '@frontegg/rest-api';
-import { IWebhookComponent } from '../components/IntegrationsWebhooks/interfaces';
+import { IWebhookComponent } from '../components/ConnectivityWebhooks/interfaces';
 
 export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) => {
   const { t } = useT();
@@ -86,10 +86,10 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
                 <Grid>
                   <Icon
                     name={expanded.includes(id) ? 'down-arrow' : 'right-arrow'}
-                    className='fe-integrations-webhook-accordion-icon'
+                    className='fe-connectivity-webhook-accordion-icon'
                   />
                 </Grid>
-                <Grid className='fe-integrations-webhook-according-events-name'>{name}</Grid>
+                <Grid className='fe-connectivity-webhook-according-events-name'>{name}</Grid>
                 <Grid>
                   {t('common.selected')}: {selected}
                 </Grid>
@@ -99,15 +99,15 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
               <div>
                 <Checkbox
                   checked={eventObject?.names.includes(name)}
-                  className='fe-integrations-webhook-check fe-check-all'
+                  className='fe-connectivity-webhook-check fe-check-all'
                   onChange={() => onCategoryChange(category)}
-                  label={t('integrations.selectAll', { name: name.toUpperCase() })}
+                  label={t('connectivity.selectAll', { name: name.toUpperCase() })}
                 />
               </div>
               {events?.map(({ id, displayName, key }) => (
                 <div key={id}>
                   <Checkbox
-                    className='fe-integrations-webhook-check fe-check-item'
+                    className='fe-connectivity-webhook-check fe-check-item'
                     label={displayName}
                     size='large'
                     onChange={() => onEventChange(category, key)}

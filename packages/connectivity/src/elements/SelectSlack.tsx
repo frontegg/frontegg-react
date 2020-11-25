@@ -12,7 +12,7 @@ export const SelectSlack: FC<ISelectSlack> = ({ name, disabled }) => {
   const { isSubmitting } = FFormik.useFormikContext();
   const { slackChannels } = useSelector(
     ({
-      integrations: {
+      connectivity: {
         slackChannels: { data: slackChannels },
       },
     }: IPluginState) => ({

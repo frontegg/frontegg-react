@@ -16,12 +16,12 @@ import {
   NotFound,
 } from '@frontegg/react-core';
 import { ISlackConfigurations, ISlackEvent, ISlackSubscription } from '@frontegg/rest-api';
-import { IIntegrationsComponent, IPluginState } from '../../interfaces';
-import { integrationsActions } from '../../reducer';
+import { IConnectivityComponent, IPluginState } from '../../interfaces';
+import { connectivityActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
-import { IntegrationsSlackAuth } from './IntegrationsSlackAuth';
+import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
 
 interface ITableData {
   id: string;
@@ -37,7 +37,7 @@ interface IEventData {
   displayName: string;
 }
 
-export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
+export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
   const dispatch = useDispatch();
   const [opens, setOpens] = useState<number[]>([]);
@@ -45,7 +45,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
 
   const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
     ({
-      integrations: {
+      connectivity: {
         slack,
         isSaving,
         categories,
@@ -104,7 +104,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
                 <Button
                   transparent
                   iconButton
-                  className='fe-integrations-accordion-button'
+                  className='fe-connectivity-accordion-button'
                   onClick={() => {
                     setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
                   }}
@@ -153,9 +153,9 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   );
 
   useEffect(() => {
-    dispatch(integrationsActions.loadSlackActions());
+    dispatch(connectivityActions.loadSlackActions());
     return () => {
-      dispatch(integrationsActions.cleanSlackData());
+      dispatch(connectivityActions.cleanSlackData());
     };
   }, [dispatch]);
 
@@ -198,7 +198,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
         }, []),
       };
 
-      dispatch(integrationsActions.postDataAction('slack', newData));
+      dispatch(connectivityActions.postDataAction('slack', newData));
     },
     [dispatch, slack]
   );
@@ -208,7 +208,7 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
   }
 
   if (!isLoading && !slackChannels?.length) {
-    return <IntegrationsSlackAuth />;
+    return <ConnectivitySlackAuth />;
   }
 
   if (!tablesData?.length) {
@@ -228,8 +228,8 @@ export const IntegrationsSlack: FC<IIntegrationsComponent> = () => {
               columns={columns[index]}
               data={events || []}
               totalData={events?.length || 0}
-              className={classnames('fe-integrations-table-accordion', {
-                'fe-integrations-open': opens.includes(idx) || isFiltering,
+              className={classnames('fe-connectivity-table-accordion', {
+                'fe-connectivity-open': opens.includes(idx) || isFiltering,
               })}
             />
           ))

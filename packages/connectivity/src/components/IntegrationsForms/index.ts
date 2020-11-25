@@ -1,3 +1,3 @@
-export * from './IntegrationsSMS';
-export * from './IntegrationsSlack';
-export * from './IntegratorsEmail';
+export * from './ConnectivitySMS';
+export * from './ConnectivitySlack';
+export * from './ConnectivityEmail';

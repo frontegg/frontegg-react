@@ -56,7 +56,7 @@ export default async ({ argv }: any) => {
         { title: 'Authentication Plugin (for secure access integration)', value: 'auth', selected: true },
         {
           title:
-            'bellow plugins are already included in @frontegg/react:\n\t- Team Management Plugin\n\t- Notifications Plugin\n\t- Reports Plugin\n\t- Integrations Plugin',
+            'bellow plugins are already included in @frontegg/react:\n\t- Team Management Plugin\n\t- Notifications Plugin\n\t- Reports Plugin\n\t- Connectivity Plugin',
           value: 'audits',
           disabled: true,
         },

@@ -1,7 +1,7 @@
-.fe-integrations {
+.fe-connectivity {
   &-context {
     padding: 2rem;
-    .fe-integrations-search {
+    .fe-connectivity-search {
       margin-bottom: 2rem;
     }
   }
@@ -18,7 +18,7 @@
     flex-grow: 1;
     align-self: stretch;
     background-color: var(--color-gray-0);
-    &.fe-integrations-active {
+    &.fe-connectivity-active {
       background-color: var(--color-gray-2);
     }
 
