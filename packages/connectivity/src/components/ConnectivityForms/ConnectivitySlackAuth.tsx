@@ -16,7 +16,7 @@ export const ConnectivitySlackAuth: FC<any> = () => {
     }: IPluginState) => ({
       isLoadingScope,
       clientId,
-    }),
+    })
   );
 
   useEffect(() => {
