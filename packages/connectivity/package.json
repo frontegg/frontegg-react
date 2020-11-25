@@ -1,6 +1,6 @@
 {
-  "name": "@frontegg/react-integrations",
-  "libName": "FronteggIntegrations",
+  "name": "@frontegg/react-connectivity",
+  "libName": "FronteggConnectivity",
   "version": "1.8.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
