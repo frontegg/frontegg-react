@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { Grid, Input, Loader, Table, TableColumnProps } from '@frontegg/react-core';
+import { Grid, Loader, Table, TableColumnProps } from '@frontegg/react-core';
 import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { defaultItemsPerPage } from '../Api';
 import { renderExpandedComponent } from './renderExpandedComponent';
@@ -10,7 +10,7 @@ import { AuditsSubHeader } from './AuditsSubHeader';
 import { Filter } from './Filter';
 import { prefixCls } from './constants';
 
-export const Audits: FC = () => {
+export const AuditsPage: FC = () => {
   const { isLoading, headerProps, rowsData, filters, total } = useAudits();
   const { onPageChange, setDataSorting, setFilterData } = useAuditsActions();
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);

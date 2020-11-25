@@ -77,12 +77,11 @@ ReactDOM.render(
 ## Plugins
 **Frontegg-React** provide components per plugins for faster and simpler integration
 
-- [Authentication Plugin](packages/auth)
+- [Authentication and Team Management Plugin](packages/auth)
 - [Audits Plugin](packages/audits)
-- [Team Management Plugin](packages/teams)
-- [Notifications Plugin](packages/notifications)
-- [Reports Plugin](packages/reports)
 - [Connectivity Plugin](packages/connectivity)
+- Notifications Plugin (coming-soon)
+- Reports Plugin (coming-soon)
 
 
 ## Contributing
