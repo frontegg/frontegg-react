@@ -290,9 +290,10 @@ export default {
       updateHook: 'Update hook',
       webhook: 'Webhooks',
       selectAll: 'SELECT ALL IN THE {{name}} CATEGORY',
+      secretKeyHelp: 'JWT signed with this secret will be sent in the header "frontegg-secret" of the webhook request',
       recipients: {
-        wrongEmail: 'One of the emails is wrong',
-        wrongPhone: 'One of the phone numbers is wrong',
+        wrongEmail: 'One of the email addresses is wrong.',
+        wrongPhone: 'One of the phone numbers is wrong.',
       },
     },
   },
