@@ -5,7 +5,15 @@ import { FeGrid } from '../Grid/FeGrid';
 import { FeChip } from '../Chip/FeChip';
 import './FeInputChip.scss';
 
-export const FeInputChip: FC<IInputChip> = ({ chips, label, inputValue, onDelete, fullWidth, ...inputProps }) => {
+export const FeInputChip: FC<IInputChip> = ({
+  chips,
+  label,
+  inputValue,
+  onDelete,
+  fullWidth,
+  error,
+  ...inputProps
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -24,6 +32,7 @@ export const FeInputChip: FC<IInputChip> = ({ chips, label, inputValue, onDelete
           <input {...inputProps} value={inputValue} className='fe-input__input' ref={inputRef} />
         </FeGrid>
       </FeGrid>
+      {error && <div className='fe-error'>{error}</div>}
     </div>
   );
 };
