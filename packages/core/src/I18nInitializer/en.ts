@@ -1,6 +1,7 @@
 export default {
   translation: {
     common: {
+      switchTenant: 'Switch Tenant',
       'click-here': 'Click Here',
       'date-of-birth': 'Date of Birth',
       'empty-items': 'No Items',

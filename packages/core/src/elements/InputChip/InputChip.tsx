@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, FC, KeyboardEventHandler, useCallback, useState } from 'react';
 import { useField, useFormikContext } from 'formik';
-import { ElementsFactory } from '../..';
+import { ElementsFactory } from '../../ElementsFactory';
 import { InputChipProps } from './interfaces';
 
 export const InputChip: FC<InputChipProps> = ({ onChange, value = [], ...props }) => {

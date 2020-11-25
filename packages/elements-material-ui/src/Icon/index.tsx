@@ -20,6 +20,9 @@ import {
   KeyboardArrowLeftRounded,
   KeyboardArrowRightRounded,
   IndeterminateCheckBoxRounded,
+  ExitToAppRounded,
+  CachedRounded,
+  FaceRounded,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -46,6 +49,9 @@ const iconMap: { [K in IconNames]: any } = {
   send: SendRounded,
   visibility: Visibility,
   warning: WarningRounded,
+  exit: ExitToAppRounded,
+  swap: CachedRounded,
+  profile: FaceRounded,
 };
 
 export class Icon extends React.Component<IconProps> {

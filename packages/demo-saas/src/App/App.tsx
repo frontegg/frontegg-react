@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { ProtectedRoute, Profile, SSO, useAuthUser, Team } from '@frontegg/react-auth';
+import { ProtectedRoute, Profile, SSO, useAuthUser, Team, AccountDropdown } from '@frontegg/react-auth';
 import { ElementsPage } from '../Elements/ElementsPage';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';
@@ -43,10 +43,14 @@ const menus = [
   { to: '/dialog', component: DialogExample },
   { to: '/icons', component: Icons },
 ];
+
 class App extends React.Component<any> {
   render() {
     return (
       <div className='app'>
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end' }}>
+          <AccountDropdown />
+        </div>
         <Switch>
           <Route exact path='/'>
             <div>

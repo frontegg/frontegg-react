@@ -16,6 +16,7 @@ import { Tag } from './Tag';
 import { Grid } from './Grid';
 import { Select } from './Select';
 import { Menu } from './Menu';
+import { MenuItem } from './MenuItem';
 import { InputChip } from './InputChip';
 
 export const type = 'material-ui';
@@ -39,4 +40,5 @@ export const uiLibrary: Partial<Elements> = {
   Tag,
   Select,
   Menu,
+  MenuItem,
 };

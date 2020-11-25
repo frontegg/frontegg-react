@@ -5,6 +5,8 @@ export * from './HOCs';
 export * from './hooks';
 export * from './helpers';
 export { default as Logger } from './helpers/Logger';
+export * from './helpers/FormikAutoSave';
+export * from './helpers/useSearch';
 export * from './elements';
 export * from './components';
 export * from './styles';

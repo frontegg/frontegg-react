@@ -1,13 +1,7 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { MenuItemProps, MenuProps } from '@frontegg/react-core';
-import {
-  ListItemIcon,
-  ListItemText,
-  Menu as MaterialMenu,
-  MenuItem,
-  MenuProps as MaterialMenuProps,
-} from '@material-ui/core';
-import { Icon } from '../Icon';
+import { Menu as MaterialMenu } from '@material-ui/core';
+import { MenuItem } from '../MenuItem';
 
 export const Menu: FC<MenuProps> = (props) => {
   const { items } = props;
@@ -25,24 +19,17 @@ export const Menu: FC<MenuProps> = (props) => {
 
   const menuRenderer = useCallback(
     (props: MenuItemProps, index: number) => {
-      if (withIcons) {
-        return (
-          <MenuItem
-            key={index}
-            selected={props.selected}
-            className={props.className}
-            onClick={(e) => {
-              props.onClick?.(e, props);
-              handleMenuClose();
-            }}
-          >
-            <ListItemIcon>{props.icon && <Icon className={props.iconClassName} name={props.icon} />}</ListItemIcon>
-            <ListItemText>{props.text}</ListItemText>
-          </MenuItem>
-        );
-      } else {
-        return <MenuItem>{props.text}</MenuItem>;
-      }
+      return (
+        <MenuItem
+          key={index}
+          {...props}
+          withIcons={withIcons}
+          onClick={(e) => {
+            props.onClick?.(e, props);
+            handleMenuClose();
+          }}
+        />
+      );
     },
     [withIcons]
   );

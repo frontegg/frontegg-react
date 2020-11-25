@@ -19,7 +19,7 @@ const contextOptions: ContextOptions = {
 const plugins: PluginConfig[] = [AuthPlugin({}), IntegrationsPlugin(), NotificationsPlugin({})];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
+  <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={undefined}>
     <Component />
   </FronteggProvider>
 );

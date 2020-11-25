@@ -20,6 +20,7 @@ export * from './SSO';
 export * from './Profile';
 export * from './MFA';
 export * from './Team';
+export * from './AccountDropdown';
 
 export { AuthRoutes };
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({

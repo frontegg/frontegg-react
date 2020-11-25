@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import classnames from 'classnames';
-import { Input, useDebounce } from '..';
+import { Input } from '../elements/Input';
+import { useDebounce } from '../hooks';
 
 export interface IUseSearchProps<T> {
   data?: T[];

@@ -18,6 +18,7 @@ import { FeTable } from '../elements/Table/FeTable';
 import { FeForm } from '../elements/Form/FeForm';
 import { FeTabs } from '../elements/Tabs/FeTabs';
 import { FeMenu } from '../elements/Menu/FeMenu';
+import { FeMenuItem } from '../elements/MenuItem/FeMenuItem';
 import { FeDialog } from '../elements/Dialog/FeDialog';
 import { FeInputChip } from '../elements/InputChip/FeInputChip';
 
@@ -40,6 +41,7 @@ export const fronteggElements: Elements = {
   Form: FeForm,
   Tabs: FeTabs,
   Menu: FeMenu,
+  MenuItem: FeMenuItem,
   Dialog: FeDialog,
 };
 

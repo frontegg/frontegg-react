@@ -23,6 +23,7 @@ const mapper = (props: PopupProps): Omit<PopoverProps, 'open'> => {
       vertical,
       horizontal,
     },
+
     transformOrigin: {
       vertical: invertedVerticalPositions[vertical],
       horizontal: invertedHorizontalPositions[horizontal],
@@ -47,5 +48,15 @@ export const Popup = forwardRef<HTMLElement, PopupProps>((props, ref) => {
     }
   }, [action]);
 
-  return <Component ref={ref} {...popupProps} content={content} trigger={trigger} />;
+  return (
+    <Component
+      ref={ref}
+      {...popupProps}
+      content={content}
+      onClose={props.onClose}
+      onOpen={props.onOpen}
+      open={props.open}
+      trigger={trigger}
+    />
+  );
 });

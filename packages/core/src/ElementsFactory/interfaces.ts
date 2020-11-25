@@ -17,6 +17,7 @@ import { DialogProps } from '../elements/Dialog';
 import { FormProps } from '../elements/Form';
 import { TabProps } from '../elements/Tabs';
 import { MenuProps } from '../elements/Menu';
+import { MenuItemProps } from '../elements/MenuItem';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -47,6 +48,7 @@ export type ElementProps = {
   Popup: ComponentTypeOrForwardRef<PopupProps, HTMLDivElement>;
   Select: ComponentType<SelectProps>;
   Menu: ComponentType<MenuProps>;
+  MenuItem: ComponentType<MenuItemProps>;
 };
 
 export type ElementType = keyof ElementProps;

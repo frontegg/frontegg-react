@@ -61,14 +61,14 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
 
   if (!lastLogin) {
     items.push({
-      icon: 'send',
+      icon: <Icon name='send' />,
       onClick: handleSendActivationLink,
       text: t('auth.team.resendActivation'),
     });
   }
   if (!isMe || LEAVE_TEAM_OPTION) {
     items.push({
-      icon: 'delete',
+      icon: <Icon name='delete' />,
       onClick: handleDeleteUser,
       text: isMe ? t('auth.team.leaveTeam') : t('auth.team.deleteUser'),
       iconClassName: 'fe-color-danger',

@@ -1,5 +1,5 @@
 import { PopupPosition, PopupProps } from './interfaces';
-import React, { forwardRef, useMemo, cloneElement, MouseEvent } from 'react';
+import React, { forwardRef, useMemo, MouseEvent, useEffect, createRef, useRef } from 'react';
 import Popup from 'react-popper-tooltip';
 import './FePopup.scss';
 import classNames from 'classnames';
@@ -21,20 +21,36 @@ const preparePosition = (p?: PopupPosition): any => {
 };
 
 export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
-  const { position, trigger, action, content, className, mountNode } = props;
+  const { position, trigger, action, content, className, mountNode, open } = props;
   const placement = useMemo(() => preparePosition(position), [position]);
+  const popupRef = useRef<Popup | null>(null);
+
+  useEffect(() => {
+    if (open != null) {
+      popupRef.current?.setState({ tooltipShown: open });
+    }
+  }, [open]);
 
   return (
     <Popup
-      ref={ref}
+      ref={(node) => {
+        popupRef.current = node;
+        if (ref && typeof ref === 'function') {
+          ref?.(node);
+        } else if (ref && typeof ref === 'object') {
+          ref.current = node;
+        }
+      }}
       trigger={action}
+      closeOnReferenceHidden={false}
       placement={placement}
+      onVisibilityChange={(visible) => (visible ? props.onOpen?.() : props.onClose?.())}
       portalContainer={mountNode}
-      tooltip={({ tooltipRef: ref, getTooltipProps }) => {
+      tooltip={({ tooltipRef, getTooltipProps }) => {
         return (
           <div
             {...getTooltipProps({
-              ref,
+              ref: tooltipRef,
               className: classNames('fe-popup__container', className),
               onClick: (e: MouseEvent) => e.stopPropagation(),
             })}

@@ -23,7 +23,10 @@ export type IconNames =
   | 'vertical-dots'
   | 'visibility-off'
   | 'visibility'
-  | 'warning';
+  | 'warning'
+  | 'exit'
+  | 'swap'
+  | 'profile';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

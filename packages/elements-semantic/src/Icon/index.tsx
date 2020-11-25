@@ -27,6 +27,9 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   send: 'send',
   visibility: 'eye',
   warning: 'warning sign',
+  exit: 'sign-out',
+  swap: 'exchange',
+  profile: 'user circle',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

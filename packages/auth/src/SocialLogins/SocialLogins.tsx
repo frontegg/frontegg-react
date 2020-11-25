@@ -1,12 +1,11 @@
-import { useAuth } from '../hooks';
+import React, { FC, ReactNode } from 'react';
 import { Loader } from '@frontegg/react-core';
-import React, { createContext, FC, ReactNode, useEffect } from 'react';
+import { useAuth } from '../hooks';
 import { AuthState } from '../Api';
-import { ISocialLoginsContext, SocialLoginsActions } from './types';
+import { SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
-
-export const SocialLoginsContext = createContext<ISocialLoginsContext>({ action: SocialLoginsActions.Login });
+import { SocialLoginsContext } from './SocialLoginContext';
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;

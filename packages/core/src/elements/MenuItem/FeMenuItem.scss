@@ -1,0 +1,26 @@
+.fe-menu-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: var(--element-padding);
+  background: var(--color-white);
+  cursor: pointer;
+
+  &__with-icons {
+    padding-left: 3.5rem;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 1.25rem;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+
+  &:hover {
+    background: var(--color-gray-2);
+  }
+}

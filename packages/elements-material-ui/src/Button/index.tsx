@@ -79,7 +79,7 @@ export const Button: FC<ButtonProps> = (props) => {
   const { fullWidth, size, ...iconButtonProps } = buttonProps;
   if (props.iconButton) {
     return (
-      <MaterialIconButton size={size == 'large' ? 'medium' : size} {...iconButtonProps}>
+      <MaterialIconButton size={size === 'large' ? 'medium' : size} {...iconButtonProps}>
         {children}
       </MaterialIconButton>
     );

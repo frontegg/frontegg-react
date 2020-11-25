@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classnames from 'classnames';
-import { useT } from '../..';
+import { useT } from '../../hooks';
 
 export interface INotFound {
   className?: string;
