@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/frontegg/frontegg-react/compare/v1.8.0...v1.9.0) (2020-11-25)
+
+
+### Bug Fixes
+
+* fix console errors ([47a0679](https://github.com/frontegg/frontegg-react/commit/47a0679cb426eeb09bd5d97e0b28fe697c24e3b2)), closes [#119](https://github.com/frontegg/frontegg-react/issues/119)
+* **auth:** fix social logins loader ([#116](https://github.com/frontegg/frontegg-react/issues/116)) ([e965d3d](https://github.com/frontegg/frontegg-react/commit/e965d3db6a423a0457dc89471418f70c57f2e856))
+* **core:** fix external finterFunction ([72419cb](https://github.com/frontegg/frontegg-react/commit/72419cb98c279356c30aa3a736f9a0ccd6f285ce))
+* **integrations:** add styles to the accordion ([0b74561](https://github.com/frontegg/frontegg-react/commit/0b74561dae589ba603acef322114c3ca51b8e0a2))
+* **integrations:** fix problem with search ([eb2bf94](https://github.com/frontegg/frontegg-react/commit/eb2bf9425db0d2a7290acd2ad2ce7a6531ec96a9))
+* **integrations:** fix styles for webhooks ([436c68d](https://github.com/frontegg/frontegg-react/commit/436c68d35cdf8e017b71a701c8c23cd8c4577626))
+* **integrations:** fix the email icon and some styles ([20665eb](https://github.com/frontegg/frontegg-react/commit/20665ebc611b488a1b70739395d53d8c5bb86593))
+* **integrations:** fix validations ([f9c6c15](https://github.com/frontegg/frontegg-react/commit/f9c6c15b541abe38351f745182f81f772c3e3b40))
+
+
+### Features
+
+* **auth:** New AccountDropdown component added to AuthPlugin ([018f2f8](https://github.com/frontegg/frontegg-react/commit/018f2f8db3ad22981f9270bd2e166b56cf6eb7ff))
+* **core:** add dupport the ClassName property to the Table component ([71a582d](https://github.com/frontegg/frontegg-react/commit/71a582d69e44130cb164a5951e6f1225406cb7e7))
+* **core:** add support the fullWidth property to the InputChip component ([f1c6586](https://github.com/frontegg/frontegg-react/commit/f1c65869939d176aceb9eb8dcd9d8c4d42592caa))
+* **elements:** add dupport the ClassName property to the Table component ([610ba5a](https://github.com/frontegg/frontegg-react/commit/610ba5a6cd8e432da5ad15c631621b27eb329563))
+* **integrations:** add an accordion to the catagory data ([0bfa866](https://github.com/frontegg/frontegg-react/commit/0bfa866651744af85b4474f4f95a51123391edc6))
+* **integrations:** add icons to the list of platforms ([28dc591](https://github.com/frontegg/frontegg-react/commit/28dc5917cdbcbf839c10db0e811d0518ee285398))
+* **integrations:** add search by events and categories ([6785a81](https://github.com/frontegg/frontegg-react/commit/6785a81fcaca327043f56b077c16a95878305152))
+* New plugin for Audits ([#106](https://github.com/frontegg/frontegg-react/issues/106)) ([921b37a](https://github.com/frontegg/frontegg-react/commit/921b37aca98f23c800c8b5d094ed595d52617679))
+
+
+
+
+
 # [1.8.0](https://github.com/frontegg/frontegg-react/compare/v1.7.0...v1.8.0) (2020-11-23)
 
 
