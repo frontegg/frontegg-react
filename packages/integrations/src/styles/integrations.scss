@@ -9,6 +9,7 @@
   .fe-search {
     .fe-input {
       &__inner {
+        width: 268px;
         padding: 0 var(--element-padding) 0 1.5rem;
         position: relative;
         &:before {
@@ -135,6 +136,86 @@
         }
         &__tbody {
           overflow: visible;
+        }
+      }
+    }
+  }
+  .fe-integrations-table-accordion {
+    .fe-table__tbody {
+      display: none;
+      margin-bottom: var(--element-padding-lg);
+    }
+    &.fe-integrations-open .fe-table__tbody {
+      display: block;
+    }
+
+    .fe-integrations-accordion-button {
+      padding: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      text-transform: inherit;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
+  .fe-integrations__content {
+    &-heading {
+      border-bottom: 1px solid #edeef0;
+      min-height: 5rem;
+      display: flex;
+      align-items: center;
+      margin: -41px 0 0;
+      font-size: 1.125rem;
+    }
+    form {
+      .fe-input__inner {
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        background: var(--color-white);
+        padding: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        height: auto;
+      }
+      input[type='text'] {
+        padding: 15px 24px;
+        line-height: 2rem;
+      }
+      textarea {
+        resize: none;
+        height: 120px;
+        padding: 15px 24px;
+      }
+      .fe-input__label {
+        font-size: 14px;
+      }
+      .fe-input-in-form {
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .fe-accordion {
+    background: var(--color-white);
+    margin-bottom: 16px;
+    padding: 8px 24px 8px 8px;
+
+    .fe-checkbox {
+      display: block;
+      margin: 0 -24px 0 -14px;
+      padding: 16px 24px 16px 16px;
+      border-bottom: 1px solid #e9eef7;
+      .fe-integrations-webhook-accordion-icon {
+        background-color: #e4f9ef;
+      }
+    }
+    .fe-accordion-content {
+      margin: 0 -24px 0 -8px;
+
+      div:last-child {
+        .fe-checkbox {
+          border-bottom: 0;
         }
       }
     }

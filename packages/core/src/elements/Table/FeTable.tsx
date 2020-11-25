@@ -266,7 +266,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
 
   return (
     <div className='fe-table__container'>
-      <div ref={tableRef} className={prefixCls} {...getTableProps()}>
+      <div ref={tableRef} className={classNames(prefixCls, props.className)} {...getTableProps()}>
         {props.toolbar && <FeTableToolbar />}
 
         <FeTableTHead {...tableHeadProps} />

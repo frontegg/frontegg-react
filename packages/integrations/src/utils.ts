@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import { ICategory, IChannelsMap } from '@frontegg/rest-api';
 
-export const filterCategories = (categories?: ICategory[], channelMap?: IChannelsMap[]): ICategory[] | undefined =>
+export const filterCategories = (
+  categories?: ICategory[],
+  channelMap?: IChannelsMap[]
+): (ICategory & { index: number })[] | undefined =>
   useMemo(() => {
     if (categories && channelMap) {
       return categories
@@ -9,7 +12,8 @@ export const filterCategories = (categories?: ICategory[], channelMap?: IChannel
           ...cat,
           events: cat.events?.filter(({ key }) => channelMap.some(({ key: eventKey }) => eventKey === key)),
         }))
-        .filter(({ events }) => !!events?.length);
+        .filter(({ events }) => !!events?.length)
+        .map((cat, index) => ({ ...cat, index }));
     }
     return undefined;
   }, [categories, channelMap]);

@@ -32,6 +32,7 @@ export interface TableProps<T extends object = {}> {
   /**
    * Common Props
    */
+  className?: string;
   /* column array to be displayed in the table */
   columns: TableColumnProps<T>[];
   pagination?: 'pages' | 'infinite-scroll';

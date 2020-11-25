@@ -47,19 +47,23 @@ export const IntegrationsTable: FC = () => {
   ]);
 
   const platformCell = useCallback(
-    ({ value, row }): CellComponent<IData> => (
+    ({ value, row: { original } }): CellComponent<IData> => (
       <Button
         transparent
         fullWidth
         className={classnames('fe-integrations-platform', {
-          'fe-integrations-active': row.original.isSelect,
+          'fe-integrations-active': original.isSelect,
         })}
         onClick={() => {
-          setEdit(row.original);
-          historyReplace({ ...location, state: { open: row.original.key } });
+          setEdit(original);
+          historyReplace({ ...location, state: { open: original.key } });
         }}
       >
-        {t(value)} <Icon className='fe-integrations-platform-right-arrow' name='right-arrow' />
+        <div className='fe-integrations-platform-icon'>
+          <original.image />
+        </div>
+        <div className='fe-integrations-platform-title'>{t(value)}</div>
+        <Icon className='fe-integrations-platform-right-arrow' name='right-arrow' />
       </Button>
     ),
     [historyReplace, setEdit, location]

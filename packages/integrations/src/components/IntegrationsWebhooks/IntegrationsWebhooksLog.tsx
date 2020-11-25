@@ -70,9 +70,7 @@ export const IntegrationsWebhooksLog: FC = () => {
     [t, setMoreInfo]
   );
 
-  const { isLoading, rows, count } = useMemo(() => webhookLogs ?? { isLoading: true, count: 0, rows: [] }, [
-    webhookLogs,
-  ]);
+  const { isLoading, count } = useMemo(() => webhookLogs ?? { isLoading: true, count: 0 }, [webhookLogs]);
 
   const {
     location: { state: locationState },
