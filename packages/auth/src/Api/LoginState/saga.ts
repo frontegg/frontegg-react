@@ -229,15 +229,13 @@ function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCa
 }
 
 function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsResponse[]>>) {
-  yield put(actions.setState({ isLoading: true }));
   yield put(actions.setLoginState({ tenantsLoading: true }));
   try {
-    const tenants = yield call(api.tenants.getTenants);
-    yield put(actions.setLoginState({ tenants, tenantsLoading: false }));
-    payload?.callback?.(tenants);
+    // const tenants = yield call(api.tenants.getTenants);
+    yield put(actions.setLoginState({ tenants: [], tenantsLoading: false }));
+    payload?.callback?.([]);
   } catch (e) {
     payload?.callback?.([], e);
-    yield put(actions.setState({ isLoading: false }));
     yield put(actions.setLoginState({ tenantsLoading: false }));
   }
 }
