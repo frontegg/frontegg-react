@@ -12,7 +12,7 @@ export const FeMenu: FC<MenuProps> = (props) => {
       content={
         <div className='fe-menu'>
           {props.items.map((item, idx) => (
-            <FeMenuItem withIcons={withIcons} {...item} />
+            <FeMenuItem key={idx} withIcons={withIcons} {...item} />
           ))}
         </div>
       }
