@@ -1,13 +1,13 @@
 
-<p align="center">  
-  <a href="https://www.frontegg.com/" rel="noopener" target="_blank">  
-    <img style="margin-top:40px" height="50" src="https://frontegg.com/wp-content/uploads/2020/04/logo_frrontegg.svg" alt="Frontegg logo">  
-  </a>  
-</p>  
-<h1 align="center">Stateful React API</h1>  
+<p align="center">
+  <a href="https://www.frontegg.com/" rel="noopener" target="_blank">
+    <img style="margin-top:40px" height="50" src="https://frontegg.com/wp-content/uploads/2020/04/logo_frrontegg.svg" alt="Frontegg logo">
+  </a>
+</p>
+<h1 align="center">Stateful React API</h1>
 
-  
-# Usage  
+
+# Usage
 The APIs and states are available by using the using the frontegg rest-api are exposed via promises and interfaces such as the below:
 ```jsx
 import { someApi } from "@frontegg/rest-api";
@@ -29,7 +29,7 @@ if (redirectUrl) {
 Returns if the user needs to be redirected to SSO based on email domain
 
 ### Login
-```jsx
+```tsx
 import { login } from '@frontegg/rest-api';
 
 const loginResponse: {
@@ -37,17 +37,17 @@ const loginResponse: {
   refreshToken: string;
   expires: string;
   expiresIn: number;
-  
+
   mfaRequired: boolean;
   mfaToken?: string; // for multi-factor authentication
-  
+
   emailVerified?: boolean;
 } = await login({ email, password });
 ```
 Logs in the user using email and password and returns the JWT and refresh token.In case MFA is required the MFA token will be returned
 
 ### Login with MFA
-```jsx
+```tsx
 import { loginWithMfa } from '@frontegg/rest-api';
 
 const loginResponse: {
@@ -55,17 +55,17 @@ const loginResponse: {
   refreshToken: string;
   expires: string;
   expiresIn: number;
-  
+
   mfaRequired: boolean;
   mfaToken?: string; // for multi-factor authentication
-  
+
   emailVerified?: boolean;
 } = await loginWithMfa({ mfaToken, value });
 ```
 Verifies the login using MFA token and value and gets the JWT token and the refresh token back
 
 ### Activate account ###
-```jsx
+```tsx
 import { activateAccount } from '@frontegg/rest-api';
 
 await activateAccount({ userId, token, password });
@@ -81,7 +81,7 @@ await acceptInvitation({ userId, token });
 Accepts invitation of user to a new tenant and makes the user as active on that tenant
 
 ### Refresh token ###
-```jsx
+```tsx
 import { refreshToken } from '@frontegg/rest-api';
 
 const loginResponse: {
@@ -89,10 +89,10 @@ const loginResponse: {
   refreshToken: string;
   expires: string;
   expiresIn: number;
-  
+
   mfaRequired: boolean;
   mfaToken?: string; // for multi-factor authentication
-  
+
   emailVerified?: boolean;
 } = await refreshToken();
 ```

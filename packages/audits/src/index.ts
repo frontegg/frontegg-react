@@ -4,7 +4,7 @@ import { initialState } from './Api/initialState';
 import { AuditsListener } from './components/AuditsListener';
 
 export * from './Api';
-export { Audits } from './components/Audits';
+export { AuditsPage } from './components/Audits';
 
 export const AuditsPlugin = (): PluginConfig => ({
   storeName,

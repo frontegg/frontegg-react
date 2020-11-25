@@ -4,22 +4,22 @@
     <img style="margin-top:40px" height="50" src="https://frontegg.com/wp-content/uploads/2020/04/logo_frrontegg.svg" alt="Frontegg logo">
   </a>
 </p>
-<h1 align="center">Audits Plugin</h1>
+<h1 align="center">Connectivity Plugin</h1>
 <div align="center">
 
-Pre-built Table to easily integrate Audit logs into your [React](https://reactjs.org/) App.
+Pre-built Table to easily integrate Connectivity Services into your [React](https://reactjs.org/) App.
 </div>
 
 ## Installation
 
-Frontegg-React-Audits is available as an [npm package](https://www.npmjs.com/package/@frontegg/react-audits).
+Frontegg-React-Connectivity is available as an [npm package](https://www.npmjs.com/package/@frontegg/react-connectivity).
 
 ```sh
 // using npm
-npm install @frontegg/react-audits
+npm install @frontegg/react-connectivity
 
 // using yarn
-yarn add @frontegg/react-audits
+yarn add @frontegg/react-connectivity
 
 // NOTE: to get the latest stable use @latest.
 ```
@@ -31,26 +31,26 @@ All you need is to pass AuditsPlugin to the ``FronteggProvider``:
 ```jsx
 /* imports */
 import { FronteggProvider } from '@frontegg/react-core';
-import { AuditsPlugin } from '@frontegg/react-audits';
+import { ConnectivityPlugin } from '@frontegg/react-connectivity';
 
 ReactDOM.render(
 <BrowserRouter>
   <FronteggProvider
       context={/* context options */}
       plugins={[
-        AuditsPlugin()
+        ConnectivityPlugin()
       ]}>
     <App />
   </FronteggProvider>
 </BrowserRouter>, document.querySelector('#app'));
 ```
 
-  Then add `Audits` component to your route:
+Then add `ConnectivityPage` component to your route:
 
   ```jsx
-  import { AuditsPage } from '@frontegg/react-audits';
+  import { ConnectivityPage } from '@frontegg/react-connectivity';
 
-  <Route path={'/audits'} component={AuditsPage}/>
+  <Route exact={false} path={'/connectivity'} component={ConnectivityPage}/>
   ```
 
 ## Contributing
