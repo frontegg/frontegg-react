@@ -80,14 +80,16 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
       {extendCategory?.map((category) => {
         const { id, name, events, selected } = category;
         return (
-          <Accordion key={id} expanded={expanded.includes(id)} onChange={() => onExpand(id)}>
+          <Accordion
+            key={id}
+            expanded={expanded.includes(id)}
+            onChange={() => onExpand(id)}
+            className='fe-connectivity-webhook-accordion'
+          >
             <AccordionHeader>
               <Grid container alignItems='center' wrap='nowrap'>
                 <Grid>
-                  <Icon
-                    name={expanded.includes(id) ? 'down-arrow' : 'right-arrow'}
-                    className='fe-connectivity-webhook-accordion-icon'
-                  />
+                  <Icon name='right-arrow' className='fe-connectivity-webhook-accordion-icon' />
                 </Grid>
                 <Grid className='fe-connectivity-webhook-according-events-name'>{name}</Grid>
                 <Grid>

@@ -162,17 +162,17 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
                   iconButton
                   className='fe-connectivity-accordion-button'
                   onClick={() => {
-                    setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                    !isFiltering && setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
                   }}
                 >
-                  <Icon name={opens.includes(idx) ? 'down-arrow' : 'right-arrow'} />
+                  <Icon name={opens.includes(idx) || isFiltering ? 'down-arrow' : 'right-arrow'} />
                   {name}
                 </Button>
               ),
             },
             {
               accessor: 'enabled',
-              Header: t('common.enable').toUpperCase(),
+              Header: t('common.enable'),
               Cell: ({ row: { index: rowIndex } }) => (
                 <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].enabled`} />
               ),
@@ -180,7 +180,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
             },
             {
               accessor: 'events',
-              Header: t(form === 'email' ? 'common.emails' : 'common.sms').toUpperCase(),
+              Header: t(form === 'email' ? 'common.emails' : 'common.phones'),
               Cell: ({
                 row: {
                   index: rowIndex,
@@ -197,7 +197,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
             // },
           ] as TableColumnProps<IEventData>[]
       ),
-    [tablesData, t, opens]
+    [tablesData, t, opens, isFiltering]
   );
 
   const [filterTableData, Search] = useSearch({

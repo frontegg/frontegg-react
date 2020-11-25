@@ -138,11 +138,12 @@ export const ConnectivityWebhooksList: FC = () => {
       },
       {
         accessor: 'action',
-        maxWidth: 50,
+        maxWidth: 40,
         Cell: ({ row }) => (
           <Menu
+            className='fe-connectivity-panel-menu'
             trigger={
-              <Button iconButton>
+              <Button iconButton className='fe-connectivity-panel-menu-button'>
                 <Icon name='vertical-dots' size='small' />
               </Button>
             }

@@ -15,27 +15,14 @@ import {
   useSearch,
   NotFound,
 } from '@frontegg/react-core';
-import { ISlackConfigurations, ISlackEvent, ISlackSubscription } from '@frontegg/rest-api';
-import { IConnectivityComponent, IPluginState } from '../../interfaces';
+import { ISlackConfigurations, ISlackSubscription } from '@frontegg/rest-api';
+import { IConnectivityComponent, IPluginState, ISlackEventData, ISlackTableData } from '../../interfaces';
 import { connectivityActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
-
-interface ITableData {
-  id: string;
-  name: string;
-  index: number;
-  events: IEventData[];
-}
-interface IEventData {
-  eventId: string;
-  id?: string;
-  isActive: boolean;
-  slackEvents?: Partial<ISlackEvent>[];
-  displayName: string;
-}
+import { MessageSlack } from '../../elements/MessgaeSlack';
 
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
@@ -67,7 +54,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
 
   const { slackSubscriptions } = slack ?? { slackSubscriptions: null };
 
-  const tablesData: ITableData[] | undefined = useMemo(
+  const tablesData: ISlackTableData[] | undefined = useMemo(
     () =>
       (cleanCategory &&
         slackSubscriptions &&
@@ -106,50 +93,35 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
                   iconButton
                   className='fe-connectivity-accordion-button'
                   onClick={() => {
-                    setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                    !isFiltering && setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
                   }}
                 >
-                  <Icon name={opens.includes(idx) ? 'down-arrow' : 'right-arrow'} />
+                  <Icon name={opens.includes(idx) || isFiltering ? 'down-arrow' : 'right-arrow'} />
                   {name}
                 </Button>
               ),
             },
             {
               accessor: 'isActive',
-              Header: t('common.enabled').toUpperCase(),
+              Header: t('common.enabled'),
               Cell: ({ row: { index: rowIndex } }) => (
                 <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].isActive`} />
               ),
-              maxWidth: 30,
+              maxWidth: 40,
             },
             {
               accessor: 'slackEvents',
-              Header: t('common.channels').toUpperCase(),
-              Cell: ({
-                row: {
-                  index: rowIndex,
-                  original: { isActive },
-                },
-              }) => (
-                <SelectSlack
-                  disabled={!isActive}
-                  name={`data[${index}].events[[${rowIndex}].slackEvents[0].channelIds`}
-                />
-              ),
+              Header: t('common.channels'),
+              Cell: ({ row: { index: rowIndex } }) => <SelectSlack eventIdx={rowIndex} dataIdx={index} />,
             },
             {
               accessor: 'non',
-              Header: t('common.message').toUpperCase(),
-              Cell: ({
-                row: {
-                  index: rowIndex,
-                  original: { isActive },
-                },
-              }) => <FInput disabled={!isActive} name={`data[${index}].events[${rowIndex}].slackEvents[0].message`} />,
+              Header: t('common.message'),
+              Cell: ({ row: { index: rowIndex } }) => <MessageSlack eventIdx={rowIndex} dataIdx={index} />,
             },
-          ] as TableColumnProps<IEventData>[]
+          ] as TableColumnProps<ISlackEventData>[]
       ),
-    [tablesData, t, opens]
+    [tablesData, t, opens, isFiltering]
   );
 
   useEffect(() => {
@@ -162,7 +134,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const [filterTableData, Search] = useSearch({
     data: tablesData,
     filteredBy: 'name',
-    filterFunction: (allData: ITableData[], regexp, isEmpty) => {
+    filterFunction: (allData: ISlackTableData[], regexp, isEmpty) => {
       const result = isEmpty
         ? allData
         : (allData
@@ -172,20 +144,20 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
                 ? { ...cat, name, events: regexp.test(name) ? events : eventsFiltered }
                 : null;
             })
-            .filter((e) => !!e) as ITableData[]);
+            .filter((e) => !!e) as ISlackTableData[]);
       setIsFiltering(!isEmpty);
       return result;
     },
   });
 
   const saveData = useCallback(
-    (data?: ITableData[]) => {
+    (data?: ISlackTableData[]) => {
       if (!slack || !data) return;
       const { id } = slack;
       const newData: ISlackConfigurations = {
         id,
         // @ts-ignore
-        slackSubscriptions: data.reduce((acc: ISlackSubscription[], curr: ITableData) => {
+        slackSubscriptions: data.reduce((acc: ISlackSubscription[], curr: ISlackTableData) => {
           const { events = [] } = curr;
           return [
             ...acc,

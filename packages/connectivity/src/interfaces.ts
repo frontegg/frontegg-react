@@ -6,6 +6,7 @@ import {
   IWebhookLogsResponse,
   IWebhooksConfigurations,
   IEmailSMSConfigResponse,
+  ISlackEvent,
 } from '@frontegg/rest-api';
 import { FC } from 'react';
 
@@ -61,4 +62,18 @@ export interface IWebhookTestResult {
 
 export interface IWebhookLogs extends Partial<IWebhookLogsResponse> {
   isLoading: boolean;
+}
+
+export interface ISlackTableData {
+  id: string;
+  name: string;
+  index: number;
+  events: ISlackEventData[];
+}
+export interface ISlackEventData {
+  eventId: string;
+  id?: string;
+  isActive: boolean;
+  slackEvents?: Partial<ISlackEvent>[];
+  displayName: string;
 }
