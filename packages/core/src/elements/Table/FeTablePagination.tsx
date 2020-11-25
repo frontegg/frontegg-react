@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 export type FeTablePaginationProps<T extends object> = {
   pageIndex: number;
-  pageSize: number;
+  pageSize?: number;
   pageCount: number;
   pageOptions: number[];
   canPreviousPage: boolean;
@@ -13,7 +13,7 @@ export type FeTablePaginationProps<T extends object> = {
   gotoPage: (updater: ((pageIndex: number) => number) | number) => void;
   previousPage: () => void;
   nextPage: () => void;
-  setPageSize: (pageSize: number) => void;
+  setPageSize?: (pageSize: number) => void;
 };
 
 const generatePageButtons = (pageOptions: number[]) => {

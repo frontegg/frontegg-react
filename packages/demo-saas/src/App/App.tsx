@@ -9,6 +9,7 @@ import { GridExamples } from '../grid-examples';
 import { SelectorExample } from '../SelectorExample';
 import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
+import { AuditsExample } from 'auditsExample';
 import {
   EmailComponent,
   IntegrationsPage,
@@ -41,6 +42,7 @@ const menus = [
   { to: '/components', component: ElementsPage },
   { to: '/grids', component: GridExamples },
   { to: '/dialog', component: DialogExample },
+  { to: '/audits', title: 'Audits Example', component: AuditsExample },
   { to: '/icons', component: Icons },
 ];
 class App extends React.Component<any> {

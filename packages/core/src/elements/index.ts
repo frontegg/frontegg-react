@@ -17,3 +17,4 @@ export * from './Menu';
 export * from './Dialog';
 export * from './NotFound';
 export * from './InputChip';
+export * from './Pagination';

@@ -121,6 +121,7 @@ build: ##@4 Build build all packages
 	${MAKE} build-auth
 	${MAKE} build-integrations
 	${MAKE} build-notifications
+	${MAKE} build-audits
 
 build-%: ##@4 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"

@@ -182,12 +182,13 @@ export const Delete = async (url: string, body?: any, opts?: Omit<RequestOptions
     ...opts,
   });
 
-export const PostDownload = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+export const PostDownload = async (url: string, body?: any, params?: any, opts?: any) =>
   sendRequest({
     url,
-    method: 'GET',
+    method: 'POST',
     contentType: 'application/json',
     responseType: 'blob',
     body,
+    params,
     ...opts,
   });

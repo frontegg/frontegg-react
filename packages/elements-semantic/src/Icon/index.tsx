@@ -25,8 +25,14 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   indeterminate: 'minus',
   search: 'search',
   send: 'send',
+  refresh: 'refresh',
+  'calendar-today': 'calendar outline',
+  flash: 'lightning',
+  pdf: 'file pdf',
+  csv: 'grid layout',
   visibility: 'eye',
   warning: 'warning sign',
+  list: 'trash',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,
