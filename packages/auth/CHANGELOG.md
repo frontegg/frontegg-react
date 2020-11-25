@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/frontegg/frontegg-react/compare/v1.8.0...v1.9.0) (2020-11-25)
+
+
+### Bug Fixes
+
+* **auth:** fix social logins loader ([#116](https://github.com/frontegg/frontegg-react/issues/116)) ([e965d3d](https://github.com/frontegg/frontegg-react/commit/e965d3db6a423a0457dc89471418f70c57f2e856))
+
+
+### Features
+
+* **auth:** New AccountDropdown component added to AuthPlugin ([018f2f8](https://github.com/frontegg/frontegg-react/commit/018f2f8db3ad22981f9270bd2e166b56cf6eb7ff))
+
+
+
+
+
 # [1.8.0](https://github.com/frontegg/frontegg-react/compare/v1.7.0...v1.8.0) (2020-11-23)
 
 

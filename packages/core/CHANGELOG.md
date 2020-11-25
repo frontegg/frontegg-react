@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/frontegg/frontegg-react/compare/v1.8.0...v1.9.0) (2020-11-25)
+
+
+### Bug Fixes
+
+* **core:** fix external finterFunction ([72419cb](https://github.com/frontegg/frontegg-react/commit/72419cb98c279356c30aa3a736f9a0ccd6f285ce))
+* fix console errors ([47a0679](https://github.com/frontegg/frontegg-react/commit/47a0679cb426eeb09bd5d97e0b28fe697c24e3b2)), closes [#119](https://github.com/frontegg/frontegg-react/issues/119)
+
+
+### Features
+
+* **auth:** New AccountDropdown component added to AuthPlugin ([018f2f8](https://github.com/frontegg/frontegg-react/commit/018f2f8db3ad22981f9270bd2e166b56cf6eb7ff))
+* **core:** add dupport the ClassName property to the Table component ([71a582d](https://github.com/frontegg/frontegg-react/commit/71a582d69e44130cb164a5951e6f1225406cb7e7))
+* **core:** add support the fullWidth property to the InputChip component ([f1c6586](https://github.com/frontegg/frontegg-react/commit/f1c65869939d176aceb9eb8dcd9d8c4d42592caa))
+* New plugin for Audits ([#106](https://github.com/frontegg/frontegg-react/issues/106)) ([921b37a](https://github.com/frontegg/frontegg-react/commit/921b37aca98f23c800c8b5d094ed595d52617679))
+
+
+
+
+
 # [1.8.0](https://github.com/frontegg/frontegg-react/compare/v1.7.0...v1.8.0) (2020-11-23)
 
 
