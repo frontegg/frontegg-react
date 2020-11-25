@@ -16,6 +16,7 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     iconButton,
     className,
     isCancel,
+    testId,
     transparent,
     ...rest
   } = props;
@@ -31,6 +32,7 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     secondary: variant === 'secondary' ? true : undefined,
     color: variant === 'danger' ? 'red' : undefined,
     fluid: fullWidth,
+    'test-id': testId,
     type: submit ? 'submit' : type ?? 'button',
   };
 };
