@@ -125,4 +125,24 @@
   .fe-input-in-form {
     margin: 0;
   }
+
+  &-menu {
+    &-button {
+      padding: 0;
+      svg {
+        color: var(--color-gray-5);
+        width: 1.7rem;
+        height: 1.7rem;
+      }
+    }
+    .fe-menu-item {
+      color: var(--color-gray-6);
+      width: 10rem;
+      font-size: 0.9rem;
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
 }

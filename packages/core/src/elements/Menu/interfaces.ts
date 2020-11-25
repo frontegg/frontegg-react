@@ -14,4 +14,5 @@ export interface MenuItemProps {
 export interface MenuProps {
   trigger: ReactElement;
   items: MenuItemProps[];
+  className?: string;
 }

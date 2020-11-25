@@ -14,6 +14,7 @@ import {
   validateRequired,
   validateLength,
   validateArrayLength,
+  Popup,
 } from '@frontegg/react-core';
 import { initialValues } from './consts';
 import { IWebhooksSaveData } from '@frontegg/rest-api';
@@ -75,7 +76,23 @@ export const IntegrationsWebhooksForm: FC<IIntegrationsWebhooksForm> = ({ data }
                   placeholder={t('integrations.shortDescription')}
                 />
                 <FInput label='URL' name='url' placeholder='https://' />
-                <FInput label={<>{t('common.secretKey')}</>} name='secret' placeholder='Secret key' />
+                <FInput
+                  label={
+                    <>
+                      {t('common.secretKey')}
+                      <Popup
+                        trigger={<span className='fe-integrations-webhook-help'>?</span>}
+                        position={{ vertical: 'center', horizontal: 'right' }}
+                        action='hover'
+                        content={
+                          <div className='fe-integrations-webhook-help-block'>{t('integrations.secretKeyHelp')}</div>
+                        }
+                      />
+                    </>
+                  }
+                  name='secret'
+                  placeholder='Secret key'
+                />
                 <Grid container justifyContent='space-between'>
                   <Grid>
                     <FButton type='submit'>{t('integrations.updateHook').toUpperCase()}</FButton>

@@ -9,7 +9,7 @@ export const FeMenu: FC<MenuProps> = (props) => {
   const withIcons = props.items.reduce((p, n) => p || !!n.icon, false);
   return (
     <FePopup
-      className={'fe-menu__popup'}
+      className={classNames('fe-menu__popup', props.className)}
       content={
         <div className='fe-menu'>
           {props.items.map((item, idx) => {

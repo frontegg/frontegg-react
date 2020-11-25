@@ -15,7 +15,7 @@ export const SelectWebhook: FC<IWebhookComponent> = ({ cleanCategory }) => {
         return [
           ...acc,
           { value: template, label: template },
-          ...(cur.events?.map(({ key }) => ({ value: key, label: key })) ?? []),
+          ...(cur.events?.map(({ key, displayName }) => ({ value: key, label: displayName })) ?? []),
         ];
       }, []) ?? [],
     [cleanCategory, formikValue]

@@ -160,7 +160,7 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
     //     return yield call(api.integrations.deleteSlackConfiguration, el as Required<ISlackSubscription>);
     //   }),
   ]);
-  return yield call(type2ApiGet.slack);
+  return;
 }
 
 function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[]>) {
