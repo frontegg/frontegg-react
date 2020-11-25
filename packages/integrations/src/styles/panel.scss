@@ -56,12 +56,37 @@
         background-color: #345391 !important;
       }
     }
+
+    .fe-inputChip {
+      width: 100%;
+    }
   }
 
   .fe-integrations-webhook-settings {
     &__frame {
       background-color: var(--color-gray-1);
       padding: 2.5rem;
+      margin: 2.4rem 0 0;
+
+      h3 {
+        margin-bottom: 32px;
+      }
+      .fe-select {
+        margin-bottom: 48px !important;
+      }
+      .fe-select div[class$='-multiValue'] {
+        background-color: #cfe9ff;
+        font-size: 12px;
+        padding: 8px 16px;
+        max-width: 90%;
+        color: #345391;
+        height: auto;
+      }
+      .fe-select div[class$='-multiValue'] div {
+        color: #345391;
+        padding: 0;
+        background-color: transparent !important;
+      }
     }
 
     .fe-select {
@@ -70,6 +95,15 @@
         background-color: var(--color-white);
         border-color: var(--color-white);
       }
+    }
+
+    h2 {
+      margin-top: 10px;
+      margin-bottom: 24px;
+      font-size: 18px;
+      font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      font-weight: normal;
+      padding-bottom: 1rem;
     }
 
     h3 {

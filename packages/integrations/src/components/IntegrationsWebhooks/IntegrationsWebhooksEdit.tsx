@@ -42,8 +42,8 @@ export const IntegrationsWebhooksEdit: FC = () => {
   );
 
   return (
-    <div>
-      <div>
+    <div className='fe-integrations__content'>
+      <div className='fe-integrations__content-heading'>
         <Button transparent onClick={onBack}>
           <Icon name='left-arrow' />
         </Button>

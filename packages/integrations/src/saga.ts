@@ -55,6 +55,7 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
                 events: channels2Platform[payload[idx]].events(curr),
                 active: channels2Platform[payload[idx]].isActive(curr),
                 platform: channels2Platform[payload[idx]].title,
+                image: channels2Platform[payload[idx]].image,
               },
             ],
           }

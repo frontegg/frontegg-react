@@ -1,6 +1,7 @@
 export interface InputChipProps {
   value?: string[];
   disabled?: boolean;
+  fullWidth?: boolean;
   placeholder?: string;
   error?: string;
   onChange?(value: string[]): void;

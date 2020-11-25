@@ -1,26 +1,31 @@
+import React, { FC, useCallback, useMemo, useState } from 'react';
+import classnames from 'classnames';
 import {
-  FFormik,
-  FInput,
-  FInputChip,
-  FormikAutoSave,
-  Loader,
-  NotFound,
+  Icon,
+  useT,
   Table,
-  TableColumnProps,
+  Button,
+  Loader,
+  FFormik,
+  NotFound,
+  FInputChip,
   useDispatch,
   useSelector,
-  useT,
+  FormikAutoSave,
+  TableColumnProps,
+  useSearch,
 } from '@frontegg/react-core';
-import React, { FC, useCallback, useMemo } from 'react';
+import { IEmailSMSConfigResponse, IEmailSMSSubscriptionResponse } from '@frontegg/rest-api';
 import { integrationsActions } from '../../reducer';
 import { IIntegrationsComponent, IPluginState } from '../../interfaces';
-import { IEmailSMSConfigResponse, IEmailSMSSubscriptionResponse } from '@frontegg/rest-api';
 import { filterCategories } from '../../utils';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { all } from 'redux-saga/effects';
 
 interface ITableData {
   id: string;
   name: string;
+  index: number;
   events?: IEventData[];
 }
 
@@ -40,6 +45,9 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
   const { t } = useT();
   const dispatch = useDispatch();
 
+  const [opens, setOpens] = useState<number[]>([]);
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
+
   const { categories, channelMap, data, isSaving, isLoading } = useSelector(
     ({ integrations: { isLoading, isSaving, categories, channelMap, ...integrations } }: IPluginState) => ({
       isLoading,
@@ -56,9 +64,7 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
         const { events = [] } = data;
         return {
           events: events.map(({ enabled, recipients }) => {
-            if (enabled && !recipients.length) {
-              return { recipients: t('integration.recipients.required') };
-            } else if (
+            if (
               enabled &&
               recipients
                 .filter((e) => !!e)
@@ -83,81 +89,6 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
     },
 
     [t, form]
-  );
-
-  const cleanCategory = filterCategories(categories, channelMap);
-
-  const tablesData: ITableData[] | null = useMemo(
-    () =>
-      (cleanCategory &&
-        data &&
-        cleanCategory.map(({ id, name, events }) => {
-          return {
-            id,
-            name,
-            events: events?.map(({ id, displayName, key }: any) => {
-              const {
-                subscriptions: [{ recipients, ...subscriptions }],
-                ...config
-              } = data.find(({ eventKey }) => eventKey === key) || {
-                subscriptions: [{ recipients: [], name: '', id: '' }],
-                eventKey: key,
-                enabled: false,
-              };
-              return {
-                id,
-                displayName,
-                ...config,
-                recipients,
-                subscriptions,
-              };
-            }),
-          };
-        })) ??
-      null,
-    [cleanCategory, data]
-  );
-
-  const Input = useCallback(
-    ({ name, disabled }: { name: string; disabled: boolean }) => <FInput disabled={disabled} name={name} />,
-    [tablesData]
-  );
-
-  const columns = useMemo(
-    () =>
-      (tablesData || [])?.map(
-        ({ name }, idx) =>
-          [
-            {
-              accessor: 'displayName',
-              Header: name,
-            },
-            {
-              accessor: 'enabled',
-              Header: t('common.enable').toUpperCase(),
-              Cell: ({ row: { index } }) => <FIntegrationCheckBox name={`data[${idx}].events[${index}].enabled`} />,
-              maxWidth: 30,
-            },
-            {
-              accessor: 'events',
-              Header: t(form === 'email' ? 'common.emails' : 'common.sms').toUpperCase(),
-              Cell: ({
-                row: {
-                  index,
-                  original: { enabled },
-                },
-              }) => <FInputChip disabled={!enabled} name={`data[${idx}].events[${index}].recipients`} />,
-            },
-            // {
-            //   accessor: 'non',
-            //   Header: t('common.message').toUpperCase(),
-            //   Cell: ({ row: { index } }) => {
-            //     return <FInput name={`data[${idx}].events[${index}].message`} disabled />;
-            //   },
-            // },
-          ] as TableColumnProps<IEventData>[]
-      ),
-    [tablesData, t]
   );
 
   const saveData = useCallback(
@@ -185,6 +116,109 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
     [dispatch, data]
   );
 
+  const cleanCategory = filterCategories(categories, channelMap);
+
+  const tablesData: ITableData[] | undefined = useMemo(
+    () =>
+      cleanCategory &&
+      data &&
+      cleanCategory.map(({ id, name, events, index }) => {
+        return {
+          id,
+          name,
+          index,
+          events: events?.map(({ id, displayName, key }: any) => {
+            const {
+              subscriptions: [{ recipients, ...subscriptions }],
+              ...config
+            } = data.find(({ eventKey }) => eventKey === key) || {
+              subscriptions: [{ recipients: [], name: '', id: '' }],
+              eventKey: key,
+              enabled: false,
+            };
+            return {
+              id,
+              displayName,
+              ...config,
+              recipients,
+              subscriptions,
+            };
+          }),
+        };
+      }),
+    [cleanCategory, data]
+  );
+
+  const columns = useMemo(
+    () =>
+      (tablesData || [])?.map(
+        ({ name, index }, idx) =>
+          [
+            {
+              accessor: 'displayName',
+              Header: () => (
+                <Button
+                  transparent
+                  iconButton
+                  className='fe-integrations-accordion-button'
+                  onClick={() => {
+                    setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                  }}
+                >
+                  <Icon name={opens.includes(idx) ? 'down-arrow' : 'right-arrow'} />
+                  {name}
+                </Button>
+              ),
+            },
+            {
+              accessor: 'enabled',
+              Header: t('common.enable').toUpperCase(),
+              Cell: ({ row: { index: rowIndex } }) => (
+                <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].enabled`} />
+              ),
+              maxWidth: 30,
+            },
+            {
+              accessor: 'events',
+              Header: t(form === 'email' ? 'common.emails' : 'common.sms').toUpperCase(),
+              Cell: ({
+                row: {
+                  index: rowIndex,
+                  original: { enabled },
+                },
+              }) => <FInputChip disabled={!enabled} name={`data[${index}].events[${rowIndex}].recipients`} fullWidth />,
+            },
+            // {
+            //   accessor: 'non',
+            //   Header: t('common.message').toUpperCase(),
+            //   Cell: ({ row: { index:rowIndex } }) => {
+            //     return <FInput name={`data[${index}].events[${rowIndex}].message`} disabled />;
+            //   },
+            // },
+          ] as TableColumnProps<IEventData>[]
+      ),
+    [tablesData, t, opens]
+  );
+
+  const [filterTableData, Search] = useSearch({
+    data: tablesData,
+    filteredBy: 'name',
+    filterFunction: (allData: ITableData[], regexp, isEmpty) => {
+      const result = isEmpty
+        ? allData
+        : (allData
+            .map(({ name, events, ...cat }) => {
+              const eventsFiltered = events?.filter(({ eventKey }) => regexp.test(eventKey)) ?? [];
+              return regexp.test(name) || eventsFiltered.length
+                ? { ...cat, name, events: regexp.test(name) ? events : eventsFiltered }
+                : null;
+            })
+            .filter((e) => !!e) as ITableData[]);
+      setIsFiltering(!isEmpty);
+      return result;
+    },
+  });
+
   if (isLoading) {
     return <Loader center />;
   }
@@ -198,9 +232,23 @@ export const IntegrationsForm: FC<IIntegrationsForm> = ({ form }) => {
     >
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
-        {(tablesData || []).map(({ id, events }, idx) => (
-          <Table rowKey='id' key={id} columns={columns[idx]} data={events || []} totalData={events?.length || 0} />
-        ))}
+        {Search}
+        {filterTableData.length ? (
+          filterTableData.map(({ id, events, index }, idx) => (
+            <Table
+              rowKey='id'
+              key={id}
+              columns={columns[index]}
+              data={events || []}
+              totalData={events?.length || 0}
+              className={classnames('fe-integrations-table-accordion', {
+                'fe-integrations-open': opens.includes(idx) || isFiltering,
+              })}
+            />
+          ))
+        ) : (
+          <NotFound />
+        )}
       </FFormik.Form>
     </FFormik.Formik>
   ) : (

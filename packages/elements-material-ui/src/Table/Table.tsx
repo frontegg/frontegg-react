@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useMemo, useEffect, useRef } from 'react';
+import classNames from 'classnames';
 import { TableProps, FeTableColumnProps, FeTableColumnOptions } from '@frontegg/react-core';
 import { Table as MaUTable, Checkbox, IconButton, TablePagination, Paper } from '@material-ui/core';
 import './style.scss';
@@ -299,7 +300,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
 
   return (
     <Paper className={classes.paper}>
-      <MaUTable className={classes.table} ref={tableRef} {...getTableProps()}>
+      <MaUTable className={classNames(classes.table, props.className)} ref={tableRef} {...getTableProps()}>
         <TableHead
           headerGroups={headerGroups}
           onSortChange={onSortChange}

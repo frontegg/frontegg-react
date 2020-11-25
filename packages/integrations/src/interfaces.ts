@@ -7,6 +7,7 @@ import {
   IWebhooksConfigurations,
   IEmailSMSConfigResponse,
 } from '@frontegg/rest-api';
+import { FC } from 'react';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
@@ -46,6 +47,7 @@ export interface IIntegrationsData {
   key: TPlatform;
   active: boolean;
   events: number;
+  image: FC<React.SVGProps<SVGSVGElement>>;
 }
 
 export interface IRootPath {
