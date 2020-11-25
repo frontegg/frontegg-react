@@ -1,7 +1,17 @@
-import { all, call, delay, put, select, takeLeading } from 'redux-saga/effects';
+import { all, call, delay, put, select, takeLeading, putResolve } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
-import { api, ContextHolder, ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
+import {
+  api,
+  ContextHolder,
+  ILogin,
+  ILoginWithMfa,
+  IPostLogin,
+  IPreLogin,
+  IRecoverMFAToken,
+  ISwitchTenant,
+  ITenantsResponse,
+} from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';
@@ -51,13 +61,17 @@ export function* refreshToken() {
             loading: false,
             error: undefined,
             step: LoginStep.loginWithTwoFactor,
+            tenantsLoading: true,
+            tenants: [],
           },
         })
       );
+      yield put(actions.loadTenants());
       onRedirectTo(routes.loginUrl);
     } else {
       ContextHolder.setAccessToken(user.accessToken);
       ContextHolder.setUser(user);
+      yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
       if (location.pathname.endsWith(routes.loginUrl)) {
         yield afterAuthNavigation();
@@ -143,9 +157,12 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
           error: undefined,
           mfaToken: user.mfaToken,
           step,
+          tenants: [],
+          tenantsLoading: true,
         },
       })
     );
+    yield put(actions.loadTenants());
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
     }
@@ -172,11 +189,12 @@ function* loginWithMfa({
     const step = LoginStep.success;
     yield put(
       actions.setState({
-        loginState: { loading: false, error: undefined, step },
+        loginState: { loading: false, error: undefined, step, tenantsLoading: true, tenants: [] },
         user,
         isAuthenticated: true,
       })
     );
+    yield put(actions.loadTenants());
     callback?.(true);
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -195,6 +213,32 @@ function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
     yield put(actions.setState({ user: undefined, isAuthenticated: false }));
   } catch (e) {
     yield put(actions.setLoginState({ error: e.message, loading: false }));
+  }
+}
+
+function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCallback<ISwitchTenant>>) {
+  yield put(actions.setState({ isLoading: true }));
+  try {
+    yield call(api.tenants.switchTenant, { tenantId });
+    yield putResolve(actions.requestAuthorize(true));
+    callback?.(true);
+  } catch (e) {
+    callback?.(false, e);
+    yield put(actions.setState({ isLoading: false }));
+  }
+}
+
+function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsResponse[]>>) {
+  yield put(actions.setState({ isLoading: true }));
+  yield put(actions.setLoginState({ tenantsLoading: true }));
+  try {
+    const tenants = yield call(api.tenants.getTenants);
+    yield put(actions.setLoginState({ tenants, tenantsLoading: false }));
+    payload?.callback?.(tenants);
+  } catch (e) {
+    payload?.callback?.([], e);
+    yield put(actions.setState({ isLoading: false }));
+    yield put(actions.setLoginState({ tenantsLoading: false }));
   }
 }
 
@@ -217,4 +261,6 @@ export function* loginSagas() {
   yield takeLeading(actions.logout, logout);
   yield takeLeading(actions.loginWithMfa, loginWithMfa);
   yield takeLeading(actions.recoverMfa, recoverMfa);
+  yield takeLeading(actions.switchTenant, switchTenant);
+  yield takeLeading(actions.loadTenants, loadTenants);
 }

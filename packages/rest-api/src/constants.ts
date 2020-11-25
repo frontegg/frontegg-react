@@ -17,3 +17,4 @@ export const TEAMS_PROFILE_SERVICE_URL = '/team/resources/profile';
 export const NOTIFICATIONS_SERVICE_URL = '/notification';
 export const AUDITS_SERVICE_URL = '/audits';
 export const AUDITS_SERVICE_EXPORT_URL = '/audits/export';
+export const TENANTS_SERVICE_V1 = '/tenants/resources/tenants/v1';

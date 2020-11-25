@@ -16,7 +16,7 @@ export const AccountPopupSection: FC<AccountPopupSectionProps> = (props) => {
     <div className='fe-account-popup-section'>
       {title && <div className='fe-account-popup-section__title'>{title}</div>}
       {items.map((item, index) => (
-        <MenuItem withIcons={true} icon={item.icon} onClick={item.onClick} text={<>{item.title}</>} />
+        <MenuItem key={index} withIcons={true} icon={item.icon} onClick={item.onClick} text={<>{item.title}</>} />
       ))}
     </div>
   );

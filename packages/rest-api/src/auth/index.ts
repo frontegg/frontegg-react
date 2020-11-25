@@ -32,7 +32,6 @@ import {
   ILoginViaSocialLogin,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
-import { SocialLoginsProviders } from './interfaces';
 
 /*****************************************
  * Authentication

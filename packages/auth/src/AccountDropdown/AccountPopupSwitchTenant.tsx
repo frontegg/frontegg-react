@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-import { Button, Icon, MenuItem, useT } from '@frontegg/react-core';
+import { Button, Icon, Loader, MenuItem, useT } from '@frontegg/react-core';
+import { useAuth } from '../hooks';
 
 type AccountPopupSwitchTenantProps = {
   show: boolean;
@@ -8,8 +9,16 @@ type AccountPopupSwitchTenantProps = {
 };
 
 export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (props) => {
+  const { tenantsLoading, user, tenants: tenantsFromState, switchTenant } = useAuth(({ loginState, user }) => ({
+    ...loginState,
+    user,
+  }));
   const { t } = useT();
   const { show } = props;
+  const tenants =
+    tenantsFromState.length > 0
+      ? tenantsFromState
+      : (user?.tenantIds ?? []).map((tenantId) => ({ id: tenantId, tenantId, name: tenantId }));
   return (
     <div
       className={classNames('fe-account-switch-tenant', {
@@ -23,9 +32,11 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
         <span>{t('common.switchTenant')}</span>
       </div>
       <div className='fe-account-switch-tenant__body'>
-        <MenuItem text={'Tenant 1'} />
-        <MenuItem text={'Tenant 2'} />
-        <MenuItem text={'Tenant 3'} />
+        {tenantsLoading && <Loader center={true} />}
+        {!tenantsLoading &&
+          tenants.map((tenant) => (
+            <MenuItem key={tenant.id} text={tenant.name} onClick={() => switchTenant({ tenantId: tenant.tenantId })} />
+          ))}
       </div>
     </div>
   );
