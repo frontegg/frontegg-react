@@ -10,13 +10,13 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     inForm,
     submit,
     formikDisableIfNotDirty,
-    testId,
     loading,
     disabled,
     type,
     iconButton,
     className,
     isCancel,
+    testId,
     transparent,
     ...rest
   } = props;

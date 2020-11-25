@@ -8,6 +8,7 @@ const mapper = ({
   getOptionLabel,
   onChange,
   error,
+  value,
   onBlur,
   ...rest
 }: SelectProps): DropdownProps => {
@@ -71,7 +72,7 @@ export const Select = (props: SelectProps) => {
   }, []);
 
   const preparedValue = useMemo(() => {
-    return value?.map((v) => v.value);
+    return Array.isArray(value) ? value?.map((v) => v.value) : value?.value;
   }, [value]);
 
   const onHandleChange = useCallback(
@@ -96,7 +97,7 @@ export const Select = (props: SelectProps) => {
       onOpen={() => (onOpen ? onOpen() : setOpen(true))}
       onClose={() => (onClose ? onClose() : setOpen(false))}
       multiple={multiple ?? false}
-      placeholder={value && value.length ? '' : label}
+      placeholder={value ? '' : label}
       onChange={(e, data) => onHandleChange(e, data.value)}
       renderLabel={(option, _index, state) => renderLabel(option, state)}
       noResultsMessage={optionsMessage}

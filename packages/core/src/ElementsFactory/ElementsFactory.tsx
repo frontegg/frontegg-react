@@ -21,6 +21,7 @@ import { FeMenu } from '../elements/Menu/FeMenu';
 import { FeMenuItem } from '../elements/MenuItem/FeMenuItem';
 import { FeDialog } from '../elements/Dialog/FeDialog';
 import { FeInputChip } from '../elements/InputChip/FeInputChip';
+import { FePagination } from '../elements/Pagination/FePagination';
 
 export const fronteggElements: Elements = {
   Accordion: FeAccordion,
@@ -34,6 +35,7 @@ export const fronteggElements: Elements = {
   Grid: FeGrid,
   Icon: FeIcon,
   Popup: FePopup,
+  Pagination: FePagination,
   Checkbox: FeCheckbox,
   Select: FeSelect,
   SwitchToggle: FeSwitchToggle,

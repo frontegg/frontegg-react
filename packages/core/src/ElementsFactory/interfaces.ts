@@ -18,6 +18,7 @@ import { FormProps } from '../elements/Form';
 import { TabProps } from '../elements/Tabs';
 import { MenuProps } from '../elements/Menu';
 import { MenuItemProps } from '../elements/MenuItem';
+import { PaginationProps } from '../elements/Pagination';
 
 export type FormFieldProps = {
   inForm?: boolean; // default: false
@@ -49,6 +50,7 @@ export type ElementProps = {
   Select: ComponentType<SelectProps>;
   Menu: ComponentType<MenuProps>;
   MenuItem: ComponentType<MenuItemProps>;
+  Pagination: ComponentType<PaginationProps>;
 };
 
 export type ElementType = keyof ElementProps;

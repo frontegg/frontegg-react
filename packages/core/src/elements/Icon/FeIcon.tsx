@@ -6,9 +6,14 @@ import { Visibility, VisibilityOff } from './svgs/Visibility';
 import { Filters } from './svgs/Filters';
 import { UpArrow, DownArrow, RightArrow, LeftArrow } from './svgs/Arrows';
 import { Checkmark, Indeterminate } from './svgs/Checkmark';
-import { Delete, Edit, Exit, Search, Send, Swap } from './svgs/Actions';
+import { Delete, Search, Send, Refresh, Edit, Exit, Swap } from './svgs/Actions';
 import { PersonAdd, Profile } from './svgs/PersonAdd';
 import { VerticalDots } from './svgs/VerticalDots';
+import { CalendarToday } from './svgs/CalendarToday';
+import { Flash } from './svgs/Flash';
+import { Csv } from './svgs/Csv';
+import { Pdf } from './svgs/Pdf';
+import { List } from './svgs/List';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'down-arrow': DownArrow,
@@ -29,7 +34,13 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   indeterminate: Indeterminate,
   search: Search,
   send: Send,
+  refresh: Refresh,
+  'calendar-today': CalendarToday,
+  flash: Flash,
+  csv: Csv,
+  pdf: Pdf,
   visibility: Visibility,
+  list: List,
   exit: Exit,
   swap: Swap,
   profile: Profile,

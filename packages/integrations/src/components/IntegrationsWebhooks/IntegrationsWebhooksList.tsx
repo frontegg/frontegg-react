@@ -147,8 +147,8 @@ export const IntegrationsWebhooksList: FC = () => {
               </Button>
             }
             items={[
-              { text: t('common.edit'), icon: 'edit', onClick: () => onEdit(row.original._id) },
-              { text: t('common.remove'), icon: 'delete', onClick: () => onRemove(row.original) },
+              { text: t('common.edit'), icon: <Icon name='edit' />, onClick: () => onEdit(row.original._id) },
+              { text: t('common.remove'), icon: <Icon name='delete' />, onClick: () => onRemove(row.original) },
             ]}
           />
         ),
