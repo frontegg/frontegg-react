@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
+
+
+### Bug Fixes
+
+* **audits:** move initData action to Audits.tsx, fix reducer storeName ([28a69b6](https://github.com/frontegg/frontegg-react/commit/28a69b64375652720e2bb9589471b35045d6295c))
+* **audits:** remove comment ([e9fdc6f](https://github.com/frontegg/frontegg-react/commit/e9fdc6f1adfec1c5d6d689b0bf6b006d819418b9))
+
+
+### Features
+
+* **connectivity:** add listener ([e463fae](https://github.com/frontegg/frontegg-react/commit/e463faeb097a07959b88cbf4a535bb1871b9e6b3))
+
+
+
+
+
 # [1.9.0](https://github.com/frontegg/frontegg-react/compare/v1.8.0...v1.9.0) (2020-11-25)
 
 
