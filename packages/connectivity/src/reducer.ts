@@ -22,6 +22,7 @@ export const { reducer, actions: connectivityActions, name: storeName } = create
   name: 'connectivity',
   initialState,
   reducers: {
+    initData: () => ({ ...initialState }),
     loadDataAction: {
       prepare: (payload?: TPlatform[]) => ({ payload }),
       reducer: (state) => ({ ...state, isLoading: true }),
