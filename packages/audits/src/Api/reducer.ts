@@ -84,13 +84,13 @@ export { reducer, storeName };
 
 export const actions = {
   ...lifeCycleActions,
-  initData: createAction(`${name}/initData`),
-  loadAudits: createAction<LoadAudits>(`${name}/loadAudits`),
-  removeFilter: createAction<Filter>(`${name}/removeFilter`),
-  filterData: createAction<Filter>(`${name}/filterData`),
-  exportCSV: createAction(`${name}/exportCSV`),
-  exportPDF: createAction(`${name}/exportPDF`),
-  deleteAudits: createAction<Filter>(`${name}/deleteAudits`),
+  initData: createAction(`${storeName}/initData`),
+  loadAudits: createAction<LoadAudits>(`${storeName}/loadAudits`),
+  removeFilter: createAction<Filter>(`${storeName}/removeFilter`),
+  filterData: createAction<Filter>(`${storeName}/filterData`),
+  exportCSV: createAction(`${storeName}/exportCSV`),
+  exportPDF: createAction(`${storeName}/exportPDF`),
+  deleteAudits: createAction<Filter>(`${storeName}/deleteAudits`),
 };
 
 export type AuditsActions = typeof actions;
