@@ -4,7 +4,7 @@ import { LoadAudits, Filter, DataSorting } from './interfaces';
 import moment from 'moment';
 
 export const defaultItemsPerPage = 20;
-//todo name should be store name
+
 const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
   name: 'audits',
   initialState,
