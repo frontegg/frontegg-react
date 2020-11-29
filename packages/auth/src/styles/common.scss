@@ -17,6 +17,7 @@
   align-items: center;
   min-height: 500px;
   overflow: auto;
+
   from {
     box-sizing: border-box;
     width: 100%;
@@ -74,6 +75,14 @@
     flex-flow: wrap;
     align-items: center;
   }
+  &-full-width {
+    width: 100%;
+  }
+
+  &-flex-no-wrap {
+    flex-wrap: nowrap;
+  }
+
   &-flex-spacer {
     flex: 1;
   }
