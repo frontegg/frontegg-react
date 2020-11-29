@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import {
   omitProps,
-  validatePassword,
+  validatePasswordUsingOWASP,
   validatePasswordConfirmation,
   validateSchema,
   ErrorMessage,
@@ -25,15 +25,16 @@ export interface ResetPasswordFormProps {
 export const ResetPasswordForm: FC<ResetPasswordFormProps> = (props) => {
   const { renderer, userId, token } = props;
   const { t } = useT();
-  const { loading, error, resetPassword } = useAuth(({ forgotPasswordState }) => forgotPasswordState);
+  const { loading, error, resetPassword, passwordConfig } = useAuth(({ forgotPasswordState }) => forgotPasswordState);
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
+
   return (
     <Formik
       validationSchema={validateSchema({
-        password: validatePassword(t),
+        password: validatePasswordUsingOWASP(passwordConfig),
         confirmPassword: validatePasswordConfirmation(t),
       })}
       enableReinitialize
