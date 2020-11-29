@@ -28,7 +28,6 @@ export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
   }, [open]);
 
   useEffect(() => {
-    debugger;
     if (props.open != null) {
       setOpen(props.open);
     }
