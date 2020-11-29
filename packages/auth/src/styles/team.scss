@@ -33,13 +33,30 @@
     font-weight: bold;
   }
 
-  &__roles-dropdown {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    div {
-      width: 100%;
-      text-align: left;
+  &__roles-dropdown-button.fe-button {
+    min-width: 3rem;
+  }
+  &__roles-popup.fe-popup__container {
+    padding: 0;
+    .fe-team__roles-dropdown {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem 0;
+
+      &-disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+
+      .fe-menu-item {
+        padding-right: 2rem;
+        text-align: left;
+      }
+
+      .fe-checkbox.fe-menu-item__icon {
+        height: 1.75rem;
+        max-width: calc(100% - 2.5rem);
+      }
     }
   }
 }
