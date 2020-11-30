@@ -22,22 +22,22 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
     '@frontegg/react-elements-material-ui',
     '@frontegg/react-elements-semantic',
   ].forEach(dep => {
-    if (pkg.dependencies[dep]) {
+    if (pkg.dependencies && pkg.dependencies[dep]) {
       pkg.dependencies[dep] = `${nextVersion}`;
     }
-    if (distPkg.dependencies[dep]) {
+    if (distPkg.dependencies && distPkg.dependencies[dep]) {
       distPkg.dependencies[dep] = `${nextVersion}`;
     }
-    if (pkg.devDependencies[dep]) {
+    if (pkg.devDependencies && pkg.devDependencies[dep]) {
       pkg.devDependencies[dep] = `${nextVersion}`;
     }
-    if (distPkg.devDependencies[dep]) {
+    if (distPkg.devDependencies && distPkg.devDependencies[dep]) {
       distPkg.devDependencies[dep] = `${nextVersion}`;
     }
-    if (pkg.peerDependencies[dep]) {
+    if (pkg.peerDependencies && pkg.peerDependencies[dep]) {
       pkg.peerDependencies[dep] = `${nextVersion}`;
     }
-    if (distPkg.peerDependencies[dep]) {
+    if (distPkg.peerDependencies && distPkg.peerDependencies[dep]) {
       distPkg.peerDependencies[dep] = `${nextVersion}`;
     }
   });
