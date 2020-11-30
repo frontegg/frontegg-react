@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
+
+
+### Bug Fixes
+
+* **audits:** fix cancel button on audits filter ([007fec7](https://github.com/frontegg/frontegg-react/commit/007fec7f0f826a9cc9b671bfb49af043adb47b00))
+
+
+
+
+
 # [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
 
 

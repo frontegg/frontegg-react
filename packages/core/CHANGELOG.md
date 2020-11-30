@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
+
+
+### Bug Fixes
+
+* [FR-815] change password policy to be aligned with backend ([fbc9abf](https://github.com/frontegg/frontegg-react/commit/fbc9abfa776b9f7ac0a8f3c89eaa5c6a39b320b6))
+
+
+
+
+
 # [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
 
 **Note:** Version bump only for package @frontegg/react-core
