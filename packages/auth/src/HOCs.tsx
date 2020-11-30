@@ -31,7 +31,10 @@ export const withAuth = <P extends any>(
 };
 
 const onRedirecting = (loginUrl: string) => {
-  window.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, window.location.pathname);
+  window.localStorage.setItem(
+    FRONTEGG_AFTER_AUTH_REDIRECT_URL,
+    window.location.href.substring(window.location.origin.length)
+  );
   return <Redirect to={loginUrl} />;
 };
 
