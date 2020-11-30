@@ -1,6 +1,6 @@
 export default `import React{{#if typescript}}, { ComponentType }{{/if}} from 'react';
 import { {{#if typescript}}ContextOptions, PluginConfig, {{/if}}FronteggProvider } from '@frontegg/react-core';
-import { uiLibrary } from '@frontegg/react-elements-{{uiLibrary}}';
+{{#if uiLibrary}}import { uiLibrary } from '@frontegg/react-elements-{{uiLibrary}}';{{/if}}
 {{{imports}}}
 
 /**
@@ -28,7 +28,8 @@ export const withFrontegg = (AppComponent) => (props) => {
   return <FronteggProvider
     plugins={plugins}
     context={contextOptions}
-    uiLibrary={uiLibrary}>
+    {{#if uiLibrary}}uiLibrary={uiLibrary}{{/if}}
+    >
     <AppComponent {...props}/>
   </FronteggProvider>;
 };`;

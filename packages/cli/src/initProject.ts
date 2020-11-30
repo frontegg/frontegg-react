@@ -1,4 +1,12 @@
-import { createFileInSrc, createLoader, isFileExistsInSrc, printVersions, usingTypescript, usingYarn } from './helpers';
+import {
+  copyToOld,
+  createFileInSrc,
+  createLoader,
+  isFileExistsInSrc,
+  printVersions,
+  usingTypescript,
+  usingYarn,
+} from './helpers';
 import chalk from 'chalk';
 import prompts from 'prompts';
 import handlebars from 'handlebars';
@@ -16,9 +24,23 @@ const buildSelectedPluginsJS = (selectedPluginsJS: string[]): object => {
   const importJs = [];
   if (selectedPluginsJS.indexOf('auth') !== -1) {
     js.push(
-      `  AuthPlugin({\n    /* auth options, find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/auth */\n  })`
+      `  AuthPlugin({\n    /* auth options, find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/auth */\n  }),`
     );
     importJs.push(`import { AuthPlugin } from '@frontegg/react-auth';`);
+  }
+
+  if (selectedPluginsJS.indexOf('audits') !== -1) {
+    js.push(
+      `  AuditsPlugin({\n    /* audits options, find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/audits */\n  }),`
+    );
+    importJs.push(`import { AuditsPlugin } from '@frontegg/react-audits';`);
+  }
+
+  if (selectedPluginsJS.indexOf('audits') !== -1) {
+    js.push(
+      `  ConnectivityPlugin(), /* find more information at https://github.com/frontegg/frontegg-react/tree/master/packages/connectivity */`
+    );
+    importJs.push(`import { ConnectivityPlugin } from '@frontegg/react-connectivity';`);
   }
 
   return {
@@ -42,9 +64,8 @@ export default async ({ argv }: any) => {
   console.log(chalk.cyan('Initializing Frontegg React...'));
 
   if (isFileExistsInSrc(constants.fileName) && !argv.force) {
-    console.log(chalk.green('withFrontegg file already exists in src folder.'));
-    console.log(chalk.yellow('if you want to reinitialize it, use --force or -f to overwrite it.'));
-    return;
+    console.log(chalk.green('withFrontegg file already exists in src folder. moved to oldWithFrontegg'));
+    copyToOld(constants.fileName);
   }
 
   const { selectedPlugins, withRouter, baseUrl, uiLibrary } = await prompts([
@@ -54,12 +75,10 @@ export default async ({ argv }: any) => {
       message: 'Select the plugins you want to install',
       choices: [
         { title: 'Authentication Plugin (for secure access integration)', value: 'auth', selected: true },
-        {
-          title:
-            'bellow plugins are already included in @frontegg/react:\n\t- Team Management Plugin\n\t- Notifications Plugin\n\t- Reports Plugin\n\t- Connectivity Plugin',
-          value: 'audits',
-          disabled: true,
-        },
+        { title: 'Audits Plugin (for audit logs integration)', value: 'audits', selected: false },
+        { title: 'Connectivity Plugin (for webhooks integration)', value: 'connectivity', selected: false },
+        { title: 'Notifications Plugin (coming-soon)', value: 'connectivity', selected: false, disabled: true },
+        { title: 'Reports Plugin (coming-soon)', value: 'connectivity', selected: false, disabled: true },
       ],
       instructions: '\n\n Space to select. Return to submit',
     } as any,
@@ -68,6 +87,7 @@ export default async ({ argv }: any) => {
       name: 'uiLibrary',
       message: 'Which UI Library do you use in your project?',
       choices: [
+        { title: 'Frontegg (recommended)', value: 'frontegg' },
         { title: 'Semantic', value: 'semantic' },
         { title: 'Material UI', value: 'material-ui' },
         { title: 'Bootstrap (coming soon)', value: 'bootstrap', disabled: true },
@@ -93,6 +113,7 @@ export default async ({ argv }: any) => {
   });
 
   const toInstall = [
+    `@frontegg/rest-api`,
     `@frontegg/react-core`,
     `@frontegg/react-elements-${uiLibrary}`,
     ...selectedPlugins.map((pluginName: string) => `@frontegg/react-${pluginName}`),

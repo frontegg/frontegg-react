@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node_version: 12
+          node-version: 12
           registry-url: 'https://npm.pkg.github.com'
       - name: Install Dependencies and Build Packages
         run: make init
@@ -54,10 +54,12 @@ jobs:
         shell: bash -ex {0}
         run: |
           version=$(node -p 'require("./lerna.json").version')
+          changelog=$(node -p "(function(){var changelog = require('fs').readFileSync('./CHANGELOG.md', {encoding: 'utf8'}); changelog = changelog.substring(changelog.indexOf('# [1.10')); return changelog.substring(0, changelog.indexOf('\n# [') - 3)})()")
           echo "::set-output name=version::${version}"
+          echo "::set-output name=changelog::${changelog}"
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v3.4.0
+        uses: peter-evans/create-pull-request@v3.5.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ secrets.GITHUB_WORKSPACE }}
@@ -68,12 +70,7 @@ jobs:
           body: |
             # v${{ steps.changelog.outputs.version }}
 
-            ### Bug fixes
-            [ ] TODO
-
-            ### Feature
-            [ ] TODO
+            ${{steps.changelog.outputs.changelog}}
 
           labels: "Type: Release"
           branch: "release/next"
-          request-to-parent: false

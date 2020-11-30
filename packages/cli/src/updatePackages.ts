@@ -3,8 +3,11 @@ import { exec, execSync } from 'child_process';
 import chalk from 'chalk';
 
 const packages = [
+  '@frontegg/rest-api',
   '@frontegg/react-core',
   '@frontegg/react-auth',
+  '@frontegg/react-audits',
+  '@frontegg/react-connectivity',
   '@frontegg/react-elements-semantic',
   '@frontegg/react-elements-material-ui',
 ];

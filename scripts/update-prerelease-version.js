@@ -5,7 +5,7 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
   if (packagePath.indexOf('demo-saas') !== -1) {
     return;
   }
-  const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, { encoding: 'utf8' }));
+  const pkg = JSON.parse(fs.readFileSync(`${packagePath}/dist/package.json`, { encoding: 'utf8' }));
 
   pkg.version = nextVersion;
 
@@ -13,6 +13,8 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
     '@frontegg/rest-api',
     '@frontegg/react-core',
     '@frontegg/react-auth',
+    '@frontegg/react-audits',
+    '@frontegg/react-connectivity',
     '@frontegg/react-elements-material-ui',
     '@frontegg/react-elements-semantic',
   ].forEach(dep => {
@@ -21,7 +23,7 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
     }
   });
 
-  fs.writeFileSync(`${packagePath}/package.json`, JSON.stringify(pkg, null, 2), { encoding: 'utf-8' });
+  fs.writeFileSync(`${packagePath}/dist/package.json`, JSON.stringify(pkg, null, 2), { encoding: 'utf-8' });
 }
 
 updatePreReleaseVersion(process.argv[2], process.argv[3]);
