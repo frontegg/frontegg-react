@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
+
+
+### Bug Fixes
+
+* **auth:** add missing query and hash after login redirect ([#135](https://github.com/frontegg/frontegg-react/issues/135)) ([87f36aa](https://github.com/frontegg/frontegg-react/commit/87f36aa21ddeb3aadc3153411b6679360879d02a)), closes [#134](https://github.com/frontegg/frontegg-react/issues/134)
+* [FR-815] change password policy to be aligned with backend ([fbc9abf](https://github.com/frontegg/frontegg-react/commit/fbc9abfa776b9f7ac0a8f3c89eaa5c6a39b320b6))
+* **auth:** fix team management roles dropdown ui ([#126](https://github.com/frontegg/frontegg-react/issues/126)) ([c74949b](https://github.com/frontegg/frontegg-react/commit/c74949b2dc409c5af7f00d5d1c0b985c74d3da56))
+
+
+
+
+
 # [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
 
 **Note:** Version bump only for package @frontegg/react-auth

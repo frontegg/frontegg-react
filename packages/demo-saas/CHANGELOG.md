@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
+
+
+### Features
+
+* **ci:** add option to publish prerelease version ([0ff0c67](https://github.com/frontegg/frontegg-react/commit/0ff0c672f86eacf175790b89173f1c6e34789b7e))
+
+
+
+
+
 # [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
 
 **Note:** Version bump only for package @frontegg/demo-saas
