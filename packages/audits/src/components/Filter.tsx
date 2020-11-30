@@ -138,7 +138,7 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
             <Button
               fullWidth
               onClick={() => {
-                setFilterValue(null);
+                value && setFilterValue(null);
                 closePopup?.();
               }}
             >
