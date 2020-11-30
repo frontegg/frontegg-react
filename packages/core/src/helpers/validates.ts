@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { TFunction } from 'i18next';
 import { ValidationError } from 'yup';
+import owasp, { TestConfig } from 'owasp-password-strength-test';
 
 export const validatePassword = (t: TFunction) =>
   Yup.string()
@@ -28,6 +29,22 @@ export const validatePasswordConfirmation = (t: TFunction, field: string = 'pass
     .when('password', {
       is: (val) => !!(val && val.length > 0),
       then: Yup.string().oneOf([Yup.ref(field)], t('validation.passwords-must-match', 'Passwords must match')),
+    });
+
+export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | null) =>
+  Yup.string()
+    .required()
+    .test('validate_owasp', 'Invalid Password', async function (value) {
+      // Use function to access Yup 'this' context
+
+      testConfig && owasp.config(testConfig);
+      const { errors } = owasp.test(value);
+      // validate using owasp
+
+      if (errors.length) {
+        return this.createError({ message: errors[0] });
+      }
+      return true;
     });
 
 export const validateDomain = (t: TFunction) =>

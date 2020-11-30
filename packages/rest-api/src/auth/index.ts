@@ -8,6 +8,7 @@ import {
   USERS_SERVICE_URL_V1,
   USERS_SERVICE_URL_V2,
   IDENTITY_SSO_SERVICE_URL_V1,
+  IDENTITY_CONFIGURATION_SERVICE_URL_V1,
 } from '../constants';
 import {
   IActivateAccount,
@@ -167,6 +168,14 @@ export async function forgotPassword(body: IForgotPassword): Promise<void> {
 export async function resetPassword(body: IResetPassword): Promise<void> {
   console.debug('resetPassword()');
   return Post(`${USERS_SERVICE_URL_V1}/passwords/reset/verify`, body);
+}
+
+/**
+ * load password configuration for vendor.
+ */
+export async function loadPasswordConfig(): Promise<void> {
+  console.debug('loadPasswordConfig()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password`);
 }
 
 /**
