@@ -27,6 +27,12 @@ export const getPackageJson = (): any =>
   JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
 export const isFileExistsInSrc = (fileName: string): boolean =>
   fs.existsSync(path.join(process.cwd(), 'src', fileName));
+
+export const copyToOld = (fileName: string) =>
+  fs.renameSync(
+    path.join(process.cwd(), 'src', fileName),
+    path.join(process.cwd(), 'src', `old${fileName.substring(0, 1).toUpperCase()}${fileName.substring(1)}`)
+  );
 export const createFileInSrc = (fileName: string, data: string) =>
   fs.writeFileSync(path.join(process.cwd(), 'src', fileName), data, { encoding: 'utf8' });
 
