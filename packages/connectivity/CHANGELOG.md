@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* **connectivity:** fix styles for separate components ([3b4b8d3](https://github.com/frontegg/frontegg-react/commit/3b4b8d3909942716889f72830796294e846c45d0))
+
+
+
+
+
 # [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
 
 **Note:** Version bump only for package @frontegg/react-connectivity
