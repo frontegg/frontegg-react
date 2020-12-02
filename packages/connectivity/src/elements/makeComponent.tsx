@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useLayoutEffect } from 'react';
 import classnames from 'classnames';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Route } from 'react-router-dom';
 import { RootPathContext, useDispatch } from '@frontegg/react-core';
 import { ConnectivityContentProps } from '../components/ConnectivityContent';
 import { TPlatform } from '../interfaces';
@@ -37,7 +37,7 @@ export const makeComponent = ({ type, defaultPath }: IMakeComponent): FC<Connect
   return (
     <RootPathContext.Provider value={rootPath}>
       <div className={classnames('fe-connectivity-component', className)}>
-        <Component />
+        <Route exact path={`${rootPath}`} component={Component} />
       </div>
     </RootPathContext.Provider>
   );
