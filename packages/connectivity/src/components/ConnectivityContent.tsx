@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import classnames from 'classnames';
 import { RootPathContext } from '@frontegg/react-core';
 import { IRootPath } from '../interfaces';
