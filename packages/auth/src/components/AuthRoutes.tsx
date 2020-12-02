@@ -10,6 +10,7 @@ import { AuthPageProps } from '../interfaces';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 import { SocialLoginsSuccess, SocialLoginsSuccessPageComponent } from '../SocialLogins';
+import { SignUp, SignUpPageComponent } from '../SignUp';
 
 const stateMapper = ({ routes, isLoading, header, loaderComponent, ssoACS }: AuthState) => ({
   routes,
@@ -157,6 +158,14 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       standaloneComponent: SocialLoginsSuccess,
       props: computedPerPageProps.socialLoginsSuccessProps,
     },
+    {
+      id: 'signUp',
+      path: routes.signUpUrl,
+      defaultComponent: SignUpPageComponent,
+      standaloneComponent: SignUp,
+      props: computedPerPageProps.socialLoginsSuccessProps,
+    },
+
     ...(samlCallbackPath
       ? [
           {

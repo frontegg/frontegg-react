@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useEffect } from 'react';
+import React, { ComponentType, createElement, FC, useCallback, useEffect } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import { LoginStep } from '../Api/LoginState';
 import {
@@ -17,11 +17,12 @@ import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
-const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
+const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes, signUpState }: AuthState) => ({
   ...loginState,
   isSSOAuth,
   onRedirectTo,
   routes,
+  signUpState,
 });
 
 export type LoginWithPasswordRendererProps = Omit<LoginWithPasswordProps, 'renderer'> &
@@ -49,6 +50,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     setForgotPasswordState,
     resetLoginState,
     onRedirectTo,
+    signUpState,
   } = authState;
   const backToPreLogin = () => setLoginState({ step: LoginStep.preLogin });
 
@@ -78,8 +80,22 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     children: t('auth.login.forgot-password'),
   });
 
+  const redirectToSignUp = useCallback(() => {
+    onRedirectTo(routes.signUpUrl);
+  }, []);
+
+  const signUpMessage = !signUpState.allowSignUps ? null : (
+    <div>
+      {t('auth.login.suggest-sign-up.message')}
+      <span onClick={redirectToSignUp} className={'fe-login-component__back-to-sign-up-link'}>
+        {t('auth.login.suggest-sign-up.sign-up-link')}
+      </span>
+    </div>
+  );
+
   return (
     <>
+      {signUpMessage}
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validateSchema(validationSchema)}

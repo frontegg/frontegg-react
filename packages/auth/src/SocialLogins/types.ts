@@ -11,4 +11,5 @@ export interface ISocialLoginsContext {
 
 export enum SocialLoginsActions {
   Login = 'login',
+  SignUp = 'signUp',
 }

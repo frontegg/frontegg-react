@@ -96,6 +96,10 @@ export default {
         'disable-two-factor-description': 'to disable Multi-Factor with recovery code',
         'back-to-login': 'Back to login',
         'login-with-sso-failed': 'Failed to Login with SSO, try again later.',
+        'suggest-sign-up': {
+          message: 'Dont have an account? ',
+          'sign-up-link': 'Sign up.',
+        },
       },
       'forgot-password': {
         'email-label': 'Enter your email',
@@ -251,8 +255,29 @@ export default {
         login: {
           'button-text': 'Login with {{providerName}}',
         },
+        signup: {
+          'button-text': 'Sign up with {{providerName}}',
+        },
         error: {
           'invalid-callback-url': 'Invalid callback url',
+        },
+      },
+      'sign-up': {
+        form: {
+          name: 'Name',
+          'submit-button': 'Sign Up',
+          email: 'Email',
+          'company-name': 'Company Name',
+        },
+        'suggest-login': {
+          message: 'Already have an account? ',
+          'login-link': 'Log in.',
+        },
+        success: {
+          title: 'Thanks for signing up!',
+          'activate-message': 'Please check your inbox in order to activate your account.',
+          'go-to-login-message': 'You have signed up successfully. Click on the button below to continue.',
+          'go-to-login': 'Go to login',
         },
       },
     },

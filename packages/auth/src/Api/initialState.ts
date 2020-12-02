@@ -8,6 +8,7 @@ import { profileState } from './ProfileState';
 import { mfaState } from './MfaState';
 import { teamState } from './TeamState';
 import { socialLoginsState } from './SocialLogins';
+import { signUpState } from './SignUp';
 
 export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isAuthenticated: false,
@@ -15,6 +16,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isSSOAuth: false,
   user: null,
 
+  signUpState,
   loginState,
   activateState,
   acceptInvitationState,
@@ -36,6 +38,7 @@ export const initialState: AuthState = {
     forgetPasswordUrl: '/account/forget-password',
     resetPasswordUrl: '/account/reset-password',
     socialLoginCallbackUrl: '/account/social/success',
+    signUpUrl: '/account/sign-up',
   },
   onRedirectTo: () => {},
 

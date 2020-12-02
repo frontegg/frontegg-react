@@ -11,6 +11,7 @@ import { mfaActions, mfaStateReducers } from './MfaState';
 import { profileActions, profileStateReducers } from './ProfileState';
 import { teamActions, teamStateReducers } from './TeamState';
 import { socialLoginsActions, socialLoginsStateReducer } from './SocialLogins';
+import { signUpActions, signUpStateReducers } from './SignUp';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
@@ -18,7 +19,7 @@ const { reducer, actions: sliceActions } = createSlice({
   reducers: {
     setState: (state: AuthState, { payload }: PayloadAction<Partial<AuthState>>) => ({ ...state, ...payload }),
     setUser: typeReducer<User>('user'),
-
+    ...signUpStateReducers,
     ...loginStateReducers,
     ...activateStateReducers,
     ...acceptInvitationStateReducers,
@@ -33,6 +34,7 @@ const { reducer, actions: sliceActions } = createSlice({
 
 const actions = {
   ...sliceActions,
+  ...signUpActions,
   ...loginActions,
   ...activateActions,
   ...acceptInvitationActions,

@@ -16,6 +16,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';
 import { loadSocialLoginsConfigurations } from '../SocialLogins/saga';
+import { loadAllowSignUps } from '../SignUp/saga';
 
 export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -91,6 +92,7 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
     yield put(actions.setState({ isLoading: true }));
     calls.push(call(refreshMetadata));
     calls.push(call(loadSocialLoginsConfigurations));
+    calls.push(call(loadAllowSignUps));
   }
   yield all(calls);
   yield put(actions.setState({ isLoading: false }));

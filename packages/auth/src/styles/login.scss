@@ -10,6 +10,15 @@
     display: block;
     margin: 2rem auto 1rem;
   }
+
+  &__back-to-sign-up-link {
+    cursor: pointer;
+    color: var(--color-primary);
+
+    &:hover {
+      color: var(--color-primary-75);
+    }
+  }
 }
 
 @media screen and (max-width: 400px) {

@@ -9,6 +9,7 @@ import { MFAState } from './MfaState';
 import { TeamState } from './TeamState';
 import { AcceptInvitationState } from './AcceptInvitationState';
 import { SocialLoginsState, socialLoginsState } from './SocialLogins';
+import { SignUpState } from './SignUp/interfaces';
 
 export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
@@ -46,4 +47,5 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   mfaState: MFAState;
   teamState: TeamState;
   socialLoginsState: SocialLoginsState;
+  signUpState: SignUpState;
 }

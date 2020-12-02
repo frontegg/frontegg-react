@@ -41,9 +41,13 @@ export type AuthPageRoutes = {
      */
     samlCallbackUrl?: string;
     /**
-     * the url to reach the idp redirect after successful SAML response
+     * the url to reach after socail login response
      */
     socialLoginCallbackUrl?: string;
+    /**
+     * sign up page
+     */
+    signUpUrl: string;
   };
 };
 
