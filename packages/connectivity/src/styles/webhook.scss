@@ -3,7 +3,8 @@
     position: relative;
   }
 
-  &-add {
+  &-add,
+  &-add.MuiButtonBase-root {
     position: absolute;
     right: var(--element-spacing);
     top: var(--element-spacing);
@@ -143,11 +144,16 @@
       margin-right: var(--element-spacing);
       border-radius: var(--element-border-radius-sm);
       border: 1px solid var(--color-primary-light);
+
+      .Mui-expanded &,
+      .fe-accordion-header-expanded & {
+        background-color: var(--color-primary-lighter);
+        border-color: var(--color-primary-lighter);
+        transform: rotate(90deg);
+      }
     }
-    .fe-accordion-header-expanded .fe-integrations-webhook-accordion-icon {
-      background-color: var(--color-primary-lighter);
-      border-color: var(--color-primary-lighter);
-      transform: rotate(90deg);
+    .MuiAccordionDetails-root {
+      flex-direction: column;
     }
   }
 

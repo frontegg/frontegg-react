@@ -18,6 +18,9 @@
     flex-grow: 1;
     align-self: stretch;
     background-color: var(--color-gray-0);
+    &.MuiButton-root {
+      margin: -16px;
+    }
 
     &.fe-connectivity-active {
       background-color: var(--color-gray-2);
