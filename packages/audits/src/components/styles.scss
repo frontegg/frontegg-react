@@ -209,12 +209,19 @@
         font-size: 0.625rem;
         text-transform: uppercase;
         margin-top: 0;
+        margin-bottom: 0.4rem;
       }
       &-desc {
-        margin-top: 0;
+        margin-bottom: 1rem;
         font-size: 0.875rem;
         color: #9699a3;
         margin-right: 2rem;
+      }
+    }
+
+    &-item:last-child {
+      .fe-audits__ipCell-item-desc {
+        margin-bottom: 0;
       }
     }
 
