@@ -70,13 +70,12 @@ export const timeOptions: Array<TimeOptions> = [
 
 export const severityOptions: Array<SeverityOptions> = [
   { label: 'Info', value: 'Info' },
-  { label: 'Medium', value: 'Medium' },
-  { label: 'High', value: 'High' },
-  { label: 'Critical', value: 'Critical' },
+  { label: 'Attention', value: 'Attention' },
+  { label: 'Error', value: 'Error' },
 ];
 
 export type TimeValues = 'last_day' | 'last_week' | 'last_month' | 'last_year';
-type SeverityValues = 'Info' | 'Medium' | 'High' | 'Critical';
+type SeverityValues = 'Info' | 'Attention' | 'Error';
 export interface TimeOptions {
   label: string;
   value: TimeValues;
