@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 import { Button, useT } from '@frontegg/react-core';
@@ -16,6 +16,10 @@ export const SignUpSuccess: FC = () => {
     return t('auth.sign-up.success.go-to-login-message');
   }, [shouldActivate]);
 
+  useEffect(() => {
+    return resetSignUpStateSoft;
+  }, []);
+
   return (
     <>
       <div className={'fe-center fe-sign-up__success-container'}>
@@ -25,7 +29,6 @@ export const SignUpSuccess: FC = () => {
       <Button
         fullWidth={true}
         onClick={() => {
-          resetSignUpStateSoft();
           onRedirectTo(routes.loginUrl);
         }}
       >
