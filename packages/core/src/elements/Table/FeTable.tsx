@@ -41,6 +41,7 @@ import { FeLoader } from '../Loader/FeLoader';
 const prefixCls = 'fe-table';
 export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) => {
   const tableRef = useRef<HTMLDivElement>(null);
+  const firstRender = useRef<boolean>(true);
   const columns = useMemo(() => {
     const columns = props.columns.map(
       ({ sortable, Filter, Header, ...rest }) =>
@@ -219,6 +220,11 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     [props.onRowSelected]
   );
 
+  const handleOnPageChange = useCallback(() => {
+    tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' })
+    props.onPageChange?.(tableState.pageSize, tableState.pageIndex)
+  }, [tableState.pageIndex])
+
   useEffect(() => {
     !props.hasOwnProperty('sortBy') && props.onSortChange?.(tableState.sortBy);
   }, [props.sortBy, tableState.sortBy]);
@@ -228,8 +234,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   }, [props.filters, tableState.filters]);
 
   useEffect(() => {
-    tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
-    props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
+    firstRender.current ? firstRender.current = false : handleOnPageChange()
   }, [tableState.pageIndex]);
 
   useEffect(() => {
