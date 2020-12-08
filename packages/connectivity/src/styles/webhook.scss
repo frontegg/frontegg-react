@@ -3,7 +3,8 @@
     position: relative;
   }
 
-  &-add {
+  &-add,
+  &-add.MuiButtonBase-root {
     position: absolute;
     right: var(--element-spacing);
     top: var(--element-spacing);
@@ -39,6 +40,16 @@
 
   &-settings {
     padding: var(--element-padding);
+    .fe-semantic-input {
+      margin-bottom: 24px;
+      label {
+        font-size: 1rem !important;
+        margin-bottom: 7px;
+      }
+      .input input {
+        height: 46px;
+      }
+    }
   }
 
   &-check {
@@ -138,16 +149,49 @@
 
   &-accordion {
     box-shadow: none;
+    &-icon.icon,
     &-icon {
       color: var(--color-primary-darker);
       margin-right: var(--element-spacing);
       border-radius: var(--element-border-radius-sm);
       border: 1px solid var(--color-primary-light);
+
+      .Mui-expanded &,
+      .fe-accordion-header-expanded &,
+      .title.active &.icon {
+        background-color: var(--color-primary-lighter);
+        border-color: var(--color-primary-lighter);
+        transform: rotate(90deg);
+      }
     }
-    .fe-accordion-header-expanded .fe-integrations-webhook-accordion-icon {
-      background-color: var(--color-primary-lighter);
-      border-color: var(--color-primary-lighter);
-      transform: rotate(90deg);
+    .MuiAccordionDetails-root {
+      flex-direction: column;
+    }
+    &-icon.icon {
+      width: 2.3rem;
+      height: 2.3rem;
+      font-size: 2rem;
+    }
+
+    .ui.checkbox {
+      label {
+        line-height: 1.7rem;
+        padding-left: 2.3rem;
+        position: relative;
+        &:before,
+        &:after {
+          line-height: 1.7rem;
+          width: 1.7rem;
+          height: 1.7rem;
+          color: white;
+        }
+      }
+    }
+    input[type='checkbox']:checked ~ label {
+      &:before {
+        background-color: #0baf60;
+        border-color: #0baf60;
+      }
     }
   }
 
@@ -155,6 +199,7 @@
     color: var(--color-gray-5);
     font-weight: normal;
   }
+
   &-help {
     color: var(--color-white);
     background-color: var(--color-black);

@@ -1,18 +1,24 @@
 import { IInputChip } from '@frontegg/react-core';
-import React, { FC } from 'react';
-import { Grid } from 'semantic-ui-react';
+import classNames from 'classnames';
+import React, { FC, useRef } from 'react';
+import { Label, Icon } from 'semantic-ui-react';
+import './styles.scss';
 
-export const InputChip: FC<IInputChip> = ({ chips, inputValue, ...inputProps }) => (
-  <div>
-    <Grid>
+export const InputChip: FC<IInputChip> = ({ chips, fullWidth, inputValue, onDelete, ...inputProps }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <div
+      className={classNames('input-chip', { fluid: fullWidth })}
+      onClick={() => inputRef.current && inputRef.current.focus()}
+    >
       {chips.map((chip, idx) => (
-        <Grid.Column key={idx}>
-          <span>{chip}</span>
-        </Grid.Column>
+        <Label as='div' key={idx} className='chip'>
+          {chip}
+          {!!onDelete && <Icon name='delete' onClick={() => onDelete(idx)} />}
+        </Label>
       ))}
-      <Grid item>
-        <input {...inputProps} value={inputValue} />
-      </Grid>
-    </Grid>
-  </div>
-);
+      <input {...inputProps} value={inputValue} />
+    </div>
+  );
+};
