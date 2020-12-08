@@ -275,9 +275,9 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
   );
 
   const handleOnPageChange = useCallback(() => {
-    tableRef.current?.scroll?.({ top: 0, left: 0, behavior: 'smooth' })
-    props.onPageChange?.(tableState.pageSize, tableState.pageIndex)
-  }, [tableState.pageIndex])
+    tableRef.current?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
+  }, [tableState.pageIndex]);
 
   useEffect(() => {
     !props.hasOwnProperty('sortBy') && props.onSortChange?.(tableState.sortBy);
@@ -305,7 +305,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
 
   return (
     <Paper ref={tableRef} className={classes.paper}>
-      <MaUTable className={classNames(classes.table, props.className)}  {...getTableProps()}>
+      <MaUTable className={classNames(classes.table, props.className)} {...getTableProps()}>
         <TableHead
           headerGroups={headerGroups}
           onSortChange={onSortChange}

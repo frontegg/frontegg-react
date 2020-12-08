@@ -24,6 +24,7 @@ const icons: IconNames[] = [
   'visibility-off',
   'visibility',
   'warning',
+  'globe',
 ];
 export const Icons: FC = () => (
   <Grid container spacing={4} className='fe-pt-2 fe-pb-2 fe-pr-2 fe-pl-2'>

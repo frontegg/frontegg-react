@@ -22,6 +22,8 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
     setFilterValue(column.filterValue);
   }, [column.filterValue]);
 
+  useEffect(() => setFilterValue(column.filterValue), [column.filterValue]);
+
   const closePopup = useCallback(() => {
     if (popupRef.current) {
       popupRef.current.hideTooltip();

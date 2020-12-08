@@ -1,0 +1,12 @@
+.input-chip {
+  display: flex;
+  align-items: center;
+
+  input {
+    background-color: transparent;
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
+}

@@ -78,17 +78,17 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                 <FInput label='URL' name='url' placeholder='https://' />
                 <FInput
                   label={
-                    <>
+                    <label>
                       {t('common.secretKey')}
                       <Popup
-                        trigger={<span className='fe-integrations-webhook-help'>?</span>}
+                        trigger={<span className='fe-connectivity-webhook-help'>?</span>}
                         position={{ vertical: 'center', horizontal: 'right' }}
                         action='hover'
                         content={
-                          <div className='fe-integrations-webhook-help-block'>{t('integrations.secretKeyHelp')}</div>
+                          <div className='fe-connectivity-webhook-help-block'>{t('connectivity.secretKeyHelp')}</div>
                         }
                       />
-                    </>
+                    </label>
                   }
                   name='secret'
                   placeholder='Secret key'

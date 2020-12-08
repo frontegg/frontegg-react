@@ -32,6 +32,7 @@ import {
   ExitToAppRounded,
   CachedRounded,
   FaceRounded,
+  Language,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -67,6 +68,7 @@ const iconMap: { [K in IconNames]: any } = {
   exit: ExitToAppRounded,
   swap: CachedRounded,
   profile: FaceRounded,
+  globe: Language,
 };
 
 export class Icon extends React.Component<IconProps> {
