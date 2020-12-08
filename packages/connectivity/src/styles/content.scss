@@ -53,6 +53,14 @@
     text-transform: uppercase;
     width: 8rem;
     font-weight: bold;
+    &.fe-button-secondary {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.85);
+      border: none;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 }
 
