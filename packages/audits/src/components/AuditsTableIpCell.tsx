@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from 'react';
 import { prefixCls } from './constants';
 import { api } from '@frontegg/rest-api';
 import GoogleMapReact from 'google-map-react';
-import { CellComponent, Popup, Loader } from '@frontegg/react-core';
+import { CellComponent, Popup, Loader, Icon } from '@frontegg/react-core';
 
 export interface AuditsTableIpAdressState {
   loading: boolean;
@@ -101,7 +101,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
       trigger={
         <div className={`${prefixCls}__ipCell`}>
           <div className={`${prefixCls}__ipCell-countryFlag`}>
-            {loading ? <Loader size={15} /> : data.location.country_flag_emoji ?? ''}
+            {loading ? <Loader size={15} /> : data.location.country_flag_emoji ?? <Icon name='globe' />}
           </div>
           <div className={`${prefixCls}__ipCell-ipAddress`}>{props.value}</div>
         </div>

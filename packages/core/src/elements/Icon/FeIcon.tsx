@@ -14,6 +14,7 @@ import { Flash } from './svgs/Flash';
 import { Csv } from './svgs/Csv';
 import { Pdf } from './svgs/Pdf';
 import { List } from './svgs/List';
+import { Globe } from './svgs/Globe';
 
 const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   'down-arrow': DownArrow,
@@ -44,6 +45,7 @@ const mapIcons: Partial<{ [key in IconNames]: FC }> = {
   exit: Exit,
   swap: Swap,
   profile: Profile,
+  globe: Globe,
 };
 
 export const FeIcon = forwardRef<HTMLElement, IconProps>((props, ref) => {
