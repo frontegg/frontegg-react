@@ -8,7 +8,7 @@ import { prefixCls } from './constants';
 
 export const AuditsHeader: FC = () => {
   const { lastUpdated, isLoading, totalToday, severeThisWeek } = useAudits();
-  const { startLoading } = useAuditsActions();
+  const { startRefresh } = useAuditsActions();
   const [_, forceUpdate] = useState();
   useEffect(() => {
     const intervalId = setInterval(() => forceUpdate(undefined), 30000);
@@ -23,7 +23,7 @@ export const AuditsHeader: FC = () => {
           Last updated {getLastUpdatedTime(lastUpdated)}
           <Icon
             name='refresh'
-            onClick={startLoading}
+            onClick={startRefresh}
             className={classNames(`${prefixCls}__refresh`, {
               [`${prefixCls}__spin`]: isLoading,
             })}
