@@ -37,7 +37,8 @@ export type IconNames =
   | 'warning'
   | 'exit'
   | 'swap'
-  | 'profile';
+  | 'profile'
+  | 'globe';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;
