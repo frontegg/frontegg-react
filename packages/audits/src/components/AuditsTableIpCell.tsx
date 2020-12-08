@@ -49,7 +49,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
     try {
       setState({ ...state, loading: true });
       const data = await api.metadata.getIpAdressMetadata(props.value);
-      setState({ data: data, loading: false });
+      setState({ data, loading: false });
     } catch (e) {
       console.log('failed to load metadata for ip address - ', e);
     }
@@ -127,7 +127,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
                 >
                   {data.longitude && (
                     <MapMark
-                      //@ts-ignore
+                      // @ts-ignore
                       lat={data.latitude ? data.latitude : defaultCenter.lat}
                       lng={data.longitude ? data.longitude : defaultCenter.lng}
                     />
