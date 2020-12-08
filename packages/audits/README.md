@@ -48,9 +48,9 @@ ReactDOM.render(
   Then add `Audits` component to your route:
 
   ```jsx
-  import { AuditsPage } from '@frontegg/react-audits';
+  import { Audits } from '@frontegg/react-audits';
 
-  <Route path={'/audits'} component={AuditsPage}/>
+  <Route path={'/audits'} component={Audits.Page}/>
   ```
 
 ## Contributing
