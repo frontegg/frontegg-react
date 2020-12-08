@@ -63,32 +63,32 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
       case 'city':
         return (
           <div key={key} className='fe-dflex fe-dflex-space-between'>
-            <span className={`${prefixCls}__ipCell-item`}>
-              <p className={`${prefixCls}__ipCell-item-name`}>City</p>
-              <p className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</p>
-            </span>
-            <span className={`${prefixCls}__ipCell-item`}>
-              <p className={`${prefixCls}__ipCell-item-name`}>Zip</p>
-              <p className={`${prefixCls}__ipCell-item-desc`}>{data.zip ?? 'unknown'}</p>
-            </span>
+            <div className={`${prefixCls}__ipCell-item`}>
+              <div className={`${prefixCls}__ipCell-item-name`}>City</div>
+              <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</div>
+            </div>
+            <div className={`${prefixCls}__ipCell-item`}>
+              <div className={`${prefixCls}__ipCell-item-name`}>Zip</div>
+              <div className={`${prefixCls}__ipCell-item-desc`}>{data.zip ?? 'unknown'}</div>
+            </div>
           </div>
         );
       case 'latitude':
         return (
-          <span key={key} className={`${prefixCls}__ipCell-item`}>
-            <p className={`${prefixCls}__ipCell-item-name`}>Latitude, Longitude</p>
-            <p className={`${prefixCls}__ipCell-item-desc fe-mb-0`}>
+          <div key={key} className={`${prefixCls}__ipCell-item`}>
+            <div className={`${prefixCls}__ipCell-item-name`}>Latitude, Longitude</div>
+            <div className={`${prefixCls}__ipCell-item-desc`}>
               {data.latitude ? `${data.latitude.toFixed(4)},` : 'unknown'}
               {data.longitude ? data.longitude.toFixed(4) : ''}
-            </p>
-          </span>
+            </div>
+          </div>
         );
       case 'country_name':
         return (
-          <span key={key} className={`${prefixCls}__ipCell-item`}>
-            <p className={`${prefixCls}__ipCell-item-name`}>Country</p>
-            <p className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</p>
-          </span>
+          <div key={key} className={`${prefixCls}__ipCell-item`}>
+            <div className={`${prefixCls}__ipCell-item-name`}>Country</div>
+            <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</div>
+          </div>
         );
       default:
         return;
