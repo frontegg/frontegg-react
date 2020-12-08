@@ -1,18 +1,21 @@
 import React from 'react';
 import { InputProps } from '@frontegg/react-core';
-import { Form, InputProps as SemanticInputProps } from 'semantic-ui-react';
+import { Form, StrictInputProps, StrictTextAreaProps } from 'semantic-ui-react';
 import { Button } from '../Button';
-import { FormInputProps } from 'semantic-ui-react/dist/commonjs/collections/Form/FormInput';
+import { StrictFormInputProps } from 'semantic-ui-react/dist/commonjs/collections/Form/FormInput';
 import classNames from 'classnames';
 import './style.scss';
 
-const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
-  const { inForm, fullWidth, className, prefixIcon, suffixIcon, ...rest } = props;
+const mapper = (props: InputProps): StrictInputProps | StrictFormInputProps | StrictTextAreaProps => {
+  const { inForm, fullWidth, className, prefixIcon, suffixIcon, multiline, ...rest } = props;
   const data = {
     ...rest,
-    fluid: fullWidth,
-    className: classNames('fe-semantic-input', className),
+    className: classNames('fe-semantic-input', className, { fluid: multiline && fullWidth }),
   } as any;
+
+  if (!multiline) {
+    data.fluid = fullWidth;
+  }
 
   if (prefixIcon) {
     data.iconPosition = 'left';
@@ -23,8 +26,8 @@ const mapper = (props: InputProps): SemanticInputProps | FormInputProps => {
 
 export class Input extends React.Component<InputProps> {
   render() {
-    const { children, labelButton, label, ...rest } = this.props;
-    let inputLabel: any = label;
+    const { children, labelButton, multiline, label, ...rest } = this.props;
+    let inputLabel: JSX.Element | string | undefined = label;
     let iconContent: any;
 
     if (labelButton) {
@@ -43,9 +46,12 @@ export class Input extends React.Component<InputProps> {
     }
 
     const inputProps = { ...mapper(this.props), label: inputLabel };
-    return rest.iconAction ? (
+
+    return multiline ? (
+      <Form.TextArea {...(inputProps as StrictTextAreaProps)}></Form.TextArea>
+    ) : rest.iconAction ? (
       <Form.Input
-        {...inputProps}
+        {...(inputProps as StrictInputProps | StrictFormInputProps)}
         icon
         action={{
           icon: iconContent,
@@ -55,7 +61,7 @@ export class Input extends React.Component<InputProps> {
         {children}
       </Form.Input>
     ) : (
-      <Form.Input {...inputProps} icon>
+      <Form.Input {...(inputProps as StrictInputProps | StrictFormInputProps)} icon>
         <input />
         {iconContent}
         {children}
