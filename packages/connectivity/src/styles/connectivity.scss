@@ -9,6 +9,7 @@
   }
   .fe-search {
     .MuiInputBase-root,
+    .fe-semantic-input .input,
     .fe-input__inner {
       width: 268px;
       padding-left: 1.5rem;
@@ -23,6 +24,14 @@
         margin-top: -0.5rem;
         content: '\260C';
         transform: rotate(100deg);
+      }
+    }
+    .fe-semantic-input .ui.icon.input {
+      padding-left: 0;
+      input {
+        padding-left: 1.5rem;
+        padding-right: 0.9rem !important;
+        width: calc(100% + 1.5rem);
       }
     }
     .fe-input__inner {
@@ -164,9 +173,13 @@
       font-weight: inherit;
       text-transform: inherit;
 
+      i.icon,
       svg {
         width: 1.2rem;
         height: 1.2rem;
+      }
+      i.icon {
+        font-size: 1.2rem;
       }
     }
 
@@ -209,6 +222,12 @@
         margin-bottom: 24px;
       }
     }
+    .fe-semantic-tabs {
+      padding-top: 1rem;
+      .ui.menu:last-child {
+        margin-bottom: -2px;
+      }
+    }
   }
   .fe-accordion {
     background: var(--color-white);
@@ -233,5 +252,10 @@
         }
       }
     }
+  }
+  .multiple.selection.dropdown .dropdown.icon {
+    top: calc(50% - 0.5rem);
+    // transform: translateY(-50%);
+    // height: auto;
   }
 }

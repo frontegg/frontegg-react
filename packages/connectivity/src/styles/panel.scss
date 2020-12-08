@@ -135,6 +135,9 @@
         width: 1.7rem;
         height: 1.7rem;
       }
+      &.ui.button {
+        background-color: transparent;
+      }
     }
     .fe-menu-item {
       color: var(--color-gray-6);
@@ -143,6 +146,14 @@
       svg {
         width: 1.2rem;
         height: 1.2rem;
+      }
+    }
+    &.fe-menu__popup {
+      z-index: 10;
+      .fe-menu-item__icon {
+        font-size: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
   }

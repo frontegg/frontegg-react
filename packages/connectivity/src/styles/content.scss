@@ -10,6 +10,7 @@
     padding: var(--element-padding);
   }
 
+  &-platform.ui.button.fluid,
   &-platform {
     display: flex;
     align-items: center;
@@ -114,4 +115,8 @@
       cursor: pointer;
     }
   }
+}
+
+.fe-connectivity-table-input {
+  width: 100%;
 }
