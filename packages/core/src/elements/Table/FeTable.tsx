@@ -221,9 +221,9 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   );
 
   const handleOnPageChange = useCallback(() => {
-    tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' })
-    props.onPageChange?.(tableState.pageSize, tableState.pageIndex)
-  }, [tableState.pageIndex])
+    tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
+  }, [tableState.pageIndex]);
 
   useEffect(() => {
     !props.hasOwnProperty('sortBy') && props.onSortChange?.(tableState.sortBy);
@@ -234,7 +234,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   }, [props.filters, tableState.filters]);
 
   useEffect(() => {
-    firstRender.current ? firstRender.current = false : handleOnPageChange()
+    firstRender.current ? (firstRender.current = false) : handleOnPageChange();
   }, [tableState.pageIndex]);
 
   useEffect(() => {
