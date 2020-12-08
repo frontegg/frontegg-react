@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useMemo } from 'react';
+import React, { FC, useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { prefixCls } from './constants';
 import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
@@ -6,6 +6,7 @@ import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps } from '@fro
 
 export const AuditsSubHeader: FC = () => {
   const { filters } = useAudits();
+  const firstRender = useRef<boolean>(true);
   const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
   const [search, setSearch] = useState('');
   const searchValue = useDebounce(search, 500);
@@ -26,10 +27,14 @@ export const AuditsSubHeader: FC = () => {
     [exportPDF, exportCSV]
   );
 
-  useEffect(() => {
+  const handleSetFilterData = useCallback(() => {
     !!search.trim()
       ? setFilterData([...filters.filter((f) => f.key !== 'filter'), { key: 'filter', value: search }])
       : setFilterData([...filters.filter((f) => f.key !== 'filter')]);
+  }, [searchValue]);
+
+  useEffect(() => {
+    firstRender.current ? (firstRender.current = false) : handleSetFilterData();
   }, [searchValue]);
 
   return (
