@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* **audits:** display none cross btns in filters selectors to prevent errors ([6afb046](https://github.com/frontegg/frontegg-react/commit/6afb046e69ac7fb10be28bda9bd44eb3d9524cc6))
+* prevent after login redirect if it is in auth routes ([ae0371d](https://github.com/frontegg/frontegg-react/commit/ae0371d82e5fa3b99349d74f9cd0c7d6754cd710)), closes [#108](https://github.com/frontegg/frontegg-react/issues/108)
+* split AuditsPage to separated components ([9aa109a](https://github.com/frontegg/frontegg-react/commit/9aa109a09a357333788abab845f9ff906e636cc3))
+* **audits:** fix font-weights for ip popup titels ([5b23d08](https://github.com/frontegg/frontegg-react/commit/5b23d0877faf836193c401b4a2afabcbd3e65d89))
+* **audits:** fix scroll to top on page change for material lib ([1878dd4](https://github.com/frontegg/frontegg-react/commit/1878dd491bc3d86b182f88469841392215d589e8))
+* **audits:** FR-1000 fix updating filter value ([00f84d4](https://github.com/frontegg/frontegg-react/commit/00f84d427db5cf1faaedb69d7025debe0513debf))
+* **audits:** FR-1002 add globe icon when location is unknown ([53265fd](https://github.com/frontegg/frontegg-react/commit/53265fd5cdc56d3fc141ad77469d452e2f6dc430))
+* **audits:** FR-1003 Change severity filters to match the actual filters ([ce9d834](https://github.com/frontegg/frontegg-react/commit/ce9d834e204f7bc75e57b27ba82042ba45fd971a))
+* **audits:** FR-1004 add startRefresh action to prevent double fetch after init render ([eddb763](https://github.com/frontegg/frontegg-react/commit/eddb763711863f3a153679455053a963719b876a))
+* **audits:** FR-1004 prevent call action onPageChange after init render ([bca3bc1](https://github.com/frontegg/frontegg-react/commit/bca3bc14818c01589a5c33ce9f8a1f2c6923a585))
+* **audits:** FR-1004 prevent setFilterData action call after init render ([9656648](https://github.com/frontegg/frontegg-react/commit/9656648fdd5ba7c37fa9474f3f088b24f855b420))
+* **audits:** FR-1004 remove debounce filter, prevent onFilterChange call after init render ([b842cd6](https://github.com/frontegg/frontegg-react/commit/b842cd6186f032750fb6daed3e01e01d5b135498))
+* **audits:** FR-997 reduce margins, change tags to divs in ip popup ([66f0005](https://github.com/frontegg/frontegg-react/commit/66f000585ef74da4d4056d3dd72e6df981955b4c))
+* **audits:** FR-998 change severity attention letters coloring ([efdb0c8](https://github.com/frontegg/frontegg-react/commit/efdb0c8388af715bcdd9657632d5e13c5ca94eb2))
+* **auth:** add missing css variables for authentication pages ([4bb2c66](https://github.com/frontegg/frontegg-react/commit/4bb2c66f292aa1794e456516eb928c156186a0f5))
+* **build:** fix npmrc in github action ([d8ee0ad](https://github.com/frontegg/frontegg-react/commit/d8ee0ad24f6c6f410b04e9b5a71db7d8761e9017))
+* **connectivity:** fix color of the Install button FR-975 ([ac9d61e](https://github.com/frontegg/frontegg-react/commit/ac9d61e7cc329410954f4830a476602a3ab73e49))
+* **connectivity:** fix styles for the material UI ([ca1258d](https://github.com/frontegg/frontegg-react/commit/ca1258d85a29d40b9de59407c41f7e755f1e4206))
+* **core:** fix the z-index value for the popup component ([6201205](https://github.com/frontegg/frontegg-react/commit/620120501945c9e0a8e89add87e466f397bb7421))
+* **elements:** fix className property for the semantic Button element ([8646833](https://github.com/frontegg/frontegg-react/commit/864683387e221ab350f7f3f439918a6b411254d9))
+* **elements:** fix styles and behavior for the semantic InputChip component ([29671d2](https://github.com/frontegg/frontegg-react/commit/29671d2b3ea070e712c1352fbb7356d236d710d9))
+* **elements:** fix styles for the InputChip component in the material library ([8f6404a](https://github.com/frontegg/frontegg-react/commit/8f6404aa9cb659512c17ce3ec7b03e48b6f0f2e4))
+
+
+### Features
+
+* **connectivity:** add UI design for the semantic library ([986c86c](https://github.com/frontegg/frontegg-react/commit/986c86cc1d3bc5f35b8a409cbdc9fba7737bb522))
+* **elements:** add the TextArea component to the semantic library ([bacc6c3](https://github.com/frontegg/frontegg-react/commit/bacc6c35eb52cf0bf644503b9ca654f4e3073e50))
+
+
+
+
+
 ## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
 
 

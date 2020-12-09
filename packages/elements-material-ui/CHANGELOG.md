@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* **audits:** fix scroll to top on page change for material lib ([1878dd4](https://github.com/frontegg/frontegg-react/commit/1878dd491bc3d86b182f88469841392215d589e8))
+* **audits:** FR-1000 fix updating filter value ([00f84d4](https://github.com/frontegg/frontegg-react/commit/00f84d427db5cf1faaedb69d7025debe0513debf))
+* **audits:** FR-1002 add globe icon when location is unknown ([53265fd](https://github.com/frontegg/frontegg-react/commit/53265fd5cdc56d3fc141ad77469d452e2f6dc430))
+* **audits:** FR-1004 prevent call action onPageChange after init render ([bca3bc1](https://github.com/frontegg/frontegg-react/commit/bca3bc14818c01589a5c33ce9f8a1f2c6923a585))
+* **audits:** FR-1004 remove debounce filter, prevent onFilterChange call after init render ([b842cd6](https://github.com/frontegg/frontegg-react/commit/b842cd6186f032750fb6daed3e01e01d5b135498))
+* **elements:** fix styles for the InputChip component in the material library ([8f6404a](https://github.com/frontegg/frontegg-react/commit/8f6404aa9cb659512c17ce3ec7b03e48b6f0f2e4))
+
+
+
+
+
 ## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
 
 **Note:** Version bump only for package @frontegg/react-elements-material-ui

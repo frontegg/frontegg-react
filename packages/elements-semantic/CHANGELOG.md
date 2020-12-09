@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* **audits:** FR-1002 add globe icon when location is unknown ([53265fd](https://github.com/frontegg/frontegg-react/commit/53265fd5cdc56d3fc141ad77469d452e2f6dc430))
+* **elements:** fix className property for the semantic Button element ([8646833](https://github.com/frontegg/frontegg-react/commit/864683387e221ab350f7f3f439918a6b411254d9))
+* **elements:** fix styles and behavior for the semantic InputChip component ([29671d2](https://github.com/frontegg/frontegg-react/commit/29671d2b3ea070e712c1352fbb7356d236d710d9))
+
+
+### Features
+
+* **elements:** add the TextArea component to the semantic library ([bacc6c3](https://github.com/frontegg/frontegg-react/commit/bacc6c35eb52cf0bf644503b9ca654f4e3073e50))
+
+
+
+
+
 ## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
 
 **Note:** Version bump only for package @frontegg/react-elements-semantic
