@@ -42,7 +42,7 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
         }
       }}
       trigger={action}
-      closeOnReferenceHidden={false}
+      closeOnReferenceHidden={true}
       placement={placement}
       onVisibilityChange={(visible) => (visible ? props.onOpen?.() : props.onClose?.())}
       portalContainer={mountNode}
