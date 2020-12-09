@@ -155,6 +155,9 @@
     }
     &-main {
       margin-bottom: 1rem;
+      .MuiAutocomplete-clearIndicator {
+        display: none;
+      }
     }
     &-border {
       border: none;
