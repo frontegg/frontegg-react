@@ -44,21 +44,23 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
       idx: number
     ) =>
       payload[idx]
-        ? {
-            ...acc,
-            [`${payload[idx]}`]: curr,
-            list: [
-              ...acc.list,
-              {
-                id: idx,
-                key: payload[idx],
-                events: channels2Platform[payload[idx]].events(curr),
-                active: channels2Platform[payload[idx]].isActive(curr),
-                platform: channels2Platform[payload[idx]].title,
-                image: channels2Platform[payload[idx]].image,
-              },
-            ],
-          }
+        ? values[values.length - 1][payload[idx]].length
+          ? {
+              ...acc,
+              [`${payload[idx]}`]: curr,
+              list: [
+                ...acc.list,
+                {
+                  id: idx,
+                  key: payload[idx],
+                  events: channels2Platform[payload[idx]].events(curr),
+                  active: channels2Platform[payload[idx]].isActive(curr),
+                  platform: channels2Platform[payload[idx]].title,
+                  image: channels2Platform[payload[idx]].image,
+                },
+              ],
+            }
+          : acc
         : { ...acc, [`${addApi[idx - payload.length]}`]: curr },
     { list: [] }
   );

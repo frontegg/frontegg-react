@@ -4,7 +4,7 @@ import { SlackIcon } from '../../elements/ConnectivityIcons';
 import { IPluginState } from '../../interfaces';
 import { connectivityActions } from '../../reducer';
 
-const defaultScope = ['chat:write', 'channels:read', 'chat:write.public', 'users:read', 'users:read.email'];
+const defaultScope = ['chat:write', 'channels:read', 'chat:write.public'].join(',');
 
 export const ConnectivitySlackAuth: FC<any> = () => {
   const dispatch = useDispatch();
@@ -30,13 +30,8 @@ export const ConnectivitySlackAuth: FC<any> = () => {
     return `${url.toString()}/success`;
   })();
 
-  const getSlackScope = (): string => {
-    const set = new Set([...defaultScope]);
-    return Array.from(set).join(',');
-  };
-
   const query = useMemo(() => {
-    return new URLSearchParams({ client_id: clientId, scope: getSlackScope(), redirect_uri: redirectUrl });
+    return new URLSearchParams({ client_id: clientId, scope: defaultScope, redirect_uri: redirectUrl });
   }, [clientId]);
 
   if (isLoadingScope) {
