@@ -117,3 +117,21 @@ export interface ILoginViaSocialLogin {
 export interface ISetSocialLoginError {
   error: string;
 }
+
+export interface IVendorConfig {
+  allowSignups: boolean;
+}
+
+export interface ISignUpUser {
+  email: string;
+  companyName: string;
+  name?: string;
+  password?: string;
+  phoneNumber?: string;
+  metadata?: string /** JSON  */;
+  roleIds?: string[];
+}
+
+export interface ISignUpResponse {
+  shouldActivate: boolean;
+}

@@ -43,6 +43,7 @@ export const SocialLoginsSuccess: FC = () => {
 
     switch (parsedState.action) {
       case SocialLoginsActions.Login:
+      case SocialLoginsActions.SignUp:
         loginViaSocialLogin({ code, ...parsedState });
         break;
       default:

@@ -21,3 +21,7 @@ const SocialLoginsWithWrapper: FC<Omit<SocialLoginsProps, 'children'>> = (props)
 export const SocialLoginsLoginWithWrapper: FC = () => {
   return <SocialLoginsWithWrapper action={SocialLoginsActions.Login} />;
 };
+
+export const SocialLoginsSignUpWithWrapper: FC = () => {
+  return <SocialLoginsWithWrapper action={SocialLoginsActions.SignUp} />;
+};

@@ -31,6 +31,9 @@ import {
   IAcceptInvitation,
   ISocialLoginProviderConfiguration,
   ILoginViaSocialLogin,
+  IVendorConfig,
+  ISignUpUser,
+  ISignUpResponse,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -302,4 +305,21 @@ export async function getSocialLoginsProviders(): Promise<ISocialLoginProviderCo
 export async function loginViaSocialLogin({ provider, code }: ILoginViaSocialLogin): Promise<void> {
   console.debug('loginViaSocialLogin()');
   return Post(`${AUTH_SERVICE_URL_V1}/user/sso/${provider}/postlogin`, {}, { params: { code } });
+}
+
+/**
+ * Get vendor secure access configuration
+ */
+export async function getVendorConfig(): Promise<IVendorConfig> {
+  console.debug('getVendorConfig()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/public`);
+}
+
+/**
+ * Sign up new user
+ * create new user with a new tenant
+ */
+export async function signUpUser(body: ISignUpUser): Promise<ISignUpResponse> {
+  console.debug('signUpUser()', body);
+  return Post(`${USERS_SERVICE_URL_V1}/signUp`, body);
 }
