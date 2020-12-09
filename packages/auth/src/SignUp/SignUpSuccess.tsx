@@ -16,7 +16,7 @@ export const SignUpSuccess: FC = () => {
     return t('auth.sign-up.success.go-to-login-message');
   }, [shouldActivate]);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     return resetSignUpStateSoft;
   }, []);
 
