@@ -8,8 +8,8 @@ import { ProfileState } from './ProfileState';
 import { MFAState } from './MfaState';
 import { TeamState } from './TeamState';
 import { AcceptInvitationState } from './AcceptInvitationState';
-import { SocialLoginsState, socialLoginsState } from './SocialLogins';
 import { SignUpState } from './SignUp/interfaces';
+import { SocialLoginsState } from './SocialLogins';
 
 export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
@@ -30,7 +30,11 @@ export interface User extends IUserProfile {
   expires: string;
 }
 
-export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, AuthPageRoutes {
+interface Routes {
+  routes: AuthPageRoutes;
+}
+
+export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, Routes {
   onRedirectTo: (path: string, opts?: RedirectOptions) => void;
   error?: any;
   isAuthenticated: boolean;

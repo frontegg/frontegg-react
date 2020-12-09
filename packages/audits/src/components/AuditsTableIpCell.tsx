@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from 'react';
 import { prefixCls } from './constants';
 import { api } from '@frontegg/rest-api';
 import GoogleMapReact from 'google-map-react';
-import { CellComponent, Popup, Loader } from '@frontegg/react-core';
+import { CellComponent, Popup, Loader, Icon } from '@frontegg/react-core';
 
 export interface AuditsTableIpAdressState {
   loading: boolean;
@@ -49,7 +49,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
     try {
       setState({ ...state, loading: true });
       const data = await api.metadata.getIpAdressMetadata(props.value);
-      setState({ data: data, loading: false });
+      setState({ data, loading: false });
     } catch (e) {
       console.log('failed to load metadata for ip address - ', e);
     }
@@ -63,32 +63,32 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
       case 'city':
         return (
           <div key={key} className='fe-dflex fe-dflex-space-between'>
-            <span className={`${prefixCls}__ipCell-item`}>
-              <p className={`${prefixCls}__ipCell-item-name`}>City</p>
-              <p className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</p>
-            </span>
-            <span className={`${prefixCls}__ipCell-item`}>
-              <p className={`${prefixCls}__ipCell-item-name`}>Zip</p>
-              <p className={`${prefixCls}__ipCell-item-desc`}>{data.zip ?? 'unknown'}</p>
-            </span>
+            <div className={`${prefixCls}__ipCell-item`}>
+              <div className={`${prefixCls}__ipCell-item-name`}>City</div>
+              <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</div>
+            </div>
+            <div className={`${prefixCls}__ipCell-item`}>
+              <div className={`${prefixCls}__ipCell-item-name`}>Zip</div>
+              <div className={`${prefixCls}__ipCell-item-desc`}>{data.zip ?? 'unknown'}</div>
+            </div>
           </div>
         );
       case 'latitude':
         return (
-          <span key={key} className={`${prefixCls}__ipCell-item`}>
-            <p className={`${prefixCls}__ipCell-item-name`}>Latitude, Longitude</p>
-            <p className={`${prefixCls}__ipCell-item-desc fe-mb-0`}>
+          <div key={key} className={`${prefixCls}__ipCell-item`}>
+            <div className={`${prefixCls}__ipCell-item-name`}>Latitude, Longitude</div>
+            <div className={`${prefixCls}__ipCell-item-desc`}>
               {data.latitude ? `${data.latitude.toFixed(4)},` : 'unknown'}
               {data.longitude ? data.longitude.toFixed(4) : ''}
-            </p>
-          </span>
+            </div>
+          </div>
         );
       case 'country_name':
         return (
-          <span key={key} className={`${prefixCls}__ipCell-item`}>
-            <p className={`${prefixCls}__ipCell-item-name`}>Country</p>
-            <p className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</p>
-          </span>
+          <div key={key} className={`${prefixCls}__ipCell-item`}>
+            <div className={`${prefixCls}__ipCell-item-name`}>Country</div>
+            <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</div>
+          </div>
         );
       default:
         return;
@@ -101,7 +101,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
       trigger={
         <div className={`${prefixCls}__ipCell`}>
           <div className={`${prefixCls}__ipCell-countryFlag`}>
-            {loading ? <Loader size={15} /> : data.location.country_flag_emoji ?? ''}
+            {loading ? <Loader size={15} /> : data.location.country_flag_emoji ?? <Icon name='globe' />}
           </div>
           <div className={`${prefixCls}__ipCell-ipAddress`}>{props.value}</div>
         </div>
@@ -127,7 +127,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
                 >
                   {data.longitude && (
                     <MapMark
-                      //@ts-ignore
+                      // @ts-ignore
                       lat={data.latitude ? data.latitude : defaultCenter.lat}
                       lng={data.longitude ? data.longitude : defaultCenter.lng}
                     />

@@ -12,5 +12,11 @@ export const MessageSlack: FC<IMessageSlack> = ({ eventIdx, dataIdx }) => {
 
   const { isActive } = values.data[dataIdx].events[eventIdx];
 
-  return <FInput disabled={!isActive} name={`data[${dataIdx}].events[${eventIdx}].slackEvents[0].message`} />;
+  return (
+    <FInput
+      disabled={!isActive}
+      name={`data[${dataIdx}].events[${eventIdx}].slackEvents[0].message`}
+      className='fe-connectivity-table-input'
+    />
+  );
 };

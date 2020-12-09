@@ -4,7 +4,10 @@ import { initialState } from './Api/initialState';
 import { AuditsListener } from './components/AuditsListener';
 
 export * from './Api';
-export { AuditsPage } from './components/Audits';
+import { AuditsPage } from './components/Audits';
+import { AuditsHeader } from './components/AuditsHeader';
+import { AuditsSubHeader } from './components/AuditsSubHeader';
+import { AuditsTable } from './components/AuditsTable';
 
 export const AuditsPlugin = (): PluginConfig => ({
   storeName,
@@ -15,3 +18,10 @@ export const AuditsPlugin = (): PluginConfig => ({
   sagas,
   Listener: AuditsListener,
 });
+
+export const Audits = {
+  Page: AuditsPage,
+  Header: AuditsHeader,
+  TableHeader: AuditsSubHeader,
+  Table: AuditsTable,
+};

@@ -15,29 +15,25 @@ export type IconNames =
   | 'down-arrow'
   | 'edit'
   | 'filters'
-  | 'image'
   | 'indeterminate'
   | 'left-arrow'
   | 'person-add'
   | 'right-arrow'
-  | 'search'
   | 'send'
   | 'sort-arrows-asc'
   | 'sort-arrows-desc'
   | 'sort-arrows'
   | 'up-arrow'
   | 'vertical-dots'
-  | 'send'
   | 'pdf'
   | 'csv'
   | 'visibility-off'
   | 'visibility'
-  | 'warning'
   | 'list'
-  | 'warning'
   | 'exit'
   | 'swap'
-  | 'profile';
+  | 'profile'
+  | 'globe';
 
 export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   name: IconNames;

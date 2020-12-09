@@ -1,6 +1,9 @@
 .ui.button.fe-semantic-button {
-  &__transparent:not(:hover) {
-    background: transparent;
+  &__transparent {
+    border: none;
+    &:not(:hover) {
+      background: transparent;
+    }
   }
 
   &__icon-button {

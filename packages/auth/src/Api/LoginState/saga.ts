@@ -16,13 +16,15 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';
 import { loadSocialLoginsConfigurations } from '../SocialLogins/saga';
+import { AuthPageRoutes } from '../../interfaces';
 import { loadAllowSignUps } from '../SignUp/saga';
 
 export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
-  let { authenticatedUrl } = routes;
+  const { loginUrl, logoutUrl } = routes as AuthPageRoutes;
+  let { authenticatedUrl } = routes as AuthPageRoutes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  if (afterAuthRedirect && afterAuthRedirect !== routes.loginUrl) {
+  if (afterAuthRedirect && ![loginUrl, logoutUrl].includes(afterAuthRedirect)) {
     authenticatedUrl = afterAuthRedirect;
   }
   window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
@@ -74,7 +76,7 @@ export function* refreshToken() {
       ContextHolder.setUser(user);
       yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
-      if (location.pathname.endsWith(routes.loginUrl)) {
+      if (window.location.pathname.endsWith(routes.loginUrl)) {
         yield afterAuthNavigation();
       }
     }

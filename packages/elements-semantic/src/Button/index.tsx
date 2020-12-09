@@ -23,7 +23,7 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
   return {
     ...rest,
     loading,
-    className: classNames({
+    className: classNames(className, {
       'fe-semantic-button__icon-button': iconButton,
       'fe-semantic-button__transparent': transparent,
     }),

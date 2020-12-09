@@ -1,0 +1,9 @@
+.MuiChipInput {
+  input {
+    border: none;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+}

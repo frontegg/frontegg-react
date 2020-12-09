@@ -1,6 +1,6 @@
 import { Logger } from '@frontegg/react-core';
 import { api } from '@frontegg/rest-api';
-import { takeLatest, select as sagaSelect, put, all, takeEvery, call } from 'redux-saga/effects';
+import { takeLatest, select as sagaSelect, put, all, call } from 'redux-saga/effects';
 import { Filter } from './interfaces';
 import {
   defaultItemsPerPage,
@@ -150,7 +150,7 @@ export function* sagas() {
       actions.onPageChange,
       actions.setFilterData,
       actions.setDataSorting,
-      actions.startLoading,
+      actions.startRefresh,
     ],
     loadAuditsFunction
   );

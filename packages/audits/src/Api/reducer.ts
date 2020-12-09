@@ -15,6 +15,9 @@ const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
     startLoading: (state) => {
       state.isLoading = true;
     },
+    startRefresh: (state) => {
+      state.isLoading = true;
+    },
     startFetching: (state) => {
       state.isFetchMore = true;
     },

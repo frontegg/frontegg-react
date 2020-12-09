@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { FeIcon } from '../Icon/FeIcon';
 import { FeTableColumnProps } from './interfaces';
 import { FePopup } from '../Popup/FePopup';
-import { useDebounce } from '../../hooks';
 
 type FeTableFilterColumnProps<T extends object = any> = {
   prefixCls: string;
@@ -17,10 +16,13 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
   const [filterValue, setFilterValue] = useState(column.filterValue);
-  const debounceFilters = useDebounce(filterValue, 200);
   const popupRef = useRef<any>(null);
 
-  useEffect(() => onFilterChange?.(column, debounceFilters), [debounceFilters]);
+  useEffect(() => {
+    setFilterValue(column.filterValue);
+  }, [column.filterValue]);
+
+  useEffect(() => setFilterValue(column.filterValue), [column.filterValue]);
 
   const closePopup = useCallback(() => {
     if (popupRef.current) {
@@ -36,7 +38,7 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
         <FilterComponent
           closePopup={closePopup}
           value={filterValue}
-          setFilterValue={(value) => setFilterValue(value)}
+          setFilterValue={(value) => onFilterChange?.(column, value)}
         />
       }
       action={'click'}
