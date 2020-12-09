@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
+
+
+### Features
+
+* [FR-808] add support in users sign ups ([1a6f7c3](https://github.com/frontegg/frontegg-react/commit/1a6f7c3639ab4c351593d540296e67f65293bbf9))
+
+
+
+
+
 # [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
 
 **Note:** Version bump only for package @frontegg/rest-api

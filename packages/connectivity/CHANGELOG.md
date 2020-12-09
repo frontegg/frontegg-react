@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* **connectivity:** fix show platform if the it dosen't have any events FR-984 ([6319b02](https://github.com/frontegg/frontegg-react/commit/6319b0201888b7226d600d43cb2bfc65f1d24b20))
+
+
+
+
+
 # [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
 
 
