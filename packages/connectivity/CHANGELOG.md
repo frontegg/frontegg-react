@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* **connectivity:** fix color of the Install button FR-975 ([ac9d61e](https://github.com/frontegg/frontegg-react/commit/ac9d61e7cc329410954f4830a476602a3ab73e49))
+* **connectivity:** fix styles for the material UI ([ca1258d](https://github.com/frontegg/frontegg-react/commit/ca1258d85a29d40b9de59407c41f7e755f1e4206))
+
+
+### Features
+
+* **connectivity:** add UI design for the semantic library ([986c86c](https://github.com/frontegg/frontegg-react/commit/986c86cc1d3bc5f35b8a409cbdc9fba7737bb522))
+
+
+
+
+
 ## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
 
 
