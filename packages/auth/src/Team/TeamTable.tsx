@@ -31,7 +31,9 @@ export const TeamTable: FC = (props) => {
   const { loadUsers } = useAuthTeamActions();
   const { t } = useT();
   const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
-  useEffect(() => {loadUsers({ pageOffset: 0 });}, []);
+  useEffect(() => {
+    loadUsers({ pageOffset: 0 });
+  }, []);
 
   const teamTableColumns: TableColumnProps[] = useMemo(
     () => [
@@ -55,12 +57,12 @@ export const TeamTable: FC = (props) => {
       },
       ...(roles.length > 0
         ? [
-          {
-            accessor: 'roleIds',
-            Header: t('common.roles') ?? '',
-            Cell: TeamTableRoles(user?.id, roleOptions),
-          },
-        ]
+            {
+              accessor: 'roleIds',
+              Header: t('common.roles') ?? '',
+              Cell: TeamTableRoles(user?.id, roleOptions),
+            },
+          ]
         : []),
       {
         accessor: 'createdAt',
@@ -81,7 +83,7 @@ export const TeamTable: FC = (props) => {
         Cell: TeamTableActions(user?.id),
       },
     ],
-    [roles],
+    [roles]
   );
 
   return (

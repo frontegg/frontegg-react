@@ -49,6 +49,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     asLink,
     iconButton,
     transparent,
+    testId,
     ...restProps
   } = props;
   const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
