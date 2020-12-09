@@ -1,4 +1,4 @@
-import React, { useCallback, forwardRef, useState, useEffect } from 'react';
+import React, { useCallback, forwardRef, useState, useEffect, useImperativeHandle, useRef } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { useStyles } from './styles';
@@ -9,6 +9,10 @@ export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  useImperativeHandle<any, any>(ref, () => ({
+    closePopup: () => handleClose(),
+  }));
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,9 +39,8 @@ export const PopupClick = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
 
   return (
     <>
-      {React.cloneElement(trigger, { onClick: handleClick })}
+      {React.cloneElement(trigger, { onClick: handleClick, ref: ref })}
       <Popover
-        ref={ref}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
