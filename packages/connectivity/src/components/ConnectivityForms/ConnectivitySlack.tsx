@@ -179,13 +179,13 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
     return <Loader center />;
   }
 
-  if (!isLoading && !slackChannels?.length) {
+  if (!isLoading && !slackChannels?.length && filterTableData.length) {
     return <ConnectivitySlackAuth />;
   }
 
-  if (!tablesData?.length) {
-    return <> Required configure the connectivity</>;
-  }
+  // if (!tablesData?.length) {
+  //   return <> Required configure the connectivity</>;
+  // }
 
   return (
     <FFormik.Formik enableReinitialize initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
