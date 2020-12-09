@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* prevent after login redirect if it is in auth routes ([ae0371d](https://github.com/frontegg/frontegg-react/commit/ae0371d82e5fa3b99349d74f9cd0c7d6754cd710)), closes [#108](https://github.com/frontegg/frontegg-react/issues/108)
+* split AuditsPage to separated components ([9aa109a](https://github.com/frontegg/frontegg-react/commit/9aa109a09a357333788abab845f9ff906e636cc3))
+* **auth:** add missing css variables for authentication pages ([4bb2c66](https://github.com/frontegg/frontegg-react/commit/4bb2c66f292aa1794e456516eb928c156186a0f5))
+
+
+
+
+
 ## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
 
 
