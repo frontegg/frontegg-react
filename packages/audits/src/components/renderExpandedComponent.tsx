@@ -10,6 +10,8 @@ import { prefixCls } from './constants';
 
 export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: AuditRowData) => {
   const getValue = (type: string, data: any) => {
+    if (!data) return 'unknown';
+
     switch (type) {
       case 'Json':
         return <AuditsTableJson value={data} />;
