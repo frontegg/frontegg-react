@@ -1,12 +1,8 @@
 import React, { FC, useMemo } from 'react';
 import { FFormik, Select, SelectOptionProps, useSelector } from '@frontegg/react-core';
-import { IPluginState, ISlackTableData } from '../interfaces';
-export interface ISelectSlack {
-  eventIdx: number;
-  dataIdx: number;
-}
+import { IFormikEditComponent, IPluginState, ISlackTableData } from '../interfaces';
 
-export const SelectSlack: FC<ISelectSlack> = ({ eventIdx, dataIdx }) => {
+export const SelectSlack: FC<IFormikEditComponent> = ({ eventIdx, dataIdx }) => {
   const [{ value, ...inputProps }, {}, { setValue }] = FFormik.useField(
     `data[${dataIdx}].events[[${eventIdx}].slackEvents[0].channelIds`
   );
