@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+
+### Bug Fixes
+
+* **elements:** fix the fullWidth style for the InputChip component in the material library ([2cac48f](https://github.com/frontegg/frontegg-react/commit/2cac48f2fb55a3810a1d2fe41f2bdacc25f56c01))
+
+
+
+
+
 ## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
 
 
