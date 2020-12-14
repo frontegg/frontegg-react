@@ -7,6 +7,7 @@ export default {
       'empty-items': 'No Items',
       'enter-email': 'Enter email',
       'enter-name': 'Enter name',
+      'enter-descripiton': 'Your description',
       'instruction-for': 'Instruction for',
       'last-updated': 'Last updated',
       'not-configured': 'Not Configured',
@@ -65,6 +66,7 @@ export default {
       roles: 'Roles',
       save: 'Save',
       search: 'Search',
+      clientId: 'Client Id',
       secretKey: 'Secret Key',
       select: 'Select',
       selected: 'Selected',
@@ -233,6 +235,24 @@ export default {
         disable: {
           message: 'Disable two-factor will remove an extra layer of security.',
           'enter-generated-code': 'Enter the generated 6-digit code',
+        },
+      },
+      apiTokens: {
+        title: 'API Tokens',
+        subtitle: 'Connect your own APIs to important event notifications',
+        addNewToken: 'Add new token',
+        modal: {
+          title: 'New API token',
+          successDescription: 'Your API key was succesfully generated!',
+          subtitle: 'Create a new API token and assign relevant roles and permissions',
+          description: 'Description',
+          permissions: 'Permissions',
+          create: 'Create',
+          tip: `Copy and save the ID and Secret below because we won't show it again. We don't scare you ;)`,
+        },
+        deleteModal: {
+          title: 'Delete Api Token',
+          message: "You are about to remove Api Token: '{{clientId}}' from this account. Are you sure?",
         },
       },
       team: {

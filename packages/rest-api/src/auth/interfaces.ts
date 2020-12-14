@@ -135,3 +135,33 @@ export interface ISignUpUser {
 export interface ISignUpResponse {
   shouldActivate: boolean;
 }
+
+export interface IUserApiTokensData {
+  clientId?: string;
+  description: string;
+  metadata?: any;
+  secret?: string;
+}
+
+export interface ITenantApiTokensData {
+  clientId?: string;
+  description: string;
+  tenantId?: string;
+  createdByUserId?: string;
+  metadata?: any;
+  secret?: string;
+  roleIds?: Array<string>;
+}
+
+export interface IUpdateUserApiTokensData {
+  description: string;
+}
+
+export interface IUpdateTenantApiTokensData {
+  description: string;
+  roleIds: Array<string>;
+}
+
+export interface IDeleteApiToken {
+  tokenId: string;
+}

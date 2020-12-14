@@ -1,3 +1,4 @@
+import { ApiTokensState } from './ApiTokensState';
 import { AuthPageProps, AuthPageRoutes } from '../interfaces';
 import { IUserProfile, RedirectOptions } from '@frontegg/rest-api';
 import { ActivateState } from './ActivateState';
@@ -52,4 +53,5 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   teamState: TeamState;
   socialLoginsState: SocialLoginsState;
   signUpState: SignUpState;
+  apiTokensState: ApiTokensState;
 }
