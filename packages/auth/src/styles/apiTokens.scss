@@ -54,6 +54,13 @@
     }
   }
 
+  &__dialog-delete {
+    &-message {
+      text-align: center;
+      font-size: 1.1rem;
+    }
+  }
+
   &__copy-icon {
     height: 1rem;
   }
