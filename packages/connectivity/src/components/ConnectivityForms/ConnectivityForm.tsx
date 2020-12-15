@@ -8,12 +8,11 @@ import {
   Loader,
   FFormik,
   NotFound,
-  FInputChip,
+  useSearch,
   useDispatch,
   useSelector,
   FormikAutoSave,
   TableColumnProps,
-  useSearch,
 } from '@frontegg/react-core';
 import { IEmailSMSConfigResponse } from '@frontegg/rest-api';
 import { connectivityActions } from '../../reducer';

@@ -97,11 +97,11 @@ export const patchSMSConfiguration = ({
   enabled,
 }: Pick<IEmailSMSConfigResponse, 'eventKey' | 'enabled'>): Promise<null> => {
   console.debug('patchSMSConfiguration()', { eventKey, enabled });
-  return Patch(`${CONNECTIVITY_SERVICE_URL_V2}/sma/${eventKey}`, { enabled });
+  return Patch(`${CONNECTIVITY_SERVICE_URL_V2}/sms/${eventKey}`, { enabled });
 };
 
-export const deletesmsSubscriptions = (eventKey: string, subscriptionId: string): Promise<null> => {
-  console.debug('deletesmsSubscriptions()', { eventKey, subscriptionId });
+export const deleteSMSSubscriptions = (eventKey: string, subscriptionId: string): Promise<null> => {
+  console.debug('deleteSMSSubscriptions()', { eventKey, subscriptionId });
   return Delete(`${CONNECTIVITY_SERVICE_URL_V2}/sms/${eventKey}/subscriptions/${subscriptionId}`);
 };
 
