@@ -478,4 +478,17 @@ export const auditsData = [
     createdAt: '2020-12-09 13:00:00.306',
     frontegg_id: '382fa790-a102-4e40-813c-07ab901bcb6f',
   },
+  {
+    ip: '35.92.41.21',
+    user: 'Ardelia Masmuke',
+    action: 'Remap',
+    changed: 'Amount of Services',
+    cluster: 'Main',
+    resource: 'Microservice',
+    severity: 'Info',
+    tenantId: 'my-tenant-id',
+    vendorId: '5989f34a-f047-4cd9-b51d-b9d925e30572',
+    createdAt: '2020-12-10 13:00:00.306',
+    frontegg_id: '382fa790-a102-4e40-813c-07asc101bcb6f',
+  },
 ];
