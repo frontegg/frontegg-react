@@ -22,6 +22,7 @@ export * from './MFA';
 export * from './Team';
 export * from './AccountDropdown';
 export * from './SocialLogins';
+export * from './ApiTokens';
 
 export { AuthRoutes };
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({

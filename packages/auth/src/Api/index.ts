@@ -10,3 +10,4 @@ export * from './ForgotPasswordState/interfaces';
 export * from './MfaState/interfaces';
 export * from './ProfileState/interfaces';
 export * from './SSOState/interfaces';
+export * from './ApiTokensState/interfaces';
