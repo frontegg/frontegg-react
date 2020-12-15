@@ -61,7 +61,9 @@ export const ApiTokensAddDialog: FC = () => {
       onClose={closeDialog}
       header={t('auth.apiTokens.modal.title')}
     >
-      <div className={`${prefixCls}__dialog-description`}>{t('auth.apiTokens.modal.subtitle')}</div>
+      <div className={`${prefixCls}__dialog-description`}>
+        {apiTokenType === 'user' ? t('auth.apiTokens.modal.subtitleUser') : t('auth.apiTokens.modal.subtitleTenant')} {}
+      </div>
       <Formik
         initialValues={initialValues}
         onSubmit={({ description, roles }, { resetForm, setSubmitting }) => {

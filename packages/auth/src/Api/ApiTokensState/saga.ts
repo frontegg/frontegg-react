@@ -1,4 +1,4 @@
-import { call, put, takeLeading, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLeading, select, takeEvery, takeLatest, delay } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { api } from '@frontegg/rest-api';
 import { WithCallback } from '../interfaces';
@@ -33,6 +33,7 @@ function* addUserApiToken({ payload }: PayloadAction<WithCallback<IUserApiTokens
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: true }));
     const data = yield call(api.auth.updateUserApiTokensData, { description });
     yield put(actions.setApiTokensState({ showAddTokenDialog: false }));
+    yield delay(200);
     yield put(
       actions.setApiTokensState({
         apiTokensDataUser: [data, ...apiTokensDataUser],
@@ -56,6 +57,7 @@ function* addTenantApiToken({ payload }: PayloadAction<WithCallback<ITenantApiTo
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: true }));
     const data = yield call(api.auth.updateTenantApiTokensData, { description, roleIds });
     yield put(actions.setApiTokensState({ showAddTokenDialog: false }));
+    yield delay(200);
     yield put(
       actions.setApiTokensState({
         apiTokensDataTenant: [data, ...apiTokensDataTenant],

@@ -34,7 +34,7 @@ export const ApiTokensDeleteDialog: FC = () => {
 
   return (
     <Dialog open={isOpen} size={'tiny'} onClose={handleOnClose} header={t('auth.apiTokens.deleteModal.title')}>
-      <p>{t('auth.apiTokens.deleteModal.message', { clientId })}</p>
+      <p className='fe-text-align-center'>{t('auth.apiTokens.deleteModal.message')}</p>
 
       <ErrorMessage error={error} />
       <div className='fe-dialog__footer'>

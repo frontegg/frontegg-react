@@ -244,15 +244,16 @@ export default {
         modal: {
           title: 'New API token',
           successDescription: 'Your API key was succesfully generated!',
-          subtitle: 'Create a new API token and assign relevant roles and permissions',
+          subtitleTenant: 'Create a new API token and assign relevant roles',
+          subtitleUser: 'Create a new API token',
           description: 'Description',
           permissions: 'Permissions',
           create: 'Create',
-          tip: `Copy and save the ID and Secret below because we won't show it again. We don't scare you ;)`,
+          tip: `Copy and save the ID and Secret below because we won't show it again.`,
         },
         deleteModal: {
           title: 'Delete Api Token',
-          message: "You are about to remove Api Token: '{{clientId}}' from this account. Are you sure?",
+          message: 'Are you sure you want to permanently delete the selected API token?',
         },
       },
       team: {

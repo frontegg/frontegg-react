@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Button, Grid, Input, useT } from '@frontegg/react-core';
+import React, { FC } from 'react';
+import { Button, Grid, Icon, Input, useT } from '@frontegg/react-core';
 import { prefixCls } from '../constants';
 import { useApiTokensActions, useApiTokensState } from '../hooks';
 
@@ -15,10 +15,11 @@ export const ApiTokensTableToolbar: FC = () => {
         <Grid container>
           <Grid item md={4} xs={6}>
             <Input
+              fullWidth
               value={searchValue}
               onChange={(e) => setApiTokensState({ searchValue: e.target.value })}
-              placeholder={t('auth.team.search-users')}
-              fullWidth
+              prefixIcon={<Icon name='search' />}
+              placeholder={`${t('common.search')}...`}
             />
           </Grid>
           <Grid item md={8} xs={6} className='fe-text-align-end'>

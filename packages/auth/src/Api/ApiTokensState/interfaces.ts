@@ -7,6 +7,7 @@ export interface ApiTokensState {
   apiTokensDataTenant: Array<ITenantApiTokensData>;
   apiTokensDataUser: Array<IUserApiTokensData>;
   showAddTokenDialog: boolean;
+  createdByUserIdColumn?: createdByUserIdColumn;
   deleteTokenDialog: {
     open: boolean;
     clientId: string;
@@ -22,6 +23,7 @@ export interface ApiTokensState {
 }
 
 export type ApiTokenType = 'user' | 'tenant' | null;
+export type createdByUserIdColumn = 'show' | 'hide' | undefined;
 
 export interface IApiTokensData {
   clientId: string;

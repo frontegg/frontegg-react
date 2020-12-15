@@ -15,6 +15,7 @@ export const apiTokensState: ApiTokensState = {
   apiTokenType: null,
   searchValue: '',
   showAddTokenDialog: false,
+  createdByUserIdColumn: 'show',
   deleteTokenDialog: {
     open: false,
     clientId: '',
