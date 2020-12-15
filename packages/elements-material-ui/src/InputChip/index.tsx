@@ -15,7 +15,7 @@ export const InputChip: FC<IInputChip> = ({ chips, label, inputValue, onDelete, 
       {!!label && <div>{label}</div>}
       <Grid container alignItems='center'>
         {chips.map((chip, idx) => (
-          <Grid item>
+          <Grid item key={idx}>
             <Chip label={chip} onDelete={() => onDelete(idx)} />
           </Grid>
         ))}
