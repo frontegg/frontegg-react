@@ -1,15 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { useAuthProfile } from '../helpers';
-import {
-  FFormik,
-  Button,
-  Icon,
-  Loader,
-  useT,
-  FFileInput,
-  OnError,
-  ErrorMessage,
-} from '@frontegg/react-core';
+import { FFormik, Button, Icon, Loader, useT, FFileInput, OnError, ErrorMessage } from '@frontegg/react-core';
 
 const { useFormikContext, useField } = FFormik;
 
@@ -82,13 +73,11 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
         <div className='fe-profile-name'>{profile?.name}</div>
         <div className='fe-profile-email'>{profile?.email ?? ''}</div>
 
-        <FFileInput name={profilePictureUrl} accept='image/png, image/jpeg'/>
+        <FFileInput name={profilePictureUrl} accept='image/png, image/jpeg' />
         <Button variant='primary' onClick={handleUploadClick} fullWidth={false}>
           {t('auth.profile.info.upload-photo')}
         </Button>
-        {profileImageError && (
-          <ErrorMessage error={profileImageError} onError={props.onError} />
-        )}
+        {profileImageError && <ErrorMessage error={profileImageError} onError={props.onError} />}
       </div>
     </>
   );
