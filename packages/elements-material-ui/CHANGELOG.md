@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* **elements:** fix console error for the InputChip component ([0f25e0f](https://github.com/frontegg/frontegg-react/commit/0f25e0f12673301d8f3cbfb4ccbf7a532e573840))
+
+
+
+
+
 ## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
 
 
