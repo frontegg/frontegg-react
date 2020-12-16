@@ -66,6 +66,7 @@ Here are some examples of how to customize the **User/Tenant Api Tokens** compon
 - [Render without header](#render-header-title)
 - [Inject custom header](#inject-custom-header)
 - [Inject element inside layout](#inject-element-inside-layout)
+- [Hide 'Created By' column for Tenant Api Tokens table](#hide-created-by-column-for-tenant-api-tokens-table)
 - `Change dialog windows and toolbar` (coming soon)
 
 ### Custom header title:
@@ -150,6 +151,16 @@ render() {
 
 ```
 
+
+### Hide Created By column for Tenant Api Tokens table:
+
+```tsx
+import { TenantApiTokens } from '@frontegg/react-auth';
+
+render() {
+  <TenantApiTokens.Page createdByUserIdColumn='hide' />
+}
+```
 
 
 
