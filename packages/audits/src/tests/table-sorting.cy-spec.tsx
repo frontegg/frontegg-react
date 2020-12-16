@@ -3,8 +3,8 @@ import { mount } from 'cypress-react-unit-test';
 import { AuditsPlugin, Audits } from '../index';
 import { mockAuditsApi, TestFronteggWrapper } from '../../../../cypress/helpers';
 
-describe('Load audits page', () => {
-  it('Audits page should be rendered', () => {
+describe('Audits page table sorting', () => {
+  it('Sort by name Z-A', () => {
     cy.server();
     mockAuditsApi();
     mount(
@@ -15,8 +15,9 @@ describe('Load audits page', () => {
     cy.wait('@auditsData');
     cy.wait('@auditsMetadata');
     cy.wait('@auditsStats');
-    cy.get('.fe-page-header').should('be.visible');
-    cy.get('.fe-audits__subHeader').should('be.visible');
     cy.get('.fe-table').should('be.visible');
+    cy.get('.fe-table__thead-tr-th').eq(1).click().should('have.class', 'fe-table__thead-sortable-asc');
+    cy.wait('@auditsDataNameDesc');
+    cy.get('.fe-table__tr').first().contains('Wendi Burghardt').should('be.visible');
   });
 });

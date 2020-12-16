@@ -3,7 +3,7 @@
 import React, { FC } from 'react';
 import { FronteggProvider, PluginConfig, ContextOptions } from '@frontegg/react-core';
 import { uiLibrary } from '@frontegg/react-elements-semantic';
-import { auditsData, auditsMetadata, auditsStats } from './consts';
+import { auditsData, auditsDataDescName, auditsMetadata, auditsStats } from './consts';
 
 export const METADATA_SERVICE = 'http://localhost:8080/frontegg/metadata';
 export const IDENTITY_SERVICE = 'http://localhost:8080/frontegg/identity';
@@ -115,6 +115,16 @@ export const mockAuditsApi = () => {
       total: auditsData.length,
     },
   }).as('auditsData');
+  cy.route({
+    method: 'GET',
+    url: `${AUDITS_SERVICE}?sortDirection=desc&sortBy=user&filter=&offset=0&count=20`,
+    status: 200,
+    delay: 200,
+    response: {
+      data: auditsDataDescName,
+      total: auditsDataDescName.length,
+    },
+  }).as('auditsDataNameDesc');
   cy.route({
     method: 'GET',
     url: `${METADATA_SERVICE}?entityName=audits`,
