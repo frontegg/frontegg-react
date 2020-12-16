@@ -81,10 +81,12 @@ So you need to pass the default inner components if you don't want to override.
 import { TenantApiTokens } from '@frontegg/react-auth';
 
 render() {
-  <TenantApiTokens.Page>
-    <TenantApiTokens.Header title='My Custom Header Title'/>
-    <TenantApiTokens.Layout/>
-  </TenantApiTokens.Page>
+  return (
+    <TenantApiTokens.Page>
+      <TenantApiTokens.Header title='My Custom Header Title'/>
+      <TenantApiTokens.Layout/>
+    </TenantApiTokens.Page>
+  )
 }
 ```
 
@@ -99,6 +101,7 @@ Sometimes there is a specific component
 import { TenantApiTokens } from '@frontegg/react-auth';
 
 render() {
+  return (
 // option 1
   <TenantApiTokens.Page>
     <TenantApiTokens.Header hide/>
@@ -109,6 +112,7 @@ render() {
   <TenantApiTokens.Page>
     <TenantApiTokens.Layout/>
   </TenantApiTokens.Page>
+  )
 }
 ```
 
@@ -119,10 +123,12 @@ import { TenantApiTokens } from '@frontegg/react-auth';
 import { MyCustomHeader } from './MyCustomHeader';
 
 render() {
-  <TenantApiTokens.Page>
-    <MyCustomHeader/>
-    <TenantApiTokens.Layout/>
-  </TenantApiTokens.Page>
+  return (  
+    <TenantApiTokens.Page>
+      <MyCustomHeader/>
+      <TenantApiTokens.Layout/>
+    </TenantApiTokens.Page>
+  )
 }
 
 ```
@@ -134,19 +140,21 @@ render() {
 import { TenantApiTokens } from '@frontegg/react-auth';
 
 render() {
-  <TenantApiTokens.Page>
-    <TenantApiTokens.Header/>
-    <TenantApiTokens.Layout>
-      <TenantApiTokens.Toolbar />
-       <div>
-          this element inject between Api Tokens toolbar and table.
-      </div>
-      <TenantApiTokens.Table />
-      <TenantApiTokens.AddDialog />
-      <TenantApiTokens.SuccessDialog />
-      <TenantApiTokens.DeleteDialog />
-    </TenantApiTokens.Layout>
-  </TenantApiTokens.Page>
+  return (
+    <TenantApiTokens.Page>
+      <TenantApiTokens.Header/>
+      <TenantApiTokens.Layout>
+        <TenantApiTokens.Toolbar />
+        <div>
+            this element inject between Api Tokens toolbar and table.
+        </div>
+        <TenantApiTokens.Table />
+        <TenantApiTokens.AddDialog />
+        <TenantApiTokens.SuccessDialog />
+        <TenantApiTokens.DeleteDialog />
+      </TenantApiTokens.Layout>
+    </TenantApiTokens.Page>
+  )
 }
 
 ```
@@ -158,7 +166,9 @@ render() {
 import { TenantApiTokens } from '@frontegg/react-auth';
 
 render() {
-  <TenantApiTokens.Page createdByUserIdColumn='hide' />
+  return (
+    <TenantApiTokens.Page createdByUserIdColumn='hide' />
+  )
 }
 ```
 
