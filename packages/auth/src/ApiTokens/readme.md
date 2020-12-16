@@ -1,4 +1,4 @@
-## SSO (Single Sign On)
+## Api Tokens (Single Sign On)
 This collection contains built-in components to provide the ability to display your Tenant/User Api Tokens configuration, updates and etc.
 
 ## Usage
@@ -90,7 +90,7 @@ render() {
 ### Render without header:
 
 In this example, we have two options to hide the `TenantApiTokens/UserApiTokens.Header`:
-1. pass hide property to the `SSO.Header` component.
+1. pass hide property to the `TenantApiTokens/UserApiTokens.Header` component.
 2. just remove it from `TenantApiTokens/UserApiTokens.Page` children.
 
 Sometimes there is a specific component
