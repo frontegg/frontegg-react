@@ -96,7 +96,7 @@ export const ApiTokensAddDialog: FC = () => {
           />
           {apiTokenType === 'tenant' && (
             <FSelect
-              size='large'
+              size='medium'
               label={t('common.roles')}
               multiselect
               name='roles'

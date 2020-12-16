@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useApiTokensState } from '../hooks';
-import { Table } from '@frontegg/react-core';
+import { Loader, Table } from '@frontegg/react-core';
 import { prefixCls, tableColumnsUser, tableColumnsTenant } from '../constants';
 import { IUserApiTokensData, ITenantApiTokensData } from '../../Api/ApiTokensState/interfaces';
 
@@ -54,6 +54,10 @@ export const ApiTokensTableComponent: FC = () => {
       ? tableColumnsTenant.filter((i) => i.accessor !== 'createdByUserId')
       : tableColumnsTenant;
   }, [createdByUserIdColumn, tableColumnsTenant]);
+
+  if (!data.length) {
+    return <Loader center />;
+  }
 
   return (
     <Table
