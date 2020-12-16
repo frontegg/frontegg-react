@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* disable profile image uploader limitation ([07e082e](https://github.com/frontegg/frontegg-react/commit/07e082e8e4ff551b84fa277a8476e676f503ff2e))
+* Fix MFA cancel button size ([be9a44b](https://github.com/frontegg/frontegg-react/commit/be9a44b2df12a9beac07198a2aaa82c3bd940717))
+* Fix profile tabs color ([3ab5742](https://github.com/frontegg/frontegg-react/commit/3ab57426355700c05930075c014faa2c10456b9c))
+* UI enhancements for SSO components ([6be3aea](https://github.com/frontegg/frontegg-react/commit/6be3aea9e54aa56e4f28da3d63a81df500435fab))
+* Update components primary color ([ee6d08e](https://github.com/frontegg/frontegg-react/commit/ee6d08ec880fc7ae9427d993a544385db8d3da5b))
+* **connectivity:** fix actions for saving data ([c92d051](https://github.com/frontegg/frontegg-react/commit/c92d051f309e3cbb5862bec73c6e12dd5b96da67))
+* **connectivity:** FR-1005 fix the alignment of the line data in the webhook table ([bccfa8b](https://github.com/frontegg/frontegg-react/commit/bccfa8b96b372f1762e6b681fcccfc9d556fe9d3))
+* **core:** fix mistakes in URLs for the connectivity component ([2fcafc8](https://github.com/frontegg/frontegg-react/commit/2fcafc8d639bb634d4acdf34dbce841c9feb0954))
+* **elements:** fix console error for the InputChip component ([0f25e0f](https://github.com/frontegg/frontegg-react/commit/0f25e0f12673301d8f3cbfb4ccbf7a532e573840))
+
+
+### Features
+
+* **auth:** Api tokens component for users and tenants ([c8b1e17](https://github.com/frontegg/frontegg-react/commit/c8b1e176bee4f4402afbd9625841312428c14b75))
+
+
+
+
+
 ## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
 
 
