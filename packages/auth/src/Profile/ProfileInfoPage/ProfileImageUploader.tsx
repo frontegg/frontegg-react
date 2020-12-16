@@ -1,13 +1,11 @@
-import React, { FC, useCallback, useRef } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useAuthProfile } from '../helpers';
 import {
   FFormik,
   Button,
   Icon,
-  Input,
   Loader,
   useT,
-  FInput,
   FFileInput,
   OnError,
   ErrorMessage,
@@ -19,23 +17,24 @@ const profilePictureUrl = 'profilePictureUrl';
 
 const getProfileImageInput = () => document.querySelector<HTMLInputElement>(`input[name=${profilePictureUrl}]`);
 
-const getImageDimension = (file: File) =>
-  new Promise<{ width: number; height: number }>((resolve, reject) => {
-    const img = new Image();
-    const objectUrl = URL.createObjectURL(file);
-    img.onload = () => {
-      const result = { width: img.width, height: img.height };
-      URL.revokeObjectURL(objectUrl);
-      resolve(result);
-    };
-    img.onerror = () => {
-      const result = { width: 0, height: 0 };
-      URL.revokeObjectURL(objectUrl);
-      resolve(result);
-    };
+// const getImageDimension = (file: File) =>
+//   new Promise<{ width: number; height: number }>((resolve, reject) => {
+//     const img = new Image();
+//     const objectUrl = URL.createObjectURL(file);
+//     img.onload = () => {
+//       const result = { width: img.width, height: img.height };
+//       URL.revokeObjectURL(objectUrl);
+//       resolve(result);
+//     };
+//     img.onerror = () => {
+//       const result = { width: 0, height: 0 };
+//       URL.revokeObjectURL(objectUrl);
+//       resolve(result);
+//     };
+//
+//     img.src = objectUrl;
+//   });
 
-    img.src = objectUrl;
-  });
 export const ProfileImageUploader: FC<OnError> = (props) => {
   const { loading, profile, error, setProfileState } = useAuthProfile();
   const { t } = useT();
@@ -48,13 +47,13 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
     getProfileImageInput()?.click?.();
   }, []);
 
-  const validateProfileImage = async (file: File) => {
-    const { width, height } = await getImageDimension(file);
-    if (width > 512 || height > 512) {
-      return t('auth.profile.info.invalid-profile-photo');
-    }
-    return null;
-  };
+  // const validateProfileImage = async (file: File) => {
+  //   // const { width, height } = await getImageDimension(file);
+  //   // if (width > 512 || height > 512) {
+  //   //   return t('auth.profile.info.invalid-profile-photo');
+  //   // }
+  //   return null;
+  // };
 
   const handleRemoveImage = useCallback(() => {
     profileImageField.onChange(profileImageField.name)(profile?.profilePictureUrl ?? '');
@@ -83,14 +82,12 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
         <div className='fe-profile-name'>{profile?.name}</div>
         <div className='fe-profile-email'>{profile?.email ?? ''}</div>
 
-        <FFileInput name={profilePictureUrl} accept='image/png, image/jpeg' validation={validateProfileImage} />
+        <FFileInput name={profilePictureUrl} accept='image/png, image/jpeg'/>
         <Button variant='primary' onClick={handleUploadClick} fullWidth={false}>
           {t('auth.profile.info.upload-photo')}
         </Button>
-        {profileImageError ? (
+        {profileImageError && (
           <ErrorMessage error={profileImageError} onError={props.onError} />
-        ) : (
-          <div className='fe-profile-image-note'>{t('auth.profile.info.upload-photo-note')}</div>
         )}
       </div>
     </>
