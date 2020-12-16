@@ -39,7 +39,7 @@ const InstructionsAccordion: FC<InstructionsAccordionProps> = (props) => {
 
                 <Grid container>
                   <Grid item xs={6}>
-                    {firstItem && (
+                    {!firstItem && (
                       <Button
                         onClick={(e) => {
                           e.stopPropagation();

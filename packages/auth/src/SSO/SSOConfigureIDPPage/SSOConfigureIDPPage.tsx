@@ -14,7 +14,7 @@ export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
   const [samlVendor, setSamlVendor] = useState<SamlVendors>(SamlVendors.Saml);
 
   if (loading) {
-    return <Loader center />;
+    return null;
   }
 
   const children = props.children ?? (
