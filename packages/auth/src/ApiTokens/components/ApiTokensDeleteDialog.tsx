@@ -2,6 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { Button, Dialog, ErrorMessage, Grid, useT } from '@frontegg/react-core';
 import { useApiTokensState, useApiTokensActions } from '../hooks';
 import { ApiStateKeys } from '../../Api/ApiTokensState/interfaces';
+import { prefixCls } from '../constants';
 
 export const ApiTokensDeleteDialog: FC = () => {
   const { t } = useT();
@@ -33,8 +34,14 @@ export const ApiTokensDeleteDialog: FC = () => {
   const isOpen = !!clientId && open;
 
   return (
-    <Dialog open={isOpen} size={'tiny'} onClose={handleOnClose} header={t('auth.apiTokens.deleteModal.title')}>
-      <p className='fe-text-align-center'>{t('auth.apiTokens.deleteModal.message')}</p>
+    <Dialog
+      className={`${prefixCls}__dialog-delete`}
+      open={isOpen}
+      size={'small'}
+      onClose={handleOnClose}
+      header={t('auth.apiTokens.deleteModal.title')}
+    >
+      <p className={`${prefixCls}__dialog-delete-message`}>{t('auth.apiTokens.deleteModal.message')}</p>
 
       <ErrorMessage error={error} />
       <div className='fe-dialog__footer'>
