@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/frontegg/frontegg-react/compare/v1.14.0...v1.14.1) (2020-12-17)
+
+
+### Bug Fixes
+
+* Fix search bar alignments and ui bug fixes ([dd51197](https://github.com/frontegg/frontegg-react/commit/dd5119705cad6e379459171e34a5a3abe4d891ff))
+
+
+
+
+
 # [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
 
 **Note:** Version bump only for package @frontegg/react-audits
