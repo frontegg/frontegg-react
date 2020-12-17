@@ -39,6 +39,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   return (
     <>
       <Popup
+        className={'fe-account-popup__container'}
         action='click'
         open={popupOpen}
         position={{ vertical: 'bottom', horizontal: 'right' }}

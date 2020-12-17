@@ -59,11 +59,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
     props.getSections?.(defaultSections, props.closePopup) ?? defaultSections;
 
   return (
-    <div
-      className={classNames('fe-account-popup', {
-        ['fe-account-popup__switch-tenant-active']: showSwitchTenant,
-      })}
-    >
+    <div className={classNames('fe-account-popup', { ['fe-account-popup__switch-tenant-active']: showSwitchTenant })}>
       <div className='fe-account-popup__header'>
         <img src={user?.profilePictureUrl} alt='profilePictureUrl' />
         <div className='fe-account-popup__header-details'>
