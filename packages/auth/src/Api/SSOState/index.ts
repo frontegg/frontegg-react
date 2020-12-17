@@ -2,6 +2,7 @@ import { SSOState } from './interfaces';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
 import { ISamlConfiguration } from '@frontegg/rest-api';
+import { WithCallback } from '../interfaces';
 
 export * from './interfaces';
 
@@ -18,11 +19,14 @@ export const ssoStateReducers = {
 
 export const ssoActions = {
   loadSSOConfigurations: createAction(`${storeName}/loadSSOConfigurations`),
-  saveSSOConfigurations: createAction(`${storeName}/saveSSOConfigurations`, (payload: Partial<ISamlConfiguration>) => ({
-    payload,
-  })),
+  saveSSOConfigurations: createAction(
+    `${storeName}/saveSSOConfigurations`,
+    (payload: WithCallback<Partial<ISamlConfiguration>>) => ({
+      payload,
+    })
+  ),
   saveSSOConfigurationsFile: createAction(`${storeName}/saveSSOConfigurationsFile`, (payload: File[]) => ({
     payload,
   })),
-  validateSSODomain: createAction(`${storeName}/validateSSODomain`),
+  validateSSODomain: createAction(`${storeName}/validateSSODomain`, (payload?: WithCallback) => ({ payload })),
 };
