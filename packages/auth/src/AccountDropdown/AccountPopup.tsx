@@ -32,13 +32,17 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
     },
     {
       items: [
-        ...(user.tenantIds.length > 1 ? [{
-          icon: <Icon name='swap' />,
-          title: 'Switch Tenant',
-          onClick: () => {
-            setShowSwitchTenant(true);
-          },
-        }] : []),
+        ...(user.tenantIds.length > 1
+          ? [
+              {
+                icon: <Icon name='swap' />,
+                title: 'Switch Tenant',
+                onClick: () => {
+                  setShowSwitchTenant(true);
+                },
+              },
+            ]
+          : []),
         {
           icon: <Icon name='exit' />,
           title: 'Logout',

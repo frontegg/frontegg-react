@@ -34,13 +34,22 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
       <div className='fe-account-switch-tenant__body'>
         {tenantsLoading && <Loader center={true} />}
         {!tenantsLoading &&
-        tenants.map((tenant) => (
-          <MenuItem key={tenant.id} text={<>
-            {tenant.name}
-            {tenant.id === user?.tenantId && <Tag size={'small'} variant={'primary'} className='fe-active-tenant-tag'>Active</Tag>}
-          </>}
-                    onClick={() => switchTenant({ tenantId: tenant.tenantId })} />
-        ))}
+          tenants.map((tenant) => (
+            <MenuItem
+              key={tenant.id}
+              text={
+                <>
+                  {tenant.name}
+                  {tenant.id === user?.tenantId && (
+                    <Tag size={'small'} variant={'primary'} className='fe-active-tenant-tag'>
+                      Active
+                    </Tag>
+                  )}
+                </>
+              }
+              onClick={() => switchTenant({ tenantId: tenant.tenantId })}
+            />
+          ))}
       </div>
     </div>
   );
