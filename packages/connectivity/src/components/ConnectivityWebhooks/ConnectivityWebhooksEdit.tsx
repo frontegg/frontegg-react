@@ -5,6 +5,7 @@ import { IPluginState } from '../../interfaces';
 import { ConnectivityWebhooksForm } from './ConnectivityWebhooksForm';
 import { ConnectivityWebhooksLog } from './ConnectivityWebhooksLog';
 import { IWebhookLocationState } from './interfaces';
+import classNames from 'classnames';
 
 const itemsArray = ['common.detail', 'common.logs'];
 
@@ -44,9 +45,7 @@ export const ConnectivityWebhooksEdit: FC = () => {
   return (
     <div className='fe-connectivity__content'>
       <div className='fe-connectivity__content-heading'>
-        <Button transparent onClick={onBack}>
-          <Icon name='left-arrow' />
-        </Button>
+        <span onClick={onBack} className={'fe-back-button fe-block'}><Icon name='back' /></span>
         {data?.displayName ?? t('connectivity.addNewHook')}
       </div>
       {data && <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />}
