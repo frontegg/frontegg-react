@@ -33,7 +33,7 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
     return <Loader />;
   }
 
-  if (!socialLoginsConfig?.length) {
+  if (!socialLoginsConfig?.length || !socialLoginsConfig.some(({ active }) => active)) {
     return null;
   }
 
