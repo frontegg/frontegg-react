@@ -16,7 +16,7 @@ function* loadApiTokensData({ payload: apiTokenType }: PayloadAction<ApiTokenTyp
     } else {
       const apiTokensData = yield call(api.auth.getTenantApiTokensData);
       const { items: roles } = yield call(api.teams.loadAvailableRoles);
-      yield put(actions.setApiTokensState({ apiTokensDataTenant: apiTokensData ?? [], roles }));
+      yield put(actions.setApiTokensState({ apiTokensDataTenant: apiTokensData ?? [], roles: roles ?? [] }));
     }
 
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
