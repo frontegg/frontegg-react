@@ -56,8 +56,12 @@
     &-details {
       flex: 1;
       font-weight: bold;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       margin-right: 2rem;
+
+      span {
+        font-weight: normal;
+      }
     }
   }
 
@@ -120,5 +124,13 @@
     flex: 1;
     overflow: auto;
     width: 100%;
+
+    .fe-active-tenant-tag {
+      margin-left: auto;
+      padding: .15rem 0.3rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      height: auto;
+    }
   }
 }
