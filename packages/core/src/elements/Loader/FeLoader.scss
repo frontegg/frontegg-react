@@ -16,10 +16,14 @@
   }
 
   &__inner {
-    @include with-theme {
+    @include with-theme() {
       background-color: transparent;
       border: 2px solid var(--color-black-20);
       border-bottom: 2px solid;
+    }
+    @include with-theme(primary) {
+      --theme-color: var(--color-primary);
+      --theme-background: var(--color-primary-lighter);
     }
 
     position: absolute;

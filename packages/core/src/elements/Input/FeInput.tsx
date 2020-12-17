@@ -34,13 +34,18 @@ export const FeInput: FC<InputProps> = (props) => {
 
   const onSearch = useCallback(() => propsOnSearch?.(text as string), [text]);
 
+  const withPrefixIcon = !!prefixIcon;
+  const withSuffixIcon = propsType === 'password' || propsType === 'search' || !!suffixIcon;
+
   const classes = ClassNameGenerator.generate(
     {
       prefixCls,
       className,
       isFullWidth: fullWidth,
     },
-    inForm && 'in-form'
+    inForm && 'in-form',
+    withPrefixIcon && `with-prefix-icon`,
+    withSuffixIcon && `with-suffix-icon`
   );
 
   const innerClasses = ClassNameGenerator.generate(
@@ -60,7 +65,7 @@ export const FeInput: FC<InputProps> = (props) => {
   });
 
   const element = multiline ? 'textarea' : 'input';
-  const type = propsType === 'password' && showPassword ? 'text' : propsType;
+  const type = propsType === 'password' && showPassword ? 'text' : propsType === 'search' ? 'text' : propsType;
 
   return (
     <div className={classes}>

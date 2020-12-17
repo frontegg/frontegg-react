@@ -19,7 +19,6 @@ export const loginState: LoginState = {
   loading: false,
   email: '',
   tenants: [],
-  tenantsLoading: true,
 };
 
 export const loginStateReducers = {

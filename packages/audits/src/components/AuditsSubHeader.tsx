@@ -42,10 +42,9 @@ export const AuditsSubHeader: FC = () => {
     <div className={`${prefixCls}__subHeader`}>
       <div className={`${prefixCls}__subHeader-top`}>
         <Input
-          type='text'
+          type='search'
           value={search}
           placeholder='Search by any text'
-          prefixIcon={<Icon name='search' />}
           onChange={(e) => setSearch(e.target.value)}
         />
         {/*<Menu trigger={<Button size='small'>Download</Button>} items={downloadItems} />*/}

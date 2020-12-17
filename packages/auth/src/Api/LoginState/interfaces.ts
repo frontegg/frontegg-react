@@ -19,5 +19,5 @@ export interface LoginState {
   mfaToken?: string;
   email?: string;
   tenants: ITenantsResponse[];
-  tenantsLoading: boolean;
+  tenantsLoading?: boolean;
 }

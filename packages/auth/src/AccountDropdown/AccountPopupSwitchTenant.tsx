@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-import { Button, Icon, Loader, MenuItem, useT } from '@frontegg/react-core';
+import { Button, Icon, Loader, MenuItem, Tag, useT } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
 type AccountPopupSwitchTenantProps = {
@@ -35,7 +35,20 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
         {tenantsLoading && <Loader center={true} />}
         {!tenantsLoading &&
           tenants.map((tenant) => (
-            <MenuItem key={tenant.id} text={tenant.name} onClick={() => switchTenant({ tenantId: tenant.tenantId })} />
+            <MenuItem
+              key={tenant.id}
+              text={
+                <>
+                  {tenant.name}
+                  {tenant.id === user?.tenantId && (
+                    <Tag size={'small'} variant={'primary'} className='fe-active-tenant-tag'>
+                      Active
+                    </Tag>
+                  )}
+                </>
+              }
+              onClick={() => switchTenant({ tenantId: tenant.tenantId })}
+            />
           ))}
       </div>
     </div>

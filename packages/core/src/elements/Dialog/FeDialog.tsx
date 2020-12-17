@@ -8,6 +8,8 @@ export const FeDialog: FC<DialogProps> = ({ children, open, header, onClose, ...
     <Dialog
       {...props}
       visible={open}
+      maskClosable={false}
+      destroyOnClose={true}
       title={header}
       closable={true}
       onClose={() => onClose?.()}

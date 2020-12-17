@@ -21,7 +21,7 @@
   }
 
   &__table-toolbar {
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
   }
 
   &__filter-popup-md {
@@ -36,8 +36,10 @@
   &__roles-dropdown-button.fe-button {
     min-width: 3rem;
   }
+
   &__roles-popup.fe-popup__container {
     padding: 0;
+
     .fe-team__roles-dropdown {
       display: flex;
       flex-direction: column;
@@ -56,6 +58,16 @@
       .fe-checkbox.fe-menu-item__icon {
         height: 1.75rem;
         max-width: calc(100% - 2.5rem);
+
+        .fe-checkbox__input {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+
+        input:checked + .fe-checkbox__input .fe-icon {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
       }
     }
   }

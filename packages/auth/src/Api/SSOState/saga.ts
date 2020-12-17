@@ -4,6 +4,7 @@ import { api, ISamlConfiguration, IUpdateSamlConfiguration } from '@frontegg/res
 import { omitProps } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { SSOState } from './interfaces';
+import { WithCallback } from '../interfaces';
 
 function* loadSSOConfigurations() {
   try {
@@ -36,7 +37,9 @@ function* saveSSOConfigurationsFile({ payload: configFile }: PayloadAction<File[
   }
 }
 
-function* saveSSOConfigurations({ payload: newSamlConfiguration }: PayloadAction<Partial<ISamlConfiguration>>) {
+function* saveSSOConfigurations({
+  payload: { callback, ...newSamlConfiguration },
+}: PayloadAction<WithCallback<Partial<ISamlConfiguration>>>) {
   const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
 
   const samlConfiguration = { ...oldSamlConfiguration, ...newSamlConfiguration };
@@ -72,12 +75,14 @@ function* saveSSOConfigurations({ payload: newSamlConfiguration }: PayloadAction
 
     const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
     yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
+    callback?.(true);
   } catch (e) {
     yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, [loaderKey]: false }));
+    callback?.(null, e);
   }
 }
 
-function* validateSSODomain() {
+function* validateSSODomain({ payload: { callback } = {} }: PayloadAction<WithCallback>) {
   const samlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
   try {
     yield put(actions.setSSOState({ error: undefined, saving: true }));
@@ -89,6 +94,7 @@ function* validateSSODomain() {
         saving: false,
       })
     );
+    callback?.(true);
   } catch (e) {
     yield put(
       actions.setSSOState({
@@ -97,6 +103,7 @@ function* validateSSODomain() {
         saving: false,
       })
     );
+    callback?.(null, e);
   }
 }
 
