@@ -194,6 +194,9 @@
         min-width: 25rem;
       }
       &-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         color: #3c4a5a;
         background-color: var(--color-gray-0);
         font-size: 0.75rem;
@@ -202,6 +205,12 @@
         border-radius: 4px;
         margin-bottom: 1rem;
         font-weight: 500;
+        .fe-icon {
+          padding-left: 0.5rem;
+          height: 1rem;
+          width: 1.5rem;
+          cursor: pointer;
+        }
       }
       &-map {
         width: 15.75rem;

@@ -8,35 +8,19 @@ import {
   Loader,
   FFormik,
   NotFound,
-  FInputChip,
+  useSearch,
   useDispatch,
   useSelector,
   FormikAutoSave,
   TableColumnProps,
-  useSearch,
 } from '@frontegg/react-core';
-import { IEmailSMSConfigResponse, IEmailSMSSubscriptionResponse } from '@frontegg/rest-api';
+import { IEmailSMSConfigResponse } from '@frontegg/rest-api';
 import { connectivityActions } from '../../reducer';
-import { IConnectivityComponent, IPluginState } from '../../interfaces';
+import { IConnectivityComponent, IEventFormData, IPluginState, ITableFormData } from '../../interfaces';
 import { filterCategories } from '../../utils';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
-import { all } from 'redux-saga/effects';
+import { InputEmailOrPhone } from '../../elements/InputEmailOrPhone';
 
-interface ITableData {
-  id: string;
-  name: string;
-  index: number;
-  events?: IEventData[];
-}
-
-interface IEventData {
-  displayName: string;
-  id: string;
-  enabled: boolean;
-  eventKey: string;
-  recipients: string[];
-  subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
-}
 interface IConnectivityForm extends IConnectivityComponent {
   form: 'email' | 'sms';
 }
@@ -60,7 +44,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
 
   const validate = useCallback(
     (values) => {
-      const errors = values.data.map((data: ITableData) => {
+      const errors = values.data.map((data: ITableFormData) => {
         const { events = [] } = data;
         return {
           events: events.map(({ enabled, recipients }) => {
@@ -92,21 +76,24 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
   );
 
   const saveData = useCallback(
-    (formData: ITableData[], setSubmitting) => {
-      const newData: IEmailSMSConfigResponse[] = formData.reduce((acc: IEmailSMSConfigResponse[], curr: ITableData) => {
-        const { events = [] } = curr;
-        return [
-          ...acc,
-          ...events.map(
-            ({ enabled, eventKey, recipients, subscriptions }): IEmailSMSConfigResponse => ({
-              enabled,
-              eventKey,
-              subscriptions: [{ ...subscriptions, enabled, recipients: recipients.filter((el) => !!el) }],
-            }),
-            []
-          ),
-        ];
-      }, []);
+    (formData: ITableFormData[], setSubmitting) => {
+      const newData: IEmailSMSConfigResponse[] = formData.reduce(
+        (acc: IEmailSMSConfigResponse[], curr: ITableFormData) => {
+          const { events = [] } = curr;
+          return [
+            ...acc,
+            ...events.map(
+              ({ enabled, eventKey, recipients, subscriptions }): IEmailSMSConfigResponse => ({
+                enabled,
+                eventKey,
+                subscriptions: [{ ...subscriptions, enabled, recipients: recipients.filter((el) => !!el) }],
+              }),
+              []
+            ),
+          ];
+        },
+        []
+      );
       if (JSON.stringify(newData) !== JSON.stringify(data)) {
         dispatch(connectivityActions.postDataAction(form, newData));
       } else {
@@ -118,7 +105,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
 
   const cleanCategory = filterCategories(categories, channelMap);
 
-  const tablesData: ITableData[] | undefined = useMemo(
+  const tablesData: ITableFormData[] | undefined = useMemo(
     () =>
       cleanCategory &&
       data &&
@@ -127,23 +114,24 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
           id,
           name,
           index,
-          events: events?.map(({ id, displayName, key }: any) => {
-            const {
-              subscriptions: [{ recipients, ...subscriptions }],
-              ...config
-            } = data.find(({ eventKey }) => eventKey === key) || {
-              subscriptions: [{ recipients: [], name: '', id: '' }],
-              eventKey: key,
-              enabled: false,
-            };
-            return {
-              id,
-              displayName,
-              ...config,
-              recipients,
-              subscriptions,
-            };
-          }),
+          events:
+            events?.map(({ id, displayName, key }: any) => {
+              const {
+                subscriptions: [{ recipients, ...subscriptions }],
+                ...config
+              } = data.find(({ eventKey }) => eventKey === key) || {
+                subscriptions: [{ recipients: [], name: '', id: '' }],
+                eventKey: key,
+                enabled: false,
+              };
+              return {
+                id,
+                displayName,
+                ...config,
+                recipients,
+                subscriptions,
+              };
+            }) ?? [],
         };
       }),
     [cleanCategory, data]
@@ -181,12 +169,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
             {
               accessor: 'events',
               Header: t(form === 'email' ? 'common.emails' : 'common.phones'),
-              Cell: ({
-                row: {
-                  index: rowIndex,
-                  original: { enabled },
-                },
-              }) => <FInputChip disabled={!enabled} name={`data[${index}].events[${rowIndex}].recipients`} fullWidth />,
+              Cell: ({ row: { index: rowIndex } }) => <InputEmailOrPhone dataIdx={index} eventIdx={rowIndex} />,
             },
             // {
             //   accessor: 'non',
@@ -195,7 +178,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
             //     return <FInput name={`data[${index}].events[${rowIndex}].message`} disabled />;
             //   },
             // },
-          ] as TableColumnProps<IEventData>[]
+          ] as TableColumnProps<IEventFormData>[]
       ),
     [tablesData, t, opens, isFiltering]
   );
@@ -203,7 +186,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
   const [filterTableData, Search] = useSearch({
     data: tablesData,
     filteredBy: 'name',
-    filterFunction: (allData: ITableData[], regexp, isEmpty) => {
+    filterFunction: (allData: ITableFormData[], regexp, isEmpty) => {
       const result = isEmpty
         ? allData
         : (allData
@@ -213,7 +196,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
                 ? { ...cat, name, events: regexp.test(name) ? events : eventsFiltered }
                 : null;
             })
-            .filter((e) => !!e) as ITableData[]);
+            .filter((e) => !!e) as ITableFormData[]);
       setIsFiltering(!isEmpty);
       return result;
     },

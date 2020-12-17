@@ -121,7 +121,6 @@ export const ConnectivityWebhooksList: FC = () => {
       {
         accessor: 'invocations',
         Header: t('common.invocations').toUpperCase(),
-        Cell: ({ value }) => <div className='fe-connectivity-webhook-cell'>{value || 0}</div>,
       },
       {
         accessor: 'createdAt',

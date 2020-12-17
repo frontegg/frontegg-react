@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* **connectivity:** fix actions for saving data ([c92d051](https://github.com/frontegg/frontegg-react/commit/c92d051f309e3cbb5862bec73c6e12dd5b96da67))
+* **connectivity:** FR-1005 fix the alignment of the line data in the webhook table ([bccfa8b](https://github.com/frontegg/frontegg-react/commit/bccfa8b96b372f1762e6b681fcccfc9d556fe9d3))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+
+### Bug Fixes
+
+* **connectivity:** fix the enabled edit data form the SMS and Email webhooks ([6314a4e](https://github.com/frontegg/frontegg-react/commit/6314a4ea2eb1be8b1a0043077de3ceb4f410bd68))
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
 # [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
 
 

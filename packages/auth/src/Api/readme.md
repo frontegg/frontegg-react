@@ -114,6 +114,12 @@ const { teamState } = useAuth();
 ```
 Returns the state representing the team management flows
 
+### apiTokensState
+```jsx
+const { apiTokensState } = useAuth();
+```
+Returns the state representing the Api Tokens flows
+
 ## Auth actions
 Frontegg/react-auth library exposes the list of actions which changes the states above. <br/>
 Each action can be called as a UI function which will generate a call to the Frontegg backend. <br />
@@ -169,4 +175,5 @@ Logs out the user and sets the authentication step to non-authenticated
 ```jsx
 const { logout } = useAuth();
 
-logout(}
+logout()
+```

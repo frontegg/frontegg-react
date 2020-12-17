@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* **elements:** fix console error for the InputChip component ([0f25e0f](https://github.com/frontegg/frontegg-react/commit/0f25e0f12673301d8f3cbfb4ccbf7a532e573840))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+
+### Bug Fixes
+
+* **elements:** fix the fullWidth style for the InputChip component in the material library ([2cac48f](https://github.com/frontegg/frontegg-react/commit/2cac48f2fb55a3810a1d2fe41f2bdacc25f56c01))
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **audits:** FR-999 add x btn for ip popup ([6efc8ea](https://github.com/frontegg/frontegg-react/commit/6efc8ea6e229b6434d75f9af59c0b6f0993ec9cd))
+
+
+
+
+
 # [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
 
 

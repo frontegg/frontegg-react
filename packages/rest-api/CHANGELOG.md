@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* **core:** fix mistakes in URLs for the connectivity component ([2fcafc8](https://github.com/frontegg/frontegg-react/commit/2fcafc8d639bb634d4acdf34dbce841c9feb0954))
+
+
+### Features
+
+* **auth:** Api tokens component for users and tenants ([c8b1e17](https://github.com/frontegg/frontegg-react/commit/c8b1e176bee4f4402afbd9625841312428c14b75))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
 # [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
 
 

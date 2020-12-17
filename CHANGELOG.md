@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* disable profile image uploader limitation ([07e082e](https://github.com/frontegg/frontegg-react/commit/07e082e8e4ff551b84fa277a8476e676f503ff2e))
+* Fix MFA cancel button size ([be9a44b](https://github.com/frontegg/frontegg-react/commit/be9a44b2df12a9beac07198a2aaa82c3bd940717))
+* Fix profile tabs color ([3ab5742](https://github.com/frontegg/frontegg-react/commit/3ab57426355700c05930075c014faa2c10456b9c))
+* UI enhancements for SSO components ([6be3aea](https://github.com/frontegg/frontegg-react/commit/6be3aea9e54aa56e4f28da3d63a81df500435fab))
+* Update components primary color ([ee6d08e](https://github.com/frontegg/frontegg-react/commit/ee6d08ec880fc7ae9427d993a544385db8d3da5b))
+* **connectivity:** fix actions for saving data ([c92d051](https://github.com/frontegg/frontegg-react/commit/c92d051f309e3cbb5862bec73c6e12dd5b96da67))
+* **connectivity:** FR-1005 fix the alignment of the line data in the webhook table ([bccfa8b](https://github.com/frontegg/frontegg-react/commit/bccfa8b96b372f1762e6b681fcccfc9d556fe9d3))
+* **core:** fix mistakes in URLs for the connectivity component ([2fcafc8](https://github.com/frontegg/frontegg-react/commit/2fcafc8d639bb634d4acdf34dbce841c9feb0954))
+* **elements:** fix console error for the InputChip component ([0f25e0f](https://github.com/frontegg/frontegg-react/commit/0f25e0f12673301d8f3cbfb4ccbf7a532e573840))
+
+
+### Features
+
+* **auth:** Api tokens component for users and tenants ([c8b1e17](https://github.com/frontegg/frontegg-react/commit/c8b1e176bee4f4402afbd9625841312428c14b75))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+
+### Bug Fixes
+
+* **audits:** FR-1001 add 'unknown' when cell value is undefined ([889bc83](https://github.com/frontegg/frontegg-react/commit/889bc83ae9105228b88c32826a81eb7b8de4d0d4))
+* **build:** remove hoist-non-react-statics from internal deps ([3eccdd2](https://github.com/frontegg/frontegg-react/commit/3eccdd297b8b79cccae11200a62ca69e81f6856f))
+* **connectivity:** fix the enabled edit data form the SMS and Email webhooks ([6314a4e](https://github.com/frontegg/frontegg-react/commit/6314a4ea2eb1be8b1a0043077de3ceb4f410bd68))
+* **elements:** fix the fullWidth style for the InputChip component in the material library ([2cac48f](https://github.com/frontegg/frontegg-react/commit/2cac48f2fb55a3810a1d2fe41f2bdacc25f56c01))
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **audits:** FR-996 add closing popup when reference hidden to prevent ui bugs ([b046f95](https://github.com/frontegg/frontegg-react/commit/b046f9503f983401ff26eb2e16edc6954cb101d5))
+* **audits:** FR-999 add x btn for ip popup ([6efc8ea](https://github.com/frontegg/frontegg-react/commit/6efc8ea6e229b6434d75f9af59c0b6f0993ec9cd))
+* **auth:** fix google social login scopes. closes [#159](https://github.com/frontegg/frontegg-react/issues/159) ([0ddb2ca](https://github.com/frontegg/frontegg-react/commit/0ddb2ca54f250900f79a1f52382469922d371c12))
+
+
+
+
+
 # [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
 
 

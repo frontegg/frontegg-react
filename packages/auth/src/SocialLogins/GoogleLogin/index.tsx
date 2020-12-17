@@ -10,7 +10,7 @@ const createGoogleUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
     redirect_uri: redirectUrl,
     response_type: 'code',
     include_granted_scopes: 'true',
-    scope: 'https://www.googleapis.com/auth/userinfo.profile',
+    scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
     state,
   });
   const url: URL = new URL('https://accounts.google.com/o/oauth2/v2/auth');

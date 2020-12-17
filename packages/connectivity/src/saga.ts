@@ -107,8 +107,10 @@ function* postDataFunction({
   } catch (e) {
     console.error(e);
   }
-  const newData = yield loadFunction({ payload: { api: platform }, type: '' });
-  yield put(connectivityActions.postDataSuccess({ platform, data: newData }));
+  if (!['sms', 'email'].includes(platform)) {
+    const newData = yield loadFunction({ payload: { api: platform }, type: '' });
+    yield put(connectivityActions.postDataSuccess({ platform, data: newData }));
+  }
 }
 
 function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
@@ -168,8 +170,10 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
   const { connectivity }: IPluginState = yield select();
   const stateData = connectivity[type as 'email' | 'sms'];
   if (!stateData) return;
+
+  let actionsResult = [];
   try {
-    yield all([
+    actionsResult = yield all([
       // create new
       ...payload
         .reduce((acc: IEmailSMSConfigResponse[], curr) => {
@@ -199,7 +203,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
           const { id = '', enabled, ...body } = subscriptions[0];
           return yield all([
             yield call(
-              type === 'email' ? api.connectivity.patchEmailConfiguration : api.connectivity.patchEmailConfiguration,
+              type === 'email' ? api.connectivity.patchEmailConfiguration : api.connectivity.patchSMSConfiguration,
               { eventKey, enabled }
             ),
             yield call(
@@ -225,7 +229,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
         }, [])
         .map(function* ({ eventKey, subscriptions }) {
           return call(
-            type === 'email' ? api.connectivity.deleteEmailSubscriptions : api.connectivity.deleteEmailSubscriptions,
+            type === 'email' ? api.connectivity.deleteEmailSubscriptions : api.connectivity.deleteSMSSubscriptions,
             eventKey,
             subscriptions[0].id || ''
           );
@@ -233,6 +237,10 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
     ]);
   } catch (e) {
     console.error(e);
+  }
+  if (actionsResult.length) {
+    const newData = yield loadFunction({ payload: { api: type as 'email' | 'sms' }, type: '' });
+    yield put(connectivityActions.postDataSuccess({ platform: type as 'email' | 'sms', data: newData }));
   }
 }
 

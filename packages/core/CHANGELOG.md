@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* Fix profile tabs color ([3ab5742](https://github.com/frontegg/frontegg-react/commit/3ab57426355700c05930075c014faa2c10456b9c))
+* UI enhancements for SSO components ([6be3aea](https://github.com/frontegg/frontegg-react/commit/6be3aea9e54aa56e4f28da3d63a81df500435fab))
+* Update components primary color ([ee6d08e](https://github.com/frontegg/frontegg-react/commit/ee6d08ec880fc7ae9427d993a544385db8d3da5b))
+
+
+### Features
+
+* **auth:** Api tokens component for users and tenants ([c8b1e17](https://github.com/frontegg/frontegg-react/commit/c8b1e176bee4f4402afbd9625841312428c14b75))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+
+### Bug Fixes
+
+* **audits:** FR-1001 add 'unknown' when cell value is undefined ([889bc83](https://github.com/frontegg/frontegg-react/commit/889bc83ae9105228b88c32826a81eb7b8de4d0d4))
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **audits:** FR-996 add closing popup when reference hidden to prevent ui bugs ([b046f95](https://github.com/frontegg/frontegg-react/commit/b046f9503f983401ff26eb2e16edc6954cb101d5))
+* **audits:** FR-999 add x btn for ip popup ([6efc8ea](https://github.com/frontegg/frontegg-react/commit/6efc8ea6e229b6434d75f9af59c0b6f0993ec9cd))
+
+
+
+
+
 # [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
 
 

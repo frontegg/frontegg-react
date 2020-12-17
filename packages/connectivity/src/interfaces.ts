@@ -7,6 +7,7 @@ import {
   IWebhooksConfigurations,
   IEmailSMSConfigResponse,
   ISlackEvent,
+  IEmailSMSSubscriptionResponse,
 } from '@frontegg/rest-api';
 import { FC } from 'react';
 
@@ -76,4 +77,25 @@ export interface ISlackEventData {
   isActive: boolean;
   slackEvents?: Partial<ISlackEvent>[];
   displayName: string;
+}
+
+export interface IFormikEditComponent {
+  eventIdx: number;
+  dataIdx: number;
+}
+
+export interface ITableFormData {
+  id: string;
+  name: string;
+  index: number;
+  events: IEventFormData[];
+}
+
+export interface IEventFormData {
+  displayName: string;
+  id: string;
+  enabled: boolean;
+  eventKey: string;
+  recipients: string[];
+  subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
 }

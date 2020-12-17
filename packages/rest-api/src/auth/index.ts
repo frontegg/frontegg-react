@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 
 import jwtDecode from 'jwt-decode';
-import { Get, Post, Put } from '../fetch';
+import { Get, Post, Put, Delete } from '../fetch';
 import {
   AUTH_SERVICE_URL_V1,
   SSO_SERVICE_URL_V1,
@@ -9,6 +9,8 @@ import {
   USERS_SERVICE_URL_V2,
   IDENTITY_SSO_SERVICE_URL_V1,
   IDENTITY_CONFIGURATION_SERVICE_URL_V1,
+  IDENTITY_API_TOKENS_USERS_SERVICE,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE,
 } from '../constants';
 import {
   IActivateAccount,
@@ -34,6 +36,11 @@ import {
   IVendorConfig,
   ISignUpUser,
   ISignUpResponse,
+  IUserApiTokensData,
+  ITenantApiTokensData,
+  IUpdateUserApiTokensData,
+  IUpdateTenantApiTokensData,
+  IDeleteApiToken,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -322,4 +329,57 @@ export async function getVendorConfig(): Promise<IVendorConfig> {
 export async function signUpUser(body: ISignUpUser): Promise<ISignUpResponse> {
   console.debug('signUpUser()', body);
   return Post(`${USERS_SERVICE_URL_V1}/signUp`, body);
+}
+
+/**
+ * Api tokens Configurations
+ */
+
+/**
+ * Get user api tokens data
+ */
+export async function getUserApiTokensData(): Promise<Array<IUserApiTokensData>> {
+  console.debug('getUserApiTokensData()');
+  return Get(`${IDENTITY_API_TOKENS_USERS_SERVICE}`);
+}
+
+/**
+ * Get tenant api tokens data
+ */
+export async function getTenantApiTokensData(): Promise<Array<ITenantApiTokensData>> {
+  console.debug('geTenantApiTokensData()');
+  return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`);
+}
+
+/**
+ *  Update User Api Tokens
+ */
+
+export async function updateUserApiTokensData(body: IUpdateUserApiTokensData): Promise<IUserApiTokensData> {
+  console.debug('updateUserApiTokensData()', body);
+  return Post(`${IDENTITY_API_TOKENS_USERS_SERVICE}`, body);
+}
+
+/**
+ * Update Tenant Api Tokens
+ */
+export async function updateTenantApiTokensData(body: IUpdateTenantApiTokensData): Promise<ITenantApiTokensData> {
+  console.debug('updateTenantApiTokensData()', body);
+  return Post(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`, body);
+}
+
+/**
+ * Delete Tenant Api Token
+ */
+export async function deleteTenantApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
+  console.debug('deleteTenantApiToken()', tokenId);
+  return Delete(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}/${tokenId}`);
+}
+
+/**
+ * Delete Tenant Api Token
+ */
+export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
+  console.debug('deleteUserApiToken()', tokenId);
+  return Delete(`${IDENTITY_API_TOKENS_USERS_SERVICE}/${tokenId}`);
 }

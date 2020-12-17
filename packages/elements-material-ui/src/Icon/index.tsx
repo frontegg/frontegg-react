@@ -33,6 +33,7 @@ import {
   CachedRounded,
   FaceRounded,
   Language,
+  Close,
 } from '@material-ui/icons';
 import './style.scss';
 
@@ -69,6 +70,7 @@ const iconMap: { [K in IconNames]: any } = {
   swap: CachedRounded,
   profile: FaceRounded,
   globe: Language,
+  close: Close,
 };
 
 export class Icon extends React.Component<IconProps> {

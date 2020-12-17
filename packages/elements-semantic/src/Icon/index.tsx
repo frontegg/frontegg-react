@@ -37,6 +37,7 @@ const iconMap: { [K in IconNames]: SemanticICONS } = {
   swap: 'exchange',
   profile: 'user circle',
   globe: 'globe',
+  close: 'close',
 };
 const mapper = (props: IconProps): SemanticIconProps => ({
   size: props.size === 'medium' ? undefined : props.size,

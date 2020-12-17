@@ -1,5 +1,5 @@
 import { PopupPosition, PopupProps } from './interfaces';
-import React, { forwardRef, useMemo, MouseEvent, useEffect, createRef, useRef } from 'react';
+import React, { forwardRef, useMemo, MouseEvent, useEffect, useRef, useImperativeHandle } from 'react';
 import Popup from 'react-popper-tooltip';
 import './FePopup.scss';
 import classNames from 'classnames';
@@ -25,6 +25,10 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
   const placement = useMemo(() => preparePosition(position), [position]);
   const popupRef = useRef<Popup | null>(null);
 
+  useImperativeHandle<any, any>(ref, () => ({
+    closePopup: () => popupRef.current?.setState({ tooltipShown: false }),
+  }));
+
   useEffect(() => {
     if (open != null) {
       popupRef.current?.setState({ tooltipShown: open });
@@ -42,7 +46,7 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
         }
       }}
       trigger={action}
-      closeOnReferenceHidden={false}
+      closeOnReferenceHidden={true}
       placement={placement}
       onVisibilityChange={(visible) => (visible ? props.onOpen?.() : props.onClose?.())}
       portalContainer={mountNode}

@@ -9,6 +9,7 @@ import { mfaState } from './MfaState';
 import { teamState } from './TeamState';
 import { socialLoginsState } from './SocialLogins';
 import { signUpState } from './SignUp';
+import { apiTokensState } from './ApiTokensState';
 
 export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isAuthenticated: false,
@@ -26,6 +27,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   mfaState,
   teamState,
   socialLoginsState,
+  apiTokensState,
 };
 export const initialState: AuthState = {
   // routes

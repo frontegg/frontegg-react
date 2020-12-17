@@ -1,6 +1,15 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { ProtectedRoute, Profile, SSO, useAuthUser, Team, AccountDropdown, useAuth } from '@frontegg/react-auth';
+import {
+  ProtectedRoute,
+  Profile,
+  SSO,
+  useAuthUser,
+  Team,
+  AccountDropdown,
+  useAuth,
+  UserApiTokens,
+} from '@frontegg/react-auth';
 import { ElementsPage } from '../Elements/ElementsPage';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';
@@ -10,6 +19,7 @@ import { SelectorExample } from '../SelectorExample';
 import { NotificationsExample } from '../notifications-example';
 import { DialogExample } from '../DialogExample';
 import { AuditsExample } from 'auditsExample';
+import { TenantApiTokensExample } from 'apiTokensExample';
 import {
   EmailComponent,
   ConnectivityPage,
@@ -28,6 +38,8 @@ const menus = [
   { to: '/profile', title: 'Profile', component: Profile.Page },
   { to: '/team', title: 'Team', component: Team.Page },
   { to: '/sso', title: 'SSO', children: <SSO.Page /> },
+  { to: '/tenant-api-tokens', title: 'Tenant Api tokens', children: <TenantApiTokensExample /> },
+  { to: '/user-api-tokens', title: 'User Api tokens', children: <UserApiTokens.Page /> },
   { to: '/test-auth-user', title: 'Test Auth User', component: TestPage },
   { to: '/popup', title: 'Popup Examples', component: PopupExample },
   { to: '/table', title: 'Table Examples', component: TableExample },

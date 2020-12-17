@@ -34,7 +34,7 @@ const isExternal = (id) => {
     // "react-popper-tooltip",
     "classnames",
     "react-redux",
-    "hoist-non-react-statics",
+    // "hoist-non-react-statics",
     "owasp-password-strength-test",
     // "react-table",
     // "rc-dialog",

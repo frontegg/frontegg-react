@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect, FC, useRef } from 'react';
 import { prefixCls } from './constants';
 import { api } from '@frontegg/rest-api';
 import GoogleMapReact from 'google-map-react';
@@ -28,6 +28,7 @@ const defaultCenter = {
 const MapMark = () => <div className={`${prefixCls}__ipCell-mapMark`} />;
 
 export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
+  const popupRef = useRef<any>(null);
   const [state, setState] = useState<AuditsTableIpAdressState>({
     loading: false,
     data: {
@@ -97,6 +98,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
 
   return (
     <Popup
+      ref={popupRef}
       action='click'
       trigger={
         <div className={`${prefixCls}__ipCell`}>
@@ -108,7 +110,9 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
       }
       content={
         <div className={`${prefixCls}__ipCell-window`}>
-          <div className={`${prefixCls}__ipCell-window-title`}>IP ADDRESS {props.value}</div>
+          <div className={`${prefixCls}__ipCell-window-title`}>
+            IP ADDRESS {props.value} <Icon name='close' onClick={() => popupRef?.current?.closePopup?.()} />
+          </div>
           <div className={`${prefixCls}__ipCell-window-container fe-dflex-space-between`}>
             <div className={`${prefixCls}__ipCell-window-info`}>
               {Object.keys(data).map((key) => {
