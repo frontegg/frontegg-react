@@ -62,7 +62,14 @@ class App extends React.Component<any> {
   render() {
     return (
       <div className='app'>
-        <div style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end' }}>
+        <div
+          style={{
+            position: 'absolute',
+            justifyContent: 'flex-end',
+            right: '1rem',
+            top: '1rem',
+          }}
+        >
           <AccountDropdown />
         </div>
         <Switch>

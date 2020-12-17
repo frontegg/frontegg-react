@@ -129,7 +129,7 @@ export const postWebhooksConfiguration = (data: IWebhooksSaveData) => {
   if (data._id) {
     return Patch(`${CONNECTIVITY_SERVICE_WEBHOOKS_URL}/${data._id}`, data);
   } else {
-    return Post(CONNECTIVITY_SERVICE_WEBHOOKS_URL, data);
+    return Post(`${CONNECTIVITY_SERVICE_WEBHOOKS_URL}/custom`, data);
   }
 };
 

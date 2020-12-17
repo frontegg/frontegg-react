@@ -63,7 +63,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
           dispatch(connectivityActions.postDataAction('webhook', val));
         }}
       >
-        {({ values: { secret, url } }) => (
+        {({ values: { secret, url }, isSubmitting }) => (
           <FFormik.Form>
             <Grid container wrap='nowrap'>
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>
@@ -95,10 +95,13 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                 />
                 <Grid container justifyContent='space-between'>
                   <Grid>
-                    <FButton type='submit'>{t('connectivity.updateHook').toUpperCase()}</FButton>
+                    <FButton type='submit' variant='primary' loading={isSubmitting}>
+                      {data ? t('connectivity.updateHook').toUpperCase() : t('connectivity.addHook').toUpperCase()}
+                    </FButton>
                   </Grid>
                   <Grid>
                     <Button
+                      variant={testResult?.status === 'failed' ? 'danger' : undefined}
                       loading={isTesting}
                       onClick={() => dispatch(connectivityActions.postWebhookTestAction({ secret, url }))}
                     >

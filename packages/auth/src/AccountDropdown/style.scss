@@ -32,6 +32,12 @@
   max-height: 50vh;
   min-height: 4rem;
   transition: all 300ms ease-out;
+  overflow: hidden;
+
+  &__container {
+    overflow: hidden;
+    z-index: 1000;
+  }
 
   &__switch-tenant-active {
     min-height: 15rem;
