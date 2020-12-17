@@ -56,7 +56,11 @@ jobs:
         shell: bash -ex {0}
         run: |
           version=$(node -p 'require("./lerna.json").version')
-          changelog=$(node -p "(function(){var changelog = require('fs').readFileSync('./CHANGELOG.md', {encoding: 'utf8'}); changelog = changelog.substring(changelog.indexOf('## [')); return changelog.substring(0, changelog.indexOf('\n## ['))})()")
+          changelog=$(node -p "(function(){var changelog = require('fs').readFileSync('./CHANGELOG.md', {encoding: 'utf8'}); changelog = changelog.substring(changelog.indexOf('## [')); changelog = changelog.substring(changelog.indexOf('\n')).trim();  return changelog.substring(0, changelog.indexOf('\n# ['))})()")
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo $changelog
           echo "::set-output name=version::${version}"
           echo "::set-output name=changelog::${changelog}"
       - name: Create Pull Request
