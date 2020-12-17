@@ -29,7 +29,7 @@ export const ApiTokensTableComponent: FC = () => {
       createdByUserIdColumn,
     })
   );
-  const [data, setData] = useState(apiTokenType === 'user' ? apiTokensDataUser : apiTokensDataTenant);
+  const [data, setData] = useState<Array<ITenantApiTokensData | IUserApiTokensData> | undefined>(undefined);
 
   useEffect(() => {
     apiTokenType === 'user'
@@ -55,7 +55,7 @@ export const ApiTokensTableComponent: FC = () => {
       : tableColumnsTenant;
   }, [createdByUserIdColumn, tableColumnsTenant]);
 
-  if (!data.length) {
+  if (!!loading || !data) {
     return <Loader center />;
   }
 
