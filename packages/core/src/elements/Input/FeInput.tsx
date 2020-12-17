@@ -65,7 +65,7 @@ export const FeInput: FC<InputProps> = (props) => {
   });
 
   const element = multiline ? 'textarea' : 'input';
-  const type = propsType === 'password' && showPassword ? 'text' : propsType;
+  const type = propsType === 'password' && showPassword ? 'text' : propsType === 'search' ? 'text' : propsType;
 
   return (
     <div className={classes}>

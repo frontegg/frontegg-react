@@ -13,16 +13,16 @@ export const ApiTokensTableToolbar: FC = () => {
     <>
       <div className={`${prefixCls}__table-toolbar`}>
         <Grid container>
-          <Grid item md={4} xs={6}>
+          <Grid item md={3} xs={6}>
             <Input
               fullWidth
               value={searchValue}
+              type='search'
               onChange={(e) => setApiTokensState({ searchValue: e.target.value })}
-              prefixIcon={<Icon name='search' />}
               placeholder={`${t('common.search')}...`}
             />
           </Grid>
-          <Grid item md={8} xs={6} className='fe-text-align-end'>
+          <Grid item md={9} xs={6} className='fe-text-align-end'>
             <Button variant='primary' size='large' onClick={() => setApiTokensState({ showAddTokenDialog: true })}>
               {t('auth.apiTokens.addNewToken')}
             </Button>

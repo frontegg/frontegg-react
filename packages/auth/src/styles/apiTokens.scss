@@ -1,6 +1,6 @@
 .fe-api-tokens {
   &__table-toolbar {
-    padding: 2rem 2rem;
+    padding: 1rem 2rem;
   }
 
   &__dialog {
@@ -9,6 +9,7 @@
       font-weight: 500;
       margin-bottom: 2rem;
     }
+
     &-spacer {
       height: 1.5rem;
     }
@@ -35,6 +36,7 @@
         fill: #d0d3e0;
       }
     }
+
     &-tip {
       display: flex;
       align-items: center;
@@ -42,9 +44,11 @@
       padding: 2.5rem 2rem;
       margin-bottom: 1.5rem;
       border-radius: 4px;
+
       svg {
         fill: #5a6ff5;
       }
+
       span {
         max-width: 84%;
         font-size: 0.875rem;
