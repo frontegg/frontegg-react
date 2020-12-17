@@ -45,7 +45,9 @@ export const ConnectivityWebhooksEdit: FC = () => {
   return (
     <div className='fe-connectivity__content'>
       <div className='fe-connectivity__content-heading'>
-        <span onClick={onBack} className={'fe-back-button fe-block'}><Icon name='back' /></span>
+        <span onClick={onBack} className={'fe-back-button fe-block'}>
+          <Icon name='back' />
+        </span>
         {data?.displayName ?? t('connectivity.addNewHook')}
       </div>
       {data && <Tabs items={items} activeTab={locationState.view === 'edit' ? 0 : 1} onTabChange={onChangeTab} />}

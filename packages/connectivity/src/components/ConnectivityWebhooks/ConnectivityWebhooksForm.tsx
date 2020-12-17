@@ -37,7 +37,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
       channelMap: channelMap && channelMap.webhook,
       isTesting,
       testResult,
-    }),
+    })
   );
   useEffect(() => {
     return () => {
@@ -95,10 +95,9 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                 />
                 <Grid container justifyContent='space-between'>
                   <Grid>
-                    <FButton type='submit' variant='primary' loading={isSubmitting}>{
-                      data ? t('connectivity.updateHook').toUpperCase() :
-                        t('connectivity.addHook').toUpperCase()
-                    }</FButton>
+                    <FButton type='submit' variant='primary' loading={isSubmitting}>
+                      {data ? t('connectivity.updateHook').toUpperCase() : t('connectivity.addHook').toUpperCase()}
+                    </FButton>
                   </Grid>
                   <Grid>
                     <Button
