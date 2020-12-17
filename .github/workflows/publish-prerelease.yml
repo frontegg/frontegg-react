@@ -48,9 +48,9 @@ jobs:
       - name: Commit Version UP
         run: |
           version=$(node -p 'require("./lerna.json").version')
-          echo "Publishing DEV version - v${version}-alpha.${{ github.GITHUB_RUN_ID }}"
+          echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
           make move-package-json-to-dist
-          make prerelease-version-upgrade-${version}-alpha.${{ github.GITHUB_RUN_ID }}
+          make prerelease-version-upgrade-${version}-alpha.${{ github.run_id }}
           make pretty
           git add .
           git commit -m "chore: prelrease version"
