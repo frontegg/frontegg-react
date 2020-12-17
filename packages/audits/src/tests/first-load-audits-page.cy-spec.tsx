@@ -19,4 +19,19 @@ describe('Load audits page', () => {
     cy.get('.fe-audits__subHeader').should('be.visible');
     cy.get('.fe-table').should('be.visible');
   });
+
+  it('Audits rows should be rendered', () => {
+    cy.server();
+    mockAuditsApi();
+    mount(
+      <TestFronteggWrapper plugins={[AuditsPlugin()]}>
+        <Audits.Page />
+      </TestFronteggWrapper>
+    );
+    cy.wait('@auditsData');
+    cy.wait('@auditsMetadata');
+    cy.wait('@auditsStats');
+    cy.get('.fe-table').should('be.visible');
+    cy.get('.fe-table__tr-td').should('be.visible');
+  });
 });

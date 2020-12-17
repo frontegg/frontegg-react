@@ -4,7 +4,7 @@ import { AuditsPlugin, Audits } from '../index';
 import { mockAuditsApi, TestFronteggWrapper } from '../../../../cypress/helpers';
 
 describe('Expandable Rows', () => {
-  it('Rows should expands', () => {
+  it('Rows should expand', () => {
     cy.server();
     mockAuditsApi();
     mount(

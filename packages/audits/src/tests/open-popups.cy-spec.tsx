@@ -4,7 +4,7 @@ import { AuditsPlugin, Audits } from '../index';
 import { mockAuditsApi, TestFronteggWrapper } from '../../../../cypress/helpers';
 
 describe('Open Ip Popup', () => {
-  it('Ip popup should opens', () => {
+  it('Ip popup should open', () => {
     cy.server();
     mockAuditsApi();
     mount(
@@ -19,7 +19,7 @@ describe('Open Ip Popup', () => {
     cy.get('.fe-audits__ipCell').first().click();
     cy.get('.fe-audits__ipCell-window').should('be.visible');
   });
-  it('Ip popup in expandable row should opens', () => {
+  it('Ip popup in expandable row should open', () => {
     cy.server();
     mockAuditsApi();
     mount(
@@ -35,7 +35,7 @@ describe('Open Ip Popup', () => {
     cy.get('.fe-audits__expand-content').find('.fe-audits__ipCell').first().click();
     cy.get('.fe-audits__ipCell-window').should('be.visible');
   });
-  it('Filter popup should opens', () => {
+  it('Filter popup should open', () => {
     cy.server();
     mockAuditsApi();
     mount(
