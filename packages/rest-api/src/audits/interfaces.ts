@@ -46,7 +46,8 @@ export interface IExportAudits {
   sortBy: string;
   filter: string;
   offset: number;
-  format: 'csv' | 'pdf';
+  outputFileName: string;
+  endpoint: 'csv' | 'pdf' | 'csv/v2';
 }
 
 export interface HeaderProps {

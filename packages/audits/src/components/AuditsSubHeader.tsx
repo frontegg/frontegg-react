@@ -2,31 +2,30 @@ import React, { FC, useState, useEffect, useMemo, useRef, useCallback } from 're
 import { prefixCls } from './constants';
 import { useAudits, useAuditsActions } from '../helpers/hooks';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
-import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps } from '@frontegg/react-core';
+import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps, Loader } from '@frontegg/react-core';
 
 export const AuditsSubHeader: FC = () => {
-  const { filters } = useAudits();
+  const { filters, isDownloadingCsv, isDownloadingPdf } = useAudits();
   const firstRender = useRef<boolean>(true);
-  // const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
-  const { setFilterData } = useAuditsActions();
+  const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
   const [search, setSearch] = useState('');
   const searchValue = useDebounce(search, 500);
 
-  // const downloadItems: MenuItemProps[] = useMemo(
-  //   () => [
-  //     {
-  //       icon: <Icon name='pdf' />,
-  //       iconClassName: 'fe-audits__subHeader-menuIcon',
-  //       text: <div onClick={() => exportPDF()}>Download Pdf</div>,
-  //     },
-  //     {
-  //       icon: <Icon name='csv' />,
-  //       iconClassName: 'fe-audits__subHeader-menuIcon',
-  //       text: <div onClick={() => exportCSV()}>Download Csv</div>,
-  //     },
-  //   ],
-  //   [exportPDF, exportCSV]
-  // );
+  const downloadItems: MenuItemProps[] = useMemo(
+    () => [
+      {
+        icon: isDownloadingPdf ? <Loader /> : <Icon name='pdf' />,
+        iconClassName: 'fe-audits__subHeader-menuIcon',
+        text: <div onClick={() => exportPDF()}>Download Pdf</div>,
+      },
+      {
+        icon: isDownloadingCsv ? <Loader /> : <Icon name='csv' />,
+        iconClassName: 'fe-audits__subHeader-menuIcon',
+        text: <div onClick={() => exportCSV()}>Download Csv</div>,
+      },
+    ],
+    [exportPDF, exportCSV]
+  );
 
   const handleSetFilterData = useCallback(() => {
     !!search.trim()
@@ -47,7 +46,7 @@ export const AuditsSubHeader: FC = () => {
           placeholder='Search by any text'
           onChange={(e) => setSearch(e.target.value)}
         />
-        {/*<Menu trigger={<Button size='small'>Download</Button>} items={downloadItems} />*/}
+        <Menu trigger={<Button size='small'>Download</Button>} items={downloadItems} />
       </div>
       {filters && !!filters.length && (
         <div className={`${prefixCls}__subHeader-filters`}>
