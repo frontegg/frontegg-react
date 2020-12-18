@@ -1,11 +1,17 @@
 import React, { FC, useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { prefixCls } from './constants';
-import { useAudits, useAuditsActions } from '../helpers/hooks';
+import { useAuditsState, useAuditsActions } from '../helpers/hooks';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
 import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps, Loader } from '@frontegg/react-core';
 
 export const AuditsSubHeader: FC = () => {
-  const { filters, isDownloadingCsv, isDownloadingPdf } = useAudits();
+  const { filters, isDownloadingCsv, isDownloadingPdf } = useAuditsState(
+    ({ filters, isDownloadingCsv, isDownloadingPdf }) => ({
+      filters,
+      isDownloadingCsv,
+      isDownloadingPdf,
+    })
+  );
   const firstRender = useRef<boolean>(true);
   const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
   const [search, setSearch] = useState('');
