@@ -9,8 +9,7 @@ export interface AuthorizationProps {
 
 const logger = Logger.from('AuthorizedContent');
 
-export const AuthorizedContent: FC<AuthorizationProps> = (props: AuthorizationProps) => {
-
+export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
   let isAuthorized = true; // Initially
   const user = ContextHolder.getUser();
 
@@ -41,7 +40,5 @@ export const AuthorizedContent: FC<AuthorizationProps> = (props: AuthorizationPr
       }
     }
   }
-  return (
-    isAuthorized ? <React.Fragment>{props.children}</React.Fragment> : <React.Fragment />
-  )
-}
+  return isAuthorized ? <>props.children</> : null;
+};
