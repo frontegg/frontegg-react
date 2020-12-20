@@ -37,11 +37,14 @@ export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | nul
     .test('validate_owasp', 'Invalid Password', async function (value) {
       // Use function to access Yup 'this' context
 
+      if (value == null) {
+        return true;
+      }
       testConfig && owasp.config(testConfig);
       const { errors } = owasp.test(value);
       // validate using owasp
 
-      if (errors.length) {
+      if (errors?.length) {
         return this.createError({ message: errors[0] });
       }
       return true;
