@@ -18,6 +18,7 @@ const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
   initialState,
   reducers: {
+    resetState: () => initialState,
     setState: (state: AuthState, { payload }: PayloadAction<Partial<AuthState>>) => ({ ...state, ...payload }),
     setUser: typeReducer<User>('user'),
     ...signUpStateReducers,
