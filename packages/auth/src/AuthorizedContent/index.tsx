@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Logger } from '@frontegg/react-core';
 import { ContextHolder } from '@frontegg/rest-api';
 
@@ -42,6 +42,6 @@ export const AuthorizedContent: FC<AuthorizationProps> = (props: AuthorizationPr
     }
   }
   return (
-    isAuthorized ? props.children : <React.Fragment />
+    isAuthorized ? <React.Fragment>{props.children}</React.Fragment> : <React.Fragment />
   )
 }
