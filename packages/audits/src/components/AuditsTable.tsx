@@ -2,12 +2,20 @@ import React, { FC, useEffect, useMemo } from 'react';
 import { defaultItemsPerPage } from '../Api';
 import { renderExpandedComponent } from './renderExpandedComponent';
 import { Loader, Table, TableColumnProps } from '@frontegg/react-core';
-import { useAudits, useAuditsActions } from '../helpers/hooks';
+import { useAuditsState, useAuditsActions } from '../helpers/hooks';
 import { getAuditsTableCells } from './AuditsTableCell';
 import { Filter } from './Filter';
 
 export const AuditsTable: FC = () => {
-  const { isLoading, headerProps, rowsData, filters, total } = useAudits();
+  const { isLoading, headerProps, rowsData, filters, total } = useAuditsState(
+    ({ isLoading, headerProps, rowsData, filters, total }) => ({
+      isLoading,
+      headerProps,
+      rowsData,
+      filters,
+      total,
+    })
+  );
   const { onPageChange, setDataSorting, setFilterData } = useAuditsActions();
   const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
   const actions = useAuditsActions();

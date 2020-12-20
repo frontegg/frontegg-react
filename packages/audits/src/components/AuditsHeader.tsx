@@ -1,13 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Icon, PageHeader } from '@frontegg/react-core';
-import { useAudits, useAuditsActions } from '../helpers/hooks';
+import { useAuditsState, useAuditsActions } from '../helpers/hooks';
 import { getLastUpdatedTime } from '../helpers/getLastUpdatedTime';
 import { Stat } from './Stat';
 import classNames from 'classnames';
 import { prefixCls } from './constants';
 
 export const AuditsHeader: FC = () => {
-  const { lastUpdated, isLoading, totalToday, severeThisWeek } = useAudits();
+  const { lastUpdated, isLoading, totalToday, severeThisWeek } = useAuditsState(
+    ({ lastUpdated, isLoading, totalToday, severeThisWeek }) => ({
+      lastUpdated,
+      isLoading,
+      totalToday,
+      severeThisWeek,
+    })
+  );
   const { startRefresh } = useAuditsActions();
   const [_, forceUpdate] = useState();
   useEffect(() => {

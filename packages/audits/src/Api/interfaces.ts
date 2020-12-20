@@ -43,6 +43,8 @@ export interface AuditsState {
   sortDirection: SortDirectionType;
   severeThisWeek: number;
   predefinedFilters: Array<{ [key: string]: string }>;
+  isDownloadingCsv?: boolean;
+  isDownloadingPdf?: boolean;
 }
 
 export interface LoadAudits {

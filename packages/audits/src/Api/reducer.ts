@@ -24,6 +24,18 @@ const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
     finishLoading: (state) => {
       state.isLoading = false;
     },
+    startDownloadingCsv: (state) => {
+      state.isDownloadingCsv = true;
+    },
+    stopDownloadingCsv: (state) => {
+      state.isDownloadingCsv = false;
+    },
+    startDownloadingPdf: (state) => {
+      state.isDownloadingPdf = true;
+    },
+    stopDownloadingPdf: (state) => {
+      state.isDownloadingPdf = false;
+    },
     loadStatsSuccess: (state, { payload }) => {
       state.error = undefined;
       state.totalToday = payload.totalToday;

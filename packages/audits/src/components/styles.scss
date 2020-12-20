@@ -105,6 +105,9 @@
 
     &-menuIcon {
       fill: var(--color-primary);
+      .fe-loader__inner {
+        left: 0;
+      }
     }
 
     &-top {

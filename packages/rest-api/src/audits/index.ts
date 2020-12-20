@@ -29,7 +29,7 @@ export async function getAuditsStats(params: IGetAuditsStatsParams): Promise<IAu
  */
 
 export async function exportAudits(params: IExportAudits) {
-  const { format, headerProps, ...restParams } = params;
+  const { endpoint, headerProps, ...restParams } = params;
 
-  return PostDownload(`${AUDITS_SERVICE_EXPORT_URL}/${format}`, { properties: headerProps }, restParams);
+  return PostDownload(`${AUDITS_SERVICE_EXPORT_URL}/${endpoint}`, { properties: headerProps }, restParams);
 }

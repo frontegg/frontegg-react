@@ -112,30 +112,57 @@ function* filterDataFunction({ payload }: FilterDataProps) {
   yield put(actions.setFilterData(newFilters));
 }
 
-function* exportAuditsFunction(format: 'csv' | 'pdf') {
+function* exportCsvFunction() {
   const { filters, sortBy, sortDirection, filter, headerProps } = yield select();
   const f2o = filterToObject(filters);
 
+  yield put(actions.startDownloadingCsv());
+
+  const outputFileName = `audits.csv`;
+
   try {
-    const blob = yield api.audits.exportAudits({
-      format,
+    yield api.audits.exportAudits({
+      endpoint: 'csv/v2',
       headerProps,
       sortDirection,
       sortBy,
       filter,
       ...f2o,
       offset: 0,
+      outputFileName,
     });
-
-    var newBlob = new Blob([blob], { type: `application/${format}` });
-
-    const fileURL = URL.createObjectURL(newBlob);
-    let tempLink = document.createElement('a');
-    tempLink.href = fileURL;
-    tempLink.setAttribute('download', `audits.${format}`);
-    tempLink.click();
   } catch (e) {
     logger.error('failed to export audits - ', e);
+  } finally {
+    logger.info(`stop downloading`);
+    yield put(actions.stopDownloadingCsv());
+  }
+}
+
+function* exportPdfFunction() {
+  const { filters, sortBy, sortDirection, filter, headerProps } = yield select();
+  const f2o = filterToObject(filters);
+
+  yield put(actions.startDownloadingPdf());
+
+  const outputFileName = `audits.pdf`;
+
+  try {
+    yield api.audits.exportAudits({
+      endpoint: 'pdf',
+      headerProps,
+      sortDirection,
+      sortBy,
+      filter,
+      ...f2o,
+      offset: 0,
+      outputFileName,
+    });
+  } catch (e) {
+    logger.error('failed to export audits - ', e);
+  } finally {
+    logger.info(`stop downloading`);
+    yield put(actions.stopDownloadingPdf());
   }
 }
 
@@ -154,6 +181,6 @@ export function* sagas() {
     ],
     loadAuditsFunction
   );
-  yield takeLatest(actions.exportCSV, () => exportAuditsFunction('csv'));
-  yield takeLatest(actions.exportPDF, () => exportAuditsFunction('pdf'));
+  yield takeLatest(actions.exportCSV, exportCsvFunction);
+  yield takeLatest(actions.exportPDF, exportPdfFunction);
 }

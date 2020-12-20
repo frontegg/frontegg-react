@@ -18,4 +18,6 @@ export const initialState: AuditsState = {
   sortDirection: 'desc',
   severeThisWeek: 0,
   predefinedFilters: [],
+  isDownloadingCsv: false,
+  isDownloadingPdf: false,
 };
