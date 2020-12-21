@@ -241,6 +241,8 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
   if (actionsResult.length) {
     const newData = yield loadFunction({ payload: { api: type as 'email' | 'sms' }, type: '' });
     yield put(connectivityActions.postDataSuccess({ platform: type as 'email' | 'sms', data: newData }));
+  } else {
+    yield put(connectivityActions.postDataSuccess({ platform: type as 'email' | 'sms', data: stateData }));
   }
 }
 
