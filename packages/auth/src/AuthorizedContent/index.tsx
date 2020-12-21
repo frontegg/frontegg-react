@@ -20,7 +20,7 @@ export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
     }
 
     for (const permission of props.requiredPermissions) {
-      if (!user?.permissions.includes(permission)) {
+      if (!user?.permissions.find(({ key }) => key === permission)) {
         logger.info(`Permissions ${permission} is missing from the list`);
         isAuthorized = false;
       }
@@ -34,11 +34,11 @@ export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
     }
 
     for (const role of props.requiredRoles) {
-      if (!user?.roles.includes(role)) {
+      if (!user?.roles.find(({ key }) => key === role)) {
         logger.info(`Role ${role} is missing from the list`);
         isAuthorized = false;
       }
     }
   }
-  return isAuthorized ? <>props.children</> : null;
+  return isAuthorized ? <>{props.children}</> : null;
 };
