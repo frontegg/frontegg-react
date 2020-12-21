@@ -1,5 +1,15 @@
 import { QueryFilter, QuerySort } from '../interfaces';
 
+export type IPermission = {
+  key: string;
+  name: string;
+}
+
+export type IRole = {
+  key: string;
+  name: string;
+}
+
 export type IUserProfile = {
   id: string;
   email: string;
@@ -8,8 +18,8 @@ export type IUserProfile = {
   phoneNumber: string;
   profileImage?: string;
   profilePictureUrl: string;
-  roles: string[];
-  permissions: string[];
+  roles: IRole[];
+  permissions: IPermission[];
   tenantId: string;
   tenantIds: string[];
   activatedForTenant?: boolean;
