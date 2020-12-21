@@ -1185,7 +1185,7 @@ export const TableExample: FC = () => {
         renderExpandedComponent={renderExpandedComponent}
         selection='multi'
         onRowSelected={(selected) => {
-          console.log(selected);
+          // console.log(selected);
         }}
         toolbar
         isMultiSort
