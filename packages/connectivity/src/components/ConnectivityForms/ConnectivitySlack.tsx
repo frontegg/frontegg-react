@@ -4,7 +4,6 @@ import {
   useT,
   Icon,
   Table,
-  FInput,
   Loader,
   Button,
   FFormik,
@@ -179,13 +178,9 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
     return <Loader center />;
   }
 
-  if (!isLoading && !slackChannels?.length && filterTableData.length) {
+  if (!isLoading && !slackChannels?.length && !tablesData?.length) {
     return <ConnectivitySlackAuth />;
   }
-
-  // if (!tablesData?.length) {
-  //   return <> Required configure the connectivity</>;
-  // }
 
   return (
     <FFormik.Formik enableReinitialize initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
