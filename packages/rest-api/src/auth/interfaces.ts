@@ -150,7 +150,7 @@ export interface ITenantApiTokensData {
   createdByUserId?: string;
   metadata?: any;
   secret?: string;
-  roleIds?: Array<string>;
+  roleIds?: string[];
 }
 
 export interface IUpdateUserApiTokensData {
@@ -159,7 +159,7 @@ export interface IUpdateUserApiTokensData {
 
 export interface IUpdateTenantApiTokensData {
   description: string;
-  roleIds: Array<string>;
+  roleIds: string[];
 }
 
 export interface IDeleteApiToken {
