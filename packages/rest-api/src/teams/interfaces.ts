@@ -1,5 +1,28 @@
 import { QueryFilter, QuerySort } from '../interfaces';
 
+export type IRole = {
+  id: string;
+  key: string;
+  isDefault: boolean;
+  name: string;
+  description?: null;
+  permissions: string[];
+  tenantId?: string;
+  vendorId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+export type IRolePermission = {
+  id: string;
+  key: string;
+  name: string;
+  description?: string;
+  categoryId: string;
+  fePermission: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type IUserProfile = {
   id: string;
   email: string;
@@ -8,8 +31,8 @@ export type IUserProfile = {
   phoneNumber: string;
   profileImage?: string;
   profilePictureUrl: string;
-  roles: string[];
-  permissions: string[];
+  roles: IRole[];
+  permissions: IRolePermission[];
   tenantId: string;
   tenantIds: string[];
   activatedForTenant?: boolean;
