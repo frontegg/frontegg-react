@@ -6,6 +6,7 @@ export interface InputChipProps {
   error?: string;
   onChange?(value: string[]): void;
   label?: JSX.Element;
+  validate?(newValu: string[]): Promise<boolean>;
 }
 
 export interface IInputChip extends Omit<InputChipProps, 'value' | 'onChange'> {
