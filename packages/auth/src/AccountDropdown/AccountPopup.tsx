@@ -32,7 +32,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
     },
     {
       items: [
-        ...(user.tenantIds.length > 1
+        ...((user?.tenantIds?.length ?? 0) > 1
           ? [
               {
                 icon: <Icon name='swap' />,

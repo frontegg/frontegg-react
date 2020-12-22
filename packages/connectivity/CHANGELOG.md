@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/frontegg/frontegg-react/compare/v1.15.0...v1.15.1) (2020-12-21)
+
+
+### Bug Fixes
+
+* **connectivity:** fix bug of edit the email and sms events ([e34788c](https://github.com/frontegg/frontegg-react/commit/e34788c0b58dc07d20509b4addb39d33a57e1dea))
+
+
+
+
+
 # [1.15.0](https://github.com/frontegg/frontegg-react/compare/v1.14.1...v1.15.0) (2020-12-20)
 
 **Note:** Version bump only for package @frontegg/react-connectivity
