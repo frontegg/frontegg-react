@@ -5,6 +5,7 @@ import { omitProps } from '@frontegg/react-core';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { SSOState } from './interfaces';
 import { WithCallback } from '../interfaces';
+import { SamlVendors } from '../../SSO/SSOConfigureIDPPage/SSOVendors';
 
 function* loadSSOConfigurations() {
   try {
@@ -38,8 +39,8 @@ function* saveSSOConfigurationsFile({ payload: configFile }: PayloadAction<File[
 }
 
 function* saveSSOConfigurations({
-  payload: { callback, ...newSamlConfiguration },
-}: PayloadAction<WithCallback<Partial<ISamlConfiguration>>>) {
+  payload: { callback, samlVendor, ...newSamlConfiguration },
+}: PayloadAction<WithCallback<Partial<ISamlConfiguration & { samlVendor?: SamlVendors }>>>) {
   const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
 
   const samlConfiguration = { ...oldSamlConfiguration, ...newSamlConfiguration };
@@ -71,6 +72,9 @@ function* saveSSOConfigurations({
       updateSamlConfiguration.ssoEndpoint = '';
       updateSamlConfiguration.publicCertificate = '';
       updateSamlConfiguration.signRequest = false;
+    }
+    if (samlVendor === 'Oidc') {
+      updateSamlConfiguration.type = 'oidc';
     }
 
     const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
