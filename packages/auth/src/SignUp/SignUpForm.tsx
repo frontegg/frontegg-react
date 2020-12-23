@@ -11,7 +11,6 @@ import {
 } from '@frontegg/react-core';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
-import { SocialLoginsSignUpWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
@@ -60,7 +59,6 @@ export const SignUpForm: FC = () => {
           </FButton>
         </FForm>
       </Formik>
-      <SocialLoginsSignUpWithWrapper />
     </>
   );
 };

@@ -134,7 +134,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
           </FForm>
         )}
       </Formik>
-      <SocialLoginsLoginWithWrapper />
     </>
   );
 };
