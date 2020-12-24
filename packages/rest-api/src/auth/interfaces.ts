@@ -165,3 +165,7 @@ export interface IUpdateTenantApiTokensData {
 export interface IDeleteApiToken {
   tokenId: string;
 }
+
+export interface IUpdateSamlRoles {
+  roles: Array<string>;
+}

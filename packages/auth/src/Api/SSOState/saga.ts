@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery, delay } from 'redux-saga/effects';
+import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { api, ISamlConfiguration, IUpdateSamlConfiguration } from '@frontegg/rest-api';
 import { omitProps } from '@frontegg/react-core';
@@ -131,7 +131,7 @@ function* updateAuthorizationRoles({
 }: PayloadAction<WithCallback<{ authorizationRoles: Array<string> }>>) {
   try {
     yield put(actions.setSSOState({ error: undefined, saving: true }));
-    yield call(api.auth.updateSamlRoles, authorizationRoles);
+    yield call(api.auth.updateSamlRoles, { roles: authorizationRoles });
     yield getAuthorizationRoles();
     yield put(actions.setSSOState({ error: undefined, saving: false }));
     callback?.(true);

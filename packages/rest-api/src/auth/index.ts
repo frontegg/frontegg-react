@@ -1,3 +1,4 @@
+import { IUpdateSamlRoles } from './interfaces';
 /* tslint:disable:no-console */
 
 import jwtDecode from 'jwt-decode';
@@ -309,9 +310,9 @@ export async function getSamlRoles(): Promise<Array<string>> {
  *  Get social logins providers configurations for vendor
  * @return array of providers configurations
  */
-export async function updateSamlRoles(body: any[]): Promise<Array<string>> {
+export async function updateSamlRoles({ roles }: IUpdateSamlRoles): Promise<void> {
   console.debug('getSocialLoginsProviders()');
-  return Post(`${SSO_SERVICE_URL_V1}/v1/saml/configurations/roles/default`, body);
+  return Post(`${SSO_SERVICE_URL_V1}/v1/saml/configurations/roles/default`, roles);
 }
 
 /**
