@@ -63,7 +63,10 @@ export function* refreshToken() {
             mfaRequired: user.mfaRequired,
             loading: false,
             error: undefined,
-            step: user.mfaEnrolled ? LoginStep.loginWithTwoFactor : LoginStep.forceTwoFactor,
+            step:
+              user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled
+                ? LoginStep.forceTwoFactor
+                : LoginStep.loginWithTwoFactor,
             tenantsLoading: true,
             tenants: [],
           },
@@ -149,10 +152,6 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
 
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
-
-    user.mfaRequired = true;
-    user.mfaToken = 'TEST';
-    user.mfaEnrolled = false;
 
     let step = LoginStep.success;
     if (user.mfaRequired && user.mfaToken) {

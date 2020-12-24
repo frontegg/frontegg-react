@@ -1,33 +1,23 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import {
   validateSchema,
   validateTwoFactorCode,
   omitProps,
-  ErrorMessage,
   RendererFunctionFC,
   useT,
   FForm,
-  FInput,
-  FButton,
   FFormik,
-  useDialog,
   Button,
+  Grid,
+  FButton,
 } from '@frontegg/react-core';
 import { AuthState, MFAStep } from '../Api';
-import {
-  MFAVerifyStepErrorMessage,
-  MFAVerifyStepFooter,
-  MFAVerifyStepForm,
-  MFAVerifyStepMessage,
-} from '../MFA/MFAVerifyStep';
-import { useAuthMfaState } from '../MFA/hooks';
+import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
+import { useAuthMfaActions, useAuthMfaState } from '../MFA/hooks';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
-import { verifyMfa } from '@frontegg/rest-api/dist/auth';
-import { useAuth, useAuthActions } from '../hooks';
+import { useAuthActions } from '../hooks';
 
 const { Formik } = FFormik;
-
-const stateMapper = ({ loginState }: AuthState) => ({ ...loginState });
 
 export interface ForceEnrollMfaProps {
   renderer?: RendererFunctionFC<ForceEnrollMfaProps>;
@@ -37,7 +27,23 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { t } = useT();
   const { renderer } = props;
   const { requestAuthorize } = useAuthActions();
-  const { step } = useAuthMfaState();
+  const { step, loading } = useAuthMfaState();
+  const { verifyMfa } = useAuthMfaActions();
+
+  useEffect(() => {
+    const head = document.head || document.getElementsByTagName('head')[0];
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(
+      document.createTextNode(`:root {
+      --fe-auth-container-width: 500px;
+    }`)
+    );
+    head.appendChild(style);
+    return () => {
+      style.remove();
+    };
+  }, []);
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
@@ -81,7 +87,16 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
         <MFAVerifyStepMessage />
         <MFAVerifyStepForm />
         <MFAVerifyStepErrorMessage />
-        <MFAVerifyStepFooter />
+
+        <div className='fe-dialog__footer'>
+          <Grid container>
+            <Grid xs item className='fe-text-align-end'>
+              <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
+                {t('common.verify')}
+              </FButton>
+            </Grid>
+          </Grid>
+        </div>
       </FForm>
     </Formik>
   );
