@@ -18,6 +18,7 @@ import { WithCallback } from '../interfaces';
 import { loadSocialLoginsConfigurations } from '../SocialLogins/saga';
 import { AuthPageRoutes } from '../../interfaces';
 import { loadAllowSignUps } from '../SignUp/saga';
+import { MFAStep } from '../MfaState';
 
 export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -54,19 +55,35 @@ export function* refreshToken() {
     if (user.mfaRequired && user.mfaToken) {
       ContextHolder.setAccessToken(null);
       ContextHolder.setUser(null);
+
+      let setMfaState = {};
+      let step = LoginStep.success;
+      if (user.mfaRequired && user.mfaToken) {
+        step = LoginStep.loginWithTwoFactor;
+        if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+          setMfaState = {
+            mfaState: {
+              step: MFAStep.verify,
+              qrCode: user.qrCode,
+              recoveryCode: user.recoveryCode,
+              loading: false,
+            },
+          };
+          step = LoginStep.forceTwoFactor;
+        }
+      }
+
       yield put(
         actions.setState({
           user: undefined,
           isAuthenticated: false,
+          ...setMfaState,
           loginState: {
             mfaToken: user.mfaToken,
             mfaRequired: user.mfaRequired,
             loading: false,
             error: undefined,
-            step:
-              user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled
-                ? LoginStep.forceTwoFactor
-                : LoginStep.loginWithTwoFactor,
+            step,
             tenantsLoading: true,
             tenants: [],
           },
@@ -153,10 +170,19 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
 
+    let setMfaState = {};
     let step = LoginStep.success;
     if (user.mfaRequired && user.mfaToken) {
       step = LoginStep.loginWithTwoFactor;
       if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+        setMfaState = {
+          mfaState: {
+            step: MFAStep.verify,
+            qrCode: user.qrCode,
+            recoveryCode: user.recoveryCode,
+            loading: false,
+          },
+        };
         step = LoginStep.forceTwoFactor;
       }
     }
@@ -166,6 +192,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
       actions.setState({
         user: loggedInUser,
         isAuthenticated,
+        ...setMfaState,
         loginState: {
           email,
           loading: false,
@@ -177,8 +204,8 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
         },
       })
     );
-    yield put(actions.loadTenants());
     if (step === LoginStep.success) {
+      yield put(actions.loadTenants());
       yield afterAuthNavigation();
     }
   } catch (e) {

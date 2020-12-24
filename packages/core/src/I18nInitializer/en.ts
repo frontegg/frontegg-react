@@ -11,6 +11,7 @@ export default {
       'instruction-for': 'Instruction for',
       'last-updated': 'Last updated',
       'not-configured': 'Not Configured',
+      continue: 'Continue',
       active: 'Active',
       automatic: 'Automatic',
       back: 'Back',
@@ -232,6 +233,7 @@ export default {
         'disable-button': 'Disable MFA',
         verify: {
           message: 'Enable two-factor to get an extra layer of security.',
+          forceMfaMessage: 'Multi-Factor authentication is required in order to access the account.',
           'scan-qr-description-1': `Use your phone to scan the following QR code with `,
           'scan-qr-description-2': ` or other authenticator apps.`,
           'enter-generated-code': 'Enter the generated 6-digit code below.',

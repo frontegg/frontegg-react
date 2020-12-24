@@ -8,7 +8,9 @@ export const MFAVerifyStepForm: FC = (props) => {
   const { enrollMfa } = useAuthMfaActions();
 
   useEffect(() => {
-    enrollMfa();
+    if (!qrCode) {
+      enrollMfa();
+    }
   }, []);
   const children = props.children ?? (
     <>
