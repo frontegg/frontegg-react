@@ -48,7 +48,6 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
   const validationSchema = validateSchema({
     displayName: validateRequired(t('common.displayName'), t),
     url: validateUrl('URL', t),
-    secret: validateLength(t('common.secretKey'), 8, t),
     eventKeys: validateArrayLength(t, t('connectivity.events')),
   });
 

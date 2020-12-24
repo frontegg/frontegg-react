@@ -164,12 +164,19 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
               Cell: ({ row: { index: rowIndex } }) => (
                 <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].enabled`} />
               ),
-              maxWidth: 30,
+              maxWidth: 50,
+              minWidth: 50,
             },
             {
               accessor: 'events',
               Header: t(form === 'email' ? 'common.emails' : 'common.phones'),
-              Cell: ({ row: { index: rowIndex } }) => <InputEmailOrPhone dataIdx={index} eventIdx={rowIndex} />,
+              Cell: ({ row: { index: rowIndex } }) => (
+                <InputEmailOrPhone
+                  dataIdx={index}
+                  eventIdx={rowIndex}
+                  placeholder={form === 'email' ? 'user@server.com' : '+123456789012'}
+                />
+              ),
             },
             // {
             //   accessor: 'non',
@@ -208,7 +215,6 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
 
   return tablesData ? (
     <FFormik.Formik
-      enableReinitialize
       initialValues={{ data: tablesData }}
       validate={validate}
       onSubmit={(val, { setSubmitting }) => saveData(val.data, setSubmitting)}

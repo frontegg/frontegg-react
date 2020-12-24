@@ -347,7 +347,7 @@ export default {
       addHook: 'Create Hook',
       webhook: 'Webhooks',
       selectAll: 'SELECT ALL IN THE {{name}} CATEGORY',
-      secretKeyHelp: 'JWT signed with this secret will be sent in the header "frontegg-secret" of the webhook request',
+      secretKeyHelp: 'JWT signed with this secret will be sent in the header "x-webhook-secret" of the webhook request',
       recipients: {
         wrongEmail: 'One of the email addresses is wrong.',
         wrongPhone: 'One of the phone numbers is wrong.',

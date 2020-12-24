@@ -5,16 +5,17 @@ import { InputProps } from './interfaces';
 
 export const Input = (props: InputProps) => React.createElement(ElementsFactory.getElement('Input'), props);
 
-export const FInput = (props: InputProps & { name: string }) => {
+export const FInput = ({ dontDisableSaving, ...props }: InputProps & { name: string; dontDisableSaving?: boolean }) => {
   const [inputProps, { touched, error }] = useField(props.name);
   const { isSubmitting } = useFormikContext();
   const { onChange } = props;
+
   return (
     <Input
       inForm
       {...inputProps}
       {...props}
-      disabled={isSubmitting || props.disabled}
+      disabled={(!dontDisableSaving && isSubmitting) || props.disabled}
       fullWidth={props.fullWidth ?? true}
       onChange={(e) => {
         onChange?.(e);
