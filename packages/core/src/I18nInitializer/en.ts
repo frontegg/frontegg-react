@@ -79,6 +79,7 @@ export default {
       validated: 'Validated',
       verify: 'Verify',
       yourself: 'yourself',
+      optional: 'Optional',
     },
     auth: {
       login: {
@@ -144,6 +145,7 @@ export default {
           'enable-sso-message': 'Enable SSO and configure the settings to quickly use this functionality',
           'claim-domain': 'Claim Domain',
           'configure-your-idp': 'Configure Your IDP',
+          'manage-authorization': 'Manage Authorization',
         },
         'go-to-idp': 'Configure IDP',
         'claim-domain': {
@@ -190,6 +192,10 @@ export default {
             'endpoint-desc': 'URL from the SSO',
             'certificate-desc': 'Provide Public Certificate',
           },
+        },
+        authorization: {
+          title: 'Manage Authorization',
+          subtitle: 'Select default roles which will be assigned to each user who authenticates using SSO.',
         },
       },
       dropzone: {

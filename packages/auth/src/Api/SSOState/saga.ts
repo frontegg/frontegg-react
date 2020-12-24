@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery, delay } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { api, ISamlConfiguration, IUpdateSamlConfiguration } from '@frontegg/rest-api';
 import { omitProps } from '@frontegg/react-core';
@@ -107,9 +107,67 @@ function* validateSSODomain({ payload: { callback } = {} }: PayloadAction<WithCa
   }
 }
 
+function* getAuthorizationRoles() {
+  console.log('getAuthorizationRoles');
+  try {
+    const data = yield call(api.auth.getSamlRoles);
+    yield put(
+      actions.setSSOState({
+        authorizationRoles: data,
+        error: undefined,
+      })
+    );
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        error: e.message,
+      })
+    );
+  }
+}
+
+function* updateAuthorizationRoles({
+  payload: { callback, authorizationRoles },
+}: PayloadAction<WithCallback<{ authorizationRoles: Array<string> }>>) {
+  try {
+    yield put(actions.setSSOState({ error: undefined, saving: true }));
+    yield call(api.auth.updateSamlRoles, authorizationRoles);
+    yield getAuthorizationRoles();
+    yield put(actions.setSSOState({ error: undefined, saving: false }));
+    callback?.(true);
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        error: e.message,
+        saving: false,
+      })
+    );
+  }
+}
+
+function* getAllRoles() {
+  try {
+    const { items: roles } = yield call(api.teams.loadAvailableRoles);
+    yield put(
+      actions.setSSOState({
+        roles: roles,
+      })
+    );
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        error: e.message,
+      })
+    );
+  }
+}
+
 export function* ssoSagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurationsFile, saveSSOConfigurationsFile);
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
+  yield takeEvery(actions.loadSSOAllRoles, getAllRoles);
+  yield takeEvery(actions.loadSSOAuthorizationRoles, getAuthorizationRoles);
+  yield takeEvery(actions.updateSSOAuthorizationRoles, updateAuthorizationRoles);
 }

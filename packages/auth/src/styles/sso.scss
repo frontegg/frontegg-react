@@ -5,9 +5,10 @@
 .fe-sso-steps {
   display: flex;
   justify-content: center;
-  width: 50rem;
+  flex-wrap: wrap;
+  width: 75rem;
   max-width: 95%;
-  margin: 4rem auto;
+  margin: 3rem auto 4rem auto;
 
   * {
     text-decoration: none;
@@ -20,7 +21,7 @@
     border-radius: 0.5rem;
     background-color: #f9fafc;
     border: 3px solid #f9fafc;
-    margin: 0 2rem;
+    margin: 2rem;
     overflow: hidden;
     transition: border 200ms ease-in;
 
@@ -232,6 +233,36 @@
       display: flex;
       flex-direction: column;
       padding: 2rem;
+    }
+  }
+}
+
+.fe-sso-authorization-page {
+  border-radius: var(--element-border-radius-sm);
+  padding: 2rem;
+  background-color: var(--color-gray-0);
+  display: flex;
+  flex-direction: column;
+  width: 50rem;
+  max-width: 80%;
+  margin: 2rem auto;
+  &__title {
+    color: var(--color-gray-9);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  &__subtitle {
+    color: var(--color-gray-6);
+    font-size: 1rem;
+  }
+
+  &__select {
+    margin-top: 2rem;
+    &-container {
+      margin-bottom: 3rem;
+    }
+    &-footer {
+      text-align: end;
     }
   }
 }
