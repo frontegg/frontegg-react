@@ -11,9 +11,8 @@ import {
   FButton,
   FFormik,
 } from '@frontegg/react-core';
-import { AuthState } from '../Api';
+import { AuthState, LoginStep } from '../Api';
 import { useAuth } from '../hooks';
-import { LoginStep } from '../Api/LoginState';
 
 const { Formik } = FFormik;
 

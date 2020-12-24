@@ -1,4 +1,4 @@
-import { all, call, delay, put, select, takeLeading, putResolve } from 'redux-saga/effects';
+import { all, call, delay, put, putResolve, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
 import {
@@ -63,7 +63,10 @@ export function* refreshToken() {
             mfaRequired: user.mfaRequired,
             loading: false,
             error: undefined,
-            step: LoginStep.loginWithTwoFactor,
+            step:
+              user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled
+                ? LoginStep.forceTwoFactor
+                : LoginStep.loginWithTwoFactor,
             tenantsLoading: true,
             tenants: [],
           },
@@ -150,11 +153,19 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
 
-    const step = user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success;
+    let step = LoginStep.success;
+    if (user.mfaRequired && user.mfaToken) {
+      step = LoginStep.loginWithTwoFactor;
+      if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+        step = LoginStep.forceTwoFactor;
+      }
+    }
+    const isAuthenticated = step === LoginStep.success && !!user.accessToken;
+    const loggedInUser = step === LoginStep.success && step === LoginStep.success ? user.accessToken : undefined;
     yield put(
       actions.setState({
-        user: !!user.accessToken ? user : undefined,
-        isAuthenticated: !!user.accessToken,
+        user: loggedInUser,
+        isAuthenticated,
         loginState: {
           email,
           loading: false,
@@ -183,9 +194,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   }
 }
 
-function* loginWithMfa({
-  payload: { mfaToken, value, callback },
-}: PayloadAction<WithCallback<ILoginWithMfa, boolean>>) {
+function* loginWithMfa({ payload: { mfaToken, value, callback } }: PayloadAction<WithCallback<ILoginWithMfa>>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
