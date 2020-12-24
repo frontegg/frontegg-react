@@ -350,7 +350,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { mfaToken: MFA_TOKEN },
+      response: { mfaToken: MFA_TOKEN, mfaRequired: true },
       delay: 200,
     }).as('login');
 
@@ -418,7 +418,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { mfaToken: MFA_TOKEN },
+      response: { mfaToken: MFA_TOKEN, mfaRequired: true },
       delay: 200,
     }).as('login');
 

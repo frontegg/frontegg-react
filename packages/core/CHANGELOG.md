@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.2](https://github.com/frontegg/frontegg-react/compare/v1.15.1...v1.15.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* **core:** fix validate the InputChip component ([e363849](https://github.com/frontegg/frontegg-react/commit/e36384952d95edf22541b5a648d6cd09b42b4c95))
+
+
+
+
+
 ## [1.15.1](https://github.com/frontegg/frontegg-react/compare/v1.15.0...v1.15.1) (2020-12-21)
 
 **Note:** Version bump only for package @frontegg/react-core

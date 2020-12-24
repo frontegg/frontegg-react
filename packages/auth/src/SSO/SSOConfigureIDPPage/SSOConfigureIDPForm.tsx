@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { FFormik, FForm, Grid, useT, validateUrl, validateRequired, validateSchemaSync } from '@frontegg/react-core';
+import { FFormik, FForm, Grid, useT } from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
 import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
 import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { SamlVendors } from './SSOVendors';
+import { ssoConfigureIdpFormValidation, ssoConfigureIdpFormSubmit } from '../helpers';
 
 const { Formik } = FFormik;
-
 export interface HeaderProps {
   step: number;
 }
@@ -42,13 +43,26 @@ export interface IInitialValues {
   configFile?: File[];
   signRequest?: boolean;
   publicCertificate?: string;
+  oidcClientId?: string;
+  oidcSecret?: string;
 }
 
 const initialValues: IInitialValues = {
   configSaml: 'manual',
+  ssoEndpoint: '',
+  publicCertificate: '',
 };
 
-export const SSOConfigureIDPForm: FC<HideOption> = () => {
+const initialOidcValues: IInitialValues = {
+  configSaml: 'manual',
+  oidcSecret: '',
+  oidcClientId: '',
+};
+export interface SSOConfigureIDPFormProps {
+  samlVendor: SamlVendors;
+}
+
+export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPFormProps> = ({ samlVendor }) => {
   const [step, goToStep] = useState(1);
   const { samlConfiguration, saving } = useAuthSSOState(({ samlConfiguration, saving }) => ({
     samlConfiguration,
@@ -57,8 +71,10 @@ export const SSOConfigureIDPForm: FC<HideOption> = () => {
   const { saveSSOConfigurations, saveSSOConfigurationsFile } = useAuthSSOActions();
   const { t } = useT();
   const formikRef = useRef<FFormik.FormikProps<IInitialValues>>(null);
+  const initValues = samlVendor === 'Oidc' ? initialOidcValues : initialValues;
 
   useEffect(() => formikRef.current?.setSubmitting?.(!!saving), [saving, formikRef]);
+  useEffect(() => goToStep(1), [initValues]);
 
   return (
     <div className='fe-sso-idp-page__config'>
@@ -67,42 +83,18 @@ export const SSOConfigureIDPForm: FC<HideOption> = () => {
       <Formik
         innerRef={formikRef}
         initialValues={{
-          ...initialValues,
+          ...initValues,
           ...samlConfiguration,
         }}
         enableReinitialize
-        validate={({ configSaml, configFile, ssoEndpoint, publicCertificate }) => {
-          if (configSaml === 'auto') {
-            return validateSchemaSync(
-              {
-                configFile: validateRequired(t('auth.sso.form.metadata-file'), t),
-              },
-              { configFile }
-            );
-          } else {
-            return validateSchemaSync(
-              {
-                ssoEndpoint: validateUrl(t('auth.sso.idp.form.endpoint'), t),
-                publicCertificate: validateRequired(t('auth.sso.idp.form.certificate'), t),
-              },
-              { ssoEndpoint, publicCertificate }
-            );
-          }
-        }}
-        onSubmit={({ ssoEndpoint, configSaml, publicCertificate, configFile }) => {
-          if (configSaml === 'auto') {
-            saveSSOConfigurationsFile(configFile!);
-          } else {
-            saveSSOConfigurations({
-              ssoEndpoint,
-              publicCertificate,
-            });
-          }
-        }}
+        validate={(values) => ssoConfigureIdpFormValidation({ ...values, samlVendor, t })}
+        onSubmit={(values) =>
+          ssoConfigureIdpFormSubmit({ ...values, saveSSOConfigurationsFile, saveSSOConfigurations, samlVendor })
+        }
       >
         <FForm>
-          {step === 1 && <SSOConfigureIDPStep1 goToStep={goToStep} />}
-          {step === 2 && <SSOConfigureIDPStep2 goToStep={goToStep} />}
+          {step === 1 && <SSOConfigureIDPStep1 samlVendor={samlVendor} goToStep={goToStep} />}
+          {step === 2 && <SSOConfigureIDPStep2 samlVendor={samlVendor} goToStep={goToStep} />}
         </FForm>
       </Formik>
     </div>

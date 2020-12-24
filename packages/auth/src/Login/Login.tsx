@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { ComponentsTypesWithProps, Loader, useDynamicComponents } from '@frontegg/react-core';
-import { AuthState } from '../Api';
-import { LoginStep } from '../Api/LoginState';
+import { AuthState, LoginStep } from '../Api';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
@@ -9,6 +8,7 @@ import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
 import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
+import { ForceEnrollMfa, ForceEnrollMfaProps } from './ForceEnrollMfa';
 import { useAuth } from '../hooks';
 
 type Components = {
@@ -18,6 +18,7 @@ type Components = {
   LoginWithTwoFactor: LoginWithTwoFactorProps;
   RedirectToSSO: RedirectToSSOProps;
   LoginWithSSOFailed: LoginWithSSOFailedProps;
+  ForceEnrollMfa: ForceEnrollMfaProps;
 };
 
 export interface LoginComponentProps {
@@ -36,6 +37,7 @@ const defaultComponents = {
   LoginWithTwoFactor,
   RedirectToSSO,
   LoginWithSSOFailed,
+  ForceEnrollMfa,
 };
 const stateMapper = ({ isLoading, isAuthenticated, loginState }: AuthState) => ({
   isLoading,
@@ -59,6 +61,8 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.RedirectToSSO />;
   } else if (step === LoginStep.loginWithSSOFailed) {
     components = <Dynamic.LoginWithSSOFailed />;
+  } else if (step === LoginStep.forceTwoFactor) {
+    components = <Dynamic.ForceEnrollMfa />;
   } else if (step === LoginStep.success && props.displaySuccessMessage) {
     components = <Dynamic.LoginSuccessRedirect />;
   }
