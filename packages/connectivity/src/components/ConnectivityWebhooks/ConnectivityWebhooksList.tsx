@@ -103,7 +103,9 @@ export const ConnectivityWebhooksList: FC = () => {
             onClick={() => onEdit(row.original._id)}
           >
             <div>{value}</div>
-            <div className='fe-connectivity-webhook-description'>{row.original.description}</div>
+            {row.original.description && (
+              <div className='fe-connectivity-webhook-description'>{row.original.description}</div>
+            )}
           </div>
         ),
       },
@@ -111,7 +113,8 @@ export const ConnectivityWebhooksList: FC = () => {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
         Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
-        maxWidth: 30,
+        maxWidth: 50,
+        minWidth: 50,
       },
       {
         accessor: 'eventKeys',
@@ -138,6 +141,7 @@ export const ConnectivityWebhooksList: FC = () => {
       {
         accessor: 'action',
         maxWidth: 40,
+        minWidth: 50,
         Cell: ({ row }) => (
           <Menu
             className='fe-connectivity-panel-menu'
