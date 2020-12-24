@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/frontegg/frontegg-react/compare/v1.15.2...v1.16.0) (2020-12-24)
+
+
+### Bug Fixes
+
+* wront state with logged in user ([#198](https://github.com/frontegg/frontegg-react/issues/198)) ([970c99b](https://github.com/frontegg/frontegg-react/commit/970c99b8fd20147d00e30558d3a7c20726136579))
+* **connectivity:** fix some design and behavioral issues ([fd5d16d](https://github.com/frontegg/frontegg-react/commit/fd5d16d1e114fa8445ea5a0548d7b4cc00a530f0))
+* **core:** fix clean data in the FeInput component ([6d900c8](https://github.com/frontegg/frontegg-react/commit/6d900c8e04986f21744d69ee741408fd9d66ffb3))
+* **core:** fix style the FeChip component ([1f76479](https://github.com/frontegg/frontegg-react/commit/1f76479817129653b08bac047531d68d2f132fab))
+* **localize:** fix text for secure tooltip ([8761141](https://github.com/frontegg/frontegg-react/commit/87611410fc23b881a11bcc80e9ba489bcf3ccf32))
+
+
+### Features
+
+* **core:** add anew property dontDisableSaving to the FInput compoennt ([6ff5648](https://github.com/frontegg/frontegg-react/commit/6ff56488a76816f5b501b616656e0bc97afe03ee))
+
+
+
+
+
 ## [1.15.2](https://github.com/frontegg/frontegg-react/compare/v1.15.1...v1.15.2) (2020-12-24)
 
 
