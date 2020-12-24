@@ -76,6 +76,9 @@ export type ISamlConfiguration = {
   updatedAt?: Date;
   acsUrl?: string;
   spEntityId?: string;
+  oidcClientId?: string;
+  oidcSecret?: string;
+  type?: string;
 };
 export type IUpdateSamlConfiguration = Omit<
   ISamlConfiguration,

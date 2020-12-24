@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useState } from 'react';
 import { Icon, useT } from '@frontegg/react-core';
 import { SamlVendors } from './SSOVendors';
 import { SSODialogInstruction } from './SSODialogInstruction';
-
+import { Steps, Step } from './SSOConfigureIDPGuideSteps';
 const prefixT = 'auth.sso.idp.guide';
 
 type StepsProps = {
@@ -19,30 +19,6 @@ const Description: FC = (props) => {
   const { t } = useT();
   const children = props.children ?? t(`${prefixT}.description`);
   return <div className='fe-sso-guide__description fe-mb-2'>{children}</div>;
-};
-const Steps: FC<StepsProps> = (props) => {
-  const { t } = useT();
-  const steps = [
-    t(`${prefixT}.steps-0`),
-    t(`${prefixT}.steps-1`),
-    t(`${prefixT}.steps-2`),
-    t(`${prefixT}.steps-3`),
-    t(`${prefixT}.steps-4`),
-  ];
-  const children = props.children ?? <Step />;
-  return (
-    <div className='fe-sso-guide__steps'>
-      {steps?.map((step, i) => React.cloneElement(children, { key: i, children: <>{step}</> }))}
-    </div>
-  );
-};
-const Step: FC = ({ children }) => {
-  return (
-    <div className='fe-sso-guide__step'>
-      <Icon name='right-arrow' />
-      <span>{children}</span>
-    </div>
-  );
 };
 
 export type SSOClaimDomainGuideProps = {
@@ -71,7 +47,7 @@ const SSOConfigureIDPGuide: FC<SSOClaimDomainGuideProps> & SubComponents = (prop
       <Steps samlVendor={props.samlVendor} />
       <div className='fe-flex-spacer' />
 
-      {props.samlVendor !== SamlVendors.Saml && (
+      {props.samlVendor !== SamlVendors.Saml && props.samlVendor !== SamlVendors.Oidc && (
         <>
           <div className='fe-sso-guide__see-more'>
             {t(`${prefixT}.step-by-step`)}{' '}
