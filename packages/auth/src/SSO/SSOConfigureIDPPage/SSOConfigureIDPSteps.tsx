@@ -1,16 +1,20 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { Button, ErrorMessage, FButton, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
 import Dropzone from 'react-dropzone';
 import { FFormik } from '@frontegg/react-core';
 import { useAuthSSOState } from '../hooks';
+import { SamlVendors } from './SSOVendors';
 
 const { useField, useFormikContext } = FFormik;
 
 export interface SSOConfigureIDPStepProps {
   goToStep: (step: number) => void;
+  samlVendor: SamlVendors;
 }
 
-export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
+export interface SSOManualConfigProps extends Pick<SSOConfigureIDPStepProps, 'samlVendor'> {}
+
+export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = ({ goToStep, samlVendor }) => {
   const { t } = useT();
   const { samlConfiguration } = useAuthSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
 
@@ -20,7 +24,9 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
       {validCallback ? (
         <>
           <Input size='large' readOnly inForm fullWidth label='ASC URL' value={samlConfiguration?.acsUrl} />
-          <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} />
+          {samlVendor !== 'Oidc' && (
+            <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} />
+          )}
         </>
       ) : (
         <ErrorMessage error={t('auth.sso.idp.error-ask-your-vendor')} />
@@ -30,7 +36,7 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = (props) => {
 
       <Grid container>
         <Grid item xs style={{ textAlign: 'end' }}>
-          <Button disabled={!validCallback} size='large' variant='primary' onClick={() => props.goToStep(2)}>
+          <Button disabled={!validCallback} size='large' variant='primary' onClick={() => goToStep(2)}>
             {t('common.next')} <Icon className='fe-ml-1' name={'right-arrow'} />
           </Button>
         </Grid>
@@ -75,8 +81,16 @@ const SSOAutomaticConfig: FC = () => {
   );
 };
 
-const SSOManualConfig = () => {
+const SSOManualConfig: FC<SSOManualConfigProps> = ({ samlVendor }) => {
   const { t } = useT();
+  if (samlVendor === 'Oidc') {
+    return (
+      <div className='sso-endpoint-container'>
+        <FInput name='oidcClientId' label='Client Id' placeholder={t('common.clientId')} />
+        <FInput name='oidcSecret' label='Secret key' placeholder={t('common.secretKey')} multiline />
+      </div>
+    );
+  }
   return (
     <div className='sso-endpoint-container'>
       <FInput
@@ -94,7 +108,7 @@ const SSOManualConfig = () => {
   );
 };
 
-export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
+export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = ({ goToStep, samlVendor }) => {
   const { t } = useT();
 
   const [{ value: configSaml }, , { setValue: setConfigSaml }] = useField<string>('configSaml');
@@ -106,23 +120,34 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = (props) => {
     error,
   }));
 
+  useEffect(() => {
+    samlVendor === 'Oidc' ? setConfigSaml('manual') : null;
+  }, [samlVendor]);
+
   const isDomainValidated = samlConfiguration?.validated ?? false;
-  const isIdpValidated = (samlConfiguration?.ssoEndpoint && isDomainValidated) as boolean;
+  const isIdpValidated = useMemo(
+    () =>
+      samlVendor === 'Oidc'
+        ? !!(samlConfiguration?.oidcClientId && isDomainValidated)
+        : !!(samlConfiguration?.ssoEndpoint && isDomainValidated),
+    [samlVendor]
+  );
 
   return (
     <div className='fe-sso-idp-page__step'>
       <SwitchToggle
+        disabled={samlVendor === 'Oidc'}
         value={configSaml !== 'auto'}
         onChange={(toggle) => setConfigSaml(toggle ? 'manual' : 'auto')}
         labels={[t('common.automatic'), t('common.manual')]}
       />
 
-      {configSaml === 'auto' ? <SSOAutomaticConfig /> : <SSOManualConfig />}
+      {configSaml === 'auto' ? <SSOAutomaticConfig /> : <SSOManualConfig samlVendor={samlVendor} />}
       <ErrorMessage error={error} separator />
       <div className='fe-flex-spacer' />
       <Grid container>
         <Grid item xs>
-          <Button isCancel size='large' onClick={() => props.goToStep(1)}>
+          <Button isCancel size='large' onClick={() => goToStep(1)}>
             <Icon className='fe-mr-1' name={'left-arrow'} /> {t('common.back')}
           </Button>
         </Grid>
