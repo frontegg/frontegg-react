@@ -148,7 +148,7 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
 function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
-    let user = yield call(api.auth.login, { email, password });
+    const user = yield call(api.auth.login, { email, password });
 
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
@@ -194,9 +194,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   }
 }
 
-function* loginWithMfa({
-  payload: { mfaToken, value, callback },
-}: PayloadAction<WithCallback<ILoginWithMfa, boolean>>) {
+function* loginWithMfa({ payload: { mfaToken, value, callback } }: PayloadAction<WithCallback<ILoginWithMfa>>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
