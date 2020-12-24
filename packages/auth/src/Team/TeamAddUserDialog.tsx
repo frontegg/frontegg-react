@@ -63,6 +63,7 @@ export const TeamAddUserDialog: FC = (props) => {
             name='name'
             disabled={loading}
             placeholder={t('common.enter-name')}
+            data-test-id="name-box"
           />
           <FInput
             label={t('common.email')}
@@ -70,6 +71,7 @@ export const TeamAddUserDialog: FC = (props) => {
             name='email'
             disabled={loading}
             placeholder={t('common.enter-email')}
+            data-test-id="email-box"
           />
           <FSelect
             size='large'
@@ -79,6 +81,7 @@ export const TeamAddUserDialog: FC = (props) => {
             disabled={loading}
             placeholder={t('common.select')}
             options={roleOptions}
+            data-test-id="roles-dropdown"
           />
 
           <ErrorMessage error={error} />
@@ -87,11 +90,13 @@ export const TeamAddUserDialog: FC = (props) => {
               <Grid xs item>
                 <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
                   {t('common.cancel')}
+                  data-test-id"x-btn"
                 </Button>
               </Grid>
               <Grid xs item className='fe-text-align-end'>
                 <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
                   {t('common.invite')}
+                  data-test-id"invite-btn"
                 </FButton>
               </Grid>
             </Grid>

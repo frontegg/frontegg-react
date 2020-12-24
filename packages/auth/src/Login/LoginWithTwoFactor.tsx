@@ -47,6 +47,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
 
         <FButton type='submit' variant='primary' loading={loading}>
           {t('auth.login.login')}
+          data-test-id="submit-btn"
         </FButton>
 
         <div className='fe-note'>
