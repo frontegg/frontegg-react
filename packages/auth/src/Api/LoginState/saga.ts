@@ -1,4 +1,4 @@
-import { all, call, delay, put, select, takeLeading, putResolve } from 'redux-saga/effects';
+import { all, call, delay, put, putResolve, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
 import {
@@ -63,7 +63,7 @@ export function* refreshToken() {
             mfaRequired: user.mfaRequired,
             loading: false,
             error: undefined,
-            step: LoginStep.loginWithTwoFactor,
+            step: user.mfaEnrolled ? LoginStep.loginWithTwoFactor : LoginStep.forceTwoFactor,
             tenantsLoading: true,
             tenants: [],
           },
@@ -145,16 +145,28 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
 function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
-    const user = yield call(api.auth.login, { email, password });
+    let user = yield call(api.auth.login, { email, password });
 
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
 
-    const step = user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success;
+    user.mfaRequired = true;
+    user.mfaToken = 'TEST';
+    user.mfaEnrolled = false;
+
+    let step = LoginStep.success;
+    if (user.mfaRequired && user.mfaToken) {
+      step = LoginStep.loginWithTwoFactor;
+      if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+        step = LoginStep.forceTwoFactor;
+      }
+    }
+    const isAuthenticated = step === LoginStep.success && !!user.accessToken;
+    const loggedInUser = step === LoginStep.success && step === LoginStep.success ? user.accessToken : undefined;
     yield put(
       actions.setState({
-        user: !!user.accessToken ? user : undefined,
-        isAuthenticated: !!user.accessToken,
+        user: loggedInUser,
+        isAuthenticated,
         loginState: {
           email,
           loading: false,

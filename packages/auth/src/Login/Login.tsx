@@ -9,6 +9,7 @@ import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
 import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
+import { ForceEnrollMfa, ForceEnrollMfaProps } from './ForceEnrollMfa';
 import { useAuth } from '../hooks';
 
 type Components = {
@@ -18,6 +19,7 @@ type Components = {
   LoginWithTwoFactor: LoginWithTwoFactorProps;
   RedirectToSSO: RedirectToSSOProps;
   LoginWithSSOFailed: LoginWithSSOFailedProps;
+  ForceEnrollMfa: ForceEnrollMfaProps;
 };
 
 export interface LoginComponentProps {
@@ -36,6 +38,7 @@ const defaultComponents = {
   LoginWithTwoFactor,
   RedirectToSSO,
   LoginWithSSOFailed,
+  ForceEnrollMfa,
 };
 const stateMapper = ({ isLoading, isAuthenticated, loginState }: AuthState) => ({
   isLoading,
@@ -59,6 +62,8 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.RedirectToSSO />;
   } else if (step === LoginStep.loginWithSSOFailed) {
     components = <Dynamic.LoginWithSSOFailed />;
+  } else if (step === LoginStep.forceTwoFactor) {
+    components = <Dynamic.ForceEnrollMfa />;
   } else if (step === LoginStep.success && props.displaySuccessMessage) {
     components = <Dynamic.LoginSuccessRedirect />;
   }
