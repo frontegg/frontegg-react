@@ -7,6 +7,7 @@
   align-items: center;
   vertical-align: middle;
   border-radius: var(--element-height-sm);
+  padding-left: var(--element-spacing);
 
   & > *:nth-child(1) {
     margin-left: var(--element-spacing);
