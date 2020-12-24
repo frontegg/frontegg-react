@@ -161,7 +161,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
       }
     }
     const isAuthenticated = step === LoginStep.success && !!user.accessToken;
-    const loggedInUser = step === LoginStep.success && step === LoginStep.success ? user.accessToken : undefined;
+    const loggedInUser = step === LoginStep.success && step === LoginStep.success ? user : undefined;
     yield put(
       actions.setState({
         user: loggedInUser,
