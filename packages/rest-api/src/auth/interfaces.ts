@@ -167,5 +167,5 @@ export interface IDeleteApiToken {
 }
 
 export interface IUpdateSamlRoles {
-  roles: Array<string>;
+  roleIds: Array<string>;
 }

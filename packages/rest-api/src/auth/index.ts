@@ -303,16 +303,16 @@ export async function validateSamlDomain(): Promise<ISamlConfiguration> {
  */
 export async function getSamlRoles(): Promise<Array<string>> {
   console.debug('getSocialLoginsProviders()');
-  return Get(`${SSO_SERVICE_URL_V1}/v1/saml/configurations/roles/default`);
+  return Get(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`);
 }
 
 /**
  *  Get social logins providers configurations for vendor
  * @return array of providers configurations
  */
-export async function updateSamlRoles({ roles }: IUpdateSamlRoles): Promise<void> {
+export async function updateSamlRoles({ roleIds }: IUpdateSamlRoles): Promise<void> {
   console.debug('getSocialLoginsProviders()');
-  return Post(`${SSO_SERVICE_URL_V1}/v1/saml/configurations/roles/default`, roles);
+  return Post(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`, { roleIds });
 }
 
 /**

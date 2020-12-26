@@ -113,7 +113,7 @@ function* getAuthorizationRoles() {
     const data = yield call(api.auth.getSamlRoles);
     yield put(
       actions.setSSOState({
-        authorizationRoles: data,
+        authorizationRoles: data.roleIds,
         error: undefined,
       })
     );
@@ -131,7 +131,7 @@ function* updateAuthorizationRoles({
 }: PayloadAction<WithCallback<{ authorizationRoles: Array<string> }>>) {
   try {
     yield put(actions.setSSOState({ error: undefined, saving: true }));
-    yield call(api.auth.updateSamlRoles, { roles: authorizationRoles });
+    yield call(api.auth.updateSamlRoles, { roleIds: authorizationRoles });
     yield getAuthorizationRoles();
     yield put(actions.setSSOState({ error: undefined, saving: false }));
     callback?.(true);
