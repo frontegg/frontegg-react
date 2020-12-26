@@ -180,6 +180,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
             step: MFAStep.verify,
             qrCode: user.qrCode,
             recoveryCode: user.recoveryCode,
+            mfaToken: user.mfaToken,
             loading: false,
           },
         };

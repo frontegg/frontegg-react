@@ -11,11 +11,11 @@ import {
   Grid,
   FButton,
 } from '@frontegg/react-core';
-import { MFAStep } from '../Api';
+import { AuthState, MFAStep } from '../Api';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
 import { useAuthMfaActions, useAuthMfaState } from '../MFA/hooks';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
-import { useAuthActions } from '../hooks';
+import { useAuth, useAuthActions } from '../hooks';
 
 const { Formik } = FFormik;
 
@@ -23,16 +23,19 @@ export interface ForceEnrollMfaProps {
   renderer?: RendererFunctionFC<ForceEnrollMfaProps>;
 }
 
+const stateMapper = ({ loginState }: AuthState) => ({ ...loginState });
+
 export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { t } = useT();
   const { renderer } = props;
   const { requestAuthorize, setMfaState } = useAuthActions();
-  const { step, loading, recoveryCode } = useAuthMfaState(({ step, loading, recoveryCode }) => ({
+  const { step, loading, recoveryCode, mfaToken } = useAuthMfaState(({ step, loading, recoveryCode, mfaToken }) => ({
     step,
     loading,
     recoveryCode,
+    mfaToken,
   }));
-  const { verifyMfa } = useAuthMfaActions();
+  const { loginWithMfa } = useAuth(stateMapper);
   const recoveryCodeRef = useRef<string>('');
 
   useEffect(() => {
@@ -85,8 +88,9 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
       })}
       initialValues={{ token: '' }}
       onSubmit={async ({ token }, { setSubmitting }) => {
-        verifyMfa({
-          token,
+        loginWithMfa({
+          mfaToken: mfaToken || '',
+          value: token,
           callback: (success) => {
             if (success) {
               setMfaState({ recoveryCode });
