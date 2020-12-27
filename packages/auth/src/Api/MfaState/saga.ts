@@ -4,6 +4,7 @@ import { api, IDisableMfa, IVerifyMfa } from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { MFAStep } from './interfaces';
 import { mfaState } from './index';
+import { WithCallback } from '../interfaces';
 
 function* resetMfaState() {
   yield put(actions.setMfaState(mfaState));
@@ -19,7 +20,7 @@ function* enrollMfa() {
   }
 }
 
-function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
+function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCallback<IVerifyMfa>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
@@ -33,8 +34,10 @@ function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
       })
     );
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
+    callback?.(true);
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
+    callback?.(false, e);
   }
 }
 

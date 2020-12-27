@@ -91,7 +91,7 @@ export const FeInput: FC<InputProps> = (props) => {
           {
             ...propsWithoutJunk,
             className: `${prefixCls}__input`,
-            value: props.value || text,
+            value: props.hasOwnProperty('value') ? props.value : text,
             onChange: props.onChange || changeText,
             type,
           }

@@ -174,8 +174,17 @@ export default {
             'steps-1': 'Download the IDP federation metadata XML',
             'steps-2': 'Click on next to step 2',
             'steps-3': 'Upload the IDP metadata XML',
-            'steps-4': 'Click "Validate & Save"',
+            'steps-4': 'Click "Configure"',
             'step-by-step': 'Detailed step by step',
+            oidc: {
+              'steps-0': 'Create an entry for the application on the IDP',
+              'steps-1': 'Enter ASC URL',
+              'steps-2': 'Click on next to step 2',
+              'steps-3': 'Enter Client Id',
+              'steps-4': 'Enter Secret Key',
+              'steps-5': 'Click "Configure"',
+              'step-by-step': 'Detailed step by step',
+            },
           },
           select: {
             title: 'Select your IDP',
@@ -338,7 +347,7 @@ export default {
       addHook: 'Create Hook',
       webhook: 'Webhooks',
       selectAll: 'SELECT ALL IN THE {{name}} CATEGORY',
-      secretKeyHelp: 'JWT signed with this secret will be sent in the header "frontegg-secret" of the webhook request',
+      secretKeyHelp: 'JWT signed with this secret will be sent in the header "x-webhook-secret" of the webhook request',
       recipients: {
         wrongEmail: 'One of the email addresses is wrong.',
         wrongPhone: 'One of the phone numbers is wrong.',

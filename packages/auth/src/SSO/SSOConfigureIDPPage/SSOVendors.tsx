@@ -5,6 +5,7 @@ export enum SamlVendors {
   Okta = 'Okta',
   Azure = 'Azure',
   Google = 'Google',
+  Oidc = 'Oidc',
 }
 
 export const SamlIcon: FC<React.SVGProps<SVGSVGElement>> = (props) => {
