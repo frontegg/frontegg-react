@@ -247,7 +247,7 @@ export default {
         'recovery-code': {
           message: 'Recovery code can be used to disable two-factor authentication in case you lose your phone.',
           'your-code': 'Your recovery code',
-          'copy-and-save-code': `Copy and save the code, because we won't show it again. We don't scare you ;)`,
+          'copy-and-save-code': `Copy and save the code, because we won't show it again.`,
         },
         disable: {
           message: 'Disable two-factor will remove an extra layer of security.',
