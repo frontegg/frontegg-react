@@ -67,6 +67,7 @@ export function* refreshToken() {
               qrCode: user.qrCode,
               recoveryCode: user.recoveryCode,
               loading: false,
+              mfaToken: user.mfaToken,
             },
           };
           step = LoginStep.forceTwoFactor;
