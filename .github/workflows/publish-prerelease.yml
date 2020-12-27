@@ -1,13 +1,14 @@
 name: Publish Pre-Release to NPM
 on:
-  # When new release pull request created/edited
+  # When standard Pull Request is merged
   pull_request:
     branches:
-      - 'release/next'
-    types: [ opened, edited, synchronize, reopened ]
+      - master
+    types: [ closed ]
 
 jobs:
   createReleasePullRequest:
+    if: "github.event.pull_request.merged == true"
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
