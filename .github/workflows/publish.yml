@@ -9,9 +9,19 @@ on:
 env:
   CI: true
 jobs:
+  checkLabels:
+    name: Check Labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print lables
+        run: |
+          echo "Pull Request Data |${{toJson(github.event.pull_request}}|"
+          echo "Labels |${{toJson(github.event.pull_request.labels)}|"
+          echo "Labels Names |${{toJson(github.event.pull_request.labels.*.names)}|"
+          echo "Labels as string |${{join(github.event.issue.labels.*.name, ',')}}|"
   publish:
     name: Publish
-    if: "contains(join(github.event.issue.labels.*.name, ','), 'Release') && github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')"
+    if: "github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')"
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
