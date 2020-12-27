@@ -15,7 +15,7 @@ import { AuthState, MFAStep } from '../Api';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
 import { useAuthMfaActions, useAuthMfaState } from '../MFA/hooks';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
-import { useAuthActions } from '../hooks';
+import { useAuth, useAuthActions } from '../hooks';
 
 const { Formik } = FFormik;
 
@@ -23,12 +23,20 @@ export interface ForceEnrollMfaProps {
   renderer?: RendererFunctionFC<ForceEnrollMfaProps>;
 }
 
+const stateMapper = ({ loginState }: AuthState) => ({ ...loginState });
+
 export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { t } = useT();
   const { renderer } = props;
-  const { requestAuthorize } = useAuthActions();
-  const { step, loading } = useAuthMfaState();
-  const { verifyMfa } = useAuthMfaActions();
+  const { requestAuthorize, setMfaState } = useAuthActions();
+  const { step, loading, recoveryCode, mfaToken } = useAuthMfaState(({ step, loading, recoveryCode, mfaToken }) => ({
+    step,
+    loading,
+    recoveryCode,
+    mfaToken,
+  }));
+  const { loginWithMfa } = useAuth(stateMapper);
+  const recoveryCodeRef = useRef<string>('');
 
   useEffect(() => {
     const head = document.head || document.getElementsByTagName('head')[0];
@@ -45,6 +53,10 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
     };
   }, []);
 
+  useEffect(() => {
+    recoveryCodeRef.current = recoveryCode ?? '';
+  });
+
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
@@ -54,13 +66,14 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
       <MFARecoveryCodeStep
         MFARecoveryCodeStepFooter={() => (
           <div className='fe-dialog__footer'>
+            <div className='fe-flex-spacer' />
             <Button
               variant='primary'
               onClick={() => {
-                requestAuthorize();
+                requestAuthorize(true);
               }}
             >
-              {t('common.done')}
+              {t('common.continue')}
             </Button>
           </div>
         )}
@@ -75,16 +88,20 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
       })}
       initialValues={{ token: '' }}
       onSubmit={async ({ token }, { setSubmitting }) => {
-        verifyMfa({
-          token,
+        loginWithMfa({
+          mfaToken: mfaToken || '',
+          value: token,
           callback: (success) => {
+            if (success) {
+              setMfaState({ recoveryCode });
+            }
             setSubmitting(false);
           },
         });
       }}
     >
       <FForm>
-        <MFAVerifyStepMessage />
+        <MFAVerifyStepMessage>{t('auth.mfa.verify.forceMfaMessage')}</MFAVerifyStepMessage>
         <MFAVerifyStepForm />
         <MFAVerifyStepErrorMessage />
 
