@@ -15,10 +15,7 @@ jobs:
     steps:
       - name: Print lables
         run: |
-          echo "Pull Request Data |${{toJson(github.event.pull_request}}|"
-          echo "Labels |${{toJson(github.event.pull_request.labels)}|"
-          echo "Labels Names |${{toJson(github.event.pull_request.labels.*.names)}|"
-          echo "Labels as string |${{join(github.event.issue.labels.*.name, ',')}}|"
+          echo "Pull Request Data |${{toJson(github}}|"
   publish:
     name: Publish
     if: "github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')"
