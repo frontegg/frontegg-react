@@ -9,13 +9,6 @@ on:
 env:
   CI: true
 jobs:
-  checkLabels:
-    name: Check Labels
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print lables
-        run: |
-          echo "Pull Request Data |${{toJson(github}}|"
   publish:
     name: Publish
     if: "github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')"
