@@ -9,7 +9,7 @@ import { SocialLoginsContext } from './SocialLoginContext';
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & { Google: FC; Github: FC };

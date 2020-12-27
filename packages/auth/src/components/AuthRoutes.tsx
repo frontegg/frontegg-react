@@ -102,6 +102,11 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
         perPageProps?.socialLoginsSuccess?.header ?? pageHeader?.socialLoginsSuccess ?? header ?? defaultComps.header,
       headerImg: perPageProps?.socialLoginsSuccess?.headerImg ?? headerImg,
     },
+    signUp: {
+      ...perPageProps?.signUp,
+      header: perPageProps?.signUp?.header ?? pageHeader?.signUp ?? header ?? defaultComps.header,
+      headerImg: perPageProps?.signUp?.headerImg ?? headerImg,
+    },
   };
 
   if (pageProps.loaderComponent && isLoading) {
@@ -163,7 +168,7 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       path: routes.signUpUrl,
       defaultComponent: SignUpPageComponent,
       standaloneComponent: SignUp,
-      props: computedPerPageProps.socialLoginsSuccessProps,
+      props: computedPerPageProps.signUp,
     },
 
     ...(samlCallbackPath
