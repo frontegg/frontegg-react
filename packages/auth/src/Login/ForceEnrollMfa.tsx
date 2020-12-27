@@ -35,7 +35,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
     recoveryCode,
     mfaToken,
   }));
-  const { loginWithMfa } = useAuth(stateMapper);
+  const { verifyMfaAfterForce } = useAuthMfaActions();
   const recoveryCodeRef = useRef<string>('');
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
       })}
       initialValues={{ token: '' }}
       onSubmit={async ({ token }, { setSubmitting }) => {
-        loginWithMfa({
+        verifyMfaAfterForce({
           mfaToken: mfaToken || '',
           value: token,
           callback: (success) => {
