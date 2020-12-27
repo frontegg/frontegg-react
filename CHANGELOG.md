@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.1](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.1) (2020-12-27)
+
+
+### Bug Fixes
+
+* **auth:** fix force mfa recovery code not showing up ([#204](https://github.com/frontegg/frontegg-react/issues/204)) ([f6ce5ac](https://github.com/frontegg/frontegg-react/commit/f6ce5ac2be84c931454051760ae3fcca232b6c12))
+* Fix force MFA screen bugs ([#196](https://github.com/frontegg/frontegg-react/issues/196)) ([8d51fb9](https://github.com/frontegg/frontegg-react/commit/8d51fb9794d0d0728bd04a742ce6a3f77845d1fe))
+* Fix pre-release action ([6b7f616](https://github.com/frontegg/frontegg-react/commit/6b7f6164660323982bc290f7bc6d853b8b4a075d))
+* **auth:** add support in dynamic component in login and signup for socail logins ([#192](https://github.com/frontegg/frontegg-react/issues/192)) ([195b977](https://github.com/frontegg/frontegg-react/commit/195b97704618135cb17edc7569019f236dda7fd6))
+
+
+
+
+
 # [1.16.0](https://github.com/frontegg/frontegg-react/compare/v1.15.2...v1.16.0) (2020-12-24)
 
 
