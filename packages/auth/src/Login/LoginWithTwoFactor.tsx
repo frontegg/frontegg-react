@@ -50,7 +50,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
 
         <div className='fe-note'>
           <div className='fe-note-title'>{t('auth.login.disable-two-factor-title')}</div>
-          <div className='fe-note-description'>
+          <div className='fe-note-description fe-recover-two-factor'>
             <a
               test-id='recover-two-factor-button'
               onClick={() => {
