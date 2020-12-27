@@ -3,6 +3,7 @@ import { checkValidChildren, RootPathContext, useRootPath } from '@frontegg/reac
 import { SSOOverviewPage } from './SSOOverviewPage';
 import { SSOClaimDomainPage } from './SSOClaimDomainPage';
 import { SSOConfigureIDPPage } from './SSOConfigureIDPPage';
+import { SSOManageAuthorizationPage } from './SSOManageAuthorizationPage';
 import { reloadSSOIfNeeded } from './helpers';
 import { SSOToggle } from './SSOToggle';
 import { BasePageProps } from '../interfaces';
@@ -16,6 +17,7 @@ const SSORouter: FC<SSOProps> = (props) => {
     SSOOverviewPage,
     SSOClaimDomainPage,
     SSOConfigureIDPPage,
+    SSOManageAuthorizationPage,
   });
 
   const children = props.children ?? (
@@ -24,6 +26,7 @@ const SSORouter: FC<SSOProps> = (props) => {
       <SSOOverviewPage />
       <SSOClaimDomainPage />
       <SSOConfigureIDPPage />
+      <SSOManageAuthorizationPage />
     </>
   );
 

@@ -1,4 +1,4 @@
-import { ISamlConfiguration } from '@frontegg/rest-api';
+import { ISamlConfiguration, ITeamUserRole } from '@frontegg/rest-api';
 
 export interface SSOState {
   firstLoad: boolean;
@@ -6,4 +6,6 @@ export interface SSOState {
   error?: any;
   saving?: boolean;
   samlConfiguration?: ISamlConfiguration;
+  roles?: Array<ITeamUserRole>;
+  authorizationRoles?: Array<string>;
 }

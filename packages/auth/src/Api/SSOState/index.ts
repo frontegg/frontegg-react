@@ -20,6 +20,8 @@ export const ssoStateReducers = {
 
 export const ssoActions = {
   loadSSOConfigurations: createAction(`${storeName}/loadSSOConfigurations`),
+  loadSSOAllRoles: createAction(`${storeName}/loadSSOAllRoles`),
+  loadSSOAuthorizationRoles: createAction(`${storeName}/loadSSOAuthorizationRoles`),
   saveSSOConfigurations: createAction(
     `${storeName}/saveSSOConfigurations`,
     (payload: WithCallback<Partial<ISamlConfiguration & { samlVendor: SamlVendors }>>) => ({
@@ -30,4 +32,10 @@ export const ssoActions = {
     payload,
   })),
   validateSSODomain: createAction(`${storeName}/validateSSODomain`, (payload?: WithCallback) => ({ payload })),
+  updateSSOAuthorizationRoles: createAction(
+    `${storeName}/updateSSOAuthorizationRoles`,
+    (payload: WithCallback<{ authorizationRoles: Array<string> }>) => ({
+      payload,
+    })
+  ),
 };
