@@ -1,8 +1,7 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import classNames from 'classnames';
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { FeTableExpandable } from './FeTableExpandable';
-import { shallowEqual } from 'react-redux';
 import { FeLoader } from '../Loader/FeLoader';
 
 export type FeTableTBodyProps<T extends object> = {
@@ -58,6 +57,11 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
           renderExpandedComponent={renderExpandedComponent}
         />
       ))}
+      {!loading && rows.length === 0 && (
+        <div className={classNames('fe-table__tr')}>
+          <div className={classNames('fe-table__tr-td fe-table__tr-td-empty')}>No results found</div>
+        </div>
+      )}
       {loading && rows.length === 0 && (
         <div className={classNames('fe-table__tr')}>
           <div className={classNames('fe-table__tr-td fe-table__tr-td-loader')}>

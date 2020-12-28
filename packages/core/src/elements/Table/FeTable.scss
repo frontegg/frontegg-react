@@ -139,6 +139,12 @@
     align-items: center;
     min-height: 5rem;
 
+    &-empty {
+      text-align: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
     &-loader {
       text-align: center;
       justify-content: center;
