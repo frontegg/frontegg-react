@@ -15,6 +15,7 @@ interface Components {
 
 export interface SignUpProps {
   components?: ComponentsTypesWithProps<Components>;
+  withCompanyName?: boolean;
 }
 
 const defaultComponents = {
@@ -46,7 +47,7 @@ export const SignUp: FC<SignUpProps> = (props) => {
     default:
       return (
         <>
-          <Dynamic.SignUpForm />
+          <Dynamic.SignUpForm withCompanyName={props.withCompanyName} />
           <Dynamic.SocialLogins />
         </>
       );
