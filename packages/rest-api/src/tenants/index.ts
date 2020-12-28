@@ -1,6 +1,7 @@
+/* tslint:disable:no-console */
 import { ISwitchTenant, ITenantsResponse } from './interfaces';
 import { Get, Put } from '../fetch';
-import { TENANTS_SERVICE_V1, USERS_SERVICE_URL_V1 } from '../constants';
+import { USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
 
 /**
  * switch logged in user to specific tenant by providing tenantId.
@@ -20,5 +21,5 @@ export async function switchTenant(body: ISwitchTenant): Promise<void> {
  */
 export async function getTenants(): Promise<ITenantsResponse[]> {
   console.debug('getTenants()');
-  return Get(TENANTS_SERVICE_V1);
+  return Get(`${USERS_SERVICE_URL_V2}/me/tenants`);
 }
