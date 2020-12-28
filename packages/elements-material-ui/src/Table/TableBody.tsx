@@ -75,7 +75,9 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
         )}
         {!loading && rows.length === 0 && (
           <TableRow>
-            <TableCell align='center'>{t('common.empty-items')}</TableCell>
+            <TableCell className='MuiTableCell-empty' align='center'>
+              {t('common.empty-items')}
+            </TableCell>
           </TableRow>
         )}
       </MTableBody>

@@ -69,7 +69,7 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
       )}
       {!loading && rows.length === 0 && (
         <div className={classNames('fe-table__tr')}>
-          <div className={classNames('fe-table__tr-td fe-table__tr-td-loader')}>{t('common.empty-items')}</div>
+          <div className={classNames('fe-table__tr-td fe-table__tr-td-empty')}>{t('common.empty-items')}</div>
         </div>
       )}
     </div>

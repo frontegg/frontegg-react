@@ -61,7 +61,7 @@
     }
     .MuiTableRow-root > td,
     &__tr-td {
-      &:first-child {
+      &:first-child:not(.fe-table__tr-td-empty) {
         flex: 0 0 268px !important;
         width: 268px !important;
         + div {
@@ -93,6 +93,7 @@
       text-align: center;
     }
   }
+
   .fe-connectivity-panel-shown {
     display: flex;
 
@@ -145,10 +146,15 @@
         &__tr-td {
           display: flex;
           justify-content: flex-start;
-          &:first-child {
+          &:first-child:not(.fe-table__tr-td-empty) {
             flex: 150 0 auto !important;
             width: 150px !important;
           }
+        }
+        .fe-table__tr-td-empty {
+          display: block !important;
+          margin-top: 0.5rem;
+          margin-bottom: -1rem;
         }
         &__tbody {
           overflow: visible;
