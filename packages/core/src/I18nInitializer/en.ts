@@ -56,6 +56,7 @@ export default {
       name: 'Name',
       next: 'Next',
       notFound: 'Data not found',
+      noResults: 'No Results Found',
       password: 'Password',
       pending: 'Pending',
       pendingApproval: 'Pending Approval',
