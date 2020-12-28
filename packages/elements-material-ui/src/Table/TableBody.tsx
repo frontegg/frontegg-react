@@ -73,7 +73,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
             </TableCell>
           </TableRow>
         )}
-        {rows.length === 0 && (
+        {!loading && rows.length === 0 && (
           <TableRow>
             <TableCell align='center'>{t('common.empty-items')}</TableCell>
           </TableRow>
