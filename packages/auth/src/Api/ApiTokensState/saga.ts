@@ -22,7 +22,6 @@ function* loadApiTokensData({ payload: apiTokenType }: PayloadAction<ApiTokenTyp
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
   } catch (e) {
     yield put(actions.setApiTokensError({ key: ApiStateKeys.LOAD_API_TOKENS, value: e.message }));
-    yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
   }
 }
 
