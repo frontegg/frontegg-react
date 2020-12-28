@@ -14,9 +14,13 @@ import { useAuth } from '../hooks';
 
 const { Formik } = FFormik;
 
+export interface SignUpFormProps {
+  withCompanyName?: boolean;
+}
+
 const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({ onRedirectTo, routes, ...signUpState });
 
-export const SignUpForm: FC = () => {
+export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
   const { t } = useT();
 
   const { signUpUser, loading, routes, onRedirectTo } = useAuth(stateMapper);
@@ -41,18 +45,24 @@ export const SignUpForm: FC = () => {
           companyName: '',
         }}
         onSubmit={(values) => {
-          signUpUser(values);
+          if (withCompanyName) {
+            signUpUser(values);
+          } else {
+            signUpUser({ ...values, companyName: values.name });
+          }
         }}
         validationSchema={validateSchema({
           email: validateEmail(t),
           name: validateLength('name', 3, t),
-          companyName: validateLength('Company Name', 3, t),
+          companyName: withCompanyName && validateLength('Company Name', 3, t),
         })}
       >
         <FForm>
           <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} />
           <FInput name='email' type={'email'} size='large' placeholder={t('auth.sign-up.form.email')} />
-          <FInput name='companyName' size='large' placeholder={t('auth.sign-up.form.company-name')} />
+          {withCompanyName && (
+            <FInput name='companyName' size='large' placeholder={t('auth.sign-up.form.company-name')} />
+          )}
 
           <FButton type='submit' fullWidth variant='primary' loading={loading}>
             {t('auth.sign-up.form.submit-button')}
