@@ -1,23 +1,17 @@
-name: publish
+name: Publish to NPM
 on:
   # When Release Pull Request is merged
   pull_request:
     branches:
       - master
-    types: [closed]
+    types: [ closed ]
 
 env:
   CI: true
 jobs:
-  checker:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Logger
-        run: |
-          echo "Pull Request Title |${{github.event.pull_request.title}}|"
-          echo "Pull Request Merged |${{github.event.pull_request.merged}}|"
   publish:
     name: Publish
+    if: "github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')"
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
@@ -50,7 +44,6 @@ jobs:
           echo "::set-output name=CURRENT_VERSION::${CURRENT_VERSION}"
       - name: Tag Check
         id: tag_check
-        if: startsWith(github.event.pull_request.title, 'v')
         shell: bash -ex {0}
         run: |
           GET_API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/git/ref/tags/v${{ steps.set_current_version.outputs.CURRENT_VERSION }}"
@@ -64,7 +57,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Git Tag
-        if: steps.tag_check.outputs.exists_tag == 'false' && startsWith(github.event.pull_request.title, 'v')
+        if: steps.tag_check.outputs.exists_tag == 'false'
         uses: azu/action-package-version-to-git-tag@v1
         with:
           version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }}
@@ -74,7 +67,7 @@ jobs:
           git_tag_prefix: "v"
       - name: Create Release
         id: create_release
-        if: steps.tag_check.outputs.exists_tag == 'false' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')
+        if: steps.tag_check.outputs.exists_tag == 'false'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -101,14 +94,12 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Publish
-        if: steps.tag_check.outputs.exists_tag == 'false' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')
         run: |
           yarn lerna publish from-package --force-publish --contents dist --yes --no-push
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/github-script@0.8.0
-        if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |

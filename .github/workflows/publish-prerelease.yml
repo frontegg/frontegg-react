@@ -1,14 +1,14 @@
-name: Publish PreRelease
+name: Publish Pre-Release to NPM
 on:
-  issue_comment:
-    types: [created]
+  # When standard Pull Request is merged
+  pull_request:
+    branches:
+      - master
+    types: [ closed ]
 
 jobs:
-  createPullRequest:
-    if: |
-      github.event_name == 'issue_comment' &&
-      (github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'COLLABORATOR') &&
-      startsWith(github.event.comment.body, '/create-prerelease')
+  createReleasePullRequest:
+    if: "github.event.pull_request.merged == true"
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: "0"
-          ref: "release/next"
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -24,6 +23,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: Install Dependencies and Build Packages
         run: make init
+      - name: Run Components Test
+        run: make test-component
       - name: Git Identity
         run: |
           git config --global user.name 'frontegg'
@@ -46,6 +47,41 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Commit Version UP
+        run: |
+          yarn lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes --no-push
+          yarn prettier-hook
+          git add . && git commit -m "chore(release): publish `node -p 'require("./lerna.json").version'`"
+      - name: Set current CHANGELOG to output
+        id: changelog
+        shell: bash -ex {0}
+        run: |
+          version=$(node -p 'require("./lerna.json").version')
+          changelog=$(node -p "(function(){var changelog = require('fs').readFileSync('./CHANGELOG.md', {encoding: 'utf8'}); changelog = changelog.substring(changelog.indexOf('# [')); changelog = changelog.substring(changelog.indexOf('\n')).trim();  return changelog.substring(0, changelog.indexOf('# [') - 2)})()")
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo $changelog
+          echo "::set-output name=version::${version}"
+          echo "::set-output name=changelog::${changelog}"
+      - name: Create Release Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3.5.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ secrets.GITHUB_WORKSPACE }}
+          commit-message: "Update v${{ steps.changelog.outputs.version }}"
+          committer: GitHub <noreply@github.com>
+          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          title: 'v${{ steps.changelog.outputs.version }}'
+          body: |
+            # v${{ steps.changelog.outputs.version }}
+
+            ${{steps.changelog.outputs.changelog}}
+
+          labels: "Type: Release"
+          branch: "release/next"
+
+      - name: Publish Pre-Release version to NPM
         run: |
           version=$(node -p 'require("./lerna.json").version')
           echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"

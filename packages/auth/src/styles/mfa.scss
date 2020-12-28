@@ -55,6 +55,12 @@
         border-radius: 50%;
       }
     }
+
+    &-step {
+      .fe-dialog__footer {
+        display: flex;
+      }
+    }
   }
 
   &__recovery-note {
@@ -66,7 +72,8 @@
     border-radius: 0.25rem;
     align-items: center;
 
-    i.icon {
+    > .fe-icon {
+      fill: currentColor;
       font-size: 1.3rem;
       margin-right: 1.5rem;
     }

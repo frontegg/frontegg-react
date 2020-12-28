@@ -6,6 +6,13 @@
   display: flex;
   flex-direction: column;
 
+  .fe-recover-two-factor {
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
   .ui.loader.inline {
     display: block;
     margin: 2rem auto 1rem;

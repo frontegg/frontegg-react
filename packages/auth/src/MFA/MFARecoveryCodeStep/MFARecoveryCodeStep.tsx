@@ -1,14 +1,17 @@
-import React, { FC } from 'react';
-import { useAuth } from '../../hooks';
+import React, { ComponentType, FC } from 'react';
 import { MFARecoveryCodeStepMessage } from './MFARecoveryCodeStepMessage';
 import { MFARecoveryCodeStepForm } from './MFARecoveryCodeStepForm';
 import { MFARecoveryCodeStepFooter } from './MFARecoveryCodeStepFooter';
-import { MFAStep } from '../../Api/MfaState';
+import { MFAStep } from '../../Api';
 import { useAuthMfaState } from '../hooks';
 
-export const MFARecoveryCodeStep: FC = (props) => {
+type MFARecoveryCodeStepProps = {
+  MFARecoveryCodeStepFooter?: ComponentType;
+};
+export const MFARecoveryCodeStep: FC<MFARecoveryCodeStepProps> = (props) => {
   const { step } = useAuthMfaState(({ step }) => ({ step }));
 
+  const Footer = props.MFARecoveryCodeStepFooter ?? MFARecoveryCodeStepFooter;
   if (step !== MFAStep.recoveryCode) {
     return null;
   }
@@ -16,7 +19,7 @@ export const MFARecoveryCodeStep: FC = (props) => {
     <>
       <MFARecoveryCodeStepMessage />
       <MFARecoveryCodeStepForm />
-      <MFARecoveryCodeStepFooter />
+      <Footer />
     </>
   );
 

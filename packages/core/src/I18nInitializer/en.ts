@@ -11,6 +11,7 @@ export default {
       'instruction-for': 'Instruction for',
       'last-updated': 'Last updated',
       'not-configured': 'Not Configured',
+      continue: 'Continue',
       active: 'Active',
       automatic: 'Automatic',
       back: 'Back',
@@ -91,8 +92,8 @@ export default {
         'forgot-password': 'Forgot Password?',
         'authentication-succeeded': 'Authentication Succeeded',
         'recover-multi-factor': 'Recover Multi-Factor',
-        'please-enter-the-6-digit-code': 'Please enter the 6 digit code',
-        'please-enter-the-recovery-code': 'Please enter the recovery code',
+        'please-enter-the-6-digit-code': 'Please enter the 6 digit code from your authenticator app',
+        'please-enter-the-recovery-code': 'Please enter your MFA recovery code',
         'disable-mfa': 'Disable MFA',
         'redirect-to-sso-message': 'Being redirected to your SSO provider...',
         'disable-two-factor-title': 'Having trouble?',
@@ -176,8 +177,17 @@ export default {
             'steps-1': 'Download the IDP federation metadata XML',
             'steps-2': 'Click on next to step 2',
             'steps-3': 'Upload the IDP metadata XML',
-            'steps-4': 'Click "Validate & Save"',
+            'steps-4': 'Click "Configure"',
             'step-by-step': 'Detailed step by step',
+            oidc: {
+              'steps-0': 'Create an entry for the application on the IDP',
+              'steps-1': 'Enter ASC URL',
+              'steps-2': 'Click on next to step 2',
+              'steps-3': 'Enter Client Id',
+              'steps-4': 'Enter Secret Key',
+              'steps-5': 'Click "Configure"',
+              'step-by-step': 'Detailed step by step',
+            },
           },
           select: {
             title: 'Select your IDP',
@@ -229,6 +239,7 @@ export default {
         'disable-button': 'Disable MFA',
         verify: {
           message: 'Enable two-factor to get an extra layer of security.',
+          forceMfaMessage: 'Multi-Factor authentication is required in order to access the account.',
           'scan-qr-description-1': `Use your phone to scan the following QR code with `,
           'scan-qr-description-2': ` or other authenticator apps.`,
           'enter-generated-code': 'Enter the generated 6-digit code below.',
@@ -236,7 +247,7 @@ export default {
         'recovery-code': {
           message: 'Recovery code can be used to disable two-factor authentication in case you lose your phone.',
           'your-code': 'Your recovery code',
-          'copy-and-save-code': `Copy and save the code, because we won't show it again. We don't scare you ;)`,
+          'copy-and-save-code': `Copy and save the code, because we won't show it again.`,
         },
         disable: {
           message: 'Disable two-factor will remove an extra layer of security.',
@@ -344,7 +355,7 @@ export default {
       addHook: 'Create Hook',
       webhook: 'Webhooks',
       selectAll: 'SELECT ALL IN THE {{name}} CATEGORY',
-      secretKeyHelp: 'JWT signed with this secret will be sent in the header "frontegg-secret" of the webhook request',
+      secretKeyHelp: 'JWT signed with this secret will be sent in the header "x-webhook-secret" of the webhook request',
       recipients: {
         wrongEmail: 'One of the email addresses is wrong.',
         wrongPhone: 'One of the phone numbers is wrong.',

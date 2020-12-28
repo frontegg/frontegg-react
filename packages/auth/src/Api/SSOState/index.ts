@@ -3,6 +3,7 @@ import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
 import { ISamlConfiguration } from '@frontegg/rest-api';
 import { WithCallback } from '../interfaces';
+import { SamlVendors } from './../../SSO/SSOConfigureIDPPage/SSOVendors';
 
 export * from './interfaces';
 
@@ -23,7 +24,7 @@ export const ssoActions = {
   loadSSOAuthorizationRoles: createAction(`${storeName}/loadSSOAuthorizationRoles`),
   saveSSOConfigurations: createAction(
     `${storeName}/saveSSOConfigurations`,
-    (payload: WithCallback<Partial<ISamlConfiguration>>) => ({
+    (payload: WithCallback<Partial<ISamlConfiguration & { samlVendor: SamlVendors }>>) => ({
       payload,
     })
   ),

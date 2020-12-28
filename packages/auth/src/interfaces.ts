@@ -4,6 +4,7 @@ import { ForgotPasswordProps } from './ForgotPassword';
 import { ResetPasswordProps } from './ResetPassword';
 import { ActivateAccountProps } from './ActivateAccount';
 import { AcceptInvitationProps } from './AcceptInvitation';
+import { SignUpProps } from './SignUp';
 
 export type AuthPageRoutes = {
   /**
@@ -58,6 +59,7 @@ export interface PerPageHeader {
   acceptInvitation?: ReactNode;
   loginWithSSO?: ReactNode;
   socialLoginsSuccess?: ReactNode;
+  signUp?: ReactNode;
 }
 
 export type HeaderProps = { header?: ReactNode; headerImg?: string };
@@ -71,6 +73,7 @@ export interface PerPageProps {
   acceptInvitation?: AcceptInvitationProps & HeaderProps;
   loginWithSSO?: LoginWithSSOProps & HeaderProps;
   socialLoginsSuccess?: HeaderProps;
+  signUp?: SignUpProps & HeaderProps;
 }
 
 export type PageComponentProps = HeaderProps & {

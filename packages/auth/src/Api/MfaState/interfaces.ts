@@ -9,4 +9,5 @@ export interface MFAState {
   error?: any;
   recoveryCode?: string;
   qrCode?: string | null; // qr code image base64
+  mfaToken?: string;
 }

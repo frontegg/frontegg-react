@@ -106,7 +106,8 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
               Cell: ({ row: { index: rowIndex } }) => (
                 <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].isActive`} />
               ),
-              maxWidth: 40,
+              maxWidth: 50,
+              minWidth: 50,
             },
             {
               accessor: 'slackEvents',
@@ -183,7 +184,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   }
 
   return (
-    <FFormik.Formik enableReinitialize initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
+    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {Search}

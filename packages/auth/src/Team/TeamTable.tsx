@@ -59,6 +59,7 @@ export const TeamTable: FC = (props) => {
         ? [
             {
               accessor: 'roleIds',
+              minWidth: 300,
               Header: t('common.roles') ?? '',
               Cell: TeamTableRoles(user?.id, roleOptions),
             },

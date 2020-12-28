@@ -1,11 +1,12 @@
 name: Push Workflow
-
 on:
+  # When after commit pushed to branches not master nad release/next
   push:
-    branches:
-      - '*'
-      - '!master'
-      - '!release/next'
+    branches-ignore:
+      - 'master'
+      - 'release/next'
+env:
+  CI: true
 jobs:
   init:
     name: 'Install, Build and Test'
