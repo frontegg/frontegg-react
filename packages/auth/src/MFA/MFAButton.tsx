@@ -21,7 +21,7 @@ const EnrollButton = (props: MFAButtonProps) => {
   if (user?.mfaEnrolled) {
     return null;
   }
-  const children = props.children ?? <Button type='submit'>{t('auth.mfa.enroll-button')}</Button>;
+  const children = props.children ?? <Button data-test-id="enroll-btn" type='submit'>{t('auth.mfa.enroll-button')}</Button>;
   return React.cloneElement(children as any, { onClick: openEnrollDialog });
 };
 const DisableButton = (props: MFAButtonProps) => {
@@ -32,7 +32,7 @@ const DisableButton = (props: MFAButtonProps) => {
   }
   const { openDisableDialog } = useContext(MFAButtonContext);
   const children = props.children ?? (
-    <Button type='submit' variant='danger'>
+    <Button type='submit' variant='danger' data-test-id="mfa-btn">
       {t('auth.mfa.disable-button')}
     </Button>
   );

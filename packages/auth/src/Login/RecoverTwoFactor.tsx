@@ -39,7 +39,7 @@ export const RecoverTwoFactor: FC<RecoverTwoFactorProps> = (props) => {
       <FForm>
         <FInput name='code' label={t('auth.login.please-enter-the-recovery-code')} />
 
-        <FButton type='submit' variant='primary' loading={loading}>
+        <FButton type='submit' variant='primary' loading={loading} data-test-id="submit-btn"> 
           {t('auth.login.disable-mfa')}
         </FButton>
         <ErrorMessage error={error} />

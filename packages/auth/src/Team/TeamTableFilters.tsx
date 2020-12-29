@@ -37,6 +37,7 @@ export const TeamRolesFilter: FilterComponent = ({ value, setFilterValue, closeP
           <Grid item xs={2} />
           <Grid item xs={5}>
             <Button
+              data-test-id="selectroles-btn"
               fullWidth
               variant='primary'
               onClick={() => {

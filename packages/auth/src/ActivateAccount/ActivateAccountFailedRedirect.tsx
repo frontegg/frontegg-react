@@ -25,6 +25,7 @@ export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProp
         {t('auth.activate-account.failed-description')}
       </div>
       <Button
+        data-test-id="activate-btn"
         fullWidth
         onClick={() => {
           resetActivateState();
