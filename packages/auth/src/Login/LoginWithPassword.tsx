@@ -94,7 +94,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             label={t('auth.login.email')}
             placeholder='name@example.com'
             onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
-            data-testid="email-box"
+            data-testid='email-box'
           />
 
           {shouldDisplayPassword && (
@@ -106,11 +106,11 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
               name='password'
               placeholder={t('auth.login.enter-your-password')}
               disabled={!shouldDisplayPassword}
-              data-testid="passwors-box"
+              data-testid='passwors-box'
             />
           )}
 
-          <FButton type='submit' fullWidth variant={'primary'} loading={loading} data-testid="submit-btn">
+          <FButton type='submit' fullWidth variant={'primary'} loading={loading} data-testid='submit-btn'>
             {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
           </FButton>
 

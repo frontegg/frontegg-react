@@ -63,7 +63,7 @@ export const TeamAddUserDialog: FC = (props) => {
             name='name'
             disabled={loading}
             placeholder={t('common.enter-name')}
-            data-test-id="name-box"
+            data-test-id='name-box'
           />
           <FInput
             label={t('common.email')}
@@ -71,7 +71,7 @@ export const TeamAddUserDialog: FC = (props) => {
             name='email'
             disabled={loading}
             placeholder={t('common.enter-email')}
-            data-test-id="email-box"
+            data-test-id='email-box'
           />
           <FSelect
             size='large'
@@ -81,22 +81,34 @@ export const TeamAddUserDialog: FC = (props) => {
             disabled={loading}
             placeholder={t('common.select')}
             options={roleOptions}
-            data-test-id="roles-dropdown"
+            data-test-id='roles-dropdown'
           />
 
           <ErrorMessage error={error} />
           <div className='fe-dialog__footer'>
             <Grid container>
               <Grid xs item>
-                <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeAddUserDialog()}>
+                <Button
+                  size='large'
+                  isCancel
+                  fullWidth={false}
+                  disabled={loading}
+                  onClick={() => closeAddUserDialog()}
+                  data-test-id='x-btn'
+                >
                   {t('common.cancel')}
-                  data-test-id"x-btn"
                 </Button>
               </Grid>
               <Grid xs item className='fe-text-align-end'>
-                <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
+                <FButton
+                  type='submit'
+                  size='large'
+                  fullWidth={false}
+                  variant='primary'
+                  loading={loading}
+                  data-test-id='invite-btn'
+                >
                   {t('common.invite')}
-                  data-test-id"invite-btn"
                 </FButton>
               </Grid>
             </Grid>
