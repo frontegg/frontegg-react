@@ -6,7 +6,10 @@ import { activateSagas } from './ActivateState/saga';
 import { acceptInvitationSagas } from './AcceptInvitationState/saga';
 import { loginSagas } from './LoginState/saga';
 import { teamSagas } from './TeamState/saga';
+import { socialLoginsSaga } from './SocialLogins/saga';
+import { signUpSaga } from './SignUp/saga';
 import { all, call } from 'redux-saga/effects';
+import { apiTokensSaga } from './ApiTokensState/saga';
 
 export function* sagas() {
   yield all([
@@ -18,5 +21,8 @@ export function* sagas() {
     call(profileSagas),
     call(mfaSagas),
     call(teamSagas),
+    call(socialLoginsSaga),
+    call(signUpSaga),
+    call(apiTokensSaga),
   ]);
 }

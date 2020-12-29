@@ -37,8 +37,11 @@ export const SSOClaimDomainForm: FC<SSOClaimDomainFormProps> = (props) => {
         })}
         validateOnChange
         initialValues={{ domain: samlConfiguration?.domain ?? '' }}
-        onSubmit={({ domain }) => {
-          samlConfiguration?.domain === domain ? validateSSODomain() : saveSSOConfigurations({ domain });
+        onSubmit={({ domain }, { setSubmitting }) => {
+          const callback = () => setSubmitting(false);
+          samlConfiguration?.domain === domain
+            ? validateSSODomain({ callback })
+            : saveSSOConfigurations({ callback, domain });
         }}
       >
         <FForm>{children}</FForm>

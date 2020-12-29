@@ -24,7 +24,18 @@ function* resetPassword({ payload }: PayloadAction<IResetPassword>) {
   }
 }
 
+export function* loadPasswordConfig() {
+  yield put(actions.setForgotPasswordState({ loading: true }));
+  try {
+    const passwordConfig = yield call(api.auth.loadPasswordConfig);
+    yield put(actions.setForgotPasswordState({ loading: false, passwordConfig }));
+  } catch (e) {
+    yield put(actions.setForgotPasswordState({ loading: false, error: e.message }));
+  }
+}
+
 export function* forgotPasswordSagas() {
   yield takeLeading(actions.forgotPassword, forgotPassword);
   yield takeLeading(actions.resetPassword, resetPassword);
+  yield takeLeading(actions.loadPasswordConfig, loadPasswordConfig);
 }

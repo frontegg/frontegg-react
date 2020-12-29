@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useEffect } from 'react';
+import React, { ComponentType, createElement, FC, useCallback, useEffect } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import { LoginStep } from '../Api/LoginState';
 import {
@@ -13,14 +13,16 @@ import {
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
-const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes }: AuthState) => ({
+const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes, signUpState }: AuthState) => ({
   ...loginState,
   isSSOAuth,
   onRedirectTo,
   routes,
+  signUpState,
 });
 
 export type LoginWithPasswordRendererProps = Omit<LoginWithPasswordProps, 'renderer'> &
@@ -48,6 +50,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     setForgotPasswordState,
     resetLoginState,
     onRedirectTo,
+    signUpState,
   } = authState;
   const backToPreLogin = () => setLoginState({ step: LoginStep.preLogin });
 
@@ -77,46 +80,62 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     children: t('auth.login.forgot-password'),
   });
 
+  const redirectToSignUp = useCallback(() => {
+    onRedirectTo(routes.signUpUrl);
+  }, []);
+
+  const signUpMessage = !signUpState.allowSignUps ? null : (
+    <div>
+      {t('auth.login.suggest-sign-up.message')}
+      <span onClick={redirectToSignUp} className={'fe-login-component__back-to-sign-up-link'} data-testid='email-box'>
+        {t('auth.login.suggest-sign-up.sign-up-link')}
+      </span>
+    </div>
+  );
+
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={validateSchema(validationSchema)}
-      onSubmit={async ({ email, password }) => {
-        shouldDisplayPassword ? login({ email, password }) : preLogin({ email });
-      }}
-    >
-      {({ values }) => (
-        <FForm>
-          <FInput
-            name='email'
-            type='email'
-            size='large'
-            label={t('auth.login.email')}
-            placeholder='name@example.com'
-            onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
-            data-testid='email-box'
-          />
-
-          {shouldDisplayPassword && (
+    <>
+      {signUpMessage}
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={validateSchema(validationSchema)}
+        onSubmit={async ({ email, password }) => {
+          shouldDisplayPassword ? login({ email, password }) : preLogin({ email });
+        }}
+      >
+        {({ values }) => (
+          <FForm>
             <FInput
+              name='email'
+              type='email'
               size='large'
-              label={t('auth.login.password')}
-              labelButton={labelButtonProps(values)}
-              type='password'
-              name='password'
-              placeholder={t('auth.login.enter-your-password')}
-              disabled={!shouldDisplayPassword}
-              data-testid='passwors-box'
+              label={t('auth.login.email')}
+              placeholder='name@example.com'
+              onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
+              data-testid='email-box'
             />
-          )}
 
-          <FButton type='submit' fullWidth variant={'primary'} loading={loading} data-testid='submit-btn'>
-            {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
-          </FButton>
+            {shouldDisplayPassword && (
+              <FInput
+                size='large'
+                label={t('auth.login.password')}
+                labelButton={labelButtonProps(values)}
+                type='password'
+                name='password'
+                placeholder={t('auth.login.enter-your-password')}
+                disabled={!shouldDisplayPassword}
+                data-testid='passwors-box'
+              />
+            )}
 
-          <ErrorMessage separator error={error} />
-        </FForm>
-      )}
-    </Formik>
+            <FButton type='submit' fullWidth variant={'primary'} loading={loading} data-testid='sumbit-btn'>
+              {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
+            </FButton>
+
+            <ErrorMessage separator error={error} />
+          </FForm>
+        )}
+      </Formik>
+    </>
   );
 };

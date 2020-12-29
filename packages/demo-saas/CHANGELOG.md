@@ -3,6 +3,188 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.2](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.2) (2020-12-27)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.16.1](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.1) (2020-12-27)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+# [1.16.0](https://github.com/frontegg/frontegg-react/compare/v1.15.2...v1.16.0) (2020-12-24)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.15.2](https://github.com/frontegg/frontegg-react/compare/v1.15.1...v1.15.2) (2020-12-24)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.15.1](https://github.com/frontegg/frontegg-react/compare/v1.15.0...v1.15.1) (2020-12-21)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+# [1.15.0](https://github.com/frontegg/frontegg-react/compare/v1.14.1...v1.15.0) (2020-12-20)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.14.1](https://github.com/frontegg/frontegg-react/compare/v1.14.0...v1.14.1) (2020-12-17)
+
+
+### Bug Fixes
+
+* Fix create new webhooks button typo ([0be76c3](https://github.com/frontegg/frontegg-react/commit/0be76c38a771996ad849a027b752fb7107b9d3db))
+
+
+
+
+
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* Fix profile tabs color ([3ab5742](https://github.com/frontegg/frontegg-react/commit/3ab57426355700c05930075c014faa2c10456b9c))
+
+
+### Features
+
+* **auth:** Api tokens component for users and tenants ([c8b1e17](https://github.com/frontegg/frontegg-react/commit/c8b1e176bee4f4402afbd9625841312428c14b75))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **audits:** FR-999 add x btn for ip popup ([6efc8ea](https://github.com/frontegg/frontegg-react/commit/6efc8ea6e229b6434d75f9af59c0b6f0993ec9cd))
+
+
+
+
+
+# [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* fix testId error in material components ([0e3d2a6](https://github.com/frontegg/frontegg-react/commit/0e3d2a610f762d9065eee261dd996ecea77e1c8d)), closes [#119](https://github.com/frontegg/frontegg-react/issues/119)
+
+
+
+
+
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* **audits:** FR-1002 add globe icon when location is unknown ([53265fd](https://github.com/frontegg/frontegg-react/commit/53265fd5cdc56d3fc141ad77469d452e2f6dc430))
+
+
+
+
+
+## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+# [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
+
+
+### Features
+
+* **ci:** add option to publish prerelease version ([0ff0c67](https://github.com/frontegg/frontegg-react/commit/0ff0c672f86eacf175790b89173f1c6e34789b7e))
+
+
+
+
+
+# [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+# [1.9.0](https://github.com/frontegg/frontegg-react/compare/v1.8.0...v1.9.0) (2020-11-25)
+
+
+### Features
+
+* **auth:** New AccountDropdown component added to AuthPlugin ([018f2f8](https://github.com/frontegg/frontegg-react/commit/018f2f8db3ad22981f9270bd2e166b56cf6eb7ff))
+* New plugin for Audits ([#106](https://github.com/frontegg/frontegg-react/issues/106)) ([921b37a](https://github.com/frontegg/frontegg-react/commit/921b37aca98f23c800c8b5d094ed595d52617679))
+
+
+
+
+
+# [1.8.0](https://github.com/frontegg/frontegg-react/compare/v1.7.0...v1.8.0) (2020-11-23)
+
+
+### Features
+
+* Add Connectivity Plugin ([#98](https://github.com/frontegg/frontegg-react/issues/98)) ([db77431](https://github.com/frontegg/frontegg-react/commit/db77431b6d744b93431430543019fedd1c0dbae2))
+
+
+
+
+
+# [1.7.0](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.7.0) (2020-11-22)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.6.2](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.6.2) (2020-11-19)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
 ## [1.6.1](https://github.com/frontegg/frontegg-react/compare/v1.6.0...v1.6.1) (2020-11-15)
 
 

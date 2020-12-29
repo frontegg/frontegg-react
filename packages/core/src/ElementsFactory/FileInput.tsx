@@ -26,27 +26,28 @@ export const FFileInput: FC<FileInputProps & { name: string }> = ({ validation, 
   const { setFieldError } = useFormikContext();
 
   return (
-    <FileInput
-      {...props}
-      type='file'
-      style={{ display: 'none', ...props.style }}
-      onChange={async (e) => {
-        e.persist();
-        const selectedFile = e.target.files?.[0];
+    <span style={{ display: 'none' }}>
+      <FileInput
+        {...props}
+        type='file'
+        onChange={async (e) => {
+          e.persist();
+          const selectedFile = e.target.files?.[0];
 
-        if (selectedFile) {
-          const errorMessage = (await validation?.(selectedFile)) ?? null;
-          if (errorMessage) {
-            setFieldError(field.name, errorMessage);
-            return;
+          if (selectedFile) {
+            const errorMessage = (await validation?.(selectedFile)) ?? null;
+            if (errorMessage) {
+              setFieldError(field.name, errorMessage);
+              return;
+            }
+
+            const content = await toBase64(selectedFile);
+            field.onChange(field.name)(content);
+          } else {
+            field.onChange(field.name)('');
           }
-
-          const content = await toBase64(selectedFile);
-          field.onChange(field.name)(content);
-        } else {
-          field.onChange(field.name)('');
-        }
-      }}
-    />
+        }}
+      />
+    </span>
   );
 };

@@ -11,9 +11,8 @@ import {
   FButton,
   FFormik,
 } from '@frontegg/react-core';
-import { AuthState } from '../Api';
+import { AuthState, LoginStep } from '../Api';
 import { useAuth } from '../hooks';
-import { LoginStep } from '../Api/LoginState';
 
 const { Formik } = FFormik;
 
@@ -45,14 +44,13 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
       <FForm>
         <FInput aria-autocomplete={'none'} label={t('auth.login.please-enter-the-6-digit-code')} name='code' />
 
-        <FButton type='submit' variant='primary' loading={loading}>
+        <FButton type='submit' variant='primary' loading={loading} data-test-id='submit-btn'>
           {t('auth.login.login')}
-          data-test-id="submit-btn"
         </FButton>
 
         <div className='fe-note'>
           <div className='fe-note-title'>{t('auth.login.disable-two-factor-title')}</div>
-          <div className='fe-note-description'>
+          <div className='fe-note-description fe-recover-two-factor'>
             <a
               test-id='recover-two-factor-button'
               onClick={() => {

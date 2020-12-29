@@ -1,5 +1,6 @@
 .fe-popup {
   &__container {
+    z-index: 10;
     border-radius: var(--fe-popup-border-radius, var(--element-border-radius-sm));
     padding: var(--fe-popup-padding, var(--element-padding-lg));
     box-shadow: var(--fe-popup-shadow, var(--popup-shadow));

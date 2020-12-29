@@ -76,6 +76,9 @@ export type ISamlConfiguration = {
   updatedAt?: Date;
   acsUrl?: string;
   spEntityId?: string;
+  oidcClientId?: string;
+  oidcSecret?: string;
+  type?: string;
 };
 export type IUpdateSamlConfiguration = Omit<
   ISamlConfiguration,
@@ -96,3 +99,76 @@ export type ISamlVendorMetadata = {
 export type IUpdateSamlVendorMetadata = {
   metadata: string;
 };
+
+export enum SocialLoginsProviders {
+  Google = 'google',
+  Github = 'github',
+}
+
+export interface ISocialLoginProviderConfiguration {
+  type: SocialLoginsProviders;
+  clientId: string;
+  redirectUrl: string;
+  active: boolean;
+}
+
+export interface ILoginViaSocialLogin {
+  code: string;
+  provider: SocialLoginsProviders;
+}
+
+export interface ISetSocialLoginError {
+  error: string;
+}
+
+export interface IVendorConfig {
+  allowSignups: boolean;
+}
+
+export interface ISignUpUser {
+  email: string;
+  companyName: string;
+  name?: string;
+  password?: string;
+  phoneNumber?: string;
+  metadata?: string /** JSON  */;
+  roleIds?: string[];
+}
+
+export interface ISignUpResponse {
+  shouldActivate: boolean;
+}
+
+export interface IUserApiTokensData {
+  clientId?: string;
+  description: string;
+  metadata?: any;
+  secret?: string;
+}
+
+export interface ITenantApiTokensData {
+  clientId?: string;
+  description: string;
+  tenantId?: string;
+  createdByUserId?: string;
+  metadata?: any;
+  secret?: string;
+  roleIds?: string[];
+}
+
+export interface IUpdateUserApiTokensData {
+  description: string;
+}
+
+export interface IUpdateTenantApiTokensData {
+  description: string;
+  roleIds: string[];
+}
+
+export interface IDeleteApiToken {
+  tokenId: string;
+}
+
+export interface IUpdateSamlRoles {
+  roleIds: Array<string>;
+}

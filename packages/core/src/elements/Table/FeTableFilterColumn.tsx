@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import { FeIcon } from '../Icon/FeIcon';
 import { FeTableColumnProps } from './interfaces';
 import { FePopup } from '../Popup/FePopup';
-import { useDebounce } from '../../hooks';
 
 type FeTableFilterColumnProps<T extends object = any> = {
   prefixCls: string;
@@ -17,14 +16,29 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
   const [filterValue, setFilterValue] = useState(column.filterValue);
-  const debounceFilters = useDebounce(filterValue, 200);
+  const popupRef = useRef<any>(null);
 
-  useEffect(() => onFilterChange?.(column, debounceFilters), [debounceFilters]);
+  useEffect(() => {
+    setFilterValue(column.filterValue);
+  }, [column.filterValue]);
+
+  useEffect(() => setFilterValue(column.filterValue), [column.filterValue]);
+
+  const closePopup = useCallback(() => {
+    popupRef?.current?.hideTooltip?.();
+  }, [popupRef]);
 
   const FilterComponent = column.Filter;
   return (
     <FePopup
-      content={<FilterComponent value={filterValue} setFilterValue={(value) => setFilterValue(value)} />}
+      ref={popupRef}
+      content={
+        <FilterComponent
+          closePopup={closePopup}
+          value={filterValue}
+          setFilterValue={(value) => onFilterChange?.(column, value)}
+        />
+      }
       action={'click'}
       trigger={
         <span>
@@ -32,7 +46,7 @@ export const FeTableFilterColumn: FC<FeTableFilterColumnProps> = <T extends obje
             key={1}
             name='filters'
             className={classNames(`${prefixCls}__filter-button`, {
-              [`${prefixCls}__active-filter}`]: column.filterValue != null,
+              [`${prefixCls}__active-filter`]: column.filterValue != null,
             })}
           />
         </span>

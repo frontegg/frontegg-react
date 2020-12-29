@@ -1,33 +1,33 @@
 
-<p align="center">  
-  <a href="https://www.frontegg.com/" rel="noopener" target="_blank">  
-    <img style="margin-top:40px" height="50" src="https://frontegg.com/wp-content/uploads/2020/04/logo_frrontegg.svg" alt="Frontegg logo">  
-  </a>  
-</p>  
-<h1 align="center">Authentication Plugin</h1>  
-<div align="center">  
+<p align="center">
+  <a href="https://www.frontegg.com/" rel="noopener" target="_blank">
+    <img style="margin-top:40px" height="50" src="https://frontegg.com/wp-content/uploads/2020/04/logo_frrontegg.svg" alt="Frontegg logo">
+  </a>
+</p>
+<h1 align="center">Authentication Plugin</h1>
+<div align="center">
 
-Pre-built Authentication components to easily integrate Auth Components into your [React](https://reactjs.org/) App.  
-</div>  
-  
-## Installation  
-Frontegg-React-Auth is available as an [npm package](https://www.npmjs.com/package/@frontegg/react-core).  
-  
-```sh  
-// using npm  
-npm install @frontegg/react-auth  
-  
-// using yarn  
-yarn add @frontegg/react-auth  
-  
-// NOTE: to get the latest stable use @latest.  
-```   
-## Usage  
-  
-All you need is to add pass AuthPlugin to the ``FronteggProvider``: 
-  
+Pre-built Authentication components to easily integrate Auth Components into your [React](https://reactjs.org/) App.
+</div>
 
-```jsx  
+## Installation
+Frontegg-React-Auth is available as an [npm package](https://www.npmjs.com/package/@frontegg/react-core).
+
+```sh
+// using npm
+npm install @frontegg/react-auth
+
+// using yarn
+yarn add @frontegg/react-auth
+
+// NOTE: to get the latest stable use @latest.
+```
+## Import
+
+All you need is to add pass AuthPlugin to the ``FronteggProvider``:
+
+
+```jsx
 /* imports */
 import { FronteggProvider } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
@@ -41,11 +41,11 @@ ReactDOM.render(
       ]}>
     <App />
   </FronteggProvider>
-</BrowserRouter>, document.querySelector('#app'));  
+</BrowserRouter>, document.querySelector('#app'));
 ```
 
 ## Options and Customizations
-**Frontegg-React-Auth** provide the ability to fully customize your components 
+**Frontegg-React-Auth** provide the ability to fully customize your components
 to align it with your App UI design.
 
 - [`header`](#header-reactnode) `<ReactNode>`
@@ -75,7 +75,7 @@ const plugins = [
 ```jsx
 const plugins = [
   AuthPlugin({
-    backgroundImage: 'https://image_url' | 'data:image/png;base64,...',  
+    backgroundImage: 'https://image_url' | 'data:image/png;base64,...',
     //...rest options
   })
 ];
@@ -87,7 +87,7 @@ const plugins = [
 ```jsx
 const plugins = [
   AuthPlugin({
-    backgroundColor: '#FAFAFA' | 'red' | 'rgb(200,200,200)',  
+    backgroundColor: '#FAFAFA' | 'red' | 'rgb(200,200,200)',
     //...rest options
   })
 ];
@@ -95,12 +95,12 @@ const plugins = [
 
 ### `loaderComponent <ReactNode>`
 
-*(optional)* React Component displayed in first load while resolving the verifying the authenticated user, refreshing the token, 
-and to check if the user should be redirected to login page. 
+*(optional)* React Component displayed in first load while resolving the verifying the authenticated user, refreshing the token,
+and to check if the user should be redirected to login page.
 ```jsx
 const plugins = [
   AuthPlugin({
-    loaderComponent: <MyLoaderComponent>,  
+    loaderComponent: <MyLoaderComponent>,
     //...rest options
   })
 ];
@@ -109,40 +109,46 @@ const plugins = [
 ### `routes <string[]>`
 
 *(optional)* Path routes for Authentication Components, these pathes used to redirect
-the user to a specific route depends on authentication state. 
+the user to a specific route depends on authentication state.
 ```jsx
 const plugins = [
   AuthPlugin({
     routes: {
       /**
-       * the page whither need to redirect in the case when a user is authenticated 
+       * the page whither need to redirect in the case when a user is authenticated
        */
       authenticatedUrl: '/',
       /**
-       * the page whither need to redirect in the case when a user is not authenticated 
-       */      
+       * the page whither need to redirect in the case when a user is not authenticated
+       */
       loginUrl: '/account/login',
       /**
-       * navigating to this url, AuthProvider will logout and remove coockies 
+       * navigating to this url, AuthProvider will logout and remove coockies
        */
       logoutUrl: '/account/logout',
       /**
-       * the page whither need to redirect in the case when a user want to activate his account 
+       * the page whither need to redirect in the case when a user want to activate his account
        */
       activateUrl: '/account/activate',
       /**
-       * the page in the case a user forgot his account password 
+       * the page in the case a user forgot his account password
        */
       forgetPasswordUrl: '/account/forgot/password',
       /**
-       * the page whither need to redirect in the case when a user redirected from reset password url 
+       * the page whither need to redirect in the case when a user redirected from reset password url
        */
       resetPasswordUrl: '/account/reset/password',
-    },  
+    },
     //...rest options
   })
 ];
 ```
+
+## Implementing custom React UI on top of Frontegg API
+Implementation of custom and dedicated UI on top of the Frontegg `stateful` API is available by following our docs on the [React API section](https://github.com/frontegg/frontegg-react/tree/master/packages/auth/src/Api).
+
+In case you want to implement your states on top of our stateless API follow our docs on the [REST API section](https://github.com/frontegg/frontegg-react/tree/master/packages/rest-api/src/auth).
+
 
 ## Contributing
 

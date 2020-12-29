@@ -1,16 +1,31 @@
-import { all, call, delay, put, select, takeLeading } from 'redux-saga/effects';
+import { all, call, delay, put, putResolve, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
-import { api, ContextHolder, ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
+import {
+  api,
+  ContextHolder,
+  ILogin,
+  ILoginWithMfa,
+  IPostLogin,
+  IPreLogin,
+  IRecoverMFAToken,
+  ISwitchTenant,
+  ITenantsResponse,
+} from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { LoginStep } from './interfaces';
 import { WithCallback } from '../interfaces';
+import { loadSocialLoginsConfigurations } from '../SocialLogins/saga';
+import { AuthPageRoutes } from '../../interfaces';
+import { loadAllowSignUps } from '../SignUp/saga';
+import { MFAStep } from '../MfaState';
 
-function* afterAuthNavigation() {
+export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
-  let { authenticatedUrl } = routes;
+  const { loginUrl, logoutUrl } = routes as AuthPageRoutes;
+  let { authenticatedUrl } = routes as AuthPageRoutes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  if (afterAuthRedirect && afterAuthRedirect !== routes.loginUrl) {
+  if (afterAuthRedirect && ![loginUrl, logoutUrl].includes(afterAuthRedirect)) {
     authenticatedUrl = afterAuthRedirect;
   }
   window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
@@ -32,7 +47,7 @@ function* refreshMetadata() {
   yield put(actions.setState({ isSSOAuth, ssoACS }));
 }
 
-function* refreshToken() {
+export function* refreshToken() {
   try {
     const { routes, onRedirectTo } = yield select((state) => state.auth);
     const user = yield call(api.auth.refreshToken);
@@ -40,25 +55,49 @@ function* refreshToken() {
     if (user.mfaRequired && user.mfaToken) {
       ContextHolder.setAccessToken(null);
       ContextHolder.setUser(null);
+
+      let setMfaState = {};
+      let step = LoginStep.success;
+      if (user.mfaRequired && user.mfaToken) {
+        step = LoginStep.loginWithTwoFactor;
+        if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+          setMfaState = {
+            mfaState: {
+              step: MFAStep.verify,
+              qrCode: user.qrCode,
+              recoveryCode: user.recoveryCode,
+              loading: false,
+              mfaToken: user.mfaToken,
+            },
+          };
+          step = LoginStep.forceTwoFactor;
+        }
+      }
+
       yield put(
         actions.setState({
           user: undefined,
           isAuthenticated: false,
+          ...setMfaState,
           loginState: {
             mfaToken: user.mfaToken,
             mfaRequired: user.mfaRequired,
             loading: false,
             error: undefined,
-            step: LoginStep.loginWithTwoFactor,
+            step,
+            tenantsLoading: true,
+            tenants: [],
           },
         })
       );
+      yield put(actions.loadTenants());
       onRedirectTo(routes.loginUrl);
     } else {
       ContextHolder.setAccessToken(user.accessToken);
       ContextHolder.setUser(user);
+      yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
-      if (location.pathname.endsWith(routes.loginUrl)) {
+      if (window.location.pathname.endsWith(routes.loginUrl)) {
         yield afterAuthNavigation();
       }
     }
@@ -75,6 +114,8 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   if (firstTime) {
     yield put(actions.setState({ isLoading: true }));
     calls.push(call(refreshMetadata));
+    calls.push(call(loadSocialLoginsConfigurations));
+    calls.push(call(loadAllowSignUps));
   }
   yield all(calls);
   yield put(actions.setState({ isLoading: false }));
@@ -130,21 +171,43 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
 
-    const step = user.mfaToken ? LoginStep.loginWithTwoFactor : LoginStep.success;
+    let setMfaState = {};
+    let step = LoginStep.success;
+    if (user.mfaRequired && user.mfaToken) {
+      step = LoginStep.loginWithTwoFactor;
+      if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+        setMfaState = {
+          mfaState: {
+            step: MFAStep.verify,
+            qrCode: user.qrCode,
+            recoveryCode: user.recoveryCode,
+            mfaToken: user.mfaToken,
+            loading: false,
+          },
+        };
+        step = LoginStep.forceTwoFactor;
+      }
+    }
+    const isAuthenticated = step === LoginStep.success && !!user.accessToken;
+    const loggedInUser = step === LoginStep.success && step === LoginStep.success ? user : undefined;
     yield put(
       actions.setState({
-        user: !!user.accessToken ? user : undefined,
-        isAuthenticated: !!user.accessToken,
+        user: loggedInUser,
+        isAuthenticated,
+        ...setMfaState,
         loginState: {
           email,
           loading: false,
           error: undefined,
           mfaToken: user.mfaToken,
           step,
+          tenants: [],
+          tenantsLoading: true,
         },
       })
     );
     if (step === LoginStep.success) {
+      yield put(actions.loadTenants());
       yield afterAuthNavigation();
     }
   } catch (e) {
@@ -160,9 +223,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
   }
 }
 
-function* loginWithMfa({
-  payload: { mfaToken, value, callback },
-}: PayloadAction<WithCallback<ILoginWithMfa, boolean>>) {
+function* loginWithMfa({ payload: { mfaToken, value, callback } }: PayloadAction<WithCallback<ILoginWithMfa>>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
@@ -170,11 +231,12 @@ function* loginWithMfa({
     const step = LoginStep.success;
     yield put(
       actions.setState({
-        loginState: { loading: false, error: undefined, step },
+        loginState: { loading: false, error: undefined, step, tenantsLoading: true, tenants: [] },
         user,
         isAuthenticated: true,
       })
     );
+    yield put(actions.loadTenants());
     callback?.(true);
     if (step === LoginStep.success) {
       yield afterAuthNavigation();
@@ -193,6 +255,29 @@ function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
     yield put(actions.setState({ user: undefined, isAuthenticated: false }));
   } catch (e) {
     yield put(actions.setLoginState({ error: e.message, loading: false }));
+  }
+}
+
+function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCallback<ISwitchTenant>>) {
+  yield put(actions.setState({ isLoading: true }));
+  try {
+    yield call(api.tenants.switchTenant, { tenantId });
+    yield putResolve(actions.requestAuthorize(true));
+    callback?.(true);
+  } catch (e) {
+    callback?.(false, e);
+    yield put(actions.setState({ isLoading: false }));
+  }
+}
+
+function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsResponse[]>>) {
+  try {
+    // const tenants = yield call(api.tenants.getTenants);
+    yield put(actions.setLoginState({ tenants: [], tenantsLoading: false }));
+    payload?.callback?.([]);
+  } catch (e) {
+    payload?.callback?.([], e);
+    yield put(actions.setLoginState({ tenantsLoading: false }));
   }
 }
 
@@ -215,4 +300,6 @@ export function* loginSagas() {
   yield takeLeading(actions.logout, logout);
   yield takeLeading(actions.loginWithMfa, loginWithMfa);
   yield takeLeading(actions.recoverMfa, recoverMfa);
+  yield takeLeading(actions.switchTenant, switchTenant);
+  yield takeLeading(actions.loadTenants, loadTenants);
 }

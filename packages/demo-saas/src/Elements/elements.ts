@@ -18,6 +18,20 @@ export const elements: ElementOptions = {
       placeholder: ['Placeholder'],
     },
   },
+  InputChip: {
+    title: 'InputChip',
+    type: 'InputChip',
+    propToOptions: {
+      inputValue: ['', 'test'],
+      chips: [
+        ['chip1', 'chip2'],
+        ['chip1', 'chip2', 'chip3'],
+      ],
+      onChange: [() => {}],
+      onKeyPress: [() => {}],
+      onDelete: [() => {}],
+    },
+  },
   Button: {
     title: 'Buttons',
     type: 'Button',

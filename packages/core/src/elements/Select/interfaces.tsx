@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, FocusEventHandler } from 'react';
 import { Size, Theme } from '../../styles';
 import { FormFieldProps } from '../../ElementsFactory';
 
@@ -16,7 +16,7 @@ export interface StateProps {
 export interface SelectProps<T = any> extends FormFieldProps {
   className?: string;
   name?: string;
-  value?: T[];
+  value?: T[] | SelectOptionProps;
   label?: string;
   error?: string;
   disabled?: boolean;
@@ -28,13 +28,15 @@ export interface SelectProps<T = any> extends FormFieldProps {
   loading?: boolean;
   getOptionLabel?: (option: SelectOptionProps<T>) => string;
   renderOption?: (option: SelectOptionProps<T>, state: StateProps) => ReactNode;
-
   open?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
+  onBlur?: FocusEventHandler<HTMLElement & { name?: string }>;
 
   noOptionsText?: string;
   loadingText?: string;
 
   theme?: Theme;
+
+  disableMenuPortalTarget?: boolean;
 }

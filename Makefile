@@ -95,6 +95,7 @@ test-integration: ##@3 Tests integration test with cypress
 test-component: ##@3 Tests component test with cypress
 	@echo "${YELLOW}Component Test Cypress${RESET}"
 	${MAKE} test-component-auth
+	${MAKE} test-component-audits
 	#${MAKE} test-component-core
 
 test-component-%:
@@ -119,7 +120,9 @@ build: ##@4 Build build all packages
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
 	${MAKE} build-auth
+	${MAKE} build-connectivity
 	${MAKE} build-notifications
+	${MAKE} build-audits
 
 build-%: ##@4 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
@@ -168,3 +171,5 @@ commit:
 pretty:
 	@yarn prettier-hook
 
+demo:
+	cd ./packages/demo-saas && yarn start

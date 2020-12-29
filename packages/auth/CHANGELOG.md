@@ -3,6 +3,244 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.2](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.2) (2020-12-27)
+
+
+### Bug Fixes
+
+* **auth:** add support in dynamic component in login and signup for socail logins ([#192](https://github.com/frontegg/frontegg-react/issues/192)) ([195b977](https://github.com/frontegg/frontegg-react/commit/195b97704618135cb17edc7569019f236dda7fd6))
+* **auth:** fix force mfa recovery code not showing up ([#204](https://github.com/frontegg/frontegg-react/issues/204)) ([f6ce5ac](https://github.com/frontegg/frontegg-react/commit/f6ce5ac2be84c931454051760ae3fcca232b6c12))
+* **auth:** fix some minot texts and css issues on MFA ([#203](https://github.com/frontegg/frontegg-react/issues/203)) ([688cbc7](https://github.com/frontegg/frontegg-react/commit/688cbc75fb1a74730d433d0026841856f666018d))
+* Fix force MFA screen bugs ([#196](https://github.com/frontegg/frontegg-react/issues/196)) ([8d51fb9](https://github.com/frontegg/frontegg-react/commit/8d51fb9794d0d0728bd04a742ce6a3f77845d1fe))
+
+
+
+
+
+## [1.16.1](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.1) (2020-12-27)
+
+
+### Bug Fixes
+
+* **auth:** fix force mfa recovery code not showing up ([#204](https://github.com/frontegg/frontegg-react/issues/204)) ([f6ce5ac](https://github.com/frontegg/frontegg-react/commit/f6ce5ac2be84c931454051760ae3fcca232b6c12))
+* Fix force MFA screen bugs ([#196](https://github.com/frontegg/frontegg-react/issues/196)) ([8d51fb9](https://github.com/frontegg/frontegg-react/commit/8d51fb9794d0d0728bd04a742ce6a3f77845d1fe))
+* **auth:** add support in dynamic component in login and signup for socail logins ([#192](https://github.com/frontegg/frontegg-react/issues/192)) ([195b977](https://github.com/frontegg/frontegg-react/commit/195b97704618135cb17edc7569019f236dda7fd6))
+
+
+
+
+
+# [1.16.0](https://github.com/frontegg/frontegg-react/compare/v1.15.2...v1.16.0) (2020-12-24)
+
+
+### Bug Fixes
+
+* wront state with logged in user ([#198](https://github.com/frontegg/frontegg-react/issues/198)) ([970c99b](https://github.com/frontegg/frontegg-react/commit/970c99b8fd20147d00e30558d3a7c20726136579))
+
+
+
+
+
+## [1.15.2](https://github.com/frontegg/frontegg-react/compare/v1.15.1...v1.15.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* **tests:** Fix two factor authentication tests ([27b3539](https://github.com/frontegg/frontegg-react/commit/27b3539db64d42d86de7630e85340fd5cf3b48ba))
+*  Fix crash state mutation was detected between dispatches ([6f8d8e6](https://github.com/frontegg/frontegg-react/commit/6f8d8e6083742d01ba8bd167436f3c7bf850e146))
+* Fix UI css bugs ([b94b49c](https://github.com/frontegg/frontegg-react/commit/b94b49c020f7a26059ab19b0345d5f266043c8ca))
+
+
+
+
+
+## [1.15.1](https://github.com/frontegg/frontegg-react/compare/v1.15.0...v1.15.1) (2020-12-21)
+
+
+### Bug Fixes
+
+* **auth:** fix authorized content data validation ([2728cd9](https://github.com/frontegg/frontegg-react/commit/2728cd9f51b8c3404a09870ff256ba07dbcc1d6c))
+
+
+
+
+
+# [1.15.0](https://github.com/frontegg/frontegg-react/compare/v1.14.1...v1.15.0) (2020-12-20)
+
+
+### Features
+
+* Add new component `AuthorizedContent` to strict content visibility by permission ([e4be8dc](https://github.com/frontegg/frontegg-react/commit/e4be8dc758b185a88f7b42960c733e7c6763d748))
+
+
+
+
+
+## [1.14.1](https://github.com/frontegg/frontegg-react/compare/v1.14.0...v1.14.1) (2020-12-17)
+
+
+### Bug Fixes
+
+* Fix AccountDropdown style bugs ([dde2680](https://github.com/frontegg/frontegg-react/commit/dde26808277b12695c9dcf9daa7dd79f04d1ef88))
+* **auth:** [FR-1080] fix social login wrapper ([f825fc7](https://github.com/frontegg/frontegg-react/commit/f825fc7378780944f9edee94e4f920a99912c5a5))
+* change primary color to darker blue ([04f94bd](https://github.com/frontegg/frontegg-react/commit/04f94bd5caa1135560e89cf0c886a4b81665956a))
+* Fix infinite loading in switch tenant popup ([78a63c1](https://github.com/frontegg/frontegg-react/commit/78a63c1affa2cd05b4a556d63d692f3ed0380788))
+* Fix search bar alignments and ui bug fixes ([dd51197](https://github.com/frontegg/frontegg-react/commit/dd5119705cad6e379459171e34a5a3abe4d891ff))
+* Re-enable fields in SSO claim domain in validation failed ([4fb385c](https://github.com/frontegg/frontegg-react/commit/4fb385c544d03658964b40285b9ec8041250d269))
+* remove switch tenant button user only have on tenant ([c3b5df5](https://github.com/frontegg/frontegg-react/commit/c3b5df52cce439537ab7a483abaf4645d6fa7d1a))
+* **auth:** fix loader api tokens table loader, some improvements ([8db076f](https://github.com/frontegg/frontegg-react/commit/8db076f91de61358577b304cc955151850ff4cfa))
+
+
+
+
+
+# [1.14.0](https://github.com/frontegg/frontegg-react/compare/v1.13.2...v1.14.0) (2020-12-16)
+
+
+### Bug Fixes
+
+* disable profile image uploader limitation ([07e082e](https://github.com/frontegg/frontegg-react/commit/07e082e8e4ff551b84fa277a8476e676f503ff2e))
+* Fix MFA cancel button size ([be9a44b](https://github.com/frontegg/frontegg-react/commit/be9a44b2df12a9beac07198a2aaa82c3bd940717))
+* Fix profile tabs color ([3ab5742](https://github.com/frontegg/frontegg-react/commit/3ab57426355700c05930075c014faa2c10456b9c))
+* UI enhancements for SSO components ([6be3aea](https://github.com/frontegg/frontegg-react/commit/6be3aea9e54aa56e4f28da3d63a81df500435fab))
+* Update components primary color ([ee6d08e](https://github.com/frontegg/frontegg-react/commit/ee6d08ec880fc7ae9427d993a544385db8d3da5b))
+
+
+### Features
+
+* **auth:** Api tokens component for users and tenants ([c8b1e17](https://github.com/frontegg/frontegg-react/commit/c8b1e176bee4f4402afbd9625841312428c14b75))
+
+
+
+
+
+## [1.13.2](https://github.com/frontegg/frontegg-react/compare/v1.13.1...v1.13.2) (2020-12-13)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+## [1.13.1](https://github.com/frontegg/frontegg-react/compare/v1.13.0...v1.13.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **auth:** fix google social login scopes. closes [#159](https://github.com/frontegg/frontegg-react/issues/159) ([0ddb2ca](https://github.com/frontegg/frontegg-react/commit/0ddb2ca54f250900f79a1f52382469922d371c12))
+
+
+
+
+
+# [1.13.0](https://github.com/frontegg/frontegg-react/compare/v1.12.0...v1.13.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* fix testId error in material components ([0e3d2a6](https://github.com/frontegg/frontegg-react/commit/0e3d2a610f762d9065eee261dd996ecea77e1c8d)), closes [#119](https://github.com/frontegg/frontegg-react/issues/119)
+* **auth:** loadUsers on TeamTable did mount ([9b8ff6b](https://github.com/frontegg/frontegg-react/commit/9b8ff6b033e2f9973109e618b5ce9da91eec7ec3))
+
+
+### Features
+
+* [FR-808] add support in users sign ups ([1a6f7c3](https://github.com/frontegg/frontegg-react/commit/1a6f7c3639ab4c351593d540296e67f65293bbf9))
+
+
+
+
+
+# [1.12.0](https://github.com/frontegg/frontegg-react/compare/v1.11.1...v1.12.0) (2020-12-09)
+
+
+### Bug Fixes
+
+* prevent after login redirect if it is in auth routes ([ae0371d](https://github.com/frontegg/frontegg-react/commit/ae0371d82e5fa3b99349d74f9cd0c7d6754cd710)), closes [#108](https://github.com/frontegg/frontegg-react/issues/108)
+* split AuditsPage to separated components ([9aa109a](https://github.com/frontegg/frontegg-react/commit/9aa109a09a357333788abab845f9ff906e636cc3))
+* **auth:** add missing css variables for authentication pages ([4bb2c66](https://github.com/frontegg/frontegg-react/commit/4bb2c66f292aa1794e456516eb928c156186a0f5))
+
+
+
+
+
+## [1.11.1](https://github.com/frontegg/frontegg-react/compare/v1.11.0...v1.11.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* **auth:** add exports for socialLogins components ([018b5ea](https://github.com/frontegg/frontegg-react/commit/018b5eaa8b4758c38103e7052944ce8047a275b3))
+
+
+
+
+
+# [1.11.0](https://github.com/frontegg/frontegg-react/compare/v1.10.0...v1.11.0) (2020-11-30)
+
+
+### Bug Fixes
+
+* **auth:** add missing query and hash after login redirect ([#135](https://github.com/frontegg/frontegg-react/issues/135)) ([87f36aa](https://github.com/frontegg/frontegg-react/commit/87f36aa21ddeb3aadc3153411b6679360879d02a)), closes [#134](https://github.com/frontegg/frontegg-react/issues/134)
+* [FR-815] change password policy to be aligned with backend ([fbc9abf](https://github.com/frontegg/frontegg-react/commit/fbc9abfa776b9f7ac0a8f3c89eaa5c6a39b320b6))
+* **auth:** fix team management roles dropdown ui ([#126](https://github.com/frontegg/frontegg-react/issues/126)) ([c74949b](https://github.com/frontegg/frontegg-react/commit/c74949b2dc409c5af7f00d5d1c0b985c74d3da56))
+
+
+
+
+
+# [1.10.0](https://github.com/frontegg/frontegg-react/compare/v1.9.0...v1.10.0) (2020-11-27)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+# [1.9.0](https://github.com/frontegg/frontegg-react/compare/v1.8.0...v1.9.0) (2020-11-25)
+
+
+### Bug Fixes
+
+* **auth:** fix social logins loader ([#116](https://github.com/frontegg/frontegg-react/issues/116)) ([e965d3d](https://github.com/frontegg/frontegg-react/commit/e965d3db6a423a0457dc89471418f70c57f2e856))
+
+
+### Features
+
+* **auth:** New AccountDropdown component added to AuthPlugin ([018f2f8](https://github.com/frontegg/frontegg-react/commit/018f2f8db3ad22981f9270bd2e166b56cf6eb7ff))
+
+
+
+
+
+# [1.8.0](https://github.com/frontegg/frontegg-react/compare/v1.7.0...v1.8.0) (2020-11-23)
+
+
+### Features
+
+* **auth:** Add support in google and github social logins ([#111](https://github.com/frontegg/frontegg-react/issues/111)) ([938b04c](https://github.com/frontegg/frontegg-react/commit/938b04cba618e2029b55ff4c39d5c0fc0d884e6b))
+
+
+
+
+
+# [1.7.0](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.7.0) (2020-11-22)
+
+
+### Features
+
+* resolve saga actions outside fronteggprovider ([7878beb](https://github.com/frontegg/frontegg-react/commit/7878bebf49b5131fcdf16bbd21c1bcab03c2d1ae))
+
+
+
+
+
+## [1.6.2](https://github.com/frontegg/frontegg-react/compare/v1.6.1...v1.6.2) (2020-11-19)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
 ## [1.6.1](https://github.com/frontegg/frontegg-react/compare/v1.6.0...v1.6.1) (2020-11-15)
 
 

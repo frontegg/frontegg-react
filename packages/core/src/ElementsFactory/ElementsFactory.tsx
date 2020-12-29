@@ -18,9 +18,12 @@ import { FeTable } from '../elements/Table/FeTable';
 import { FeForm } from '../elements/Form/FeForm';
 import { FeTabs } from '../elements/Tabs/FeTabs';
 import { FeMenu } from '../elements/Menu/FeMenu';
+import { FeMenuItem } from '../elements/MenuItem/FeMenuItem';
 import { FeDialog } from '../elements/Dialog/FeDialog';
+import { FeInputChip } from '../elements/InputChip/FeInputChip';
+import { FePagination } from '../elements/Pagination/FePagination';
 
-export const fronteggElements: Partial<Elements> = {
+export const fronteggElements: Elements = {
   Accordion: FeAccordion,
   AccordionHeader: FeAccordionHeader,
   AccordionContent: FeAccordionContent,
@@ -28,9 +31,11 @@ export const fronteggElements: Partial<Elements> = {
   Tag: FeTag,
   Button: FeButton,
   Input: FeInput,
+  InputChip: FeInputChip,
   Grid: FeGrid,
   Icon: FeIcon,
   Popup: FePopup,
+  Pagination: FePagination,
   Checkbox: FeCheckbox,
   Select: FeSelect,
   SwitchToggle: FeSwitchToggle,
@@ -38,6 +43,7 @@ export const fronteggElements: Partial<Elements> = {
   Form: FeForm,
   Tabs: FeTabs,
   Menu: FeMenu,
+  MenuItem: FeMenuItem,
   Dialog: FeDialog,
 };
 

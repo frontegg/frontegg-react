@@ -10,7 +10,6 @@ import {
   FSelect,
   Grid,
   useT,
-  validateArrayLength,
   validateEmail,
   validateSchema,
 } from '@frontegg/react-core';
@@ -40,7 +39,7 @@ export const TeamAddUserDialog: FC = (props) => {
   };
 
   return (
-    <Dialog open={open} size={'tiny'} header={t('auth.team.add-dialog.title')}>
+    <Dialog open={open} size={'tiny'} onClose={closeAddUserDialog} header={t('auth.team.add-dialog.title')}>
       <Formik
         validationSchema={validateSchema({
           email: validateEmail(t),

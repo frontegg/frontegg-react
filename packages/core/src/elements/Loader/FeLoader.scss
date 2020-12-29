@@ -16,10 +16,14 @@
   }
 
   &__inner {
-    @include with-theme {
+    @include with-theme() {
       background-color: transparent;
       border: 2px solid var(--color-black-20);
       border-bottom: 2px solid;
+    }
+    @include with-theme(primary) {
+      --theme-color: var(--color-primary);
+      --theme-background: var(--color-primary-lighter);
     }
 
     position: absolute;
@@ -27,6 +31,7 @@
     height: 100%;
     border-radius: 50%;
     animation: spin 0.8s infinite linear;
+    animation-direction: reverse;
     left: 0;
     top: 0;
     bottom: 0;
@@ -36,6 +41,12 @@
 }
 
 @keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
   100% {
     transform: rotate(360deg);
   }

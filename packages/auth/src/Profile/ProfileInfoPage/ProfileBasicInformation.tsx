@@ -24,7 +24,7 @@ export const ProfileBasicInformation: FC = () => {
         {/*  <FInput name='birthdate' label={t('common.date-of-birth')} />*/}
         {/*</Grid>*/}
         <Grid item xs={12}>
-          <FButton variant='primary' type='submit' fullWidth={false} loading={saving} data-test-id='updateprofile-btn'>
+          <FButton variant='primary' type='submit' fullWidth={false} loading={saving} data-test-id='updateinfo-btn'>
             Update Profile
           </FButton>
         </Grid>

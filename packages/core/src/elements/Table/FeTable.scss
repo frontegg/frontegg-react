@@ -135,10 +135,14 @@
     color: var(--fe-table-header-font-color);
     padding: var(--fe-table-cell-padding);
     font-size: var(--fe-table-cell-font-size);
-    font-weight: bold;
     display: flex;
     align-items: center;
     min-height: 5rem;
+
+    &-loader {
+      text-align: center;
+      justify-content: center;
+    }
   }
 
   &__expand-button.fe-button {
@@ -165,7 +169,6 @@
     border-bottom: none;
 
     &.is-expanded {
-      padding: 2rem 2rem 2rem 5rem;
       border-bottom: var(--fe-table-row-divider-width) solid var(--fe-table-row-divider-color);
       opacity: 1;
       max-height: 400px;

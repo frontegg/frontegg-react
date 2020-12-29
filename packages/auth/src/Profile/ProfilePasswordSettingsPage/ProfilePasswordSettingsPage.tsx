@@ -78,7 +78,7 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
               type='password'
               name='confirmNewPassword'
               label={'Repeat New Password'}
-              data-test-id='repeatpass-box'
+              data-test-id='repeatass-box'
             />
           </div>
           <ErrorMessage error={error} onError={onError} separator style={{ textAlign: 'left', marginBottom: '2rem' }} />

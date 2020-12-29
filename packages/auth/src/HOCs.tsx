@@ -1,13 +1,12 @@
 /* istanbul ignore file */
 
-import React, { ComponentType, FC } from 'react';
+import React, { ComponentType, FC, useEffect } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { AuthState, actions, AuthActions } from './Api';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 import { useAuth, useIsAuthenticated } from './hooks';
 import { connect, withT } from '@frontegg/react-core';
-import { reinitializeState } from './Api/initialState';
 
 const pluginName = 'auth';
 const pluginActions = actions;
@@ -31,7 +30,10 @@ export const withAuth = <P extends any>(
 };
 
 const onRedirecting = (loginUrl: string) => {
-  window.localStorage.setItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL, window.location.pathname);
+  window.localStorage.setItem(
+    FRONTEGG_AFTER_AUTH_REDIRECT_URL,
+    window.location.href.substring(window.location.origin.length)
+  );
   return <Redirect to={loginUrl} />;
 };
 
@@ -80,10 +82,8 @@ export const ProtectedComponent: FC = ({ children }) => {
     isAuthenticated,
     routes: { loginUrl },
     isLoading,
-    setLoginState,
   } = useAuth(({ isAuthenticated, routes, isLoading }: AuthState) => ({ isAuthenticated, routes, isLoading }));
 
-  setLoginState(reinitializeState.loginState);
   return isLoading ? null : isAuthenticated ? <>{children}</> : onRedirecting(loginUrl);
 };
 

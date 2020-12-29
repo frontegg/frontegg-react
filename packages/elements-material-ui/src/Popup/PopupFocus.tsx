@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Popover, Box } from '@material-ui/core';
 import classnames from 'classnames';
 import { IPopoverProps } from './types';
@@ -27,8 +27,14 @@ export const PopupFocus = forwardRef<HTMLElement, IPopoverProps>((props, ref) =>
   const handleClose = useCallback(() => {
     setAnchorEl(null);
     setOpen(false);
+    props.onClose?.();
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      props.onOpen?.();
+    }
+  }, [open]);
   return (
     <>
       {React.cloneElement(trigger, { onFocus: handleFocus, ref })}

@@ -9,6 +9,7 @@ export const forgotPasswordState: ForgotPasswordState = {
   step: ForgotPasswordStep.forgotPassword,
   loading: false,
   email: '',
+  passwordConfig: null,
 };
 
 export const forgotPasswordStateReducers = {
@@ -19,4 +20,5 @@ export const forgotPasswordStateReducers = {
 export const forgotPasswordActions = {
   forgotPassword: createAction(`${storeName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
   resetPassword: createAction(`${storeName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
+  loadPasswordConfig: createAction(`${storeName}/loadPasswordConfig`),
 };

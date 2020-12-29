@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC } from 'react';
+import React, { ComponentType, createElement, FC, useEffect } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import {
   validatePassword,
@@ -10,12 +10,13 @@ import {
   FInput,
   useT,
   FFormik,
+  validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
 
 const { Formik } = FFormik;
 
-const stateMapper = ({ activateState }: AuthState) => ({ activateState });
+const stateMapper = ({ activateState, forgotPasswordState }: AuthState) => ({ activateState, forgotPasswordState });
 
 export type ActivateAccountFormRendererProps = Omit<ActivateAccountFormProps, 'renderer'> &
   ReturnType<typeof stateMapper> &
@@ -34,15 +35,23 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
   const {
     activateState: { loading, error },
     activateAccount,
+    forgotPasswordState: { passwordConfig },
+    loadPasswordConfig,
+    resetForgotPasswordState,
   } = authState;
   if (renderer) {
     return createElement(renderer, { ...props, ...authState });
   }
 
+  useEffect((): (() => void) => {
+    loadPasswordConfig();
+    return resetForgotPasswordState;
+  }, []);
+
   return (
     <Formik
       validationSchema={validateSchema({
-        password: validatePassword(t),
+        password: validatePasswordUsingOWASP(passwordConfig),
         confirmPassword: validatePasswordConfirmation(t),
       })}
       enableReinitialize={true}

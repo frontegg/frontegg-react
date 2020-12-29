@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { ComponentsTypesWithProps, Loader, useDynamicComponents } from '@frontegg/react-core';
-import { AuthState } from '../Api';
-import { LoginStep } from '../Api/LoginState';
+import { AuthState, LoginStep } from '../Api';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
@@ -9,7 +8,9 @@ import { RecoverTwoFactor, RecoverTwoFactorProps } from './RecoverTwoFactor';
 import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFactor';
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
-import { useAuth, useIsAuthenticated } from '../hooks';
+import { ForceEnrollMfa, ForceEnrollMfaProps } from './ForceEnrollMfa';
+import { useAuth } from '../hooks';
+import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 type Components = {
   LoginSuccessRedirect: LoginSuccessRedirectProps;
@@ -18,6 +19,8 @@ type Components = {
   LoginWithTwoFactor: LoginWithTwoFactorProps;
   RedirectToSSO: RedirectToSSOProps;
   LoginWithSSOFailed: LoginWithSSOFailedProps;
+  ForceEnrollMfa: ForceEnrollMfaProps;
+  SocialLogins: {};
 };
 
 export interface LoginComponentProps {
@@ -36,6 +39,8 @@ const defaultComponents = {
   LoginWithTwoFactor,
   RedirectToSSO,
   LoginWithSSOFailed,
+  ForceEnrollMfa,
+  SocialLogins: SocialLoginsLoginWithWrapper,
 };
 const stateMapper = ({ isLoading, isAuthenticated, loginState }: AuthState) => ({
   isLoading,
@@ -50,7 +55,12 @@ export const Login: FC<LoginProps> = (props) => {
   if (isLoading || isAuthenticated) {
     components = <Loader center />;
   } else if (step === LoginStep.preLogin || step === LoginStep.loginWithPassword) {
-    components = <Dynamic.LoginWithPassword />;
+    components = (
+      <>
+        <Dynamic.LoginWithPassword />
+        <Dynamic.SocialLogins />
+      </>
+    );
   } else if (step === LoginStep.recoverTwoFactor) {
     components = <Dynamic.RecoverTwoFactor />;
   } else if (step === LoginStep.loginWithTwoFactor) {
@@ -59,6 +69,8 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.RedirectToSSO />;
   } else if (step === LoginStep.loginWithSSOFailed) {
     components = <Dynamic.LoginWithSSOFailed />;
+  } else if (step === LoginStep.forceTwoFactor) {
+    components = <Dynamic.ForceEnrollMfa />;
   } else if (step === LoginStep.success && props.displaySuccessMessage) {
     components = <Dynamic.LoginSuccessRedirect />;
   }

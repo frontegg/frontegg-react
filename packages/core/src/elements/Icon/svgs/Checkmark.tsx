@@ -20,7 +20,7 @@ export const Checkmark = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>
       xmlns={xmlns}
       className={classNames('fe-icon', className)}
     >
-      <path fill='currentColor' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' />
+      <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' />
     </svg>
   );
 });
@@ -44,7 +44,7 @@ export const Indeterminate = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElem
       xmlns={xmlns}
       className={classNames('fe-icon', className)}
     >
-      <path fill='currentColor' d='M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z' />
+      <path d='M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z' />
     </svg>
   );
 });

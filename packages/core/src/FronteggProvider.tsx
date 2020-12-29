@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { getDefaultMiddleware, combineReducers, configureStore, Reducer, EnhancedStore } from '@reduxjs/toolkit';
 import { I18nextProvider } from 'react-i18next';
-import { ContextOptions } from './interfaces';
+import { ContextOptions, ListenerProps } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
@@ -20,7 +20,7 @@ export interface PluginConfig {
   reducer: Reducer;
   sagas: () => void;
   preloadedState: any;
-  Listener?: React.ComponentType;
+  Listener?: React.ComponentType<ListenerProps<any>>;
   WrapperComponent?: React.ComponentType<any>;
 }
 
@@ -43,7 +43,7 @@ const FePlugins: FC<FeProviderProps> = (props) => {
     return props.plugins
       .filter((p) => p.Listener)
       .map((p) => ({ storeName: p.storeName, Listener: p.Listener! }))
-      .map(({ storeName, Listener }, i) => <Listener key={storeName} />);
+      .map(({ storeName, Listener }, i) => <Listener key={storeName} resolveActions={props._resolveActions} />);
   }, [props.plugins]);
 
   const children = useMemo(() => {

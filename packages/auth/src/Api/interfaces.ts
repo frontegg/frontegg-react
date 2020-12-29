@@ -1,3 +1,4 @@
+import { ApiTokensState } from './ApiTokensState';
 import { AuthPageProps, AuthPageRoutes } from '../interfaces';
 import { IUserProfile, RedirectOptions } from '@frontegg/rest-api';
 import { ActivateState } from './ActivateState';
@@ -6,13 +7,15 @@ import { ForgotPasswordState } from './ForgotPasswordState';
 import { SSOState } from './SSOState';
 import { ProfileState } from './ProfileState';
 import { MFAState } from './MfaState';
-import { TeamState, TeamStateKeys } from './TeamState';
+import { TeamState } from './TeamState';
 import { AcceptInvitationState } from './AcceptInvitationState';
+import { SignUpState } from './SignUp/interfaces';
+import { SocialLoginsState } from './SocialLogins';
 
 export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
 };
-export type WithCallback<T, R> = T & {
+export type WithCallback<T = {}, R = boolean> = T & {
   callback?: (data: R | null, error?: string) => void;
 };
 export type LoaderIndicatorState<T extends string> = Partial<
@@ -28,7 +31,11 @@ export interface User extends IUserProfile {
   expires: string;
 }
 
-export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, AuthPageRoutes {
+interface Routes {
+  routes: AuthPageRoutes;
+}
+
+export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, Routes {
   onRedirectTo: (path: string, opts?: RedirectOptions) => void;
   error?: any;
   isAuthenticated: boolean;
@@ -44,4 +51,7 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   profileState: ProfileState;
   mfaState: MFAState;
   teamState: TeamState;
+  socialLoginsState: SocialLoginsState;
+  signUpState: SignUpState;
+  apiTokensState: ApiTokensState;
 }

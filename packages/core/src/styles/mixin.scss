@@ -15,8 +15,8 @@
     }
 
     &-primary {
-      --theme-color: var(--color-primary);
-      --theme-background: var(--color-primary-lighter);
+      --theme-color: var(--color-primary-lighter);
+      --theme-background: var(--color-primary);
     }
 
     &-secondary {

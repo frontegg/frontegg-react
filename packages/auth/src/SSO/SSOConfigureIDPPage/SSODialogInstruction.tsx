@@ -1,3 +1,4 @@
+import React, { FC, ReactNode, useContext, useMemo, useState } from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -9,7 +10,6 @@ import {
   Grid,
   useT,
 } from '@frontegg/react-core';
-import React, { FC, ReactElement, ReactNode, useContext, useMemo, useState } from 'react';
 import { SamlVendors } from './SSOVendors';
 import { useAuth } from '../../hooks';
 
@@ -39,7 +39,7 @@ const InstructionsAccordion: FC<InstructionsAccordionProps> = (props) => {
 
                 <Grid container>
                   <Grid item xs={6}>
-                    {firstItem && (
+                    {!firstItem && (
                       <Button
                         onClick={(e) => {
                           e.stopPropagation();

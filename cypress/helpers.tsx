@@ -3,9 +3,11 @@
 import React, { FC } from 'react';
 import { FronteggProvider, PluginConfig, ContextOptions } from '@frontegg/react-core';
 import { uiLibrary } from '@frontegg/react-elements-semantic';
+import { auditsData, auditsDataDescName, auditsMetadata, auditsStats } from './consts';
 
 export const METADATA_SERVICE = 'http://localhost:8080/frontegg/metadata';
 export const IDENTITY_SERVICE = 'http://localhost:8080/frontegg/identity';
+export const AUDITS_SERVICE = 'http://localhost:8080/frontegg/audits';
 
 const contextOptions: ContextOptions = {
   baseUrl: `http://localhost:8080`,
@@ -100,6 +102,44 @@ export const mockAuthApi = (authenticated: boolean, saml: boolean) => {
       },
     }).as('metadata');
   }
+};
+
+export const mockAuditsApi = () => {
+  cy.route({
+    method: 'GET',
+    url: `${AUDITS_SERVICE}?sortDirection=desc&sortBy=createdAt&filter=&offset=0&count=20`,
+    status: 200,
+    delay: 200,
+    response: {
+      data: auditsData,
+      total: auditsData.length,
+    },
+  }).as('auditsData');
+  cy.route({
+    method: 'GET',
+    url: `${AUDITS_SERVICE}?sortDirection=desc&sortBy=user&filter=&offset=0&count=20`,
+    status: 200,
+    delay: 200,
+    response: {
+      data: auditsDataDescName,
+      total: auditsDataDescName.length,
+    },
+  }).as('auditsDataNameDesc');
+  cy.route({
+    method: 'GET',
+    url: `${METADATA_SERVICE}?entityName=audits`,
+    status: 200,
+    response: {
+      rows: auditsMetadata,
+    },
+  }).as('auditsMetadata');
+  cy.route({
+    method: 'GET',
+    url: `${AUDITS_SERVICE}/stats?sortBy=createdAt&sortDirection=desc&count=20`,
+    status: 200,
+    delay: 200,
+    response: auditsStats,
+  }).as('auditsStats');
 };
 
 export const EMAIL_1 = 'test1@frontegg.com';

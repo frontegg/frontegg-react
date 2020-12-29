@@ -13,7 +13,7 @@ export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
   const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
 
   if (loading) {
-    return <Loader center />;
+    return null;
   }
   const children = props.children ?? (
     <>

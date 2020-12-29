@@ -10,14 +10,18 @@ import { ssoActions, ssoStateReducers } from './SSOState';
 import { mfaActions, mfaStateReducers } from './MfaState';
 import { profileActions, profileStateReducers } from './ProfileState';
 import { teamActions, teamStateReducers } from './TeamState';
+import { socialLoginsActions, socialLoginsStateReducer } from './SocialLogins';
+import { signUpActions, signUpStateReducers } from './SignUp';
+import { apiTokensActions, apiTokensStateReducers } from './ApiTokensState';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
   initialState,
   reducers: {
+    resetState: () => initialState,
     setState: (state: AuthState, { payload }: PayloadAction<Partial<AuthState>>) => ({ ...state, ...payload }),
     setUser: typeReducer<User>('user'),
-
+    ...signUpStateReducers,
     ...loginStateReducers,
     ...activateStateReducers,
     ...acceptInvitationStateReducers,
@@ -26,11 +30,14 @@ const { reducer, actions: sliceActions } = createSlice({
     ...profileStateReducers,
     ...mfaStateReducers,
     ...teamStateReducers,
+    ...socialLoginsStateReducer,
+    ...apiTokensStateReducers,
   },
 });
 
 const actions = {
   ...sliceActions,
+  ...signUpActions,
   ...loginActions,
   ...activateActions,
   ...acceptInvitationActions,
@@ -39,6 +46,8 @@ const actions = {
   ...profileActions,
   ...mfaActions,
   ...teamActions,
+  ...socialLoginsActions,
+  ...apiTokensActions,
 };
 
 export type AuthActions = typeof actions;

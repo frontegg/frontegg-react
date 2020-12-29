@@ -5,9 +5,14 @@
 .fe-sso-steps {
   display: flex;
   justify-content: center;
-  width: 50rem;
+  flex-wrap: wrap;
+  width: 75rem;
   max-width: 95%;
-  margin: 4rem auto;
+  margin: 3rem auto 4rem auto;
+
+  * {
+    text-decoration: none;
+  }
 
   .fe-sso-step {
     box-sizing: border-box;
@@ -16,7 +21,7 @@
     border-radius: 0.5rem;
     background-color: #f9fafc;
     border: 3px solid #f9fafc;
-    margin: 0 2rem;
+    margin: 2rem;
     overflow: hidden;
     transition: border 200ms ease-in;
 
@@ -30,7 +35,7 @@
     }
 
     &:hover {
-      border: 3px solid #0baf60;
+      border: 3px solid var(--color-primary-dark);
     }
 
     &__header {
@@ -58,9 +63,13 @@
         padding: 0.25rem;
 
         .fe-icon {
-          color: #0baf60;
-          font-size: 1.25rem;
+          fill: var(--color-primary);
           margin: 0;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
         }
       }
     }
@@ -157,6 +166,7 @@
 
   &__instruction-row {
     width: 100%;
+    padding-bottom: 1rem;
 
     .fe-description {
       font-size: 1.1rem;
@@ -174,13 +184,13 @@
     }
 
     > img {
-      max-width: 70%;
-      margin: auto;
+      max-height: 300px;
+      max-width: 90%;
       display: block;
       border: 1px solid var(--color-gray-4);
       border-radius: 0.5rem;
       overflow: hidden;
-      margin-bottom: 2rem;
+      margin: auto auto 2rem;
     }
   }
 }
@@ -223,6 +233,36 @@
       display: flex;
       flex-direction: column;
       padding: 2rem;
+    }
+  }
+}
+
+.fe-sso-authorization-page {
+  border-radius: var(--element-border-radius-sm);
+  padding: 2rem;
+  background-color: var(--color-gray-0);
+  display: flex;
+  flex-direction: column;
+  width: 50rem;
+  max-width: 80%;
+  margin: 2rem auto;
+  &__title {
+    color: var(--color-gray-9);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  &__subtitle {
+    color: var(--color-gray-6);
+    font-size: 1rem;
+  }
+
+  &__select {
+    margin-top: 2rem;
+    &-container {
+      margin-bottom: 3rem;
+    }
+    &-footer {
+      text-align: end;
     }
   }
 }
@@ -285,8 +325,10 @@
     background-color: var(--color-white);
     display: flex;
     flex-direction: column;
+
     .fe-form {
       flex: 1;
+
       form {
         height: 100%;
       }
@@ -353,6 +395,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+
     p {
       margin-top: 1rem;
       max-width: 9.5rem;

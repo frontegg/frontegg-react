@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Button, FButton, Grid, useDialog, useT } from '@frontegg/react-core';
+import { Button, FButton, FForm, Grid, useDialog, useT } from '@frontegg/react-core';
 import { useAuthMfaState } from '../hooks';
 
-export const MFAVerifyStepFooter: FC = (props) => {
+export const MFAVerifyStepFooter: FC = () => {
   const { loading } = useAuthMfaState(({ loading }) => ({ loading }));
   const { onClose } = useDialog();
   const { t } = useT();
@@ -10,12 +10,12 @@ export const MFAVerifyStepFooter: FC = (props) => {
     <div className='fe-dialog__footer'>
       <Grid container>
         <Grid xs item>
-          <Button className='fe-mr-2' isCancel onClick={onClose}>
+          <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={onClose}>
             {t('common.cancel')}
           </Button>
         </Grid>
         <Grid xs item className='fe-text-align-end'>
-          <FButton type='submit' fullWidth={false} variant='primary' loading={loading}>
+          <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
             {t('common.verify')}
           </FButton>
         </Grid>

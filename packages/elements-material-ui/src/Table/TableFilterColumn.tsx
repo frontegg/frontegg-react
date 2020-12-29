@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Popup } from '../Popup';
-import { FeTableColumnProps, useDebounce } from '@frontegg/react-core';
+import { FeTableColumnProps } from '@frontegg/react-core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Box, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,13 +24,12 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
   onFilterChange,
 }: FeTableFilterColumnProps<T>) => {
   const [filterValue, setFilterValue] = useState(column.filterValue);
-  const debounceFilters = useDebounce(filterValue, 500);
   const classes = useStyles();
   const popupRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    onFilterChange?.(column, debounceFilters);
-  }, [debounceFilters]);
+    setFilterValue(column.filterValue);
+  }, [column.filterValue]);
 
   const closePopup = useCallback(() => {
     if (popupRef.current) {
@@ -46,7 +45,7 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
         content={
           <FilterComponent
             value={filterValue}
-            setFilterValue={(value) => setFilterValue(value)}
+            setFilterValue={(value) => onFilterChange?.(column, value)}
             closePopup={closePopup}
           />
         }

@@ -131,7 +131,16 @@ const sendRequest = async (opts: RequestOptions) => {
       return {};
     }
   } else if (opts.responseType === 'blob') {
-    return await response.blob();
+    const { outputFileName } = opts.params;
+    return await response
+      .blob()
+      .then((blob) => URL.createObjectURL(blob))
+      .then((url) => {
+        let tempLink = document.createElement('a');
+        tempLink.href = url;
+        tempLink.setAttribute('download', outputFileName || 'output');
+        tempLink.click();
+      });
   } else {
     return await response.text();
   }
@@ -182,12 +191,13 @@ export const Delete = async (url: string, body?: any, opts?: Omit<RequestOptions
     ...opts,
   });
 
-export const PostDownload = async (url: string, body?: any, opts?: Omit<RequestOptions, 'method' | 'url'>) =>
+export const PostDownload = async (url: string, body?: any, params?: any, opts?: any) =>
   sendRequest({
     url,
-    method: 'GET',
+    method: 'POST',
     contentType: 'application/json',
     responseType: 'blob',
     body,
+    params,
     ...opts,
   });

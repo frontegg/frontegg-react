@@ -5,6 +5,7 @@ import {
   Icon,
   Loader,
   Menu,
+  MenuItem,
   MenuItemProps,
   Popup,
   TableCells,
@@ -13,6 +14,7 @@ import {
 } from '@frontegg/react-core';
 import React, { useCallback } from 'react';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import classNames from 'classnames';
 
 const LEAVE_TEAM_OPTION = false;
 
@@ -61,14 +63,14 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
 
   if (!lastLogin) {
     items.push({
-      icon: 'send',
+      icon: <Icon name='send' />,
       onClick: handleSendActivationLink,
       text: t('auth.team.resendActivation'),
     });
   }
   if (!isMe || LEAVE_TEAM_OPTION) {
     items.push({
-      icon: 'delete',
+      icon: <Icon name='delete' />,
       onClick: handleDeleteUser,
       text: isMe ? t('auth.team.leaveTeam') : t('auth.team.deleteUser'),
       iconClassName: 'fe-color-danger',
@@ -128,29 +130,37 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
   );
 
   return (
-    <div className='fe-flex'>
-      {permissions.map((permission) => (
-        <Tag className='fe-mr-1 fe-mb-1 fe-mt-1' size='small' key={permission.value}>
-          {permission.label}
-        </Tag>
-      ))}
+    <div className='fe-flex fe-full-width fe-flex-no-wrap'>
+      <div className='fe-flex'>
+        {permissions.map((permission) => (
+          <Tag className='fe-mr-1 fe-mb-1 fe-mt-1' size='small' key={permission.value}>
+            {permission.label}
+          </Tag>
+        ))}
+      </div>
+      <div className='fe-flex-spacer' />
       <Popup
+        className='fe-team__roles-popup'
         content={() => (
-          <div className='fe-team__roles-dropdown'>
+          <div
+            className={classNames('fe-team__roles-dropdown', {
+              'fe-team__roles-dropdown-disabled': loading === userId,
+            })}
+          >
             {roles?.map((role) => (
-              <Checkbox
+              <MenuItem
                 key={role.label}
-                label={role.label}
-                checked={checked(role)}
-                disabled={loading === userId}
-                onChange={() => onUpdateUser(role)}
+                withIcons={true}
+                icon={<Checkbox checked={checked(role)} />}
+                onClick={loading === userId ? undefined : () => onUpdateUser(role)}
+                text={role.label}
               />
             ))}
           </div>
         )}
         action='click'
         trigger={
-          <Button transparent size='small' iconButton>
+          <Button className='fe-team__roles-dropdown-button' transparent size='small' iconButton>
             <Icon name='down-arrow' />
           </Button>
         }

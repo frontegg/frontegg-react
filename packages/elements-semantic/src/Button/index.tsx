@@ -10,20 +10,20 @@ const mapper = (props: ButtonProps): SemanticButtonProps => {
     inForm,
     submit,
     formikDisableIfNotDirty,
-    testId,
     loading,
     disabled,
     type,
     iconButton,
     className,
     isCancel,
+    testId,
     transparent,
     ...rest
   } = props;
   return {
     ...rest,
     loading,
-    className: classNames({
+    className: classNames(className, {
       'fe-semantic-button__icon-button': iconButton,
       'fe-semantic-button__transparent': transparent,
     }),

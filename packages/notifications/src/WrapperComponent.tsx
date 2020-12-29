@@ -8,5 +8,5 @@ export const NotificationsWrapper: FC = ({ children }) => {
     loadMetadata();
   }, []);
 
-  return <div className='fe-notifications'>{children}</div>;
+  return <>{children}</>;
 };

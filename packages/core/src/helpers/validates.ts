@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { TFunction } from 'i18next';
 import { ValidationError } from 'yup';
+import owasp, { TestConfig } from 'owasp-password-strength-test';
 
 export const validatePassword = (t: TFunction) =>
   Yup.string()
@@ -30,6 +31,25 @@ export const validatePasswordConfirmation = (t: TFunction, field: string = 'pass
       then: Yup.string().oneOf([Yup.ref(field)], t('validation.passwords-must-match', 'Passwords must match')),
     });
 
+export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | null) =>
+  Yup.string()
+    .required()
+    .test('validate_owasp', 'Invalid Password', async function (value) {
+      // Use function to access Yup 'this' context
+
+      if (value == null) {
+        return true;
+      }
+      testConfig && owasp.config(testConfig);
+      const { errors } = owasp.test(value);
+      // validate using owasp
+
+      if (errors?.length) {
+        return this.createError({ message: errors[0] });
+      }
+      return true;
+    });
+
 export const validateDomain = (t: TFunction) =>
   Yup.string()
     .matches(
@@ -55,6 +75,14 @@ export const validateArrayLength = (t: TFunction, name: string) =>
   Yup.array().required(t('validation.required-field', { name }));
 
 export const validateSchema = (props: any) => Yup.object(props);
+
+export const validationPhone = (t: TFunction) =>
+  Yup.string()
+    .matches(
+      /^(?!\b(0)\1+\b)(\+?\d{1,3}[. -]?)?\(?\d{3}\)?([. -]?)\d{3}\3\d{4}$/,
+      t('validation.invalid-phone', 'Invalid phone number')
+    )
+    .required(t('validation.required-field', { name: 'phone' }));
 
 export const validateSchemaSync = (props: any, values: any) =>
   new Promise((resolve) => {

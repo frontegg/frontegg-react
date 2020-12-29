@@ -32,6 +32,7 @@ export interface TableProps<T extends object = {}> {
   /**
    * Common Props
    */
+  className?: string;
   /* column array to be displayed in the table */
   columns: TableColumnProps<T>[];
   pagination?: 'pages' | 'infinite-scroll';
@@ -89,7 +90,7 @@ export interface TableColumnProps<T extends object = any> {
    * Defaults to ({ value }) => String(value)
    * Must return valid JSX
    */
-  Cell?: CellComponent;
+  Cell?: CellComponent<T>;
 
   sortable?: boolean;
   Filter?: FilterComponent;

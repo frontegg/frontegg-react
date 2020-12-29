@@ -32,6 +32,7 @@ export const Select: FC<SelectProps> = (props) => {
     onChange,
     options,
     onOpen,
+    onBlur,
     onClose,
     multiple,
     fullWidth,
@@ -66,13 +67,14 @@ export const Select: FC<SelectProps> = (props) => {
 
   return (
     <Autocomplete
+      {...p}
       className={classNames({ [styles.inForm]: props.inForm })}
       multiple={multiple ?? false}
       options={options}
       size={size}
       value={value}
       loading={loading}
-      disableCloseOnSelect
+      {...(multiple && { disableCloseOnSelect: true })}
       filterSelectedOptions
       open={propOpen ?? open}
       noOptionsText={noOptionsText ?? t('common.empty-items')}
@@ -89,6 +91,7 @@ export const Select: FC<SelectProps> = (props) => {
       renderInput={(params) => (
         <TextField
           {...params}
+          name={props.name}
           label={props.label}
           fullWidth={fullWidth ?? true}
           style={{ minWidth: `${fullWidth ? '100%' : '14em'}` }}

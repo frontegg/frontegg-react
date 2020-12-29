@@ -297,7 +297,7 @@ describe('Login Tests', () => {
 
     cy.wait(['@refreshToken']);
 
-    cy.contains('Please enter the 6 digit code').should('be.visible');
+    cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
     const validCode = '123123';
     cy.get(codeSelector).focus().type('111').blur();
@@ -350,7 +350,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { mfaToken: MFA_TOKEN },
+      response: { mfaToken: MFA_TOKEN, mfaRequired: true },
       delay: 200,
     }).as('login');
 
@@ -375,7 +375,7 @@ describe('Login Tests', () => {
 
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
-    cy.contains('Please enter the 6 digit code').should('be.visible');
+    cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
     const validCode = '123123';
     cy.get(codeSelector).focus().type('111').blur();
@@ -418,7 +418,7 @@ describe('Login Tests', () => {
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
-      response: { mfaToken: MFA_TOKEN },
+      response: { mfaToken: MFA_TOKEN, mfaRequired: true },
       delay: 200,
     }).as('login');
 
@@ -440,10 +440,10 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Login').click();
     cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
 
-    cy.contains('Please enter the 6 digit code').should('be.visible');
+    cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
     cy.get('[test-id="recover-two-factor-button"]').click();
 
-    cy.contains('Please enter the recovery code').should('be.visible');
+    cy.contains('Please enter your MFA recovery code').should('be.visible');
 
     cy.get(codeSelector).focus().clear().type(RECOVERY_CODE).blur();
 

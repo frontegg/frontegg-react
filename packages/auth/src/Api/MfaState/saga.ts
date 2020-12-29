@@ -1,9 +1,10 @@
 import { put, select, takeEvery } from 'redux-saga/effects';
 import { actions } from '../reducer';
-import { api, IDisableMfa, IVerifyMfa } from '@frontegg/rest-api';
+import { api, IDisableMfa, ILoginWithMfa, IVerifyMfa } from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { MFAStep } from './interfaces';
+import { MFAState, MFAStep } from './interfaces';
 import { mfaState } from './index';
+import { WithCallback } from '../interfaces';
 
 function* resetMfaState() {
   yield put(actions.setMfaState(mfaState));
@@ -19,22 +20,49 @@ function* enrollMfa() {
   }
 }
 
-function* verifyMfa({ payload }: PayloadAction<IVerifyMfa>) {
+function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCallback<IVerifyMfa>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
-    const { recoveryCode } = yield api.auth.verifyMfa(payload);
-    yield put(
-      actions.setMfaState({
-        step: MFAStep.recoveryCode,
-        loading: false,
-        error: undefined,
-        recoveryCode,
-      })
-    );
+    const data = yield api.auth.verifyMfa(payload);
+
+    const mfaState: MFAState = {
+      step: MFAStep.recoveryCode,
+      loading: false,
+      error: undefined,
+    };
+    if (data?.recoveryCode) {
+      mfaState.recoveryCode = data.recoveryCode;
+    }
+    yield put(actions.setMfaState(mfaState));
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
+    callback?.(true);
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
+    callback?.(false, e);
+  }
+}
+
+function* verifyMfaAfterForce({ payload: { callback, ...payload } }: PayloadAction<WithCallback<ILoginWithMfa>>) {
+  yield put(actions.setMfaState({ loading: true }));
+  try {
+    const user = yield select((state) => state.auth.user);
+    const data = yield api.auth.loginWithMfa(payload);
+
+    const mfaState: MFAState = {
+      step: MFAStep.recoveryCode,
+      loading: false,
+      error: undefined,
+    };
+    if (data?.recoveryCode) {
+      mfaState.recoveryCode = data.recoveryCode;
+    }
+    yield put(actions.setMfaState(mfaState));
+    yield put(actions.setUser({ ...user, mfaEnrolled: true }));
+    callback?.(true);
+  } catch (e) {
+    yield put(actions.setMfaState({ loading: false, error: e.message }));
+    callback?.(false, e);
   }
 }
 
@@ -56,4 +84,5 @@ export function* mfaSagas() {
   yield takeEvery(actions.enrollMfa, enrollMfa);
   yield takeEvery(actions.verifyMfa, verifyMfa);
   yield takeEvery(actions.disableMfa, disableMfa);
+  yield takeEvery(actions.verifyMfaAfterForce, verifyMfaAfterForce);
 }

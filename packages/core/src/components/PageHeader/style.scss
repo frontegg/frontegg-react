@@ -9,7 +9,7 @@
   --fe-header-hover-bg: rgba(75, 75, 75, 0.1);
   --fe-header-tab-font-size: 0.9rem;
   --fe-header-tab-font-color: #99a6b9;
-  --fe-header-tab-font-weight: bold;
+  --fe-header-tab-font-weight: 400;
 }
 
 .fe-page-header {
@@ -23,7 +23,7 @@
   border-bottom: 1px solid #eee;
   line-height: 1;
   min-height: 90px;
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
 
   .fe-left {
     display: flex;
@@ -54,6 +54,7 @@
   }
 
   .fe-right {
+    margin: -0.5rem 0;
     display: flex;
     flex-direction: row;
     flex: 1;
@@ -91,46 +92,53 @@
       }
     }
   }
+}
+.fe-back-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  height: 2rem;
+  text-align: center;
+  border-radius: 0.3rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
 
-  .fe-back-button {
+  &.visible {
+    width: 2rem;
+    opacity: 1;
+    overflow: initial;
+  }
+
+  .fe-icon {
+    color: var(--fe-header-back-button-color);
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     bottom: 0;
+    right: 0;
     margin: auto;
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-    height: 2rem;
-    text-align: center;
-    border-radius: 0.3rem;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
+    transition: fill 300ms ease-out;
+  }
 
-    &.visible {
-      width: 2rem;
-      opacity: 1;
-      overflow: initial;
-    }
+  &.fe-block {
+    display: inline-block;
+    width: 2rem;
+    position: relative;
+    opacity: 1;
+    margin: 0 1rem;
+  }
 
-    .fe-icon {
-      color: var(--fe-header-back-button-color);
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      margin: auto;
-      transition: fill 300ms ease-out;
-    }
+  &:hover {
+    background: var(--fe-header-hover-bg);
 
-    &:hover {
-      background: var(--fe-header-hover-bg);
-
-      svg {
-        fill: var(--fe-header-font-color);
-      }
+    svg {
+      fill: var(--fe-header-font-color);
     }
   }
 }

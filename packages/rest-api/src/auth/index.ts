@@ -1,8 +1,18 @@
+import { IUpdateSamlRoles } from './interfaces';
 /* tslint:disable:no-console */
 
 import jwtDecode from 'jwt-decode';
-import { Get, Post, Put } from '../fetch';
-import { AUTH_SERVICE_URL_V1, SSO_SERVICE_URL_V1, USERS_SERVICE_URL_V1, USERS_SERVICE_URL_V2 } from '../constants';
+import { Get, Post, Put, Delete } from '../fetch';
+import {
+  AUTH_SERVICE_URL_V1,
+  SSO_SERVICE_URL_V1,
+  USERS_SERVICE_URL_V1,
+  USERS_SERVICE_URL_V2,
+  IDENTITY_SSO_SERVICE_URL_V1,
+  IDENTITY_CONFIGURATION_SERVICE_URL_V1,
+  IDENTITY_API_TOKENS_USERS_SERVICE,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE,
+} from '../constants';
 import {
   IActivateAccount,
   IDisableMfa,
@@ -22,6 +32,16 @@ import {
   IVerifyMfa,
   IVerifyMfaResponse,
   IAcceptInvitation,
+  ISocialLoginProviderConfiguration,
+  ILoginViaSocialLogin,
+  IVendorConfig,
+  ISignUpUser,
+  ISignUpResponse,
+  IUserApiTokensData,
+  ITenantApiTokensData,
+  IUpdateUserApiTokensData,
+  IUpdateTenantApiTokensData,
+  IDeleteApiToken,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -162,6 +182,14 @@ export async function resetPassword(body: IResetPassword): Promise<void> {
 }
 
 /**
+ * load password configuration for vendor.
+ */
+export async function loadPasswordConfig(): Promise<void> {
+  console.debug('loadPasswordConfig()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password`);
+}
+
+/**
  * recover Multi-Factor authentication by providing the recoveryCode
  * that has been received when activated it
  *
@@ -267,4 +295,109 @@ export async function updateSamlVendorMetadata(body: IUpdateSamlVendorMetadata):
 export async function validateSamlDomain(): Promise<ISamlConfiguration> {
   console.debug('validateSamlDomain()');
   return Put(`${SSO_SERVICE_URL_V1}/saml/validations/domain`);
+}
+
+/**
+ *  Get Saml roles for authorization
+ * @return array of role IDs
+ */
+export async function getSamlRoles(): Promise<Array<string>> {
+  console.debug('getSamlRoles()');
+  return Get(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`);
+}
+
+/**
+ *  Update Saml roles for authorization
+ */
+export async function updateSamlRoles({ roleIds }: IUpdateSamlRoles): Promise<void> {
+  console.debug('updateSamlRoles()');
+  return Post(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`, { roleIds });
+}
+
+/**
+ *  Get social logins providers configurations for vendor
+ * @return array of providers configurations
+ */
+export async function getSocialLoginsProviders(): Promise<ISocialLoginProviderConfiguration[]> {
+  console.debug('getSocialLoginsProviders()');
+  return Get(IDENTITY_SSO_SERVICE_URL_V1);
+}
+
+/**
+ * Login using social login
+ * @return cookie with refresh token
+ */
+export async function loginViaSocialLogin({ provider, code }: ILoginViaSocialLogin): Promise<void> {
+  console.debug('loginViaSocialLogin()');
+  return Post(`${AUTH_SERVICE_URL_V1}/user/sso/${provider}/postlogin`, {}, { params: { code } });
+}
+
+/**
+ * Get vendor secure access configuration
+ */
+export async function getVendorConfig(): Promise<IVendorConfig> {
+  console.debug('getVendorConfig()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/public`);
+}
+
+/**
+ * Sign up new user
+ * create new user with a new tenant
+ */
+export async function signUpUser(body: ISignUpUser): Promise<ISignUpResponse> {
+  console.debug('signUpUser()', body);
+  return Post(`${USERS_SERVICE_URL_V1}/signUp`, body);
+}
+
+/**
+ * Api tokens Configurations
+ */
+
+/**
+ * Get user api tokens data
+ */
+export async function getUserApiTokensData(): Promise<Array<IUserApiTokensData>> {
+  console.debug('getUserApiTokensData()');
+  return Get(`${IDENTITY_API_TOKENS_USERS_SERVICE}`);
+}
+
+/**
+ * Get tenant api tokens data
+ */
+export async function getTenantApiTokensData(): Promise<Array<ITenantApiTokensData>> {
+  console.debug('geTenantApiTokensData()');
+  return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`);
+}
+
+/**
+ *  Update User Api Tokens
+ */
+
+export async function updateUserApiTokensData(body: IUpdateUserApiTokensData): Promise<IUserApiTokensData> {
+  console.debug('updateUserApiTokensData()', body);
+  return Post(`${IDENTITY_API_TOKENS_USERS_SERVICE}`, body);
+}
+
+/**
+ * Update Tenant Api Tokens
+ */
+export async function updateTenantApiTokensData(body: IUpdateTenantApiTokensData): Promise<ITenantApiTokensData> {
+  console.debug('updateTenantApiTokensData()', body);
+  return Post(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`, body);
+}
+
+/**
+ * Delete Tenant Api Token
+ */
+export async function deleteTenantApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
+  console.debug('deleteTenantApiToken()', tokenId);
+  return Delete(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}/${tokenId}`);
+}
+
+/**
+ * Delete Tenant Api Token
+ */
+export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
+  console.debug('deleteUserApiToken()', tokenId);
+  return Delete(`${IDENTITY_API_TOKENS_USERS_SERVICE}/${tokenId}`);
 }

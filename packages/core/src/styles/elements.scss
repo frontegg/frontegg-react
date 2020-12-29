@@ -13,7 +13,7 @@
   --element-height-lg: 2.875rem;
   --element-height-sm: 2rem;
 
-  --element-icon-size: 1.75rem;
+  --element-icon-size: 1.5rem;
   --element-icon-size-sm: 1.5rem;
 
   --element-spacing: 0.5rem;
@@ -162,6 +162,10 @@
     width: 2.25rem;
     border-radius: 50%;
   }
+}
+
+.fe-search {
+  margin-bottom: var(--element-padding-lg);
 }
 
 @media screen and (max-width: 600px) {

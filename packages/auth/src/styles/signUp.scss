@@ -1,0 +1,14 @@
+.fe-sign-up {
+  &__back-to-login-link {
+    cursor: pointer;
+    color: var(--color-primary);
+
+    &:hover {
+      color: var(--color-primary-75);
+    }
+  }
+
+  &__success-container {
+    margin-bottom: 3em;
+  }
+}

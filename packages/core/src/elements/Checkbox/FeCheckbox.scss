@@ -68,11 +68,11 @@
     opacity: 0;
     transform: scale(0.1);
     transition: all 200ms;
-    margin: 0;
   }
 
   input:checked + .fe-checkbox__input {
     border-color: var(--fe-checkbox-active-color, var(--color-primary));
+    background-color: var(--fe-checkbox-active-color, var(--color-primary));
     color: var(--fe-checkbox-icon-color, var(--color-primary));
     border-width: 0.5rem;
 
@@ -83,7 +83,7 @@
       left: -0.5rem;
       height: 1rem;
       width: 1rem;
-      color: var(--color-white);
+      fill: var(--color-white);
       margin: 0;
     }
   }
