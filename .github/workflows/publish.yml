@@ -11,7 +11,7 @@ env:
 jobs:
   publish:
     name: Publish
-    if: "github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'v')"
+    if: "contains(join(github.event.pull_request.labels.*.name, ','), 'Release') && github.event.pull_request.merged == true"
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
