@@ -19,29 +19,12 @@ export const SSOManageAuthorizationPage: FC<HideOption> = (props) => {
     return null;
   }
 
-  const prefixT = 'auth.sso.authorization';
-  const Title: FC = (props) => {
-    const { t } = useT();
-    const children = props.children ?? t(`${prefixT}.title`);
-    return <div className='fe-sso-authorization-page__title fe-mb-1'>{children}</div>;
-  };
-
-  const Subtitle: FC = (props) => {
-    const { t } = useT();
-    const children = props.children ?? t(`${prefixT}.subtitle`);
-    return <div className='fe-sso-authorization-page__subtitle fe-mb-1'>{children}</div>;
-  };
-
   const children = props.children ?? (
-    <>
-      <Title />
-      <Subtitle />
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={12}>
-          <SSOManageAuthorizationForm />
-        </Grid>
+    <Grid container spacing={4}>
+      <Grid item xs={12} sm={12}>
+        <SSOManageAuthorizationForm />
       </Grid>
-    </>
+    </Grid>
   );
 
   return (
