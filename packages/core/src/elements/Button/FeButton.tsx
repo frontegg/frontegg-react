@@ -5,7 +5,7 @@ import { ClassNameGenerator } from '../../styles';
 import classNames from 'classnames';
 import './FeButton.scss';
 
-const prefixCls = 'fe-button';
+const prefixCls = '';
 export const FeButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     className,

@@ -74,7 +74,7 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
         <div className='fe-profile-email'>{profile?.email ?? ''}</div>
 
         <FFileInput name={profilePictureUrl} accept='image/png, image/jpeg' />
-        <Button variant='primary' onClick={handleUploadClick} fullWidth={false}>
+        <Button variant='primary' onClick={handleUploadClick} fullWidth={false} data-test-id="uploadPhoto-btn">
           {t('auth.profile.info.upload-photo')}
         </Button>
         {profileImageError && <ErrorMessage error={profileImageError} onError={props.onError} />}

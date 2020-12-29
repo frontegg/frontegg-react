@@ -30,15 +30,13 @@ export const TeamDeleteUserDialog: FC<TeamDeleteUserDialogProps> = (props) => {
       <div className='fe-dialog__footer'>
         <Grid container>
           <Grid xs item>
-            <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeDeleteUserDialog()}>
+            <Button size='large' isCancel fullWidth={false} disabled={loading} onClick={() => closeDeleteUserDialog()} data-test-id="cancel-btn">
               {t('common.cancel')}
-              data-test-id="deleteCancel-btn"
             </Button>
           </Grid>
           <Grid xs item className='fe-text-align-end'>
-            <Button size='large' fullWidth={false} variant='danger' loading={loading} onClick={handleDeleteUser}>
+            <Button size='large' fullWidth={false} variant='danger' loading={loading} onClick={handleDeleteUser} data-test-id="delete-btn">
               {isMe ? t('auth.team.leaveTeam') : t('common.delete')}
-              data-test-id="delete-btn"
             </Button>
           </Grid>
         </Grid>

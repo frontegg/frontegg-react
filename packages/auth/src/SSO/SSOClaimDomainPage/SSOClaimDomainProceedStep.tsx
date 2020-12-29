@@ -25,7 +25,7 @@ export const SSOClaimDomainProceedStep: FC = (props) => {
     <>
       <div className='fe-flex-spacer' />
       <ErrorMessage error={error} />
-      <FButton className='fe-self-flex-end' variant='primary' loading={saving} fullWidth={false} type='submit'>
+      <FButton className='fe-self-flex-end' variant='primary' loading={saving} fullWidth={false} type='submit' data-test-id="submitProceed-btn">
         {t('common.proceed')}
       </FButton>
     </>

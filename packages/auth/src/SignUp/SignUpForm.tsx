@@ -58,13 +58,24 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
         })}
       >
         <FForm>
-          <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id="name-box"/>
-          <FInput name='email' type={'email'} size='large' placeholder={t('auth.sign-up.form.email')}data-test-id="email-box" />
+          <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id='name-box' />
+          <FInput
+            name='email'
+            type={'email'}
+            size='large'
+            placeholder={t('auth.sign-up.form.email')}
+            data-test-id='email-box'
+          />
           {withCompanyName && (
-            <FInput name='companyName' size='large' placeholder={t('auth.sign-up.form.company-name')} data-test-id="compenyName-box"/>
+            <FInput
+              name='companyName'
+              size='large'
+              placeholder={t('auth.sign-up.form.company-name')}
+              data-test-id='compenyName-box'
+            />
           )}
 
-          <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id="signupSubmit-btn">
+          <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
             {t('auth.sign-up.form.submit-button')}
           </FButton>
         </FForm>

@@ -34,7 +34,7 @@ export const FePagination: FC<PaginationProps> = (props) => {
   if (count < 5) {
     return (
       <div className='fe-table__pagination'>
-        <FeButton disabled={!canPreviousPage} onClick={(e) => onChange(e, page - 1)}>
+        <FeButton disabled={!canPreviousPage} onClick={(e) => onChange(e, page - 1)} data-test-id="leftArrow-btn">
           <FeIcon name='left-arrow' />
         </FeButton>
         {pageOptions.map((p) => {
@@ -50,7 +50,7 @@ export const FePagination: FC<PaginationProps> = (props) => {
             </div>
           );
         })}
-        <FeButton disabled={!canNextPage} onClick={(e) => onChange(e, page + 1)}>
+        <FeButton disabled={!canNextPage} onClick={(e) => onChange(e, page + 1)} data-test-id="RightArrow-btn">
           <FeIcon name='right-arrow' />
         </FeButton>
       </div>
@@ -72,7 +72,7 @@ export const FePagination: FC<PaginationProps> = (props) => {
 
   return (
     <div className='fe-pagination'>
-      <FeButton disabled={canPreviousPage} onClick={(e) => onChange(e, page - 1)}>
+      <FeButton disabled={canPreviousPage} onClick={(e) => onChange(e, page - 1)}data-test-id="leftArrow-btn">
         <FeIcon name='left-arrow' />
       </FeButton>
       {pageChunks.map((pageChunk, index) => {
@@ -99,7 +99,7 @@ export const FePagination: FC<PaginationProps> = (props) => {
           </React.Fragment>
         );
       })}
-      <FeButton disabled={canNextPage} onClick={(e) => onChange(e, page + 1)}>
+      <FeButton disabled={canNextPage} onClick={(e) => onChange(e, page + 1)}data-test-id="rightArrow-btn">
         <FeIcon name='right-arrow' />
       </FeButton>
     </div>

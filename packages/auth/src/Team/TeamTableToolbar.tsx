@@ -41,7 +41,7 @@ export const TeamTableToolbar = () => {
           />
         </Grid>
         <Grid item md={9} xs={6} className='fe-text-align-end'>
-          <Button variant='primary' size='large' onClick={() => openAddUserDialog()} data-test-id="inviteUser-btn" >
+          <Button variant='primary' size='large' onClick={() => openAddUserDialog()} data-test-id='inviteUser-btn'>
             {t('auth.team.invite-user')} <Icon className='fe-ml-1' name='person-add' />
           </Button>
         </Grid>
