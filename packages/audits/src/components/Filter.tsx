@@ -141,12 +141,13 @@ export const Filter: FC<FilterProps> = ({ closePopup, value, setFilterValue, typ
                 value && setFilterValue(null);
                 closePopup?.();
               }}
+              data-test-id="closePopup-btn"
             >
               {value ? t('common.clear') : t('common.cancel')}
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button type='submit' fullWidth variant='primary'>
+            <Button type='submit' fullWidth variant='primary' data-test-id="submit-btn">
               {t('common.filter')}
             </Button>
           </Grid>

@@ -42,9 +42,15 @@ export const ForgotPasswordForm: FC<ForgotPasswordFormProps> = (props) => {
           name='email'
           placeholder='name@example.com'
           label={t('auth.forgot-password.email-label')}
-          data-test-id="email-box"
+          data-test-id='email-box'
         />
-        <FButton type='submit' formikDisableIfNotDirty={false} variant='primary' loading={loading}data-test-id="submit-btn">
+        <FButton
+          type='submit'
+          formikDisableIfNotDirty={false}
+          variant='primary'
+          loading={loading}
+          data-test-id='submit-btn'
+        >
           {t('auth.forgot-password.remind-me')}
         </FButton>
         <ErrorMessage error={error} />

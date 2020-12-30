@@ -41,7 +41,7 @@ const InstructionsAccordion: FC<InstructionsAccordionProps> = (props) => {
                   <Grid item xs={6}>
                     {!firstItem && (
                       <Button
-                        data-test-id="expend-btn"
+                        data-test-id='expend-btn'
                         onClick={(e) => {
                           e.stopPropagation();
                           setExpanded(index - 1);
@@ -53,7 +53,7 @@ const InstructionsAccordion: FC<InstructionsAccordionProps> = (props) => {
                   </Grid>
                   <Grid item xs={6} className='fe-text-align-end'>
                     <Button
-                      data-test-id="closeExpend-btn"
+                      data-test-id='closeExpend-btn'
                       variant='primary'
                       onClick={(e) => {
                         e.stopPropagation();

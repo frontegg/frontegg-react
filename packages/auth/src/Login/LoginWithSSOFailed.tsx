@@ -26,7 +26,7 @@ export const LoginWithSSOFailed: FC<LoginWithSSOFailedProps> = (props) => {
     <>
       <div className='fe-error-message'>{t('auth.login.login-with-sso-failed')}</div>
       <Button
-      data-test-id="sso-failed-btn"
+        data-test-id='sso-failed-btn'
         fullWidth={true}
         onClick={() => {
           resetLoginState();

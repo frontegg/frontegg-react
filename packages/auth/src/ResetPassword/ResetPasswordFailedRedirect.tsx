@@ -24,7 +24,7 @@ export const ResetPasswordFailed: FC<ResetPasswordFailedProps> = (props) => {
         {t('auth.forgot-password.reset-password-failed-description')}
       </div>
       <Button
-        data-test-id="loginBack-btn"
+        data-test-id='loginBack-btn'
         fullWidth
         onClick={() => {
           resetForgotPasswordState();
