@@ -61,6 +61,7 @@ export const SSOClaimDomainValidateStep: FC = (props) => {
       <div className='fe-flex-spacer' />
 
       <FButton
+        data-test-id='submit-btn'
         loading={saving}
         formikDisableIfNotDirty={false}
         className='fe-self-flex-end fe-mt-2'

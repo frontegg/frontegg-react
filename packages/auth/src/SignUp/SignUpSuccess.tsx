@@ -27,6 +27,7 @@ export const SignUpSuccess: FC = () => {
         <div className='fe-sign-up__success-message'>{message}</div>
       </div>
       <Button
+        data-test-id='goToLogin-btn'
         fullWidth={true}
         onClick={() => {
           onRedirectTo(routes.loginUrl);

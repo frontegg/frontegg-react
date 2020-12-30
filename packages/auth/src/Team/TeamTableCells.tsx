@@ -89,7 +89,7 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
           items={items}
           trigger={
             <Button iconButton size='small' transparent>
-              {loading === userId ? <Loader size={24} /> : <Icon name='vertical-dots' />}
+              {loading === userId ? <Loader size={24} /> : <Icon name='vertical-dots' data-test-id='dots-btn' />}
             </Button>
           }
         />
@@ -160,7 +160,13 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
         )}
         action='click'
         trigger={
-          <Button className='fe-team__roles-dropdown-button' transparent size='small' iconButton>
+          <Button
+            className='fe-team__roles-dropdown-button'
+            transparent
+            size='small'
+            iconButton
+            data-test-id='rolesDropDown-btn'
+          >
             <Icon name='down-arrow' />
           </Button>
         }

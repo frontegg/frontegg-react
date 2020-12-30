@@ -64,15 +64,18 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           name='password'
           label={t('auth.activate-account.new-password')}
           placeholder={t('auth.activate-account.enter-your-password')}
+          data-test-id='password-box'
         />
         <FInput
           type='password'
           name='confirmPassword'
           label={t('auth.activate-account.confirm-new-password')}
           placeholder={t('auth.activate-account.enter-your-password-again')}
+          data-test-id='confirmPassword-box'
         />
         <FButton type='submit' loading={loading} variant='primary'>
           {t('auth.activate-account.activate-account-button')}
+          data-test-id="activate-btn"
         </FButton>
         <ErrorMessage error={error} />
       </FForm>

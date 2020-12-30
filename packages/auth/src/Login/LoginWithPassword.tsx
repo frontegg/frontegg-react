@@ -87,7 +87,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   const signUpMessage = !signUpState.allowSignUps ? null : (
     <div>
       {t('auth.login.suggest-sign-up.message')}
-      <span onClick={redirectToSignUp} className={'fe-login-component__back-to-sign-up-link'}>
+      <span onClick={redirectToSignUp} className={'fe-login-component__back-to-sign-up-link'} data-testid='email-box'>
         {t('auth.login.suggest-sign-up.sign-up-link')}
       </span>
     </div>
@@ -112,6 +112,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
               label={t('auth.login.email')}
               placeholder='name@example.com'
               onChange={shouldBackToLoginIfEmailChanged ? backToPreLogin : undefined}
+              data-testid='email-box'
             />
 
             {shouldDisplayPassword && (
@@ -123,10 +124,11 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
                 name='password'
                 placeholder={t('auth.login.enter-your-password')}
                 disabled={!shouldDisplayPassword}
+                data-testid='password-box'
               />
             )}
 
-            <FButton type='submit' fullWidth variant={'primary'} loading={loading}>
+            <FButton type='submit' fullWidth variant={'primary'} loading={loading} data-testid='sumbit-btn'>
               {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
             </FButton>
 

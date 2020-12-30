@@ -37,6 +37,7 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
 
   return (
     <Popup
+      data-test-id='popup-btn'
       ref={(node) => {
         popupRef.current = node;
         if (ref && typeof ref === 'function') {
