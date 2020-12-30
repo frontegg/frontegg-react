@@ -7,7 +7,6 @@ import {
   Button,
   Loader,
   FFormik,
-  NotFound,
   useSearch,
   useDispatch,
   useSelector,
@@ -213,34 +212,28 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
     return <Loader center />;
   }
 
-  return tablesData ? (
+  return (
     <FFormik.Formik
       initialValues={{ data: tablesData }}
       validate={validate}
-      onSubmit={(val, { setSubmitting }) => saveData(val.data, setSubmitting)}
+      onSubmit={(val, { setSubmitting }) => val.data && saveData(val.data, setSubmitting)}
     >
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {Search}
-        {filterTableData.length ? (
-          filterTableData.map(({ id, events, index }, idx) => (
-            <Table
-              rowKey='id'
-              key={id}
-              columns={columns[index]}
-              data={events || []}
-              totalData={events?.length || 0}
-              className={classnames('fe-connectivity-table-accordion', {
-                'fe-connectivity-open': opens.includes(idx) || isFiltering,
-              })}
-            />
-          ))
-        ) : (
-          <NotFound />
-        )}
+        {filterTableData.map(({ id, events, index }, idx) => (
+          <Table
+            rowKey='id'
+            key={id}
+            columns={columns[index]}
+            data={events || []}
+            totalData={events?.length || 0}
+            className={classnames('fe-connectivity-table-accordion', {
+              'fe-connectivity-open': opens.includes(idx) || isFiltering,
+            })}
+          />
+        ))}
       </FFormik.Form>
     </FFormik.Formik>
-  ) : (
-    <NotFound />
   );
 };

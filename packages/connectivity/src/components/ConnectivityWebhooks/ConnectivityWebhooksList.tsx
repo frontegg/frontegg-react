@@ -11,7 +11,6 @@ import {
   Button,
   Loader,
   Dialog,
-  NotFound,
   useSearch,
   useDispatch,
   useSelector,
@@ -171,11 +170,7 @@ export const ConnectivityWebhooksList: FC = () => {
       <Button className='fe-connectivity-webhook-add' variant='primary' onClick={onNewEvent}>
         {t('connectivity.addNewHook')}
       </Button>
-      {data.length ? (
-        <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
-      ) : (
-        <NotFound />
-      )}
+      <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
       <Dialog header={t('connectivity.deleteWebhook')} open={!!remove} onClose={() => onRemove(null)}>
         {!!remove && (
           <>

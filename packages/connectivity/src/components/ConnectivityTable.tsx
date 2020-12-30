@@ -8,7 +8,6 @@ import {
   Table,
   Button,
   Loader,
-  NotFound,
   useSearch,
   useSelector,
   SwitchToggle,
@@ -132,7 +131,7 @@ export const ConnectivityTable: FC = () => {
         {Search}
 
         <div className={classnames({ ['fe-connectivity-panel-shown']: !!edit })}>
-          {data?.length ? <Table rowKey='id' columns={columns} data={data} totalData={list.length} /> : <NotFound />}
+          <Table rowKey='id' columns={columns} data={data} totalData={list.length} />
           <ConnectivityPanel show={!!edit} onClose={onCloseEdit}>
             {edit && React.createElement(platformForm[edit.key], { onClose: onCloseEdit })}
           </ConnectivityPanel>

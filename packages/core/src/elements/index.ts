@@ -16,6 +16,5 @@ export * from './Tabs';
 export * from './Menu';
 export * from './MenuItem';
 export * from './Dialog';
-export * from './NotFound';
 export * from './InputChip';
 export * from './Pagination';
