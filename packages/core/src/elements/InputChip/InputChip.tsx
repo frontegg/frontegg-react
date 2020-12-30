@@ -7,13 +7,17 @@ import { useDebounce } from '../../hooks';
 export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], ...props }) => {
   const [inputValue, setVal] = useState<string>('');
 
+  const onSave = async () => {
+    if (validate && !(await validate([...value, inputValue]))) {
+      return;
+    }
+    onChange && onChange([...value, inputValue]);
+    setVal('');
+  };
+
   const onKeyPress: KeyboardEventHandler<HTMLInputElement> = async (e) => {
     if (e.key === 'Enter') {
-      if (validate && !(await validate([...value, inputValue]))) {
-        return;
-      }
-      onChange && onChange([...value, inputValue]);
-      setVal('');
+      onSave();
     }
   };
 
@@ -31,9 +35,18 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
     [onChange, value]
   );
 
+  const onBlur = async () => {
+    if (!inputValue.trim()) {
+      setVal('');
+      return;
+    }
+    onSave();
+  };
+
   return React.createElement(ElementsFactory.getElement('InputChip'), {
     ...props,
     onChange: onChangeValue,
+    onBlur,
     onKeyPress,
     inputValue,
     onDelete,
@@ -42,14 +55,14 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
 };
 
 export const FInputChip: FC<InputChipProps & { name: string }> = ({ name, disabled, ...props }) => {
-  const [inputProps, { touched, error }, { setValue, setTouched, setError }] = useField(name);
+  const [inputProps, { touched, error }, { setValue, setTouched }] = useField(name);
   const { values, isSubmitting, validateForm } = useFormikContext();
 
   const debounceError = useDebounce(error, 2000);
 
   useEffect(() => {
-    debounceError && setError('');
-  }, [setError, debounceError]);
+    !!debounceError && validateForm(values);
+  }, [validateForm, debounceError, values]);
 
   return (
     <InputChip

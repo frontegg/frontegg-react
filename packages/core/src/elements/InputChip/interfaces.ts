@@ -12,6 +12,7 @@ export interface InputChipProps {
 export interface IInputChip extends Omit<InputChipProps, 'value' | 'onChange'> {
   inputValue: string;
   chips: string[];
+  onBlur?(): void;
   onDelete(idx: number): void;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onKeyPress: React.KeyboardEventHandler<HTMLInputElement>;
