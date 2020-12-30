@@ -124,7 +124,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
                 name='password'
                 placeholder={t('auth.login.enter-your-password')}
                 disabled={!shouldDisplayPassword}
-                data-testid='passwors-box'
+                data-testid='password-box'
               />
             )}
 
