@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/frontegg/frontegg-react/compare/v1.16.2...v1.17.0) (2021-01-03)
+
+
+### Bug Fixes
+
+* **auth:** fix comments ([d1a826f](https://github.com/frontegg/frontegg-react/commit/d1a826f78211514b6853f4a444bb202737f4053b))
+* **auth:** fix FR-1304 ([#220](https://github.com/frontegg/frontegg-react/issues/220)) ([c540512](https://github.com/frontegg/frontegg-react/commit/c540512b62e4eafc85f546da952360297c56410b))
+
+
+### Features
+
+* **auth:** Add manage authorization step to sso FR-1148 ([f961e74](https://github.com/frontegg/frontegg-react/commit/f961e74ef163fa5893afc999ed360763b3172297))
+* **core:** set company name as optional on singup form ([#214](https://github.com/frontegg/frontegg-react/issues/214)) ([de83d17](https://github.com/frontegg/frontegg-react/commit/de83d170cb0bf35288e5c69891f902e754ad5ff3))
+
+
+
+
+
 ## [1.16.2](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.2) (2020-12-27)
 
 
