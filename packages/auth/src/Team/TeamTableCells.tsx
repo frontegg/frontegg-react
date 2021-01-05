@@ -12,9 +12,10 @@ import {
   Tag,
   useT,
 } from '@frontegg/react-core';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
 import classNames from 'classnames';
+import { ContextHolder } from '@frontegg/rest-api';
 
 const LEAVE_TEAM_OPTION = false;
 
@@ -103,19 +104,17 @@ type TRoles = {
   value: string;
 };
 
-export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => (props) => {
-  const permissions = roles?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
+export const TeamTableRoles = (currentUserRolesIds?: string[], rolesOptions?: TRoles[]): CellComponent => (props) => {
+  const [rolesToDisplay, setRolesToDisplay] = useState<TRoles[]>([]);
+  const permissions = rolesOptions?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
   const { id: userId } = props.row.original;
   const { updateUser } = useAuthTeamActions();
-  const { loading } = useAuthTeamState((state) => ({
-    loading: state.loaders.UPDATE_USER,
+  const { loading, roles } = useAuthTeamState(({ loaders, roles }) => ({
+    loading: loaders.UPDATE_USER,
+    roles,
   }));
-  const checked = useCallback(
-    (role) => {
-      return permissions?.some((p) => p.value === role.value);
-    },
-    [permissions]
-  );
+
+  const checked = useCallback((role) => permissions?.some((p) => p.value === role.value), [permissions]);
   const onUpdateUser = useCallback(
     (role: TRoles) => {
       const { createdAt, customData, lastLogin, tenantId, vendorId, activatedForTenant, ...data } = props.row.original;
@@ -129,6 +128,40 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
     [props.row.original]
   );
 
+  useEffect(() => {
+    checkRoleAccess();
+  }, []);
+
+  const getRoleLevel = (roleId: string) => {
+    if (!roles) return 0;
+    const roleSettings = roles.find((role) => role.id === roleId);
+    return roleSettings?.permissionLevel || 0;
+  };
+
+  const getMaxRoleLevel = (roleIds: string[]) => {
+    if (!roleIds) return 0;
+    // map roleIds array to numeric levels array, using provider roles settings
+    const levelsArr: number[] = roleIds.map((roleId) => getRoleLevel(roleId));
+    const maxRoleLevel = levelsArr.length ? Math.max(...levelsArr) : 0;
+    return maxRoleLevel;
+  };
+
+  const checkRoleAccess = () => {
+    const context = ContextHolder.getContext();
+    let currnetUserRoleLevel: number = 0;
+
+    if (context.currentUserRoles && context.currentUserRoles.length > 0) {
+      currnetUserRoleLevel = getMaxRoleLevel(context.currentUserRoles);
+    } else if (currentUserRolesIds && currentUserRolesIds.length > 0) {
+      currnetUserRoleLevel = getMaxRoleLevel(currentUserRolesIds);
+    }
+
+    if (roles) {
+      const rolesWithAccess = roles.filter((role) => (role.permissionLevel ?? 0) <= currnetUserRoleLevel);
+      setRolesToDisplay(rolesWithAccess.map((r) => ({ label: r.name, value: r.id })));
+    }
+  };
+
   return (
     <div className='fe-flex fe-full-width fe-flex-no-wrap'>
       <div className='fe-flex'>
@@ -139,38 +172,40 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
         ))}
       </div>
       <div className='fe-flex-spacer' />
-      <Popup
-        className='fe-team__roles-popup'
-        content={() => (
-          <div
-            className={classNames('fe-team__roles-dropdown', {
-              'fe-team__roles-dropdown-disabled': loading === userId,
-            })}
-          >
-            {roles?.map((role) => (
-              <MenuItem
-                key={role.label}
-                withIcons={true}
-                icon={<Checkbox checked={checked(role)} />}
-                onClick={loading === userId ? undefined : () => onUpdateUser(role)}
-                text={role.label}
-              />
-            ))}
-          </div>
-        )}
-        action='click'
-        trigger={
-          <Button
-            className='fe-team__roles-dropdown-button'
-            transparent
-            size='small'
-            iconButton
-            data-test-id='rolesDropDown-btn'
-          >
-            <Icon name='down-arrow' />
-          </Button>
-        }
-      />
+      {!!rolesToDisplay.length && (
+        <Popup
+          className='fe-team__roles-popup'
+          content={() => (
+            <div
+              className={classNames('fe-team__roles-dropdown', {
+                'fe-team__roles-dropdown-disabled': loading === userId,
+              })}
+            >
+              {rolesToDisplay?.map((role) => (
+                <MenuItem
+                  key={role.label}
+                  withIcons={true}
+                  icon={<Checkbox checked={checked(role)} />}
+                  onClick={loading === userId ? undefined : () => onUpdateUser(role)}
+                  text={role.label}
+                />
+              ))}
+            </div>
+          )}
+          action='click'
+          trigger={
+            <Button
+              className='fe-team__roles-dropdown-button'
+              transparent
+              size='small'
+              iconButton
+              data-test-id='rolesDropDown-btn'
+            >
+              <Icon name='down-arrow' />
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 };
