@@ -9,7 +9,6 @@ type TRoles = {
 const getRoleLevel = (roleId: string, roles: ITeamUserRole[]) => {
   if (!roles) return Infinity;
   const roleSettings = roles.find((role) => role.id === roleId);
-  console.log(roleSettings);
   return roleSettings?.permissionLevel ?? Infinity;
 };
 

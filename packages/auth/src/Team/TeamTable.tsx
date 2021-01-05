@@ -43,7 +43,6 @@ export const TeamTable: FC = (props) => {
 
   useEffect(() => {
     const rolesWithAccess = checkRoleAccess(roles, user);
-    console.log(rolesWithAccess);
     setRoleOptionsToDisplay(rolesWithAccess);
   }, [roles]);
 
