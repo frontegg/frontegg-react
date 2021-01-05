@@ -66,7 +66,7 @@ export type ITeamUserRole = {
   description: string;
   key: string;
   name: string;
-  permissions?: Array<string>;
+  permissions?: string[];
   permissionLevel?: number;
 };
 
