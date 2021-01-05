@@ -11,8 +11,8 @@ import {
   TeamTableTitleCell,
   TeamTableRoles,
 } from './TeamTableCells';
-import { ContextHolder } from '@frontegg/rest-api';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { checkRoleAccess } from './helpers';
 
 type TRoles = {
   label: string;
@@ -42,41 +42,10 @@ export const TeamTable: FC = (props) => {
   }, []);
 
   useEffect(() => {
-    checkRoleAccess();
+    const rolesWithAccess = checkRoleAccess(roles, user);
+    console.log(rolesWithAccess);
+    setRoleOptionsToDisplay(rolesWithAccess);
   }, [roles]);
-
-  const getRoleLevel = (roleId: string) => {
-    if (!roles) return Infinity;
-    const roleSettings = roles.find((role) => role.id === roleId);
-    return roleSettings?.permissionLevel || Infinity;
-  };
-
-  const getMaxRoleLevel = (roleIds: string[]) => {
-    if (!roleIds) return Infinity;
-    // map roleIds array to numeric levels array, using provider roles settings
-    const levelsArr: number[] = roleIds.map((roleId) => getRoleLevel(roleId));
-    const maxRoleLevel = levelsArr.length ? Math.min(...levelsArr) : Infinity;
-    return maxRoleLevel;
-  };
-
-  const checkRoleAccess = () => {
-    const context = ContextHolder.getContext();
-    let currnetUserRoleLevel: number;
-    let currentUserRolesIds = user?.roles.map((r) => r.id);
-
-    if (context.currentUserRoles && context.currentUserRoles.length > 0) {
-      currnetUserRoleLevel = getMaxRoleLevel(context.currentUserRoles);
-    } else if (currentUserRolesIds && currentUserRolesIds.length > 0) {
-      currnetUserRoleLevel = getMaxRoleLevel(currentUserRolesIds);
-    }
-
-    if (roles) {
-      const rolesWithAccess = roles.filter((role) => {
-        return (role.permissionLevel ?? Infinity) >= currnetUserRoleLevel;
-      });
-      setRoleOptionsToDisplay(rolesWithAccess.map((r) => ({ label: r.name, value: r.id })));
-    }
-  };
 
   const teamTableColumns: TableColumnProps[] = useMemo(
     () => [
