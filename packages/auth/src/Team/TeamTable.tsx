@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Table, TableColumnProps, useT } from '@frontegg/react-core';
 import { useAuthUserOrNull } from '../hooks';
 import { TeamState } from '../Api/TeamState';
@@ -11,7 +11,13 @@ import {
   TeamTableTitleCell,
   TeamTableRoles,
 } from './TeamTableCells';
+import { ContextHolder } from '@frontegg/rest-api';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
+
+type TRoles = {
+  label: string;
+  value: string;
+};
 
 const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors, roles, sort, filter }: TeamState) => ({
   users,
@@ -26,14 +32,51 @@ const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors,
 });
 
 export const TeamTable: FC = (props) => {
+  const [roleOptionsToDisplay, setRoleOptionsToDisplay] = useState<TRoles[]>([]);
   const { users, loaders, totalItems, sort, pageSize, totalPages, roles } = useAuthTeamState(stateMapper);
   const user = useAuthUserOrNull();
   const { loadUsers } = useAuthTeamActions();
   const { t } = useT();
-  const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
   useEffect(() => {
     loadUsers({ pageOffset: 0 });
   }, []);
+
+  useEffect(() => {
+    checkRoleAccess();
+  }, [roles]);
+
+  const getRoleLevel = (roleId: string) => {
+    if (!roles) return Infinity;
+    const roleSettings = roles.find((role) => role.id === roleId);
+    return roleSettings?.permissionLevel || Infinity;
+  };
+
+  const getMaxRoleLevel = (roleIds: string[]) => {
+    if (!roleIds) return Infinity;
+    // map roleIds array to numeric levels array, using provider roles settings
+    const levelsArr: number[] = roleIds.map((roleId) => getRoleLevel(roleId));
+    const maxRoleLevel = levelsArr.length ? Math.min(...levelsArr) : Infinity;
+    return maxRoleLevel;
+  };
+
+  const checkRoleAccess = () => {
+    const context = ContextHolder.getContext();
+    let currnetUserRoleLevel: number;
+    let currentUserRolesIds = user?.roles.map((r) => r.id);
+
+    if (context.currentUserRoles && context.currentUserRoles.length > 0) {
+      currnetUserRoleLevel = getMaxRoleLevel(context.currentUserRoles);
+    } else if (currentUserRolesIds && currentUserRolesIds.length > 0) {
+      currnetUserRoleLevel = getMaxRoleLevel(currentUserRolesIds);
+    }
+
+    if (roles) {
+      const rolesWithAccess = roles.filter((role) => {
+        return (role.permissionLevel ?? Infinity) >= currnetUserRoleLevel;
+      });
+      setRoleOptionsToDisplay(rolesWithAccess.map((r) => ({ label: r.name, value: r.id })));
+    }
+  };
 
   const teamTableColumns: TableColumnProps[] = useMemo(
     () => [
@@ -62,8 +105,8 @@ export const TeamTable: FC = (props) => {
               minWidth: 300,
               Header: t('common.roles') ?? '',
               Cell: TeamTableRoles(
-                user?.roles.map((r) => r.id),
-                roleOptions
+                roles.map((r) => ({ label: r.name, value: r.id })),
+                roleOptionsToDisplay
               ),
             },
           ]
@@ -87,7 +130,7 @@ export const TeamTable: FC = (props) => {
         Cell: TeamTableActions(user?.id),
       },
     ],
-    [roles]
+    [roles, roleOptionsToDisplay]
   );
 
   return (

@@ -12,10 +12,9 @@ import {
   Tag,
   useT,
 } from '@frontegg/react-core';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
 import classNames from 'classnames';
-import { ContextHolder } from '@frontegg/rest-api';
 
 const LEAVE_TEAM_OPTION = false;
 
@@ -104,15 +103,15 @@ type TRoles = {
   value: string;
 };
 
-export const TeamTableRoles = (currentUserRolesIds?: string[], rolesOptions?: TRoles[]): CellComponent => (props) => {
-  const [rolesToDisplay, setRolesToDisplay] = useState<TRoles[]>([]);
-  const permissions = rolesOptions?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
+export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?: TRoles[]): CellComponent => (
+  props
+) => {
   const { id: userId } = props.row.original;
   const { updateUser } = useAuthTeamActions();
-  const { loading, roles } = useAuthTeamState(({ loaders, roles }) => ({
+  const { loading } = useAuthTeamState(({ loaders }) => ({
     loading: loaders.UPDATE_USER,
-    roles,
   }));
+  const permissions = allRolesOptions?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
 
   const checked = useCallback((role) => permissions?.some((p) => p.value === role.value), [permissions]);
   const onUpdateUser = useCallback(
@@ -128,40 +127,6 @@ export const TeamTableRoles = (currentUserRolesIds?: string[], rolesOptions?: TR
     [props.row.original]
   );
 
-  useEffect(() => {
-    checkRoleAccess();
-  }, []);
-
-  const getRoleLevel = (roleId: string) => {
-    if (!roles) return 0;
-    const roleSettings = roles.find((role) => role.id === roleId);
-    return roleSettings?.permissionLevel || 0;
-  };
-
-  const getMaxRoleLevel = (roleIds: string[]) => {
-    if (!roleIds) return 0;
-    // map roleIds array to numeric levels array, using provider roles settings
-    const levelsArr: number[] = roleIds.map((roleId) => getRoleLevel(roleId));
-    const maxRoleLevel = levelsArr.length ? Math.max(...levelsArr) : 0;
-    return maxRoleLevel;
-  };
-
-  const checkRoleAccess = () => {
-    const context = ContextHolder.getContext();
-    let currnetUserRoleLevel: number = 0;
-
-    if (context.currentUserRoles && context.currentUserRoles.length > 0) {
-      currnetUserRoleLevel = getMaxRoleLevel(context.currentUserRoles);
-    } else if (currentUserRolesIds && currentUserRolesIds.length > 0) {
-      currnetUserRoleLevel = getMaxRoleLevel(currentUserRolesIds);
-    }
-
-    if (roles) {
-      const rolesWithAccess = roles.filter((role) => (role.permissionLevel ?? 0) <= currnetUserRoleLevel);
-      setRolesToDisplay(rolesWithAccess.map((r) => ({ label: r.name, value: r.id })));
-    }
-  };
-
   return (
     <div className='fe-flex fe-full-width fe-flex-no-wrap'>
       <div className='fe-flex'>
@@ -172,7 +137,7 @@ export const TeamTableRoles = (currentUserRolesIds?: string[], rolesOptions?: TR
         ))}
       </div>
       <div className='fe-flex-spacer' />
-      {!!rolesToDisplay.length && (
+      {!!roleOptionsToDisplay?.length && (
         <Popup
           className='fe-team__roles-popup'
           content={() => (
@@ -181,7 +146,7 @@ export const TeamTableRoles = (currentUserRolesIds?: string[], rolesOptions?: TR
                 'fe-team__roles-dropdown-disabled': loading === userId,
               })}
             >
-              {rolesToDisplay?.map((role) => (
+              {roleOptionsToDisplay?.map((role) => (
                 <MenuItem
                   key={role.label}
                   withIcons={true}
