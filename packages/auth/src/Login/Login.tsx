@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ComponentsTypesWithProps, Loader, useDynamicComponents } from '@frontegg/react-core';
+import { ComponentsTypesWithProps, Loader, useDynamicComponents, useT, Button } from '@frontegg/react-core';
 import { AuthState, LoginStep } from '../Api';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
@@ -42,14 +42,17 @@ const defaultComponents = {
   ForceEnrollMfa,
   SocialLogins: SocialLoginsLoginWithWrapper,
 };
-const stateMapper = ({ isLoading, isAuthenticated, loginState }: AuthState) => ({
+const stateMapper = ({ isLoading, isAuthenticated, loginState, onRedirectTo, routes }: AuthState) => ({
   isLoading,
   isAuthenticated,
+  onRedirectTo,
+  routes,
   ...loginState,
 });
 export const Login: FC<LoginProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
-  const { isLoading, isAuthenticated, step } = useAuth(stateMapper);
+  const { isLoading, isAuthenticated, step, onRedirectTo, routes, resetLoginState } = useAuth(stateMapper);
+  const { t } = useT();
 
   let components = null;
   if (isLoading || isAuthenticated) {
@@ -75,7 +78,28 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.LoginSuccessRedirect />;
   }
 
-  return <div className='fe-login-component'>{components}</div>;
+  const showBackButton = [LoginStep.loginWithSSOFailed, LoginStep.forceTwoFactor, LoginStep.recoverTwoFactor].includes(
+    step
+  );
+
+  return (
+    <div className='fe-login-component'>
+      {components}
+      {showBackButton && (
+        <Button
+          data-test-id='backToLogin-btn'
+          fullWidth={true}
+          className='fe-login-component__back-to-login'
+          onClick={() => {
+            onRedirectTo(routes.loginUrl);
+            resetLoginState();
+          }}
+        >
+          {t('auth.login.back-to-login')}
+        </Button>
+      )}
+    </div>
+  );
 };
 
 const LoginPageComponent = authPageWrapper(Login);
