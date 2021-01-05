@@ -84,16 +84,18 @@ export const TeamAddUserDialog: FC = (props) => {
             placeholder={t('common.enter-email')}
             data-test-id='email-box'
           />
-          <FSelect
-            size='large'
-            label={t('common.roles')}
-            multiselect
-            name='roles'
-            disabled={loading}
-            placeholder={t('common.select')}
-            options={roleOptionsToDisplay}
-            data-test-id='roles-dropdown'
-          />
+          {!!roleOptionsToDisplay.length && (
+            <FSelect
+              size='large'
+              label={t('common.roles')}
+              multiselect
+              name='roles'
+              disabled={loading}
+              placeholder={t('common.select')}
+              options={roleOptionsToDisplay}
+              data-test-id='roles-dropdown'
+            />
+          )}
 
           <ErrorMessage error={error} />
           <div className='fe-dialog__footer'>
