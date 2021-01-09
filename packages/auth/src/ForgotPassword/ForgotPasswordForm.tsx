@@ -53,7 +53,7 @@ export const ForgotPasswordForm: FC<ForgotPasswordFormProps> = (props) => {
         >
           {t('auth.forgot-password.remind-me')}
         </FButton>
-        <ErrorMessage error={error} />
+        <ErrorMessage error={error}/>
       </FForm>
     </Formik>
   );

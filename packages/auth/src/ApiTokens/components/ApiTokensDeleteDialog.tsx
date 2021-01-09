@@ -47,12 +47,12 @@ export const ApiTokensDeleteDialog: FC = () => {
       <div className='fe-dialog__footer'>
         <Grid container>
           <Grid xs item>
-            <Button size='large' isCancel fullWidth={false} disabled={!!loading} onClick={handleOnClose}>
+            <Button size='large' isCancel fullWidth={false} disabled={!!loading} onClick={handleOnClose} data-test-id="cancel-btn">
               {t('common.cancel')}
             </Button>
           </Grid>
           <Grid xs item className='fe-text-align-end'>
-            <Button size='large' fullWidth={false} variant='danger' loading={!!loading} onClick={handleDeleteUser}>
+            <Button size='large' fullWidth={false} variant='danger' loading={!!loading} onClick={handleDeleteUser} data-test-id="delete-btn">
               {t('common.delete')}
             </Button>
           </Grid>
