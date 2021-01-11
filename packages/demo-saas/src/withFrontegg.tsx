@@ -4,7 +4,6 @@ import { AuthPlugin } from '@frontegg/react-auth';
 import { ConnectivityPlugin } from '@frontegg/react-connectivity';
 import { NotificationsPlugin } from '@frontegg/react-notifications';
 import { AuditsPlugin } from '@frontegg/react-audits';
-import { uiLibrary } from '@frontegg/react-elements-material-ui';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
