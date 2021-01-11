@@ -88,7 +88,7 @@ export const ConnectivityTable: FC = () => {
     () => [
       {
         accessor: 'platform',
-        Header: () => <span id='fe-connectivity-firstColumn'>{t('common.platform')}</span>,
+        Header: () => <span id='fe-connectivity-firstColumn'>{t('common.channels')}</span>,
         maxWidth: 90,
         Cell: platformCell,
       },
