@@ -49,6 +49,15 @@
     }
   }
 
+  &-platform-check {
+    fill: #d0d3e0;
+    width: 3rem;
+    height: 3rem;
+    &-active {
+      fill: #0baf60;
+    }
+  }
+
   &-button {
     text-transform: uppercase;
     width: 8rem;

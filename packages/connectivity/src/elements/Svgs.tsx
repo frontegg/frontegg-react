@@ -126,3 +126,26 @@ export const SmsSvg: FC<React.SVGProps<SVGSVGElement>> = (props) => {
     </svg>
   );
 };
+
+export const CheckSvg: FC<React.SVGProps<SVGSVGElement>> = (props) => {
+  const {
+    xmlns = 'http://www.w3.org/2000/svg',
+    viewBox = '0 0 100 100',
+    className,
+    width = '100',
+    height = '100',
+    ...svgProps
+  } = props;
+  return (
+    <svg
+      {...svgProps}
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      xmlns={xmlns}
+      className={classNames('fe-icon', className)}
+    >
+      <path d='M74.984 26.078l-3.53 3.563c-9.735 9.755-20.12 20.828-29.845 30.718L28.172 49.297l-3.875-3.188-6.344 7.72 3.844 3.187 17 14 3.531 2.906 3.188-3.219c10.769-10.792 22.435-23.413 33-34l3.53-3.562-7.062-7.063z' />
+    </svg>
+  );
+};

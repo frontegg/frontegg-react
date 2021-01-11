@@ -9,17 +9,19 @@ import {
   Button,
   Loader,
   useSelector,
-  SwitchToggle,
   TableColumnProps,
   CellComponent,
 } from '@frontegg/react-core';
 import { IConnectivityData, IPluginState, TPlatform } from '../interfaces';
 import { ConnectivityPanel } from './ConnectivityPanel';
 import { platformForm } from '../consts';
+import { CheckSvg } from '../elements/Svgs';
 
 interface ILocationState {
   open: TPlatform;
 }
+
+const cssPrefix = 'fe-connectivity-platform';
 
 interface IData extends IConnectivityData {
   isSelect: boolean;
@@ -48,7 +50,7 @@ export const ConnectivityTable: FC = () => {
       <Button
         transparent
         fullWidth
-        className={classnames('fe-connectivity-platform', {
+        className={classnames(cssPrefix, {
           'fe-connectivity-active': original.isSelect,
         })}
         onClick={() => {
@@ -56,11 +58,11 @@ export const ConnectivityTable: FC = () => {
           historyReplace({ ...location, state: { open: original.key } });
         }}
       >
-        <div className='fe-connectivity-platform-icon'>
+        <div className={`${cssPrefix}-icon`}>
           <original.image />
         </div>
-        <div className='fe-connectivity-platform-title'>{t(value)}</div>
-        <Icon className='fe-connectivity-platform-right-arrow' name='right-arrow' />
+        <div className={`${cssPrefix}-title`}>{t(value)}</div>
+        <Icon className={`${cssPrefix}-right-arrow`} name='right-arrow' />
       </Button>
     ),
     [historyReplace, setEdit, location]
@@ -93,7 +95,9 @@ export const ConnectivityTable: FC = () => {
       {
         accessor: 'active',
         Header: t('common.active') || '',
-        Cell: ({ value }) => <SwitchToggle value={value} readOnly />,
+        Cell: ({ value }) => (
+          <CheckSvg className={classnames(`${cssPrefix}-check`, { [`${cssPrefix}-check-active`]: value })} />
+        ),
       },
       {
         accessor: 'events',
@@ -126,7 +130,6 @@ export const ConnectivityTable: FC = () => {
   return (
     <>
       <Grid container className='fe-connectivity-list' direction='column'>
-
         <div className={classnames({ ['fe-connectivity-panel-shown']: !!edit })}>
           <Table rowKey='id' columns={columns} data={data} totalData={list.length} />
           <ConnectivityPanel show={!!edit} onClose={onCloseEdit}>
