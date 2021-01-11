@@ -42,7 +42,7 @@ export const deleteSlackConfiguration = (data: Required<ISlackSubscription>) => 
 
 export const postSlackCode = (code: string) => {
   console.debug('postSlackCode()', { code });
-  return Post(`${CONNECTIVITY_SERVICE_URL_V1}/slack//applications/registrations`, { code });
+  return Post(`${CONNECTIVITY_SERVICE_URL_V1}/slack/applications/registrations`, { code });
 };
 
 export const getEmailConfiguration = (): Promise<IEmailSMSConfigResponse[]> => {
