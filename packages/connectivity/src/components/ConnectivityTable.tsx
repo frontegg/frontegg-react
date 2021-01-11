@@ -8,7 +8,6 @@ import {
   Table,
   Button,
   Loader,
-  useSearch,
   useSelector,
   SwitchToggle,
   TableColumnProps,
@@ -38,10 +37,9 @@ export const ConnectivityTable: FC = () => {
     isLoading,
     list,
   }));
-  const [integrationData, Search] = useSearch({ data: list, filteredBy: 'platform' });
 
-  const data = useMemo(() => integrationData.map((el) => ({ ...el, isSelect: locationState?.open === el.key })), [
-    integrationData,
+  const data = useMemo(() => list.map((el) => ({ ...el, isSelect: locationState?.open === el.key })), [
+    list,
     locationState,
   ]);
 
@@ -128,7 +126,6 @@ export const ConnectivityTable: FC = () => {
   return (
     <>
       <Grid container className='fe-connectivity-list' direction='column'>
-        {Search}
 
         <div className={classnames({ ['fe-connectivity-panel-shown']: !!edit })}>
           <Table rowKey='id' columns={columns} data={data} totalData={list.length} />
