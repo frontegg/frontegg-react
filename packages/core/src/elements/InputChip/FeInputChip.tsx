@@ -11,6 +11,7 @@ export const FeInputChip: FC<IInputChip> = ({
   inputValue,
   onDelete,
   fullWidth,
+  className,
   error,
   ...inputProps
 }) => {
@@ -18,7 +19,7 @@ export const FeInputChip: FC<IInputChip> = ({
 
   return (
     <div
-      className={classNames('fe-input fe-inputChip', { 'fe-input-full-width': fullWidth })}
+      className={classNames('fe-input fe-inputChip', className, { 'fe-input-full-width': fullWidth })}
       onClick={() => inputRef.current && inputRef.current.focus()}
     >
       {!!label && <div>{label}</div>}
