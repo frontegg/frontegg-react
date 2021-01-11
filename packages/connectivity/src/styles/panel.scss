@@ -30,7 +30,7 @@
   & > div:not(.fe-loader) {
     min-height: auto;
     height: auto;
-    margin-bottom: 3rem;
+    margin-bottom: var(--element-padding-lg);
   }
 
   .fe-table__container {
