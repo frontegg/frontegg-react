@@ -173,7 +173,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
                 <InputEmailOrPhone
                   dataIdx={index}
                   eventIdx={rowIndex}
-                  placeholder={form === 'email' ? 'user@server.com' : '+123456789012'}
+                  placeholder={form === 'email' ? 'Enter an email' : 'Enter a phone number'}
                 />
               ),
             },
