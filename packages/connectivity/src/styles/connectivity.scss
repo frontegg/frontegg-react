@@ -76,8 +76,8 @@
           &:hover {
             background-color: lighten(#eaeaeb, 6);
           }
-          &.fe-connectivity-active {
-            background-color: #eaeaeb;
+          &.fe-connectivity-active .fe-connectivity-platform-icon {
+            border: 2px solid #d4d4d5;
           }
         }
       }
