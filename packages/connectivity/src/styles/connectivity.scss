@@ -41,7 +41,7 @@
   .MuiTable-root,
   .fe-table {
     .MuiTableRow-head > th,
-    &__thead-tr-th {
+    .fe-table__thead-tr-th {
       font-weight: bold;
       text-transform: none;
       &:first-child {
@@ -99,19 +99,20 @@
 
     & > .MuiPaper-root,
     .fe-table__container {
-      flex: 0 0 268px;
-      width: 268px;
+      flex: 0 0 149px;
+      width: 149px;
       overflow: visible;
 
+      .MuiTable-root,
       .fe-table {
-        min-width: 268px !important;
-        &__thead {
+        min-width: 149px !important;
+        __thead {
           &-tr-th {
             display: none;
             &:first-child {
               display: flex;
-              flex: 0 0 100%;
-              width: 100%;
+              flex: 0 0 100% !important;
+              width: 100% !important;
             }
           }
         }
@@ -119,8 +120,8 @@
           display: none;
           &:first-child {
             display: flex;
-            flex: 0 0 100%;
-            width: 100%;
+            flex: 0 0 100% !important;
+            width: 100% !important;
           }
         }
       }

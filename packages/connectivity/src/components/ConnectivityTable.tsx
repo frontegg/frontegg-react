@@ -61,11 +61,11 @@ export const ConnectivityTable: FC = () => {
         <div className={`${cssPrefix}-icon`}>
           <original.image />
         </div>
-        <div className={`${cssPrefix}-title`}>{t(value)}</div>
+        {!edit && <div className={`${cssPrefix}-title`}>{t(value)}</div>}
         <Icon className={`${cssPrefix}-right-arrow`} name='right-arrow' />
       </Button>
     ),
-    [historyReplace, setEdit, location]
+    [historyReplace, setEdit, location, edit]
   );
 
   const actionCell = useCallback(
@@ -109,7 +109,6 @@ export const ConnectivityTable: FC = () => {
         Cell: actionCell,
         maxWidth: 80,
       },
-      // { accessor: 'icon', Header: locationState?.open || '', Cell: () => <Icon name='vertical-dots' />, maxWidth: 10 },
     ],
     [actionCell, platformCell]
   );
