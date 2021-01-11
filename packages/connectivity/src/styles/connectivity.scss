@@ -1,12 +1,5 @@
 .fe-connectivity-context,
 .fe-connectivity-component {
-  .fe-input {
-    &__inner {
-      border-radius: var(--element-border-radius);
-      border-color: var(--color-gray-1);
-      background-color: var(--color-gray-1);
-    }
-  }
   .fe-search {
     .MuiInputBase-root,
     .fe-semantic-input .input,
@@ -201,33 +194,8 @@
       min-height: 5rem;
       display: flex;
       align-items: center;
-      margin: -41px 0 0;
+      margin: -1rem 0 0;
       font-size: 1.125rem;
-    }
-    form {
-      .fe-input__inner {
-        border: 1px solid rgba(34, 36, 38, 0.15);
-        background: var(--color-white);
-        padding: 0;
-        overflow: hidden;
-        border-radius: 8px;
-        height: auto;
-      }
-      input[type='text'] {
-        padding: 15px 24px;
-        line-height: 2rem;
-      }
-      textarea {
-        resize: none;
-        height: 120px;
-        padding: 15px 24px;
-      }
-      .fe-input__label {
-        font-size: 14px;
-      }
-      .fe-input-in-form {
-        margin-bottom: 24px;
-      }
     }
     .fe-semantic-tabs {
       padding-top: 1rem;

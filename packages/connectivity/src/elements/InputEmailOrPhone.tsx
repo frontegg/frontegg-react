@@ -17,6 +17,7 @@ export const InputEmailOrPhone: FC<IFormikEditComponent & { placeholder?: string
       name={name}
       fullWidth
       placeholder={placeholder}
+      className='fe-connectivity-table-input'
       onChange={(newValue) => {
         !enabled && value.length < newValue.length && setEnabled(true);
         enabled && newValue.length === 0 && setEnabled(false);

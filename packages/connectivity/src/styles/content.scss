@@ -135,5 +135,13 @@
 }
 
 .fe-connectivity-table-input {
-  width: 100%;
+  &.fe-input-in-form {
+    margin: 0;
+  }
+
+  .fe-input__inner {
+    border-radius: var(--element-border-radius);
+    border-color: var(--color-gray-1);
+    background-color: var(--color-gray-1);
+  }
 }

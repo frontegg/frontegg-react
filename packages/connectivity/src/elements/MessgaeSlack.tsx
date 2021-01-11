@@ -11,6 +11,7 @@ export const MessageSlack: FC<IFormikEditComponent> = ({ eventIdx, dataIdx }) =>
     <FInput
       dontDisableSaving
       disabled={!isActive}
+      fullWidth
       name={`data[${dataIdx}].events[${eventIdx}].slackEvents[0].message`}
       className='fe-connectivity-table-input'
     />
