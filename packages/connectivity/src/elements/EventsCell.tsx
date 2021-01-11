@@ -33,6 +33,8 @@ export const EventsCell: FC<IEventsCell> = React.memo(({ events }) => {
     [eventObject, cleanCatagories]
   );
 
+  const totalEvents = useMemo(() => data?.reduce((acc, cur) => acc + (cur.events?.length || 0), 0) ?? 0, [data]);
+
   return (
     <div className='fe-connectivity-webhook-cell'>
       <div className='fe-connectivity-webhook-row'>
@@ -46,9 +48,7 @@ export const EventsCell: FC<IEventsCell> = React.memo(({ events }) => {
           <>&nbsp;</>
         )}
       </div>
-      <div className='fe-connectivity-webhook-description'>
-        {data?.reduce((acc, cur) => acc + (cur.events?.length || 0), 0)} total
-      </div>
+      <div className='fe-connectivity-webhook-description'>{totalEvents} total</div>
     </div>
   );
 });

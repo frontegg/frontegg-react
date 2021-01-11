@@ -1,6 +1,7 @@
 import React, { FC, InputHTMLAttributes } from 'react';
 import classnames from 'classnames';
 import { FFormik } from '@frontegg/react-core';
+import { CheckSvg } from './Svgs';
 
 export interface IIntegrationCheckBox {
   name: string;
@@ -18,6 +19,9 @@ export const IntegrationCheckBox: FC<Omit<InputHTMLAttributes<HTMLInputElement>,
   ...inputProps
 }) => (
   <label className={classnames('fe-integration-checkbox', { active: !!checked })}>
+    <CheckSvg
+      className={classnames(`fe-connectivity-platform-check`, { [`fe-connectivity-platform-check-active`]: !!checked })}
+    />
     <input {...inputProps} type='checkbox' checked={checked} onChange={onChange} />
   </label>
 );
