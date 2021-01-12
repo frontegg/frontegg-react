@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { uiLibrary as Semantic } from '@frontegg/react-elements-semantic';
 import { uiLibrary as Material } from '@frontegg/react-elements-material-ui';
 import { Elements, fronteggElements as Frontegg } from '@frontegg/react-core';
@@ -37,7 +37,7 @@ export const SelectorExample: FC = () => {
     core: false,
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const onOpenMaterial = () => setOpen({ material: true, core: false, semantic: false });
   const onCloseMaterial = () => setOpen({ material: false, core: false, semantic: false });
@@ -50,9 +50,9 @@ export const SelectorExample: FC = () => {
     return option.label;
   };
 
-  const renderOption = (option: any, state: any) => {
-    return <span style={{ background: 'pink' }}>{option.label}</span>;
-  };
+  // const renderOption = (option: any, state: any) => {
+  //   return <span style={{ background: 'pink' }}>{option.label}</span>;
+  // };
 
   const onChange = useCallback((_e, newValue: Array<any>) => {
     setValue(newValue);

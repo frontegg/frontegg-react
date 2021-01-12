@@ -28,7 +28,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
   const { t } = useT();
   const dispatch = useDispatch();
 
-  const [opens, setOpens] = useState<number[]>([]);
+  const [close, setClose] = useState<number[]>([]);
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
   const { categories, channelMap, data, isSaving, isLoading } = useSelector(
@@ -149,10 +149,10 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
                   iconButton
                   className='fe-connectivity-accordion-button'
                   onClick={() => {
-                    !isFiltering && setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                    !isFiltering && setClose(close.includes(idx) ? close.filter((e) => e !== idx) : [...close, idx]);
                   }}
                 >
-                  <Icon name={opens.includes(idx) || isFiltering ? 'down-arrow' : 'right-arrow'} />
+                  <Icon name={!close.includes(idx) || isFiltering ? 'down-arrow' : 'right-arrow'} />
                   {name}
                 </Button>
               ),
@@ -173,20 +173,13 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
                 <InputEmailOrPhone
                   dataIdx={index}
                   eventIdx={rowIndex}
-                  placeholder={form === 'email' ? 'user@server.com' : '+123456789012'}
+                  placeholder={t(form === 'email' ? 'connectivity.enterEmail' : 'connectivity.enterPhone')}
                 />
               ),
             },
-            // {
-            //   accessor: 'non',
-            //   Header: t('common.message').toUpperCase(),
-            //   Cell: ({ row: { index:rowIndex } }) => {
-            //     return <FInput name={`data[${index}].events[${rowIndex}].message`} disabled />;
-            //   },
-            // },
           ] as TableColumnProps<IEventFormData>[]
       ),
-    [tablesData, t, opens, isFiltering]
+    [tablesData, t, close, isFiltering]
   );
 
   const [filterTableData, Search] = useSearch({
@@ -229,7 +222,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
             data={events || []}
             totalData={events?.length || 0}
             className={classnames('fe-connectivity-table-accordion', {
-              'fe-connectivity-open': opens.includes(idx) || isFiltering,
+              'fe-connectivity-open': !close.includes(idx) || isFiltering,
             })}
           />
         ))}

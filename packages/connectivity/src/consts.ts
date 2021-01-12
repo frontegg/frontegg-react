@@ -2,7 +2,7 @@ import { api, IEmailSMSConfigResponse, ISlackConfigurations, IWebhooksConfigurat
 import { FC } from 'react';
 import { ConnectivitySlack, ConnectivitySMS, ConnectivityEmail } from './components/ConnectivityForms';
 import { ConnectivityWebhooks } from './components/ConnectivityWebhooks';
-import { BellSvg, EmailSvg, SlackSvg, SmsSvg } from './elements/Svgs';
+import { EmailSvg, SlackSvg, SmsSvg, WebhookSvg } from './elements/Svgs';
 import { TPlatform, IConnectivityComponent } from './interfaces';
 
 export const type2ApiGet: Record<TPlatform | 'categories' | 'channelMap', any> = {
@@ -56,7 +56,7 @@ export const channels2Platform: Record<
     title: 'connectivity.webhook',
     events: (data) => (data as IWebhooksConfigurations[])?.length || 0,
     isActive: (data) => !!(data as IWebhooksConfigurations[])?.length,
-    image: BellSvg,
+    image: WebhookSvg,
   },
 };
 
