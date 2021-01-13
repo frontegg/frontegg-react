@@ -15,7 +15,7 @@ export const ApiTokensTableToolbar: FC = () => {
         <Grid container>
           <Grid item md={3} xs={6}>
             <Input
-              data-test-id="search-box"
+              data-test-id='search-box'
               fullWidth
               value={searchValue}
               type='search'
@@ -24,7 +24,12 @@ export const ApiTokensTableToolbar: FC = () => {
             />
           </Grid>
           <Grid item md={9} xs={6} className='fe-text-align-end'>
-            <Button variant='primary' size='large' onClick={() => setApiTokensState({ showAddTokenDialog: true })} data-test-id="addNew-btn">
+            <Button
+              variant='primary'
+              size='large'
+              onClick={() => setApiTokensState({ showAddTokenDialog: true })}
+              data-test-id='addNew-btn'
+            >
               {t('auth.apiTokens.addNewToken')}
             </Button>
           </Grid>

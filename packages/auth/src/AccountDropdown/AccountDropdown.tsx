@@ -29,7 +29,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   }
 
   const trigger = (
-    <Button transparent className='fe-account-dropdown' data-test-id="dropDown-btn">
+    <Button transparent className='fe-account-dropdown' data-test-id='dropDown-btn'>
       <img className='fe-account-dropdown__img' src={user.profilePictureUrl} alt='profilePictureUrl' />
       <span className='fe-account-dropdown__name'>{user.name}</span>
       <Icon className='fe-account-dropdown__trigger' name='down-arrow' />
@@ -39,7 +39,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   return (
     <>
       <Popup
-        data-test-id="popUp-btn"
+        data-test-id='popUp-btn'
         className={'fe-account-popup__container'}
         action='click'
         open={popupOpen}
