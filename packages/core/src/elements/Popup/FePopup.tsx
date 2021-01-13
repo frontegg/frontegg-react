@@ -25,9 +25,14 @@ export const FePopup = forwardRef<Popup, PopupProps>((props, ref) => {
   const placement = useMemo(() => preparePosition(position), [position]);
   const popupRef = useRef<Popup | null>(null);
 
-  useImperativeHandle<any, any>(ref, () => ({
-    closePopup: () => popupRef.current?.setState({ tooltipShown: false }),
-  }));
+  useImperativeHandle<any, any>(
+    ref,
+    () => ({
+      ...popupRef.current,
+      closePopup: () => popupRef.current?.setState({ tooltipShown: false }),
+    }),
+    [popupRef]
+  );
 
   useEffect(() => {
     if (open != null) {
