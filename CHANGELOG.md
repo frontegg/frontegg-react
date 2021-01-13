@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](https://github.com/frontegg/frontegg-react/compare/v1.17.2...v1.17.3) (2021-01-13)
+
+
+### Bug Fixes
+
+* **auth:** fix scopes for github login ([#230](https://github.com/frontegg/frontegg-react/issues/230)) ([c73f0c3](https://github.com/frontegg/frontegg-react/commit/c73f0c32d58ce3727db9f1782fe60d4d946932b1))
+
+
+
+
+
 ## [1.17.2](https://github.com/frontegg/frontegg-react/compare/v1.17.1...v1.17.2) (2021-01-12)
 
 **Note:** Version bump only for package @fronteg/react
