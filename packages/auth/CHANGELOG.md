@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](https://github.com/frontegg/frontegg-react/compare/v1.17.2...v1.17.3) (2021-01-13)
+
+
+### Bug Fixes
+
+* **auth:** fix scopes for github login ([#230](https://github.com/frontegg/frontegg-react/issues/230)) ([c73f0c3](https://github.com/frontegg/frontegg-react/commit/c73f0c32d58ce3727db9f1782fe60d4d946932b1))
+
+
+
+
+
+## [1.17.2](https://github.com/frontegg/frontegg-react/compare/v1.17.1...v1.17.2) (2021-01-12)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+## [1.17.1](https://github.com/frontegg/frontegg-react/compare/v1.17.0...v1.17.1) (2021-01-05)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+# [1.17.0](https://github.com/frontegg/frontegg-react/compare/v1.16.2...v1.17.0) (2021-01-03)
+
+
+### Bug Fixes
+
+* **auth:** fix comments ([d1a826f](https://github.com/frontegg/frontegg-react/commit/d1a826f78211514b6853f4a444bb202737f4053b))
+* **auth:** fix FR-1304 ([#220](https://github.com/frontegg/frontegg-react/issues/220)) ([c540512](https://github.com/frontegg/frontegg-react/commit/c540512b62e4eafc85f546da952360297c56410b))
+
+
+### Features
+
+* **core:** set company name as optional on singup form ([#214](https://github.com/frontegg/frontegg-react/issues/214)) ([de83d17](https://github.com/frontegg/frontegg-react/commit/de83d170cb0bf35288e5c69891f902e754ad5ff3))
+
+
+
+
+
 ## [1.16.2](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.2) (2020-12-27)
 
 

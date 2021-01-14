@@ -8,7 +8,7 @@ const createGithubUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
   const searchParams: URLSearchParams = new URLSearchParams({
     client_id: clientId,
     redirect_uri: redirectUrl,
-    scope: 'user',
+    scope: 'read:user user:email',
     state,
   });
   const url: URL = new URL('https://github.com/login/oauth/authorize');

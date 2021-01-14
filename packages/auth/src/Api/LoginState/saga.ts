@@ -272,8 +272,8 @@ function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCa
 
 function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsResponse[]>>) {
   try {
-    // const tenants = yield call(api.tenants.getTenants);
-    yield put(actions.setLoginState({ tenants: [], tenantsLoading: false }));
+    const tenants = yield call(api.tenants.getTenants);
+    yield put(actions.setLoginState({ tenants, tenantsLoading: false }));
     payload?.callback?.([]);
   } catch (e) {
     payload?.callback?.([], e);
@@ -288,7 +288,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
   } catch (e) {
     console.error(e);
   }
-  yield put(actions.setState({ isLoading: false, isAuthenticated: false, user: null }));
+  yield put(actions.resetState());
   payload?.();
 }
 

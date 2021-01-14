@@ -5,12 +5,12 @@ import classNames from 'classnames';
 import './FeSwitchToggle.scss';
 export const FeSwitchToggle = (props: SwitchToggleProps) => {
   const ref = useRef<HTMLInputElement>(null);
-  const { loading, disabled, value, labels, readOnly } = props;
+  const { loading, disabled, value, labels, readOnly, name } = props;
   const onChange = disabled || readOnly ? undefined : props.onChange;
 
   const toggle = (
     <label className='fe-switch'>
-      <input ref={ref} checked={value} onChange={(e) => onChange?.(e.target.checked)} type='checkbox' />
+      <input ref={ref} checked={value} onChange={(e) => onChange?.(e.target.checked)} name={name} type='checkbox' />
       <span className='fe-slider'></span>
     </label>
   );

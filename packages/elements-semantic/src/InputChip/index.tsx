@@ -4,12 +4,12 @@ import React, { FC, useRef } from 'react';
 import { Label, Icon } from 'semantic-ui-react';
 import './styles.scss';
 
-export const InputChip: FC<IInputChip> = ({ chips, fullWidth, inputValue, onDelete, ...inputProps }) => {
+export const InputChip: FC<IInputChip> = ({ chips, fullWidth, inputValue, onDelete, className, ...inputProps }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div
-      className={classNames('input-chip', { fluid: fullWidth })}
+      className={classNames('input-chip', className, { fluid: fullWidth })}
       onClick={() => inputRef.current && inputRef.current.focus()}
     >
       {chips.map((chip, idx) => (

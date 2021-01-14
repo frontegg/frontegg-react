@@ -11,7 +11,6 @@ import {
   Button,
   Loader,
   Dialog,
-  NotFound,
   useSearch,
   useDispatch,
   useSelector,
@@ -112,7 +111,7 @@ export const ConnectivityWebhooksList: FC = () => {
       {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
-        Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
+        Cell: ({ value, row }) => <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />,
         maxWidth: 50,
         minWidth: 50,
       },
@@ -171,11 +170,7 @@ export const ConnectivityWebhooksList: FC = () => {
       <Button className='fe-connectivity-webhook-add' variant='primary' onClick={onNewEvent}>
         {t('connectivity.addNewHook')}
       </Button>
-      {data.length ? (
-        <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
-      ) : (
-        <NotFound />
-      )}
+      <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
       <Dialog header={t('connectivity.deleteWebhook')} open={!!remove} onClose={() => onRemove(null)}>
         {!!remove && (
           <>

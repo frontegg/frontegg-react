@@ -49,6 +49,15 @@
     }
   }
 
+  &-platform-check {
+    fill: #d0d3e0;
+    width: 3rem;
+    height: 3rem;
+    &-active {
+      fill: #0baf60;
+    }
+  }
+
   &-button {
     text-transform: uppercase;
     width: 8rem;
@@ -126,5 +135,13 @@
 }
 
 .fe-connectivity-table-input {
-  width: 100%;
+  &.fe-input-in-form {
+    margin: 0;
+  }
+
+  .fe-input__inner {
+    border-radius: var(--element-border-radius);
+    border-color: var(--color-gray-1);
+    background-color: var(--color-gray-1);
+  }
 }

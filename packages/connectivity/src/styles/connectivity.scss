@@ -1,12 +1,5 @@
 .fe-connectivity-context,
 .fe-connectivity-component {
-  .fe-input {
-    &__inner {
-      border-radius: var(--element-border-radius);
-      border-color: var(--color-gray-1);
-      background-color: var(--color-gray-1);
-    }
-  }
   .fe-search {
     .MuiInputBase-root,
     .fe-semantic-input .input,
@@ -41,7 +34,7 @@
   .MuiTable-root,
   .fe-table {
     .MuiTableRow-head > th,
-    &__thead-tr-th {
+    .fe-table__thead-tr-th {
       font-weight: bold;
       text-transform: none;
       &:first-child {
@@ -61,7 +54,7 @@
     }
     .MuiTableRow-root > td,
     &__tr-td {
-      &:first-child {
+      &:first-child:not(.fe-table__tr-td-empty) {
         flex: 0 0 268px !important;
         width: 268px !important;
         + div {
@@ -76,8 +69,8 @@
           &:hover {
             background-color: lighten(#eaeaeb, 6);
           }
-          &.fe-connectivity-active {
-            background-color: #eaeaeb;
+          &.fe-connectivity-active .fe-connectivity-platform-icon {
+            border: 2px solid #d4d4d5;
           }
         }
       }
@@ -93,24 +86,26 @@
       text-align: center;
     }
   }
+
   .fe-connectivity-panel-shown {
     display: flex;
 
     & > .MuiPaper-root,
     .fe-table__container {
-      flex: 0 0 268px;
-      width: 268px;
+      flex: 0 0 149px;
+      width: 149px;
       overflow: visible;
 
+      .MuiTable-root,
       .fe-table {
-        min-width: 268px !important;
-        &__thead {
+        min-width: 149px !important;
+        __thead {
           &-tr-th {
             display: none;
             &:first-child {
               display: flex;
-              flex: 0 0 100%;
-              width: 100%;
+              flex: 0 0 100% !important;
+              width: 100% !important;
             }
           }
         }
@@ -118,8 +113,8 @@
           display: none;
           &:first-child {
             display: flex;
-            flex: 0 0 100%;
-            width: 100%;
+            flex: 0 0 100% !important;
+            width: 100% !important;
           }
         }
       }
@@ -145,14 +140,22 @@
         &__tr-td {
           display: flex;
           justify-content: flex-start;
-          &:first-child {
+          &:first-child:not(.fe-table__tr-td-empty) {
             flex: 150 0 auto !important;
             width: 150px !important;
           }
         }
+        .fe-table__tr-td-empty {
+          display: block !important;
+          margin-top: 0.5rem;
+          margin-bottom: -1rem;
+        }
         &__tbody {
           overflow: visible;
         }
+      }
+      .fe-switch {
+        min-width: 42px;
       }
     }
   }
@@ -194,33 +197,8 @@
       min-height: 5rem;
       display: flex;
       align-items: center;
-      margin: -41px 0 0;
+      margin: -1rem 0 0;
       font-size: 1.125rem;
-    }
-    form {
-      .fe-input__inner {
-        border: 1px solid rgba(34, 36, 38, 0.15);
-        background: var(--color-white);
-        padding: 0;
-        overflow: hidden;
-        border-radius: 8px;
-        height: auto;
-      }
-      input[type='text'] {
-        padding: 15px 24px;
-        line-height: 2rem;
-      }
-      textarea {
-        resize: none;
-        height: 120px;
-        padding: 15px 24px;
-      }
-      .fe-input__label {
-        font-size: 14px;
-      }
-      .fe-input-in-form {
-        margin-bottom: 24px;
-      }
     }
     .fe-semantic-tabs {
       padding-top: 1rem;

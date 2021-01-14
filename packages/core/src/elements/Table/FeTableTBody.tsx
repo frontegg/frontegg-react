@@ -4,6 +4,7 @@ import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'r
 import { FeTableExpandable } from './FeTableExpandable';
 import { shallowEqual } from 'react-redux';
 import { FeLoader } from '../Loader/FeLoader';
+import { useT } from '../../hooks';
 
 export type FeTableTBodyProps<T extends object> = {
   loading?: boolean;
@@ -42,6 +43,7 @@ export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = (props: FeTableTBo
 
 export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props: FeTableTBodyProps<T>) => {
   const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading } = props;
+  const { t } = useT();
 
   return (
     <div
@@ -63,6 +65,11 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
           <div className={classNames('fe-table__tr-td fe-table__tr-td-loader')}>
             <FeLoader size={24} />
           </div>
+        </div>
+      )}
+      {!loading && rows.length === 0 && (
+        <div className={classNames('fe-table__tr')}>
+          <div className={classNames('fe-table__tr-td fe-table__tr-td-empty')}>{t('common.noResults')}</div>
         </div>
       )}
     </div>

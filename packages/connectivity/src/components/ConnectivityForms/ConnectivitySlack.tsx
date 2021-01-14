@@ -12,7 +12,6 @@ import {
   FormikAutoSave,
   TableColumnProps,
   useSearch,
-  NotFound,
 } from '@frontegg/react-core';
 import { ISlackConfigurations, ISlackSubscription } from '@frontegg/rest-api';
 import { IConnectivityComponent, IPluginState, ISlackEventData, ISlackTableData } from '../../interfaces';
@@ -26,7 +25,7 @@ import { MessageSlack } from '../../elements/MessgaeSlack';
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
   const dispatch = useDispatch();
-  const [opens, setOpens] = useState<number[]>([]);
+  const [close, setClose] = useState<number[]>([]);
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
   const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
@@ -92,10 +91,10 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
                   iconButton
                   className='fe-connectivity-accordion-button'
                   onClick={() => {
-                    !isFiltering && setOpens(opens.includes(idx) ? opens.filter((e) => e !== idx) : [...opens, idx]);
+                    !isFiltering && setClose(close.includes(idx) ? close.filter((e) => e !== idx) : [...close, idx]);
                   }}
                 >
-                  <Icon name={opens.includes(idx) || isFiltering ? 'down-arrow' : 'right-arrow'} />
+                  <Icon name={!close.includes(idx) || isFiltering ? 'down-arrow' : 'right-arrow'} />
                   {name}
                 </Button>
               ),
@@ -121,7 +120,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
             },
           ] as TableColumnProps<ISlackEventData>[]
       ),
-    [tablesData, t, opens, isFiltering]
+    [tablesData, t, close, isFiltering]
   );
 
   useEffect(() => {
@@ -188,22 +187,18 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {Search}
-        {filterTableData.length ? (
-          filterTableData.map(({ id, events, index }, idx) => (
-            <Table
-              rowKey='eventId'
-              key={id}
-              columns={columns[index]}
-              data={events || []}
-              totalData={events?.length || 0}
-              className={classnames('fe-connectivity-table-accordion', {
-                'fe-connectivity-open': opens.includes(idx) || isFiltering,
-              })}
-            />
-          ))
-        ) : (
-          <NotFound />
-        )}
+        {filterTableData.map(({ id, events, index }, idx) => (
+          <Table
+            rowKey='eventId'
+            key={id}
+            columns={columns[index]}
+            data={events || []}
+            totalData={events?.length || 0}
+            className={classnames('fe-connectivity-table-accordion', {
+              'fe-connectivity-open': !close.includes(idx) || isFiltering,
+            })}
+          />
+        ))}
       </FFormik.Form>
     </FFormik.Formik>
   );

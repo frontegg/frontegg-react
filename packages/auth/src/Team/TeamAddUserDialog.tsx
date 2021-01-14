@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -13,7 +13,14 @@ import {
   validateEmail,
   validateSchema,
 } from '@frontegg/react-core';
+import { useAuthUserOrNull } from '../hooks';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { checkRoleAccess } from './helpers';
+
+type TRoles = {
+  label: string;
+  value: string;
+};
 
 const { Formik } = FFormik;
 
@@ -23,6 +30,8 @@ type AddUserFormValues = {
   roles: { label: string; value: string }[];
 };
 export const TeamAddUserDialog: FC = (props) => {
+  const user = useAuthUserOrNull();
+  const [roleOptionsToDisplay, setRoleOptionsToDisplay] = useState<TRoles[]>([]);
   const { open, error, loading, roles } = useAuthTeamState(({ addUserDialogState, roles }) => ({
     ...addUserDialogState,
     roles,
@@ -30,7 +39,10 @@ export const TeamAddUserDialog: FC = (props) => {
   const { addUser, closeAddUserDialog } = useAuthTeamActions();
   const { t } = useT();
 
-  const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
+  useEffect(() => {
+    const rolesWithAccess = checkRoleAccess(roles, user);
+    setRoleOptionsToDisplay(rolesWithAccess);
+  }, [roles]);
 
   const initialValues: AddUserFormValues = {
     name: '',
@@ -72,17 +84,18 @@ export const TeamAddUserDialog: FC = (props) => {
             placeholder={t('common.enter-email')}
             data-test-id='email-box'
           />
-          <FSelect
-            size='large'
-            label={t('common.roles')}
-            multiselect
-            name='roles'
-            disabled={loading}
-            placeholder={t('common.select')}
-            options={roleOptions}
-            data-test-id='roles-dropdown'
-          />
-
+          {!!roleOptionsToDisplay.length && (
+            <FSelect
+              size='large'
+              label={t('common.roles')}
+              multiselect
+              name='roles'
+              disabled={loading}
+              placeholder={t('common.select')}
+              options={roleOptionsToDisplay}
+              data-test-id='roles-dropdown'
+            />
+          )}
           <ErrorMessage error={error} />
           <div className='fe-dialog__footer'>
             <Grid container>

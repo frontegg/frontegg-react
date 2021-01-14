@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](https://github.com/frontegg/frontegg-react/compare/v1.17.2...v1.17.3) (2021-01-13)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
+## [1.17.2](https://github.com/frontegg/frontegg-react/compare/v1.17.1...v1.17.2) (2021-01-12)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
+## [1.17.1](https://github.com/frontegg/frontegg-react/compare/v1.17.0...v1.17.1) (2021-01-05)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
+# [1.17.0](https://github.com/frontegg/frontegg-react/compare/v1.16.2...v1.17.0) (2021-01-03)
+
+
+### Bug Fixes
+
+* **auth:** fix comments ([d1a826f](https://github.com/frontegg/frontegg-react/commit/d1a826f78211514b6853f4a444bb202737f4053b))
+
+
+
+
+
 ## [1.16.2](https://github.com/frontegg/frontegg-react/compare/v1.16.0...v1.16.2) (2020-12-27)
 
 **Note:** Version bump only for package @frontegg/rest-api
