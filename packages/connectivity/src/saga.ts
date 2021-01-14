@@ -104,12 +104,12 @@ function* postDataFunction({
     } else {
       yield call(type2ApiPost[platform], data);
     }
+    if (!['sms', 'email'].includes(platform)) {
+      const newData = yield loadFunction({ payload: { api: platform }, type: '' });
+      yield put(connectivityActions.postDataSuccess({ platform, data: newData }));
+    }
   } catch (e) {
-    console.error(e);
-  }
-  if (!['sms', 'email'].includes(platform)) {
-    const newData = yield loadFunction({ payload: { api: platform }, type: '' });
-    yield put(connectivityActions.postDataSuccess({ platform, data: newData }));
+    yield put(connectivityActions.setError(e.message ?? e.toString()));
   }
 }
 

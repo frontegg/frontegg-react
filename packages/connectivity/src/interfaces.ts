@@ -33,6 +33,7 @@ export interface IConnectivityState {
   webhook?: IWebhooksConfigurations[];
   categories?: ICategory[];
   channelMap?: Record<TPlatform, IChannelsMap[]>;
+  error?: string;
   slackChannels: {
     isLoading: boolean;
     isLoadingScope?: boolean;

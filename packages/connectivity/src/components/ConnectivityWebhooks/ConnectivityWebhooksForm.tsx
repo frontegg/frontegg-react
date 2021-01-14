@@ -31,12 +31,14 @@ export interface IConnectivityWebhooksForm {
 export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }) => {
   const { t } = useT();
   const dispatch = useDispatch();
-  const { categories, channelMap, isTesting, testResult } = useSelector(
-    ({ connectivity: { categories, channelMap, isTesting, testResult } }: IPluginState) => ({
+  const { error, categories, channelMap, isTesting, testResult, isSaving } = useSelector(
+    ({ connectivity: { error, categories, channelMap, isTesting, testResult, isSaving } }: IPluginState) => ({
+      error,
       categories,
       channelMap: channelMap && channelMap.webhook,
       isTesting,
       testResult,
+      isSaving,
     })
   );
   useEffect(() => {
@@ -58,11 +60,13 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
       <FFormik.Formik
         validationSchema={validationSchema}
         initialValues={{ ...initialValues, ...data }}
-        onSubmit={(val) => {
+        onSubmit={(val, { setSubmitting }) => {
+          dispatch(connectivityActions.cleanError());
           dispatch(connectivityActions.postDataAction('webhook', val));
+          setSubmitting(false);
         }}
       >
-        {({ values: { secret, url }, isSubmitting }) => (
+        {({ values: { secret, url } }) => (
           <FFormik.Form>
             <Grid container wrap='nowrap'>
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>
@@ -94,7 +98,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                 />
                 <Grid container justifyContent='space-between'>
                   <Grid>
-                    <FButton type='submit' variant='primary' loading={isSubmitting}>
+                    <FButton type='submit' variant='primary' loading={isSaving}>
                       {data ? t('connectivity.updateHook').toUpperCase() : t('connectivity.addHook').toUpperCase()}
                     </FButton>
                   </Grid>
@@ -107,6 +111,11 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                       {testResult?.status.toUpperCase() ?? t('connectivity.testHook').toUpperCase()}
                     </Button>
                   </Grid>
+                  {error && (
+                    <Grid xs={12} className='fe-error-message'>
+                      {error}
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>

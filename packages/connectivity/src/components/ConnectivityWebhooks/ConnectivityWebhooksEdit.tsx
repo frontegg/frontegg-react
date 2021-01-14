@@ -18,7 +18,8 @@ export const ConnectivityWebhooksEdit: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  const { webhook, isSaving } = useSelector(({ connectivity: { webhook, isSaving } }: IPluginState) => ({
+  const { error, webhook, isSaving } = useSelector(({ connectivity: { error, webhook, isSaving } }: IPluginState) => ({
+    error,
     webhook,
     isSaving,
   }));
@@ -32,8 +33,8 @@ export const ConnectivityWebhooksEdit: FC = () => {
   }, [historyReplace, location, locationState]);
 
   useLayoutEffect(() => {
-    prevIsSaving && !isSaving && onBack();
-  }, [prevIsSaving, isSaving, onBack]);
+    !error && prevIsSaving && !isSaving && onBack();
+  }, [prevIsSaving, isSaving, onBack, error]);
 
   const onChangeTab = useCallback(
     (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => {
