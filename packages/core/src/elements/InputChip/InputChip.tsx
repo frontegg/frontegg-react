@@ -54,7 +54,6 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
   });
 };
 
-
 export const FInputChip: FC<InputChipProps & { name: string }> = ({ name, disabled, onChange, ...props }) => {
   const [inputProps, { touched, error }, { setValue, setTouched, setError }] = useField(name);
   const { values, isSubmitting, validateForm } = useFormikContext();
