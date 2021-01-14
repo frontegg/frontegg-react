@@ -8,19 +8,20 @@ import {
   Table,
   Button,
   Loader,
-  useSearch,
   useSelector,
-  SwitchToggle,
   TableColumnProps,
   CellComponent,
 } from '@frontegg/react-core';
 import { IConnectivityData, IPluginState, TPlatform } from '../interfaces';
 import { ConnectivityPanel } from './ConnectivityPanel';
 import { platformForm } from '../consts';
+import { CheckSvg } from '../elements/Svgs';
 
 interface ILocationState {
   open: TPlatform;
 }
+
+const cssPrefix = 'fe-connectivity-platform';
 
 interface IData extends IConnectivityData {
   isSelect: boolean;
@@ -38,10 +39,9 @@ export const ConnectivityTable: FC = () => {
     isLoading,
     list,
   }));
-  const [integrationData, Search] = useSearch({ data: list, filteredBy: 'platform' });
 
-  const data = useMemo(() => integrationData.map((el) => ({ ...el, isSelect: locationState?.open === el.key })), [
-    integrationData,
+  const data = useMemo(() => list.map((el) => ({ ...el, isSelect: locationState?.open === el.key })), [
+    list,
     locationState,
   ]);
 
@@ -50,7 +50,7 @@ export const ConnectivityTable: FC = () => {
       <Button
         transparent
         fullWidth
-        className={classnames('fe-connectivity-platform', {
+        className={classnames(cssPrefix, {
           'fe-connectivity-active': original.isSelect,
         })}
         onClick={() => {
@@ -58,14 +58,14 @@ export const ConnectivityTable: FC = () => {
           historyReplace({ ...location, state: { open: original.key } });
         }}
       >
-        <div className='fe-connectivity-platform-icon'>
+        <div className={`${cssPrefix}-icon`}>
           <original.image />
         </div>
-        <div className='fe-connectivity-platform-title'>{t(value)}</div>
-        <Icon className='fe-connectivity-platform-right-arrow' name='right-arrow' />
+        {!edit && <div className={`${cssPrefix}-title`}>{t(value)}</div>}
+        <Icon className={`${cssPrefix}-right-arrow`} name='right-arrow' />
       </Button>
     ),
-    [historyReplace, setEdit, location]
+    [historyReplace, setEdit, location, edit]
   );
 
   const actionCell = useCallback(
@@ -88,14 +88,16 @@ export const ConnectivityTable: FC = () => {
     () => [
       {
         accessor: 'platform',
-        Header: () => <span id='fe-connectivity-firstColumn'>{t('common.platform')}</span>,
+        Header: () => <span id='fe-connectivity-firstColumn'>{t('common.channels')}</span>,
         maxWidth: 90,
         Cell: platformCell,
       },
       {
         accessor: 'active',
         Header: t('common.active') || '',
-        Cell: ({ value }) => <SwitchToggle value={value} readOnly />,
+        Cell: ({ value }) => (
+          <CheckSvg className={classnames(`${cssPrefix}-check`, { [`${cssPrefix}-check-active`]: value })} />
+        ),
       },
       {
         accessor: 'events',
@@ -107,7 +109,6 @@ export const ConnectivityTable: FC = () => {
         Cell: actionCell,
         maxWidth: 80,
       },
-      // { accessor: 'icon', Header: locationState?.open || '', Cell: () => <Icon name='vertical-dots' />, maxWidth: 10 },
     ],
     [actionCell, platformCell]
   );
@@ -128,8 +129,6 @@ export const ConnectivityTable: FC = () => {
   return (
     <>
       <Grid container className='fe-connectivity-list' direction='column'>
-        {Search}
-
         <div className={classnames({ ['fe-connectivity-panel-shown']: !!edit })}>
           <Table rowKey='id' columns={columns} data={data} totalData={list.length} />
           <ConnectivityPanel show={!!edit} onClose={onCloseEdit}>

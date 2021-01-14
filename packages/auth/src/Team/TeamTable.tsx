@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Table, TableColumnProps, useT } from '@frontegg/react-core';
 import { useAuthUserOrNull } from '../hooks';
 import { TeamState } from '../Api/TeamState';
@@ -12,6 +12,12 @@ import {
   TeamTableRoles,
 } from './TeamTableCells';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { checkRoleAccess } from './helpers';
+
+type TRoles = {
+  label: string;
+  value: string;
+};
 
 const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors, roles, sort, filter }: TeamState) => ({
   users,
@@ -26,14 +32,19 @@ const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors,
 });
 
 export const TeamTable: FC = (props) => {
+  const [roleOptionsToDisplay, setRoleOptionsToDisplay] = useState<TRoles[]>([]);
   const { users, loaders, totalItems, sort, pageSize, totalPages, roles } = useAuthTeamState(stateMapper);
   const user = useAuthUserOrNull();
   const { loadUsers } = useAuthTeamActions();
   const { t } = useT();
-  const roleOptions = useMemo(() => roles.map((role) => ({ label: role.name, value: role.id })), [roles]);
   useEffect(() => {
     loadUsers({ pageOffset: 0 });
   }, []);
+
+  useEffect(() => {
+    const rolesWithAccess = checkRoleAccess(roles, user);
+    setRoleOptionsToDisplay(rolesWithAccess);
+  }, [roles]);
 
   const teamTableColumns: TableColumnProps[] = useMemo(
     () => [
@@ -61,7 +72,10 @@ export const TeamTable: FC = (props) => {
               accessor: 'roleIds',
               minWidth: 300,
               Header: t('common.roles') ?? '',
-              Cell: TeamTableRoles(user?.id, roleOptions),
+              Cell: TeamTableRoles(
+                roles.map((r) => ({ label: r.name, value: r.id })),
+                roleOptionsToDisplay
+              ),
             },
           ]
         : []),
@@ -84,7 +98,7 @@ export const TeamTable: FC = (props) => {
         Cell: TeamTableActions(user?.id),
       },
     ],
-    [roles]
+    [roles, roleOptionsToDisplay]
   );
 
   return (

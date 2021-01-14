@@ -7,16 +7,22 @@ export const InputEmailOrPhone: FC<IFormikEditComponent & { placeholder?: string
   dataIdx,
   placeholder,
 }) => {
-  const { values } = FFormik.useFormikContext<{ data: ITableFormData[] }>();
-
-  const { enabled } = values.data[dataIdx].events[eventIdx];
+  const name = `data[${dataIdx}].events[${eventIdx}].recipients`;
+  const enabledName = `data[${dataIdx}].events[${eventIdx}].enabled`;
+  const [{ value }, {}, { setValue }] = FFormik.useField<string[]>(name);
+  const [{ value: enabled }, {}, { setValue: setEnabled }] = FFormik.useField<boolean>(enabledName);
 
   return (
     <FInputChip
-      disabled={!enabled}
-      name={`data[${dataIdx}].events[${eventIdx}].recipients`}
+      name={name}
       fullWidth
       placeholder={placeholder}
+      className='fe-connectivity-table-input'
+      onChange={(newValue) => {
+        !enabled && value.length < newValue.length && setEnabled(true);
+        enabled && newValue.length === 0 && setEnabled(false);
+        setValue(newValue);
+      }}
     />
   );
 };

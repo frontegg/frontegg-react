@@ -17,7 +17,7 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
 
   const onKeyPress: KeyboardEventHandler<HTMLInputElement> = async (e) => {
     if (e.key === 'Enter') {
-      onSave();
+      await onSave();
     }
   };
 
@@ -40,7 +40,7 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
       setVal('');
       return;
     }
-    onSave();
+    await onSave();
   };
 
   return React.createElement(ElementsFactory.getElement('InputChip'), {
@@ -54,7 +54,7 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
   });
 };
 
-export const FInputChip: FC<InputChipProps & { name: string }> = ({ name, disabled, ...props }) => {
+export const FInputChip: FC<InputChipProps & { name: string }> = ({ name, disabled, onChange, ...props }) => {
   const [inputProps, { touched, error }, { setValue, setTouched }] = useField(name);
   const { values, isSubmitting, validateForm } = useFormikContext();
 
@@ -64,18 +64,23 @@ export const FInputChip: FC<InputChipProps & { name: string }> = ({ name, disabl
     !!debounceError && validateForm(values);
   }, [validateForm, debounceError, values]);
 
+  const onValidate = useCallback(
+    async (value: string[]) => {
+      !touched && setTouched(true);
+      const errors = await validateForm(setIn(values, name, value));
+      return !getIn(errors, name);
+    },
+    [setTouched, validateForm]
+  );
+
   return (
     <InputChip
       {...inputProps}
       {...props}
-      validate={async (value) => {
-        !touched && setTouched(true);
-        const errors = await validateForm(setIn(values, name, value));
-        return !getIn(errors, name);
-      }}
+      validate={onValidate}
       disabled={isSubmitting || disabled}
       error={touched && error ? error : undefined}
-      onChange={(val) => setValue(val)}
+      onChange={onChange ?? ((val) => setValue(val))}
     />
   );
 };

@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import { Elements, fronteggElements as FE } from '@frontegg/react-core';
-import { uiLibrary as S } from '@frontegg/react-elements-semantic';
+// import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
 
-const Semantic = S as Elements;
+// const Semantic = S as Elements;
 const Material = M as Elements;
 const Frontegg = FE as Elements;
 

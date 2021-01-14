@@ -111,7 +111,7 @@ export const ConnectivityWebhooksList: FC = () => {
       {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
-        Cell: ({ value, row }) => <IntegrationCheckBox checked={value} onChange={() => onChangeStatus(row.original)} />,
+        Cell: ({ value, row }) => <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />,
         maxWidth: 50,
         minWidth: 50,
       },

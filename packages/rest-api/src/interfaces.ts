@@ -18,6 +18,7 @@ export interface ContextOptions {
   tokenResolver?: () => Promise<string> | string; // custom resolve Authorization Header value
   additionalQueryParamsResolver?: () => Promise<KeyValuePair[]> | KeyValuePair[];
   additionalHeadersResolver?: () => Promise<KeyValuePair[]> | KeyValuePair[];
+  currentUserRoles?: string[];
   requestCredentials?: RequestCredentials;
   urlPrefix?: string;
 }

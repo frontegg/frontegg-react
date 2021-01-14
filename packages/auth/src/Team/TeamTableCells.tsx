@@ -89,7 +89,7 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
           items={items}
           trigger={
             <Button iconButton size='small' transparent>
-              {loading === userId ? <Loader size={24} /> : <Icon name='vertical-dots' />}
+              {loading === userId ? <Loader size={24} /> : <Icon name='vertical-dots' data-test-id='dots-btn' />}
             </Button>
           }
         />
@@ -103,19 +103,17 @@ type TRoles = {
   value: string;
 };
 
-export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => (props) => {
-  const permissions = roles?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
+export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?: TRoles[]): CellComponent => (
+  props
+) => {
   const { id: userId } = props.row.original;
   const { updateUser } = useAuthTeamActions();
-  const { loading } = useAuthTeamState((state) => ({
-    loading: state.loaders.UPDATE_USER,
+  const { loading } = useAuthTeamState(({ loaders }) => ({
+    loading: loaders.UPDATE_USER,
   }));
-  const checked = useCallback(
-    (role) => {
-      return permissions?.some((p) => p.value === role.value);
-    },
-    [permissions]
-  );
+  const permissions = allRolesOptions?.filter((role) => props.value.indexOf(role.value) !== -1) || [];
+
+  const checked = useCallback((role) => permissions?.some((p) => p.value === role.value), [permissions]);
   const onUpdateUser = useCallback(
     (role: TRoles) => {
       const { createdAt, customData, lastLogin, tenantId, vendorId, activatedForTenant, ...data } = props.row.original;
@@ -139,32 +137,40 @@ export const TeamTableRoles = (me?: string, roles?: TRoles[]): CellComponent => 
         ))}
       </div>
       <div className='fe-flex-spacer' />
-      <Popup
-        className='fe-team__roles-popup'
-        content={() => (
-          <div
-            className={classNames('fe-team__roles-dropdown', {
-              'fe-team__roles-dropdown-disabled': loading === userId,
-            })}
-          >
-            {roles?.map((role) => (
-              <MenuItem
-                key={role.label}
-                withIcons={true}
-                icon={<Checkbox checked={checked(role)} />}
-                onClick={loading === userId ? undefined : () => onUpdateUser(role)}
-                text={role.label}
-              />
-            ))}
-          </div>
-        )}
-        action='click'
-        trigger={
-          <Button className='fe-team__roles-dropdown-button' transparent size='small' iconButton>
-            <Icon name='down-arrow' />
-          </Button>
-        }
-      />
+      {!!roleOptionsToDisplay?.length && (
+        <Popup
+          className='fe-team__roles-popup'
+          content={() => (
+            <div
+              className={classNames('fe-team__roles-dropdown', {
+                'fe-team__roles-dropdown-disabled': loading === userId,
+              })}
+            >
+              {roleOptionsToDisplay?.map((role) => (
+                <MenuItem
+                  key={role.label}
+                  withIcons={true}
+                  icon={<Checkbox checked={checked(role)} />}
+                  onClick={loading === userId ? undefined : () => onUpdateUser(role)}
+                  text={role.label}
+                />
+              ))}
+            </div>
+          )}
+          action='click'
+          trigger={
+            <Button
+              className='fe-team__roles-dropdown-button'
+              transparent
+              size='small'
+              iconButton
+              data-test-id='rolesDropDown-btn'
+            >
+              <Icon name='down-arrow' />
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 };

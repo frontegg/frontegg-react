@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Elements } from '@frontegg/react-core';
 // import { uiLibrary as S } from '@frontegg/react-elements-semantic';
 import { uiLibrary as M } from '@frontegg/react-elements-material-ui';
-import { TableFilter, TableSort, Input } from '@frontegg/react-core';
+import { Input } from '@frontegg/react-core';
 
 // const SE = S as Elements;
 // const FE = fronteggElements as Elements;
@@ -1141,9 +1141,6 @@ const data = [
 ];
 
 export const TableExample: FC = () => {
-  const [filters, setFilters] = useState<TableFilter[]>([]);
-  const [sortBy, setSortBy] = useState<TableSort[]>([]);
-
   const renderExpandedComponent = useCallback((data) => {
     return <>{JSON.stringify(data, null, 2)}</>;
   }, []);
