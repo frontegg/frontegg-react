@@ -96,7 +96,6 @@ export const TeamAddUserDialog: FC = (props) => {
               data-test-id='roles-dropdown'
             />
           )}
-
           <ErrorMessage error={error} />
           <div className='fe-dialog__footer'>
             <Grid container>

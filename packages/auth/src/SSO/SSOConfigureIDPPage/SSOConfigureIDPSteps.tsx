@@ -23,9 +23,9 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = ({ goToStep, s
     <div className='fe-sso-idp-page__step'>
       {validCallback ? (
         <>
-          <Input size='large' readOnly inForm fullWidth label='ASC URL' value={samlConfiguration?.acsUrl} />
+          <Input size='large' readOnly inForm fullWidth label='ASC URL' value={samlConfiguration?.acsUrl} data-test-id='ASCURL-box'/>
           {samlVendor !== 'Oidc' && (
-            <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} />
+            <Input size='large' readOnly inForm fullWidth label='Entity ID' value={samlConfiguration?.spEntityId} data-test-id='EntityID-box'/>
           )}
         </>
       ) : (
@@ -36,7 +36,7 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = ({ goToStep, s
 
       <Grid container>
         <Grid item xs style={{ textAlign: 'end' }}>
-          <Button disabled={!validCallback} size='large' variant='primary' onClick={() => goToStep(2)}>
+          <Button disabled={!validCallback} size='large' variant='primary' onClick={() => goToStep(2)} data-test-id='rightArrow-btn'>
             {t('common.next')} <Icon className='fe-ml-1' name={'right-arrow'} />
           </Button>
         </Grid>
