@@ -1,4 +1,5 @@
 export interface SwitchToggleProps {
+  name?: string;
   loading?: boolean;
   disabled?: boolean;
   readOnly?: boolean;

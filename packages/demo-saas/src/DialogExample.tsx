@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FFormik, FForm, Button, Dialog, FInput, Grid, FButton } from '@frontegg/react-core';
+import { FFormik, FForm, Button, Dialog, FInput, Grid } from '@frontegg/react-core';
 
 const { Formik } = FFormik;
 

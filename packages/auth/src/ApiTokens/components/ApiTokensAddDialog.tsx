@@ -88,6 +88,7 @@ export const ApiTokensAddDialog: FC = () => {
       >
         <FForm>
           <FInput
+            data-test-id='token-box'
             label={t('auth.apiTokens.modal.description')}
             size='large'
             name='description'
@@ -96,6 +97,7 @@ export const ApiTokensAddDialog: FC = () => {
           />
           {apiTokenType === 'tenant' && (
             <FSelect
+              data-test-id='roles-btn'
               size='medium'
               label={t('common.roles')}
               multiselect
@@ -110,12 +112,20 @@ export const ApiTokensAddDialog: FC = () => {
           <div className='fe-dialog__footer'>
             <Grid container>
               <Grid xs item>
-                <Button size='large' isCancel fullWidth={false} disabled={!!loading} onClick={closeDialog}>
+                <Button
+                  size='large'
+                  isCancel
+                  fullWidth={false}
+                  disabled={!!loading}
+                  onClick={closeDialog}
+                  data-test-id='cancel-btn'
+                >
                   {t('common.cancel')}
                 </Button>
               </Grid>
               <Grid xs item className='fe-text-align-end'>
                 <FButton
+                  data-test-id='submit-btn'
                   type='submit'
                   size='large'
                   disabled={!!loading}

@@ -30,6 +30,7 @@ export const ForgotPasswordSuccessRedirect: FC<ForgotPasswordSuccessRedirectProp
     <>
       <div className='fe-center fe-success-message fe-mb-4'>{t('auth.forgot-password.reset-email-sent')}</div>
       <Button
+        data-test-id='forgotPassword-btn'
         fullWidth={true}
         onClick={() => {
           resetForgotPasswordState();

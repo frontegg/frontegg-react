@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { Grid, useSelector, Loader, useDispatch } from '@frontegg/react-core';
-import { SlackIcon } from '../../elements/ConnectivityIcons';
 import { IPluginState } from '../../interfaces';
 import { connectivityActions } from '../../reducer';
+import { SlackSvg } from '../../elements/Svgs';
 
 const defaultScope = ['chat:write', 'channels:read', 'chat:write.public'].join(',');
 
@@ -59,7 +59,7 @@ export const ConnectivitySlackAuth: FC<any> = () => {
           <div className='fe-slack-auth__txt-strong'>The first stage would be to connect your Slack Account.</div>
           <br />
           <a href={`https://slack.com/oauth/v2/authorize?${query.toString()}`} className='fe-slack-auth__btn'>
-            <SlackIcon />
+            <SlackSvg />
             <span>Connect with Slack</span>
           </a>
         </div>

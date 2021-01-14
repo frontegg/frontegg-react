@@ -41,7 +41,14 @@ export const SSOManageAuthorizationSelect: FC = () => {
       </div>
       <ErrorMessage error={error} separator />
       <div className='fe-sso-authorization-page__select-footer'>
-        <FButton loading={!!saving} fullWidth={false} size='large' variant='primary' type='submit'>
+        <FButton
+          loading={!!saving}
+          fullWidth={false}
+          size='large'
+          variant='primary'
+          type='submit'
+          data-test-id='submit-btn'
+        >
           {!dirty && !!authorizationRoles.length && !saving ? t('common.configured') : t('common.configure')}
         </FButton>
       </div>

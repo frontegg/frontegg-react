@@ -30,7 +30,7 @@
   & > div:not(.fe-loader) {
     min-height: auto;
     height: auto;
-    margin-bottom: 3rem;
+    margin-bottom: var(--element-padding-lg);
   }
 
   .fe-table__container {
@@ -121,10 +121,6 @@
       --size-font-size: var(--element-font-size-lg);
       --size-border-radius: var(--element-border-radius-sm);
     }
-  }
-
-  .fe-input-in-form {
-    margin: 0;
   }
 
   &-menu {

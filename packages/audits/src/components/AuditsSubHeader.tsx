@@ -47,6 +47,7 @@ export const AuditsSubHeader: FC = () => {
     <div className={`${prefixCls}__subHeader`}>
       <div className={`${prefixCls}__subHeader-top`}>
         <Input
+          data-test-id='search-box'
           type='search'
           value={search}
           placeholder='Search by any text'
@@ -70,6 +71,7 @@ export const AuditsSubHeader: FC = () => {
             ))}
           {filters && filters.filter((f) => f.key !== 'filter').length >= 2 && (
             <Button
+              data-test-id='clearAll-btn'
               transparent
               size='small'
               className={`${prefixCls}__subHeader-clearAll`}

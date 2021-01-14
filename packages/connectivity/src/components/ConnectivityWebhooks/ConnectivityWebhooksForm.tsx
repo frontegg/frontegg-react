@@ -66,7 +66,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
           <FFormik.Form>
             <Grid container wrap='nowrap'>
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>
-                <h2>{t('connectivity.generalSettings')}</h2>
+                <div className='fe-section-title fe-bold fe-mb-2'>{t('connectivity.generalSettings')}</div>
                 <FInput label={t('common.displayName')} name='displayName' placeholder={t('connectivity.inputName')} />
                 <FInput
                   label={t('common.description')}
@@ -110,7 +110,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                 </Grid>
               </Grid>
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>
-                <h2>{t('connectivity.eventSettings')}</h2>
+                <div className='fe-section-title fe-bold fe-mb-2'>{t('connectivity.eventSettings')}</div>
                 <div className='fe-connectivity-webhook-settings__frame'>
                   <h3>{t('connectivity.selectEvents')}</h3>
                   <SelectWebhook cleanCategory={cleanCategory} />

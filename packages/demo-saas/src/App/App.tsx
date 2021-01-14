@@ -1,15 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import {
-  ProtectedRoute,
-  Profile,
-  SSO,
-  useAuthUser,
-  Team,
-  AccountDropdown,
-  useAuth,
-  UserApiTokens,
-} from '@frontegg/react-auth';
+import { ProtectedRoute, Profile, SSO, useAuthUser, Team, AccountDropdown, UserApiTokens } from '@frontegg/react-auth';
 import { ElementsPage } from '../Elements/ElementsPage';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';

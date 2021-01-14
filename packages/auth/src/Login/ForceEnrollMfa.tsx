@@ -68,6 +68,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
           <div className='fe-dialog__footer'>
             <div className='fe-flex-spacer' />
             <Button
+              data-test-id='mfa-btn'
               variant='primary'
               onClick={() => {
                 requestAuthorize(true);
@@ -108,7 +109,14 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
         <div className='fe-dialog__footer'>
           <Grid container>
             <Grid xs item className='fe-text-align-end'>
-              <FButton type='submit' size='large' fullWidth={false} variant='primary' loading={loading}>
+              <FButton
+                type='submit'
+                size='large'
+                fullWidth={false}
+                variant='primary'
+                loading={loading}
+                data-test-id='sumbit-btn'
+              >
                 {t('common.verify')}
               </FButton>
             </Grid>

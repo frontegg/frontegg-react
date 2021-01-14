@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useState } from 'react';
-import { TableFilter, TableSort, Input, fronteggElements, Elements } from '@frontegg/react-core';
+import React, { FC, useCallback } from 'react';
+import { Input, fronteggElements, Elements } from '@frontegg/react-core';
 import { uiLibrary as Se } from '@frontegg/react-elements-semantic';
 import { uiLibrary as Ma } from '@frontegg/react-elements-material-ui';
 
@@ -1139,9 +1139,6 @@ const data = [
   },
 ];
 export const ComponentsPage2: FC = () => {
-  const [filters, setFilters] = useState<TableFilter[]>([]);
-  const [sortBy, setSortBy] = useState<TableSort[]>([]);
-
   const renderExpandedComponent = useCallback((data) => {
     return <div>{JSON.stringify(data, null, 2)}</div>;
   }, []);

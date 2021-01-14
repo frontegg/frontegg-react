@@ -62,7 +62,7 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
               type='password'
               name='password'
               label={'Current Password'}
-              data-test-id='currentpass'
+              data-test-id='currentpass-box'
             />
           </div>
           <div className='fe-row'>
@@ -71,14 +71,14 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
               type='password'
               name='newPassword'
               label={'New Password'}
-              data-test-id='newpass'
+              data-test-id='newpass-box'
             />
             <FInput
               className='fe-input__inline'
               type='password'
               name='confirmNewPassword'
               label={'Repeat New Password'}
-              data-test-id='repeatass'
+              data-test-id='repeatPass-box'
             />
           </div>
           <ErrorMessage error={error} onError={onError} separator style={{ textAlign: 'left', marginBottom: '2rem' }} />
