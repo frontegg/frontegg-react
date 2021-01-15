@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.1](https://github.com/frontegg/frontegg-react/compare/v1.18.0...v1.18.1) (2021-01-15)
+
+
+### Bug Fixes
+
+* **auth:** change oidc icon to correct ([#235](https://github.com/frontegg/frontegg-react/issues/235)) ([95bf5dc](https://github.com/frontegg/frontegg-react/commit/95bf5dc83225c0710e9ec1927d4f4b536d621c1a))
+
+
+
+
+
 # [1.18.0](https://github.com/frontegg/frontegg-react/compare/v1.17.3...v1.18.0) (2021-01-14)
 
 
