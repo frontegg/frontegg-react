@@ -90,12 +90,31 @@ function* loadSlackFunction() {
   }
 }
 
+function* checkNewStatus(
+  platform: TPlatform,
+  data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]
+) {
+  const {
+    connectivity: { list },
+  }: IPluginState = yield select();
+
+  const currPlatform = list.find(({ key }) => key === platform);
+  if (!currPlatform) return;
+  const newActive = channels2Platform[platform].isActive(data);
+  if (newActive === currPlatform.active) return;
+  yield put(
+    connectivityActions.loadDataSuccess({
+      list: list.map((elm) => (elm.key === platform ? { ...elm, active: newActive } : elm)),
+    })
+  );
+}
+
 function* postDataFunction({ payload: { platform, data } }: ReturnType<typeof connectivityActions.postDataAction>) {
   try {
     if (platform === 'slack') {
       yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
     } else if (['sms', 'email'].includes(platform)) {
-      yield postEmailSMSData({ payload: data as IEmailSMSConfigResponse[], type: platform });
+      yield postEmailSMSData({ payload: data as IEmailSMSConfigResponse[], type: platform as 'email' | 'sms' });
     } else {
       yield call(type2ApiPost[platform], data);
     }
@@ -106,6 +125,7 @@ function* postDataFunction({ payload: { platform, data } }: ReturnType<typeof co
         finalData.id = (data as IWebhooksSaveData)._id;
       }
       yield put(connectivityActions.postDataSuccess(finalData));
+      yield checkNewStatus(platform, newData);
     }
   } catch (e) {
     yield put(connectivityActions.setError(e.message ?? e.toString()));
@@ -165,7 +185,7 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
   ]);
 }
 
-function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[]>) {
+function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[], 'email' | 'sms'>) {
   const { connectivity }: IPluginState = yield select();
   const stateData = connectivity[type as 'email' | 'sms'];
   if (!stateData) return;
@@ -238,10 +258,11 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
     console.error(e);
   }
   if (actionsResult.length) {
-    const newData = yield loadFunction({ payload: { api: type as 'email' | 'sms' }, type: '' });
-    yield put(connectivityActions.postDataSuccess({ platform: type as 'email' | 'sms', data: newData }));
+    const newData = yield loadFunction({ payload: { api: type }, type: '' });
+    yield put(connectivityActions.postDataSuccess({ platform: type, data: newData }));
+    yield checkNewStatus(type, newData);
   } else {
-    yield put(connectivityActions.postDataSuccess({ platform: type as 'email' | 'sms', data: stateData }));
+    yield put(connectivityActions.postDataSuccess({ platform: type, data: stateData }));
   }
 }
 

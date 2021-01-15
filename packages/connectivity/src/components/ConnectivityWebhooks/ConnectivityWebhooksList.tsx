@@ -76,7 +76,7 @@ export const ConnectivityWebhooksList: FC = () => {
         }, []);
         return {
           ...elm,
-          groupEvents: data,
+          groupEvents: data ?? [],
           totalEvents: data?.reduce((acc, cur) => acc + (cur.count || 0), 0) ?? 0,
         };
       }),
