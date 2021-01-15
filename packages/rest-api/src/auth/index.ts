@@ -42,8 +42,8 @@ import {
   IUpdateUserApiTokensData,
   IUpdateTenantApiTokensData,
   IDeleteApiToken,
-  IGetTenantApiTokenCreator,
-  IGetTenantApiTokenCreatorResponse,
+  IGetUserById,
+  IUserIdResponse,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -408,9 +408,7 @@ export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<
  * Get Tenant Api Token Creator User
  */
 
-export async function getTenantApiTokenCreator({
-  userId,
-}: IGetTenantApiTokenCreator): Promise<IGetTenantApiTokenCreatorResponse> {
-  console.debug('getTenants()');
+export async function getUserById({ userId }: IGetUserById): Promise<IUserIdResponse> {
+  console.debug('getUserById()');
   return Get(`${USERS_SERVICE_URL_V1}/${userId}`);
 }

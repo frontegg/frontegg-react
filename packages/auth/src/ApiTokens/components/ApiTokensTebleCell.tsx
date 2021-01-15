@@ -32,7 +32,7 @@ const ApiTokensTenantCreatedBy = ({ value }: { value: string }) => {
   const loadTenantApiTokenCreator = async () => {
     try {
       setState({ ...state, loading: true });
-      const data = await api.auth.getTenantApiTokenCreator({ userId: value });
+      const data = await api.auth.getUserById({ userId: value });
       setState({ data, loading: false });
     } catch (e) {
       console.log('failed to load user', e);

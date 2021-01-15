@@ -173,9 +173,9 @@ export interface IUpdateSamlRoles {
   roleIds: Array<string>;
 }
 
-export type IGetTenantApiTokenCreator = { userId: string };
+export type IGetUserById = { userId: string };
 
-export interface IGetTenantApiTokenCreatorResponse {
+export interface IUserIdResponse {
   id: string;
   name: string;
   deletedAt: null;
