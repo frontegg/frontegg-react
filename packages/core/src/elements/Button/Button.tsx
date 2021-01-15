@@ -10,7 +10,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
 export const FButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const { isValid, dirty } = useFormikContext();
   const { formikDisableIfNotDirty, disabled, ...restProps } = props;
-  const _disabled = disabled || !isValid || ((formikDisableIfNotDirty ?? true) && !dirty);
+  const _disabled = disabled || !isValid || ((formikDisableIfNotDirty ?? true) && !dirty) || props.loading;
   return (
     <Button
       data-test-id='disabled-btn'
