@@ -172,3 +172,16 @@ export interface IDeleteApiToken {
 export interface IUpdateSamlRoles {
   roleIds: Array<string>;
 }
+
+export type IGetUserById = { userId: string };
+
+export interface IUserIdResponse {
+  id: string;
+  name: string;
+  deletedAt: null;
+  metadata: any;
+  tenantId: string;
+  vendorId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

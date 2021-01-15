@@ -24,6 +24,7 @@ export default {
       copied: 'Copied!',
       country: 'Country',
       createdAt: 'Created At',
+      createdBy: 'Created By',
       delete: 'Delete',
       description: 'Description',
       detail: 'Detail',
