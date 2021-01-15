@@ -133,6 +133,7 @@ export const ConnectivityWebhooksList: FC = () => {
           ) : (
             <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />
           ),
+        sortType: 'basic',
         maxWidth: 70,
         minWidth: 70,
       },
