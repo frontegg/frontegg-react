@@ -20,7 +20,7 @@ import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
-import { MessageSlack } from '../../elements/MessgaeSlack';
+import { MessageSlack } from '../../elements/MessageSlack';
 
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
@@ -169,7 +169,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
         }, []),
       };
 
-      dispatch(connectivityActions.postDataAction('slack', newData));
+      dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
     },
     [dispatch, slack]
   );

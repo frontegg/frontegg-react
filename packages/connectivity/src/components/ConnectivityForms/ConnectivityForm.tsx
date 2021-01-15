@@ -94,7 +94,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
         []
       );
       if (JSON.stringify(newData) !== JSON.stringify(data)) {
-        dispatch(connectivityActions.postDataAction(form, newData));
+        dispatch(connectivityActions.postDataAction({ platform: form, data: newData }));
       } else {
         setSubmitting(false);
       }

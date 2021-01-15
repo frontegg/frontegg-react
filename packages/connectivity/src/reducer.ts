@@ -1,19 +1,12 @@
-import {
-  IWebhookTest,
-  ISlackChannel,
-  IWebhooksSaveData,
-  ISlackConfigurations,
-  IWebhookLogsResponse,
-  IEmailSMSConfigResponse,
-  IWebhooksConfigurations,
-} from '@frontegg/rest-api';
+import { IWebhookTest, ISlackChannel, IWebhookLogsResponse } from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
-import { IConnectivityState, TPlatform, TWebhookStatus } from './interfaces';
+import { IConnectivityState, TPlatform, TPostData, TPostDataSuccess, TWebhookStatus } from './interfaces';
 
 export const initialState: IConnectivityState = {
   isLoading: false,
   isSaving: false,
   list: [],
+  processIds: [],
   slackChannels: {
     isLoading: false,
   },
@@ -39,7 +32,13 @@ export const { reducer, actions: connectivityActions, name: storeName } = create
       isSaving: false,
       ...payload,
     }),
-    cleanData: () => ({ isLoading: false, isSaving: false, list: [], slackChannels: { isLoading: false } }),
+    cleanData: () => ({
+      isLoading: false,
+      isSaving: false,
+      list: [],
+      slackChannels: { isLoading: false },
+      processIds: [],
+    }),
     loadSlackActions: (state) => ({ ...state, slackChannels: { isLoading: true } }),
     loadSlackSuccess: {
       prepare: (payload: ISlackChannel[] | null) => ({ payload, error: null, meta: '' }),
@@ -56,21 +55,25 @@ export const { reducer, actions: connectivityActions, name: storeName } = create
     },
     postCodeSuccess: (state) => ({ ...state, error: undefined, isSaving: false }),
     postDataAction: {
-      prepare: (platform: TPlatform, data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksSaveData) => ({
+      prepare: ({ platform, data }: TPostData) => ({
         payload: { data, platform },
+        error: null,
+        meta: '',
       }),
-      reducer: (state) => ({ ...state, isSaving: true }),
+      reducer: (state, { payload: { platform, data } }) => ({
+        ...state,
+        isSaving: true,
+        processIds: platform === 'webhook' ? [data._id, ...state.processIds] : state.processIds,
+      }),
     },
     postDataSuccess: {
-      prepare: (payload: {
-        platform?: TPlatform;
-        data?: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[];
-      }) => ({ payload, error: null, meta: '' }),
-      reducer: (state, { payload: { platform, data } }) => ({
+      prepare: (payload: TPostDataSuccess) => ({ payload, error: null, meta: '' }),
+      reducer: (state, { payload: { platform, data, id } }) => ({
         ...state,
         error: undefined,
         isSaving: false,
         [`${platform}`]: data,
+        processIds: id ? state.processIds.filter((el) => el != id) : state.processIds,
       }),
     },
     deleteWebhookConfigAction: {

@@ -1,7 +1,7 @@
 import { put, call, takeEvery, all, takeLatest, select } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { connectivityActions } from './reducer';
-import { IConnectivityState, IPluginState, TPlatform } from './interfaces';
+import { IConnectivityState, IPluginState, TPlatform, TPostDataSuccess } from './interfaces';
 import { type2ApiGet, type2ApiPost, channels, channels2Platform } from './consts';
 import {
   api,
@@ -90,12 +90,7 @@ function* loadSlackFunction() {
   }
 }
 
-function* postDataFunction({
-  payload: { platform, data },
-}: PayloadAction<{
-  platform: TPlatform;
-  data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksSaveData;
-}>) {
+function* postDataFunction({ payload: { platform, data } }: ReturnType<typeof connectivityActions.postDataAction>) {
   try {
     if (platform === 'slack') {
       yield postSlackData({ payload: data as ISlackConfigurations, type: '' });
@@ -106,7 +101,11 @@ function* postDataFunction({
     }
     if (!['sms', 'email'].includes(platform)) {
       const newData = yield loadFunction({ payload: { api: platform }, type: '' });
-      yield put(connectivityActions.postDataSuccess({ platform, data: newData }));
+      const finalData: TPostDataSuccess = { platform, data: newData };
+      if (platform === 'webhook') {
+        finalData.id = (data as IWebhooksSaveData)._id;
+      }
+      yield put(connectivityActions.postDataSuccess(finalData));
     }
   } catch (e) {
     yield put(connectivityActions.setError(e.message ?? e.toString()));

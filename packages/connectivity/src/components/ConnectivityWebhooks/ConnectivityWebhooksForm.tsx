@@ -12,7 +12,6 @@ import {
   validateUrl,
   validateSchema,
   validateRequired,
-  validateLength,
   validateArrayLength,
   Popup,
 } from '@frontegg/react-core';
@@ -62,7 +61,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
         initialValues={{ ...initialValues, ...data }}
         onSubmit={(val, { setSubmitting }) => {
           dispatch(connectivityActions.cleanError());
-          dispatch(connectivityActions.postDataAction('webhook', val));
+          dispatch(connectivityActions.postDataAction({ platform: 'webhook', data: val }));
           setSubmitting(false);
         }}
       >

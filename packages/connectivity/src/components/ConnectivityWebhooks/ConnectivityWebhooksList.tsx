@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import { ICategory, IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
+import { IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
 import {
   Icon,
   Menu,
@@ -42,19 +42,20 @@ export const ConnectivityWebhooksList: FC = () => {
 
   const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
 
-  const { webhookState, isSaving, categories, channelMap, isLoading } = useSelector(
-    ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap } }: IPluginState) => ({
+  const { webhookState, isSaving, categories, channelMap, isLoading, processIds } = useSelector(
+    ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap, processIds } }: IPluginState) => ({
       webhookState: webhook,
       isSaving,
       isLoading,
       categories,
       channelMap: channelMap && channelMap.webhook,
+      processIds,
     })
   );
 
   useLayoutEffect(() => {
-    !isSaving && onRemove(null);
-  }, [isSaving, onRemove]);
+    remove && !isSaving && onRemove(null);
+  }, [isSaving, onRemove, remove]);
 
   const cleanCatagories = filterCategories(categories, channelMap);
 
@@ -97,7 +98,9 @@ export const ConnectivityWebhooksList: FC = () => {
 
   const onChangeStatus = useCallback(
     (data: IWebhooksSaveData) => {
-      dispatch(connectivityActions.postDataAction('webhook', { ...data, isActive: !data.isActive }));
+      dispatch(
+        connectivityActions.postDataAction({ platform: 'webhook', data: { ...data, isActive: !data.isActive } })
+      );
     },
     [dispatch]
   );
@@ -124,7 +127,12 @@ export const ConnectivityWebhooksList: FC = () => {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
         sortable: true,
-        Cell: ({ value, row }) => <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />,
+        Cell: ({ value, row }) =>
+          processIds.includes(row.original._id) ? (
+            <Loader />
+          ) : (
+            <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />
+          ),
         maxWidth: 70,
         minWidth: 70,
       },
@@ -186,7 +194,7 @@ export const ConnectivityWebhooksList: FC = () => {
         ),
       },
     ],
-    [t, onEdit, onRemove, onChangeStatus]
+    [t, onEdit, onRemove, onChangeStatus, processIds]
   );
 
   if (isLoading) {
