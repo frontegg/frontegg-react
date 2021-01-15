@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import { IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
+import { ICategory, IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
 import {
   Icon,
   Menu,
@@ -18,14 +18,18 @@ import {
 } from '@frontegg/react-core';
 import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
-import { filterCategories } from '../../utils';
-import { EventsCell } from '../../elements/EventsCell';
+import { filterCategories, selectedEvents } from '../../utils';
 import { connectivityActions } from '../../reducer';
 import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
 
 interface IEventCount {
   name: string;
   count: number;
+}
+
+interface IWebhooksFullConfigurations extends IWebhooksConfigurations {
+  groupEvents: IEventCount[];
+  totalEvents: number;
 }
 
 export const ConnectivityWebhooksList: FC = () => {
@@ -38,9 +42,9 @@ export const ConnectivityWebhooksList: FC = () => {
 
   const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
 
-  const { webhook, isSaving, categories, channelMap, isLoading } = useSelector(
+  const { webhookState, isSaving, categories, channelMap, isLoading } = useSelector(
     ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap } }: IPluginState) => ({
-      webhook,
+      webhookState: webhook,
       isSaving,
       isLoading,
       categories,
@@ -51,6 +55,32 @@ export const ConnectivityWebhooksList: FC = () => {
   useLayoutEffect(() => {
     !isSaving && onRemove(null);
   }, [isSaving, onRemove]);
+
+  const cleanCatagories = filterCategories(categories, channelMap);
+
+  const webhook = useMemo(
+    () =>
+      webhookState?.map((elm) => {
+        const eventObject = selectedEvents(elm.eventKeys);
+        const data = cleanCatagories?.reduce<IEventCount[]>((acc, cur) => {
+          if (eventObject?.names.includes(cur.name)) {
+            return [...acc, { name: cur.name, count: cur.events?.length ?? 0 }];
+          } else {
+            const evs = cur.events?.filter(({ key }) => eventObject?.eventKeys.includes(key));
+            if (evs?.length) {
+              return [...acc, { name: cur.name, count: evs.length }];
+            }
+          }
+          return acc;
+        }, []);
+        return {
+          ...elm,
+          groupEvents: data,
+          totalEvents: data?.reduce((acc, cur) => acc + (cur.count || 0), 0) ?? 0,
+        };
+      }),
+    [webhookState, cleanCatagories]
+  );
 
   const cleanCategory = filterCategories(categories, channelMap);
 
@@ -91,11 +121,12 @@ export const ConnectivityWebhooksList: FC = () => {
     [dispatch]
   );
 
-  const columns: TableColumnProps<IWebhooksConfigurations>[] = useMemo(
+  const columns: TableColumnProps<IWebhooksFullConfigurations>[] = useMemo(
     () => [
       {
         accessor: 'displayName',
         Header: t('common.title').toUpperCase(),
+        sortable: true,
         Cell: ({ value, row }) => (
           <div
             className='fe-connectivity-webhook-cell fe-connectivity-webhook-cell-link'
@@ -111,21 +142,38 @@ export const ConnectivityWebhooksList: FC = () => {
       {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
+        sortable: true,
         Cell: ({ value, row }) => <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />,
-        maxWidth: 50,
-        minWidth: 50,
+        maxWidth: 70,
+        minWidth: 70,
       },
       {
-        accessor: 'eventKeys',
+        accessor: 'totalEvents',
+        sortable: true,
         Header: t('common.events').toUpperCase(),
-        Cell: ({ value }) => <EventsCell events={value} />,
+        Cell: ({ value, row: { original } }) => (
+          <div className='fe-connectivity-webhook-cell'>
+            <div className='fe-connectivity-webhook-row'>
+              {original.groupEvents &&
+                !!original.groupEvents.length &&
+                original.groupEvents.map(({ name, count }, idx) => (
+                  <span key={idx} className='fe-connectivity-webhook-event'>
+                    {name}({count})
+                  </span>
+                ))}
+            </div>
+            <div className='fe-connectivity-webhook-description'>{value} total</div>
+          </div>
+        ),
       },
       {
         accessor: 'invocations',
+        sortable: true,
         Header: t('common.invocations').toUpperCase(),
       },
       {
         accessor: 'createdAt',
+        sortable: true,
         Header: t('common.createdAt').toUpperCase(),
         Cell: ({ value }) => {
           const date = moment.utc(value).local();
