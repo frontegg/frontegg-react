@@ -82,8 +82,6 @@ export const ConnectivityWebhooksList: FC = () => {
     [webhookState, cleanCatagories]
   );
 
-  const cleanCategory = filterCategories(categories, channelMap);
-
   const [data, Search] = useSearch({ filteredBy: 'displayName', data: webhook });
 
   const onEdit = useCallback(
@@ -96,23 +94,6 @@ export const ConnectivityWebhooksList: FC = () => {
   const onNewEvent = useCallback(() => {
     historyReplace({ ...location, state: { ...locationState, view: 'edit' } });
   }, [Location, locationState]);
-
-  const countOfEvents = useCallback(
-    (eventKeys: string[]) =>
-      cleanCategory?.reduce((acc: IEventCount[], cur) => {
-        const template = `${cur.name}.*`;
-        return [
-          ...acc,
-          {
-            name: cur.name,
-            count: eventKeys.includes(template)
-              ? cur.events?.length || 0
-              : (cur.events?.filter(({ key }) => eventKeys.includes(key)) ?? []).length,
-          },
-        ];
-      }, []) ?? [],
-    [cleanCategory]
-  );
 
   const onChangeStatus = useCallback(
     (data: IWebhooksSaveData) => {
@@ -205,7 +186,7 @@ export const ConnectivityWebhooksList: FC = () => {
         ),
       },
     ],
-    [t, onEdit, onRemove, countOfEvents, onChangeStatus]
+    [t, onEdit, onRemove, onChangeStatus]
   );
 
   if (isLoading) {
