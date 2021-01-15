@@ -1,15 +1,50 @@
 import { Button, CellComponent, Icon, Loader, Menu, MenuItemProps, TableCells, useT } from '@frontegg/react-core';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCallback } from 'react';
 import { useApiTokensActions } from '../hooks';
+import { api } from '@frontegg/rest-api';
 
 export const getApiTokensTableCells = (column: string): CellComponent => {
   switch (column) {
+    case 'createdByUserId':
+      return ApiTokensTenantCreatedBy;
     case 'createdAt':
       return TableCells.DateAgo;
     default:
       return TableCells.Title;
   }
+};
+
+const ApiTokensTenantCreatedBy = ({ value }: { value: string }) => {
+  const { t } = useT();
+  const [state, setState] = useState({
+    loading: false,
+    data: {
+      name: '',
+    },
+  });
+  const { data, loading } = state;
+
+  useEffect(() => {
+    loadTenantApiTokenCreator();
+  }, []);
+
+  const loadTenantApiTokenCreator = async () => {
+    try {
+      setState({ ...state, loading: true });
+      const data = await api.auth.getTenantApiTokenCreator({ userId: value });
+      setState({ data, loading: false });
+    } catch (e) {
+      console.log('failed to load user', e);
+      setState({ data, loading: false });
+    }
+  };
+
+  return loading ? (
+    <Loader size={15} />
+  ) : (
+    <div className='fe-table-cell__title'>{data.name ?? t('common.notFound')}</div>
+  );
 };
 
 export const ApiTokensActions = (props: any): CellComponent => {

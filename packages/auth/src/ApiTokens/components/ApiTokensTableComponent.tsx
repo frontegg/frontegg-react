@@ -1,8 +1,9 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useApiTokensState } from '../hooks';
 import { Loader, Table } from '@frontegg/react-core';
 import { prefixCls, tableColumnsUser, tableColumnsTenant } from '../constants';
 import { IUserApiTokensData, ITenantApiTokensData } from '../../Api/ApiTokensState/interfaces';
+import { useT } from '@frontegg/react-core';
 
 export const ApiTokensTableComponent: FC = () => {
   const {
@@ -30,6 +31,7 @@ export const ApiTokensTableComponent: FC = () => {
     })
   );
   const [data, setData] = useState<Array<ITenantApiTokensData | IUserApiTokensData> | undefined>(undefined);
+  const { t } = useT();
 
   useEffect(() => {
     apiTokenType === 'user'
@@ -51,8 +53,8 @@ export const ApiTokensTableComponent: FC = () => {
 
   const preparedTenantColumns = useMemo(() => {
     return createdByUserIdColumn === 'hide'
-      ? tableColumnsTenant.filter((i) => i.accessor !== 'createdByUserId')
-      : tableColumnsTenant;
+      ? tableColumnsTenant(t).filter((i) => i.accessor !== 'createdByUserId')
+      : tableColumnsTenant(t);
   }, [createdByUserIdColumn, tableColumnsTenant]);
 
   if (!!loading || !data) {
@@ -65,7 +67,7 @@ export const ApiTokensTableComponent: FC = () => {
       data={data}
       loading={!!loading}
       className={`${prefixCls}__table`}
-      columns={apiTokenType === 'user' ? tableColumnsUser : preparedTenantColumns}
+      columns={apiTokenType === 'user' ? tableColumnsUser(t) : preparedTenantColumns}
       totalData={apiTokenType === 'user' ? apiTokensDataUser.length : apiTokensDataTenant.length}
     />
   );
