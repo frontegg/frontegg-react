@@ -41,7 +41,7 @@ export const ApiTokensActions = (props: any): CellComponent => {
         <Menu
           items={items}
           trigger={
-            <Button iconButton size='small' transparent>
+            <Button iconButton size='small' transparent data-test-id='dots-btn'>
               <Icon name='vertical-dots' />
             </Button>
           }

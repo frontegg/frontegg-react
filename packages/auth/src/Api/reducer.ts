@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User } from './interfaces';
 import { storeName, typeReducer } from './utils';
-import { initialState } from './initialState';
+import { initialState, reinitializeState } from './initialState';
 import { loginActions, loginStateReducers } from './LoginState';
 import { activateActions, activateStateReducers } from './ActivateState';
 import { acceptInvitationActions, acceptInvitationStateReducers } from './AcceptInvitationState';
@@ -18,7 +18,7 @@ const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
   initialState,
   reducers: {
-    resetState: () => initialState,
+    resetState: (state: AuthState) => ({ ...state, reinitializeState }),
     setState: (state: AuthState, { payload }: PayloadAction<Partial<AuthState>>) => ({ ...state, ...payload }),
     setUser: typeReducer<User>('user'),
     ...signUpStateReducers,

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Grid } from '@frontegg/react-core';
 import { useT } from '@frontegg/react-core';
-import { AzureIcon, GoogleIcon, OktaIcon, SamlIcon, SamlVendors } from './SSOVendors';
+import { AzureIcon, GoogleIcon, OktaIcon, SamlIcon, SamlVendors, OpenIdIcon } from './SSOVendors';
 import classNames from 'classnames';
 
 export interface SSOConfigureIDPSelectProps {
@@ -21,7 +21,7 @@ const IDPS = [
   { Icon: OktaIcon, key: SamlVendors.Okta, label: 'Okta' },
   { Icon: AzureIcon, key: SamlVendors.Azure, label: 'Azure Active Directory' },
   { Icon: GoogleIcon, key: SamlVendors.Google, label: 'Google Gsuite' },
-  { Icon: GoogleIcon, key: SamlVendors.Oidc, label: 'Open ID Connect' },
+  { Icon: OpenIdIcon, key: SamlVendors.Oidc, label: 'Open ID Connect' },
 ];
 
 const prefixT = 'auth.sso.idp.select';

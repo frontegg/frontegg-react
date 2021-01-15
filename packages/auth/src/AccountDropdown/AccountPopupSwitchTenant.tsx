@@ -26,7 +26,7 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
       })}
     >
       <div className='fe-account-switch-tenant__header'>
-        <Button iconButton size={'small'} onClick={props.onClose}>
+        <Button iconButton size={'small'} onClick={props.onClose} data-test-id='close-btn'>
           <Icon name='back' />
         </Button>
         <span>{t('common.switchTenant')}</span>
