@@ -289,6 +289,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
     console.error(e);
   }
   yield put(actions.resetState());
+  yield put(actions.requestAuthorize(true));
   payload?.();
 }
 
