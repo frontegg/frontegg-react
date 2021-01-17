@@ -75,7 +75,6 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
         />
         <FButton type='submit' loading={loading} variant='primary' data-test-id='activate-btn'>
           {t('auth.activate-account.activate-account-button')}
-          data-test-id="activate-btn"
         </FButton>
         <ErrorMessage error={error} />
       </FForm>
