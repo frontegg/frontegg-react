@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.3](https://github.com/frontegg/frontegg-react/compare/v1.18.2...v1.18.3) (2021-01-17)
+
+
+### Bug Fixes
+
+* **auth:** fix activate button ([#240](https://github.com/frontegg/frontegg-react/issues/240)) ([dfc369c](https://github.com/frontegg/frontegg-react/commit/dfc369c2ade168ca2b4af30c0eb34fac59b4da35))
+
+
+
+
+
 ## [1.18.2](https://github.com/frontegg/frontegg-react/compare/v1.18.1...v1.18.2) (2021-01-15)
 
 **Note:** Version bump only for package @frontegg/react-auth
