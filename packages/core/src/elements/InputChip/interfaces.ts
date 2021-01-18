@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+
 export interface InputChipProps {
   value?: string[];
   disabled?: boolean;
@@ -11,10 +13,9 @@ export interface InputChipProps {
 }
 
 export interface IInputChip extends Omit<InputChipProps, 'value' | 'onChange'> {
-  inputValue: string;
+  ref?: Ref<HTMLInputElement> | null;
   chips: string[];
-  onBlur?(): void;
+  onBlur: React.ChangeEventHandler<HTMLInputElement>;
   onDelete(idx: number): void;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
   onKeyPress: React.KeyboardEventHandler<HTMLInputElement>;
 }
