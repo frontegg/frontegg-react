@@ -75,6 +75,7 @@ function* saveProfile({
       ...payload,
       profilePictureUrl: newProfilePictureUrl,
     };
+
     const profile = yield call(api.teams.updateProfile, newProfileData);
 
     const currentUser = yield select((state) => state.auth.user);
