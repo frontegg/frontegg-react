@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.4](https://github.com/frontegg/frontegg-react/compare/v1.18.3...v1.18.4) (2021-01-18)
+
+**Note:** Version bump only for package @fronteg/react
+
+
+
+
+
+## [1.18.3](https://github.com/frontegg/frontegg-react/compare/v1.18.2...v1.18.3) (2021-01-17)
+
+
+### Bug Fixes
+
+* **auth:** fix activate button ([#240](https://github.com/frontegg/frontegg-react/issues/240)) ([dfc369c](https://github.com/frontegg/frontegg-react/commit/dfc369c2ade168ca2b4af30c0eb34fac59b4da35))
+
+
+
+
+
+## [1.18.2](https://github.com/frontegg/frontegg-react/compare/v1.18.1...v1.18.2) (2021-01-15)
+
+**Note:** Version bump only for package @fronteg/react
+
+
+
+
+
+## [1.18.1](https://github.com/frontegg/frontegg-react/compare/v1.18.0...v1.18.1) (2021-01-15)
+
+
+### Bug Fixes
+
+* **auth:** change oidc icon to correct ([#235](https://github.com/frontegg/frontegg-react/issues/235)) ([95bf5dc](https://github.com/frontegg/frontegg-react/commit/95bf5dc83225c0710e9ec1927d4f4b536d621c1a))
+
+
+
+
+
+# [1.18.0](https://github.com/frontegg/frontegg-react/compare/v1.17.3...v1.18.0) (2021-01-14)
+
+
+### Bug Fixes
+
+* Reload profile data on profile component mount ([0791ffa](https://github.com/frontegg/frontegg-react/commit/0791ffaf867ad339b8bf24820e15dc3ca107aa6d))
+* Reset Frontegg store after logout ([37d1de8](https://github.com/frontegg/frontegg-react/commit/37d1de8e816fec9e671ec1eff5e139b99e857941))
+* **core:** fix close property for the FePopup component ([e9f9d85](https://github.com/frontegg/frontegg-react/commit/e9f9d85fbc51c3e83e789fe326acf5117f0d47ca))
+
+
+### Features
+
+* **core:** support enter data on blur event in the InputChip element ([6f43239](https://github.com/frontegg/frontegg-react/commit/6f43239fe2ab03f794d8eedc8742eb811f4567de))
+
+
+
+
+
 ## [1.17.3](https://github.com/frontegg/frontegg-react/compare/v1.17.2...v1.17.3) (2021-01-13)
 
 

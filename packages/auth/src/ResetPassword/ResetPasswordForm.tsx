@@ -54,7 +54,7 @@ export const ResetPasswordForm: FC<ResetPasswordFormProps> = (props) => {
           name='confirmPassword'
           label={t('auth.forgot-password.confirm-new-password')}
           placeholder={t('auth.forgot-password.enter-your-password-again')}
-          data-test-id='confirmPass-box'
+          data-test-id='repeatPass-box'
         />
         <FButton type='submit' loading={loading} variant='primary' data-test-id='resetPass-submit-btn'>
           {t('auth.forgot-password.reset-password-button')}

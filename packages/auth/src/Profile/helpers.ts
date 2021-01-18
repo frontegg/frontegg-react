@@ -5,7 +5,7 @@ import { ProfileState } from '../Api/ProfileState';
 export const reloadProfileIfNeeded = () => {
   const { profile, loading, loadProfile } = useAuthProfile();
   useEffect(() => {
-    !loading && !profile && loadProfile();
+    !loading && loadProfile();
   }, []);
 };
 

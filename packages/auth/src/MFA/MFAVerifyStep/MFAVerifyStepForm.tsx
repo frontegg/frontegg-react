@@ -11,7 +11,7 @@ export const MFAVerifyStepForm: FC = (props) => {
     if (!qrCode) {
       enrollMfa();
     }
-  }, []);
+  }, [qrCode]);
   const children = props.children ?? (
     <>
       <ol className='fe-mfa__verify-form-ol'>

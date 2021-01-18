@@ -29,7 +29,7 @@ const GithubLogin: FC = (props) => {
 
   if (redirectUrl) {
     return (
-      <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { refresh: true })}>
+      <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true })}>
         {props.children || defaultButton}
       </div>
     );

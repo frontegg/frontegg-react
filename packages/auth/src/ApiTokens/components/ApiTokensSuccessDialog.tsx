@@ -42,6 +42,7 @@ export const ApiTokensSucceessDialog: FC = () => {
         <span>{t('auth.apiTokens.modal.tip')}</span>
       </div>
       <Input
+        data-test-id='clientID-btn'
         className={`${prefixCls}__dialog-success-input`}
         fullWidth
         size='large'
@@ -49,7 +50,12 @@ export const ApiTokensSucceessDialog: FC = () => {
         label={t('common.clientId')}
         suffixIcon={
           !copiedClientId ? (
-            <Icon className={`${prefixCls}__copy-icon`} name='copy' onClick={() => copySecret('clientId')} />
+            <Icon
+              className={`${prefixCls}__copy-icon`}
+              name='copy'
+              onClick={() => copySecret('clientId')}
+              data-test-id='copyID-btn'
+            />
           ) : (
             <Icon name='checkmark' />
           )
@@ -57,6 +63,7 @@ export const ApiTokensSucceessDialog: FC = () => {
       />
       <div className={`${prefixCls}__dialog-spacer`} />
       <Input
+        data-test-id='secretKey-btn'
         className={`${prefixCls}__dialog-success-input`}
         fullWidth
         size='large'
@@ -74,7 +81,7 @@ export const ApiTokensSucceessDialog: FC = () => {
       <div className='fe-dialog__footer'>
         <Grid container>
           <Grid xs item className='fe-text-align-end'>
-            <Button isCancel size='large' fullWidth={false} onClick={resetModalState}>
+            <Button isCancel size='large' fullWidth={false} onClick={resetModalState} data-test-id='close-btn'>
               {t('common.close')}
             </Button>
           </Grid>

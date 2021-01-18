@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.4](https://github.com/frontegg/frontegg-react/compare/v1.18.3...v1.18.4) (2021-01-18)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
+## [1.18.3](https://github.com/frontegg/frontegg-react/compare/v1.18.2...v1.18.3) (2021-01-17)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
+## [1.18.2](https://github.com/frontegg/frontegg-react/compare/v1.18.1...v1.18.2) (2021-01-15)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
+## [1.18.1](https://github.com/frontegg/frontegg-react/compare/v1.18.0...v1.18.1) (2021-01-15)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
+# [1.18.0](https://github.com/frontegg/frontegg-react/compare/v1.17.3...v1.18.0) (2021-01-14)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
 ## [1.17.3](https://github.com/frontegg/frontegg-react/compare/v1.17.2...v1.17.3) (2021-01-13)
 
 **Note:** Version bump only for package @frontegg/react-audits
