@@ -36,11 +36,11 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
         {!tenantsLoading &&
           tenants.map((tenant) => (
             <MenuItem
-              key={tenant.id}
+              key={tenant.tenantId}
               text={
                 <>
                   {tenant.name}
-                  {tenant.id === user?.tenantId && (
+                  {tenant.tenantId === user?.tenantId && (
                     <Tag size={'small'} variant={'primary'} className='fe-active-tenant-tag'>
                       Active
                     </Tag>
