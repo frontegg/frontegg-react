@@ -24,12 +24,17 @@ const defaultAuthPlugin = {
     acceptInvitationUrl: '/account/invitation/accept',
     forgetPasswordUrl: '/account/forget-password',
     resetPasswordUrl: '/account/reset-password',
+    socialLoginCallbackUrl: '/account/social/success',
+    signUpUrl: '/account/sign-up',
   },
 };
 
 const EMAIL_2 = 'test2@frontegg.com';
 const PASSWORD = 'ValidPassword123!';
 const SSO_PATH = '/my-test-sso-login';
+const GOOGLE_AUTH_URL =
+  '/account/https://accounts.google.com/o/oauth2/v2/auth?client_id=google_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Faccount%2Fsocial%2Fsuccess&response_type=code&include_granted_scopes=true&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=%7B%22provider%22%3A%22google%22%2C%22action%22%3A%22login%22%7D';
+const GOOGLE_AUTH_RESPONSE = '?state=%7B%22provider%22:%22google%22,%22action%22:%22login%22%7D&code=google_auth_code';
 const MFA_TOKEN = 'mfaToken';
 const RECOVERY_CODE = '123412341234';
 
@@ -471,6 +476,154 @@ describe('Login Tests', () => {
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/account/login');
+    });
+  });
+
+  it('Login with Social Login', () => {
+    cy.server();
+    mockAuthApi(false, false, true);
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      status: 200,
+      response: { address: SSO_PATH },
+      delay: 200,
+    }).as('preLogin');
+
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
+    });
+
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
+    cy.get('.loader').should('not.be.visible');
+
+    const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+
+    cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+    cy.location().should((loc) => {
+      expect(loc.pathname + loc.search).to.eq(GOOGLE_AUTH_URL);
+    });
+
+    navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+
+    cy.get('.loader').should('not.be.visible');
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code`,
+      status: 200,
+      delay: 200,
+      response: {},
+    }).as('submitSocialLogin');
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+      status: 200,
+      response: {
+        accessToken: '',
+        refreshToken: '',
+      },
+    }).as('refreshToken');
+
+    mockAuthMe();
+    cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants']);
+
+    cy.wait(1000);
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/');
+    });
+  });
+
+  it('Login with Social, with two-factor', () => {
+    cy.server();
+    mockAuthApi(false, false, true);
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      status: 200,
+      response: { address: SSO_PATH },
+      delay: 200,
+    }).as('preLogin');
+
+    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+      ...mountOptions,
+      alias: 'providerComponent',
+    });
+
+    navigateTo(defaultAuthPlugin.routes.loginUrl);
+    cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
+    cy.get('.loader').should('not.be.visible');
+
+    const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+
+    cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+    cy.location().should((loc) => {
+      expect(loc.pathname + loc.search).to.eq(GOOGLE_AUTH_URL);
+    });
+
+    navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+
+    cy.get('.loader').should('not.be.visible');
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code`,
+      status: 200,
+      delay: 200,
+      response: {},
+    }).as('submitSocialLogin');
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+      status: 200,
+      response: {
+        mfaRequired: true,
+        mfaToken: MFA_TOKEN,
+      },
+    }).as('refreshToken');
+
+    cy.wait(['@submitSocialLogin', '@refreshToken']);
+
+    cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
+
+    const submitSelector = 'button[type=submit]';
+    const codeSelector = '[name="code"]';
+
+    const validCode = '123123';
+    cy.get(codeSelector).focus().type('111').blur();
+    cy.get(codeSelector).parents('.field').should('have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('be.disabled');
+    cy.get(codeSelector).focus().clear().type(validCode).blur();
+    cy.get(codeSelector).parents('.field').should('not.have.class', 'error');
+    cy.get(submitSelector).contains('Login').should('not.be.disabled');
+
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
+      status: 400,
+      response: { errors: ['invalid code'] },
+      delay: 200,
+    }).as('verifyMfa');
+    cy.get(submitSelector).contains('Login').click();
+    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.contains('invalid code').should('be.visible');
+
+    mockAuthMe();
+    cy.route({
+      method: 'POST',
+      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
+      status: 200,
+      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
+      delay: 200,
+    }).as('verifyMfa');
+    cy.get(submitSelector).contains('Login').click();
+    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/');
     });
   });
 

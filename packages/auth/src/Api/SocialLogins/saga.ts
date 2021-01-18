@@ -19,10 +19,10 @@ function* loginViaSocialLogin({ payload }: PayloadAction<ILoginViaSocialLogin>) 
     yield put(actions.setSocialLoginsState({ loading: true }));
     yield call(api.auth.loginViaSocialLogin, payload);
     yield refreshToken();
-    yield afterAuthNavigation();
-    yield put(actions.setSocialLoginsState({ loading: false, firstLoad: false }));
   } catch (e) {
-    yield put(actions.setSocialLoginsState({ loading: false, error: e.message, firstLoad: false }));
+    yield put(
+      actions.setSocialLoginsState({ loading: false, error: e.message ?? 'Failed to authenticate', firstLoad: false })
+    );
   }
 }
 
