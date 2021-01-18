@@ -43,6 +43,7 @@ export const AuthListener: FC<ListenerProps<AuthActions>> = (props) => {
       const authState = JSON.parse(ev.newValue || 'false');
       if (authState === true) return;
       // Force refresh token
+      actions.resetState();
       actions.requestAuthorize();
     });
   };
