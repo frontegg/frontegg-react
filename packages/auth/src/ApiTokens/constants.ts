@@ -1,28 +1,29 @@
 import { ApiTokensActions, getApiTokensTableCells } from './components/ApiTokensTebleCell';
+import { TFunction } from 'i18next';
 export const prefixCls = 'fe-api-tokens';
 
-export const tableColumnsTenant = [
+export const tableColumnsTenant = (t: TFunction) => [
   {
     accessor: 'clientId',
-    Header: 'Client Id',
+    Header: t('common.clientId'),
     sortable: true,
     Cell: getApiTokensTableCells('clientId'),
   },
   {
     accessor: 'description',
-    Header: 'Description',
+    Header: t('common.description'),
     sortable: true,
     Cell: getApiTokensTableCells('Description'),
   },
   {
     accessor: 'createdByUserId',
-    Header: 'Created By',
+    Header: t('common.createdBy'),
     sortable: true,
     Cell: getApiTokensTableCells('createdByUserId'),
   },
   {
     accessor: 'createdAt',
-    Header: 'Created At',
+    Header: t('common.createdAt'),
     sortable: true,
     Cell: getApiTokensTableCells('createdAt'),
   },
@@ -34,22 +35,22 @@ export const tableColumnsTenant = [
   },
 ];
 
-export const tableColumnsUser = [
+export const tableColumnsUser = (t: TFunction) => [
   {
     accessor: 'clientId',
-    Header: 'Client Id',
+    Header: t('common.clientId'),
     sortable: true,
     Cell: getApiTokensTableCells('clientId'),
   },
   {
     accessor: 'description',
-    Header: 'Description',
+    Header: t('common.description'),
     sortable: true,
     Cell: getApiTokensTableCells('Description'),
   },
   {
     accessor: 'createdAt',
-    Header: 'Created At',
+    Header: t('common.createdAt'),
     sortable: true,
     Cell: getApiTokensTableCells('createdAt'),
   },

@@ -44,6 +44,7 @@ export const mockAuthMe = () => {
     method: 'GET',
     url: `${IDENTITY_SERVICE}/resources/users/v2/me`,
     status: 200,
+    delay: 200,
     response: {
       activatedForTenant: true,
       email: EMAIL_1,
@@ -61,9 +62,26 @@ export const mockAuthMe = () => {
       verified: true,
     },
   }).as('me');
+  cy.route({
+    method: 'GET',
+    url: `${IDENTITY_SERVICE}/resources/users/v2/me/tenants`,
+    status: 200,
+    delay: 200,
+    response: [],
+  }).as('meTenants');
 };
 
-export const mockAuthApi = (authenticated: boolean, saml: boolean) => {
+export const mockAuthApi = (
+  authenticated: boolean,
+  saml: boolean,
+  socialLogin: boolean = false,
+  publicConfigurations = {
+    allowOverrideEnforcePasswordHistory: false,
+    allowOverridePasswordComplexity: false,
+    allowOverridePasswordExpiration: false,
+    allowSignups: false,
+  }
+) => {
   if (authenticated) {
     cy.route({
       method: 'POST',
@@ -102,6 +120,38 @@ export const mockAuthApi = (authenticated: boolean, saml: boolean) => {
       },
     }).as('metadata');
   }
+
+  if (socialLogin) {
+    cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/sso/v1`,
+      status: 200,
+      delay: 200,
+      response: [
+        {
+          active: true,
+          clientId: 'google_client_id',
+          redirectUrl: 'http://localhost:3000/account/social/success',
+          type: 'google',
+        },
+      ],
+    }).as('socialLogin');
+  } else {
+    cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/sso/v1`,
+      status: 200,
+      delay: 200,
+      response: [],
+    }).as('socialLogin');
+  }
+  cy.route({
+    method: 'GET',
+    url: `${IDENTITY_SERVICE}/resources/configurations/v1/public`,
+    status: 200,
+    delay: 200,
+    response: publicConfigurations,
+  }).as('publicConfigurations');
 };
 
 export const mockAuditsApi = () => {

@@ -90,14 +90,13 @@ export function* refreshToken() {
           },
         })
       );
-      yield put(actions.loadTenants());
       onRedirectTo(routes.loginUrl);
     } else {
       ContextHolder.setAccessToken(user.accessToken);
       ContextHolder.setUser(user);
       yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
-      if (window.location.pathname.endsWith(routes.loginUrl)) {
+      if ([routes.loginUrl, routes.socialLoginCallbackUrl].includes(window.location.pathname)) {
         yield afterAuthNavigation();
       }
     }
@@ -289,6 +288,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
     console.error(e);
   }
   yield put(actions.resetState());
+  yield put(actions.requestAuthorize(true));
   payload?.();
 }
 

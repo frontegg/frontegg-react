@@ -42,6 +42,8 @@ import {
   IUpdateUserApiTokensData,
   IUpdateTenantApiTokensData,
   IDeleteApiToken,
+  IGetUserById,
+  IUserIdResponse,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -400,4 +402,13 @@ export async function deleteTenantApiToken({ tokenId }: IDeleteApiToken): Promis
 export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
   console.debug('deleteUserApiToken()', tokenId);
   return Delete(`${IDENTITY_API_TOKENS_USERS_SERVICE}/${tokenId}`);
+}
+
+/**
+ * Get Tenant Api Token Creator User
+ */
+
+export async function getUserById({ userId }: IGetUserById): Promise<IUserIdResponse> {
+  console.debug('getUserById()');
+  return Get(`${USERS_SERVICE_URL_V1}/${userId}`);
 }

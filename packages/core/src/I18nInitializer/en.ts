@@ -24,6 +24,7 @@ export default {
       copied: 'Copied!',
       country: 'Country',
       createdAt: 'Created At',
+      createdBy: 'Created By',
       delete: 'Delete',
       description: 'Description',
       detail: 'Detail',
@@ -138,7 +139,7 @@ export default {
         'failed-title': 'Authorization Failed',
         'failed-description': 'We were unable to authorize you',
         'success-title': 'Authorize successfully!',
-        'pending-title': 'Please wait ehile we authorize you...',
+        'pending-title': 'Please wait while we authorize you...',
       },
       sso: {
         title: 'Single Sign On',

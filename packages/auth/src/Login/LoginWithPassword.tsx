@@ -13,7 +13,6 @@ import {
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
-import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
@@ -32,6 +31,13 @@ export type LoginWithPasswordRendererProps = Omit<LoginWithPasswordProps, 'rende
 export interface LoginWithPasswordProps {
   renderer?: ComponentType<LoginWithPasswordRendererProps>;
 }
+
+const HideChildrenIfRequired: FC<{ hide: boolean }> = ({ hide, children }) => {
+  if (hide) {
+    return <span style={{ visibility: 'hidden', position: 'absolute' }}>{children}</span>;
+  }
+  return <>{children}</>;
+};
 
 export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   const { renderer } = props;
@@ -115,18 +121,18 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
               data-testid='email-box'
             />
 
-            {shouldDisplayPassword && (
+            <HideChildrenIfRequired hide={!shouldDisplayPassword}>
               <FInput
                 size='large'
                 label={t('auth.login.password')}
                 labelButton={labelButtonProps(values)}
                 type='password'
                 name='password'
+                tabIndex={shouldDisplayPassword ? undefined : -1}
                 placeholder={t('auth.login.enter-your-password')}
-                disabled={!shouldDisplayPassword}
                 data-testid='password-box'
               />
-            )}
+            </HideChildrenIfRequired>
 
             <FButton type='submit' fullWidth variant={'primary'} loading={loading} data-testid='sumbit-btn'>
               {shouldDisplayPassword ? t('auth.login.login') : t('auth.login.continue')}
