@@ -22,13 +22,12 @@ export const elements: ElementOptions = {
     title: 'InputChip',
     type: 'InputChip',
     propToOptions: {
-      inputValue: ['', 'test'],
       chips: [
         ['chip1', 'chip2'],
         ['chip1', 'chip2', 'chip3'],
       ],
-      onChange: [() => {}],
       onKeyPress: [() => {}],
+      onBlur: [() => {}],
       onDelete: [() => {}],
     },
   },
