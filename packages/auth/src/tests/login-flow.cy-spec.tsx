@@ -169,7 +169,7 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Continue').should('be.disabled');
     checkEmailValidation();
     cy.get(submitSelector).contains('Continue').should('not.be.disabled');
-    cy.get(passwordSelector).should('not.exist');
+    cy.get(passwordSelector).should('not.be.visible');
 
     cy.get(submitSelector).contains('Continue').click();
     cy.get(submitSelector).should('not.have.class', 'loading');
@@ -180,7 +180,7 @@ describe('Login Tests', () => {
 
     // change email should reset the login back to preLogin
     cy.get(emailSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get(passwordSelector).should('not.exist');
+    cy.get(passwordSelector).should('not.be.visible');
     cy.get(submitSelector).contains('Continue').click();
 
     cy.wait('@preLogin').its('request.body').should('deep.equal', { email: EMAIL_1 });
@@ -229,11 +229,11 @@ describe('Login Tests', () => {
     checkEmailValidation();
     cy.get(submitSelector).contains('Continue').should('not.be.disabled');
 
-    cy.get(passwordSelector).should('not.exist');
+    cy.get(passwordSelector).should('not.be.visible');
     cy.get(submitSelector).contains('Continue').click();
     cy.get(submitSelector).should('have.class', 'loading');
 
-    cy.get(passwordSelector).should('not.exist');
+    cy.get(passwordSelector).should('not.be.visible');
 
     cy.wait('@preLogin').its('request.body').should('deep.equal', { email: EMAIL_1 });
 
@@ -270,11 +270,11 @@ describe('Login Tests', () => {
     checkEmailValidation();
     cy.get(submitSelector).contains('Continue').should('not.be.disabled');
 
-    cy.get(passwordSelector).should('not.exist');
+    cy.get(passwordSelector).should('not.be.visible');
     cy.get(submitSelector).contains('Continue').click();
     cy.get(submitSelector).should('have.class', 'loading');
 
-    cy.get(passwordSelector).should('not.exist');
+    cy.get(passwordSelector).should('not.be.visible');
 
     cy.wait('@preLogin').its('request.body').should('deep.equal', { email: EMAIL_1 });
 
