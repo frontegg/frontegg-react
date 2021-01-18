@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.5](https://github.com/frontegg/frontegg-react/compare/v1.18.4...v1.18.5) (2021-01-18)
+
+
+### Bug Fixes
+
+* **core:** fix perfomance for the INputChip component ([cea5e19](https://github.com/frontegg/frontegg-react/commit/cea5e19aef64a6cf42f75d3cbb77cd74fb01f560))
+
+
+
+
+
 ## [1.18.4](https://github.com/frontegg/frontegg-react/compare/v1.18.3...v1.18.4) (2021-01-18)
 
 **Note:** Version bump only for package @frontegg/react-elements-semantic
