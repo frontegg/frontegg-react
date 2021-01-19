@@ -70,7 +70,7 @@ export const TeamTable: FC = (props) => {
         ? [
             {
               accessor: 'roleIds',
-              minWidth: 300,
+              minWidth: 220,
               Header: t('common.roles') ?? '',
               Cell: TeamTableRoles(
                 roles.map((r) => ({ label: r.name, value: r.id })),
