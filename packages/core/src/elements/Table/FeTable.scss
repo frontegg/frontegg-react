@@ -71,6 +71,10 @@
       vertical-align: baseline;
     }
 
+    &__first-cell {
+      padding-left: 2rem;
+    }
+
     .fe-icon {
       height: var(--fe-table-header-font-size);
       margin: 0 0.5rem;
@@ -139,6 +143,10 @@
     align-items: center;
     min-height: 5rem;
 
+    &__first-cell {
+      padding-left: 2rem;
+    }
+
     &-empty,
     &-loader {
       text-align: center;
@@ -150,7 +158,6 @@
     height: 2rem;
     width: 2rem;
     padding: 0;
-    color: var(--color-gray-5);
 
     svg {
       transition: transform 0.3s;

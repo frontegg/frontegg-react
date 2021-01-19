@@ -58,6 +58,7 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
         id: 'fe-expander',
         minWidth: 60,
         maxWidth: '60px' as any,
+        Header: <div style={{ minWidth: '2rem', maxWidth: '2rem' }} />,
         Cell: (cell: Cell<T>) => {
           const row = cell.row as Row<T> & UseExpandedRowProps<T>;
           return (

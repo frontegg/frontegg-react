@@ -4,6 +4,7 @@ import { FeTableColumnProps } from '@frontegg/react-core';
 import { HeaderGroup, TableSortByToggleProps } from 'react-table';
 import { TableHead as MaterialTableHead, TableRow, TableCell, TableSortLabel, Checkbox, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   checkBox: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
       zIndex: 10,
       background: theme.palette.background.paper,
     },
+  },
+  firstHeadCell: {
+    paddingLeft: '2rem',
   },
 }));
 
@@ -46,7 +50,7 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
     <MaterialTableHead className={classes.head}>
       {headerGroups.map((headerGroup) => (
         <TableRow {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map((c) => {
+          {headerGroup.headers.map((c, index) => {
             const column = c as FeTableColumnProps<T>;
             if (column.id === 'fe-selection') {
               return (
@@ -60,16 +64,17 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                 </TableCell>
               );
             }
+            const tableCellProps = column.getHeaderProps(
+              column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
+                ...p,
+                onClick: column.canSort ? () => onSortChange?.(column) : undefined,
+              }))
+            );
+            tableCellProps.className = classNames(tableCellProps.className, {
+              [classes.firstHeadCell]: index === 0,
+            });
             return (
-              <TableCell
-                padding='default'
-                {...column.getHeaderProps(
-                  column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
-                    ...p,
-                    onClick: column.canSort ? () => onSortChange?.(column) : undefined,
-                  }))
-                )}
-              >
+              <TableCell padding='default' {...tableCellProps}>
                 <Box display='flex' alignItems='center' justifyContent='space-between' flexWrap='nowrap'>
                   <Box display='flex' flexGrow='1'>
                     {column.canSort ? (
