@@ -2,7 +2,7 @@ export default {
   translation: {
     common: {
       switchTenant: 'Switch Tenant',
-      'click-here': 'Click Here',
+      'click-here': 'Click here',
       'date-of-birth': 'Date of Birth',
       'empty-items': 'No Items',
       'enter-email': 'Enter email',
