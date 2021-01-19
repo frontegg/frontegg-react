@@ -37,9 +37,13 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
     (category: ICategory) => {
       const template = `${category.name}.*`;
       if (eventObject?.names.includes(category.name)) {
-        setValue(value.filter((el) => el !== template));
+        setValue([
+          ...value.filter((el) => el !== template),
+          ...(category.events?.filter(({ key }) => !value.includes(key)).map(({ key }) => key) ?? []),
+        ]);
       } else {
-        setValue([...value, template]);
+        const keys = category.events?.map(({ key }) => key) ?? [];
+        setValue([...value.filter((key) => !keys.includes(key)), template]);
       }
     },
     [eventObject, value]
@@ -55,12 +59,6 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
         ]);
       } else if (eventObject?.eventKeys.includes(key)) {
         setValue(value.filter((el) => el !== key));
-      } else if (
-        parent.events?.filter((el) => eventObject?.eventKeys.includes(el.key) || el.key === key).length ===
-          parent.events?.length &&
-        !eventObject?.eventKeys.includes(key)
-      ) {
-        setValue([...value.filter((el) => !parent.events?.some((p) => p.key === el)), template]);
       } else {
         setValue([...value, key]);
       }

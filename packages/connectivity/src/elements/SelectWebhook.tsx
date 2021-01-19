@@ -33,9 +33,6 @@ export const SelectWebhook: FC<IWebhookComponent> = ({ cleanCategory }) => {
         }
         const selectedEvents = cur.events?.filter(({ key }) => values.includes(key)).map(({ key }) => key);
         if (selectedEvents && selectedEvents.length !== 0) {
-          if (selectedEvents?.length === cur.events?.length) {
-            return [...acc, template];
-          }
           return [...acc, ...selectedEvents];
         }
         return acc;
