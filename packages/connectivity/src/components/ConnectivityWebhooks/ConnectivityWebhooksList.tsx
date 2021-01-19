@@ -20,7 +20,7 @@ import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories, selectedEvents } from '../../utils';
 import { connectivityActions } from '../../reducer';
-import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { ConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 
 interface IEventCount {
   name: string;
@@ -131,7 +131,7 @@ export const ConnectivityWebhooksList: FC = () => {
           processIds.includes(row.original._id) ? (
             <Loader />
           ) : (
-            <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />
+            <ConnectivityCheckBox value={value} onChange={() => onChangeStatus(row.original)} />
           ),
         sortType: 'basic',
         maxWidth: 70,
