@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/react-cli",
-  "version": "1.18.5",
+  "version": "1.18.6",
   "author": "Frontegg LTD",
   "scripts": {
     "build": "export NODE_ENV='production'; rm -rf ./dist && rollup -c ../../scripts/rollup-cli.config.js && echo DONE",

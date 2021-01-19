@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.6](https://github.com/frontegg/frontegg-react/compare/v1.18.5...v1.18.6) (2021-01-19)
+
+
+### Bug Fixes
+
+* **core:** Fix toggled expandable button svg color FR-1173 ([bcf486d](https://github.com/frontegg/frontegg-react/commit/bcf486d5334a0fade4305bac70fb37b8ec63a53f))
+* Add more space to first column in Table components FR-1171 ([c0b6b38](https://github.com/frontegg/frontegg-react/commit/c0b6b38479b52b3fce66439a640be8e7b4a59809))
+* **core:** Break user full name when no free space available FR-1528 ([da508f4](https://github.com/frontegg/frontegg-react/commit/da508f4bf7e59b8fbb2a232a3f0aec97ff8b2e0c))
+
+
+
+
+
 ## [1.18.5](https://github.com/frontegg/frontegg-react/compare/v1.18.4...v1.18.5) (2021-01-18)
 
 
