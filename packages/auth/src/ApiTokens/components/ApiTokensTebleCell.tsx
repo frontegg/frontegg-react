@@ -27,15 +27,15 @@ const ApiTokensTenantCreatedBy = ({ value }: { value: string }) => {
 
   useEffect(() => {
     api.auth
-    .getUserById({ userId: value })
-    .then((data) => {
-      setState({ loading: false, name: data.name });
-    })
-    .catch((error) => {
-      console.log('failed to load user', error);
-      setState({ loading: false });
-    });
-}, [setState]);
+      .getUserById({ userId: value })
+      .then((data) => {
+        setState({ loading: false, name: data.name });
+      })
+      .catch((error) => {
+        console.log('failed to load user', error);
+        setState({ loading: false });
+      });
+  }, [setState]);
 
   return loading ? <Loader size={15} /> : <div className='fe-table-cell__title'>{name ?? t('common.notFound')}</div>;
 };

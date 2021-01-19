@@ -22,6 +22,9 @@
   &__name {
     font-weight: bold;
     margin-right: 1rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__trigger {
