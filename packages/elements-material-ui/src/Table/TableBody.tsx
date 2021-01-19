@@ -26,6 +26,9 @@ const useRowStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
   },
+  firstCell: {
+    paddingLeft: '2rem',
+  },
 });
 
 export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: TableTBodyProps<T>) => {
@@ -46,15 +49,16 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
           return (
             <React.Fragment key={row.getRowProps().key}>
               <TableRow className={classes.root} {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, index) => {
+                  const cellProps = cell.getCellProps();
+                  cellProps.className = classNames(classes.cell, {
+                    [classes.firstCell]: index === 0,
+                  });
                   if (cell.column.id.includes('fe-expander') || cell.column.id.includes('fe-selection')) {
-                    return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
+                    return <TableCell {...cellProps}>{cell.render('Cell')}</TableCell>;
                   }
-                  return (
-                    <TableCell className={classes.cell} {...cell.getCellProps()}>
-                      {cell.render('Cell')}
-                    </TableCell>
-                  );
+
+                  return <TableCell {...cellProps}>{cell.render('Cell')}</TableCell>;
                 })}
               </TableRow>
               <TableExpandable

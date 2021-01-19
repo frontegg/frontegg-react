@@ -30,11 +30,13 @@ export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = (props: FeTableTBo
   return (
     <>
       <div className={classNames('fe-table__tr', { 'is-expanded': row.isExpanded })} {...row.getRowProps()}>
-        {row.cells.map((cell) => (
-          <div className='fe-table__tr-td' {...cell.getCellProps()}>
-            {cell.render('Cell')}
-          </div>
-        ))}
+        {row.cells.map((cell, index) => {
+          const cellProps = cell.getCellProps();
+          cellProps.className = classNames('fe-table__tr-td', {
+            'fe-table__tr-td__first-cell': index === 0,
+          });
+          return <div {...cellProps}>{cell.render('Cell')}</div>;
+        })}
       </div>
       <FeTableExpandable isExpanded={row.isExpanded} row={row} renderExpandedComponent={renderExpandedComponent} />
     </>

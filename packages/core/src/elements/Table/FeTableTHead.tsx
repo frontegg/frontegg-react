@@ -29,11 +29,16 @@ export const FeTableTHead: FC<FeTableTHeadProps<any>> = <T extends object>(props
     <div className='fe-table__thead'>
       {headerGroups.map((headerGroup) => (
         <div className='fe-table__thead-tr' {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map((c) => {
+          {headerGroup.headers.map((c, index) => {
             const column = c as FeTableColumnProps<T>;
             if (column.id === 'fe-selection') {
               return (
-                <div className={classNames('fe-table__thead-tr-th')} {...column.getHeaderProps()}>
+                <div
+                  className={classNames('fe-table__thead-tr-th', {
+                    'fe-table__thead-tr-th__first-cell': index === 0,
+                  })}
+                  {...column.getHeaderProps()}
+                >
                   <FeCheckbox
                     indeterminate={!isAllRowsSelected && (selectedFlatRows ?? []).length > 0}
                     checked={isAllRowsSelected}
@@ -45,6 +50,7 @@ export const FeTableTHead: FC<FeTableTHeadProps<any>> = <T extends object>(props
             return (
               <div
                 className={classNames('fe-table__thead-tr-th', {
+                  'fe-table__thead-tr-th__first-cell': index === 0,
                   'fe-table__thead-sortable-asc': column.isSorted && !column.isSortedDesc,
                   'fe-table__thead-sortable-desc': column.isSorted && column.isSortedDesc,
                 })}
