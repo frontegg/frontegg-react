@@ -15,36 +15,29 @@ export const getApiTokensTableCells = (column: string): CellComponent => {
   }
 };
 
+type ApiTokenCreatedByState = {
+  loading: boolean;
+  name?: string;
+};
+
 const ApiTokensTenantCreatedBy = ({ value }: { value: string }) => {
   const { t } = useT();
-  const [state, setState] = useState({
-    loading: false,
-    data: {
-      name: '',
-    },
-  });
-  const { data, loading } = state;
+  const [state, setState] = useState<ApiTokenCreatedByState>({ loading: true });
+  const { name, loading } = state;
 
   useEffect(() => {
-    loadTenantApiTokenCreator();
-  }, []);
+    api.auth
+    .getUserById({ userId: value })
+    .then((data) => {
+      setState({ loading: false, name: data.name });
+    })
+    .catch((error) => {
+      console.log('failed to load user', error);
+      setState({ loading: false });
+    });
+}, [setState]);
 
-  const loadTenantApiTokenCreator = async () => {
-    try {
-      setState({ ...state, loading: true });
-      const data = await api.auth.getUserById({ userId: value });
-      setState({ data, loading: false });
-    } catch (e) {
-      console.log('failed to load user', e);
-      setState({ data, loading: false });
-    }
-  };
-
-  return loading ? (
-    <Loader size={15} />
-  ) : (
-    <div className='fe-table-cell__title'>{data.name ?? t('common.notFound')}</div>
-  );
+  return loading ? <Loader size={15} /> : <div className='fe-table-cell__title'>{name ?? t('common.notFound')}</div>;
 };
 
 export const ApiTokensActions = (props: any): CellComponent => {
