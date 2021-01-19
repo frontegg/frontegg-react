@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.6](https://github.com/frontegg/frontegg-react/compare/v1.18.5...v1.18.6) (2021-01-19)
+
+
+### Bug Fixes
+
+* Add more space to first column in Table components FR-1171 ([c0b6b38](https://github.com/frontegg/frontegg-react/commit/c0b6b38479b52b3fce66439a640be8e7b4a59809))
+
+
+
+
+
 ## [1.18.5](https://github.com/frontegg/frontegg-react/compare/v1.18.4...v1.18.5) (2021-01-18)
 
 

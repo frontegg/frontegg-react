@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.6](https://github.com/frontegg/frontegg-react/compare/v1.18.5...v1.18.6) (2021-01-19)
+
+
+### Bug Fixes
+
+* **auth:** Ellipses user name in AccountDropdown component ([d3b5ecf](https://github.com/frontegg/frontegg-react/commit/d3b5ecf05e4f9dcf42a44fdebc6caa14cd7b43c5))
+* **auth:** stop loading if error api-tokens FR-1366 ([d245449](https://github.com/frontegg/frontegg-react/commit/d245449e2ee622a49abd34cbef071078a687aa9f))
+
+
+
+
+
 ## [1.18.5](https://github.com/frontegg/frontegg-react/compare/v1.18.4...v1.18.5) (2021-01-18)
 
 
