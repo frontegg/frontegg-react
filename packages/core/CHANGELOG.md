@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/frontegg/frontegg-react/compare/v1.18.6...v1.19.0) (2021-01-20)
+
+
+### Bug Fixes
+
+* **core:** add support the data-* attribute for the CheckBox component ([bbcc4d5](https://github.com/frontegg/frontegg-react/commit/bbcc4d59d972254483b83329839e2c29251b8aed))
+* **core:** fix align for the label in the CheckBox ([d094a09](https://github.com/frontegg/frontegg-react/commit/d094a090a95bbf0b3fa61661ea84c1359b10db17))
+* **core:** fix click by form button if process loading is active ([5a9971c](https://github.com/frontegg/frontegg-react/commit/5a9971ce1a4741ac2b73f6fa01c52a9e84fd9905))
+
+
+### Features
+
+* **core:** add support the sortType param to the Column values for the FeTable component ([9702cee](https://github.com/frontegg/frontegg-react/commit/9702cee6b9c80c7e2bb9db126a4e93d9935a25d0))
+
+
+### Performance Improvements
+
+* **core:** move onChange handler to the useCallback hook ([25c78da](https://github.com/frontegg/frontegg-react/commit/25c78dafe667accee048acbb9a916fd4ad91b0fc))
+
+
+
+
+
 ## [1.18.6](https://github.com/frontegg/frontegg-react/compare/v1.18.5...v1.18.6) (2021-01-19)
 
 
