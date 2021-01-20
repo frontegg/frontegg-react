@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/frontegg/frontegg-react/compare/v1.18.6...v1.19.0) (2021-01-20)
+
+
+### Bug Fixes
+
+* Disable MFA input auto complete ([#254](https://github.com/frontegg/frontegg-react/issues/254)) ([b7420c6](https://github.com/frontegg/frontegg-react/commit/b7420c627850887d17bf5b24a2e4bf5a75ded798))
+
+
+
+
+
 ## [1.18.6](https://github.com/frontegg/frontegg-react/compare/v1.18.5...v1.18.6) (2021-01-19)
 
 

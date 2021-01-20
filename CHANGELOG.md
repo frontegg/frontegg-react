@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/frontegg/frontegg-react/compare/v1.18.6...v1.19.0) (2021-01-20)
+
+
+### Bug Fixes
+
+* Disable MFA input auto complete ([#254](https://github.com/frontegg/frontegg-react/issues/254)) ([b7420c6](https://github.com/frontegg/frontegg-react/commit/b7420c627850887d17bf5b24a2e4bf5a75ded798))
+* **connectivity:** fix sorting the Status column in the webhooks list ([c7d1428](https://github.com/frontegg/frontegg-react/commit/c7d14282d349c7cd7a952a431361faee5d53f893))
+* **connectivity:** remove old dead code on the webhooks list ([609bfe0](https://github.com/frontegg/frontegg-react/commit/609bfe0116c6b8d64cabc14a9aaa3cca9ff5b8da))
+* **connectivity:** remove warnings in the devTools for some svg elements ([dde9731](https://github.com/frontegg/frontegg-react/commit/dde973150f9dce8043b6d99d9b7c8339fb014df6))
+* **core:** add support the data-* attribute for the CheckBox component ([bbcc4d5](https://github.com/frontegg/frontegg-react/commit/bbcc4d59d972254483b83329839e2c29251b8aed))
+* **core:** fix align for the label in the CheckBox ([d094a09](https://github.com/frontegg/frontegg-react/commit/d094a090a95bbf0b3fa61661ea84c1359b10db17))
+* **core:** fix click by form button if process loading is active ([5a9971c](https://github.com/frontegg/frontegg-react/commit/5a9971ce1a4741ac2b73f6fa01c52a9e84fd9905))
+
+
+### Features
+
+* **connectivity:** add error message from the server to the webhook component ([7b53d9f](https://github.com/frontegg/frontegg-react/commit/7b53d9f66eed8e32127abbb4ca95a3d60c743a43))
+* **connectivity:** add loading when changes status in the webhooks list ([b834ac6](https://github.com/frontegg/frontegg-react/commit/b834ac6570eff62d5629445fac4417baee9d5ea0))
+* **connectivity:** add sorting data by columns in the webhooks list ([6fc81b6](https://github.com/frontegg/frontegg-react/commit/6fc81b654a164654cde7821f430621c0344d5974))
+* **connectivity:** change behaviors of select catagory and envents ([368849e](https://github.com/frontegg/frontegg-react/commit/368849e427b384b8203fa6ab28cf6dc25be522fd))
+* **connectivity:** Disabled the V mark if no one of events is active. ([7cea078](https://github.com/frontegg/frontegg-react/commit/7cea078dc70939dc9c3b2fa28af495d1e2d988d9))
+* **core:** add support the sortType param to the Column values for the FeTable component ([9702cee](https://github.com/frontegg/frontegg-react/commit/9702cee6b9c80c7e2bb9db126a4e93d9935a25d0))
+
+
+### Performance Improvements
+
+* **connectivity:** move handlers to the useCallback hook in the AccordionCategories ([b89826b](https://github.com/frontegg/frontegg-react/commit/b89826bbd009d05c9f7a52c8d2ccaadae3a2b896))
+* **core:** move onChange handler to the useCallback hook ([25c78da](https://github.com/frontegg/frontegg-react/commit/25c78dafe667accee048acbb9a916fd4ad91b0fc))
+
+
+
+
+
 ## [1.18.6](https://github.com/frontegg/frontegg-react/compare/v1.18.5...v1.18.6) (2021-01-19)
 
 
