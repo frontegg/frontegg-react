@@ -13,7 +13,7 @@ import {
   validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
-import { SocialLoginsActions, SocialLoginsWithWrapper } from '../SocialLogins';
+import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
@@ -78,7 +78,7 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           {t('auth.activate-account.activate-account-button')}
         </FButton>
         <ErrorMessage error={error} />
-        <SocialLoginsWithWrapper action={SocialLoginsActions.Login} />
+        <SocialLoginsLoginWithWrapper />
       </FForm>
     </Formik>
   );
