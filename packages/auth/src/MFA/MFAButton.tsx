@@ -31,10 +31,11 @@ const EnrollButton = (props: MFAButtonProps) => {
 const DisableButton = (props: MFAButtonProps) => {
   const { user } = useAuth(({ user }) => ({ user }));
   const { t } = useT();
+  const { openDisableDialog } = useContext(MFAButtonContext);
+
   if (!user?.mfaEnrolled) {
     return null;
   }
-  const { openDisableDialog } = useContext(MFAButtonContext);
   const children = props.children ?? (
     <Button type='submit' variant='danger' data-test-id='mfa-btn'>
       {t('auth.mfa.disable-button')}

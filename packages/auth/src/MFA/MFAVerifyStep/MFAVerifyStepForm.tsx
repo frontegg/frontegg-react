@@ -25,7 +25,13 @@ export const MFAVerifyStepForm: FC = (props) => {
         </li>
         <li>
           {t('auth.mfa.verify.enter-generated-code')}
-          <FInput name='token' disabled={loading} placeholder='Ex. 1 2 3 4 5 6' />
+          <FInput
+            aria-autocomplete={'none'}
+            autoComplete='off'
+            name='token'
+            disabled={loading}
+            placeholder='Ex. 1 2 3 4 5 6'
+          />
         </li>
       </ol>
     </>

@@ -44,6 +44,7 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
       <FForm>
         <FInput
           aria-autocomplete={'none'}
+          autoComplete='off'
           autoFocus
           label={t('auth.login.please-enter-the-6-digit-code')}
           name='code'
