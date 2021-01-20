@@ -1,19 +1,12 @@
-import {
-  IWebhookTest,
-  ISlackChannel,
-  IWebhooksSaveData,
-  ISlackConfigurations,
-  IWebhookLogsResponse,
-  IEmailSMSConfigResponse,
-  IWebhooksConfigurations,
-} from '@frontegg/rest-api';
+import { IWebhookTest, ISlackChannel, IWebhookLogsResponse } from '@frontegg/rest-api';
 import { createSlice } from '@reduxjs/toolkit';
-import { IConnectivityState, TPlatform, TWebhookStatus } from './interfaces';
+import { IConnectivityState, TPlatform, TPostData, TPostDataSuccess, TWebhookStatus } from './interfaces';
 
 export const initialState: IConnectivityState = {
   isLoading: false,
   isSaving: false,
   list: [],
+  processIds: [],
   slackChannels: {
     isLoading: false,
   },
@@ -30,33 +23,58 @@ export const { reducer, actions: connectivityActions, name: storeName } = create
     loadScope: (state) => ({ ...state, slackChannels: { ...state.slackChannels, isLoadingScope: true } }),
     loadScopeSuccess: (state, { payload }) => ({
       ...state,
-      slackChannels: { ...state.slackChannels, clientId: payload, isLoadingScope: false },
+      slackChannels: { ...state.slackChannels, error: undefined, clientId: payload, isLoadingScope: false },
     }),
-    loadDataSuccess: (state, { payload }) => ({ ...state, isLoading: false, isSaving: false, ...payload }),
-    cleanData: () => ({ isLoading: false, isSaving: false, list: [], slackChannels: { isLoading: false } }),
+    loadDataSuccess: (state, { payload }) => ({
+      ...state,
+      error: undefined,
+      isLoading: false,
+      isSaving: false,
+      ...payload,
+    }),
+    cleanData: () => ({
+      isLoading: false,
+      isSaving: false,
+      list: [],
+      slackChannels: { isLoading: false },
+      processIds: [],
+    }),
     loadSlackActions: (state) => ({ ...state, slackChannels: { isLoading: true } }),
     loadSlackSuccess: {
       prepare: (payload: ISlackChannel[] | null) => ({ payload, error: null, meta: '' }),
-      reducer: (state, { payload }) => ({ ...state, slackChannels: { isLoading: false, data: payload } }),
+      reducer: (state, { payload }) => ({
+        ...state,
+        error: undefined,
+        slackChannels: { isLoading: false, data: payload },
+      }),
     },
     cleanSlackData: (state) => ({ ...state, slackChannels: { isLoading: false } }),
     postCodeAction: {
       prepare: (payload: string) => ({ payload }),
       reducer: (state) => ({ ...state, isSaving: true }),
     },
-    postCodeSuccess: (state) => ({ ...state, isSaving: false }),
+    postCodeSuccess: (state) => ({ ...state, error: undefined, isSaving: false }),
     postDataAction: {
-      prepare: (platform: TPlatform, data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksSaveData) => ({
+      prepare: ({ platform, data }: TPostData) => ({
         payload: { data, platform },
+        error: null,
+        meta: '',
       }),
-      reducer: (state) => ({ ...state, isSaving: true }),
+      reducer: (state, { payload: { platform, data } }) => ({
+        ...state,
+        isSaving: true,
+        processIds: platform === 'webhook' ? [data._id, ...state.processIds] : state.processIds,
+      }),
     },
     postDataSuccess: {
-      prepare: (payload: {
-        platform?: TPlatform;
-        data?: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[];
-      }) => ({ payload, error: null, meta: '' }),
-      reducer: (state, { payload: { platform, data } }) => ({ ...state, isSaving: false, [`${platform}`]: data }),
+      prepare: (payload: TPostDataSuccess) => ({ payload, error: null, meta: '' }),
+      reducer: (state, { payload: { platform, data, id } }) => ({
+        ...state,
+        error: undefined,
+        isSaving: false,
+        [`${platform}`]: data,
+        processIds: id ? state.processIds.filter((el) => el != id) : state.processIds,
+      }),
     },
     deleteWebhookConfigAction: {
       prepare: (payload: string) => ({ payload }),
@@ -81,8 +99,13 @@ export const { reducer, actions: connectivityActions, name: storeName } = create
     },
     loadWebhookLogsSuccess: {
       prepare: (payload?: IWebhookLogsResponse) => ({ payload, error: null, meta: '' }),
-      reducer: (state, { payload }) => ({ ...state, webhookLogs: { isLoading: false, ...payload } }),
+      reducer: (state, { payload }) => ({ ...state, error: undefined, webhookLogs: { isLoading: false, ...payload } }),
     },
     cleanWebhookLogsData: (state) => ({ ...state, webhookLogs: undefined }),
+    setError: {
+      prepare: (payload: string) => ({ payload, meta: '', error: null }),
+      reducer: (state, { payload }) => ({ ...state, error: payload, isSaving: false, isLoading: false }),
+    },
+    cleanError: (state) => ({ ...state, error: undefined }),
   },
 });

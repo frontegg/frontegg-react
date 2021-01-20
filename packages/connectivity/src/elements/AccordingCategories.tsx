@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, ChangeEvent } from 'react';
 import {
   Grid,
   Icon,
@@ -10,13 +10,11 @@ import {
   AccordionContent,
 } from '@frontegg/react-core';
 import { selectedEvents } from '../utils';
-import { ICategory } from '@frontegg/rest-api';
 import { IWebhookComponent } from '../components/ConnectivityWebhooks/interfaces';
 
 export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) => {
   const { t } = useT();
   const [{ value }, {}, { setValue }] = FFormik.useField<string[]>('eventKeys');
-  const [expanded, setExpanded] = useState<string[]>([]);
 
   const eventObject = selectedEvents(value);
 
@@ -33,20 +31,31 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
     [cleanCategory, eventObject]
   );
 
-  const onCategoryChange = useCallback(
-    (category: ICategory) => {
+  const handleCategoryChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const category = extendCategory?.find(({ id }) => id === e.target.dataset.category);
+      if (!category) return;
+
       const template = `${category.name}.*`;
       if (eventObject?.names.includes(category.name)) {
-        setValue(value.filter((el) => el !== template));
+        setValue([
+          ...value.filter((el) => el !== template),
+          ...(category.events?.filter(({ key }) => !value.includes(key)).map(({ key }) => key) ?? []),
+        ]);
       } else {
-        setValue([...value, template]);
+        const keys = category.events?.map(({ key }) => key) ?? [];
+        setValue([...value.filter((key) => !keys.includes(key)), template]);
       }
     },
-    [eventObject, value]
+    [extendCategory, eventObject, value]
   );
 
-  const onEventChange = useCallback(
-    (parent: ICategory, key: string) => {
+  const handleEventChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const parent = extendCategory?.find(({ id }) => id === e.target.dataset.category);
+      const key = e.target.dataset.key;
+      if (!parent || !key) return;
+
       const template = `${parent.name}.*`;
       if (eventObject?.names.includes(parent.name)) {
         setValue([
@@ -55,24 +64,11 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
         ]);
       } else if (eventObject?.eventKeys.includes(key)) {
         setValue(value.filter((el) => el !== key));
-      } else if (
-        parent.events?.filter((el) => eventObject?.eventKeys.includes(el.key) || el.key === key).length ===
-          parent.events?.length &&
-        !eventObject?.eventKeys.includes(key)
-      ) {
-        setValue([...value.filter((el) => !parent.events?.some((p) => p.key === el)), template]);
       } else {
         setValue([...value, key]);
       }
     },
-    [eventObject, value]
-  );
-
-  const onExpand = useCallback(
-    (id: string) => {
-      setExpanded(expanded.includes(id) ? expanded.filter((el) => el !== id) : [...expanded, id]);
-    },
-    [expanded]
+    [extendCategory, eventObject, value]
   );
 
   return (
@@ -80,12 +76,7 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
       {extendCategory?.map((category) => {
         const { id, name, events, selected } = category;
         return (
-          <Accordion
-            key={id}
-            expanded={expanded.includes(id)}
-            onChange={() => onExpand(id)}
-            className='fe-connectivity-webhook-accordion'
-          >
+          <Accordion key={id} className='fe-connectivity-webhook-accordion'>
             <AccordionHeader>
               <Grid container alignItems='center' wrap='nowrap'>
                 <Grid>
@@ -102,7 +93,8 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
                 <Checkbox
                   checked={eventObject?.names.includes(name)}
                   className='fe-connectivity-webhook-check fe-check-all'
-                  onChange={() => onCategoryChange(category)}
+                  onChange={handleCategoryChange}
+                  data-category={id}
                   label={t('connectivity.selectAll', { name: name.toUpperCase() })}
                 />
               </div>
@@ -112,7 +104,9 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
                     className='fe-connectivity-webhook-check fe-check-item'
                     label={displayName}
                     size='large'
-                    onChange={() => onEventChange(category, key)}
+                    onChange={handleEventChange}
+                    data-category={category.id}
+                    data-key={key}
                     checked={eventObject?.names.includes(name) || eventObject?.eventKeys.includes(key)}
                   />
                 </div>

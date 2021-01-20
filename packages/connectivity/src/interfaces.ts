@@ -8,6 +8,7 @@ import {
   IEmailSMSConfigResponse,
   ISlackEvent,
   IEmailSMSSubscriptionResponse,
+  IWebhooksSaveData,
 } from '@frontegg/rest-api';
 import { FC } from 'react';
 
@@ -33,6 +34,8 @@ export interface IConnectivityState {
   webhook?: IWebhooksConfigurations[];
   categories?: ICategory[];
   channelMap?: Record<TPlatform, IChannelsMap[]>;
+  error?: string;
+  processIds: string[];
   slackChannels: {
     isLoading: boolean;
     isLoadingScope?: boolean;
@@ -99,3 +102,34 @@ export interface IEventFormData {
   recipients: string[];
   subscriptions: Pick<IEmailSMSSubscriptionResponse, 'id' | 'name'>;
 }
+
+export type TPostData =
+  | {
+      platform: 'sms' | 'email';
+      data: IEmailSMSConfigResponse[];
+    }
+  | {
+      platform: 'slack';
+      data: ISlackConfigurations;
+    }
+  | {
+      platform: 'webhook';
+      data: IWebhooksSaveData;
+    };
+
+export type TPostDataSuccess =
+  | {
+      platform: 'sms' | 'email';
+      data?: IEmailSMSConfigResponse[];
+      id?: string;
+    }
+  | {
+      platform: 'slack';
+      data?: ISlackConfigurations;
+      id?: string;
+    }
+  | {
+      platform: 'webhook';
+      data?: IWebhooksSaveData[];
+      id?: string;
+    };

@@ -3,10 +3,12 @@ import {
   Cell,
   CellProps,
   Column,
+  DefaultSortTypes,
   HeaderGroup,
   HeaderProps,
   IdType,
   Renderer,
+  SortByFn,
   TableInstance,
   TableState,
   UseExpandedOptions,
@@ -97,6 +99,14 @@ export interface TableColumnProps<T extends object = any> {
 
   minWidth?: string | number;
   maxWidth?: string | number;
+
+  /**
+   * Optional
+   * String options: basic, datetime, alphanumeric. Defaults to alphanumeric.
+   * If a function is passed, it must be memoized. The sortType function should return -1 if rowA is larger, and 1 if rowB is larger. react-table will take care of the rest.
+   * more information about this parameter on the github page https://react-table-omega.vercel.app/docs/api/useSortBy#column-options
+   */
+  sortType?: SortByFn<T> | DefaultSortTypes;
 }
 
 export type CellComponent<T extends {} = any> = Renderer<CellProps<T>>;

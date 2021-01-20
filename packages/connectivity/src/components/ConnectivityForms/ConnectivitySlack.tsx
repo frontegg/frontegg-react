@@ -18,9 +18,9 @@ import { IConnectivityComponent, IPluginState, ISlackEventData, ISlackTableData 
 import { connectivityActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
-import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { FConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
-import { MessageSlack } from '../../elements/MessgaeSlack';
+import { MessageSlack } from '../../elements/MessageSlack';
 
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
@@ -103,7 +103,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
               accessor: 'isActive',
               Header: t('common.enabled'),
               Cell: ({ row: { index: rowIndex } }) => (
-                <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].isActive`} />
+                <FConnectivityCheckBox name={`data[${index}].events[${rowIndex}].isActive`} />
               ),
               maxWidth: 50,
               minWidth: 50,
@@ -169,7 +169,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
         }, []),
       };
 
-      dispatch(connectivityActions.postDataAction('slack', newData));
+      dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
     },
     [dispatch, slack]
   );

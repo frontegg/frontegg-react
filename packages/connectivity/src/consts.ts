@@ -37,25 +37,25 @@ export const channels2Platform: Record<
   sms: {
     title: 'connectivity.sms',
     events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
-    isActive: (data) => !!(data as IEmailSMSConfigResponse[])?.length,
+    isActive: (data) => (data as IEmailSMSConfigResponse[])?.some(({ enabled }) => enabled) ?? false,
     image: SmsSvg,
   },
   email: {
     title: 'common.email',
     events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
-    isActive: (data) => !!(data as IEmailSMSConfigResponse[])?.length,
+    isActive: (data) => (data as IEmailSMSConfigResponse[])?.some(({ enabled }) => enabled) ?? false,
     image: EmailSvg,
   },
   slack: {
     title: 'connectivity.slack',
     events: (data) => (data as ISlackConfigurations)?.slackSubscriptions?.length || 0,
-    isActive: (data) => !!(data as ISlackConfigurations)?.slackSubscriptions,
+    isActive: (data) => !!(data as ISlackConfigurations)?.slackSubscriptions.some(({ isActive }) => isActive) ?? false,
     image: SlackSvg,
   },
   webhook: {
     title: 'connectivity.webhook',
     events: (data) => (data as IWebhooksConfigurations[])?.length || 0,
-    isActive: (data) => !!(data as IWebhooksConfigurations[])?.length,
+    isActive: (data) => (data as IWebhooksConfigurations[])?.some(({ isActive }) => isActive) ?? false,
     image: WebhookSvg,
   },
 };

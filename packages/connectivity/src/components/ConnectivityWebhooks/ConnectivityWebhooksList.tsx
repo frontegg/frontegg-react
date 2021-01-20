@@ -18,14 +18,18 @@ import {
 } from '@frontegg/react-core';
 import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
-import { filterCategories } from '../../utils';
-import { EventsCell } from '../../elements/EventsCell';
+import { filterCategories, selectedEvents } from '../../utils';
 import { connectivityActions } from '../../reducer';
-import { IntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { ConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 
 interface IEventCount {
   name: string;
   count: number;
+}
+
+interface IWebhooksFullConfigurations extends IWebhooksConfigurations {
+  groupEvents: IEventCount[];
+  totalEvents: number;
 }
 
 export const ConnectivityWebhooksList: FC = () => {
@@ -38,21 +42,46 @@ export const ConnectivityWebhooksList: FC = () => {
 
   const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
 
-  const { webhook, isSaving, categories, channelMap, isLoading } = useSelector(
-    ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap } }: IPluginState) => ({
-      webhook,
+  const { webhookState, isSaving, categories, channelMap, isLoading, processIds } = useSelector(
+    ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap, processIds } }: IPluginState) => ({
+      webhookState: webhook,
       isSaving,
       isLoading,
       categories,
       channelMap: channelMap && channelMap.webhook,
+      processIds,
     })
   );
 
   useLayoutEffect(() => {
-    !isSaving && onRemove(null);
-  }, [isSaving, onRemove]);
+    remove && !isSaving && onRemove(null);
+  }, [isSaving, onRemove, remove]);
 
-  const cleanCategory = filterCategories(categories, channelMap);
+  const cleanCatagories = filterCategories(categories, channelMap);
+
+  const webhook = useMemo(
+    () =>
+      webhookState?.map((elm) => {
+        const eventObject = selectedEvents(elm.eventKeys);
+        const data = cleanCatagories?.reduce<IEventCount[]>((acc, cur) => {
+          if (eventObject?.names.includes(cur.name)) {
+            return [...acc, { name: cur.name, count: cur.events?.length ?? 0 }];
+          } else {
+            const evs = cur.events?.filter(({ key }) => eventObject?.eventKeys.includes(key));
+            if (evs?.length) {
+              return [...acc, { name: cur.name, count: evs.length }];
+            }
+          }
+          return acc;
+        }, []);
+        return {
+          ...elm,
+          groupEvents: data ?? [],
+          totalEvents: data?.reduce((acc, cur) => acc + (cur.count || 0), 0) ?? 0,
+        };
+      }),
+    [webhookState, cleanCatagories]
+  );
 
   const [data, Search] = useSearch({ filteredBy: 'displayName', data: webhook });
 
@@ -67,35 +96,21 @@ export const ConnectivityWebhooksList: FC = () => {
     historyReplace({ ...location, state: { ...locationState, view: 'edit' } });
   }, [Location, locationState]);
 
-  const countOfEvents = useCallback(
-    (eventKeys: string[]) =>
-      cleanCategory?.reduce((acc: IEventCount[], cur) => {
-        const template = `${cur.name}.*`;
-        return [
-          ...acc,
-          {
-            name: cur.name,
-            count: eventKeys.includes(template)
-              ? cur.events?.length || 0
-              : (cur.events?.filter(({ key }) => eventKeys.includes(key)) ?? []).length,
-          },
-        ];
-      }, []) ?? [],
-    [cleanCategory]
-  );
-
   const onChangeStatus = useCallback(
     (data: IWebhooksSaveData) => {
-      dispatch(connectivityActions.postDataAction('webhook', { ...data, isActive: !data.isActive }));
+      dispatch(
+        connectivityActions.postDataAction({ platform: 'webhook', data: { ...data, isActive: !data.isActive } })
+      );
     },
     [dispatch]
   );
 
-  const columns: TableColumnProps<IWebhooksConfigurations>[] = useMemo(
+  const columns: TableColumnProps<IWebhooksFullConfigurations>[] = useMemo(
     () => [
       {
         accessor: 'displayName',
         Header: t('common.title').toUpperCase(),
+        sortable: true,
         Cell: ({ value, row }) => (
           <div
             className='fe-connectivity-webhook-cell fe-connectivity-webhook-cell-link'
@@ -111,21 +126,44 @@ export const ConnectivityWebhooksList: FC = () => {
       {
         accessor: 'isActive',
         Header: t('common.status').toUpperCase(),
-        Cell: ({ value, row }) => <IntegrationCheckBox value={value} onChange={() => onChangeStatus(row.original)} />,
-        maxWidth: 50,
-        minWidth: 50,
+        sortable: true,
+        Cell: ({ value, row }) =>
+          processIds.includes(row.original._id) ? (
+            <Loader />
+          ) : (
+            <ConnectivityCheckBox value={value} onChange={() => onChangeStatus(row.original)} />
+          ),
+        sortType: 'basic',
+        maxWidth: 70,
+        minWidth: 70,
       },
       {
-        accessor: 'eventKeys',
+        accessor: 'totalEvents',
+        sortable: true,
         Header: t('common.events').toUpperCase(),
-        Cell: ({ value }) => <EventsCell events={value} />,
+        Cell: ({ value, row: { original } }) => (
+          <div className='fe-connectivity-webhook-cell'>
+            <div className='fe-connectivity-webhook-row'>
+              {original.groupEvents &&
+                !!original.groupEvents.length &&
+                original.groupEvents.map(({ name, count }, idx) => (
+                  <span key={idx} className='fe-connectivity-webhook-event'>
+                    {name}({count})
+                  </span>
+                ))}
+            </div>
+            <div className='fe-connectivity-webhook-description'>{value} total</div>
+          </div>
+        ),
       },
       {
         accessor: 'invocations',
+        sortable: true,
         Header: t('common.invocations').toUpperCase(),
       },
       {
         accessor: 'createdAt',
+        sortable: true,
         Header: t('common.createdAt').toUpperCase(),
         Cell: ({ value }) => {
           const date = moment.utc(value).local();
@@ -157,7 +195,7 @@ export const ConnectivityWebhooksList: FC = () => {
         ),
       },
     ],
-    [t, onEdit, onRemove, countOfEvents, onChangeStatus]
+    [t, onEdit, onRemove, onChangeStatus, processIds]
   );
 
   if (isLoading) {

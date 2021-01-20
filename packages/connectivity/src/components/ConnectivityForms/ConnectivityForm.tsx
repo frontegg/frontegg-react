@@ -17,7 +17,7 @@ import { IEmailSMSConfigResponse } from '@frontegg/rest-api';
 import { connectivityActions } from '../../reducer';
 import { IConnectivityComponent, IEventFormData, IPluginState, ITableFormData } from '../../interfaces';
 import { filterCategories } from '../../utils';
-import { FIntegrationCheckBox } from '../../elements/IntegrationCheckBox';
+import { FConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 import { InputEmailOrPhone } from '../../elements/InputEmailOrPhone';
 
 interface IConnectivityForm extends IConnectivityComponent {
@@ -94,7 +94,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
         []
       );
       if (JSON.stringify(newData) !== JSON.stringify(data)) {
-        dispatch(connectivityActions.postDataAction(form, newData));
+        dispatch(connectivityActions.postDataAction({ platform: form, data: newData }));
       } else {
         setSubmitting(false);
       }
@@ -161,7 +161,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
               accessor: 'enabled',
               Header: t('common.enable'),
               Cell: ({ row: { index: rowIndex } }) => (
-                <FIntegrationCheckBox name={`data[${index}].events[${rowIndex}].enabled`} />
+                <FConnectivityCheckBox name={`data[${index}].events[${rowIndex}].enabled`} />
               ),
               maxWidth: 50,
               minWidth: 50,
