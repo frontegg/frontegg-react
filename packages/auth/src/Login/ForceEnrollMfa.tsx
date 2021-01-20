@@ -11,19 +11,17 @@ import {
   Grid,
   FButton,
 } from '@frontegg/react-core';
-import { AuthState, MFAStep } from '../Api';
+import { MFAStep } from '../Api';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
 import { useAuthMfaActions, useAuthMfaState } from '../MFA/hooks';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
-import { useAuth, useAuthActions } from '../hooks';
+import { useAuthActions } from '../hooks';
 
 const { Formik } = FFormik;
 
 export interface ForceEnrollMfaProps {
   renderer?: RendererFunctionFC<ForceEnrollMfaProps>;
 }
-
-const stateMapper = ({ loginState }: AuthState) => ({ ...loginState });
 
 export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { t } = useT();
@@ -112,7 +110,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
               <FButton
                 type='submit'
                 size='large'
-                fullWidth={false}
+                fullWidth={true}
                 variant='primary'
                 loading={loading}
                 data-test-id='sumbit-btn'
