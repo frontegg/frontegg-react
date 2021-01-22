@@ -154,7 +154,7 @@ export default {
         'go-to-idp': 'Configure IDP',
         'claim-domain': {
           guide: {
-            title: 'Guide',
+            title: 'Bullets',
             description: 'Helpful information explaining the process',
             'steps-0': 'Enter your domain name',
             'steps-1': 'Click proceed',
@@ -174,7 +174,7 @@ export default {
         idp: {
           'error-ask-your-vendor': 'Ask your vendor to configure SSO before!',
           guide: {
-            title: 'Guide',
+            title: 'Bullets',
             description: 'Helpful information explaining the process',
             'steps-0': 'Create an entry for the application on the IDP',
             'steps-1': 'Download the IDP federation metadata XML',
