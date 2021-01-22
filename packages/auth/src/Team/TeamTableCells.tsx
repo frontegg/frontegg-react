@@ -12,7 +12,7 @@ import {
   Tag,
   useT,
 } from '@frontegg/react-core';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
 import classNames from 'classnames';
 
@@ -106,6 +106,7 @@ type TRoles = {
 export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?: TRoles[]): CellComponent => (
   props
 ) => {
+  const { t } = useT();
   const { id: userId } = props.row.original;
   const { updateUser } = useAuthTeamActions();
   const { loading } = useAuthTeamState(({ loaders }) => ({
@@ -127,14 +128,24 @@ export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?
     [props.row.original]
   );
 
+  const permissionsToShow = useMemo(() => {
+    return permissions.slice(0, 3);
+  }, [permissions]);
+
+  const permissionsCounter = useCallback(() => {
+    const permissionsToShowInCount = permissions.length - 3;
+    if (permissions.length > 3) return `${permissionsToShowInCount} ${t('common.more')}`;
+  }, [permissions]);
+
   return (
     <div className='fe-flex fe-full-width fe-flex-no-wrap'>
       <div className='fe-flex'>
-        {permissions.map((permission) => (
+        {permissionsToShow.map((permission) => (
           <Tag className='fe-mr-1 fe-mb-1 fe-mt-1' size='small' key={permission.value}>
             {permission.label}
           </Tag>
         ))}
+        {permissionsCounter()}
       </div>
       <div className='fe-flex-spacer' />
       {!!roleOptionsToDisplay?.length && (

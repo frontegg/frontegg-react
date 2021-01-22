@@ -84,6 +84,7 @@ export default {
       verify: 'Verify',
       yourself: 'yourself',
       optional: 'Optional',
+      more: 'more',
     },
     auth: {
       login: {
