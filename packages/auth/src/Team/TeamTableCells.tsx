@@ -17,6 +17,7 @@ import { useAuthTeamActions, useAuthTeamState } from './hooks';
 import classNames from 'classnames';
 
 const LEAVE_TEAM_OPTION = false;
+const numberPermissionsToShow = 3;
 
 export const TeamTableAvatarCell: CellComponent = TableCells.Avatar;
 export const TeamTableTitleCell = (me?: string, meText?: string): CellComponent => (props) => {
@@ -129,12 +130,12 @@ export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?
   );
 
   const permissionsToShow = useMemo(() => {
-    return permissions.slice(0, 3);
+    return permissions.slice(0, numberPermissionsToShow);
   }, [permissions]);
 
   const permissionsCounter = useCallback(() => {
-    const permissionsToShowInCount = permissions.length - 3;
-    if (permissions.length > 3) return `${permissionsToShowInCount} ${t('common.more')}`;
+    const permissionsToShowInCounter = permissions.length - numberPermissionsToShow;
+    if (permissions.length > numberPermissionsToShow) return `${permissionsToShowInCounter} ${t('common.more')}`;
   }, [permissions]);
 
   return (
