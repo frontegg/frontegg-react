@@ -37,7 +37,11 @@ const ApiTokensTenantCreatedBy = ({ value }: { value: string }) => {
       });
   }, [setState]);
 
-  return loading ? <Loader size={15} /> : <div className='fe-table-cell__title'>{name ?? t('common.notFound')}</div>;
+  return loading ? (
+    <Loader size={15} />
+  ) : (
+    <div className='fe-table-cell__title'>{name ?? t('common.notFoundUser')}</div>
+  );
 };
 
 export const ApiTokensActions = (props: any): CellComponent => {
