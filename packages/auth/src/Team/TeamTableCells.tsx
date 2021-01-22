@@ -148,7 +148,6 @@ export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?
         ))}
         {permissionsCounter()}
       </div>
-      <div className='fe-flex-spacer' />
       {!!roleOptionsToDisplay?.length && (
         <Popup
           className='fe-team__roles-popup'
