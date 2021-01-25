@@ -61,7 +61,12 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
         initialValues={{ ...initialValues, ...data }}
         onSubmit={(val, { setSubmitting }) => {
           dispatch(connectivityActions.cleanError());
-          dispatch(connectivityActions.postDataAction({ platform: 'webhook', data: val }));
+          dispatch(
+            connectivityActions.postDataAction({
+              platform: 'webhook',
+              data: { ...val, secret: val.secret ? val.secret : undefined },
+            })
+          );
           setSubmitting(false);
         }}
       >
@@ -105,7 +110,11 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                     <Button
                       variant={testResult?.status === 'failed' ? 'danger' : undefined}
                       loading={isTesting}
-                      onClick={() => dispatch(connectivityActions.postWebhookTestAction({ secret, url }))}
+                      onClick={() =>
+                        dispatch(
+                          connectivityActions.postWebhookTestAction({ secret: secret ? secret : undefined, url })
+                        )
+                      }
                     >
                       {testResult?.status.toUpperCase() ?? t('connectivity.testHook').toUpperCase()}
                     </Button>
