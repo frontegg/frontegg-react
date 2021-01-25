@@ -46,9 +46,8 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
       const errors = values.data.map((data: ITableFormData) => {
         const { events = [] } = data;
         return {
-          events: events.map(({ enabled, recipients }) => {
+          events: events.map(({ recipients }) => {
             if (
-              enabled &&
               recipients
                 .filter((e) => !!e)
                 .some(
