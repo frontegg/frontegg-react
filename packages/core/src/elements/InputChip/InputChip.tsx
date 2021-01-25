@@ -20,7 +20,7 @@ export const InputChip: FC<InputChipProps> = ({ onChange, validate, value = [], 
 
     onChange && onChange([...value, inputValue]);
     return;
-  }, [inputRef]);
+  }, [inputRef, value, validate]);
 
   const onKeyPress = useCallback(
     async (e: KeyboardEvent<HTMLInputElement>) => {
@@ -77,7 +77,7 @@ export const FInputChip: FC<InputChipProps & { name: string }> = ({ name, disabl
       const errors = await validateForm(setIn(values, name, value));
       return !getIn(errors, name);
     },
-    [setTouched, validateForm]
+    [setTouched, name, values, validateForm]
   );
 
   return (
