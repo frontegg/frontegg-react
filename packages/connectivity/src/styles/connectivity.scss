@@ -4,7 +4,7 @@
     .MuiInputBase-root,
     .fe-semantic-input .input,
     .fe-input__inner {
-      width: 268px;
+      width: 19.14rem;
       padding-left: 1.5rem;
       position: relative;
       &:before {
@@ -38,8 +38,8 @@
       font-weight: bold;
       text-transform: none;
       &:first-child {
-        flex: 0 0 268px !important;
-        width: 268px !important;
+        flex: 0 0 19.14rem !important;
+        width: 19.14rem !important;
 
         + div {
           justify-content: center;
@@ -55,8 +55,8 @@
     .MuiTableRow-root > td,
     &__tr-td {
       &:first-child:not(.fe-table__tr-td-empty) {
-        flex: 0 0 268px !important;
-        width: 268px !important;
+        flex: 0 0 19.14rem !important;
+        width: 19.14rem !important;
         + div {
           justify-content: center;
         }
@@ -80,7 +80,7 @@
       background-color: #f3f5f9;
       border-radius: 50%;
       min-width: 3rem;
-      padding: 0 8px;
+      padding: 0 0.57rem;
       height: 3rem;
       line-height: 3rem;
       text-align: center;
@@ -92,13 +92,13 @@
 
     & > .MuiPaper-root,
     .fe-table__container {
-      flex: 0 0 149px;
-      width: 149px;
+      flex: 0 0 10.64rem;
+      width: 10.64rem;
       overflow: visible;
 
       .MuiTable-root,
       .fe-table {
-        min-width: 149px !important;
+        min-width: 10.64rem !important;
         __thead {
           &-tr-th {
             display: none;
@@ -155,7 +155,7 @@
         }
       }
       .fe-switch {
-        min-width: 42px;
+        min-width: 3rem;
       }
     }
   }
@@ -209,20 +209,20 @@
   }
   .fe-accordion {
     background: var(--color-white);
-    margin-bottom: 16px;
-    padding: 8px 24px 8px 8px;
+    margin-bottom: 1.14rem;
+    padding: 0.57rem 1.71rem 0.57rem 0.57rem;
 
     .fe-checkbox {
       display: block;
-      margin: 0 -24px 0 -14px;
-      padding: 16px 24px 16px 16px;
+      margin: 0 -1.71rem 0 -14px;
+      padding: 1.14rem 1.71rem 1.14rem 1.14rem;
       border-bottom: 1px solid #e9eef7;
       .fe-connectivity-webhook-accordion-icon {
         background-color: #e4f9ef;
       }
     }
     .fe-accordion-content {
-      margin: 0 -24px 0 -8px;
+      margin: 0 -1.71rem 0 -0.57rem;
 
       div:last-child {
         .fe-checkbox {
