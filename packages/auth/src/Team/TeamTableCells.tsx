@@ -133,7 +133,7 @@ export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?
     return permissions.slice(0, numberPermissionsToShow);
   }, [permissions]);
 
-  const permissionsCounter = useCallback(() => {
+  const permissionsCounter = useMemo(() => {
     const permissionsToShowInCounter = permissions.length - numberPermissionsToShow;
     if (permissions.length > numberPermissionsToShow) return `${permissionsToShowInCounter} ${t('common.more')}`;
   }, [permissions]);
@@ -146,7 +146,7 @@ export const TeamTableRoles = (allRolesOptions?: TRoles[], roleOptionsToDisplay?
             {permission.label}
           </Tag>
         ))}
-        {permissionsCounter()}
+        {permissionsCounter}
       </div>
       {!!roleOptionsToDisplay?.length && (
         <Popup
