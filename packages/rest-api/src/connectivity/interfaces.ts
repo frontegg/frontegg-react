@@ -33,7 +33,7 @@ export interface IEmailSMSSubscriptionResponse {
 
 export interface IWebhookTest {
   url: string;
-  secret: string;
+  secret?: string;
 }
 export interface IWebhooksSaveData extends IWebhookTest {
   _id?: string;
