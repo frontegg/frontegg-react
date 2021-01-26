@@ -102,6 +102,7 @@ export default {
         'disable-two-factor-title': 'Having trouble?',
         'disable-two-factor-description': 'to disable Multi-Factor with recovery code',
         'back-to-login': 'Back to login',
+        'back-to-token': 'Back to token screen',
         'login-with-sso-failed': 'Failed to Login with SSO, try again later.',
         'suggest-sign-up': {
           message: 'Dont have an account? ',
