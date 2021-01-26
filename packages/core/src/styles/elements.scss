@@ -34,6 +34,11 @@
   margin: 1rem 0;
   font-size: 0.8rem;
 
+  &__two-factor {
+    position: absolute;
+    bottom: 0;
+  }
+
   &-title {
     font-weight: bold;
     line-height: 2;

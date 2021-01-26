@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ComponentsTypesWithProps, Loader, useDynamicComponents, useT, Button } from '@frontegg/react-core';
+import { ComponentsTypesWithProps, Loader, useDynamicComponents } from '@frontegg/react-core';
 import { AuthState, LoginStep } from '../Api';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
@@ -11,6 +11,7 @@ import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFaile
 import { ForceEnrollMfa, ForceEnrollMfaProps } from './ForceEnrollMfa';
 import { useAuth } from '../hooks';
 import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
+import { BackButton } from './BackButton';
 
 type Components = {
   LoginSuccessRedirect: LoginSuccessRedirectProps;
@@ -42,30 +43,16 @@ const defaultComponents = {
   ForceEnrollMfa,
   SocialLogins: SocialLoginsLoginWithWrapper,
 };
-const stateMapper = ({ isLoading, isAuthenticated, loginState, onRedirectTo, routes }: AuthState) => ({
+
+const stateMapper = ({ isLoading, isAuthenticated, loginState }: AuthState) => ({
   isLoading,
   isAuthenticated,
-  onRedirectTo,
-  routes,
-  ...loginState,
+  step: loginState.step,
 });
+
 export const Login: FC<LoginProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
-  const { isLoading, isAuthenticated, step, onRedirectTo, routes, resetLoginState, setLoginState } = useAuth(
-    stateMapper
-  );
-  const { t } = useT();
-
-  const backButtonProps = {
-    'data-test-id': 'backToLogin-btn',
-    fullWidth: true,
-    className: 'fe-login-component__back-to-login',
-    onClick: () => {
-      onRedirectTo(routes.loginUrl);
-      resetLoginState();
-    },
-    children: t('auth.login.back-to-login'),
-  };
+  const { isLoading, isAuthenticated, step } = useAuth(stateMapper);
 
   let components = null;
   if (isLoading || isAuthenticated) {
@@ -79,8 +66,6 @@ export const Login: FC<LoginProps> = (props) => {
     );
   } else if (step === LoginStep.recoverTwoFactor) {
     components = <Dynamic.RecoverTwoFactor />;
-    backButtonProps.onClick = () => setLoginState({ step: LoginStep.loginWithTwoFactor });
-    backButtonProps.children = t('auth.login.back-to-token');
   } else if (step === LoginStep.loginWithTwoFactor) {
     components = <Dynamic.LoginWithTwoFactor />;
   } else if (step === LoginStep.redirectToSSO) {
@@ -93,14 +78,10 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.LoginSuccessRedirect />;
   }
 
-  const showBackButton = [LoginStep.loginWithSSOFailed, LoginStep.forceTwoFactor, LoginStep.recoverTwoFactor].includes(
-    step
-  );
-
   return (
     <div className='fe-login-component'>
       {components}
-      {showBackButton && <Button {...backButtonProps} />}
+      <BackButton />
     </div>
   );
 };
