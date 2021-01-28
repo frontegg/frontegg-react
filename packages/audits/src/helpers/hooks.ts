@@ -1,6 +1,7 @@
 import { AuditsActions } from './../Api/reducer';
 /* istanbul ignore file */
 
+import { useMemo } from 'react';
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions, AuditsState, storeName } from '../Api';
@@ -17,5 +18,5 @@ export const useAuditsState = <S extends object>(stateMapper: AuditsStateMapper<
 
 export const useAuditsActions = (): AuditsActions => {
   const dispatch = useDispatch();
-  return bindActionCreators(actions, dispatch);
+  return useMemo(() => bindActionCreators(actions, dispatch), [bindActionCreators, dispatch, actions]);
 };
