@@ -20,16 +20,18 @@
     align-self: stretch;
     background-color: var(--color-gray-0);
     &.MuiButton-root {
-      margin: -16px;
+      margin: -1.14rem;
     }
 
     &.fe-connectivity-active {
       background-color: var(--color-gray-2);
     }
 
-    &-right-arrow {
+    .fe-button > &-right-arrow {
+      padding: 0 !important;
       height: 1.3rem;
       width: 1.3rem;
+      min-width: 1.3rem;
     }
 
     &-icon {
@@ -38,6 +40,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-width: 4.6rem;
       width: 4.6rem;
       height: 4.6rem;
       border-radius: 50%;
@@ -74,12 +77,12 @@
 }
 
 .fe-slack-auth {
-  border-radius: 5px;
+  border-radius: 0.36rem;
   background-color: var(--color-gray-0);
   padding: 1rem;
 
   &-container {
-    border-radius: 5px;
+    border-radius: 0.36rem;
     text-align: center;
     border: 1px solid var(--color-gray-3);
     padding: 4rem 8rem;
@@ -100,7 +103,7 @@
     color: white;
     text-decoration: none;
     background-color: #511557;
-    border-radius: 4px;
+    border-radius: 0.29rem;
     display: inline-flex;
     height: 3rem;
     align-items: center;

@@ -275,15 +275,22 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
       <div ref={tableRef} className={classNames(prefixCls, props.className)} {...getTableProps()}>
         {props.toolbar && <FeTableToolbar />}
 
-        <FeTableTHead {...tableHeadProps} />
-        <FeTableTBody
-          loading={props.loading}
-          prefixCls={prefixCls}
-          prepareRow={prepareRow}
-          getTableBodyProps={getTableBodyProps}
-          renderExpandedComponent={props.renderExpandedComponent}
-          rows={tableRows}
-        />
+        <div
+          className={classNames(
+            `${prefixCls}__table-container`,
+            props.loading && `${prefixCls}__table-container-loading`
+          )}
+        >
+          <FeTableTBody
+            loading={props.loading}
+            prefixCls={prefixCls}
+            prepareRow={prepareRow}
+            getTableBodyProps={getTableBodyProps}
+            renderExpandedComponent={props.renderExpandedComponent}
+            rows={tableRows}
+          />
+          <FeTableTHead {...tableHeadProps} />
+        </div>
 
         {props.loading && rows.length > 0 && <FeLoader center size={24} />}
         {props.pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}

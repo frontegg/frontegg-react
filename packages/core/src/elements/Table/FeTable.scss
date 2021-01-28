@@ -38,9 +38,22 @@
     overflow: auto;
   }
 
+  &__table-container {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+
+    &-loading {
+      overflow: hidden;
+    }
+  }
+
   &__thead {
-    overflow-y: auto;
-    overflow-x: hidden;
+    position: sticky;
+    top: 0;
     min-height: var(--fe-table-header-height);
     align-items: stretch;
     display: flex;
@@ -116,10 +129,8 @@
   }
 
   &__tbody {
-    overflow-y: scroll;
-    overflow-x: hidden;
+    order: 1;
     flex: 1;
-    -webkit-overflow-scrolling: touch;
 
     &__loading {
       opacity: 0.8;
@@ -246,8 +257,5 @@
       letter-spacing: 1.2px;
       font-weight: bold;
     }
-  }
-
-  &__toolbar {
   }
 }

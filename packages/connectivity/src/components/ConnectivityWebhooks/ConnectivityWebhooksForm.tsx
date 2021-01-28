@@ -1,7 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import {
   Grid,
   useT,
+  Popup,
   Button,
   Dialog,
   FInput,
@@ -13,7 +14,6 @@ import {
   validateSchema,
   validateRequired,
   validateArrayLength,
-  Popup,
 } from '@frontegg/react-core';
 import { initialValues } from './consts';
 import { IWebhooksSaveData } from '@frontegg/rest-api';
@@ -33,11 +33,11 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
   const { error, categories, channelMap, isTesting, testResult, isSaving } = useSelector(
     ({ connectivity: { error, categories, channelMap, isTesting, testResult, isSaving } }: IPluginState) => ({
       error,
-      categories,
-      channelMap: channelMap && channelMap.webhook,
-      isTesting,
-      testResult,
       isSaving,
+      isTesting,
+      categories,
+      testResult,
+      channelMap: channelMap && channelMap.webhook,
     })
   );
   useEffect(() => {
@@ -58,13 +58,13 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
     <>
       <FFormik.Formik
         validationSchema={validationSchema}
-        initialValues={{ ...initialValues, ...data }}
+        initialValues={{ ...initialValues, ...data, secret: data?.secret || '' }}
         onSubmit={(val, { setSubmitting }) => {
           dispatch(connectivityActions.cleanError());
           dispatch(
             connectivityActions.postDataAction({
               platform: 'webhook',
-              data: { ...val, secret: val.secret ? val.secret : undefined },
+              data: { ...val, secret: val.secret ? val.secret : null },
             })
           );
           setSubmitting(false);
@@ -111,9 +111,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                       variant={testResult?.status === 'failed' ? 'danger' : undefined}
                       loading={isTesting}
                       onClick={() =>
-                        dispatch(
-                          connectivityActions.postWebhookTestAction({ secret: secret ? secret : undefined, url })
-                        )
+                        dispatch(connectivityActions.postWebhookTestAction({ secret: secret ? secret : null, url }))
                       }
                     >
                       {testResult?.status.toUpperCase() ?? t('connectivity.testHook').toUpperCase()}
