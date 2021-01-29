@@ -80,7 +80,7 @@ export const AccordingCategories: FC<IWebhookComponent> = ({ cleanCategory }) =>
             <AccordionHeader>
               <Grid container alignItems='center' wrap='nowrap'>
                 <Icon name='right-arrow' className='fe-connectivity-webhook-accordion-icon' />
-                <Grid className='fe-connectivity-webhook-according-events-name'>{name}</Grid>
+                <Grid className='fe-connectivity-webhook-according-events-name fe-ml-1'>{name}</Grid>
                 <Grid>
                   {t('common.selected')}: {selected}
                 </Grid>
