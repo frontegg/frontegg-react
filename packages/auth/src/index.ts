@@ -24,6 +24,7 @@ export * from './AccountDropdown';
 export * from './SocialLogins';
 export * from './ApiTokens';
 export * from './AuthorizedContent';
+export * from './SignUp';
 
 export { AuthRoutes };
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({

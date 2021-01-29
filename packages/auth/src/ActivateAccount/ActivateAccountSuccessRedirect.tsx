@@ -10,8 +10,9 @@ export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectPr
   const { renderer } = props;
   const { t } = useT();
   const {
-    routes: { logoutUrl },
-    onRedirectTo,
+    // routes: { logoutUrl },
+    // onRedirectTo,
+    requestAuthorize,
     resetActivateState,
   } = useAuth(({ routes, onRedirectTo }) => ({ routes, onRedirectTo }));
 
@@ -21,7 +22,7 @@ export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectPr
   useEffect(() => {
     setTimeout(() => {
       resetActivateState();
-      onRedirectTo(logoutUrl);
+      requestAuthorize(true);
     }, 1000);
   }, []);
   return (
