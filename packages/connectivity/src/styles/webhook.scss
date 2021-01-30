@@ -217,3 +217,16 @@
     }
   }
 }
+
+.fe-connectivity-webhook-settings {
+  &__frame {
+    &-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin: 0.625rem 0;
+    }
+    background-color: var(--color-gray-1);
+    padding: 2.5rem;
+    margin: 2rem 0 0;
+  }
+}

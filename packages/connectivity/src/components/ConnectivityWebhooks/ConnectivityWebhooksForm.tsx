@@ -74,7 +74,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
           <FFormik.Form>
             <Grid container wrap='nowrap'>
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>
-                <div className='fe-section-title fe-bold fe-mb-2'>{t('connectivity.generalSettings')}</div>
+                <div className='fe-section-title fe-bold fe-mb-3'>{t('connectivity.generalSettings')}</div>
                 <FInput label={t('common.displayName')} name='displayName' placeholder={t('connectivity.inputName')} />
                 <FInput
                   label={t('common.description')}
@@ -108,6 +108,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                   </Grid>
                   <Grid>
                     <Button
+                      size='large'
                       variant={testResult?.status === 'failed' ? 'danger' : undefined}
                       loading={isTesting}
                       onClick={() =>
@@ -127,9 +128,11 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
               <Grid item className='fe-connectivity-webhook-settings' xs={6}>
                 <div className='fe-section-title fe-bold fe-mb-2'>{t('connectivity.eventSettings')}</div>
                 <div className='fe-connectivity-webhook-settings__frame'>
-                  <h3>{t('connectivity.selectEvents')}</h3>
+                  <div className='fe-connectivity-webhook-settings__frame-title'>{t('connectivity.selectEvents')}</div>
                   <SelectWebhook cleanCategory={cleanCategory} />
-                  <h3>{t('connectivity.manageCategories')}</h3>
+                  <div className='fe-connectivity-webhook-settings__frame-title fe-mt-2'>
+                    {t('connectivity.manageCategories')}
+                  </div>
                   <AccordingCategories cleanCategory={cleanCategory} />
                 </div>
               </Grid>
