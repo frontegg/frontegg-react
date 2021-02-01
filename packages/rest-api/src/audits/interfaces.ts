@@ -40,6 +40,7 @@ export interface IAuditsStats {
   severeThisWeek: number;
 }
 
+export type TExportAudits = 'csv' | 'pdf' | 'csv/v2';
 export interface IExportAudits {
   headerProps: HeaderProps[];
   sortDirection: SortDirectionType;
@@ -47,9 +48,8 @@ export interface IExportAudits {
   filter: string;
   offset: number;
   outputFileName: string;
-  endpoint: 'csv' | 'pdf' | 'csv/v2';
+  endpoint: TExportAudits;
 }
-
 export interface HeaderProps {
   _id: string;
   name: string;

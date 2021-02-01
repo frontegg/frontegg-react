@@ -1,47 +1,80 @@
-import React, { FC, useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { FC, useState, useEffect, useMemo, useRef, useCallback, ChangeEvent } from 'react';
 import { prefixCls } from './constants';
 import { useAuditsState, useAuditsActions } from '../helpers/hooks';
 import { getFilterName, getFilterValue } from '../helpers/filterHelper';
 import { Icon, Input, Button, Tag, useDebounce, Menu, MenuItemProps, Loader } from '@frontegg/react-core';
+import { Filter } from '..';
 
-export const AuditsSubHeader: FC = () => {
-  const { filters, isDownloadingCsv, isDownloadingPdf } = useAuditsState(
-    ({ filters, isDownloadingCsv, isDownloadingPdf }) => ({
-      filters,
-      isDownloadingCsv,
-      isDownloadingPdf,
-    })
+export interface IAuditsSubHeader {
+  filters?: Filter[];
+  onSetFilter: (filters: Filter[]) => void;
+  onDownloadPDF: () => void;
+  onDownloadCSV: () => void;
+  isDownloadingCsv: boolean;
+  isDownloadingPdf: boolean;
+}
+
+export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
+  const prevSearch = useRef<{ search: string | null }>({ search: null });
+  const { onSetFilter, onDownloadCSV, onDownloadPDF } = props as IAuditsSubHeader;
+
+  const state = useAuditsState(({ filters, isDownloadingCsv, isDownloadingPdf }) => ({
+    filters,
+    isDownloadingCsv,
+    isDownloadingPdf,
+  }));
+
+  const { filters, isDownloadingCsv, isDownloadingPdf } = useMemo(
+    () => (props.hasOwnProperty('filters') ? (props as IAuditsSubHeader) : state),
+    [state, props]
   );
-  const firstRender = useRef<boolean>(true);
+
   const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
+
   const [search, setSearch] = useState('');
   const searchValue = useDebounce(search, 500);
+
+  const filterOnly = useMemo(() => filters?.filter((f) => f.key !== 'filter') ?? [], [filters]);
+  const handlerOnSetFilter = useCallback(
+    (values) => {
+      (onSetFilter ?? setFilterData)(values);
+    },
+    [onSetFilter, setFilterData]
+  );
 
   const downloadItems: MenuItemProps[] = useMemo(
     () => [
       {
         icon: isDownloadingPdf ? <Loader /> : <Icon name='pdf' />,
         iconClassName: 'fe-audits__subHeader-menuIcon',
-        text: <div onClick={() => exportPDF()}>Download Pdf</div>,
+        text: <div onClick={onDownloadPDF ?? exportPDF}>Download Pdf</div>,
       },
       {
         icon: isDownloadingCsv ? <Loader /> : <Icon name='csv' />,
         iconClassName: 'fe-audits__subHeader-menuIcon',
-        text: <div onClick={() => exportCSV()}>Download Csv</div>,
+        text: <div onClick={onDownloadCSV ?? exportCSV}>Download Csv</div>,
       },
     ],
-    [exportPDF, exportCSV]
+    [exportPDF, exportCSV, onDownloadCSV, onDownloadPDF, isDownloadingPdf, isDownloadingCsv]
   );
 
-  const handleSetFilterData = useCallback(() => {
-    !!search.trim()
-      ? setFilterData([...filters.filter((f) => f.key !== 'filter'), { key: 'filter', value: search }])
-      : setFilterData([...filters.filter((f) => f.key !== 'filter')]);
-  }, [searchValue]);
-
   useEffect(() => {
-    firstRender.current ? (firstRender.current = false) : handleSetFilterData();
-  }, [searchValue]);
+    prevSearch.current.search !== null &&
+      prevSearch.current.search !== searchValue &&
+      handlerOnSetFilter([...filterOnly, { key: 'filter', value: searchValue.toLowerCase() }]);
+    prevSearch.current.search = searchValue;
+  }, [searchValue, handlerOnSetFilter, filterOnly, prevSearch]);
+
+  const handlerSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setSearch(e.target.value);
+    },
+    [setSearch]
+  );
+
+  const handlerCleanAll = useCallback(() => {
+    handlerOnSetFilter(filters?.filter((f) => f.key === 'filter') ?? []);
+  }, [handlerOnSetFilter, filters]);
 
   return (
     <div className={`${prefixCls}__subHeader`}>
@@ -51,31 +84,29 @@ export const AuditsSubHeader: FC = () => {
           type='search'
           value={search}
           placeholder='Search by any text'
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handlerSearch}
         />
         <Menu trigger={<Button size='small'>Download</Button>} items={downloadItems} />
       </div>
       {filters && !!filters.length && (
         <div className={`${prefixCls}__subHeader-filters`}>
-          {filters
-            .filter((f) => f.key !== 'filter')
-            .map((f, idx) => (
-              <Tag key={idx} className={`${prefixCls}__subHeader-tag`} variant='primary'>
-                <b>{getFilterName(f)}:</b> {getFilterValue(f)}
-                <Icon
-                  name='delete'
-                  size='small'
-                  onClick={() => setFilterData(filters.filter((filter) => f.key !== filter.key))}
-                />
-              </Tag>
-            ))}
-          {filters && filters.filter((f) => f.key !== 'filter').length >= 2 && (
+          {filterOnly.map((f, idx) => (
+            <Tag key={idx} className={`${prefixCls}__subHeader-tag`} variant='primary'>
+              <b>{getFilterName(f)}:</b> {getFilterValue(f)}
+              <Icon
+                name='delete'
+                size='small'
+                onClick={() => handlerOnSetFilter(filters.filter((filter) => f.key !== filter.key))}
+              />
+            </Tag>
+          ))}
+          {filterOnly && filterOnly.length >= 2 && (
             <Button
               data-test-id='clearAll-btn'
               transparent
               size='small'
               className={`${prefixCls}__subHeader-clearAll`}
-              onClick={() => setFilterData(filters.filter((f) => f.key === 'filter'))}
+              onClick={handlerCleanAll}
             >
               clear all
             </Button>
