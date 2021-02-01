@@ -96,6 +96,7 @@ export interface AuthPageProps {
   loaderComponent?: ReactNode;
   pageComponent?: ComponentType<PageComponentProps>;
   injectAuthRoutes?: boolean; // default: true
+  keepSessionAlive?: boolean; // default: false
 }
 
 export interface HideOption {

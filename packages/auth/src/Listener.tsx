@@ -4,18 +4,19 @@ import { useAuth, useAuthActions } from './hooks';
 import { ContextHolder } from '@frontegg/rest-api';
 import { ListenerProps } from '@frontegg/react-core';
 
-const stateMapper = ({ isAuthenticated, user, isLoading, routes }: AuthState) => ({
+const stateMapper = ({ isAuthenticated, user, isLoading, routes, keepSessionAlive }: AuthState) => ({
   isAuthenticated,
   user,
   isLoading,
   routes,
+  keepSessionAlive,
 });
 
 const AuthStateKey = 'fe-auth-state';
 
 export const AuthListener: FC<ListenerProps<AuthActions>> = (props) => {
   const timer = useRef<any>(0);
-  const { isAuthenticated, user, isLoading, routes } = useAuth(stateMapper);
+  const { isAuthenticated, user, isLoading, routes, keepSessionAlive } = useAuth(stateMapper);
   const actions = useAuthActions();
   ContextHolder.setLogout(actions.logout, routes.logoutUrl);
 
@@ -25,8 +26,13 @@ export const AuthListener: FC<ListenerProps<AuthActions>> = (props) => {
       actions.requestAuthorize(firstTime);
     } else {
       if (isAuthenticated) {
-        const ttl = (user?.expiresIn || 20) * 1000 * 0.8;
-        timer.current = setInterval(() => actions.requestAuthorize(), ttl);
+        if (keepSessionAlive === true) {
+          const ttl = (user?.expiresIn || 20) * 1000 * 0.8;
+          timer.current = setInterval(() => actions.requestAuthorize(), ttl);
+        } else {
+          const ttl = (user?.expiresIn || 20) * 1000;
+          timer.current = setInterval(() => actions.logout(), ttl);
+        }
       }
     }
   };
