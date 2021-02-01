@@ -14,6 +14,7 @@ import {
   validateSchema,
   validateRequired,
   validateArrayLength,
+  Input,
 } from '@frontegg/react-core';
 import { initialValues } from './consts';
 import { IWebhooksSaveData } from '@frontegg/rest-api';
@@ -145,7 +146,13 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
         open={!!testResult?.message}
         onClose={() => dispatch(connectivityActions.cleanWebhookTestMessage())}
       >
-        <pre>{testResult?.message}</pre>
+        {testResult?.status === 'success' ? (
+          <Input className='fe-connectivity-webhook-dialog-message' multiline>
+            {testResult?.message}
+          </Input>
+        ) : (
+          <pre>{testResult?.message}</pre>
+        )}
       </Dialog>
     </>
   );

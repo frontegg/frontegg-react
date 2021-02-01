@@ -89,6 +89,11 @@
       border-left: solid 1rem var(--color-danger);
     }
 
+    &-message {
+      width: 35rem;
+      max-width: 35rem;
+    }
+
     &-more {
       .fe-dialog-header {
         height: auto;
