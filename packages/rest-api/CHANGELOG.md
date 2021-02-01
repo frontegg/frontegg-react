@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/frontegg/frontegg-react/compare/v1.19.1...v1.20.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* **core:** remove required field for the secret field in the webhook configuration ([fe97d7e](https://github.com/frontegg/frontegg-react/commit/fe97d7e23e6148a381153daa44fae08484733184))
+
+
+### Features
+
+* **core:** add TExportAudits type as separet type in interfaces ([fcc1992](https://github.com/frontegg/frontegg-react/commit/fcc199294ae10abc85102b1c2345a4bdcad6c78b))
+
+
+
+
+
 ## [1.19.1](https://github.com/frontegg/frontegg-react/compare/v1.19.0...v1.19.1) (2021-01-20)
 
 **Note:** Version bump only for package @frontegg/rest-api

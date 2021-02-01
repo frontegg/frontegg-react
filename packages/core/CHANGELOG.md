@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/frontegg/frontegg-react/compare/v1.19.1...v1.20.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* **core:** fix close tolltip popup ([f78cc43](https://github.com/frontegg/frontegg-react/commit/f78cc437d812be6d04e0f65c1664da9ce609fae6))
+* **core:** fiz a problem with caching filters data in the FeTable componet ([319d7be](https://github.com/frontegg/frontegg-react/commit/319d7bec60e88c146f98d5825770ed8721ce0637))
+
+
+### Features
+
+* **core:** implement horizontal scrolling in the table component ([1315b75](https://github.com/frontegg/frontegg-react/commit/1315b75aa92abeace8b2ea811f62efbb6e8db6c7))
+
+
+
+
+
 ## [1.19.1](https://github.com/frontegg/frontegg-react/compare/v1.19.0...v1.19.1) (2021-01-20)
 
 **Note:** Version bump only for package @frontegg/react-core
