@@ -84,7 +84,7 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
         <div className='fe-dialog__footer'>
           <Grid container justifyContent='space-between'>
             <Grid>
-              <Button onClick={toggleTestDialog} size='large' variant='danger'>
+              <Button onClick={toggleTestDialog} size='large'>
                 {t('common.close')}
               </Button>
             </Grid>
