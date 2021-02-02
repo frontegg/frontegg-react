@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
@@ -33,6 +33,7 @@ interface IWebhooksFullConfigurations extends IWebhooksConfigurations {
 }
 
 export const ConnectivityWebhooksList: FC = () => {
+  const prevSaving = useRef<{ isSaving: boolean }>({ isSaving: false });
   const { t } = useT();
   const dispatch = useDispatch();
   const {
@@ -54,8 +55,9 @@ export const ConnectivityWebhooksList: FC = () => {
   );
 
   useLayoutEffect(() => {
-    remove && !isSaving && onRemove(null);
-  }, [isSaving, onRemove, remove]);
+    remove && prevSaving.current.isSaving && onRemove(null);
+    prevSaving.current.isSaving = isSaving;
+  }, [isSaving, onRemove, remove, prevSaving]);
 
   const cleanCatagories = filterCategories(categories, channelMap);
 
