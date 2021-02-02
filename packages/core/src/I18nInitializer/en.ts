@@ -85,6 +85,7 @@ export default {
       yourself: 'yourself',
       optional: 'Optional',
       more: 'more',
+      payload: 'payload',
     },
     auth: {
       login: {
