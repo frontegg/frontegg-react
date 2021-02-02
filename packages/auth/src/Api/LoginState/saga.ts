@@ -22,10 +22,22 @@ import { MFAStep } from '../MfaState';
 
 export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
-  const { loginUrl, logoutUrl } = routes as AuthPageRoutes;
+  const {
+    loginUrl,
+    logoutUrl,
+    socialLoginCallbackUrl,
+    activateUrl,
+    acceptInvitationUrl,
+    resetPasswordUrl,
+  } = routes as AuthPageRoutes;
   let { authenticatedUrl } = routes as AuthPageRoutes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  if (afterAuthRedirect && ![loginUrl, logoutUrl].includes(afterAuthRedirect)) {
+  if (
+    afterAuthRedirect &&
+    ![loginUrl, logoutUrl, socialLoginCallbackUrl, activateUrl, acceptInvitationUrl, resetPasswordUrl].includes(
+      afterAuthRedirect
+    )
+  ) {
     authenticatedUrl = afterAuthRedirect;
   }
   window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
@@ -96,6 +108,7 @@ export function* refreshToken() {
       ContextHolder.setUser(user);
       yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
+
       if ([routes.loginUrl, routes.socialLoginCallbackUrl].includes(window.location.pathname)) {
         yield afterAuthNavigation();
       }
@@ -292,12 +305,22 @@ function* logout({ payload }: PayloadAction<() => void>) {
   payload?.();
 }
 
+function* silentLogout({ payload }: PayloadAction<() => void>) {
+  try {
+    yield call(api.auth.logout);
+  } catch (e) {
+    console.error(e);
+  }
+  payload?.();
+}
+
 export function* loginSagas() {
   yield takeLeading(actions.requestAuthorize, requestAuthorize);
   yield takeLeading(actions.preLogin, preLogin);
   yield takeLeading(actions.postLogin, postLogin);
   yield takeLeading(actions.login, login);
   yield takeLeading(actions.logout, logout);
+  yield takeLeading(actions.silentLogout, silentLogout);
   yield takeLeading(actions.loginWithMfa, loginWithMfa);
   yield takeLeading(actions.recoverMfa, recoverMfa);
   yield takeLeading(actions.switchTenant, switchTenant);

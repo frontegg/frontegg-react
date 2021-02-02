@@ -36,6 +36,7 @@ export const loginActions = {
   })),
   recoverMfa: createAction(`${storeName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
   logout: createAction(`${storeName}/logout`, (payload?: () => void) => ({ payload })),
+  silentLogout: createAction(`${storeName}/silentLogout`, (payload?: () => void) => ({ payload })),
   switchTenant: createAction(`${storeName}/switchTenant`, (payload: WithCallback<ISwitchTenant>) => ({ payload })),
   loadTenants: createAction(`${storeName}/loadTenants`, (payload?: WithCallback<{}, ITenantsResponse[]>) => ({
     payload,
