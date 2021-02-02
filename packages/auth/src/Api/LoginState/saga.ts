@@ -22,22 +22,10 @@ import { MFAStep } from '../MfaState';
 
 export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
-  const {
-    loginUrl,
-    logoutUrl,
-    socialLoginCallbackUrl,
-    activateUrl,
-    acceptInvitationUrl,
-    resetPasswordUrl,
-  } = routes as AuthPageRoutes;
+  const { loginUrl, logoutUrl, socialLoginCallbackUrl, activateUrl } = routes as AuthPageRoutes;
   let { authenticatedUrl } = routes as AuthPageRoutes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  if (
-    afterAuthRedirect &&
-    ![loginUrl, logoutUrl, socialLoginCallbackUrl, activateUrl, acceptInvitationUrl, resetPasswordUrl].includes(
-      afterAuthRedirect
-    )
-  ) {
+  if (afterAuthRedirect && ![loginUrl, logoutUrl, socialLoginCallbackUrl, activateUrl].includes(afterAuthRedirect)) {
     authenticatedUrl = afterAuthRedirect;
   }
   window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);

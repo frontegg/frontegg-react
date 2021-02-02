@@ -10,16 +10,16 @@ export interface ResetPasswordSuccessRedirectProps {
 export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { resetForgotPasswordState, requestAuthorize } = useAuth(({ routes, onRedirectTo }: AuthState) => ({
+  const { loginUrl, resetForgotPasswordState, onRedirectTo } = useAuth(({ routes, onRedirectTo }: AuthState) => ({
     ...routes,
     onRedirectTo,
   }));
 
   useEffect(() => {
     setTimeout(() => {
-      resetForgotPasswordState();
-      requestAuthorize(true);
+      onRedirectTo(loginUrl);
     }, 1000);
+    return resetForgotPasswordState as () => void;
   }, []);
 
   if (renderer) {

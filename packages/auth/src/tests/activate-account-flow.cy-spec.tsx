@@ -82,7 +82,7 @@ describe('Activate Account Tests', () => {
     cy.wait('@activateAccount').its('request.body').should('deep.equal', { userId, token, password: PASSWORD });
 
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq(defaultAuthPlugin.routes.loginUrl);
+      expect(loc.pathname).to.eq(defaultAuthPlugin.routes.authenticatedUrl);
     });
   });
 });
