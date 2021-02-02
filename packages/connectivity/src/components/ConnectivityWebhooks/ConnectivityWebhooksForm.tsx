@@ -53,7 +53,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
       dispatch(connectivityActions.cleanWebhookTestMessage());
     }
     setOpenTestDialog(!openTestDialog);
-  }, [setOpenTestDialog, openTestDialog]);
+  }, [setOpenTestDialog, openTestDialog, dispatch]);
 
   const validationSchema = validateSchema({
     displayName: validateRequired(t('common.displayName'), t),
