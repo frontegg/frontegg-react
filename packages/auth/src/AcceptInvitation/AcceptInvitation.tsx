@@ -5,7 +5,7 @@ import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-
 import { authPageWrapper } from '../components';
 import { InvalidProps, Invalid } from './Invalid';
 import { useAuth } from '../hooks';
-import { AcceptInvitationStep } from '../Api/AcceptInvitationState';
+import { AcceptInvitationStep } from '../Api';
 import { Pending, PendingProps } from './Pending';
 
 type Components = {

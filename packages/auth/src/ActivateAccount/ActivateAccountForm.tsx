@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useEffect } from 'react';
+import React, { ComponentType, createElement, FC, useEffect, useState } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import {
   validatePassword,
@@ -12,7 +12,7 @@ import {
   FFormik,
   validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useAuth, useAuthActions } from '../hooks';
 import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
@@ -30,24 +30,26 @@ export interface ActivateAccountFormProps {
 }
 
 export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
+  const [logoutLoader, setLogoutLoader] = useState(true);
   const { renderer, userId, token } = props;
   const { t } = useT();
-  const authState = useAuth(stateMapper);
+  const { activateAccount, loadPasswordConfig, resetForgotPasswordState, silentLogout } = useAuthActions();
   const {
-    activateState: { loading, error },
-    activateAccount,
+    activateState: { loading: activateStateLoading, error },
     forgotPasswordState: { passwordConfig },
-    loadPasswordConfig,
-    resetForgotPasswordState,
-  } = authState;
-  if (renderer) {
-    return createElement(renderer, { ...props, ...authState });
-  }
+  } = useAuth(stateMapper);
 
   useEffect((): (() => void) => {
+    silentLogout(() => setLogoutLoader(false));
     loadPasswordConfig();
     return resetForgotPasswordState;
-  }, []);
+  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState]);
+
+  const loading = logoutLoader || activateStateLoading;
+
+  if (renderer) {
+    return createElement(renderer, { ...props, loading, error, passwordConfig } as any);
+  }
 
   return (
     <Formik

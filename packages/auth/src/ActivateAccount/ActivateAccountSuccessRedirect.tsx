@@ -9,21 +9,22 @@ export interface ActivateAccountSuccessRedirectProps {
 export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const {
-    routes: { logoutUrl },
+  const { requestAuthorize, resetActivateState, onRedirectTo, routes } = useAuth(({ routes, onRedirectTo }) => ({
+    routes,
     onRedirectTo,
-    resetActivateState,
-  } = useAuth(({ routes, onRedirectTo }) => ({ routes, onRedirectTo }));
+  }));
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
   useEffect(() => {
     setTimeout(() => {
-      resetActivateState();
-      onRedirectTo(logoutUrl);
+      requestAuthorize(true);
+      onRedirectTo(routes.authenticatedUrl);
     }, 1000);
-  }, []);
+    return resetActivateState as () => void;
+  }, [resetActivateState, requestAuthorize, onRedirectTo]);
+
   return (
     <>
       <div className='fe-center fe-success-message'>{t('auth.activate-account.activation-succeeded')}</div>
