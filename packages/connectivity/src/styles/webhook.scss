@@ -37,6 +37,12 @@
     }
   }
 
+  &-test-payload {
+    min-height: 10rem;
+    max-height: 45rem;
+    overflow: auto;
+  }
+
   &-settings {
     padding: var(--element-padding);
     .fe-semantic-input {
@@ -87,6 +93,11 @@
 
     &-failed .fe-dialog-content {
       border-left: solid 1rem var(--color-danger);
+    }
+
+    &-message {
+      width: 35rem;
+      max-width: 35rem;
     }
 
     &-more {
@@ -215,5 +226,18 @@
     &-block {
       width: 16rem;
     }
+  }
+}
+
+.fe-connectivity-webhook-settings {
+  &__frame {
+    &-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin: 0.625rem 0;
+    }
+    background-color: var(--color-gray-1);
+    padding: 2.5rem;
+    margin: 2rem 0 0;
   }
 }

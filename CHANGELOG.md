@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.1](https://github.com/frontegg/frontegg-react/compare/v1.20.0...v1.20.1) (2021-02-02)
+
+
+### Bug Fixes
+
+* **connectivity:** fix the delete dialog message disappers ([f40e50a](https://github.com/frontegg/frontegg-react/commit/f40e50a36ee9f184f0d8b5bddffa6842ed827605))
+
+
+
+
+
+# [1.20.0](https://github.com/frontegg/frontegg-react/compare/v1.19.1...v1.20.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* **connectivity:** fix icons on the list of platform ([8de499c](https://github.com/frontegg/frontegg-react/commit/8de499c6e50faf29ad2198f9d0661d38d7201394))
+* **connectivity:** fix send the security parameter for the webhook configuration ([cbc8bbf](https://github.com/frontegg/frontegg-react/commit/cbc8bbf9e347d5561169f0cfbf724b3f6d1c6e29))
+* **core:** fix close tolltip popup ([f78cc43](https://github.com/frontegg/frontegg-react/commit/f78cc437d812be6d04e0f65c1664da9ce609fae6))
+* **core:** fiz a problem with caching filters data in the FeTable componet ([319d7be](https://github.com/frontegg/frontegg-react/commit/319d7bec60e88c146f98d5825770ed8721ce0637))
+* **core:** remove required field for the secret field in the webhook configuration ([fe97d7e](https://github.com/frontegg/frontegg-react/commit/fe97d7e23e6148a381153daa44fae08484733184))
+
+
+### Features
+
+* **audits:** changes component for posibility use in the deshboard project ([a6365b8](https://github.com/frontegg/frontegg-react/commit/a6365b8aa65702bf0299a3f08d1147b8788a1890))
+* **auth:** add option to keep sessions alive via the AuthPlugin props ([8fd2427](https://github.com/frontegg/frontegg-react/commit/8fd2427cf1d562b12f0657300c526f19d286ccc4))
+* **core:** add TExportAudits type as separet type in interfaces ([fcc1992](https://github.com/frontegg/frontegg-react/commit/fcc199294ae10abc85102b1c2345a4bdcad6c78b))
+* **core:** implement horizontal scrolling in the table component ([1315b75](https://github.com/frontegg/frontegg-react/commit/1315b75aa92abeace8b2ea811f62efbb6e8db6c7))
+
+
+
+
+
 ## [1.19.1](https://github.com/frontegg/frontegg-react/compare/v1.19.0...v1.19.1) (2021-01-20)
 
 **Note:** Version bump only for package @fronteg/react

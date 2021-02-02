@@ -8,6 +8,7 @@ import { AuditsPage } from './components/Audits';
 import { AuditsHeader } from './components/AuditsHeader';
 import { AuditsSubHeader } from './components/AuditsSubHeader';
 import { AuditsTable } from './components/AuditsTable';
+import { AuditsRawTable } from './components/AuditsRawTable';
 
 export const AuditsPlugin = (): PluginConfig => ({
   storeName,
@@ -24,4 +25,5 @@ export const Audits = {
   Header: AuditsHeader,
   TableHeader: AuditsSubHeader,
   Table: AuditsTable,
+  TableRaw: AuditsRawTable,
 };

@@ -90,7 +90,7 @@ export const { reducer, actions: connectivityActions, name: storeName } = create
     },
     cleanWebhookTestMessage: (state) => ({
       ...state,
-      testResult: { status: state.testResult?.status ?? 'success', message: undefined },
+      testResult: { status: state.testResult?.status, message: undefined },
     }),
     cleanWebhookTestData: (state) => ({ ...state, testResult: undefined }),
     loadWebhookLogsAction: {

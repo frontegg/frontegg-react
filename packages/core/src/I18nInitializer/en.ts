@@ -85,6 +85,7 @@ export default {
       yourself: 'yourself',
       optional: 'Optional',
       more: 'more',
+      payload: 'payload',
     },
     auth: {
       login: {
@@ -326,6 +327,7 @@ export default {
     validation: {
       'must-be-a-valid-email': 'Must be a valid email',
       'must-be-a-valid-domain': 'Must be a valid domain',
+      'must-be-a-valid-json': 'Must be a valid JSON object. {"key": "value"}',
       'must-be-a-valid-url': 'Must be a valid URL',
       'passwords-must-match': 'Passwords must match',
       'required-field': 'The {{name}} is required',
@@ -362,6 +364,7 @@ export default {
       testHook: 'Test hook',
       updateHook: 'Update Hook',
       webhook: 'Webhooks',
+      json: 'JSON payload',
       recipients: {
         wrongEmail: 'One of the email addresses is wrong.',
         wrongPhone: 'One of the phone numbers is wrong.',

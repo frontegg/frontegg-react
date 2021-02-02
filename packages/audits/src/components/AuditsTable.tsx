@@ -1,10 +1,7 @@
-import React, { FC, useEffect, useMemo } from 'react';
-import { defaultItemsPerPage } from '../Api';
-import { renderExpandedComponent } from './renderExpandedComponent';
-import { Loader, Table, TableColumnProps } from '@frontegg/react-core';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import { TableFilter, TableSort } from '@frontegg/react-core';
 import { useAuditsState, useAuditsActions } from '../helpers/hooks';
-import { getAuditsTableCells } from './AuditsTableCell';
-import { Filter } from './Filter';
+import { AuditsRawTable } from './AuditsRawTable';
 
 export const AuditsTable: FC = () => {
   const { isLoading, headerProps, rowsData, filters, total } = useAuditsState(
@@ -16,69 +13,51 @@ export const AuditsTable: FC = () => {
       total,
     })
   );
-  const { onPageChange, setDataSorting, setFilterData } = useAuditsActions();
-  const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
-  const actions = useAuditsActions();
+  const { onPageChange, setDataSorting, setFilterData, initData } = useAuditsActions();
 
   useEffect(() => {
-    actions.initData();
-  }, []);
+    initData();
+  }, [initData]);
 
-  const columns = useMemo(() => {
-    return headerProps
-      .filter((_) => _.showInTable)
-      .map(
-        (header): TableColumnProps => ({
-          accessor: header.name,
-          Header: header.displayName,
-          sortable: header.sortable,
-          Cell: getAuditsTableCells(header.name),
-          Filter: ({ value, setFilterValue, closePopup }) =>
-            header.filterable ? (
-              <Filter
-                name={header.displayName}
-                value={value}
-                setFilterValue={setFilterValue}
-                closePopup={closePopup}
-                type={header.type}
-              />
-            ) : null,
-        })
-      );
-  }, [headerProps]);
+  const dataFilters = useMemo(() => (filters ? filters.map((f) => ({ id: f.key, value: f.value })) : []), [filters]);
 
-  if (!headerProps.length) {
-    return <Loader center />;
-  }
+  const handlerPageChange = useCallback(
+    (pageSize: number, pageIndex: number) => {
+      onPageChange(pageIndex + 1);
+    },
+    [onPageChange]
+  );
+
+  const handlerSortChange = useCallback(
+    (tableSorts: TableSort[]) => {
+      if (!tableSorts.length) return;
+
+      setDataSorting({
+        sortBy: tableSorts[0].id,
+        sortDirection: tableSorts[0].desc ? 'desc' : 'asc',
+      });
+    },
+    [setDataSorting]
+  );
+
+  const handlerFilterChange = useCallback(
+    (filters: TableFilter[]) => {
+      console.log(filters);
+      setFilterData(filters.map(({ id, value }) => ({ key: id, value })));
+    },
+    [setFilterData]
+  );
 
   return (
-    <Table
-      columns={columns}
+    <AuditsRawTable
       data={rowsData}
       totalData={total}
       loading={isLoading}
-      rowKey='frontegg_id'
-      pagination='pages'
-      pageSize={defaultItemsPerPage}
-      pageCount={Math.max(Math.ceil(total / defaultItemsPerPage), 1)}
-      onPageChange={(_, pageIndex) => {
-        onPageChange(pageIndex + 1);
-      }}
-      expandable
-      renderExpandedComponent={renderExpandedComponent(headersToShow)}
-      toolbar
-      onSortChange={(tabelSorts) => {
-        if (!tabelSorts.length) return;
-
-        setDataSorting({
-          sortBy: tabelSorts[0].id,
-          sortDirection: tabelSorts[0].desc ? 'desc' : 'asc',
-        });
-      }}
-      filters={filters ? filters.map((f) => ({ id: f.key, value: f.value })) : []}
-      onFilterChange={(filters) => {
-        setFilterData(filters.map(({ id, value }) => ({ key: id, value })));
-      }}
+      filters={dataFilters}
+      headerProps={headerProps}
+      onSortChange={handlerSortChange}
+      onPageChange={handlerPageChange}
+      onFilterChange={handlerFilterChange}
     />
   );
 };
