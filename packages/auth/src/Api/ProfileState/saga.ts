@@ -73,7 +73,7 @@ function* saveProfile({
     const newProfileData = {
       ...oldProfileData,
       ...payload,
-      profilePictureUrl: newProfilePictureUrl,
+      profilePictureUrl: `${newProfilePictureUrl}?t=${+new Date()}`,
     };
 
     const profile = yield call(api.teams.updateProfile, newProfileData);
