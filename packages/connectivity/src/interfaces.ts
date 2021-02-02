@@ -14,7 +14,7 @@ import { FC } from 'react';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
-export type TWebhookStatus = 'success' | 'failed';
+export type TWebhookStatus = 'success' | 'failed' | undefined;
 export interface IPluginState {
   connectivity: IConnectivityState;
 }

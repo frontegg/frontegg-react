@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
   Grid,
   useT,
@@ -23,6 +23,7 @@ import { SelectWebhook } from '../../elements/SelectWebhook';
 import { filterCategories } from '../../utils';
 import { IPluginState } from '../../interfaces';
 import { connectivityActions } from '../../reducer';
+import { ConnectivityWebhooksTestForm } from './ConnectivityWebhooksTestFrom';
 
 export interface IConnectivityWebhooksForm {
   data: IWebhooksSaveData | null;
@@ -31,7 +32,8 @@ export interface IConnectivityWebhooksForm {
 export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }) => {
   const { t } = useT();
   const dispatch = useDispatch();
-  const { error, categories, channelMap, isTesting, testResult, isSaving } = useSelector(
+  const [openTestDialog, setOpenTestDialog] = useState(false);
+  const { error, categories, channelMap, testResult, isSaving } = useSelector(
     ({ connectivity: { error, categories, channelMap, isTesting, testResult, isSaving } }: IPluginState) => ({
       error,
       isSaving,
@@ -46,6 +48,13 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
       dispatch(connectivityActions.cleanWebhookTestData());
     };
   }, [dispatch]);
+
+  const toggleTestDialog = useCallback(() => {
+    if (openTestDialog) {
+      dispatch(connectivityActions.cleanWebhookTestMessage());
+    }
+    setOpenTestDialog(!openTestDialog);
+  }, [setOpenTestDialog, openTestDialog]);
 
   const validationSchema = validateSchema({
     displayName: validateRequired(t('common.displayName'), t),
@@ -108,15 +117,8 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
                     </FButton>
                   </Grid>
                   <Grid>
-                    <Button
-                      size='large'
-                      variant={testResult?.status === 'failed' ? 'danger' : undefined}
-                      loading={isTesting}
-                      onClick={() =>
-                        dispatch(connectivityActions.postWebhookTestAction({ secret: secret ? secret : null, url }))
-                      }
-                    >
-                      {testResult?.status.toUpperCase() ?? t('connectivity.testHook').toUpperCase()}
+                    <Button size='large' onClick={toggleTestDialog}>
+                      {t('connectivity.testHook').toUpperCase()}
                     </Button>
                   </Grid>
                   {error && (
@@ -142,17 +144,16 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
         )}
       </FFormik.Formik>
       <Dialog
-        className={`fe-connectivity-webhook-dialog-${testResult?.status || ''}`}
-        open={!!testResult?.message}
-        onClose={() => dispatch(connectivityActions.cleanWebhookTestMessage())}
+        header={t('connectivity.testHook')}
+        className={`fe-connectivity-webhook-dialog-${testResult?.status ?? ''}`}
+        open={openTestDialog}
+        onClose={toggleTestDialog}
       >
-        {testResult?.status === 'success' ? (
-          <Input className='fe-connectivity-webhook-dialog-message' multiline>
-            {testResult?.message}
-          </Input>
-        ) : (
-          <pre>{testResult?.message}</pre>
-        )}
+        <ConnectivityWebhooksTestForm
+          toggleTestDialog={toggleTestDialog}
+          secret={data?.secret ?? ''}
+          url={data?.url ?? ''}
+        />
       </Dialog>
     </>
   );
