@@ -26,16 +26,17 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, ..
           Header: header.displayName,
           sortable: header.sortable,
           Cell: getAuditsTableCells(header.name),
-          Filter: ({ value, setFilterValue, closePopup }) =>
-            header.filterable ? (
-              <Filter
-                name={header.displayName}
-                value={value}
-                setFilterValue={setFilterValue}
-                closePopup={closePopup}
-                type={header.type}
-              />
-            ) : null,
+          Filter: header.filterable
+            ? ({ value, setFilterValue, closePopup }) => (
+                <Filter
+                  name={header.displayName}
+                  value={value}
+                  setFilterValue={setFilterValue}
+                  closePopup={closePopup}
+                  type={header.type}
+                />
+              )
+            : undefined,
         })
       );
   }, [headerProps]);
