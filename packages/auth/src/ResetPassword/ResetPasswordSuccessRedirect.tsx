@@ -20,7 +20,7 @@ export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps>
       onRedirectTo(loginUrl);
     }, 1000);
     return resetForgotPasswordState as () => void;
-  }, []);
+  }, [onRedirectTo, resetForgotPasswordState]);
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
