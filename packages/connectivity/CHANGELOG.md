@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.1](https://github.com/frontegg/frontegg-react/compare/v1.20.0...v1.20.1) (2021-02-02)
+
+
+### Bug Fixes
+
+* **connectivity:** fix the delete dialog message disappers ([f40e50a](https://github.com/frontegg/frontegg-react/commit/f40e50a36ee9f184f0d8b5bddffa6842ed827605))
+
+
+
+
+
 # [1.20.0](https://github.com/frontegg/frontegg-react/compare/v1.19.1...v1.20.0) (2021-02-01)
 
 
