@@ -5,7 +5,7 @@ import { ActivateAccountForm, ActivateAccountFormProps } from './ActivateAccount
 import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 import { authPageWrapper } from '../components';
 import { useAuth } from '../hooks';
-import { ActivateStep } from '../Api/ActivateState';
+import { ActivateStep } from '../Api';
 
 type Components = {
   ActivateAccountForm: ActivateAccountFormProps;
