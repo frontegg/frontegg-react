@@ -79,6 +79,7 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
         </Grid>
 
         {testResult?.status === 'failed' && <ErrorMessage error={testResult.message} />}
+        {testResult?.status === 'success' && <div className='fe-success-message fe-center'>{testResult.message}</div>}
 
         <div className='fe-dialog__footer'>
           <Grid container justifyContent='space-between'>
