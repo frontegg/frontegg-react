@@ -37,6 +37,12 @@
     }
   }
 
+  &-test-payload {
+    min-height: 10rem;
+    max-height: 45rem;
+    overflow: auto;
+  }
+
   &-settings {
     padding: var(--element-padding);
     .fe-semantic-input {
@@ -87,6 +93,11 @@
 
     &-failed .fe-dialog-content {
       border-left: solid 1rem var(--color-danger);
+    }
+
+    &-message {
+      width: 35rem;
+      max-width: 35rem;
     }
 
     &-more {

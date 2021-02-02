@@ -76,6 +76,11 @@ export const validateArrayLength = (t: TFunction, name: string) =>
 
 export const validateSchema = (props: any) => Yup.object(props);
 
+export const validateObject = (name: string, t: TFunction) =>
+  Yup.object()
+    .required(t('validation.required-field', { name }))
+    .typeError(t('validation.must-be-a-valid-json', { name }));
+
 export const validationPhone = (t: TFunction) =>
   Yup.string()
     .matches(
