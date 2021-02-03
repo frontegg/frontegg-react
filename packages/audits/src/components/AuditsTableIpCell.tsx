@@ -66,11 +66,11 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
           <div key={key} className='fe-dflex fe-dflex-space-between'>
             <div className={`${prefixCls}__ipCell-item`}>
               <div className={`${prefixCls}__ipCell-item-name`}>City</div>
-              <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</div>
+              <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? ''}</div>
             </div>
             <div className={`${prefixCls}__ipCell-item`}>
               <div className={`${prefixCls}__ipCell-item-name`}>Zip</div>
-              <div className={`${prefixCls}__ipCell-item-desc`}>{data.zip ?? 'unknown'}</div>
+              <div className={`${prefixCls}__ipCell-item-desc`}>{data.zip ?? ''}</div>
             </div>
           </div>
         );
@@ -79,7 +79,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
           <div key={key} className={`${prefixCls}__ipCell-item`}>
             <div className={`${prefixCls}__ipCell-item-name`}>Latitude, Longitude</div>
             <div className={`${prefixCls}__ipCell-item-desc`}>
-              {data.latitude ? `${data.latitude.toFixed(4)},` : 'unknown'}
+              {data.latitude ? `${data.latitude.toFixed(4)},` : ''}
               {data.longitude ? data.longitude.toFixed(4) : ''}
             </div>
           </div>
@@ -88,7 +88,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
         return (
           <div key={key} className={`${prefixCls}__ipCell-item`}>
             <div className={`${prefixCls}__ipCell-item-name`}>Country</div>
-            <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? 'unknown'}</div>
+            <div className={`${prefixCls}__ipCell-item-desc`}>{data[key] ?? ''}</div>
           </div>
         );
       default:
