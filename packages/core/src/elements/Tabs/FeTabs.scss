@@ -20,6 +20,11 @@
     color: var(--fe-header-tab-font-color);
     border-bottom: 2px solid transparent;
     font-weight: var(--fe-header-tab-font-weight);
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
+      color: lightgrey;
+    }
     &:first-child {
       margin-left: 0;
     }

@@ -7,6 +7,7 @@ export type PageTabProps = {
   Title: ComponentType;
   route: string;
   comp?: ComponentType;
+  disabled?: boolean;
 };
 
 export type PageProps<T = {}> = FC<T> & Omit<PageTabProps, 'comp'>;
@@ -24,12 +25,23 @@ export const PageTabs: FC<TabsProps> = (props) => {
   const firstMatch = useMemo(() => findMatchPath(location.pathname, props.tabs), []);
   const [activeTab, setActiveTab] = useState(firstMatch);
   const items = useMemo(() => props.tabs.map(({ Title }) => Title), [props.tabs]);
+
+  const disabledTabs = useMemo(
+    () =>
+      props.tabs.reduce((acc: number[], { disabled }: PageTabProps, idx: number) => {
+        if (disabled) return [...acc, idx];
+        return acc;
+      }, []),
+    [props.tabs]
+  );
+
   return (
     <div className='fe-tabs'>
       <Tabs
         items={items}
         activeTab={activeTab}
-        onTabChange={(event, activeTab) => {
+        disabledTabs={disabledTabs}
+        onTabChange={(_event, activeTab) => {
           ContextHolder.onRedirectTo(props.tabs[activeTab].route, { replace: true });
           setActiveTab(activeTab);
         }}
