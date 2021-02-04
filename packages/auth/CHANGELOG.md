@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/frontegg/frontegg-react/compare/v1.20.1...v1.21.0) (2021-02-04)
+
+
+### Bug Fixes
+
+* **auth:** fix caching photo in the profile page ([2acb7e7](https://github.com/frontegg/frontegg-react/commit/2acb7e70186cda2607c16223c9499c4abab92a17))
+* **auth:** Fix redirect after reset password succeeded ([e20d9f4](https://github.com/frontegg/frontegg-react/commit/e20d9f46d345c06f2426e91448835d23e42dc239))
+* **auth:** Remove go to login from activate account succeeded ([e1a8746](https://github.com/frontegg/frontegg-react/commit/e1a8746ad7c1a246038818232967052641d0a040))
+
+
+### Features
+
+* Add option to inject SSO components without routes ([79dd172](https://github.com/frontegg/frontegg-react/commit/79dd17267da92c1d8bb651fe6210d3c6b5b42519))
+* **auth:** Add silent logout saga action ([f5781f7](https://github.com/frontegg/frontegg-react/commit/f5781f720d8944ef23e2b57653c7f816f3cce4d8))
+* **auth:** Auto login after activate account succeeded ([eebdd71](https://github.com/frontegg/frontegg-react/commit/eebdd710199c505f927d8446079f70c22f25909b))
+
+
+
+
+
 ## [1.20.1](https://github.com/frontegg/frontegg-react/compare/v1.20.0...v1.20.1) (2021-02-02)
 
 **Note:** Version bump only for package @frontegg/react-auth
