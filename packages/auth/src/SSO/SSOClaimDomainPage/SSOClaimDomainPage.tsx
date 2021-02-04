@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { checkRootPath, Grid, Loader } from '@frontegg/react-core';
+import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { SSOClaimDomainForm } from './SSOClaimDomainForm';
 import { SSOClaimDomainGuide } from './SSOClaimDomainGuide';
@@ -31,7 +31,8 @@ export const SSOClaimDomainComponent: FC = (props) => {
 };
 
 export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
-  const pagePath = props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
+  const pagePath =
+    props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
 
   return (
     <Route path={pagePath}>

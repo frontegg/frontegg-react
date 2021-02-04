@@ -3,7 +3,12 @@ import { SSOPage } from './SSOPage';
 import { SSOHeader } from './SSOHeader';
 import { SSOToggle } from './SSOToggle';
 import { SSOOverviewPage, SSOSteps, SSONoDataPlaceholder } from './SSOOverviewPage';
-import { SSOClaimDomainComponent, SSOClaimDomainPage, SSOClaimDomainGuide, SSOClaimDomainForm } from './SSOClaimDomainPage';
+import {
+  SSOClaimDomainComponent,
+  SSOClaimDomainPage,
+  SSOClaimDomainGuide,
+  SSOClaimDomainForm,
+} from './SSOClaimDomainPage';
 import { SSOConfigureIDPComponent, SSOConfigureIDPPage } from './SSOConfigureIDPPage';
 import { SSOManageAuthorizationComponent, SSOManageAuthorizationPage } from './SSOManageAuthorizationPage';
 

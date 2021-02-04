@@ -4,8 +4,10 @@ import { Route } from 'react-router-dom';
 import { HideOption, RouteWrapper } from '../../interfaces';
 import { useAuthSSOActions, useAuthSSOState } from '../hooks';
 import { SSOManageAuthorizationForm } from './SSOManageAuthorizationForm';
+import { reloadSSOIfNeeded } from '../helpers';
 
 export const SSOManageAuthorizationComponent: FC<HideOption> = (props) => {
+  reloadSSOIfNeeded();
   const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
   const { loadSSOAllRoles, loadSSOAuthorizationRoles } = useAuthSSOActions();
 
@@ -29,10 +31,13 @@ export const SSOManageAuthorizationComponent: FC<HideOption> = (props) => {
   return <div className='fe-sso-authorization-page'>{children}</div>;
 };
 export const SSOManageAuthorizationPage: FC<RouteWrapper & HideOption> = (props) => {
-  const pagePath = props.path ?? checkRootPath('SSO.ManageAuthorizationPage must be rendered inside a SSO.Router component') + '/authorization';
+  const pagePath =
+    props.path ??
+    checkRootPath('SSO.ManageAuthorizationPage must be rendered inside a SSO.Router component') + '/authorization';
 
-  return <Route path={pagePath}>
-    <SSOManageAuthorizationComponent children={props.children} />
-  </Route>;
-
+  return (
+    <Route path={pagePath}>
+      <SSOManageAuthorizationComponent children={props.children} />
+    </Route>
+  );
 };

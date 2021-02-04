@@ -1,5 +1,5 @@
-import React, { FC, useRef, useState } from 'react';
-import { useT, FFormik, FButton, Input, ErrorMessage, Icon, ButtonProps, checkRootPath } from '@frontegg/react-core';
+import React, { FC, useContext, useRef } from 'react';
+import { useT, FFormik, FButton, Input, ErrorMessage, Icon, ButtonProps, RootPathContext } from '@frontegg/react-core';
 import { useAuthSSOState } from '../hooks';
 import { useAuth } from '../../hooks';
 
@@ -8,7 +8,7 @@ const { useFormikContext } = FFormik;
 const prefixT = 'auth.sso.claim-domain.form';
 export const SSOClaimDomainValidateStep: FC = (props) => {
   const { t } = useT();
-  const rootPath = checkRootPath('SSOSteps should be rendered inside SSO component');
+  const rootPath = useContext(RootPathContext);
   const { saving, error, samlConfiguration } = useAuthSSOState(({ saving, error, samlConfiguration }) => ({
     saving,
     error,
@@ -32,7 +32,7 @@ export const SSOClaimDomainValidateStep: FC = (props) => {
     type: 'submit',
   };
   if (samlConfiguration.validated) {
-    if (enterValidateStatus.current === samlConfiguration.validated) {
+    if (!rootPath || enterValidateStatus.current === samlConfiguration.validated) {
       submitButtonProps = {
         children: t('common.validated'),
         disabled: true,

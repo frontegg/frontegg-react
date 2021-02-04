@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { checkRootPath, Loader, Grid } from '@frontegg/react-core';
+import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { HideOption, RouteWrapper } from '../../interfaces';
 import { SSOConfigureIDPGuide } from './SSOConfigureIDPGuide';
@@ -35,9 +35,12 @@ export const SSOConfigureIDPComponent: FC = (props) => {
 };
 
 export const SSOConfigureIDPPage: FC<RouteWrapper & HideOption> = (props) => {
-  const pagePath = props.path ?? checkRootPath('SSO.ConfigureIDPPage must be rendered inside a SSO.Router component') + '/idp';
+  const pagePath =
+    props.path ?? checkRootPath('SSO.ConfigureIDPPage must be rendered inside a SSO.Router component') + '/idp';
 
-  return <Route path={pagePath}>
-    <SSOConfigureIDPComponent children={props.children} />
-  </Route>;
+  return (
+    <Route path={pagePath}>
+      <SSOConfigureIDPComponent children={props.children} />
+    </Route>
+  );
 };
