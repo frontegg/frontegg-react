@@ -31,7 +31,8 @@ export const SSOClaimDomainComponent: FC = (props) => {
 };
 
 export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
-  const pagePath = props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
+  const pagePath =
+    props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
 
   return (
     <Route path={pagePath}>

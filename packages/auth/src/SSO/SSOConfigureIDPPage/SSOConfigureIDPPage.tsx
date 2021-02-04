@@ -35,9 +35,12 @@ export const SSOConfigureIDPComponent: FC = (props) => {
 };
 
 export const SSOConfigureIDPPage: FC<RouteWrapper & HideOption> = (props) => {
-  const pagePath = props.path ?? checkRootPath('SSO.ConfigureIDPPage must be rendered inside a SSO.Router component') + '/idp';
+  const pagePath =
+    props.path ?? checkRootPath('SSO.ConfigureIDPPage must be rendered inside a SSO.Router component') + '/idp';
 
-  return <Route path={pagePath}>
-    <SSOConfigureIDPComponent children={props.children} />
-  </Route>;
+  return (
+    <Route path={pagePath}>
+      <SSOConfigureIDPComponent children={props.children} />
+    </Route>
+  );
 };
