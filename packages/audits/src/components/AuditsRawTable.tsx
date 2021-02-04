@@ -5,6 +5,7 @@ import { defaultItemsPerPage, HeaderProps } from '..';
 import { getAuditsTableCells } from './AuditsTableCell';
 import { Filter } from './Filter';
 import { renderExpandedComponent } from './renderExpandedComponent';
+import { str2bool } from '../helpers/str2bool';
 
 export interface IAuditsRawTable
   extends Pick<
@@ -15,7 +16,7 @@ export interface IAuditsRawTable
 }
 
 export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, ...tableProps }) => {
-  const headersToShow = useMemo(() => headerProps.filter((_) => !!_.showInMoreInfo), [headerProps]);
+  const headersToShow = useMemo(() => headerProps.filter((_) => str2bool(_.showInMoreInfo)), [headerProps]);
 
   const columns = useMemo(() => {
     return headerProps
