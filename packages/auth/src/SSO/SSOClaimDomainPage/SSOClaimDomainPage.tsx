@@ -5,11 +5,10 @@ import { SSOClaimDomainForm } from './SSOClaimDomainForm';
 import { SSOClaimDomainGuide } from './SSOClaimDomainGuide';
 import { HideOption, RouteWrapper } from '../../interfaces';
 import { useAuthSSOState } from '../hooks';
+import { reloadSSOIfNeeded } from '../helpers';
 
-export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
-  const pagePath =
-    props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
-
+export const SSOClaimDomainComponent: FC = (props) => {
+  reloadSSOIfNeeded();
   const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
 
   if (loading) {
@@ -28,9 +27,15 @@ export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
     </>
   );
 
+  return <div className='fe-sso-claim-domain-page'>{children}</div>;
+};
+
+export const SSOClaimDomainPage: FC<RouteWrapper & HideOption> = (props) => {
+  const pagePath = props.path ?? checkRootPath('SSO.ClaimDomainPage must be rendered inside a SSO.Router component') + '/domain';
+
   return (
     <Route path={pagePath}>
-      <div className='fe-sso-claim-domain-page'>{children}</div>
+      <SSOClaimDomainComponent children={props.children} />
     </Route>
   );
 };

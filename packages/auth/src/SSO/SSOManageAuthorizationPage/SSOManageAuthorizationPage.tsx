@@ -1,12 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { checkRootPath, Grid, useT } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
-import { HideOption } from '../../interfaces';
+import { HideOption, RouteWrapper } from '../../interfaces';
 import { useAuthSSOActions, useAuthSSOState } from '../hooks';
 import { SSOManageAuthorizationForm } from './SSOManageAuthorizationForm';
 
-export const SSOManageAuthorizationPage: FC<HideOption> = (props) => {
-  const rootPath = checkRootPath('SSOManageAuthorizationPage must be rendered inside a SSORouter component');
+export const SSOManageAuthorizationComponent: FC<HideOption> = (props) => {
   const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
   const { loadSSOAllRoles, loadSSOAuthorizationRoles } = useAuthSSOActions();
 
@@ -27,9 +26,13 @@ export const SSOManageAuthorizationPage: FC<HideOption> = (props) => {
     </Grid>
   );
 
-  return (
-    <Route path={`${rootPath}/authorization`}>
-      <div className='fe-sso-authorization-page'>{children}</div>
-    </Route>
-  );
+  return <div className='fe-sso-authorization-page'>{children}</div>;
+};
+export const SSOManageAuthorizationPage: FC<RouteWrapper & HideOption> = (props) => {
+  const pagePath = props.path ?? checkRootPath('SSO.ManageAuthorizationPage must be rendered inside a SSO.Router component') + '/authorization';
+
+  return <Route path={pagePath}>
+    <SSOManageAuthorizationComponent children={props.children} />
+  </Route>;
+
 };
