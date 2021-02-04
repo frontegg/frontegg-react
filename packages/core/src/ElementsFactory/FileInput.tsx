@@ -1,7 +1,7 @@
-import React, { ChangeEvent, EventHandler, FC, forwardRef, useCallback } from 'react';
+import React, { ChangeEvent, forwardRef, useCallback } from 'react';
 import { InputProps } from '../elements/Input';
 import { ElementsFactory } from './ElementsFactory';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 
 const toBase64 = (file?: File) =>
   new Promise<string>((resolve, reject) => {
