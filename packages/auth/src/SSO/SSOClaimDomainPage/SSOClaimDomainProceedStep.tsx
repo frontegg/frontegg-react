@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useT, FFormik, FButton, ErrorMessage } from '@frontegg/react-core';
 import { useAuthSSOActions, useAuthSSOState } from '../hooks';
 

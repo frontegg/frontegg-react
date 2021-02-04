@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { checkRootPath, Grid, Loader } from '@frontegg/react-core';
+import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { SSOClaimDomainForm } from './SSOClaimDomainForm';
 import { SSOClaimDomainGuide } from './SSOClaimDomainGuide';

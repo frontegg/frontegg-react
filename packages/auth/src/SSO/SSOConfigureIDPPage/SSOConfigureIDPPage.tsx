@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { checkRootPath, Loader, Grid } from '@frontegg/react-core';
+import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { HideOption, RouteWrapper } from '../../interfaces';
 import { SSOConfigureIDPGuide } from './SSOConfigureIDPGuide';

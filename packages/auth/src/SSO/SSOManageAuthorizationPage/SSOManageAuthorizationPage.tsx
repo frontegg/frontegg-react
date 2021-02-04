@@ -4,8 +4,10 @@ import { Route } from 'react-router-dom';
 import { HideOption, RouteWrapper } from '../../interfaces';
 import { useAuthSSOActions, useAuthSSOState } from '../hooks';
 import { SSOManageAuthorizationForm } from './SSOManageAuthorizationForm';
+import { reloadSSOIfNeeded } from '../helpers';
 
 export const SSOManageAuthorizationComponent: FC<HideOption> = (props) => {
+  reloadSSOIfNeeded();
   const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
   const { loadSSOAllRoles, loadSSOAuthorizationRoles } = useAuthSSOActions();
 
