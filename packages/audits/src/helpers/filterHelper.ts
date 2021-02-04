@@ -56,7 +56,7 @@ export const getTimeDiff = (time: any) => {
 
 export const getFilterValue = (filter: any) => {
   if (filter.key === 'createdAt') {
-    return moment(filter.value.$gt).format('YYYY/MM/DD h:mm A');
+    return moment(filter.value.$gt).format('DD/MM/YYYY h:mm A');
   }
   return filter.value;
 };
