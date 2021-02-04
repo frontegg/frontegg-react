@@ -11,10 +11,10 @@ export const TableCells: TableCellsType = {
     return <img className='fe-table-cell__avatar-img' src={value} alt='Image' />;
   },
   Title: ({ value }) => {
-    return <div className='fe-table-cell__title'>{value ?? 'unknown'}</div>;
+    return <div className='fe-table-cell__title'>{value ?? ''}</div>;
   },
   Description: ({ value }) => {
-    return <div className='fe-table-cell__description'>{value ?? 'unknown'}</div>;
+    return <div className='fe-table-cell__description'>{value ?? ''}</div>;
   },
   DateAgo: ({ value }) => {
     return (
