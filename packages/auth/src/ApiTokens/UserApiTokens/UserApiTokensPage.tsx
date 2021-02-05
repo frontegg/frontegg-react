@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
+import { ApiTokenType } from '@frontegg/redux-store/auth';
 import { prefixCls } from '../constants';
 import { useApiTokensActions, useApiTokensState } from '../hooks';
-import { ApiTokenType } from '../../Api/ApiTokensState';
 import { ApiTokensHeader } from '../components/ApiTokensHeader';
 import { ApiTokensLayout } from '../components/ApiTokensLayout';
 

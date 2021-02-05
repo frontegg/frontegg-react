@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from 'react';
+import { ApiTokenType } from '@frontegg/redux-store/auth';
 import { ApiTokensHeader } from '../components/ApiTokensHeader';
 import { ApiTokensLayout } from '../components/ApiTokensLayout';
 import { prefixCls } from '../constants';
 import { useApiTokensActions, useApiTokensState } from '../hooks';
-import { ApiTokenType, ApiTokensState } from '../../Api/ApiTokensState';
 
 const apiTokenType: ApiTokenType = 'tenant';
 

@@ -1,8 +1,8 @@
-import { AuthState } from '../Api';
-import { pluginName, sliceReducerActionsBy } from '../hooks';
-import { bindActionCreators, CaseReducerActions } from '@reduxjs/toolkit';
+import { ApiTokensActions, AuthState } from '@frontegg/redux-store/auth';
+import { bindActionCreators } from '@reduxjs/toolkit';
 import { memoEqual, useDispatch, useSelector } from '@frontegg/react-core';
-import { apiTokensActions, ApiTokensState, apiTokensStateReducers } from '../Api/ApiTokensState';
+import { apiTokensActions, ApiTokensState, apiTokensReducers } from '@frontegg/redux-store/auth';
+import { pluginName, sliceReducerActionsBy } from '../hooks';
 
 export type ApiTokensStateMapper<S extends object> = (state: ApiTokensState) => S;
 const defaultApiTokensStateMapper: any = (state: ApiTokensState) => ({ ...state });
@@ -16,13 +16,7 @@ export const useApiTokensState = <S extends object>(
   );
 };
 
-export const useApiTokensActions = (): typeof apiTokensActions & CaseReducerActions<typeof apiTokensStateReducers> => {
+export const useApiTokensActions = (): ApiTokensActions => {
   const dispatch = useDispatch();
-  return bindActionCreators(
-    {
-      ...apiTokensActions,
-      ...sliceReducerActionsBy(apiTokensStateReducers),
-    },
-    dispatch
-  );
+  return bindActionCreators({ ...apiTokensActions, ...sliceReducerActionsBy(apiTokensReducers) }, dispatch);
 };

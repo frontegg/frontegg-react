@@ -1,8 +1,7 @@
+import React, { useCallback, useState, useEffect } from 'react';
 import { Button, CellComponent, Icon, Loader, Menu, MenuItemProps, TableCells, useT } from '@frontegg/react-core';
-import React, { useState, useEffect } from 'react';
-import { useCallback } from 'react';
-import { useApiTokensActions } from '../hooks';
 import { api } from '@frontegg/rest-api';
+import { useApiTokensActions } from '../hooks';
 
 export const getApiTokensTableCells = (column: string): CellComponent => {
   switch (column) {

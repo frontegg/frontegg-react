@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Grid, Icon, Input, useT } from '@frontegg/react-core';
+import { Button, Grid, Input, useT } from '@frontegg/react-core';
 import { prefixCls } from '../constants';
 import { useApiTokensActions, useApiTokensState } from '../hooks';
 

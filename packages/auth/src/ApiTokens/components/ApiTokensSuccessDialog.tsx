@@ -8,10 +8,10 @@ export type copyType = 'secret' | 'clientId';
 
 export const ApiTokensSucceessDialog: FC = () => {
   const { t } = useT();
+  const { open, secret, clientId } = useApiTokensState(({ successDialog }) => successDialog);
   const { setApiTokensState } = useApiTokensActions();
   const [copiedSecret, setCopiedSecret] = useState(false);
   const [copiedClientId, setCopiedClientId] = useState(false);
-  const { open, secret, clientId } = useApiTokensState(({ successDialog }) => ({ ...successDialog }));
 
   const copySecret = (type: copyType) => {
     copy(type === 'secret' ? secret ?? '' : clientId ?? '').then(() => displayCopied(type));
