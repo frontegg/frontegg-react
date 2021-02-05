@@ -28,7 +28,7 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { loading, profile, error, setProfileState } = useAuthProfile();
   const { t } = useT();
-  const { errors, setErrors, submitForm } = useFormikContext<any>();
+  const { errors, setErrors, submitForm, isSubmitting } = useFormikContext<any>();
 
   const [{ value: profilePhotoValue }, {}, { setValue: setProfileValue }] = useField(profilePictureUrl);
   const profileImageError = error || errors[profilePictureUrl];
@@ -70,16 +70,19 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
         ) : (
           <Icon name='image' />
         )}
-        {profilePhotoValue !== profile?.profilePictureUrl && (
-          <Icon onClick={handleRemoveImage} className='fe-profile-image-remove' name='delete' />
-        )}
       </div>
       <div className='fe-profile-image-details'>
         <div className='fe-profile-name'>{profile?.name}</div>
         <div className='fe-profile-email'>{profile?.email ?? ''}</div>
 
         <FFileInput name={profilePictureUrl} accept='image/png, image/jpeg' ref={inputRef} onChange={handlerOnChange} />
-        <Button variant='primary' onClick={handleUploadClick} fullWidth={false} data-test-id='uploadPhoto-btn'>
+        <Button
+          variant='primary'
+          onClick={handleUploadClick}
+          fullWidth={false}
+          data-test-id='uploadPhoto-btn'
+          loading={isSubmitting}
+        >
           {t('auth.profile.info.upload-photo')}
         </Button>
         {profileImageError && <ErrorMessage error={profileImageError} onError={props.onError} />}
