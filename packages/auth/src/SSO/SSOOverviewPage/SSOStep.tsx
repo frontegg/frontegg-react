@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RendererFunction, Icon, WithT } from '@frontegg/react-core';
-import classnames from 'classnames';
+
 export interface SSOStepProps extends Pick<WithT, 't'> {
   renderer?: RendererFunction<SSOStepProps>;
   num: number;

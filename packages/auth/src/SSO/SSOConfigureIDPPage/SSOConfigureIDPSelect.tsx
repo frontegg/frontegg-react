@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Grid } from '@frontegg/react-core';
-import { useT } from '@frontegg/react-core';
-import { AzureIcon, GoogleIcon, OktaIcon, SamlIcon, SamlVendors, OpenIdIcon } from './SSOVendors';
+import { Grid, useT } from '@frontegg/react-core';
 import classNames from 'classnames';
+import { AzureIcon, GoogleIcon, OktaIcon, SamlIcon, SamlVendors, OpenIdIcon } from './SSOVendors';
 
 export interface SSOConfigureIDPSelectProps {
   samlVendor: SamlVendors;

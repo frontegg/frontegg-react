@@ -1,7 +1,7 @@
 import React, { FC, useContext, useRef } from 'react';
 import { useT, FFormik, FButton, Input, ErrorMessage, Icon, ButtonProps, RootPathContext } from '@frontegg/react-core';
 import { useAuthSSOState } from '../hooks';
-import { useAuth } from '../../hooks';
+import { useOnRedirectTo } from '../../hooks';
 
 const { useFormikContext } = FFormik;
 
@@ -14,7 +14,7 @@ export const SSOClaimDomainValidateStep: FC = (props) => {
     error,
     samlConfiguration,
   }));
-  const { onRedirectTo } = useAuth(({ onRedirectTo }) => ({ onRedirectTo }));
+  const onRedirectTo = useOnRedirectTo();
   const { values } = useFormikContext<{ domain: string }>();
 
   const enterValidateStatus = useRef<boolean>(samlConfiguration?.validated ?? false);

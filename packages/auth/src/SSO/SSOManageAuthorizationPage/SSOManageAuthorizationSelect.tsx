@@ -1,7 +1,6 @@
 import React, { FC, useMemo } from 'react';
+import { Select, FFormik, ErrorMessage, FButton, useT } from '@frontegg/react-core';
 import { useAuthSSOState } from '../hooks';
-import { ErrorMessage, FButton, useT } from '@frontegg/react-core';
-import { Select, FFormik } from '@frontegg/react-core';
 
 const { useFormikContext } = FFormik;
 
@@ -14,13 +13,11 @@ export const SSOManageAuthorizationSelect: FC = () => {
   } = useFormikContext<any>();
   const { roles: allRoles, saving, error } = useAuthSSOState(({ roles, saving, error }) => ({ roles, saving, error }));
 
-  const selectValue = useMemo(
-    () =>
-      allRoles
-        ?.filter((role) => authorizationRoles?.find((arole: string) => arole === role.id))
-        .map((role) => ({ value: role.id, label: role.name })),
-    [authorizationRoles, allRoles]
-  );
+  const selectValue = useMemo(() => {
+    return allRoles
+      ?.filter((role) => authorizationRoles?.find((arole: string) => arole === role.id))
+      .map((role) => ({ value: role.id, label: role.name }));
+  }, [authorizationRoles, allRoles]);
 
   const selectOptions = useMemo(() => allRoles?.map((role) => ({ value: role.id, label: role.name })), [allRoles]);
 

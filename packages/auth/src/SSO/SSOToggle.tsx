@@ -1,6 +1,5 @@
 import React, { FC, useCallback } from 'react';
 import { SwitchToggle, SwitchToggleProps, useT } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
 import { reloadSSOIfNeeded } from './helpers';
 import { HideOption } from '../interfaces';
 import { useAuthSSOActions, useAuthSSOState } from './hooks';

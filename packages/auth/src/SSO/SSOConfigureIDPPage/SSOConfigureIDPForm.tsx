@@ -7,6 +7,7 @@ import { SamlVendors } from './SSOVendors';
 import { ssoConfigureIdpFormValidation, ssoConfigureIdpFormSubmit } from '../helpers';
 
 const { Formik } = FFormik;
+
 export interface HeaderProps {
   step: number;
 }
@@ -58,6 +59,7 @@ const initialOidcValues: IInitialValues = {
   oidcSecret: '',
   oidcClientId: '',
 };
+
 export interface SSOConfigureIDPFormProps {
   samlVendor: SamlVendors;
 }
@@ -87,9 +89,20 @@ export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPFormProps> = ({
           ...samlConfiguration,
         }}
         enableReinitialize
-        validate={(values) => ssoConfigureIdpFormValidation({ ...values, samlVendor, t })}
+        validate={(values) =>
+          ssoConfigureIdpFormValidation({
+            ...values,
+            samlVendor,
+            t,
+          })
+        }
         onSubmit={(values) =>
-          ssoConfigureIdpFormSubmit({ ...values, saveSSOConfigurationsFile, saveSSOConfigurations, samlVendor })
+          ssoConfigureIdpFormSubmit({
+            ...values,
+            saveSSOConfigurationsFile,
+            saveSSOConfigurations,
+            samlVendor,
+          })
         }
       >
         <FForm>

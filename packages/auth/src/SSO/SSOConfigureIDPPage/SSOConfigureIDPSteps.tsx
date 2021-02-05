@@ -1,7 +1,17 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import { Button, ErrorMessage, FButton, FInput, Grid, Icon, Input, SwitchToggle, useT } from '@frontegg/react-core';
+import {
+  FFormik,
+  Button,
+  ErrorMessage,
+  FButton,
+  FInput,
+  Grid,
+  Icon,
+  Input,
+  SwitchToggle,
+  useT,
+} from '@frontegg/react-core';
 import Dropzone from 'react-dropzone';
-import { FFormik } from '@frontegg/react-core';
 import { useAuthSSOState } from '../hooks';
 import { SamlVendors } from './SSOVendors';
 

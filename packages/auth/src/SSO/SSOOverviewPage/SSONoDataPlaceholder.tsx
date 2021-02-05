@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Loader, useT } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
 import { HideOption } from '../../interfaces';
 import { useAuthSSOState } from '../hooks';
 

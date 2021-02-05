@@ -1,11 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { checkRootPath, PageHeader, PageHeaderProps, useProxyComponent, useT } from '@frontegg/react-core';
+import { checkRootPath, PageHeader, PageHeaderProps, useT } from '@frontegg/react-core';
 import { HideOption } from '../interfaces';
 
 export const SSOHeader = (props: PageHeaderProps & HideOption) => {
   const rootPath = checkRootPath('SSO.Header must be rendered inside a SSO.Page component');
-  const proxyPortals = useProxyComponent(props);
 
   const history = useHistory();
   const { t } = useT();

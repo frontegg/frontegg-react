@@ -1,7 +1,6 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { useT, Loader, checkRootPath } from '@frontegg/react-core';
 import { SSOStep } from './SSOStep';
-import { useAuth } from '../../hooks';
 import { HideOption } from '../../interfaces';
 import { useAuthSSOState } from '../hooks';
 
