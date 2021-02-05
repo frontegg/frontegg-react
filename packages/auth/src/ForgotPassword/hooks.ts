@@ -7,18 +7,18 @@ import {
 } from '@frontegg/redux-store/auth';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { memoEqual, useDispatch, useSelector } from '@frontegg/react-core';
-import { pluginName, sliceReducerActionsBy } from '../hooks';
+import { pluginName, sliceReducerActionsBy, StateHookFunction } from '../hooks';
 
 export type ForgotPasswordStateMapper<S extends object> = (state: ForgotPasswordState) => S;
-const defaultForgotPasswordStateMapper: any = (state: ForgotPasswordState) => ({ ...state });
 
-export const useForgotPasswordState = <S extends object>(
-  stateMapper: ForgotPasswordStateMapper<S> = defaultForgotPasswordStateMapper
+export const useForgotPasswordState: StateHookFunction<ForgotPasswordState> = <S extends object>(
+  stateMapper?: ForgotPasswordStateMapper<S>
 ): S => {
   return useSelector(
-    ({ [pluginName]: { forgotPasswordState } }: { auth: AuthState }) => stateMapper(forgotPasswordState),
+    ({ [pluginName]: { forgotPasswordState } }: { auth: AuthState }) =>
+      stateMapper?.(forgotPasswordState) ?? forgotPasswordState,
     memoEqual
-  );
+  ) as any;
 };
 
 export const useForgotPasswordActions = (): ForgotPasswordActions => {

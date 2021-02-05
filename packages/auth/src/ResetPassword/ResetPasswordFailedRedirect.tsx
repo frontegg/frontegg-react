@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
 import { Button, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
-import { AuthState } from '../Api';
-import { useAuth } from '../hooks';
+import { useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useForgotPasswordActions } from '../ForgotPassword';
 
 export interface ResetPasswordFailedProps {
   renderer?: RendererFunctionFC<ResetPasswordFailedProps>;
 }
 
-const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ ...routes, onRedirectTo });
 export const ResetPasswordFailed: FC<ResetPasswordFailedProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loginUrl, onRedirectTo, resetForgotPasswordState } = useAuth(stateMapper);
+  const { loginUrl } = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const { resetForgotPasswordState } = useForgotPasswordActions();
+
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }

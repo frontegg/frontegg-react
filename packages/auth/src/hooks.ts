@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
-import { authActions, AuthActions, AuthState, User } from '@frontegg/redux-store/auth';
+import { authActions, AuthActions, AuthState, LoginState, User } from '@frontegg/redux-store/auth';
 import { useMemo } from 'react';
 import { RedirectOptions } from '@frontegg/rest-api';
 import { AuthPageRoutes } from '../../redux-store/src';
@@ -16,6 +16,7 @@ export type AuthMapper = {
 
 export type AuthStateMapper<S extends object> = (state: AuthState) => S;
 export type AuthActionsMapper<A> = (state: AuthActions) => A;
+export type StateHookFunction<T> = (() => T) & (<S extends object>(mapper: (state: T) => S) => S);
 
 const defaultMapper: AuthMapper = {
   state: (state: AuthState) => state,

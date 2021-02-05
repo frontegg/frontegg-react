@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
-import { AuthState } from '../Api';
 import { Loader, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useForgotPasswordActions } from '../ForgotPassword';
 
 export interface ResetPasswordSuccessRedirectProps {
   renderer?: RendererFunctionFC<ResetPasswordSuccessRedirectProps>;
@@ -10,16 +10,15 @@ export interface ResetPasswordSuccessRedirectProps {
 export const ResetPasswordSuccessRedirect: FC<ResetPasswordSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loginUrl, resetForgotPasswordState, onRedirectTo } = useAuth(({ routes, onRedirectTo }: AuthState) => ({
-    ...routes,
-    onRedirectTo,
-  }));
+  const { loginUrl } = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const { resetForgotPasswordState } = useForgotPasswordActions();
 
   useEffect(() => {
     setTimeout(() => {
       onRedirectTo(loginUrl);
     }, 1000);
-    return resetForgotPasswordState as () => void;
+    return resetForgotPasswordState;
   }, [onRedirectTo, resetForgotPasswordState]);
 
   if (renderer) {
