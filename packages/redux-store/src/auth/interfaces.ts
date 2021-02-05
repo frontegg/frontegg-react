@@ -1,0 +1,89 @@
+import { IUserProfile, RedirectOptions } from '@frontegg/rest-api';
+
+import { ApiTokensState } from './ApiTokensState/interfaces';
+import { ActivateState } from './ActivateState/interfaces';
+import { LoginState } from './LoginState/interfaces';
+import { ForgotPasswordState } from './ForgotPasswordState/interfaces';
+import { SSOState } from './SSOState/interfaces';
+import { ProfileState } from './ProfileState/interfaces';
+import { MFAState } from './MfaState/interfaces';
+import { TeamState } from './TeamState/interfaces';
+import { AcceptInvitationState } from './AcceptInvitationState/interfaces';
+import { SignUpState } from './SignUp/interfaces';
+import { SocialLoginsState } from './SocialLogins/interfaces';
+
+export interface User extends IUserProfile {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+  expires: string;
+}
+
+export interface Routes {
+  routes: AuthPageRoutes;
+}
+
+export interface AuthState extends Routes {
+  onRedirectTo: (path: string, opts?: RedirectOptions) => void;
+  error?: any;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  user?: User | null;
+  isSSOAuth: boolean;
+  ssoACS?: string;
+  loginState: LoginState;
+  activateState: ActivateState;
+  acceptInvitationState: AcceptInvitationState;
+  forgotPasswordState: ForgotPasswordState;
+  ssoState: SSOState;
+  profileState: ProfileState;
+  mfaState: MFAState;
+  teamState: TeamState;
+  socialLoginsState: SocialLoginsState;
+  signUpState: SignUpState;
+  apiTokensState: ApiTokensState;
+}
+
+export type AuthPageRoutes = {
+  /**
+   * the page whither need to redirect in the case when a user is authenticated
+   * @default: url before redirect to login or '/'
+   */
+  authenticatedUrl: string;
+  /**
+   * the page whither need to redirect in the case when a user is not authenticated
+   */
+  loginUrl: string;
+  /**
+   * navigating to this url, AuthProvider will logout and remove coockies
+   */
+  logoutUrl: string;
+  /**
+   * the page whither need to redirect in the case when a user want to activate his account
+   */
+  activateUrl: string;
+  /**
+   * the page whether need to redirect in the case when a user want to accept invite to tanent
+   */
+  acceptInvitationUrl: string;
+  /**
+   * the page in the case a user forgot his account password
+   */
+  forgetPasswordUrl: string;
+  /**
+   * the page whither need to redirect in the case when a user redirected from reset password url
+   */
+  resetPasswordUrl: string;
+  /**
+   * the url to reach the idp redirect after successful SAML response
+   */
+  samlCallbackUrl?: string;
+  /**
+   * the url to reach the idp redirect after successful SAML response
+   */
+  socialLoginCallbackUrl?: string;
+  /**
+   * sign up page
+   */
+  signUpUrl: string;
+};

@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import React, { ComponentType, FC, useEffect } from 'react';
+import React, { ComponentType, FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { AuthState, actions, AuthActions } from './Api';
@@ -122,7 +122,9 @@ export class ProtectedRoute extends React.Component<RouteProps> {
       return (
         <Route
           {...routeProps}
-          render={(props) => <ProtectedComponent>{React.createElement(component, props)}</ProtectedComponent>}
+          render={(props) => (
+            <ProtectedComponent>{React.createElement(component as any, props as any)}</ProtectedComponent>
+          )}
         />
       );
     }

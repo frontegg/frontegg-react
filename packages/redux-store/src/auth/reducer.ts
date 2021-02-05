@@ -1,0 +1,67 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AuthState, User } from './interfaces';
+import { typeReducer } from './utils';
+import { initialState, reinitializeState } from './initialState';
+import { authStoreName } from '../constants';
+import { LoginActions, loginActions, loginReducers } from './LoginState';
+import { ActivateAccountActions, activateActions, activateReducers } from './ActivateState';
+import { AcceptInvitationActions, acceptInvitationActions, acceptInvitationReducers } from './AcceptInvitationState';
+import { ForgotPasswordActions, forgotPasswordActions, forgotPasswordReducers } from './ForgotPasswordState';
+import { SSOActions, ssoActions, ssoReducers } from './SSOState';
+import { MfaActions, mfaActions, mfaReducers } from './MfaState';
+import { ProfileActions, profileActions, profileReducers } from './ProfileState';
+import { TeamActions, teamActions, teamReducers } from './TeamState';
+import { SocialLoginActions, socialLoginsActions, socialLoginsReducer } from './SocialLogins';
+import { SignUpActions, signUpActions, signUpReducers } from './SignUp';
+import { ApiTokensActions, apiTokensActions, apiTokensReducers } from './ApiTokensState';
+
+const { reducer, actions: sliceActions } = createSlice({
+  name: authStoreName,
+  initialState,
+  reducers: {
+    resetState: (state: AuthState) => ({ ...state, ...reinitializeState }),
+    setState: (state: AuthState, { payload }: PayloadAction<Partial<AuthState>>) => ({ ...state, ...payload }),
+    setUser: typeReducer<User>('user'),
+    ...loginReducers,
+    ...socialLoginsReducer,
+    ...activateReducers,
+    ...acceptInvitationReducers,
+    ...forgotPasswordReducers,
+    ...signUpReducers,
+    ...profileReducers,
+    ...ssoReducers,
+    ...mfaReducers,
+    ...teamReducers,
+    ...apiTokensReducers,
+  },
+});
+
+const actions = {
+  ...sliceActions,
+  ...loginActions,
+  ...socialLoginsActions,
+  ...activateActions,
+  ...acceptInvitationActions,
+  ...forgotPasswordActions,
+  ...signUpActions,
+  ...profileActions,
+  ...ssoActions,
+  ...mfaActions,
+  ...teamActions,
+  ...apiTokensActions,
+};
+
+export type AuthActions =
+  & LoginActions
+  & SocialLoginActions
+  & ActivateAccountActions
+  & AcceptInvitationActions
+  & ForgotPasswordActions
+  & SignUpActions
+  & ProfileActions
+  & SSOActions
+  & MfaActions
+  & TeamActions
+  & ApiTokensActions
+
+export { reducer, actions };

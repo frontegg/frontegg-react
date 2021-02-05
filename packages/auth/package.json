@@ -20,6 +20,7 @@
     "redux-saga": "^1.1.3"
   },
   "devDependencies": {
+    "@frontegg/redux-store": "^1.21.1",
     "@frontegg/react-core": "^1.21.1",
     "@frontegg/rest-api": "^1.21.1",
     "@types/classnames": "^2.2.10",

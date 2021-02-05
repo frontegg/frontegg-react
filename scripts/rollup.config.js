@@ -32,10 +32,10 @@ const isExternal = (id) => {
     // "moment",
     // "react-i18next",
     // "react-popper-tooltip",
-    "classnames",
-    "react-redux",
+    'classnames',
+    'react-redux',
     // "hoist-non-react-statics",
-    "owasp-password-strength-test",
+    'owasp-password-strength-test',
     // "react-table",
     // "rc-dialog",
     // "redux-saga",
@@ -67,7 +67,19 @@ const isExternal = (id) => {
 
 };
 
+function ReplaceReduxCodePlugin() {
+  return {
+    name: 'replace-redux-store',
+    generateBundle(options, bundle) {
+      Object.keys(bundle).forEach(b => {
+        bundle[b].code = bundle[b].code.replace('@frontegg/redux-store/dist/', '@frontegg/redux-store/');
+      });
+    },
+  };
+}
+
 const commonPlugins = [
+
   replace({
     __BUILD_ENV__: isProduction ? 'prod' : 'dev',
     __BUILD_DATE__: () => new Date(),
@@ -93,6 +105,7 @@ const commonPlugins = [
   // isProduction && terser({
   //   ecma: '6', module: true,
   // }),
+  new ReplaceReduxCodePlugin(),
 ];
 
 const esmPlugins = [
@@ -155,7 +168,7 @@ const umdPlugins = [
   }),
 ];
 
-export default [ {
+export default [{
   input: './src/index.ts',
   plugins: esmPlugins,
   external: isExternal,
@@ -175,7 +188,7 @@ export default [ {
         sourcemap: true,
         format: 'es',
       },
-    },{
+    }, {
       input: './src/index.ts',
       plugins: cjsPlugins,
       external: isExternal,

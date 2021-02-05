@@ -3,7 +3,7 @@ export type SortDirectionType = 'asc' | 'desc';
 export interface AuditRowData {
   _id: string;
   ip: string;
-  json: Array<any>; /// todo
+  json: any[];
   action: string;
   resource: string;
   time: string;

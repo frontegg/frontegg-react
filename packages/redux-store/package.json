@@ -1,0 +1,23 @@
+{
+  "name": "@frontegg/redux-store",
+  "libName": "FronteggReduxStore",
+  "version": "1.21.1",
+  "author": "Frontegg LTD",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "dist/auth"
+  ],
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js",
+    "build:watch": "rollup -w -c ./rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
+  },
+  "dependencies": {
+    "@frontegg/rest-api": "^1.21.1",
+    "@reduxjs/toolkit": "^1.5.0",
+    "redux-saga": "^1.1.3"
+  }
+}

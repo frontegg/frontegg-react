@@ -61,8 +61,14 @@ clean-%:
 install: ##@1 Global yarn install all packages
 	@echo "${YELLOW}Running yarn install${RESET}"
 	@yarn install
+	@find ./packages -type d -maxdepth 1 ! -path ./packages \
+  		| sed 's|^./packages/||' \
+  		| xargs -I '{}' sh -c '$(MAKE) add-dist-folders-{}'
 	@echo "${YELLOW}Running lerna bootstrap${RESET}"
-	@./node_modules/.bin/lerna bootstrap --npm-client=yarn
+	@./node_modules/.bin/lerna bootstrap
+
+add-dist-folders-%:
+	@mkdir -p ./packages/${*}/dist
 
 ########################################################################################################################
 #
@@ -116,6 +122,7 @@ test-unit: ##@3 Tests unit test with jest
 build: ##@4 Build build all packages
 	${MAKE} build-cli
 	${MAKE} build-rest-api
+	${MAKE} build-redux-store
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui

@@ -6,6 +6,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "directory": "dist"
   }
 }
