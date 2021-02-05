@@ -1,10 +1,11 @@
-import React, { ComponentType, ReactNode } from 'react';
+import React, { ComponentType } from 'react';
 import ReactDOM from 'react-dom';
 import { HeaderProps } from '../interfaces';
 
 const DEFAULT_IMAGE = 'https://assets.frontegg.com/public-frontegg-assets/logo-transparent.png';
+
 export const authPageWrapper = <P extends {}>(Component: ComponentType<P>): ComponentType<P & HeaderProps> => (
-  props: P & HeaderProps
+  props: P & HeaderProps,
 ) => {
   const header = props.header ?? <img src={props.headerImg ?? DEFAULT_IMAGE} alt='logo' />;
   const component = (
