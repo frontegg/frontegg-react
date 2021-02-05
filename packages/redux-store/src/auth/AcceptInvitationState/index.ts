@@ -11,14 +11,14 @@ const acceptInvitationState: AcceptInvitationState = {
 
 const reducers = {
   setAcceptInvitationState: typeReducerForKey<AcceptInvitationState>('acceptInvitationState'),
-  resetAcceptInvitationState: resetStateByKey<AcceptInvitationState>('acceptInvitationState', { acceptInvitationState }),
+  resetAcceptInvitationState: resetStateByKey<AcceptInvitationState>('acceptInvitationState', {
+    acceptInvitationState,
+  }),
 };
 
 const actions = {
-  acceptInvitation:
-    createAction(`${authStoreName}/acceptInvitation`, (payload: IAcceptInvitation) => ({ payload })),
+  acceptInvitation: createAction(`${authStoreName}/acceptInvitation`, (payload: IAcceptInvitation) => ({ payload })),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -28,7 +28,7 @@ type DispatchedActions = {
   setAcceptInvitationState: (state: Partial<AcceptInvitationState>) => void;
   resetAcceptInvitationState: () => void;
   acceptInvitation: (payload: IAcceptInvitation) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -38,8 +38,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type AcceptInvitationActions = DispatchedActions;
-export {
-  acceptInvitationState,
-  reducers as acceptInvitationReducers,
-  actions as acceptInvitationActions,
-};
+export { acceptInvitationState, reducers as acceptInvitationReducers, actions as acceptInvitationActions };

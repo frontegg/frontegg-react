@@ -51,17 +51,16 @@ const actions = {
   ...apiTokensActions,
 };
 
-export type AuthActions =
-  & LoginActions
-  & SocialLoginActions
-  & ActivateAccountActions
-  & AcceptInvitationActions
-  & ForgotPasswordActions
-  & SignUpActions
-  & ProfileActions
-  & SSOActions
-  & MfaActions
-  & TeamActions
-  & ApiTokensActions
+export type AuthActions = LoginActions &
+  SocialLoginActions &
+  ActivateAccountActions &
+  AcceptInvitationActions &
+  ForgotPasswordActions &
+  SignUpActions &
+  ProfileActions &
+  SSOActions &
+  MfaActions &
+  TeamActions &
+  ApiTokensActions;
 
 export { reducer, actions };

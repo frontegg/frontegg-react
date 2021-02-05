@@ -8,4 +8,4 @@ export interface ProfileState {
   profile?: IUserProfile;
 }
 
-export type SaveProfilePayload = Partial<WithCallback<IUserProfile, IUserProfile>>
+export type SaveProfilePayload = Partial<WithCallback<IUserProfile, IUserProfile>>;

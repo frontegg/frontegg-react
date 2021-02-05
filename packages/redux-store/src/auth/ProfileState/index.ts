@@ -16,14 +16,10 @@ const reducers = {
 };
 
 const actions = {
-  loadProfile:
-    createAction(`${authStoreName}/loadProfile`),
-  saveProfile:
-    createAction(`${authStoreName}/saveProfile`, (payload: SaveProfilePayload) => ({ payload })),
-  changePassword:
-    createAction(`${authStoreName}/changePassword`, (payload: IChangePassword) => ({ payload })),
+  loadProfile: createAction(`${authStoreName}/loadProfile`),
+  saveProfile: createAction(`${authStoreName}/saveProfile`, (payload: SaveProfilePayload) => ({ payload })),
+  changePassword: createAction(`${authStoreName}/changePassword`, (payload: IChangePassword) => ({ payload })),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -35,7 +31,7 @@ type DispatchedActions = {
   loadProfile: () => void;
   saveProfile: (payload: SaveProfilePayload) => void;
   changePassword: (payload: IChangePassword) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -45,8 +41,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type ProfileActions = DispatchedActions;
-export {
-  profileState,
-  reducers as profileReducers,
-  actions as profileActions,
-};
+export { profileState, reducers as profileReducers, actions as profileActions };

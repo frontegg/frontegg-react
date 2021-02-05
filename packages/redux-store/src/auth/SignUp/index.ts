@@ -18,12 +18,9 @@ const reducers = {
 };
 
 const actions = {
-  signUpUser:
-    createAction(`${authStoreName}/signUpUser`, (payload: ISignUpUser) => ({ payload })),
-  resetSignUpStateSoft:
-    createAction(`${authStoreName}/resetSignUpStateSoft`),
+  signUpUser: createAction(`${authStoreName}/signUpUser`, (payload: ISignUpUser) => ({ payload })),
+  resetSignUpStateSoft: createAction(`${authStoreName}/resetSignUpStateSoft`),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -34,7 +31,7 @@ type DispatchedActions = {
   resetSignUpState: () => void;
   signUpUser: (payload: ISignUpUser) => void;
   resetSignUpStateSoft: () => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -44,8 +41,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type SignUpActions = DispatchedActions;
-export {
-  signUpState,
-  reducers as signUpReducers,
-  actions as signUpActions,
-};
+export { signUpState, reducers as signUpReducers, actions as signUpActions };

@@ -88,7 +88,7 @@ export function* refreshToken() {
             tenantsLoading: true,
             tenants: [],
           },
-        }),
+        })
       );
       onRedirectTo(routes.loginUrl);
     } else {
@@ -151,7 +151,7 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
       actions.setState({
         user: !!user.accessToken ? user : undefined,
         isAuthenticated: !!user.accessToken,
-      }),
+      })
     );
 
     yield afterAuthNavigation();
@@ -204,7 +204,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
           tenants: [],
           tenantsLoading: true,
         },
-      }),
+      })
     );
     if (step === LoginStep.success) {
       yield put(actions.loadTenants());
@@ -218,7 +218,7 @@ function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
         email,
         error: e.message,
         loading: false,
-      }),
+      })
     );
   }
 }
@@ -234,7 +234,7 @@ function* loginWithMfa({ payload: { mfaToken, value, callback } }: PayloadAction
         loginState: { loading: false, error: undefined, step, tenantsLoading: true, tenants: [] },
         user,
         isAuthenticated: true,
-      }),
+      })
     );
     yield put(actions.loadTenants());
     callback?.(true);

@@ -16,20 +16,21 @@ const reducers = {
 };
 
 const actions = {
-  loadSSOConfigurations:
-    createAction(`${authStoreName}/loadSSOConfigurations`),
-  loadSSOAllRoles:
-    createAction(`${authStoreName}/loadSSOAllRoles`),
-  loadSSOAuthorizationRoles:
-    createAction(`${authStoreName}/loadSSOAuthorizationRoles`),
-  saveSSOConfigurations:
-    createAction(`${authStoreName}/saveSSOConfigurations`, (payload: SaveSSOConfigurationPayload) => ({ payload })),
-  saveSSOConfigurationsFile:
-    createAction(`${authStoreName}/saveSSOConfigurationsFile`, (payload: File[]) => ({ payload })),
-  validateSSODomain:
-    createAction(`${authStoreName}/validateSSODomain`, (payload?: WithCallback) => ({ payload })),
-  updateSSOAuthorizationRoles:
-    createAction(`${authStoreName}/updateSSOAuthorizationRoles`, (payload: UpdateSSOAuthorizationRolesPayload) => ({ payload })),
+  loadSSOConfigurations: createAction(`${authStoreName}/loadSSOConfigurations`),
+  loadSSOAllRoles: createAction(`${authStoreName}/loadSSOAllRoles`),
+  loadSSOAuthorizationRoles: createAction(`${authStoreName}/loadSSOAuthorizationRoles`),
+  saveSSOConfigurations: createAction(
+    `${authStoreName}/saveSSOConfigurations`,
+    (payload: SaveSSOConfigurationPayload) => ({ payload })
+  ),
+  saveSSOConfigurationsFile: createAction(`${authStoreName}/saveSSOConfigurationsFile`, (payload: File[]) => ({
+    payload,
+  })),
+  validateSSODomain: createAction(`${authStoreName}/validateSSODomain`, (payload?: WithCallback) => ({ payload })),
+  updateSSOAuthorizationRoles: createAction(
+    `${authStoreName}/updateSSOAuthorizationRoles`,
+    (payload: UpdateSSOAuthorizationRolesPayload) => ({ payload })
+  ),
 };
 
 /**
@@ -46,7 +47,7 @@ type DispatchedActions = {
   saveSSOConfigurationsFile: (payload: File[]) => void;
   validateSSODomain: (payload?: WithCallback) => void;
   updateSSOAuthorizationRoles: (payload: UpdateSSOAuthorizationRolesPayload) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -55,10 +56,5 @@ type DispatchedActions = {
  */
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
-
 export type SSOActions = DispatchedActions;
-export {
-  ssoState,
-  reducers as ssoReducers,
-  actions as ssoActions,
-};
+export { ssoState, reducers as ssoReducers, actions as ssoActions };

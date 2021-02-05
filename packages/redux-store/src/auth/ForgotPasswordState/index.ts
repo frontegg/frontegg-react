@@ -18,14 +18,10 @@ const reducers = {
 };
 
 const actions = {
-  forgotPassword:
-    createAction(`${authStoreName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
-  resetPassword:
-    createAction(`${authStoreName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
-  loadPasswordConfig:
-    createAction(`${authStoreName}/loadPasswordConfig`),
+  forgotPassword: createAction(`${authStoreName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
+  resetPassword: createAction(`${authStoreName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
+  loadPasswordConfig: createAction(`${authStoreName}/loadPasswordConfig`),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -37,7 +33,7 @@ type DispatchedActions = {
   forgotPassword: (payload: IForgotPassword) => void;
   resetPassword: (payload: IResetPassword) => void;
   loadPasswordConfig: () => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -47,8 +43,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type ForgotPasswordActions = DispatchedActions;
-export {
-  forgotPasswordState,
-  reducers as forgotPasswordReducers,
-  actions as forgotPasswordActions,
-};
+export { forgotPasswordState, reducers as forgotPasswordReducers, actions as forgotPasswordActions };

@@ -6,7 +6,6 @@ import { SaveSSOConfigurationPayload, SSOState } from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { omitProps, readFileAsText } from '../../helpers';
 
-
 function* loadSSOConfigurations() {
   try {
     yield put(actions.setSSOState({ loading: true }));
@@ -88,7 +87,7 @@ function* validateSSODomain({ payload: { callback } = {} }: PayloadAction<WithCa
         samlConfiguration: { ...samlConfiguration, validated: true },
         error: undefined,
         saving: false,
-      }),
+      })
     );
     callback?.(true);
   } catch (e) {
@@ -97,7 +96,7 @@ function* validateSSODomain({ payload: { callback } = {} }: PayloadAction<WithCa
         samlConfiguration: { ...samlConfiguration, validated: false },
         error: e.message,
         saving: false,
-      }),
+      })
     );
     callback?.(null, e);
   }
@@ -110,13 +109,13 @@ function* getAuthorizationRoles() {
       actions.setSSOState({
         authorizationRoles: data.roleIds,
         error: undefined,
-      }),
+      })
     );
   } catch (e) {
     yield put(
       actions.setSSOState({
         error: e.message,
-      }),
+      })
     );
   }
 }
@@ -135,7 +134,7 @@ function* updateAuthorizationRoles({
       actions.setSSOState({
         error: e.message,
         saving: false,
-      }),
+      })
     );
   }
 }
@@ -143,14 +142,12 @@ function* updateAuthorizationRoles({
 function* getAllRoles() {
   try {
     const { items: roles } = yield call(api.teams.loadAvailableRoles);
-    yield put(
-      actions.setSSOState({ roles }),
-    );
+    yield put(actions.setSSOState({ roles }));
   } catch (e) {
     yield put(
       actions.setSSOState({
         error: e.message,
-      }),
+      })
     );
   }
 }

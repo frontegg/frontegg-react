@@ -17,12 +17,13 @@ const reducers = {
 };
 
 const actions = {
-  loadSocialLoginsConfiguration:
-    createAction(`${authStoreName}/loadSocialLoginsConfiguration`),
-  loginViaSocialLogin:
-    createAction(`${authStoreName}/loginViaSocialLogin`, (payload: ILoginViaSocialLogin) => ({ payload })),
-  setSocialLoginError:
-    createAction(`${authStoreName}/setSocialLoginError`, (payload: ISetSocialLoginError) => ({ payload })),
+  loadSocialLoginsConfiguration: createAction(`${authStoreName}/loadSocialLoginsConfiguration`),
+  loginViaSocialLogin: createAction(`${authStoreName}/loginViaSocialLogin`, (payload: ILoginViaSocialLogin) => ({
+    payload,
+  })),
+  setSocialLoginError: createAction(`${authStoreName}/setSocialLoginError`, (payload: ISetSocialLoginError) => ({
+    payload,
+  })),
 };
 
 /**
@@ -35,7 +36,7 @@ type DispatchedActions = {
   loadSocialLoginsConfiguration: () => void;
   loginViaSocialLogin: (payload: ILoginViaSocialLogin) => void;
   setSocialLoginError: (payload: ISetSocialLoginError) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -45,8 +46,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type SocialLoginActions = DispatchedActions;
-export {
-  socialLoginsState,
-  reducers as socialLoginsReducer,
-  actions as socialLoginsActions,
-};
+export { socialLoginsState, reducers as socialLoginsReducer, actions as socialLoginsActions };

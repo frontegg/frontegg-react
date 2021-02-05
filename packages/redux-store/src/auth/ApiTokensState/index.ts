@@ -2,7 +2,9 @@ import { createAction } from '@reduxjs/toolkit';
 import {
   ApiTokensState,
   ApiStateIndicator,
-  ApiTokenType, AddTenantApiTokenPayload, AddUserApiTokenPayload,
+  ApiTokenType,
+  AddTenantApiTokenPayload,
+  AddUserApiTokenPayload,
 } from './interfaces';
 import { resetStateByKey, typeReducerForKey, loadersReducerForKey, errorsReducerForKey } from '../utils';
 import { authStoreName } from '../../constants';
@@ -37,18 +39,14 @@ const reducers = {
 };
 
 const actions = {
-  initApiTokensData:
-    createAction(`${authStoreName}/initApiTokensData`, (payload: ApiTokenType) => ({ payload })),
-  addTenantApiToken:
-    createAction(`${authStoreName}/addTenantApiToken`, (payload: AddTenantApiTokenPayload) => ({ payload })),
-  addUserApiToken:
-    createAction(`${authStoreName}/addUserApiToken`, (payload: AddUserApiTokenPayload) => ({ payload })),
-  deleteUserApiToken:
-    createAction(`${authStoreName}/deleteUserApiToken`, (payload: string) => ({ payload })),
-  deleteTenantApiToken:
-    createAction(`${authStoreName}/deleteTenantApiToken`, (payload: string) => ({ payload })),
+  initApiTokensData: createAction(`${authStoreName}/initApiTokensData`, (payload: ApiTokenType) => ({ payload })),
+  addTenantApiToken: createAction(`${authStoreName}/addTenantApiToken`, (payload: AddTenantApiTokenPayload) => ({
+    payload,
+  })),
+  addUserApiToken: createAction(`${authStoreName}/addUserApiToken`, (payload: AddUserApiTokenPayload) => ({ payload })),
+  deleteUserApiToken: createAction(`${authStoreName}/deleteUserApiToken`, (payload: string) => ({ payload })),
+  deleteTenantApiToken: createAction(`${authStoreName}/deleteTenantApiToken`, (payload: string) => ({ payload })),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -64,7 +62,7 @@ type DispatchedActions = {
   addUserApiToken: (payload: AddUserApiTokenPayload) => void;
   deleteUserApiToken: (payload: string) => void;
   deleteTenantApiToken: (payload: string) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -74,8 +72,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type ApiTokensActions = DispatchedActions;
-export {
-  apiTokensState,
-  reducers as apiTokensReducers,
-  actions as apiTokensActions,
-};
+export { apiTokensState, reducers as apiTokensReducers, actions as apiTokensActions };

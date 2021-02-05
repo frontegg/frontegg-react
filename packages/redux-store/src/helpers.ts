@@ -10,14 +10,15 @@ export function omitProps<T>(props: any, keys: string[]): T {
 
 export function generateActionCreator(storeName: string) {
   return <Payload>(key: string, withPayload?: boolean) =>
-    withPayload ?
-      createAction(`${storeName}/${key}`, (payload: Payload) => ({ payload })) :
-      createAction(`${storeName}/${key}`);
+    withPayload
+      ? createAction(`${storeName}/${key}`, (payload: Payload) => ({ payload }))
+      : createAction(`${storeName}/${key}`);
 }
 
-export const readFileAsText = (file: File): Promise<string> => new Promise((resolve, reject) => {
-  const reader = new FileReader();
-  reader.readAsText(file);
-  reader.onload = () => resolve(reader.result as string);
-  reader.onerror = reject;
-});
+export const readFileAsText = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+  });

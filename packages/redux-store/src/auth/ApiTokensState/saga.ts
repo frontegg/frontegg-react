@@ -39,7 +39,7 @@ function* addUserApiToken({ payload }: PayloadAction<WithCallback<IUserApiTokens
       actions.setApiTokensState({
         apiTokensDataUser: [data, ...apiTokensDataUser],
         successDialog: { open: true, secret: data.secret, clientId: data.clientId },
-      }),
+      })
     );
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: false }));
     callback?.(null);
@@ -63,7 +63,7 @@ function* addTenantApiToken({ payload }: PayloadAction<WithCallback<ITenantApiTo
       actions.setApiTokensState({
         apiTokensDataTenant: [data, ...apiTokensDataTenant],
         successDialog: { open: true, secret: data.secret, clientId: data.clientId },
-      }),
+      })
     );
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: false }));
     callback?.(null);
@@ -84,7 +84,7 @@ function* deleteUserApiToken({ payload }: PayloadAction<string>) {
       actions.setApiTokensState({
         apiTokensDataUser: apiTokensDataUser.filter((i: IApiTokensData) => i.clientId !== payload),
         deleteTokenDialog: { open: false, clientId: payload },
-      }),
+      })
     );
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.DELETE_API_TOKEN, value: false }));
   } catch (e) {
@@ -103,7 +103,7 @@ function* deleteTenantApiToken({ payload }: PayloadAction<string>) {
       actions.setApiTokensState({
         apiTokensDataTenant: apiTokensDataTenant.filter((i: IApiTokensData) => i.clientId !== payload),
         deleteTokenDialog: { open: false, clientId: payload },
-      }),
+      })
     );
     yield put(actions.setApiTokensLoader({ key: ApiStateKeys.DELETE_API_TOKEN, value: false }));
   } catch (e) {

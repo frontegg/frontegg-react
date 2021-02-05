@@ -34,26 +34,21 @@ const reducers = {
 };
 
 const actions = {
-  loadUsers:
-    createAction(`${authStoreName}/loadUsers`, (payload: WithSilentLoad<ILoadUsers>) => ({ payload })),
-  addUser:
-    createAction(`${authStoreName}/addUser`, (payload: WithCallback<IAddUser, ITeamUser>) => ({ payload })),
-  updateUser:
-    createAction(`${authStoreName}/updateUser`, (payload: IUpdateUser) => ({ payload })),
-  deleteUser:
-    createAction(`${authStoreName}/deleteUser`, (payload: IDeleteUser) => ({ payload })),
-  resendActivationLink:
-    createAction(`${authStoreName}/resendActivationLink`, (payload: WithCallback<IResendActivationLink>) => ({ payload })),
-  openAddUserDialog:
-    createAction(`${authStoreName}/openAddUserDialog`, (payload?: ISetAddUserDialog) => ({ payload })),
-  closeAddUserDialog:
-    createAction(`${authStoreName}/closeAddUserDialog`, (payload?: any) => ({ payload })),
-  openDeleteUserDialog:
-    createAction(`${authStoreName}/openDeleteUserDialog`, (payload?: ISetDeleteUserDialog) => ({ payload })),
-  closeDeleteUserDialog:
-    createAction(`${authStoreName}/closeDeleteUserDialog`, (payload?: any) => ({ payload })),
+  loadUsers: createAction(`${authStoreName}/loadUsers`, (payload: WithSilentLoad<ILoadUsers>) => ({ payload })),
+  addUser: createAction(`${authStoreName}/addUser`, (payload: WithCallback<IAddUser, ITeamUser>) => ({ payload })),
+  updateUser: createAction(`${authStoreName}/updateUser`, (payload: IUpdateUser) => ({ payload })),
+  deleteUser: createAction(`${authStoreName}/deleteUser`, (payload: IDeleteUser) => ({ payload })),
+  resendActivationLink: createAction(
+    `${authStoreName}/resendActivationLink`,
+    (payload: WithCallback<IResendActivationLink>) => ({ payload })
+  ),
+  openAddUserDialog: createAction(`${authStoreName}/openAddUserDialog`, (payload?: ISetAddUserDialog) => ({ payload })),
+  closeAddUserDialog: createAction(`${authStoreName}/closeAddUserDialog`, (payload?: any) => ({ payload })),
+  openDeleteUserDialog: createAction(`${authStoreName}/openDeleteUserDialog`, (payload?: ISetDeleteUserDialog) => ({
+    payload,
+  })),
+  closeDeleteUserDialog: createAction(`${authStoreName}/closeDeleteUserDialog`, (payload?: any) => ({ payload })),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -73,7 +68,7 @@ type DispatchedActions = {
   closeAddUserDialog: (payload?: any) => void;
   openDeleteUserDialog: (payload?: ISetDeleteUserDialog) => void;
   closeDeleteUserDialog: (payload?: any) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -83,8 +78,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type TeamActions = DispatchedActions;
-export {
-  teamState,
-  reducers as teamReducers,
-  actions as teamActions,
-};
+export { teamState, reducers as teamReducers, actions as teamActions };

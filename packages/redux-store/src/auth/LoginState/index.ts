@@ -26,28 +26,19 @@ const reducers = {
 };
 
 const actions = {
-  requestAuthorize:
-    createAction(`${authStoreName}/requestAuthorize`, (payload: boolean = false) => ({ payload })),
-  preLogin:
-    createAction(`${authStoreName}/preLogin`, (payload: IPreLogin) => ({ payload })),
-  postLogin:
-    createAction(`${authStoreName}/postLogin`, (payload: IPostLogin) => ({ payload })),
-  login:
-    createAction(`${authStoreName}/login`, (payload: ILogin) => ({ payload })),
-  loginWithMfa:
-    createAction(`${authStoreName}/loginWithMfa`, (payload: WithCallback<ILoginWithMfa>) => ({ payload })),
-  recoverMfa:
-    createAction(`${authStoreName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
-  logout:
-    createAction(`${authStoreName}/logout`, (payload?: () => void) => ({ payload })),
-  silentLogout:
-    createAction(`${authStoreName}/silentLogout`, (payload?: () => void) => ({ payload })),
-  switchTenant:
-    createAction(`${authStoreName}/switchTenant`, (payload: WithCallback<ISwitchTenant>) => ({ payload })),
-  loadTenants:
-    createAction(`${authStoreName}/loadTenants`, (payload?: WithCallback<{}, ITenantsResponse[]>) => ({ payload })),
+  requestAuthorize: createAction(`${authStoreName}/requestAuthorize`, (payload: boolean = false) => ({ payload })),
+  preLogin: createAction(`${authStoreName}/preLogin`, (payload: IPreLogin) => ({ payload })),
+  postLogin: createAction(`${authStoreName}/postLogin`, (payload: IPostLogin) => ({ payload })),
+  login: createAction(`${authStoreName}/login`, (payload: ILogin) => ({ payload })),
+  loginWithMfa: createAction(`${authStoreName}/loginWithMfa`, (payload: WithCallback<ILoginWithMfa>) => ({ payload })),
+  recoverMfa: createAction(`${authStoreName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
+  logout: createAction(`${authStoreName}/logout`, (payload?: () => void) => ({ payload })),
+  silentLogout: createAction(`${authStoreName}/silentLogout`, (payload?: () => void) => ({ payload })),
+  switchTenant: createAction(`${authStoreName}/switchTenant`, (payload: WithCallback<ISwitchTenant>) => ({ payload })),
+  loadTenants: createAction(`${authStoreName}/loadTenants`, (payload?: WithCallback<{}, ITenantsResponse[]>) => ({
+    payload,
+  })),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -66,7 +57,7 @@ type DispatchedActions = {
   silentLogout: (payload?: () => void) => void;
   switchTenant: (payload: WithCallback<ISwitchTenant>) => void;
   loadTenants: (payload?: WithCallback<{}, ITenantsResponse[]>) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -76,8 +67,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type LoginActions = DispatchedActions;
-export {
-  loginState,
-  reducers as loginReducers,
-  actions as loginActions,
-};
+export { loginState, reducers as loginReducers, actions as loginActions };

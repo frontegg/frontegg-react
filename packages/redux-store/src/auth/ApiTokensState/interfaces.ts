@@ -32,7 +32,7 @@ export interface IApiTokensData {
   description: string;
 }
 
-export type IUserApiTokensData = IApiTokensData
+export type IUserApiTokensData = IApiTokensData;
 
 export interface ITenantApiTokensData extends IApiTokensData {
   roleIds: string[];
@@ -51,5 +51,5 @@ export enum ApiStateKeys {
   DELETE_API_TOKEN = 'DELETE_API_TOKEN',
 }
 
-export type AddTenantApiTokenPayload = WithCallback<Pick<ITenantApiTokensData, 'description' | 'roleIds'>>
-export type AddUserApiTokenPayload = WithCallback<Pick<IApiTokensData, 'description'>>
+export type AddTenantApiTokenPayload = WithCallback<Pick<ITenantApiTokensData, 'description' | 'roleIds'>>;
+export type AddUserApiTokenPayload = WithCallback<Pick<IApiTokensData, 'description'>>;

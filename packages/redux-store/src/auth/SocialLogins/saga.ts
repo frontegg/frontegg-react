@@ -21,7 +21,7 @@ function* loginViaSocialLogin({ payload }: PayloadAction<ILoginViaSocialLogin>) 
     yield refreshToken();
   } catch (e) {
     yield put(
-      actions.setSocialLoginsState({ loading: false, error: e.message ?? 'Failed to authenticate', firstLoad: false }),
+      actions.setSocialLoginsState({ loading: false, error: e.message ?? 'Failed to authenticate', firstLoad: false })
     );
   }
 }

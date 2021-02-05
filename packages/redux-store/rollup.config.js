@@ -20,11 +20,11 @@ const esmPlugins = [
     tsconfig: `${__dirname}/tsconfig.json`,
     useTsconfigDeclarationDir: true,
     tsconfigOverride: {
-      'compilerOptions': {
-        'declaration': true,
-        'declarationDir': distFolder,
-        'target': 'ES6',
-        'module': 'ES6',
+      compilerOptions: {
+        declaration: true,
+        declarationDir: distFolder,
+        target: 'ES6',
+        module: 'ES6',
       },
     },
   }),
@@ -36,19 +36,13 @@ const entryPoints = [
   // Main Entry Point
   'index',
 ];
-const nodeModules = [
-  'tslib',
-  '@reduxjs/toolkit',
-  'redux-saga/effects',
-  '@frontegg/rest-api',
-  '/node_modules/',
-];
+const nodeModules = ['tslib', '@reduxjs/toolkit', 'redux-saga/effects', '@frontegg/rest-api', '/node_modules/'];
 
 export default {
   input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),
   plugins: esmPlugins,
   external: (id) => {
-    if (!!nodeModules.find(t => id.indexOf(t) !== -1)) {
+    if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
       return true;
     }
     return false;
@@ -60,4 +54,3 @@ export default {
     format: 'es',
   },
 };
-

@@ -16,16 +16,13 @@ const reducers = {
 };
 
 const actions = {
-  enrollMfa:
-    createAction(`${authStoreName}/enrollMfa`),
-  verifyMfa:
-    createAction(`${authStoreName}/verifyMfa`, (payload: WithCallback<IVerifyMfa>) => ({ payload })),
-  verifyMfaAfterForce:
-    createAction(`${authStoreName}/verifyMfaAfterForce`, (payload: WithCallback<ILoginWithMfa>) => ({ payload })),
-  disableMfa:
-    createAction(`${authStoreName}/disableMfa`, (payload: WithCallback<IDisableMfa>) => ({ payload })),
+  enrollMfa: createAction(`${authStoreName}/enrollMfa`),
+  verifyMfa: createAction(`${authStoreName}/verifyMfa`, (payload: WithCallback<IVerifyMfa>) => ({ payload })),
+  verifyMfaAfterForce: createAction(`${authStoreName}/verifyMfaAfterForce`, (payload: WithCallback<ILoginWithMfa>) => ({
+    payload,
+  })),
+  disableMfa: createAction(`${authStoreName}/disableMfa`, (payload: WithCallback<IDisableMfa>) => ({ payload })),
 };
-
 
 /**
  *  To be used for actions types after dispatch, and should contains
@@ -38,7 +35,7 @@ type DispatchedActions = {
   verifyMfa: (payload: WithCallback<IVerifyMfa>) => void;
   verifyMfaAfterForce: (payload: WithCallback<ILoginWithMfa>) => void;
   disableMfa: (payload: WithCallback<IDisableMfa>) => void;
-}
+};
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -48,8 +45,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type MfaActions = DispatchedActions;
-export {
-  mfaState,
-  reducers as mfaReducers,
-  actions as mfaActions,
-};
+export { mfaState, reducers as mfaReducers, actions as mfaActions };

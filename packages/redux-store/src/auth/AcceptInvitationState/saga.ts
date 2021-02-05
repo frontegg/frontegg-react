@@ -18,7 +18,7 @@ function* acceptInvitation({ payload }: PayloadAction<IAcceptInvitation>) {
         isAuthenticated: false,
         user: null,
         acceptInvitationState: { error: undefined, step: AcceptInvitationStep.success },
-      }),
+      })
     );
   } catch (e) {
     yield put(actions.setAcceptInvitationState({ step: AcceptInvitationStep.failed, error: e.message }));
