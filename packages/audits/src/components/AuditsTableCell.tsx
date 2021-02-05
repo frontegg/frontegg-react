@@ -35,9 +35,7 @@ const UserAgent: CellComponent = ({ value }) => {
         trigger={
           <img
             alt={browser}
-            src={`//cdnjs.cloudflare.com/ajax/libs/browser-logos/69.0.4/${browser.toLowerCase()}/${
-              browser.toLowerCase() ?? 'web'
-            }_${sizeOfIcon}x${sizeOfIcon}.png`}
+            src={`//cdnjs.cloudflare.com/ajax/libs/browser-logos/69.0.4/${browser.toLowerCase()}/${browser.toLowerCase()}_${sizeOfIcon}x${sizeOfIcon}.png`}
           />
         }
       />
