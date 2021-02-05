@@ -1,8 +1,9 @@
 import React, { ComponentType, FC } from 'react';
+import { MFAStep } from '@frontegg/redux-store/auth';
 import { MFARecoveryCodeStepMessage } from './MFARecoveryCodeStepMessage';
 import { MFARecoveryCodeStepForm } from './MFARecoveryCodeStepForm';
 import { MFARecoveryCodeStepFooter } from './MFARecoveryCodeStepFooter';
-import { MFAStep } from '../../Api';
+
 import { useAuthMfaState } from '../hooks';
 
 type MFARecoveryCodeStepProps = {

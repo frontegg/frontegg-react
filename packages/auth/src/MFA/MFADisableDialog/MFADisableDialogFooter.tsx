@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Button, FButton, Grid, useDialog, useT } from '@frontegg/react-core';
 import { useAuthMfaState } from '../hooks';
 
-export const MFADisableDialogFooter: FC = (props) => {
+export const MFADisableDialogFooter: FC = () => {
   const { t } = useT();
   const { loading } = useAuthMfaState(({ loading }) => ({ loading }));
   const { onClose } = useDialog();

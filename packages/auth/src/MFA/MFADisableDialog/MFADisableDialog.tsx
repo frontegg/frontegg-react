@@ -22,6 +22,7 @@ export type MFADialogProps = DialogProps;
 export const MFADisableDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
   const { resetMfaState, disableMfa } = useAuthMfaActions();
+
   const dialogProps = omitProps(props, ['children']);
   useEffect(() => {
     props.open && resetMfaState();
@@ -44,7 +45,7 @@ export const MFADisableDialog: FC<MFADialogProps> = (props) => {
           })}
           initialValues={{ token: '' }}
           onSubmit={async ({ token }) => {
-            disableMfa({ token }, props.onClose);
+            disableMfa({ token, callback: props.onClose });
           }}
         >
           <FForm>{children}</FForm>

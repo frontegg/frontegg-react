@@ -4,7 +4,7 @@ import { useAuthMfaActions, useAuthMfaState } from '../hooks';
 
 export const MFAVerifyStepForm: FC = (props) => {
   const { t } = useT();
-  const { loading, qrCode } = useAuthMfaState();
+  const { loading, qrCode } = useAuthMfaState(({ loading, qrCode }) => ({ loading, qrCode }));
   const { enrollMfa } = useAuthMfaActions();
 
   useEffect(() => {

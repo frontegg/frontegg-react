@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { FFormik, FForm, useT, validateSchema, validateTwoFactorCode } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
+import { MFAStep } from '@frontegg/redux-store/auth';
 import { HideOption } from '../../interfaces';
 import { MFAVerifyStepMessage } from './MFAVerifyStepMessage';
 import { MFAVerifyStepForm } from './MFAVerifyStepForm';
 import { MFAVerifyStepErrorMessage } from './MFAVerifyStepErrorMessage';
 import { MFAVerifyStepFooter } from './MFAVerifyStepFooter';
-import { MFAStep } from '../../Api/MfaState';
+
 import { useAuthMfaActions, useAuthMfaState } from '../hooks';
 
 const { Formik } = FFormik;
