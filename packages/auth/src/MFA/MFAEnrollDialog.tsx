@@ -3,12 +3,12 @@ import { Dialog, DialogContext, DialogProps, omitProps, useT } from '@frontegg/r
 import { MFAStep } from '@frontegg/redux-store/auth';
 import { MFAVerifyStep } from './MFAVerifyStep';
 import { MFARecoveryCodeStep } from './MFARecoveryCodeStep';
-import { useAuthMfaActions } from './hooks';
+import { useMfaActions } from './hooks';
 
 export type MFADialogProps = DialogProps;
 export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
-  const { setMfaState } = useAuthMfaActions();
+  const { setMfaState } = useMfaActions();
 
   const dialogProps = omitProps(props, ['children']);
   useEffect(() => {

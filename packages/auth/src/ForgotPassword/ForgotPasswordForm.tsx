@@ -9,7 +9,7 @@ import {
   FButton,
   FFormik,
 } from '@frontegg/react-core';
-import { useForgotPasswordState } from './hooks';
+import { useForgotPasswordActions, useForgotPasswordState } from './hooks';
 
 const { Formik } = FFormik;
 
@@ -22,7 +22,8 @@ export interface ForgotPasswordFormProps {
 export const ForgotPasswordForm: FC<ForgotPasswordFormProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loading, email, error, forgotPassword } = useForgotPasswordState();
+  const { loading, email, error } = useForgotPasswordState();
+  const { forgotPassword } = useForgotPasswordActions();
   if (renderer) {
     return createElement(renderer, props);
   }

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
 import { SocialLoginButton } from '../SocialLoginButton';
 import { GoogleIcon } from './GoogleIcon';
-import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
 import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
 
 const createGoogleUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {

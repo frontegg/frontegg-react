@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { ErrorMessage } from '@frontegg/react-core';
-import { useAuthMfaState } from '../hooks';
+import { useMfaState } from '../hooks';
 
 export const MFADisableDialogErrorMessage: FC = (props) => {
-  const { error } = useAuthMfaState(({ error }) => ({ error }));
+  const { error } = useMfaState(({ error }) => ({ error }));
   const children = props.children ?? (
     <>
       <ErrorMessage error={error} />

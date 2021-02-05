@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useT, FFormik, validateDomain, validateSchema, FInput, FForm } from '@frontegg/react-core';
 import { SSOClaimDomainProceedStep } from './SSOClaimDomainProceedStep';
 import { SSOClaimDomainValidateStep } from './SSOClaimDomainValidateStep';
-import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '../hooks';
 
 const { Formik } = FFormik;
 type SSOClaimDomainFormProps = {
@@ -14,8 +14,8 @@ type SSOClaimDomainFormProps = {
 const prefixT = 'auth.sso.claim-domain.form';
 export const SSOClaimDomainForm: FC<SSOClaimDomainFormProps> = (props) => {
   const { t } = useT();
-  const { samlConfiguration } = useAuthSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
-  const { validateSSODomain, saveSSOConfigurations } = useAuthSSOActions();
+  const { samlConfiguration } = useSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
+  const { validateSSODomain, saveSSOConfigurations } = useSSOActions();
 
   const children = props.children ?? (
     <>

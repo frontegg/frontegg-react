@@ -1,18 +1,10 @@
-import { AuthState, teamActions, TeamState, teamReducers, TeamActions } from '@frontegg/redux-store/auth';
-import { memoEqual, useDispatch, useSelector } from '@frontegg/react-core';
-import { bindActionCreators } from '@reduxjs/toolkit';
-import { pluginName, sliceReducerActionsBy } from '../hooks';
+import { teamActions, TeamState, teamReducers, TeamActions } from '@frontegg/redux-store/auth';
+import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '../hooks';
 
 export type AuthTeamStateMapper<S extends object> = (state: TeamState) => S;
-const defaultAuthTeamStateMapper: any = (state: TeamState) => state;
 
-export const useAuthTeamState = <S extends object>(
-  stateMapper: AuthTeamStateMapper<S> = defaultAuthTeamStateMapper
-): S => {
-  return useSelector(({ [pluginName]: { teamState } }: { auth: AuthState }) => stateMapper(teamState), memoEqual);
-};
+export const useAuthTeamState: StateHookFunction<TeamState> = <S extends object>(
+  stateMapper?: AuthTeamStateMapper<S>
+): S => stateHookGenerator(stateMapper, 'teamState');
 
-export const useAuthTeamActions = (): TeamActions => {
-  const dispatch = useDispatch();
-  return bindActionCreators({ ...teamActions, ...sliceReducerActionsBy(teamReducers) }, dispatch);
-};
+export const useAuthTeamActions = (): TeamActions => reducerActionsGenerator(teamActions, teamReducers);

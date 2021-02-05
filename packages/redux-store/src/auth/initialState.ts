@@ -7,7 +7,7 @@ import { ssoState } from './SSOState';
 import { profileState } from './ProfileState';
 import { mfaState } from './MfaState';
 import { teamState } from './TeamState';
-import { socialLoginsState } from './SocialLogins';
+import { socialLoginState } from './SocialLogins';
 import { signUpState } from './SignUp';
 import { apiTokensState } from './ApiTokensState';
 
@@ -26,7 +26,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   profileState,
   mfaState,
   teamState,
-  socialLoginsState,
+  socialLoginState,
   apiTokensState,
 };
 export const initialState: AuthState = {

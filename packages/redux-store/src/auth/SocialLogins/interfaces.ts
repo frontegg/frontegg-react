@@ -1,6 +1,6 @@
 import { ISocialLoginProviderConfiguration } from '@frontegg/rest-api';
 
-export interface SocialLoginsState {
+export interface SocialLoginState {
   firstLoad: boolean;
   loading: boolean;
   socialLoginsConfig?: ISocialLoginProviderConfiguration[];

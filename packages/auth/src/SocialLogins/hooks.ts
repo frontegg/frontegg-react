@@ -1,22 +1,32 @@
-import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
-import { useAuth } from '../hooks';
 import { useContext, useMemo } from 'react';
-import { AuthState } from '../Api';
 import { ISocialLoginProviderConfiguration, SocialLoginsProviders } from '@frontegg/rest-api';
+import {
+  SocialLoginActions,
+  socialLoginsActions,
+  socialLoginsReducer,
+  SocialLoginState,
+} from '@frontegg/redux-store/auth';
+import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
+import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '../hooks';
 import { SocialLoginsContext } from './SocialLoginContext';
 
-const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
+export type SocialLoginStateMapper<S extends object> = (state: SocialLoginState) => S;
+
+export const useSocialLoginState: StateHookFunction<SocialLoginState> = <S extends object>(
+  stateMapper?: SocialLoginStateMapper<S>
+): S => stateHookGenerator(stateMapper, 'socialLoginState');
+
+export const useSocialLoginActions = (): SocialLoginActions =>
+  reducerActionsGenerator(socialLoginsActions, socialLoginsReducer);
 
 export type UrlCreatorConfigType = ISocialLoginProviderConfiguration & { state: string };
-
-export const createSocialLoginState = (state: ISocialLoginCallbackState): string => JSON.stringify(state);
 
 export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
   socialLoginType: SocialLoginsProviders
 ): string | null => {
   const { action } = useSocialLoginContext();
-  const { socialLoginsConfig } = useAuth(stateMapper);
+  const { socialLoginsConfig } = useSocialLoginState();
   const config = useMemo(
     () => socialLoginsConfig?.find(({ type }) => type.toLowerCase() === socialLoginType.toLowerCase()),
     [socialLoginsConfig]
@@ -26,7 +36,7 @@ export const useRedirectUrl = (
     if (config) {
       return urlCreator({
         ...config,
-        state: createSocialLoginState({ provider: socialLoginType, action }),
+        state: JSON.stringify({ provider: socialLoginType, action } as ISocialLoginCallbackState),
       });
     }
   }, [config?.clientId, config?.redirectUrl, action]);

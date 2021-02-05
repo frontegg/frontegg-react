@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { useT, Loader, checkRootPath } from '@frontegg/react-core';
 import { SSOStep } from './SSOStep';
 import { HideOption } from '../../interfaces';
-import { useAuthSSOState } from '../hooks';
+import { useSSOState } from '../hooks';
 
 export const SSOSteps: FC<HideOption> = (props) => {
   const { t } = useT();
   const rootPath = checkRootPath('SSOSteps should be rendered inside SSO component');
-  const { samlConfiguration, loading, roles, authorizationRoles } = useAuthSSOState(
+  const { samlConfiguration, loading, roles, authorizationRoles } = useSSOState(
     ({ samlConfiguration, loading, roles, authorizationRoles }) => ({
       samlConfiguration,
       loading,

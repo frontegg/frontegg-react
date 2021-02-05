@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 import { useT, FFormik, FForm } from '@frontegg/react-core';
-import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '../hooks';
 import { SSOManageAuthorizationSelect } from './SSOManageAuthorizationSelect';
 
 const { Formik } = FFormik;
 
 export const SSOManageAuthorizationForm: FC = () => {
-  const { authorizationRoles } = useAuthSSOState(({ authorizationRoles }) => ({ authorizationRoles }));
-  const { updateSSOAuthorizationRoles } = useAuthSSOActions();
+  const { authorizationRoles } = useSSOState(({ authorizationRoles }) => ({ authorizationRoles }));
+  const { updateSSOAuthorizationRoles } = useSSOActions();
 
   const prefixT = 'auth.sso.authorization';
   const Title: FC = (props) => {

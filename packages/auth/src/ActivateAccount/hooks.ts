@@ -1,27 +1,16 @@
 import {
-  AuthState,
   ActivateAccountState,
   activateAccountReducers,
   activateAccountActions,
   ActivateAccountActions,
 } from '@frontegg/redux-store/auth';
-import { bindActionCreators } from '@reduxjs/toolkit';
-import { memoEqual, useDispatch, useSelector } from '@frontegg/react-core';
-import { pluginName, sliceReducerActionsBy } from '../hooks';
+import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '../hooks';
 
 export type ActivateAccountStateMapper<S extends object> = (state: ActivateAccountState) => S;
-const defaultActivateAccountStateMapper: any = (state: ActivateAccountState) => ({ ...state });
 
-export const useActivateAccountState = <S extends object>(
-  stateMapper: ActivateAccountStateMapper<S> = defaultActivateAccountStateMapper
-): S => {
-  return useSelector(
-    ({ [pluginName]: { activateState } }: { auth: AuthState }) => stateMapper(activateState),
-    memoEqual
-  );
-};
+export const useActivateAccountState: StateHookFunction<ActivateAccountState> = <S extends object>(
+  stateMapper?: ActivateAccountStateMapper<S>
+): S => stateHookGenerator(stateMapper, 'activateState');
 
-export const useActivateAccountActions = (): ActivateAccountActions => {
-  const dispatch = useDispatch();
-  return bindActionCreators({ ...activateAccountActions, ...sliceReducerActionsBy(activateAccountReducers) }, dispatch);
-};
+export const useActivateAccountActions = (): ActivateAccountActions =>
+  reducerActionsGenerator(activateAccountActions, activateAccountReducers);

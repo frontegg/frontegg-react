@@ -2,10 +2,19 @@
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
-import { authActions, AuthActions, AuthState, LoginState, User } from '@frontegg/redux-store/auth';
+import {
+  authActions,
+  AuthActions,
+  AuthPageRoutes,
+  AuthState,
+  ssoActions,
+  SSOActions,
+  ssoReducers,
+  SSOState,
+  User,
+} from '@frontegg/redux-store/auth';
 import { useMemo } from 'react';
 import { RedirectOptions } from '@frontegg/rest-api';
-import { AuthPageRoutes } from '../../redux-store/src';
 
 export const pluginName = 'auth';
 
@@ -91,4 +100,18 @@ export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer:
   const reducerKeys = Object.keys(reducer);
   const reducerActions = reducerKeys.map((key) => ({ [key]: authActions[key as keyof AuthActions] }));
   return reducerActions.reduce((p, n) => ({ ...p, ...n }), {}) as CaseReducerActions<T>;
+};
+
+/**
+ * hooks helpers
+ */
+export const stateHookGenerator = (stateMapper: any, subState: keyof AuthState): any => {
+  return useSelector(
+    (state: any) => stateMapper?.(state[pluginName][subState]) ?? state[pluginName][subState],
+    memoEqual
+  );
+};
+export const reducerActionsGenerator = (actions: any, reducers: SliceCaseReducers<any>) => {
+  const dispatch = useDispatch();
+  return bindActionCreators({ ...actions, ...sliceReducerActionsBy(reducers) }, dispatch);
 };

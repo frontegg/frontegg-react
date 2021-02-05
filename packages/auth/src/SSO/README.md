@@ -147,10 +147,10 @@ render() {
 ### Custom toggle button:
 
 ```tsx
-import { SSO, useAuthSSOState } from '@frontegg/react-auth';
+import { SSO, useSSOState } from '@frontegg/react-auth';
 
 const MyToggle = () => {
-  const { toggleSSO, samlConfiguration } = useAuthSSOState()
+  const { toggleSSO, samlConfiguration } = useSSOState()
 
   return <MyCustomToggleButton
       value={samlConfiguration?.enabled ?? false}

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Button, FButton, Grid, useDialog, useT } from '@frontegg/react-core';
-import { useAuthMfaState } from '../hooks';
+import { useMfaState } from '../hooks';
 
 export const MFADisableDialogFooter: FC = () => {
   const { t } = useT();
-  const { loading } = useAuthMfaState(({ loading }) => ({ loading }));
+  const { loading } = useMfaState(({ loading }) => ({ loading }));
   const { onClose } = useDialog();
   return (
     <div className='fe-dialog__footer'>

@@ -7,14 +7,14 @@ import { MFAVerifyStepForm } from './MFAVerifyStepForm';
 import { MFAVerifyStepErrorMessage } from './MFAVerifyStepErrorMessage';
 import { MFAVerifyStepFooter } from './MFAVerifyStepFooter';
 
-import { useAuthMfaActions, useAuthMfaState } from '../hooks';
+import { useMfaActions, useMfaState } from '../hooks';
 
 const { Formik } = FFormik;
 
 export const MFAVerifyStep: FC<HideOption> = (props) => {
   const { t } = useT();
-  const { step } = useAuthMfaState(({ step }) => ({ step }));
-  const { verifyMfa } = useAuthMfaActions();
+  const { step } = useMfaState(({ step }) => ({ step }));
+  const { verifyMfa } = useMfaActions();
 
   if (step !== MFAStep.verify) {
     return null;

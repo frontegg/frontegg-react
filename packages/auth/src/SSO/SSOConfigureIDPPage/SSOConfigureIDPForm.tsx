@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { FFormik, FForm, Grid, useT } from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
 import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
-import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '../hooks';
 import { SamlVendors } from './SSOVendors';
 import { ssoConfigureIdpFormValidation, ssoConfigureIdpFormSubmit } from '../helpers';
 
@@ -66,11 +66,11 @@ export interface SSOConfigureIDPFormProps {
 
 export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPFormProps> = ({ samlVendor }) => {
   const [step, goToStep] = useState(1);
-  const { samlConfiguration, saving } = useAuthSSOState(({ samlConfiguration, saving }) => ({
+  const { samlConfiguration, saving } = useSSOState(({ samlConfiguration, saving }) => ({
     samlConfiguration,
     saving,
   }));
-  const { saveSSOConfigurations, saveSSOConfigurationsFile } = useAuthSSOActions();
+  const { saveSSOConfigurations, saveSSOConfigurationsFile } = useSSOActions();
   const { t } = useT();
   const formikRef = useRef<FFormik.FormikProps<IInitialValues>>(null);
   const initValues = samlVendor === 'Oidc' ? initialOidcValues : initialValues;

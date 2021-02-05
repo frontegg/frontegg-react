@@ -13,7 +13,7 @@ import {
   FButton,
 } from '@frontegg/react-core';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
-import { useAuthMfaActions, useAuthMfaState } from '../MFA';
+import { useMfaActions, useMfaState } from '../MFA';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
 import { useLoginActions } from './hooks';
 
@@ -27,8 +27,8 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { t } = useT();
   const { renderer } = props;
   const { requestAuthorize } = useLoginActions();
-  const { step, loading, recoveryCode, mfaToken } = useAuthMfaState();
-  const { setMfaState, verifyMfaAfterForce } = useAuthMfaActions();
+  const { step, loading, recoveryCode, mfaToken } = useMfaState();
+  const { setMfaState, verifyMfaAfterForce } = useMfaActions();
 
   const recoveryCodeRef = useRef<string>('');
 

@@ -14,14 +14,14 @@ import { MFADisableDialogMessage } from './MFADisableDialogMessage';
 import { MFADisableDialogFooter } from './MFADisableDialogFooter';
 import { MFADisableDialogForm } from './MFADisableDialogForm';
 import { MFADisableDialogErrorMessage } from './MFADisableDialogErrorMessage';
-import { useAuthMfaActions } from '../hooks';
+import { useMfaActions } from '../hooks';
 
 const { Formik } = FFormik;
 
 export type MFADialogProps = DialogProps;
 export const MFADisableDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
-  const { resetMfaState, disableMfa } = useAuthMfaActions();
+  const { resetMfaState, disableMfa } = useMfaActions();
 
   const dialogProps = omitProps(props, ['children']);
   useEffect(() => {

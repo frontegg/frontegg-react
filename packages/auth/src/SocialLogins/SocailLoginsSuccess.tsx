@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from 'react';
+import { Button, Loader, useT } from '@frontegg/react-core';
+import { useLocation } from 'react-router-dom';
 import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
 import { useAuth } from '../hooks';
-import { useLocation } from 'react-router';
-import { Button, Loader, useT } from '@frontegg/react-core';
 
 export const SocialLoginsSuccess: FC = () => {
   const {
@@ -12,7 +12,7 @@ export const SocialLoginsSuccess: FC = () => {
     resetSocialLoginsState,
     setSocialLoginError,
     loginViaSocialLogin,
-    socialLoginsState,
+    SocialLoginState,
   } = useAuth();
   const location = useLocation();
   const { t } = useT();
@@ -51,7 +51,7 @@ export const SocialLoginsSuccess: FC = () => {
     }
   }, []);
 
-  if (socialLoginsState.firstLoad || socialLoginsState.loading) {
+  if (SocialLoginState.firstLoad || SocialLoginState.loading) {
     return (
       <div className={'fe-center'}>
         <Loader />
@@ -61,7 +61,7 @@ export const SocialLoginsSuccess: FC = () => {
 
   return (
     <>
-      <div className='fe-error-message'>{socialLoginsState.error}</div>
+      <div className='fe-error-message'>{SocialLoginState.error}</div>
       <Button
         fullWidth={true}
         onClick={() => {

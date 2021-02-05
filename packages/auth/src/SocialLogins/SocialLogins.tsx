@@ -1,11 +1,10 @@
 import React, { FC, ReactNode, useEffect } from 'react';
 import { Loader } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
-import { AuthState } from '../Api';
 import { SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
 import { SocialLoginsContext } from './SocialLoginContext';
+import { useSocialLoginActions, useSocialLoginState } from './hooks';
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
@@ -14,10 +13,9 @@ export interface SocialLoginsProps {
 
 export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & { Google: FC; Github: FC };
 
-const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
-
 export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLoginsProps) => {
-  const { firstLoad, socialLoginsConfig, error, loadSocialLoginsConfiguration } = useAuth(stateMapper);
+  const { firstLoad, socialLoginsConfig, error } = useSocialLoginState();
+  const { loadSocialLoginsConfiguration } = useSocialLoginActions();
 
   useEffect(() => {
     if (firstLoad) {

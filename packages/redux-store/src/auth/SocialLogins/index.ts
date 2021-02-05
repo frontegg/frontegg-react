@@ -1,19 +1,19 @@
 import { createAction } from '@reduxjs/toolkit';
 import { ILoginViaSocialLogin, ISetSocialLoginError } from '@frontegg/rest-api';
 import { resetStateByKey, typeReducerForKey } from '../utils';
-import { SocialLoginsState } from './interfaces';
+import { SocialLoginState } from './interfaces';
 import { authStoreName } from '../../constants';
 import { ActionDispatchMatcher } from '../../interfaces';
 
-const socialLoginsState: SocialLoginsState = {
+const socialLoginState: SocialLoginState = {
   firstLoad: true,
   loading: false,
   error: '',
 };
 
 const reducers = {
-  setSocialLoginsState: typeReducerForKey<SocialLoginsState>('socialLoginsState'),
-  resetSocialLoginsState: resetStateByKey<SocialLoginsState>('socialLoginsState', { socialLoginsState }),
+  setSocialLoginsState: typeReducerForKey<SocialLoginState>('socialLoginState'),
+  resetSocialLoginsState: resetStateByKey<SocialLoginState>('socialLoginState', { socialLoginState }),
 };
 
 const actions = {
@@ -31,7 +31,7 @@ const actions = {
  *  the reducers and actions as standalone function
  */
 type DispatchedActions = {
-  setSocialLoginsState: (state: Partial<SocialLoginsState>) => void;
+  setSocialLoginsState: (state: Partial<SocialLoginState>) => void;
   resetSocialLoginsState: () => void;
   loadSocialLoginsConfiguration: () => void;
   loginViaSocialLogin: (payload: ILoginViaSocialLogin) => void;
@@ -46,4 +46,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type SocialLoginActions = DispatchedActions;
-export { socialLoginsState, reducers as socialLoginsReducer, actions as socialLoginsActions };
+export { socialLoginState, reducers as socialLoginsReducer, actions as socialLoginsActions };

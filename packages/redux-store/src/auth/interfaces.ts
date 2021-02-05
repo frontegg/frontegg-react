@@ -10,7 +10,7 @@ import { MFAState } from './MfaState/interfaces';
 import { TeamState } from './TeamState/interfaces';
 import { AcceptInvitationState } from './AcceptInvitationState/interfaces';
 import { SignUpState } from './SignUp/interfaces';
-import { SocialLoginsState } from './SocialLogins/interfaces';
+import { SocialLoginState } from './SocialLogins/interfaces';
 
 export interface User extends IUserProfile {
   accessToken: string;
@@ -45,7 +45,7 @@ export interface AuthState extends Routes, PluginOptions {
   profileState: ProfileState;
   mfaState: MFAState;
   teamState: TeamState;
-  socialLoginsState: SocialLoginsState;
+  socialLoginState: SocialLoginState;
   signUpState: SignUpState;
   apiTokensState: ApiTokensState;
 }

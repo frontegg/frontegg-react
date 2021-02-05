@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { validateUrl, validateRequired, validateSchemaSync } from '@frontegg/react-core';
 import { SSOActions } from '@frontegg/redux-store/auth';
-import { useAuthSSOActions, useAuthSSOState } from './hooks';
+import { useSSOActions, useSSOState } from './hooks';
 import { SamlVendors } from './SSOConfigureIDPPage/SSOVendors';
 import { IInitialValues } from './SSOConfigureIDPPage/SSOConfigureIDPForm';
 
@@ -17,11 +17,11 @@ export interface IssoConfigureIdpFormSubmit extends IInitialValues {
 }
 
 export const reloadSSOIfNeeded = () => {
-  const { samlConfiguration, loading } = useAuthSSOState(({ samlConfiguration, loading }) => ({
+  const { samlConfiguration, loading } = useSSOState(({ samlConfiguration, loading }) => ({
     samlConfiguration,
     loading,
   }));
-  const { loadSSOConfigurations } = useAuthSSOActions();
+  const { loadSSOConfigurations } = useSSOActions();
   useEffect(() => {
     if (loading && !samlConfiguration) {
       loadSSOConfigurations();

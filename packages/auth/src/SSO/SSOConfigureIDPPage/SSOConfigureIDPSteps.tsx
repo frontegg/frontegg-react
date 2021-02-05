@@ -12,7 +12,7 @@ import {
   useT,
 } from '@frontegg/react-core';
 import Dropzone from 'react-dropzone';
-import { useAuthSSOState } from '../hooks';
+import { useSSOState } from '../hooks';
 import { SamlVendors } from './SSOVendors';
 
 const { useField, useFormikContext } = FFormik;
@@ -26,7 +26,7 @@ export interface SSOManualConfigProps extends Pick<SSOConfigureIDPStepProps, 'sa
 
 export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = ({ goToStep, samlVendor }) => {
   const { t } = useT();
-  const { samlConfiguration } = useAuthSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
+  const { samlConfiguration } = useSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
 
   const validCallback = samlConfiguration?.acsUrl && samlConfiguration?.spEntityId;
   return (
@@ -146,7 +146,7 @@ export const SSOConfigureIDPStep2: FC<SSOConfigureIDPStepProps> = ({ goToStep, s
   const [{ value: configSaml }, , { setValue: setConfigSaml }] = useField<string>('configSaml');
   const { isValid, dirty } = useFormikContext();
 
-  const { samlConfiguration, saving, error } = useAuthSSOState(({ samlConfiguration, saving, error }) => ({
+  const { samlConfiguration, saving, error } = useSSOState(({ samlConfiguration, saving, error }) => ({
     samlConfiguration,
     saving,
     error,

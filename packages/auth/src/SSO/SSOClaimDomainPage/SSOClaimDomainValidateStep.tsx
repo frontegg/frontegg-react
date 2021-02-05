@@ -1,6 +1,6 @@
 import React, { FC, useContext, useRef } from 'react';
 import { useT, FFormik, FButton, Input, ErrorMessage, Icon, ButtonProps, RootPathContext } from '@frontegg/react-core';
-import { useAuthSSOState } from '../hooks';
+import { useSSOState } from '../hooks';
 import { useOnRedirectTo } from '../../hooks';
 
 const { useFormikContext } = FFormik;
@@ -9,7 +9,7 @@ const prefixT = 'auth.sso.claim-domain.form';
 export const SSOClaimDomainValidateStep: FC = (props) => {
   const { t } = useT();
   const rootPath = useContext(RootPathContext);
-  const { saving, error, samlConfiguration } = useAuthSSOState(({ saving, error, samlConfiguration }) => ({
+  const { saving, error, samlConfiguration } = useSSOState(({ saving, error, samlConfiguration }) => ({
     saving,
     error,
     samlConfiguration,

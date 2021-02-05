@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { FInput, Loader, useT } from '@frontegg/react-core';
-import { useAuthMfaActions, useAuthMfaState } from '../hooks';
+import { useMfaActions, useMfaState } from '../hooks';
 
 export const MFAVerifyStepForm: FC = (props) => {
   const { t } = useT();
-  const { loading, qrCode } = useAuthMfaState(({ loading, qrCode }) => ({ loading, qrCode }));
-  const { enrollMfa } = useAuthMfaActions();
+  const { loading, qrCode } = useMfaState(({ loading, qrCode }) => ({ loading, qrCode }));
+  const { enrollMfa } = useMfaActions();
 
   useEffect(() => {
     if (!qrCode) {

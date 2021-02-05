@@ -4,13 +4,13 @@ import { MFARecoveryCodeStepMessage } from './MFARecoveryCodeStepMessage';
 import { MFARecoveryCodeStepForm } from './MFARecoveryCodeStepForm';
 import { MFARecoveryCodeStepFooter } from './MFARecoveryCodeStepFooter';
 
-import { useAuthMfaState } from '../hooks';
+import { useMfaState } from '../hooks';
 
 type MFARecoveryCodeStepProps = {
   MFARecoveryCodeStepFooter?: ComponentType;
 };
 export const MFARecoveryCodeStep: FC<MFARecoveryCodeStepProps> = (props) => {
-  const { step } = useAuthMfaState(({ step }) => ({ step }));
+  const { step } = useMfaState(({ step }) => ({ step }));
 
   const Footer = props.MFARecoveryCodeStepFooter ?? MFARecoveryCodeStepFooter;
   if (step !== MFAStep.recoveryCode) {
