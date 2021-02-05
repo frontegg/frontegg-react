@@ -9,25 +9,22 @@ import {
   FButton,
   FFormik,
 } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
-import { AuthState } from '../Api';
+import { useForgotPasswordState } from './hooks';
 
 const { Formik } = FFormik;
 
-type ForgotPasswordFormRendererProps = Omit<ForgotPasswordFormProps, 'renderer'> & ReturnType<typeof stateMapper>;
+type ForgotPasswordFormRendererProps = Omit<ForgotPasswordFormProps, 'renderer'>;
 
 export interface ForgotPasswordFormProps {
   renderer?: ComponentType<ForgotPasswordFormRendererProps>;
 }
 
-const stateMapper = ({ forgotPasswordState }: AuthState) => forgotPasswordState;
 export const ForgotPasswordForm: FC<ForgotPasswordFormProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const authState = useAuth(stateMapper);
-  const { loading, email, error, forgotPassword } = authState;
+  const { loading, email, error, forgotPassword } = useForgotPasswordState();
   if (renderer) {
-    return createElement(renderer, { ...props, ...authState });
+    return createElement(renderer, props);
   }
   return (
     <Formik

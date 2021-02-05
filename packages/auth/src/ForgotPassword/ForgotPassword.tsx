@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { useDynamicComponents, ComponentsTypesWithProps } from '@frontegg/react-core';
+import { ForgotPasswordStep } from '@frontegg/redux-store/auth';
 import { authPageWrapper } from '../components';
 import { ForgotPasswordSuccessRedirect, ForgotPasswordSuccessRedirectProps } from './ForgotPasswordSuccessRedirect';
 import { ForgotPasswordForm, ForgotPasswordFormProps } from './ForgotPasswordForm';
-import { useAuth } from '../hooks';
-import { ForgotPasswordStep } from '../Api/ForgotPasswordState';
+import { useForgotPasswordState } from './hooks';
 
 type Components = {
   ForgotPasswordSuccessRedirect: ForgotPasswordSuccessRedirectProps;
@@ -18,7 +18,8 @@ export interface ForgotPasswordProps {
 const defaultComponents = { ForgotPasswordSuccessRedirect, ForgotPasswordForm };
 export const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
-  const { step } = useAuth(({ forgotPasswordState: { step } }) => ({ step }));
+  const { step } = useForgotPasswordState();
+
   let components;
   if (step === ForgotPasswordStep.success) {
     components = <Dynamic.ForgotPasswordSuccessRedirect />;
