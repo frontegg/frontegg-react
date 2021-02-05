@@ -1,5 +1,5 @@
 import { ContextHolder, ITeamUserRole } from '@frontegg/rest-api';
-import { User } from '../Api';
+import { User } from '@frontegg/redux-store/auth';
 
 type TRoles = {
   label: string;
@@ -16,14 +16,13 @@ const getMaxRoleLevel = (roleIds: string[], roles: ITeamUserRole[]) => {
   if (!roleIds) return Infinity;
   // map roleIds array to numeric levels array, using provider roles settings
   const levelsArr: number[] = roleIds.map((roleId) => getRoleLevel(roleId, roles));
-  const maxRoleLevel = levelsArr.length ? Math.min(...levelsArr) : Infinity;
-  return maxRoleLevel;
+  return levelsArr.length ? Math.min(...levelsArr) : Infinity;
 };
 
 export const checkRoleAccess = (roles: ITeamUserRole[], user: User | null): TRoles[] => {
   const context = ContextHolder.getContext();
   let currnetUserRoleLevel: number;
-  let currentUserRolesIds = user?.roles.map((r) => r.id);
+  const currentUserRolesIds = user?.roles.map((r) => r.id);
 
   if (context.currentUserRoles && context.currentUserRoles.length > 0) {
     currnetUserRoleLevel = getMaxRoleLevel(context.currentUserRoles, roles);

@@ -15,13 +15,3 @@ export const Team = {
   AddUserDialog: TeamAddUserDialog,
   DeleteUserDialog: TeamDeleteUserDialog,
 };
-
-//  usage example:
-//
-//  /* inside route */
-//  <Route path='/teams' component={Team.Page} />
-//
-//  /* custom route */
-//  render() {
-//    return <Team.Layout />
-//  }

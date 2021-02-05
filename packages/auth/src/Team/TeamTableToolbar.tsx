@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Grid, Icon, Input, useT, useDebounce } from '@frontegg/react-core';
 import { useAuthTeamActions, useAuthTeamState } from './hooks';
 

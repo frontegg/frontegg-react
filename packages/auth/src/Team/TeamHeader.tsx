@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { PageHeader, PageHeaderProps, useT } from '@frontegg/react-core';
 import classNames from 'classnames';
 import { useAuth } from '../hooks';

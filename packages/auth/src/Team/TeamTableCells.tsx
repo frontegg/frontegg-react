@@ -46,9 +46,9 @@ export const TeamTableLastLogin: CellComponent = TableCells.DateAgo;
 export const TeamTableActions = (me?: string): CellComponent => (props) => {
   const { id: userId, email, lastLogin } = props.row.original;
   const { resendActivationLink, openDeleteUserDialog } = useAuthTeamActions();
-  const { loading } = useAuthTeamState((state) => ({
-    loading: state.loaders.RESEND_ACTIVATE_LINK || state.loaders.UPDATE_USER || state.loaders.DELETE_USER,
-  }));
+  const loaders = useAuthTeamState((state) => state.loaders);
+  const loading = loaders.RESEND_ACTIVATE_LINK || loaders.UPDATE_USER || loaders.DELETE_USER;
+
   const { t } = useT();
   const isMe = me === userId;
 
