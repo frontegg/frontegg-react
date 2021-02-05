@@ -2,12 +2,11 @@
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
-import { actions, AuthActions, AuthState, User } from './Api';
-import { teamActions, TeamState } from './Api/TeamState';
+import { authActions, AuthActions, AuthState, User } from '@frontegg/redux-store/auth';
 import { useMemo } from 'react';
 
 export const pluginName = 'auth';
-const pluginActions = actions;
+const pluginActions = authActions;
 
 export type AuthMapper = {
   state: (state: AuthState) => any;
@@ -67,7 +66,7 @@ export const useAuthUser = (): User => {
       routes,
       onRedirectTo,
     }),
-    memoEqual
+    memoEqual,
   );
 
   if (user == null) {
@@ -77,15 +76,12 @@ export const useAuthUser = (): User => {
   return user;
 };
 export const useAuthUserOrNull = (): User | null => {
-  const { user } = useSelector(
-    ({ [pluginName]: { user, routes, onRedirectTo } }: { auth: AuthState }) => ({ user }),
-    memoEqual
-  );
+  const { user } = useSelector(({ [pluginName]: { user } }: { auth: AuthState }) => ({ user }), memoEqual);
   return user || null;
 };
 
 export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer: T): CaseReducerActions<T> => {
   const reducerKeys = Object.keys(reducer);
-  const reducerActions = reducerKeys.map((key) => ({ [key]: actions[key as keyof typeof actions] }));
+  const reducerActions = reducerKeys.map((key) => ({ [key]: authActions[key as keyof AuthActions] }));
   return reducerActions.reduce((p, n) => ({ ...p, ...n }), {}) as CaseReducerActions<T>;
 };
