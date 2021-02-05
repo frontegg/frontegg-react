@@ -1,10 +1,10 @@
-export enum ActivateStep {
+export enum ActivateAccountStep {
   'activating' = 'activating',
   'success' = 'success',
 }
 
-export interface ActivateState {
+export interface ActivateAccountState {
   loading: boolean;
   error?: any;
-  step: ActivateStep;
+  step: ActivateAccountStep;
 }

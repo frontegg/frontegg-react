@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
+import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
+import { ActivateAccountStep } from '@frontegg/redux-store/auth';
 import { ActivateAccountSuccessRedirect, ActivateAccountSuccessRedirectProps } from './ActivateAccountSuccessRedirect';
 import { ActivateAccountFailedRedirect, ActivateAccountFailedRedirectProps } from './ActivateAccountFailedRedirect';
 import { ActivateAccountForm, ActivateAccountFormProps } from './ActivateAccountForm';
-import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 import { authPageWrapper } from '../components';
-import { useAuth } from '../hooks';
-import { ActivateStep } from '../Api';
+import { useActivateAccountState } from './hooks';
 
 type Components = {
   ActivateAccountForm: ActivateAccountFormProps;
@@ -19,7 +19,7 @@ export interface ActivateAccountProps {
 }
 
 export const ActivateAccount: FC<ActivateAccountProps> = (props) => {
-  const { step } = useAuth((state) => state.activateState);
+  const { step } = useActivateAccountState();
   const Dynamic = useDynamicComponents(defaultComponents, props);
 
   const url = new URL(window?.location.href);
@@ -29,7 +29,7 @@ export const ActivateAccount: FC<ActivateAccountProps> = (props) => {
   let components: any;
   if (!userId || !token) {
     components = <Dynamic.ActivateAccountFailedRedirect />;
-  } else if (step === ActivateStep.success) {
+  } else if (step === ActivateAccountStep.success) {
     components = <Dynamic.ActivateAccountSuccessRedirect />;
   } else {
     components = <Dynamic.ActivateAccountForm userId={userId} token={token} />;

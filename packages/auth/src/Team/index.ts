@@ -6,6 +6,7 @@ import { TeamTable } from './TeamTable';
 import { TeamAddUserDialog } from './TeamAddUserDialog';
 import { TeamDeleteUserDialog } from './TeamDeleteUserDialog';
 
+export * from './hooks';
 export const Team = {
   Page: TeamPage,
   Header: TeamHeader,

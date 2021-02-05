@@ -1,7 +1,6 @@
 import React, { ComponentType, createElement, FC, useEffect, useState } from 'react';
-import { AuthActions, AuthState } from '../Api';
+import { AuthActions, AuthState } from '@frontegg/redux-store/auth';
 import {
-  validatePassword,
   validatePasswordConfirmation,
   validateSchema,
   ErrorMessage,

@@ -21,6 +21,7 @@ import {
 } from './MFARecoveryCodeStep';
 import { MFAButton } from './MFAButton';
 import { MFALayout } from './MFALayout';
+export * from './hooks';
 
 export const MFA = {
   Layout: MFALayout,

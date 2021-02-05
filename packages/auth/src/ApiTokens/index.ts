@@ -10,6 +10,7 @@ import { ApiTokensTableComponent } from './components/ApiTokensTableComponent';
 
 export * from './UserApiTokens/UserApiTokensPage';
 export * from './TenantApiTokens/TenantApiTokensPage';
+export * from './hooks';
 
 export const TenantApiTokens = {
   Page: TenantApiTokensPage,

@@ -5,6 +5,7 @@ import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@redu
 import { authActions, AuthActions, AuthState, User } from '@frontegg/redux-store/auth';
 import { useMemo } from 'react';
 import { RedirectOptions } from '@frontegg/rest-api';
+import { AuthPageRoutes } from '../../redux-store/src';
 
 export const pluginName = 'auth';
 
@@ -37,6 +38,8 @@ export const useAuthActions = (): AuthActions => {
 
 export const useOnRedirectTo = (): ((path: string, opts?: RedirectOptions) => void) =>
   useAuth((state) => state.onRedirectTo);
+
+export const useAuthRoutes = (): AuthPageRoutes => useAuth((state) => ({ ...state.routes }));
 
 /**
  * ```jsx

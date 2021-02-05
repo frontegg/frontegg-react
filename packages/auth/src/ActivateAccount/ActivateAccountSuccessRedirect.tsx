@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useT, RendererFunctionFC, omitProps, Loader } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useAuthActions, useAuthRoutes, useOnRedirectTo } from '../hooks';
 
 export interface ActivateAccountSuccessRedirectProps {
   renderer?: RendererFunctionFC<ActivateAccountSuccessRedirectProps>;
@@ -9,10 +9,9 @@ export interface ActivateAccountSuccessRedirectProps {
 export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { requestAuthorize, resetActivateState, onRedirectTo, routes } = useAuth(({ routes, onRedirectTo }) => ({
-    routes,
-    onRedirectTo,
-  }));
+  const onRedirectTo = useOnRedirectTo();
+  const routes = useAuthRoutes();
+  const { requestAuthorize, resetActivateState } = useAuthActions();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));

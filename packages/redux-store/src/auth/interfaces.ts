@@ -1,7 +1,7 @@
 import { IUserProfile, RedirectOptions } from '@frontegg/rest-api';
 
 import { ApiTokensState } from './ApiTokensState/interfaces';
-import { ActivateState } from './ActivateState/interfaces';
+import { ActivateAccountState } from './ActivateState/interfaces';
 import { LoginState } from './LoginState/interfaces';
 import { ForgotPasswordState } from './ForgotPasswordState/interfaces';
 import { SSOState } from './SSOState/interfaces';
@@ -38,7 +38,7 @@ export interface AuthState extends Routes, PluginOptions {
   isSSOAuth: boolean;
   ssoACS?: string;
   loginState: LoginState;
-  activateState: ActivateState;
+  activateState: ActivateAccountState;
   acceptInvitationState: AcceptInvitationState;
   forgotPasswordState: ForgotPasswordState;
   ssoState: SSOState;

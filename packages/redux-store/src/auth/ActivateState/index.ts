@@ -1,18 +1,18 @@
 import { createAction } from '@reduxjs/toolkit';
 import { IActivateAccount } from '@frontegg/rest-api';
 import { resetStateByKey, typeReducerForKey } from '../utils';
-import { ActivateState, ActivateStep } from './interfaces';
+import { ActivateAccountState, ActivateAccountStep } from './interfaces';
 import { ActionDispatchMatcher } from '../../interfaces';
 import { authStoreName } from '../../constants';
 
-const activateState: ActivateState = {
-  step: ActivateStep.activating,
+const activateState: ActivateAccountState = {
+  step: ActivateAccountStep.activating,
   loading: false,
 };
 
 const reducers = {
-  setActivateState: typeReducerForKey<ActivateState>('activateState'),
-  resetActivateState: resetStateByKey<ActivateState>('activateState', { activateState }),
+  setActivateState: typeReducerForKey<ActivateAccountState>('activateState'),
+  resetActivateState: resetStateByKey<ActivateAccountState>('activateState', { activateState }),
 };
 
 const actions = {
@@ -24,7 +24,7 @@ const actions = {
  *  the reducers and actions as standalone function
  */
 type DispatchedActions = {
-  setActivateState: (state: Partial<ActivateState>) => void;
+  setActivateState: (state: Partial<ActivateAccountState>) => void;
   resetActivateState: () => void;
   activateAccount: (payload: IActivateAccount) => void;
 };
