@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import { AuthState } from '../Api';
+import { useT } from '@frontegg/react-core';
+import { AuthState } from '@frontegg/redux-store/auth';
 import { useAuth } from '../hooks';
-import { Button, useT } from '@frontegg/react-core';
-import { AuthPageRoutes } from '../interfaces';
 
 const stateMapper = ({ signUpState, routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo, ...signUpState });
 
@@ -23,9 +22,6 @@ export const SignUpSuccess: FC = () => {
     }
     return resetSignUpStateSoft;
   }, [shouldActivate, routes, resetSignUpStateSoft]);
-
-  // if should activate => request does not have access-token => display message for activate your account. no buttons.
-  // if should not activate => request have access-token => display 3 sec message and then go to authenticated url. no buttons.
 
   return (
     <>

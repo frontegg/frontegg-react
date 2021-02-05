@@ -9,8 +9,8 @@ import {
   validateSchema,
   validateEmail,
 } from '@frontegg/react-core';
-import { AuthState } from '../Api';
-import { useAuth } from '../hooks';
+import { useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useSignUpActions, useSignUpState } from './hooks';
 
 const { Formik } = FFormik;
 
@@ -18,12 +18,13 @@ export interface SignUpFormProps {
   withCompanyName?: boolean;
 }
 
-const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({ onRedirectTo, routes, ...signUpState });
-
 export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
   const { t } = useT();
 
-  const { signUpUser, loading, routes, onRedirectTo } = useAuth(stateMapper);
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const { signUpUser } = useSignUpActions();
+  const { loading } = useSignUpState(({ loading }) => ({ loading }));
 
   const redirectToLogin = useCallback(() => {
     onRedirectTo(routes.loginUrl);

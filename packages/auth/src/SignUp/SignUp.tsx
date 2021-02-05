@@ -1,12 +1,11 @@
 import React, { FC, useCallback } from 'react';
+import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
+import { AuthState, SignUpStage } from '@frontegg/redux-store/auth';
 import { SignUpForm } from './SignUpForm';
 import { authPageWrapper } from '../components';
-import { AuthState } from '../Api';
 import { AuthStateMapper, useAuth } from '../hooks';
-import { SignUpStage } from '../Api/SignUp/interfaces';
 import { SignUpSuccess } from './SignUpSuccess';
 import { SocialLoginsSignUpWithWrapper } from '../SocialLogins';
-import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 
 interface Components {
   SignUpForm: {};
