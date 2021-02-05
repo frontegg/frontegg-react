@@ -5,7 +5,6 @@ import { MFAVerifyStep } from './MFAVerifyStep';
 import { MFARecoveryCodeStep } from './MFARecoveryCodeStep';
 import { useAuthMfaActions } from './hooks';
 
-
 export type MFADialogProps = DialogProps;
 export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();

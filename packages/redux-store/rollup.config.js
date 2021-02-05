@@ -7,7 +7,6 @@ import fs from 'fs';
 const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json')));
 const distFolder = path.join(__dirname, './dist/');
 
-
 function movePackageJson() {
   return {
     name: 'move-package-json',
@@ -17,7 +16,9 @@ function movePackageJson() {
       enhancedPkg.main = enhancedPkg.main.replace('dist/', '');
       enhancedPkg.module = enhancedPkg.module.replace('dist/', '');
       enhancedPkg.types = enhancedPkg.types.replace('dist/', '');
-      fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), { encoding: 'utf8' });
+      fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), {
+        encoding: 'utf8',
+      });
     },
   };
 }
@@ -31,7 +32,6 @@ const commonPlugins = [
   progress(),
   movePackageJson(),
 ];
-
 
 const esmPlugins = [
   ...commonPlugins,

@@ -66,7 +66,7 @@ export const useAuthUser = (): User => {
       routes,
       onRedirectTo,
     }),
-    memoEqual,
+    memoEqual
   );
 
   if (user == null) {

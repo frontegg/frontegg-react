@@ -15,7 +15,7 @@ const emptySelector = () => ({});
 export const withAuth = <P extends any>(
   Component: ComponentType<P>,
   stateSelector?: (state: AuthState) => any,
-  actionsSelector?: (actions: AuthActions) => any,
+  actionsSelector?: (actions: AuthActions) => any
 ) => {
   const _stateSelector = stateSelector || emptySelector;
   const _actionsSelector = actionsSelector || emptySelector;
@@ -24,13 +24,15 @@ export const withAuth = <P extends any>(
   const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(_actionsSelector(pluginActions) || {}, dispatch);
 
-  return connect(mapStateToProps, mapDispatchToProps)(withT()(Component as any)) as ComponentType<Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>>;
+  return connect(mapStateToProps, mapDispatchToProps)(withT()(Component as any)) as ComponentType<
+    Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>
+  >;
 };
 
 const onRedirecting = (loginUrl: string) => {
   window.localStorage.setItem(
     FRONTEGG_AFTER_AUTH_REDIRECT_URL,
-    window.location.href.substring(window.location.origin.length),
+    window.location.href.substring(window.location.origin.length)
   );
   return <Redirect to={loginUrl} />;
 };

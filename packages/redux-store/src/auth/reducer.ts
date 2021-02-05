@@ -55,20 +55,19 @@ export type RootActions = {
   setState: (state: Partial<AuthState>) => void;
   resetState: () => void;
   setUser: (user: User) => void;
-}
+};
 
-export type AuthActions =
-  & RootActions
-  & LoginActions
-  & SocialLoginActions
-  & ActivateAccountActions
-  & AcceptInvitationActions
-  & ForgotPasswordActions
-  & SignUpActions
-  & ProfileActions
-  & SSOActions
-  & MfaActions
-  & TeamActions
-  & ApiTokensActions;
+export type AuthActions = RootActions &
+  LoginActions &
+  SocialLoginActions &
+  ActivateAccountActions &
+  AcceptInvitationActions &
+  ForgotPasswordActions &
+  SignUpActions &
+  ProfileActions &
+  SSOActions &
+  MfaActions &
+  TeamActions &
+  ApiTokensActions;
 
 export { reducer, actions };
