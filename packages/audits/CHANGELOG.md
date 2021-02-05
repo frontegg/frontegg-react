@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
+# [1.21.0](https://github.com/frontegg/frontegg-react/compare/v1.20.1...v1.21.0) (2021-02-04)
+
+
+### Bug Fixes
+
+* **audits:** fix show filter icon if the filterable value is desabled ([00f0afd](https://github.com/frontegg/frontegg-react/commit/00f0afd19f3d87deff66c198fe115d2f1e7d6708))
+* **audits:** FR-1875 - changed time filter format ([24e58a2](https://github.com/frontegg/frontegg-react/commit/24e58a2c742ac660a92add0035db0e2a4adac12e))
+* **audits:** leave the empty values in the cell instead of  text ([360c09c](https://github.com/frontegg/frontegg-react/commit/360c09c6b9d47cd0a840851dec265ddd96463d96))
+
+
+
+
+
 ## [1.20.1](https://github.com/frontegg/frontegg-react/compare/v1.20.0...v1.20.1) (2021-02-02)
 
 **Note:** Version bump only for package @frontegg/react-audits

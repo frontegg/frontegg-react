@@ -1,16 +1,17 @@
 import React, { FC, useState } from 'react';
-import { checkRootPath, Loader, Grid } from '@frontegg/react-core';
+import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
-import { HideOption } from '../../interfaces';
+import { HideOption, RouteWrapper } from '../../interfaces';
 import { SSOConfigureIDPGuide } from './SSOConfigureIDPGuide';
 import { SSOConfigureIDPForm } from './SSOConfigureIDPForm';
 import { SSOConfigureIDPSelect } from './SSOConfigureIDPSelect';
 import { SamlVendors } from './SSOVendors';
 import { useAuthSSOState } from '../hooks';
+import { reloadSSOIfNeeded } from '../helpers';
 
-export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
-  const rootPath = checkRootPath('SSOConfigureIDPPage must be rendered inside a SSORouter component');
-  const { loading } = useAuthSSOState(({ samlConfiguration, loading }) => ({ loading }));
+export const SSOConfigureIDPComponent: FC = (props) => {
+  reloadSSOIfNeeded();
+  const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
   const [samlVendor, setSamlVendor] = useState<SamlVendors>(SamlVendors.Saml);
   if (loading) {
     return null;
@@ -30,9 +31,16 @@ export const SSOConfigureIDPPage: FC<HideOption> = (props) => {
     </Grid>
   );
 
+  return <div className='fe-sso-idp-page'>{children}</div>;
+};
+
+export const SSOConfigureIDPPage: FC<RouteWrapper & HideOption> = (props) => {
+  const pagePath =
+    props.path ?? checkRootPath('SSO.ConfigureIDPPage must be rendered inside a SSO.Router component') + '/idp';
+
   return (
-    <Route path={`${rootPath}/idp`}>
-      <div className='fe-sso-idp-page'>{children}</div>
+    <Route path={pagePath}>
+      <SSOConfigureIDPComponent children={props.children} />
     </Route>
   );
 };
