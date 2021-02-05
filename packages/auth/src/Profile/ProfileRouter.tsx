@@ -1,14 +1,7 @@
 import React, { FC } from 'react';
 import { BasePageProps } from '../interfaces';
-import { reloadProfileIfNeeded } from './helpers';
-import {
-  buildTabsFromChildren,
-  checkValidChildren,
-  RootPathContext,
-  useRootPath,
-  Logger,
-  PageTabs,
-} from '@frontegg/react-core';
+import { reloadProfileIfNeeded } from './hooks';
+import { buildTabsFromChildren, RootPathContext, useRootPath, Logger, PageTabs } from '@frontegg/react-core';
 import { ProfileInfoPage } from './ProfileInfoPage';
 import { ProfilePasswordSettingsPage } from './ProfilePasswordSettingsPage';
 import { ProfileMfaPage } from './ProfileMfaPage';
@@ -19,11 +12,6 @@ const logger = Logger.from('ProfileRouter');
 export const ProfileRouter: FC<BasePageProps> = (props) => {
   const [rootPath, isRootPathContext] = useRootPath(props, '/profile');
   reloadProfileIfNeeded();
-  checkValidChildren('Profile.Router', 'Profile', props.children, {
-    // ProfileInfoPage,
-    // ProfilePasswordSettingsPage,
-    // ProfileMfaPage,
-  });
 
   const children = props.children ?? (
     <>

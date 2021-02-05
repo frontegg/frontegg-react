@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { useAuthProfile } from '../helpers';
+import { useProfileActions, useProfileState } from '../hooks';
 import { FFormik, Button, Icon, Loader, useT, FFileInput, OnError, ErrorMessage } from '@frontegg/react-core';
 
 const { useFormikContext, useField } = FFormik;
@@ -8,26 +8,9 @@ const profilePictureUrl = 'profilePictureUrl';
 
 const getProfileImageInput = () => document.querySelector<HTMLInputElement>(`input[name=${profilePictureUrl}]`);
 
-// const getImageDimension = (file: File) =>
-//   new Promise<{ width: number; height: number }>((resolve, reject) => {
-//     const img = new Image();
-//     const objectUrl = URL.createObjectURL(file);
-//     img.onload = () => {
-//       const result = { width: img.width, height: img.height };
-//       URL.revokeObjectURL(objectUrl);
-//       resolve(result);
-//     };
-//     img.onerror = () => {
-//       const result = { width: 0, height: 0 };
-//       URL.revokeObjectURL(objectUrl);
-//       resolve(result);
-//     };
-//
-//     img.src = objectUrl;
-//   });
-
 export const ProfileImageUploader: FC<OnError> = (props) => {
-  const { loading, profile, error, setProfileState } = useAuthProfile();
+  const { loading, profile, error } = useProfileState();
+  const { setProfileState } = useProfileActions();
   const { t } = useT();
   const { errors, setErrors } = useFormikContext<any>();
 
@@ -37,14 +20,6 @@ export const ProfileImageUploader: FC<OnError> = (props) => {
   const handleUploadClick = useCallback(() => {
     getProfileImageInput()?.click?.();
   }, []);
-
-  // const validateProfileImage = async (file: File) => {
-  //   // const { width, height } = await getImageDimension(file);
-  //   // if (width > 512 || height > 512) {
-  //   //   return t('auth.profile.info.invalid-profile-photo');
-  //   // }
-  //   return null;
-  // };
 
   const handleRemoveImage = useCallback(() => {
     profileImageField.onChange(profileImageField.name)(profile?.profilePictureUrl ?? '');

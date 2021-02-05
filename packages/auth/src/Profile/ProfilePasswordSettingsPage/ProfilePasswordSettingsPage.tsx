@@ -12,8 +12,7 @@ import {
   PageTabProps,
   OnError,
 } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
-import { FormikProps } from 'formik/dist/types';
+import { useProfileActions, useProfileState } from '../hooks';
 
 const { Formik } = FFormik;
 
@@ -22,7 +21,8 @@ type ProfilePasswordSettingsPageProps = OnError;
 export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> & PageTabProps = (props) => {
   const { t } = useT();
   const { onError } = props;
-  const { loading, error, changePassword } = useAuth((state) => state.profileState);
+  const { loading, error } = useProfileState();
+  const { changePassword } = useProfileActions();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const changePasswordSubmitted = useRef(false);
 

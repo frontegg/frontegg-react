@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import {
   PageTabProps,
   useT,
@@ -10,11 +10,13 @@ import {
 } from '@frontegg/react-core';
 import { ProfileImageUploader } from './ProfileImageUploader';
 import { ProfileBasicInformation } from './ProfileBasicInformation';
-import { useAuthProfile } from '../helpers';
+import { useProfileActions, useProfileState } from '../hooks';
+import { IUserProfile } from '@frontegg/rest-api';
 
 const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = (props) => {
-  const { profile, saveProfile } = useAuthProfile();
+  const { profile } = useProfileState();
+  const { saveProfile } = useProfileActions();
   const { t } = useT();
 
   const children = props.children ?? (
@@ -39,7 +41,7 @@ export const ProfileInfoPage: FC & PageTabProps = (props) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         saveProfile({
           ...values,
-          callback: (profile) => {
+          callback: (profile: IUserProfile | null) => {
             setSubmitting(false);
             if (profile) {
               resetForm({

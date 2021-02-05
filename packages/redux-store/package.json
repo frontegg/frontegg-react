@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
     "build:watch": "rollup -w -c ./rollup.config.js",
-    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
     "@frontegg/rest-api": "^1.21.1",

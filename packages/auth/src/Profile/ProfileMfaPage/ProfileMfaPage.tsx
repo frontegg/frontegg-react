@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, PageProps, useT } from '@frontegg/react-core';
+import React from 'react';
+import { PageProps, useT } from '@frontegg/react-core';
 import { MFA } from '../../MFA';
 
 export const ProfileMfaPage: PageProps = (props) => {
