@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import { useAuth, useAuthUserOrNull } from '../hooks';
 import { Icon } from '@frontegg/react-core';
+import classNames from 'classnames';
+import { useAuth, useAuthUserOrNull } from '../hooks';
 import { AccountPopupSection, AccountPopupSectionProps } from './AccountPopupSection';
 import { AccountPopupSwitchTenant } from './AccountPopupSwitchTenant';
-import classNames from 'classnames';
 
 export type AccountPopupProps = {
   getSections?: (defaultSections: AccountPopupSectionProps[], closePopup: () => void) => AccountPopupSectionProps[];

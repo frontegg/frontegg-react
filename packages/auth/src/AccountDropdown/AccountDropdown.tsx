@@ -1,6 +1,6 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useAuth, useAuthUserOrNull } from '../hooks';
 import { Button, Icon, Popup, useT } from '@frontegg/react-core';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { useAuth, useAuthRoutes, useAuthUserOrNull, useOnRedirectTo } from '../hooks';
 import './style.scss';
 import { AccountPopup } from './AccountPopup';
 import { AccountPopupSectionProps } from './AccountPopupSection';
@@ -10,7 +10,9 @@ type AccountDropdownProps = {
 };
 export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   const { t } = useT();
-  const { onRedirectTo, routes, user } = useAuth(({ routes, onRedirectTo, user }) => ({ routes, onRedirectTo, user }));
+  const onRedirectTo = useOnRedirectTo();
+  const routes = useAuthRoutes();
+  const user = useAuthUserOrNull();
   const [popupOpen, setPopupOpen] = useState<boolean | undefined>(undefined);
   const handleClose = useCallback(() => {
     setPopupOpen(false);
