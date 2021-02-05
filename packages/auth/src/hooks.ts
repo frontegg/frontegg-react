@@ -4,9 +4,9 @@ import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
 import { authActions, AuthActions, AuthState, User } from '@frontegg/redux-store/auth';
 import { useMemo } from 'react';
+import { RedirectOptions } from '@frontegg/rest-api';
 
 export const pluginName = 'auth';
-const pluginActions = authActions;
 
 export type AuthMapper = {
   state: (state: AuthState) => any;
@@ -23,7 +23,7 @@ const defaultMapper: AuthMapper = {
 
 export const useAuth = <S extends object>(stateMapper: AuthStateMapper<S> = defaultMapper.state): S & AuthActions => {
   const dispatch = useDispatch();
-  const bindedActions = useMemo(() => bindActionCreators(pluginActions, dispatch), [pluginActions, dispatch]);
+  const bindedActions = useMemo(() => bindActionCreators(authActions, dispatch), [authActions, dispatch]);
   const state = useSelector((state: any) => stateMapper(state[pluginName]), memoEqual);
   return {
     ...(state as S),
@@ -32,8 +32,11 @@ export const useAuth = <S extends object>(stateMapper: AuthStateMapper<S> = defa
 };
 export const useAuthActions = (): AuthActions => {
   const dispatch = useDispatch();
-  return useMemo(() => bindActionCreators(pluginActions, dispatch), [pluginActions]);
+  return useMemo(() => bindActionCreators(authActions, dispatch), [authActions]);
 };
+
+export const useOnRedirectTo = (): ((path: string, opts?: RedirectOptions) => void) =>
+  useAuth((state) => state.onRedirectTo);
 
 /**
  * ```jsx
