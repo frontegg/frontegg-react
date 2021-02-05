@@ -67,17 +67,6 @@ const isExternal = (id) => {
 
 };
 
-function ReplaceReduxCodePlugin() {
-  return {
-    name: 'replace-redux-store',
-    generateBundle(options, bundle) {
-      Object.keys(bundle).forEach(b => {
-        bundle[b].code = bundle[b].code.replace('@frontegg/redux-store/dist/', '@frontegg/redux-store/');
-      });
-    },
-  };
-}
-
 const commonPlugins = [
 
   replace({
@@ -102,10 +91,6 @@ const commonPlugins = [
     sourceMap: false,
   }),
   isWatching && progress(),
-  // isProduction && terser({
-  //   ecma: '6', module: true,
-  // }),
-  new ReplaceReduxCodePlugin(),
 ];
 
 const esmPlugins = [

@@ -4,7 +4,7 @@ import { typeReducer } from './utils';
 import { initialState, reinitializeState } from './initialState';
 import { authStoreName } from '../constants';
 import { LoginActions, loginActions, loginReducers } from './LoginState';
-import { ActivateAccountActions, activateActions, activateReducers } from './ActivateState';
+import { ActivateAccountActions, activateAccountActions, activateAccountReducers } from './ActivateState';
 import { AcceptInvitationActions, acceptInvitationActions, acceptInvitationReducers } from './AcceptInvitationState';
 import { ForgotPasswordActions, forgotPasswordActions, forgotPasswordReducers } from './ForgotPasswordState';
 import { SSOActions, ssoActions, ssoReducers } from './SSOState';
@@ -24,7 +24,7 @@ const { reducer, actions: sliceActions } = createSlice({
     setUser: typeReducer<User>('user'),
     ...loginReducers,
     ...socialLoginsReducer,
-    ...activateReducers,
+    ...activateAccountReducers,
     ...acceptInvitationReducers,
     ...forgotPasswordReducers,
     ...signUpReducers,
@@ -40,7 +40,7 @@ const actions = {
   ...sliceActions,
   ...loginActions,
   ...socialLoginsActions,
-  ...activateActions,
+  ...activateAccountActions,
   ...acceptInvitationActions,
   ...forgotPasswordActions,
   ...signUpActions,
@@ -51,16 +51,24 @@ const actions = {
   ...apiTokensActions,
 };
 
-export type AuthActions = LoginActions &
-  SocialLoginActions &
-  ActivateAccountActions &
-  AcceptInvitationActions &
-  ForgotPasswordActions &
-  SignUpActions &
-  ProfileActions &
-  SSOActions &
-  MfaActions &
-  TeamActions &
-  ApiTokensActions;
+export type RootActions = {
+  setState: (state: Partial<AuthState>) => void;
+  resetState: () => void;
+  setUser: (user: User) => void;
+}
+
+export type AuthActions =
+  & RootActions
+  & LoginActions
+  & SocialLoginActions
+  & ActivateAccountActions
+  & AcceptInvitationActions
+  & ForgotPasswordActions
+  & SignUpActions
+  & ProfileActions
+  & SSOActions
+  & MfaActions
+  & TeamActions
+  & ApiTokensActions;
 
 export { reducer, actions };

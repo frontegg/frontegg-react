@@ -23,11 +23,17 @@ export interface Routes {
   routes: AuthPageRoutes;
 }
 
-export interface AuthState extends Routes {
+interface PluginOptions {
+  header?: any;
+  loaderComponent?: any;
+}
+
+export interface AuthState extends Routes, PluginOptions {
   onRedirectTo: (path: string, opts?: RedirectOptions) => void;
   error?: any;
   isAuthenticated: boolean;
   isLoading: boolean;
+  keepSessionAlive?: boolean;
   user?: User | null;
   isSSOAuth: boolean;
   ssoACS?: string;

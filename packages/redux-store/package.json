@@ -6,10 +6,6 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "dist/auth"
-  ],
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
     "build:watch": "rollup -w -c ./rollup.config.js",

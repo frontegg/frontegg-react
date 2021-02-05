@@ -37,4 +37,4 @@ type DispatchedActions = {
 const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, DispatchedActions> = {};
 
 export type ActivateAccountActions = DispatchedActions;
-export { activateState, reducers as activateReducers, actions as activateActions };
+export { activateState, reducers as activateAccountReducers, actions as activateAccountActions };
