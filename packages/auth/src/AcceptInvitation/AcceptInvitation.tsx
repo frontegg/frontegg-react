@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react';
+import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
+import { AcceptInvitationStep } from '@frontegg/redux-store/auth';
 import { Success, SuccessProps } from './Success';
 import { Failed, FailedProps } from './Failed';
-import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 import { authPageWrapper } from '../components';
 import { InvalidProps, Invalid } from './Invalid';
-import { useAuth } from '../hooks';
-import { AcceptInvitationStep } from '../Api';
 import { Pending, PendingProps } from './Pending';
+import { useAcceptInvitationActions, useAcceptInvitationState } from './hooks';
 
 type Components = {
   Success: SuccessProps;
@@ -21,7 +21,8 @@ export interface AcceptInvitationProps {
 }
 
 const AcceptInvitationComponent: FC<AcceptInvitationProps> = (props) => {
-  const { step, acceptInvitation } = useAuth((state) => state.acceptInvitationState);
+  const { acceptInvitation } = useAcceptInvitationActions();
+  const { step } = useAcceptInvitationState();
   const Dynamic = useDynamicComponents(defaultComponents, props);
 
   const url = new URL(window?.location.href);
