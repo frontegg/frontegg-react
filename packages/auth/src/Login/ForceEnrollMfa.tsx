@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react';
+import { MFAStep } from '@frontegg/redux-store/auth';
 import {
   validateSchema,
   validateTwoFactorCode,
@@ -11,11 +12,10 @@ import {
   Grid,
   FButton,
 } from '@frontegg/react-core';
-import { MFAStep } from '../Api';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
-import { useAuthMfaActions, useAuthMfaState } from '../MFA/hooks';
+import { useAuthMfaActions, useAuthMfaState } from '../MFA';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
-import { useAuthActions } from '../hooks';
+import { useLoginActions } from './hooks';
 
 const { Formik } = FFormik;
 
@@ -26,14 +26,10 @@ export interface ForceEnrollMfaProps {
 export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { t } = useT();
   const { renderer } = props;
-  const { requestAuthorize, setMfaState } = useAuthActions();
-  const { step, loading, recoveryCode, mfaToken } = useAuthMfaState(({ step, loading, recoveryCode, mfaToken }) => ({
-    step,
-    loading,
-    recoveryCode,
-    mfaToken,
-  }));
-  const { verifyMfaAfterForce } = useAuthMfaActions();
+  const { requestAuthorize } = useLoginActions();
+  const { step, loading, recoveryCode, mfaToken } = useAuthMfaState();
+  const { setMfaState, verifyMfaAfterForce } = useAuthMfaActions();
+
   const recoveryCodeRef = useRef<string>('');
 
   useEffect(() => {
@@ -90,7 +86,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
         verifyMfaAfterForce({
           mfaToken: mfaToken || '',
           value: token,
-          callback: (success) => {
+          callback: (success: boolean | null) => {
             if (success) {
               setMfaState({ recoveryCode });
             }

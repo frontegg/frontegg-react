@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ComponentsTypesWithProps, Loader, useDynamicComponents, useT, Button } from '@frontegg/react-core';
-import { AuthState, LoginStep } from '../Api';
+import { LoginStep } from '@frontegg/redux-store/auth';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
@@ -9,8 +9,9 @@ import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFacto
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
 import { ForceEnrollMfa, ForceEnrollMfaProps } from './ForceEnrollMfa';
-import { useAuth } from '../hooks';
+import { useAuth, useAuthRoutes, useOnRedirectTo } from '../hooks';
 import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
+import { useLoginActions, useLoginState } from './hooks';
 
 type Components = {
   LoginSuccessRedirect: LoginSuccessRedirectProps;
@@ -42,16 +43,16 @@ const defaultComponents = {
   ForceEnrollMfa,
   SocialLogins: SocialLoginsLoginWithWrapper,
 };
-const stateMapper = ({ isLoading, isAuthenticated, loginState, onRedirectTo, routes }: AuthState) => ({
-  isLoading,
-  isAuthenticated,
-  onRedirectTo,
-  routes,
-  ...loginState,
-});
+
 export const Login: FC<LoginProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponents, props);
-  const { isLoading, isAuthenticated, step, onRedirectTo, routes, resetLoginState } = useAuth(stateMapper);
+
+  const onRedirectTo = useOnRedirectTo();
+  const routes = useAuthRoutes();
+  const { resetLoginState } = useLoginActions();
+  const { isLoading, isAuthenticated } = useAuth(({ isLoading, isAuthenticated }) => ({ isLoading, isAuthenticated }));
+  const { step } = useLoginState(({ step }) => ({ step }));
+
   const { t } = useT();
 
   let components = null;
@@ -104,7 +105,7 @@ export const Login: FC<LoginProps> = (props) => {
 
 const LoginPageComponent = authPageWrapper(Login);
 export const LoginPage: FC<LoginProps> = (props) => {
-  const { isLoading, isAuthenticated } = useAuth(stateMapper);
+  const { isLoading, isAuthenticated } = useAuth(({ isLoading, isAuthenticated }) => ({ isLoading, isAuthenticated }));
   if (isLoading || isAuthenticated) {
     return (
       <div className='fe-login-page'>

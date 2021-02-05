@@ -11,7 +11,7 @@ import {
   FForm,
   FFormik,
 } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useLoginActions, useLoginState } from './hooks';
 
 const { Formik } = FFormik;
 
@@ -22,7 +22,8 @@ export interface RecoverTwoFactorProps {
 export const RecoverTwoFactor: FC<RecoverTwoFactorProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loading, error, email, recoverMfa } = useAuth((state) => state.loginState);
+  const { recoverMfa } = useLoginActions();
+  const { loading, error, email } = useLoginState();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
