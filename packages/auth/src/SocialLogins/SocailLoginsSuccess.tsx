@@ -3,17 +3,14 @@ import { Button, Loader, useT } from '@frontegg/react-core';
 import { useLocation } from 'react-router-dom';
 import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
-import { useAuth } from '../hooks';
+import { useAuth, useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useSocialLoginActions, useSocialLoginState } from './hooks';
 
 export const SocialLoginsSuccess: FC = () => {
-  const {
-    routes,
-    onRedirectTo,
-    resetSocialLoginsState,
-    setSocialLoginError,
-    loginViaSocialLogin,
-    SocialLoginState,
-  } = useAuth();
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const socialLoginState = useSocialLoginState();
+  const { resetSocialLoginsState, setSocialLoginError, loginViaSocialLogin } = useSocialLoginActions();
   const location = useLocation();
   const { t } = useT();
 
@@ -51,7 +48,7 @@ export const SocialLoginsSuccess: FC = () => {
     }
   }, []);
 
-  if (SocialLoginState.firstLoad || SocialLoginState.loading) {
+  if (socialLoginState.firstLoad || socialLoginState.loading) {
     return (
       <div className={'fe-center'}>
         <Loader />
@@ -61,7 +58,7 @@ export const SocialLoginsSuccess: FC = () => {
 
   return (
     <>
-      <div className='fe-error-message'>{SocialLoginState.error}</div>
+      <div className='fe-error-message'>{socialLoginState.error}</div>
       <Button
         fullWidth={true}
         onClick={() => {
