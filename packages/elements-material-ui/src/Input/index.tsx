@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, forwardRef, useCallback, useState } from 'react';
 import { InputProps } from '@frontegg/react-core';
 import {
   InputProps as MaterialInputProps,
@@ -144,6 +144,6 @@ const materialTextFieldMapper = (props: InputProps): MaterialTextFieldProps => {
   return mappedProps;
 };
 
-export const Input: FC<InputProps> = (props) => {
-  return <MaterialTextField {...materialTextFieldMapper(props)} />;
-};
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, forwardRef) => {
+  return <MaterialTextField {...materialTextFieldMapper(props)} inputRef={forwardRef} />;
+});

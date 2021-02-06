@@ -1,67 +1,91 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import {
-  PageTabProps,
   useT,
-  FFormik,
   FForm,
+  FFormik,
+  PageTabProps,
+  validateEmail,
   validateSchema,
   validateLength,
-  validateEmail,
 } from '@frontegg/react-core';
 import { ProfileImageUploader } from './ProfileImageUploader';
 import { ProfileBasicInformation } from './ProfileBasicInformation';
 import { useAuthProfile } from '../helpers';
 
 const { Formik } = FFormik;
-export const ProfileInfoPage: FC & PageTabProps = (props) => {
+export const ProfileInfoPage: FC & PageTabProps = ({ children }) => {
   const { profile, saveProfile } = useAuthProfile();
   const { t } = useT();
 
-  const children = props.children ?? (
-    <>
-      <ProfileImageUploader />
-      <ProfileBasicInformation />
-    </>
+  const isChildrenExist = !!children;
+
+  const initialValues = useMemo(
+    () =>
+      isChildrenExist
+        ? {
+            profilePictureUrl: profile?.profilePictureUrl ?? '',
+            name: profile?.name ?? '',
+            email: profile?.email ?? '',
+          }
+        : {
+            name: profile?.name ?? '',
+            email: profile?.email ?? '',
+          },
+    [profile, isChildrenExist]
   );
 
-  return (
-    <Formik
-      initialValues={{
-        profilePictureUrl: profile?.profilePictureUrl ?? '',
-        name: profile?.name ?? '',
-        email: profile?.email ?? '',
-      }}
-      validationSchema={validateSchema({
+  const profilePhotoInitialValues = useMemo(
+    () =>
+      isChildrenExist
+        ? {}
+        : {
+            profilePictureUrl: profile?.profilePictureUrl ?? '',
+          },
+    [profile, isChildrenExist]
+  );
+
+  const validationSchema = useMemo(
+    () =>
+      validateSchema({
         name: validateLength(t('common.name'), 2, t),
         email: validateEmail(t),
-      })}
+      }),
+    [t]
+  );
+
+  const handlerSubmit = useCallback((values) => {
+    saveProfile(values);
+  }, []);
+
+  return children ? (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
       enableReinitialize
-      onSubmit={(values, { resetForm, setSubmitting }) => {
-        saveProfile({
-          ...values,
-          callback: (profile) => {
-            setSubmitting(false);
-            if (profile) {
-              resetForm({
-                isSubmitting: false,
-                submitCount: 0,
-                errors: {},
-                touched: {},
-                values: {
-                  profilePictureUrl: profile?.profilePictureUrl ?? '',
-                  name: profile?.name ?? '',
-                  email: profile?.email ?? '',
-                } as any,
-              });
-            }
-          },
-        });
-      }}
+      onSubmit={handlerSubmit}
     >
       <FForm>
         <div className='fe-profile-info'>{children}</div>
       </FForm>
     </Formik>
+  ) : (
+    <div className='fe-profile-info'>
+      <Formik initialValues={profilePhotoInitialValues} enableReinitialize onSubmit={handlerSubmit}>
+        <FForm>
+          <ProfileImageUploader />
+        </FForm>
+      </Formik>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        enableReinitialize
+        onSubmit={handlerSubmit}
+      >
+        <FForm>
+          <ProfileBasicInformation />
+        </FForm>
+      </Formik>
+    </div>
   );
 };
 

@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { FButton, FInput, Grid, useT, FFormik } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
 
 const { useFormikContext } = FFormik;
+
 export const ProfileBasicInformation: FC = () => {
   const { t } = useT();
-  const { saving } = useAuth((state) => state.profileState);
+  const { isSubmitting } = useFormikContext();
   return (
     <div className='fe-profile-basic-information'>
       <div className='fe-section-title fe-bold fe-mb-2'>{t('auth.profile.info.title2')}</div>
@@ -24,7 +24,13 @@ export const ProfileBasicInformation: FC = () => {
         {/*  <FInput name='birthdate' label={t('common.date-of-birth')} />*/}
         {/*</Grid>*/}
         <Grid item xs={12}>
-          <FButton variant='primary' type='submit' fullWidth={false} loading={saving} data-test-id='updateinfo-btn'>
+          <FButton
+            variant='primary'
+            type='submit'
+            fullWidth={false}
+            loading={isSubmitting}
+            data-test-id='updateinfo-btn'
+          >
             Update Profile
           </FButton>
         </Grid>
