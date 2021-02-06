@@ -2,19 +2,9 @@
 
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
-import {
-  authActions,
-  AuthActions,
-  AuthPageRoutes,
-  AuthState,
-  ssoActions,
-  SSOActions,
-  ssoReducers,
-  SSOState,
-  User,
-} from '@frontegg/redux-store/auth';
+import { authActions, AuthActions, AuthPageRoutes, AuthState, User } from '@frontegg/redux-store/auth';
 import { useMemo } from 'react';
-import { RedirectOptions } from '@frontegg/rest-api';
+import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 export const pluginName = 'auth';
 
@@ -46,8 +36,7 @@ export const useAuthActions = (): AuthActions => {
   return useMemo(() => bindActionCreators(authActions, dispatch), [authActions]);
 };
 
-export const useOnRedirectTo = (): ((path: string, opts?: RedirectOptions) => void) =>
-  useAuth((state) => state.onRedirectTo);
+export const useOnRedirectTo = (): ((path: string, opts?: RedirectOptions) => void) => ContextHolder.onRedirectTo;
 
 export const useAuthRoutes = (): AuthPageRoutes => useAuth((state) => ({ ...state.routes }));
 
