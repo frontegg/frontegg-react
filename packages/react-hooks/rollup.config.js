@@ -1,6 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
 import ts from 'rollup-plugin-typescript2';
-import progress from 'rollup-plugin-progress';
 import path from 'path';
 import fs from 'fs';
 
@@ -16,6 +15,7 @@ function movePackageJson() {
       enhancedPkg.main = enhancedPkg.main.replace('dist/', '');
       enhancedPkg.module = enhancedPkg.module.replace('dist/', '');
       enhancedPkg.types = enhancedPkg.types.replace('dist/', '');
+      fs.mkdirSync(distFolder, { recursive: true });
       fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), {
         encoding: 'utf8',
       });
@@ -29,7 +29,7 @@ const commonPlugins = [
     preferBuiltins: false,
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   }),
-  progress(),
+  // progress(),
   movePackageJson(),
 ];
 
@@ -51,21 +51,16 @@ const esmPlugins = [
 
 const entryPoints = [
   'auth/index',
-  'toolkit/index',
-
   // Main Entry Point
   'index',
 ];
-const nodeModules = ['tslib', '@reduxjs/toolkit', 'redux-saga/effects', '@frontegg/rest-api', '/node_modules/'];
+const nodeModules = ['tslib', 'react', '@frontegg/rest-api', '@frontegg/redux-store', '/node_modules/'];
 
 export default {
   input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),
   plugins: esmPlugins,
   external: (id) => {
-    if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
-      return true;
-    }
-    return false;
+    return !!nodeModules.find((t) => id.indexOf(t) !== -1);
   },
   output: {
     dir: distFolder,

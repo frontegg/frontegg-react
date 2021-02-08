@@ -29,7 +29,7 @@ export function* afterAuthNavigation() {
     authenticatedUrl = afterAuthRedirect;
   }
   window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
-  yield delay(500);
+  yield delay(200);
   put(actions.resetLoginState());
   onRedirectTo(authenticatedUrl);
 }

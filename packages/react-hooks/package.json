@@ -1,0 +1,18 @@
+{
+  "name": "@frontegg/react-hooks",
+  "libName": "FronteggReduxStore",
+  "version": "1.21.1",
+  "author": "Frontegg LTD",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js",
+    "build:watch": "rollup -w -c ./rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
+  },
+  "dependencies": {
+    "react-redux": "^7.2.2",
+    "@frontegg/redux-store": "^1.21.1"
+  }
+}

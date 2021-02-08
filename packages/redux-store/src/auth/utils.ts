@@ -1,9 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AuthState } from './interfaces';
-import { generateActionCreator } from '../helpers';
-import { authStoreName } from '../constants';
 
-export const authActionCreator = generateActionCreator(authStoreName);
 export const resetStateByKey = <T>(key: keyof AuthState, initialState: Partial<AuthState>) => (state: AuthState) => ({
   ...state,
   [key]: initialState[key],
