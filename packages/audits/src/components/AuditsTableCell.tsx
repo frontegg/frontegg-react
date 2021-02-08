@@ -24,23 +24,23 @@ const AuditsTag: CellComponent = (props) => {
 const UserAgent: CellComponent = ({ value }) => {
   const browser = useMemo(() => {
     const browser = new UAParser(value).getBrowser().name;
-    return browser && browsers.includes(browser.toLowerCase() ?? '') ? browser : 'Web';
+    return browser && browsers.includes(browser?.toLowerCase() ?? '') ? browser : 'Web';
   }, [value]);
 
-  return value ? (
+  if (!value) {
+    return null;
+  }
+
+  const imgSrc = `//cdnjs.cloudflare.com/ajax/libs/browser-logos/69.0.4/${browser.toLowerCase()}/${browser.toLowerCase()}_${sizeOfIcon}x${sizeOfIcon}.png`;
+  return (
     <div className={classNames('fe-audits__severity')}>
       <Popup
         action='hover'
         content={<div className={`${prefixCls}__useragent-hover`}>{value}</div>}
-        trigger={
-          <img
-            alt={browser}
-            src={`//cdnjs.cloudflare.com/ajax/libs/browser-logos/69.0.4/${browser.toLowerCase()}/${browser.toLowerCase()}_${sizeOfIcon}x${sizeOfIcon}.png`}
-          />
-        }
+        trigger={<img alt={browser} src={imgSrc} />}
       />
     </div>
-  ) : null;
+  );
 };
 
 export const getAuditsTableCells = (column: string): CellComponent => {
