@@ -1,5 +1,9 @@
 export const str2bool = (str?: string) => {
-  switch (str?.toLowerCase()) {
+  const value = str?.toLowerCase?.();
+  if (!value) {
+    return false;
+  }
+  switch (value) {
     case 'yes':
     case 'always':
       return true;

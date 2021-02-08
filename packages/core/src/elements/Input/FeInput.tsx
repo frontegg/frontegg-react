@@ -1,27 +1,34 @@
-import React, { ChangeEvent, FC, InputHTMLAttributes, TextareaHTMLAttributes, useCallback, useState } from 'react';
-import { InputProps } from './interfaces';
-import { ClassNameGenerator } from '../../styles';
-import { FeIcon } from '../Icon/FeIcon';
+import React, {
+  useState,
+  forwardRef,
+  ChangeEvent,
+  useCallback,
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+} from 'react';
 import classNames from 'classnames';
+import { FeIcon } from '../Icon/FeIcon';
+import { InputProps } from './interfaces';
 import { FeButton } from '../Button/FeButton';
+import { ClassNameGenerator } from '../../styles';
 import './FeInput.scss';
 
 const prefixCls = 'fe-input';
-export const FeInput: FC<InputProps> = (props) => {
+export const FeInput = forwardRef<HTMLInputElement, InputProps>((props, forwardRef) => {
   const {
-    className,
-    onSearch: propsOnSearch,
-    variant,
-    type: propsType = 'text',
     size,
     label,
+    error,
+    inForm,
+    variant,
+    className,
+    multiline,
+    fullWidth,
     prefixIcon,
     suffixIcon,
-    error,
-    multiline,
     labelButton,
-    fullWidth,
-    inForm,
+    onSearch: propsOnSearch,
+    type: propsType = 'text',
     ...restProps
   } = props;
   const { iconAction, ...propsWithoutJunk } = restProps;
@@ -94,7 +101,8 @@ export const FeInput: FC<InputProps> = (props) => {
             value: props.hasOwnProperty('value') ? props.value : text,
             onChange: props.onChange || changeText,
             type,
-          }
+            ref: forwardRef,
+          } as any
         )}
 
         {propsType === 'password' && (
@@ -113,4 +121,4 @@ export const FeInput: FC<InputProps> = (props) => {
       {error && <div className={`${prefixCls}__error`}>{error}</div>}
     </div>
   );
-};
+});
