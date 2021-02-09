@@ -13,12 +13,12 @@ import { ProfileInfoPage } from './ProfileInfoPage';
 import { ProfilePasswordSettingsPage } from './ProfilePasswordSettingsPage';
 import { ProfileMfaPage } from './ProfileMfaPage';
 import { Redirect, Route, Switch } from 'react-router';
-import { useAuth } from '../hooks';
+import { useAuthUser } from '../hooks';
 
 export const ProfileTabs = PageTabs;
 const logger = Logger.from('ProfileRouter');
 export const ProfileRouter: FC<BasePageProps> = (props) => {
-  const { verified } = useAuth((state) => ({ verified: state.user?.verified }));
+  const { verified } = useAuthUser();
   const [rootPath, isRootPathContext] = useRootPath(props, '/profile');
   reloadProfileIfNeeded();
   checkValidChildren('Profile.Router', 'Profile', props.children, {

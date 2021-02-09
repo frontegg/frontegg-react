@@ -1,7 +1,7 @@
 import React, { ComponentType, FC, useMemo, useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
-import { Tabs } from '../../elements/Tabs';
 import { ContextHolder } from '@frontegg/rest-api';
+import { Tabs } from '../../elements/Tabs';
 
 export type PageTabProps = {
   Title: ComponentType;
@@ -24,14 +24,8 @@ export const PageTabs: FC<TabsProps> = (props) => {
   const location = useLocation();
   const firstMatch = useMemo(() => findMatchPath(location.pathname, props.tabs), []);
   const [activeTab, setActiveTab] = useState(firstMatch);
-  const items = useMemo(() => props.tabs.map(({ Title }) => Title), [props.tabs]);
-
-  const disabledTabs = useMemo(
-    () =>
-      props.tabs.reduce((acc: number[], { disabled }: PageTabProps, idx: number) => {
-        if (disabled) return [...acc, idx];
-        return acc;
-      }, []),
+  const items = useMemo(
+    () => props.tabs.map(({ Title, disabled }) => ({ Title: React.createElement(Title), disabled })),
     [props.tabs]
   );
 
@@ -40,7 +34,6 @@ export const PageTabs: FC<TabsProps> = (props) => {
       <Tabs
         items={items}
         activeTab={activeTab}
-        disabledTabs={disabledTabs}
         onTabChange={(_event, activeTab) => {
           ContextHolder.onRedirectTo(props.tabs[activeTab].route, { replace: true });
           setActiveTab(activeTab);

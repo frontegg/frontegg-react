@@ -6,21 +6,22 @@ import './FeTabs.scss';
 const clsPrefix = 'fe-core-tabs';
 
 export const FeTabs = (props: TabProps) => {
-  const { activeTab, items, onTabChange, disabledTabs } = props;
+  const { activeTab, items, onTabChange } = props;
+
   return (
     <div className='fe-core-tabs'>
       <div className={`${clsPrefix}-menu`}>
-        {items.map((i, idx) => (
+        {items.map(({ disabled, Title }, idx) => (
           <Tab
             className={classNames(`${clsPrefix}-item`, {
               [`${clsPrefix}-item-active`]: activeTab === idx,
             })}
             idx={idx}
             onClick={onTabChange}
-            disabled={!!disabledTabs?.includes(idx)}
+            disabled={disabled}
             key={idx}
           >
-            {React.createElement(i)}
+            {Title ?? ''}
           </Tab>
         ))}
       </div>
@@ -29,7 +30,7 @@ export const FeTabs = (props: TabProps) => {
 };
 
 type TTab = {
-  children: JSX.Element;
+  children: JSX.Element | string;
   className?: string;
   idx: number;
   disabled?: boolean;

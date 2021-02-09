@@ -1,9 +1,11 @@
-import { ComponentType } from 'react';
-
 export interface TabProps {
   className?: string;
-  items: ComponentType[];
+  items: TabItem[];
   activeTab: number;
-  disabledTabs?: number[];
   onTabChange: (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => void;
+}
+
+export interface TabItem {
+  disabled?: boolean;
+  Title?: JSX.Element | string;
 }
