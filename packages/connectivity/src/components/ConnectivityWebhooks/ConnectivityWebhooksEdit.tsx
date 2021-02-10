@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo } from 'react';
-import { Icon, Tabs, usePrevious, useSelector, useT } from '@frontegg/react-core';
+import { Icon, Tabs, TabItem, usePrevious, useSelector, useT } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
 import { IPluginState } from '../../interfaces';
 import { ConnectivityWebhooksForm } from './ConnectivityWebhooksForm';
@@ -10,7 +10,7 @@ const itemsArray = ['common.detail', 'common.logs'];
 
 export const ConnectivityWebhooksEdit: FC = () => {
   const { t } = useT();
-  const items = useMemo(() => itemsArray.map((el) => () => <>{t(el)}</>), [t]);
+  const items: TabItem[] = useMemo(() => itemsArray.map((el) => ({ Title: t(el) })), [t]);
 
   const {
     replace: historyReplace,
@@ -36,7 +36,7 @@ export const ConnectivityWebhooksEdit: FC = () => {
   }, [prevIsSaving, isSaving, onBack, error]);
 
   const onChangeTab = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => {
+    (_event: React.MouseEvent<HTMLDivElement>, activeIndex: number) => {
       historyReplace({ ...location, state: { ...locationState, view: activeIndex === 1 ? 'log' : 'edit' } });
     },
     [historyReplace, location, locationState]

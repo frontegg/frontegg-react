@@ -29,6 +29,7 @@ export interface User extends IUserProfile {
   refreshToken: string;
   expiresIn: number;
   expires: string;
+  verified?: boolean | null;
 }
 
 interface Routes {
