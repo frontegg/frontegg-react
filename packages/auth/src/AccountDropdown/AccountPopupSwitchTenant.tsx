@@ -6,6 +6,7 @@ import { useAuth } from '../hooks';
 type AccountPopupSwitchTenantProps = {
   show: boolean;
   onClose: () => void;
+  title?: string;
 };
 
 export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (props) => {
@@ -29,7 +30,7 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
         <Button iconButton size={'small'} onClick={props.onClose} data-test-id='close-btn'>
           <Icon name='back' />
         </Button>
-        <span>{t('common.switchTenant')}</span>
+        <span>{props.title ?? t('common.switchTenant')}</span>
       </div>
       <div className='fe-account-switch-tenant__body'>
         {tenantsLoading && <Loader center={true} />}
