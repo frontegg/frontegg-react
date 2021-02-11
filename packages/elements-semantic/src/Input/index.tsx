@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { InputProps } from '@frontegg/react-core';
 import { Form, StrictInputProps, StrictTextAreaProps } from 'semantic-ui-react';
 import { Button } from '../Button';
@@ -24,48 +24,46 @@ const mapper = (props: InputProps): StrictInputProps | StrictFormInputProps | St
   return data;
 };
 
-export class Input extends React.Component<InputProps> {
-  render() {
-    const { children, labelButton, multiline, label, ...rest } = this.props;
-    let inputLabel: JSX.Element | string | undefined = label;
-    let iconContent: any;
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ children, labelButton, multiline, label, ...restProps }, forwardRef) => {
+    const inputLabel = useMemo(
+      () =>
+        labelButton ? (
+          <label className='fe-label__with-button'>
+            {label}
+            <Button {...labelButton} />
+          </label>
+        ) : (
+          label
+        ),
+      [labelButton, label]
+    );
 
-    if (labelButton) {
-      inputLabel = (
-        <label className='fe-label__with-button'>
-          {label}
-          <Button {...labelButton} />
-        </label>
-      );
-    }
+    const iconContent = useMemo(() => restProps.prefixIcon ?? restProps.suffixIcon, [restProps]);
 
-    if (rest.prefixIcon) {
-      iconContent = rest.prefixIcon;
-    } else if (rest.suffixIcon) {
-      iconContent = rest.suffixIcon;
-    }
-
-    const inputProps = { ...mapper(this.props), label: inputLabel };
+    const inputProps = { ...mapper(restProps), label: inputLabel };
+    console.log(forwardRef);
 
     return multiline ? (
-      <Form.TextArea {...(inputProps as StrictTextAreaProps)}></Form.TextArea>
-    ) : rest.iconAction ? (
+      <Form.TextArea {...(inputProps as StrictTextAreaProps)} ref={forwardRef}></Form.TextArea>
+    ) : restProps.iconAction ? (
       <Form.Input
         {...(inputProps as StrictInputProps | StrictFormInputProps)}
         icon
         action={{
           icon: iconContent,
-          onClick: rest.iconAction,
+          onClick: restProps.iconAction,
         }}
+        ref={forwardRef}
       >
         {children}
       </Form.Input>
     ) : (
       <Form.Input {...(inputProps as StrictInputProps | StrictFormInputProps)} icon>
-        <input />
+        <input ref={forwardRef} />
         {iconContent}
         {children}
       </Form.Input>
     );
   }
-}
+);

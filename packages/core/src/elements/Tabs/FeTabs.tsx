@@ -1,4 +1,4 @@
-import React, { FC, useMemo, cloneElement, MouseEvent, ComponentType, ReactNode } from 'react';
+import React from 'react';
 import { TabProps } from './interfaces';
 import classNames from 'classnames';
 import './FeTabs.scss';
@@ -11,16 +11,17 @@ export const FeTabs = (props: TabProps) => {
   return (
     <div className='fe-core-tabs'>
       <div className={`${clsPrefix}-menu`}>
-        {items.map((i, idx) => (
+        {items.map(({ disabled, Title }, idx) => (
           <Tab
             className={classNames(`${clsPrefix}-item`, {
               [`${clsPrefix}-item-active`]: activeTab === idx,
             })}
             idx={idx}
             onClick={onTabChange}
+            disabled={disabled}
             key={idx}
           >
-            {React.createElement(i)}
+            {Title ?? ''}
           </Tab>
         ))}
       </div>
@@ -29,16 +30,17 @@ export const FeTabs = (props: TabProps) => {
 };
 
 type TTab = {
-  children: JSX.Element;
+  children: JSX.Element | string;
   className?: string;
   idx: number;
+  disabled?: boolean;
   onClick: (e: any, activeTab: number) => void;
 };
 
 export const Tab = (props: TTab) => {
-  const { children, className, onClick, idx } = props;
+  const { children, className, onClick, idx, disabled } = props;
   return (
-    <a onClick={(e) => onClick(e, idx)} className={className}>
+    <a onClick={(e) => onClick(e, idx)} className={classNames(className, { disabled })}>
       {children}
     </a>
   );

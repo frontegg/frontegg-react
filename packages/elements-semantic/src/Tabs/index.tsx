@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TabProps } from '@frontegg/react-core';
+import { TabProps, TabItem } from '@frontegg/react-core';
 import { Tab as SemanticTab, TabProps as SemanticTabProps, Menu } from 'semantic-ui-react';
 import classNames from 'classnames';
 import './style.scss';
@@ -9,7 +9,13 @@ const mapper = ({ activeTab, onTabChange, items, className, ...props }: TabProps
   activeIndex: activeTab,
   onTabChange: (e, data) => onTabChange(e, data.activeIndex as number),
   menu: { secondary: true, pointing: true },
-  panes: items.map((m, index) => ({ menuItem: <Tab key={index}>{React.createElement(m)}</Tab> })),
+  panes: items.map(({ Title, disabled }: TabItem, index: number) => ({
+    menuItem: (
+      <Tab key={index} disabled={disabled}>
+        {Title}
+      </Tab>
+    ),
+  })),
   className: classNames('fe-semantic-tabs', className),
   ...props,
 });

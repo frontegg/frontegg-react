@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TabProps } from '@frontegg/react-core';
+import { TabProps, TabItem } from '@frontegg/react-core';
 import { Tabs as MaterialTabs, TabsProps as MaterialTabsProps, Tab as MaterialTab } from '@material-ui/core';
 
 const mapper = ({ activeTab, onTabChange, className }: TabProps): MaterialTabsProps => ({
@@ -9,9 +9,10 @@ const mapper = ({ activeTab, onTabChange, className }: TabProps): MaterialTabsPr
 });
 
 export const Tabs: FC<TabProps> = (props) => {
-  const tabs = props.items.map((m: any, index: number) => (
-    <MaterialTab key={index} value={index} label={React.createElement(m)} />
+  const tabs = props.items.map(({ Title, disabled }: TabItem, index: number) => (
+    <MaterialTab key={index} value={index} disabled={disabled} label={Title} />
   ));
+
   const tabsProps = mapper(props);
   return (
     <MaterialTabs textColor={'primary'} indicatorColor={'primary'} {...tabsProps}>

@@ -6,10 +6,12 @@ import { ProfileInfoPage } from './ProfileInfoPage';
 import { ProfilePasswordSettingsPage } from './ProfilePasswordSettingsPage';
 import { ProfileMfaPage } from './ProfileMfaPage';
 import { Redirect, Route, Switch } from 'react-router';
+import { useAuthUser } from '../hooks';
 
 export const ProfileTabs = PageTabs;
 const logger = Logger.from('ProfileRouter');
 export const ProfileRouter: FC<BasePageProps> = (props) => {
+  const { verified } = useAuthUser();
   const [rootPath, isRootPathContext] = useRootPath(props, '/profile');
   reloadProfileIfNeeded();
 
@@ -21,13 +23,19 @@ export const ProfileRouter: FC<BasePageProps> = (props) => {
     </>
   );
 
-  const [tabs, invalidTabs] = buildTabsFromChildren(rootPath, children);
+  const [defaultTabs, invalidTabs] = buildTabsFromChildren(rootPath, children);
   invalidTabs.length > 0 &&
     logger.error(`Children at positions [${invalidTabs.join(', ')}] should implement ProfilePage interface.`);
 
   if (!isRootPathContext) {
     return <RootPathContext.Provider value={rootPath}>{children}</RootPathContext.Provider>;
   }
+
+  const tabs = defaultTabs.map((tab) => {
+    if (!verified && tab.route.includes('password')) return { ...tab, disabled: true };
+    return tab;
+  });
+
   return (
     <>
       <ProfileTabs tabs={tabs} />
