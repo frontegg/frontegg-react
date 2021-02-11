@@ -16,6 +16,7 @@ interface Components {
 export interface SignUpProps {
   components?: ComponentsTypesWithProps<Components>;
   withCompanyName?: boolean;
+  showBackButton?: boolean;
 }
 
 const defaultComponents = {

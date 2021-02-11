@@ -35,7 +35,7 @@ interface Routes {
   routes: AuthPageRoutes;
 }
 
-export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps'>, Routes {
+export interface AuthState extends Omit<AuthPageProps, 'pageHeader'>, Routes {
   onRedirectTo: (path: string, opts?: RedirectOptions) => void;
   error?: any;
   isAuthenticated: boolean;
@@ -54,4 +54,5 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   socialLoginsState: SocialLoginsState;
   signUpState: SignUpState;
   apiTokensState: ApiTokensState;
+  pageProps?: any;
 }
