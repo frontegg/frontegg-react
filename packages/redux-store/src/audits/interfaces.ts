@@ -79,7 +79,6 @@ export interface ThemeOptions {
   notificationsPaginationWeight?: string;
 }
 
-
 export interface HeaderProps {
   chosen: boolean;
   selected: boolean;
@@ -98,12 +97,12 @@ export interface AuditsFilter {
 }
 
 export type AuditsErrorKeys = {
-  [S in keyof AuditsState['error']]: any
+  [S in keyof AuditsState['error']]: any;
 };
 
 export interface AuditsState {
   total: number;
-  error?: { metadata?: string, stats?: string, audits?: string };
+  error?: { metadata?: string; stats?: string; audits?: string };
   offset: number;
   filter: string;
   sortBy: string;

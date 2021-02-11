@@ -9,7 +9,7 @@ import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '
 export type ActivateAccountStateMapper<S extends object> = (state: ActivateAccountState) => S;
 
 export const useActivateAccountState: StateHookFunction<ActivateAccountState> = <S extends object>(
-  stateMapper?: ActivateAccountStateMapper<S>,
+  stateMapper?: ActivateAccountStateMapper<S>
 ): S => stateHookGenerator(stateMapper, 'activateState');
 
 export const useActivateAccountActions = (): ActivateAccountActions =>

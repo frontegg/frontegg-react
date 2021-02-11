@@ -12,7 +12,6 @@ export const typeReducerForKey = <T>() => ({
   },
 });
 
-
 export const filterToObject = (arr: AuditsFilter[]) => {
   return arr.reduce((res: Record<string, string>, curr) => {
     res[curr.key] = curr.value;

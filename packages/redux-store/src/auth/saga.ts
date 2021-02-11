@@ -10,6 +10,7 @@ import { socialLoginsSaga } from './SocialLogins/saga';
 import { signUpSaga } from './SignUp/saga';
 import { all, call } from 'redux-saga/effects';
 import { apiTokensSaga } from './ApiTokensState/saga';
+import { securityPolicySagas } from './SecurityPolicyState/saga';
 
 export function* sagas() {
   yield all([
@@ -24,5 +25,6 @@ export function* sagas() {
     call(socialLoginsSaga),
     call(signUpSaga),
     call(apiTokensSaga),
+    call(securityPolicySagas),
   ]);
 }

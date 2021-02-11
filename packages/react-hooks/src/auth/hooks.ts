@@ -72,7 +72,6 @@ export const useAuthUserOrNull = (): User | null => {
   return user || null;
 };
 
-
 /**
  * hooks helpers
  */
@@ -82,9 +81,12 @@ export const sliceReducerActionsBy = <T extends SliceCaseReducers<any>>(reducer:
   return reducerActions.reduce((p, n) => ({ ...p, ...n }), {}) as CaseReducerActions<T>;
 };
 export const stateHookGenerator = (stateMapper: any, subState: keyof AuthState): any => {
-  return useSelector((state: any) => stateMapper?.(state[authStoreName][subState]) ?? state[authStoreName][subState], shallowEqual);
+  return useSelector(
+    (state: any) => stateMapper?.(state[authStoreName][subState]) ?? state[authStoreName][subState],
+    shallowEqual
+  );
 };
 export const reducerActionsGenerator = (actions: any, reducers: SliceCaseReducers<any>) => {
   const dispatch = useDispatch();
-  return bindActionCreators({ ...actions, ...sliceReducerActionsBy(reducers) }, dispatch);
+  return useMemo(() => bindActionCreators({ ...actions, ...sliceReducerActionsBy(reducers) }, dispatch), [dispatch]);
 };

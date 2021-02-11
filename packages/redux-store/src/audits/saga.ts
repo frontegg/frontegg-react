@@ -29,10 +29,12 @@ function* loadMetadata() {
   const name = 'metadata';
   try {
     const { properties: headerProps, theme } = yield call(api.metadata.getAuditsMetadata);
-    yield put(actions.setAuditsState({
-      headerProps,
-      themeAudits: theme?.styles ?? {},
-    }));
+    yield put(
+      actions.setAuditsState({
+        headerProps,
+        themeAudits: theme?.styles ?? {},
+      })
+    );
     yield put(actions.setAuditsError({ [name]: undefined }));
   } catch (e) {
     yield put(actions.setAuditsError({ [name]: e }));
@@ -56,12 +58,14 @@ function* loadAudits({ payload }: PayloadAction<LoadAuditsPayload>) {
     });
 
     const { rowsData } = appendMode ? yield select() : { rowsData: [] };
-    yield put(actions.setAuditsState({
-      rowsData: [...rowsData, ...data],
-      total,
-      lastUpdated: new Date(),
-      ...(onlyOneLoad ? { isLoading: false } : {}),
-    }));
+    yield put(
+      actions.setAuditsState({
+        rowsData: [...rowsData, ...data],
+        total,
+        lastUpdated: new Date(),
+        ...(onlyOneLoad ? { isLoading: false } : {}),
+      })
+    );
     yield put(actions.setAuditsError({ [name]: undefined }));
   } catch (e) {
     yield put(actions.setAuditsError({ [name]: e }));

@@ -61,9 +61,4 @@ const Matcher: ActionDispatchMatcher<typeof reducers, typeof actions, Dispatched
 
 export type AuditsActions = DispatchedActions;
 
-export {
-  initialState as auditsState,
-  reducers as auditsReducers,
-  actions as auditsActions,
-  reducer,
-};
+export { initialState as auditsState, reducers as auditsReducers, actions as auditsActions, reducer };

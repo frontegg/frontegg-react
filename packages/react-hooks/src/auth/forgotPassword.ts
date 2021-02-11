@@ -9,7 +9,7 @@ import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '
 export type ForgotPasswordStateMapper<S extends object> = (state: ForgotPasswordState) => S;
 
 export const useForgotPasswordState: StateHookFunction<ForgotPasswordState> = <S extends object>(
-  stateMapper?: ForgotPasswordStateMapper<S>,
+  stateMapper?: ForgotPasswordStateMapper<S>
 ): S => stateHookGenerator(stateMapper, 'forgotPasswordState');
 
 export const useForgotPasswordActions = (): ForgotPasswordActions =>

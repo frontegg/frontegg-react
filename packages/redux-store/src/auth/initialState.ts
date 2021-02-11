@@ -10,6 +10,7 @@ import { teamState } from './TeamState';
 import { socialLoginState } from './SocialLogins';
 import { signUpState } from './SignUp';
 import { apiTokensState } from './ApiTokensState';
+import { securityPolicyState } from './SecurityPolicyState';
 
 export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isAuthenticated: false,
@@ -28,6 +29,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   teamState,
   socialLoginState,
   apiTokensState,
+  securityPolicyState,
 };
 export const initialState: AuthState = {
   routes: {

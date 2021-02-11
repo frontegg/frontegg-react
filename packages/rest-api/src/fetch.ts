@@ -40,7 +40,7 @@ async function prepareUrl(context: ContextOptions, url: string, params?: any): P
 
 async function buildRequestHeaders(
   context: ContextOptions,
-  contentType: string | undefined,
+  contentType: string | undefined
 ): Promise<Record<string, string>> {
   const authToken = await (context?.tokenResolver ?? ContextHolder.getAccessToken)();
   const headers: Record<string, string> = {};
@@ -115,8 +115,7 @@ const sendRequest = async (opts: RequestOptions) => {
     try {
       errorMessage = await response.text();
       errorMessage = JSON.parse(errorMessage);
-    } catch (e) {
-    }
+    } catch (e) {}
     if (errorMessage.errors) {
       errorMessage = errorMessage.errors.join(', ');
     } else if (typeof errorMessage !== 'string') {

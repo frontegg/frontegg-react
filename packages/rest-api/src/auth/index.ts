@@ -1,6 +1,9 @@
 import { IUpdateSamlRoles } from './interfaces';
-/* tslint:disable:no-console */
 
+export * from './secutiry-poilicy';
+
+/* tslint:disable:no-console */
+// noinspection JSUnusedGlobalSymbols
 import jwtDecode from 'jwt-decode';
 import { Get, Post, Put, Delete } from '../fetch';
 import {
@@ -13,6 +16,7 @@ import {
   IDENTITY_API_TOKENS_USERS_SERVICE,
   IDENTITY_API_TOKENS_TENANTS_SERVICE,
 } from '../constants';
+
 import {
   IActivateAccount,
   IDisableMfa,
@@ -303,7 +307,7 @@ export async function validateSamlDomain(): Promise<ISamlConfiguration> {
  *  Get Saml roles for authorization
  * @return array of role IDs
  */
-export async function getSamlRoles(): Promise<Array<string>> {
+export async function getSamlRoles(): Promise<string[]> {
   console.debug('getSamlRoles()');
   return Get(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`);
 }
@@ -358,7 +362,7 @@ export async function signUpUser(body: ISignUpUser): Promise<ISignUpResponse> {
 /**
  * Get user api tokens data
  */
-export async function getUserApiTokensData(): Promise<Array<IUserApiTokensData>> {
+export async function getUserApiTokensData(): Promise<IUserApiTokensData[]> {
   console.debug('getUserApiTokensData()');
   return Get(`${IDENTITY_API_TOKENS_USERS_SERVICE}`);
 }
@@ -366,7 +370,7 @@ export async function getUserApiTokensData(): Promise<Array<IUserApiTokensData>>
 /**
  * Get tenant api tokens data
  */
-export async function getTenantApiTokensData(): Promise<Array<ITenantApiTokensData>> {
+export async function getTenantApiTokensData(): Promise<ITenantApiTokensData[]> {
   console.debug('geTenantApiTokensData()');
   return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`);
 }

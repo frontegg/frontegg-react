@@ -3,7 +3,7 @@ import { IChangePassword } from '@frontegg/rest-api';
 import { ProfileState, SaveProfilePayload } from './interfaces';
 import { resetStateByKey, typeReducerForKey } from '../utils';
 import { authStoreName } from '../../constants';
-import { ActionDispatchMatcher } from '../../interfaces';
+import { ActionDispatchMatcher, WithCallback } from '../../interfaces';
 
 const profileState: ProfileState = {
   loading: false,
@@ -18,7 +18,9 @@ const reducers = {
 const actions = {
   loadProfile: createAction(`${authStoreName}/loadProfile`),
   saveProfile: createAction(`${authStoreName}/saveProfile`, (payload: SaveProfilePayload) => ({ payload })),
-  changePassword: createAction(`${authStoreName}/changePassword`, (payload: IChangePassword) => ({ payload })),
+  changePassword: createAction(`${authStoreName}/changePassword`, (payload: WithCallback<IChangePassword>) => ({
+    payload,
+  })),
 };
 
 /**
@@ -30,7 +32,7 @@ type DispatchedActions = {
   resetProfileState: () => void;
   loadProfile: () => void;
   saveProfile: (payload: SaveProfilePayload) => void;
-  changePassword: (payload: IChangePassword) => void;
+  changePassword: (payload: WithCallback<IChangePassword>) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

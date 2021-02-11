@@ -102,5 +102,5 @@ export const stateHookGenerator = (stateMapper: any, subState: keyof AuthState):
 };
 export const reducerActionsGenerator = (actions: any, reducers: SliceCaseReducers<any>) => {
   const dispatch = useDispatch();
-  return bindActionCreators({ ...actions, ...sliceReducerActionsBy(reducers) }, dispatch);
+  return useMemo(() => bindActionCreators({ ...actions, ...sliceReducerActionsBy(reducers) }, dispatch), [dispatch]);
 };

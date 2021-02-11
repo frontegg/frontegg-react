@@ -10,3 +10,4 @@ export * from './socialLogin';
 export * from './team';
 export * from './sso';
 export * from './hooks';
+export * from './securityPolicy';

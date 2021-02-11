@@ -22,6 +22,22 @@ export const typeReducerForKey = <T>(key: keyof AuthState) => ({
   },
 });
 
+export const typeReducerNestedKey = <T, K>(key: keyof AuthState, nestedKey: keyof T) => ({
+  prepare: (payload: Partial<K>) => ({ payload }),
+  reducer: (state: AuthState, { payload }: PayloadAction<Partial<K>>) => {
+    return {
+      ...state,
+      [key]: {
+        ...state[key],
+        [nestedKey]: {
+          ...state?.[key]?.[nestedKey],
+          ...payload,
+        },
+      },
+    };
+  },
+});
+
 export const loadersReducerForKey = <T extends { key: string; value: string | boolean }>(key: keyof AuthState) => ({
   prepare: (payload: T) => ({ payload }),
   reducer: (state: AuthState, { payload }: PayloadAction<T>): AuthState => ({

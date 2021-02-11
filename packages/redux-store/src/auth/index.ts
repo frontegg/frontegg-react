@@ -39,6 +39,9 @@ export * from './SignUp';
 export * from './ApiTokensState/interfaces';
 export * from './ApiTokensState';
 
+export * from './SecurityPolicyState/interfaces';
+export * from './SecurityPolicyState';
+
 export { AuthActions } from './reducer';
 
 export {

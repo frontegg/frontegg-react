@@ -88,13 +88,15 @@ function* saveProfile({
   }
 }
 
-function* changePassword({ payload }: PayloadAction<IChangePassword>) {
+function* changePassword({ payload }: PayloadAction<WithCallback<IChangePassword>>) {
   yield put(actions.setProfileState({ loading: true }));
   try {
     yield call(api.teams.changePassword, payload);
     yield put(actions.setProfileState({ loading: false, error: undefined }));
+    payload.callback?.(true);
   } catch (e) {
     yield put(actions.setProfileState({ loading: false, error: e.message }));
+    payload.callback?.(null, e);
   }
 }
 

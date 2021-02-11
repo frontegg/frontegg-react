@@ -1,5 +1,7 @@
 import { IUserProfile } from '..';
 
+export * from './secutiry-poilicy/interfaces';
+
 export type IPreLogin = { email: string };
 export type IPostLogin = {
   RelayState: string;

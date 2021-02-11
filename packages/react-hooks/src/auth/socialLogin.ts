@@ -9,7 +9,7 @@ import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '
 export type SocialLoginStateMapper<S extends object> = (state: SocialLoginState) => S;
 
 export const useSocialLoginState: StateHookFunction<SocialLoginState> = <S extends object>(
-  stateMapper?: SocialLoginStateMapper<S>,
+  stateMapper?: SocialLoginStateMapper<S>
 ): S => stateHookGenerator(stateMapper, 'socialLoginState');
 
 export const useSocialLoginActions = (): SocialLoginActions =>
