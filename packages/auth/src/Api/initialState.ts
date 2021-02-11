@@ -43,6 +43,8 @@ export const initialState: AuthState = {
     signUpUrl: '/account/sign-up',
   },
   onRedirectTo: () => {},
-
+  pageProps: {
+    signUp: { showBackButton: true },
+  },
   ...reinitializeState,
 };
