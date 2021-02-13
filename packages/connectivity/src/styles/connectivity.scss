@@ -99,7 +99,7 @@
       .MuiTable-root,
       .fe-table {
         min-width: 10.64rem !important;
-        __thead {
+        &__thead {
           &-tr-th {
             display: none;
             &:first-child {
@@ -116,6 +116,9 @@
             flex: 0 0 100% !important;
             width: 100% !important;
           }
+        }
+        &__table-container {
+          overflow-y: hidden;
         }
       }
     }
