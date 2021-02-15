@@ -1,5 +1,4 @@
 import {
-  ISaveSecurityPolicy,
   ISaveSecurityPolicyLockout,
   ISaveSecurityPolicyMfa,
   ISecurityPolicyLockout,
@@ -14,14 +13,6 @@ import { SECURITY_POLICY_API_V1 } from '../../constants';
 export async function getGlobalSecurityPolicy(): Promise<ISecurityPolicyMfa> {
   console.debug('getGlobalSecurityPolicy()');
   return Get(SECURITY_POLICY_API_V1);
-}
-
-/**
- * Update global secure access configuration
- */
-export async function saveGlobalSecurityPolicy(body: ISaveSecurityPolicy): Promise<ISecurityPolicyMfa> {
-  console.debug('saveGlobalSecurityPolicy()');
-  return Post(SECURITY_POLICY_API_V1, body);
 }
 
 /**

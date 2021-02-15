@@ -5,7 +5,6 @@ import { actions } from '../reducer';
 import {
   SaveSecurityPolicyLockoutPayload,
   SaveSecurityPolicyMfaPayload,
-  SaveSecurityPolicyPayload,
 } from './interfaces';
 
 function* loadSecurityPolicy() {
@@ -15,20 +14,6 @@ function* loadSecurityPolicy() {
     yield put(actions.setSecurityPolicyGlobalState({ policy, loading: false }));
   } catch (e) {
     yield put(actions.setSecurityPolicyGlobalState({ error: e.message, loading: false }));
-  }
-}
-
-function* saveSecurityPolicy({
-  payload: { callback, ...newSecurityPolicy },
-}: PayloadAction<SaveSecurityPolicyPayload>) {
-  yield put(actions.setSecurityPolicyGlobalState({ saving: true, error: null }));
-  try {
-    const policy = yield call(api.auth.saveGlobalSecurityPolicy, newSecurityPolicy);
-    yield put(actions.setSecurityPolicyGlobalState({ policy, saving: false }));
-    callback?.(policy);
-  } catch (e) {
-    yield put(actions.setSecurityPolicyGlobalState({ saving: false, error: e.message }));
-    callback?.(null, e);
   }
 }
 
@@ -82,7 +67,6 @@ function* saveSecurityPolicyLockout({
 
 export function* securityPolicySagas() {
   yield takeLeading(actions.loadSecurityPolicy, loadSecurityPolicy);
-  yield takeEvery(actions.saveSecurityPolicy, saveSecurityPolicy);
   yield takeEvery(actions.saveSecurityPolicyMfa, saveSecurityPolicyMfa);
   yield takeEvery(actions.loadSecurityPolicyMfa, loadSecurityPolicyMfa);
   yield takeEvery(actions.saveSecurityPolicyLockout, saveSecurityPolicyLockout);

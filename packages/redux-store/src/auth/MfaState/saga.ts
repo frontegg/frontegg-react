@@ -15,7 +15,7 @@ function* enrollMfa() {
   }
 }
 
-function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCallback<IVerifyMfa>>) {
+function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCallback<IVerifyMfa, string | undefined>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
@@ -31,14 +31,14 @@ function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCal
     }
     yield put(actions.setMfaState(mfaState));
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
-    callback?.(true);
+    callback?.(mfaState.recoveryCode);
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
-    callback?.(false, e);
+    callback?.(null, e);
   }
 }
 
-function* verifyMfaAfterForce({ payload: { callback, ...payload } }: PayloadAction<WithCallback<ILoginWithMfa>>) {
+function* verifyMfaAfterForce({ payload: { callback, ...payload } }: PayloadAction<WithCallback<ILoginWithMfa, string | undefined>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
@@ -54,23 +54,24 @@ function* verifyMfaAfterForce({ payload: { callback, ...payload } }: PayloadActi
     }
     yield put(actions.setMfaState(mfaState));
     yield put(actions.setUser({ ...user, mfaEnrolled: true }));
-    callback?.(true);
+    callback?.(mfaState.recoveryCode);
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
-    callback?.(false, e);
+    callback?.(null, e);
   }
 }
 
-function* disableMfa({ payload }: PayloadAction<IDisableMfa & { callback?: () => void }>) {
+function* disableMfa({ payload }: PayloadAction<WithCallback<IDisableMfa>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
     yield api.auth.disableMfa(payload);
     yield put(actions.setMfaState({ loading: false, error: undefined }));
     yield put(actions.setUser({ ...user, mfaEnrolled: false }));
-    payload.callback?.();
+    payload.callback?.(true);
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
+    payload.callback?.(false, e);
   }
 }
 

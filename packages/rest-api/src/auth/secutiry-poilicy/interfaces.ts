@@ -1,6 +1,8 @@
+export type EnforceMFAType = 'DontForce' | 'Force' | 'ForceExceptSAML';
+
 export interface ISecurityPolicy {
   id: string;
-  enforceMFAType?: 'DontForce' | 'Force' | 'ForceExceptSAML';
+  enforceMFAType?: EnforceMFAType;
   createdAt: Date;
   updatedAt: Date;
   allowOverrideEnforcePasswordHistory: boolean;
@@ -14,29 +16,16 @@ export interface ISecurityPolicy {
   publicKey: string;
 }
 
-export interface ISaveSecurityPolicy {
-  id: string;
-  enforceMFAType: string;
-  allowOverrideEnforcePasswordHistory: boolean;
-  allowOverridePasswordComplexity: boolean;
-  allowOverridePasswordExpiration: boolean;
-  allowSignups: boolean;
-  apiTokensEnabled: boolean;
-  cookieSameSite: string;
-  defaultRefreshTokenExpiration: number;
-  defaultTokenExpiration: number;
-}
-
 export interface ISecurityPolicyMfa {
   id: string;
-  enforceMFAType: 'DontForce' | 'Force' | 'ForceExceptSAML';
+  enforceMFAType: EnforceMFAType;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface ISaveSecurityPolicyMfa {
   id?: string;
-  enforceMFAType: 'DontForce' | 'Force' | 'ForceExceptSAML';
+  enforceMFAType: EnforceMFAType;
 }
 
 export interface ISecurityPolicyLockout {
