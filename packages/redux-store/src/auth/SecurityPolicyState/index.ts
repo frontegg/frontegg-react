@@ -8,7 +8,6 @@ import {
   MfaPolicyState,
   SaveSecurityPolicyLockoutPayload,
   SaveSecurityPolicyMfaPayload,
-  SaveSecurityPolicyPayload,
   SecurityPolicyState,
 } from './interfaces';
 
@@ -43,9 +42,6 @@ const reducers = {
 
 const actions = {
   loadSecurityPolicy: createAction(`${authStoreName}/loadSecurityPolicy`),
-  saveSecurityPolicy: createAction(`${authStoreName}/saveSecurityPolicy`, (payload: SaveSecurityPolicyPayload) => ({
-    payload,
-  })),
   loadSecurityPolicyMfa: createAction(`${authStoreName}/loadSecurityPolicyMfa`),
   saveSecurityPolicyMfa: createAction(
     `${authStoreName}/saveSecurityPolicyMfa`,
@@ -70,7 +66,6 @@ type DispatchedActions = {
   resetSecurityPolicyState: () => void;
 
   loadSecurityPolicy: () => void;
-  saveSecurityPolicy: (payload: SaveSecurityPolicyPayload) => void;
   loadSecurityPolicyMfa: () => void;
   saveSecurityPolicyMfa: (payload: SaveSecurityPolicyMfaPayload) => void;
   loadSecurityPolicyLockout: () => void;

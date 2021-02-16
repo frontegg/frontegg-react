@@ -1,11 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { all, call, put, retry, takeEvery, takeLeading } from 'redux-saga/effects';
+import { call, put, retry, takeEvery, takeLeading } from 'redux-saga/effects';
 import { api } from '@frontegg/rest-api';
 import { actions } from '../reducer';
-import {
-  SaveSecurityPolicyLockoutPayload,
-  SaveSecurityPolicyMfaPayload,
-} from './interfaces';
+import { SaveSecurityPolicyLockoutPayload, SaveSecurityPolicyMfaPayload } from './interfaces';
 
 function* loadSecurityPolicy() {
   yield put(actions.setSecurityPolicyGlobalState({ loading: true, error: null }));

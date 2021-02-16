@@ -15,7 +15,9 @@ function* enrollMfa() {
   }
 }
 
-function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCallback<IVerifyMfa, string | undefined>>) {
+function* verifyMfa({
+  payload: { callback, ...payload },
+}: PayloadAction<WithCallback<IVerifyMfa, string | undefined>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
@@ -38,7 +40,9 @@ function* verifyMfa({ payload: { callback, ...payload } }: PayloadAction<WithCal
   }
 }
 
-function* verifyMfaAfterForce({ payload: { callback, ...payload } }: PayloadAction<WithCallback<ILoginWithMfa, string | undefined>>) {
+function* verifyMfaAfterForce({
+  payload: { callback, ...payload },
+}: PayloadAction<WithCallback<ILoginWithMfa, string | undefined>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);

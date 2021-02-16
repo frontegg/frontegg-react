@@ -17,10 +17,15 @@ const reducers = {
 
 const actions = {
   enrollMfa: createAction(`${authStoreName}/enrollMfa`),
-  verifyMfa: createAction(`${authStoreName}/verifyMfa`, (payload: WithCallback<IVerifyMfa, string | undefined>) => ({ payload })),
-  verifyMfaAfterForce: createAction(`${authStoreName}/verifyMfaAfterForce`, (payload: WithCallback<ILoginWithMfa, string | undefined>) => ({
+  verifyMfa: createAction(`${authStoreName}/verifyMfa`, (payload: WithCallback<IVerifyMfa, string | undefined>) => ({
     payload,
   })),
+  verifyMfaAfterForce: createAction(
+    `${authStoreName}/verifyMfaAfterForce`,
+    (payload: WithCallback<ILoginWithMfa, string | undefined>) => ({
+      payload,
+    })
+  ),
   disableMfa: createAction(`${authStoreName}/disableMfa`, (payload: WithCallback<IDisableMfa>) => ({ payload })),
 };
 
