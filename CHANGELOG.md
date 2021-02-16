@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* Fix ActivateAccount test ([bbf3781](https://github.com/frontegg/frontegg-react/commit/bbf37817feccdc1331e92b829b39d33d0461052e))
+* **auth:** fix after activation refirect to look on the last user requested route ([fcb53ef](https://github.com/frontegg/frontegg-react/commit/fcb53ef8f3a1b1397f71eb751c33ed221caa0064))
+
+
+
+
+
 # [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
 
 
