@@ -10,6 +10,7 @@ import {
   submitButtonSelector,
   TestFronteggWrapper,
 } from '../../../../cypress/helpers';
+import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
 
 const defaultAuthPlugin = {
   routes: {
@@ -38,7 +39,7 @@ describe('Activate Account Tests', () => {
     });
   });
 
-  it('ActivateAccount Page should display success and redirec to login page', () => {
+  it('ActivateAccount Page should display success and redirect to login page', () => {
     cy.server();
     mockAuthApi(false, false);
     cy.route({
@@ -79,8 +80,9 @@ describe('Activate Account Tests', () => {
     cy.get(confirmPasswordSelector).parents('.field').should('not.have.class', 'error');
 
     cy.get(submitButtonSelector).should('not.be.disabled').click();
+    mockAuthApi(true, false);
     cy.wait('@activateAccount').its('request.body').should('deep.equal', { userId, token, password: PASSWORD });
-
+    cy.wait('@refreshToken');
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.authenticatedUrl);
     });

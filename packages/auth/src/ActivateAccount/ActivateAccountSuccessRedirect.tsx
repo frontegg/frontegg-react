@@ -9,7 +9,7 @@ export interface ActivateAccountSuccessRedirectProps {
 export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { requestAuthorize, resetActivateState, onRedirectTo, routes } = useAuth(({ routes, onRedirectTo }) => ({
+  const { requestAuthorize, resetActivateState } = useAuth(({ routes, onRedirectTo }) => ({
     routes,
     onRedirectTo,
   }));
@@ -18,9 +18,7 @@ export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectPr
     return renderer(omitProps(props, ['renderer']));
   }
   useEffect(() => {
-    setTimeout(() => {
-      requestAuthorize(true);
-    }, 1000);
+    requestAuthorize(true);
     return resetActivateState as () => void;
   }, [resetActivateState, requestAuthorize]);
 
