@@ -20,10 +20,9 @@ export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectPr
   useEffect(() => {
     setTimeout(() => {
       requestAuthorize(true);
-      onRedirectTo(routes.authenticatedUrl);
     }, 1000);
     return resetActivateState as () => void;
-  }, [resetActivateState, requestAuthorize, onRedirectTo]);
+  }, [resetActivateState, requestAuthorize]);
 
   return (
     <>
