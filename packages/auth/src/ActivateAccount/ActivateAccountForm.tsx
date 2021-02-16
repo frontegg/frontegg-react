@@ -1,7 +1,6 @@
 import React, { ComponentType, createElement, FC, useEffect, useState } from 'react';
 import { AuthActions, AuthState } from '../Api';
 import {
-  validatePassword,
   validatePasswordConfirmation,
   validateSchema,
   ErrorMessage,

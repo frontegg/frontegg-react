@@ -35,7 +35,15 @@ const TestPage: FC = () => {
 };
 
 const menus = [
-  { to: '/profile', title: 'Profile', component: Profile.Page },
+  {
+    to: '/profile',
+    title: 'Profile',
+    children: (
+      <ProtectedRoute>
+        <Profile.Page />
+      </ProtectedRoute>
+    ),
+  },
   { to: '/team', title: 'Team', component: Team.Page },
   { to: '/sso', title: 'SSO', children: <SSO.Page /> },
   { to: '/tenant-api-tokens', title: 'Tenant Api tokens', children: <TenantApiTokensExample /> },
