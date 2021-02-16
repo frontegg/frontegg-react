@@ -25,7 +25,7 @@ export const SignUpSuccess: FC = () => {
   }, [shouldActivate, routes, resetSignUpStateSoft]);
 
   // if should activate => request does not have access-token => display message for activate your account. no buttons.
-  // if should not activate => request have access-token => display 3 sec message and then go to gst url. no buttons.
+  // if should not activate => request have access-token => display 3 sec message and then go to authenticated url. no buttons.
 
   return (
     <>
