@@ -1,8 +1,11 @@
+import { browserIcons, TBrowserIcons } from './BrowserIcons';
+
 export const prefixCls = 'fe-audits';
 
 export const sizeOfIcon = 32;
 
 export const browsers = [
+  ...Object.keys(browserIcons),
   'android-webview-beta',
   'android-webview-canary',
   'android-webview-dev',
