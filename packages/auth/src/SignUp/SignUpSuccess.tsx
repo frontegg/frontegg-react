@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
-import { Button, useT } from '@frontegg/react-core';
-import { AuthPageRoutes } from '../interfaces';
+import { useT } from '@frontegg/react-core';
 
 const stateMapper = ({ signUpState, routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo, ...signUpState });
 
