@@ -5,6 +5,7 @@ import { ContextHolder } from '@frontegg/rest-api';
 export interface AuthorizationProps {
   requiredRoles?: string[];
   requiredPermissions?: string[];
+  render?: (isAuthorized: boolean) => React.ReactNode | null;
 }
 
 const logger = Logger.from('AuthorizedContent');
@@ -40,5 +41,10 @@ export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
       }
     }
   }
+
+  if (typeof props.render === 'function') {
+    return <>{props.render(isAuthorized)}</>;
+  }
+
   return isAuthorized ? <>{props.children}</> : null;
 };
