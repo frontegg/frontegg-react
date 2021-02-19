@@ -13,6 +13,7 @@ import {
   FFormik,
 } from '@frontegg/react-core';
 import { useAuth } from '../hooks';
+import { ReCaptcha } from '../components/ReCaptcha';
 
 const { Formik } = FFormik;
 
@@ -103,13 +104,13 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     <>
       {signUpMessage}
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: '', password: '', recaptchaToken: '' }}
         validationSchema={validateSchema(validationSchema)}
-        onSubmit={async ({ email, password }) => {
-          shouldDisplayPassword ? login({ email, password }) : preLogin({ email });
+        onSubmit={async ({ email, password, recaptchaToken }) => {
+          shouldDisplayPassword ? login({ email, password, recaptchaToken }) : preLogin({ email });
         }}
       >
-        {({ values }) => (
+        {({ values, setFieldValue }) => (
           <FForm>
             <FInput
               name='email'
@@ -139,6 +140,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             </FButton>
 
             <ErrorMessage separator error={error} />
+            <ReCaptcha action='Login' callback={(token) => setFieldValue('recaptchaToken', token)} />
           </FForm>
         )}
       </Formik>

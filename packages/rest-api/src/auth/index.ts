@@ -1,4 +1,3 @@
-import { IUpdateSamlRoles } from './interfaces';
 /* tslint:disable:no-console */
 
 import jwtDecode from 'jwt-decode';
@@ -23,6 +22,8 @@ import {
   ILoginWithMfa,
   IPreLogin,
   IPostLogin,
+  ICaptchaPolicy,
+  IUpdateSamlRoles,
   IRecoverMFAToken,
   IResetPassword,
   ISamlConfiguration,
@@ -65,6 +66,16 @@ async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILo
   };
   ContextHolder.setUser(user);
   return user;
+}
+
+export async function getCaptchaPolicy(): Promise<ICaptchaPolicy | null> {
+  try {
+    const policy = await Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
+    return policy;
+  } catch (e) {
+    console.error('getCaptchaPolicy()', e);
+    return null;
+  }
 }
 
 /**

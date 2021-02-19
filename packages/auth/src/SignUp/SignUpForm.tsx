@@ -11,6 +11,7 @@ import {
 } from '@frontegg/react-core';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
+import { ReCaptcha } from '../components/ReCaptcha';
 
 const { Formik } = FFormik;
 
@@ -43,6 +44,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           email: '',
           name: '',
           companyName: '',
+          recaptchaToken: '',
         }}
         onSubmit={(values) => {
           if (withCompanyName) {
@@ -57,28 +59,31 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           companyName: withCompanyName && validateLength('Company Name', 3, t),
         })}
       >
-        <FForm>
-          <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id='name-box' />
-          <FInput
-            name='email'
-            type={'email'}
-            size='large'
-            placeholder={t('auth.sign-up.form.email')}
-            data-test-id='email-box'
-          />
-          {withCompanyName && (
+        {({ setFieldValue }) => (
+          <FForm>
+            <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id='name-box' />
             <FInput
-              name='companyName'
+              name='email'
+              type={'email'}
               size='large'
-              placeholder={t('auth.sign-up.form.company-name')}
-              data-test-id='compenyName-box'
+              placeholder={t('auth.sign-up.form.email')}
+              data-test-id='email-box'
             />
-          )}
+            {withCompanyName && (
+              <FInput
+                name='companyName'
+                size='large'
+                placeholder={t('auth.sign-up.form.company-name')}
+                data-test-id='compenyName-box'
+              />
+            )}
 
-          <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
-            {t('auth.sign-up.form.submit-button')}
-          </FButton>
-        </FForm>
+            <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
+              {t('auth.sign-up.form.submit-button')}
+            </FButton>
+            <ReCaptcha action='Sign Up' callback={(token) => setFieldValue('recaptchaToken', token)} />
+          </FForm>
+        )}
       </Formik>
     </>
   );

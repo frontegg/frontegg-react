@@ -11,3 +11,4 @@ export * from './MfaState/interfaces';
 export * from './ProfileState/interfaces';
 export * from './SSOState/interfaces';
 export * from './ApiTokensState/interfaces';
+export * from './CaptchaState/interfaces';
