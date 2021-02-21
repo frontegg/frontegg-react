@@ -97,7 +97,7 @@ export function* refreshToken() {
       yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
 
-      if ([routes.loginUrl, routes.socialLoginCallbackUrl].includes(window.location.pathname)) {
+      if ([routes.loginUrl, routes.socialLoginCallbackUrl, routes.activateUrl].includes(window.location.pathname)) {
         yield afterAuthNavigation();
       }
     }

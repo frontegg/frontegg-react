@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/frontegg/frontegg-react/compare/v1.22.1...v1.23.0) (2021-02-18)
+
+
+### Features
+
+* **auth:** support render prop ([f96ca8b](https://github.com/frontegg/frontegg-react/commit/f96ca8b2fe0ff90abaa502ec7ad639e1380af254))
+
+
+
+
+
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* Fix ActivateAccount test ([bbf3781](https://github.com/frontegg/frontegg-react/commit/bbf37817feccdc1331e92b829b39d33d0461052e))
+* **auth:** fix after activation refirect to look on the last user requested route ([fcb53ef](https://github.com/frontegg/frontegg-react/commit/fcb53ef8f3a1b1397f71eb751c33ed221caa0064))
+
+
+
+
+
+# [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
+
+
+### Features
+
+* **auth:** autosave profile photo ([77a3ec4](https://github.com/frontegg/frontegg-react/commit/77a3ec4311ca959b9ae8224f2a56993402a3b7b4))
+* **auth:** split process update inforamtion between photo and inforamtion ([0140836](https://github.com/frontegg/frontegg-react/commit/0140836d691e87a8235ca1d3612f7b9881311747))
+* **core:** Added tab disabling for FeTabs component; disabled pwd tab in Profile FR-789 ([2354f47](https://github.com/frontegg/frontegg-react/commit/2354f47a5d0fe22e05b3e869b7e963192cd86b45))
+
+
+
+
+
 ## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
 
 **Note:** Version bump only for package @frontegg/react-auth

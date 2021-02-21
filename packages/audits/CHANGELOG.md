@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/frontegg/frontegg-react/compare/v1.22.1...v1.23.0) (2021-02-18)
+
+
+### Features
+
+* **audits:** add several custom browser icons to the User Agent field ([8bba084](https://github.com/frontegg/frontegg-react/commit/8bba0841ec39bc6b9c04100abc437964464907b1))
+
+
+
+
+
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+**Note:** Version bump only for package @frontegg/react-audits
+
+
+
+
+
+# [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
+
+
+### Bug Fixes
+
+* **audits:** fix nullable conversion case in audits table ([0acacdf](https://github.com/frontegg/frontegg-react/commit/0acacdf2e1b14062cb557a96e5b6d9c7cb966087))
+* **auth:** small fixes ([1463b88](https://github.com/frontegg/frontegg-react/commit/1463b88eb51b048abb7a57a53f58b492b6cc1adf))
+
+
+### Features
+
+* **auth:** instead of text in the user agent field, now show an icon of a browser ([8267338](https://github.com/frontegg/frontegg-react/commit/82673384710144597e484676c30f6569628399a3))
+
+
+
+
+
 ## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
 
 **Note:** Version bump only for package @frontegg/react-audits

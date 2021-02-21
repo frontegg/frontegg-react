@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "1.21.1",
+  "version": "1.23.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -20,9 +20,9 @@
     "redux-saga": "^1.1.3"
   },
   "devDependencies": {
-    "@frontegg/redux-store": "^1.21.1",
-    "@frontegg/react-core": "^1.21.1",
-    "@frontegg/rest-api": "^1.21.1",
+    "@frontegg/react-core": "^1.23.0",
+    "@frontegg/redux-store": "^1.23.0",
+    "@frontegg/rest-api": "^1.23.0",
     "@types/classnames": "^2.2.10",
     "@types/history": "^4.7.7",
     "@types/owasp-password-strength-test": "^1.3.0",

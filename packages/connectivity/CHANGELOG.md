@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+# [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
+
+
+### Bug Fixes
+
+* **connectivity:** fix scroll for the event table ([7871686](https://github.com/frontegg/frontegg-react/commit/78716867a077d30d9cf8698424e25f08f8e4591d))
+
+
+
+
+
 ## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
 
 **Note:** Version bump only for package @frontegg/react-connectivity

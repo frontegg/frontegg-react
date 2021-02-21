@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+**Note:** Version bump only for package @frontegg/react-elements-semantic
+
+
+
+
+
+# [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
+
+
+### Features
+
+* **elements:** add support ref for Input elements in UI libraries ([39c1ebc](https://github.com/frontegg/frontegg-react/commit/39c1ebc05262aa0f1ee47dbae8c23bb37d0a0a0d))
+
+
+
+
+
 ## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
 
 **Note:** Version bump only for package @frontegg/react-elements-semantic

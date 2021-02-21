@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/frontegg/frontegg-react/compare/v1.22.1...v1.23.0) (2021-02-18)
+
+
+### Features
+
+* **audits:** add several custom browser icons to the User Agent field ([8bba084](https://github.com/frontegg/frontegg-react/commit/8bba0841ec39bc6b9c04100abc437964464907b1))
+* **auth:** support render prop ([f96ca8b](https://github.com/frontegg/frontegg-react/commit/f96ca8b2fe0ff90abaa502ec7ad639e1380af254))
+
+
+
+
+
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* Fix ActivateAccount test ([bbf3781](https://github.com/frontegg/frontegg-react/commit/bbf37817feccdc1331e92b829b39d33d0461052e))
+* **auth:** fix after activation refirect to look on the last user requested route ([fcb53ef](https://github.com/frontegg/frontegg-react/commit/fcb53ef8f3a1b1397f71eb751c33ed221caa0064))
+
+
+
+
+
+# [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
+
+
+### Bug Fixes
+
+* **audits:** fix nullable conversion case in audits table ([0acacdf](https://github.com/frontegg/frontegg-react/commit/0acacdf2e1b14062cb557a96e5b6d9c7cb966087))
+* **auth:** small fixes ([1463b88](https://github.com/frontegg/frontegg-react/commit/1463b88eb51b048abb7a57a53f58b492b6cc1adf))
+* **connectivity:** fix scroll for the event table ([7871686](https://github.com/frontegg/frontegg-react/commit/78716867a077d30d9cf8698424e25f08f8e4591d))
+* **core:** remove unused imported components in the FileInput component ([54a7f29](https://github.com/frontegg/frontegg-react/commit/54a7f29a778eeb0a2f609c3239c85e8244562c90))
+
+
+### Features
+
+* **auth:** autosave profile photo ([77a3ec4](https://github.com/frontegg/frontegg-react/commit/77a3ec4311ca959b9ae8224f2a56993402a3b7b4))
+* **auth:** instead of text in the user agent field, now show an icon of a browser ([8267338](https://github.com/frontegg/frontegg-react/commit/82673384710144597e484676c30f6569628399a3))
+* **auth:** split process update inforamtion between photo and inforamtion ([0140836](https://github.com/frontegg/frontegg-react/commit/0140836d691e87a8235ca1d3612f7b9881311747))
+* **core:** add support ref for the input component ([f47fc79](https://github.com/frontegg/frontegg-react/commit/f47fc79e57738c867d7eb5574caa259f5598633a))
+* **core:** add suppurt ref for the FileInput component ([86b3790](https://github.com/frontegg/frontegg-react/commit/86b3790c35c44cfddb9ceee76b19cd2428b5cccd))
+* **core:** Added tab disabling for FeTabs component; disabled pwd tab in Profile FR-789 ([2354f47](https://github.com/frontegg/frontegg-react/commit/2354f47a5d0fe22e05b3e869b7e963192cd86b45))
+* **elements:** add support ref for Input elements in UI libraries ([39c1ebc](https://github.com/frontegg/frontegg-react/commit/39c1ebc05262aa0f1ee47dbae8c23bb37d0a0a0d))
+
+
+
+
+
 ## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
 
 **Note:** Version bump only for package @fronteg/react

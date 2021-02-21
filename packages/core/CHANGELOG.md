@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
+
+**Note:** Version bump only for package @frontegg/react-core
+
+
+
+
+
+# [1.22.0](https://github.com/frontegg/frontegg-react/compare/v1.21.1...v1.22.0) (2021-02-13)
+
+
+### Bug Fixes
+
+* **core:** remove unused imported components in the FileInput component ([54a7f29](https://github.com/frontegg/frontegg-react/commit/54a7f29a778eeb0a2f609c3239c85e8244562c90))
+
+
+### Features
+
+* **core:** add support ref for the input component ([f47fc79](https://github.com/frontegg/frontegg-react/commit/f47fc79e57738c867d7eb5574caa259f5598633a))
+* **core:** add suppurt ref for the FileInput component ([86b3790](https://github.com/frontegg/frontegg-react/commit/86b3790c35c44cfddb9ceee76b19cd2428b5cccd))
+* **core:** Added tab disabling for FeTabs component; disabled pwd tab in Profile FR-789 ([2354f47](https://github.com/frontegg/frontegg-react/commit/2354f47a5d0fe22e05b3e869b7e963192cd86b45))
+
+
+
+
+
 ## [1.21.1](https://github.com/frontegg/frontegg-react/compare/v1.21.0...v1.21.1) (2021-02-04)
 
 **Note:** Version bump only for package @frontegg/react-core
