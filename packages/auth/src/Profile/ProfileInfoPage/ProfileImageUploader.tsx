@@ -1,33 +1,23 @@
 import React, { ChangeEvent, FC, useCallback, useRef } from 'react';
-import { useAuthProfile } from '../helpers';
 import { FFormik, Button, Icon, Loader, useT, FFileInput, OnError, ErrorMessage } from '@frontegg/react-core';
+import { useProfileState } from '../hooks';
 
 const { useFormikContext, useField } = FFormik;
 
 const profilePictureUrl = 'profilePictureUrl';
 
-const getProfileImageInput = () => document.querySelector<HTMLInputElement>(`input[name=${profilePictureUrl}]`);
-
 export const ProfileImageUploader: FC<OnError> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { loading, profile, error, setProfileState } = useAuthProfile();
+  const { loading, profile, error } = useProfileState();
   const { t } = useT();
-  const { errors, setErrors, submitForm, isSubmitting } = useFormikContext<any>();
+  const { errors, submitForm, isSubmitting } = useFormikContext<any>();
 
-  const [{ value: profilePhotoValue }, {}, { setValue: setProfileValue }] = useField(profilePictureUrl);
+  const [{ value: profilePhotoValue }] = useField(profilePictureUrl);
   const profileImageError = error || errors[profilePictureUrl];
 
   const handleUploadClick = useCallback(() => {
     inputRef.current?.click?.();
   }, [inputRef]);
-
-  const handleRemoveImage = useCallback(() => {
-    setProfileValue(profile?.profilePictureUrl ?? '');
-    delete errors[profilePictureUrl];
-    setErrors(errors);
-    setProfileState({ error: undefined });
-    inputRef.current && (inputRef.current.value = '');
-  }, [errors, setErrors, setProfileState, setProfileValue, inputRef]);
 
   const handlerOnChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

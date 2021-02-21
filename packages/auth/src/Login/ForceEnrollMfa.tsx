@@ -86,7 +86,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
         verifyMfaAfterForce({
           mfaToken: mfaToken || '',
           value: token,
-          callback: (success: boolean | null) => {
+          callback: (success) => {
             if (success) {
               setMfaState({ recoveryCode });
             }

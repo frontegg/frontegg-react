@@ -37,8 +37,8 @@ type DispatchedActions = {
   setMfaState: (state: Partial<MFAState>) => void;
   resetMfaState: () => void;
   enrollMfa: () => void;
-  verifyMfa: (payload: WithCallback<IVerifyMfa>) => void;
-  verifyMfaAfterForce: (payload: WithCallback<ILoginWithMfa>) => void;
+  verifyMfa: (payload: WithCallback<IVerifyMfa, string | undefined>) => void;
+  verifyMfaAfterForce: (payload: WithCallback<ILoginWithMfa, string | undefined>) => void;
   disableMfa: (payload: WithCallback<IDisableMfa>) => void;
 };
 

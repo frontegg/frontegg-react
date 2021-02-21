@@ -34,7 +34,10 @@ const reducers = {
 };
 
 const actions = {
-  loadUsers: createAction(`${authStoreName}/loadUsers`, (payload: WithSilentLoad<ILoadUsers>) => ({ payload })),
+  loadUsers: createAction(
+    `${authStoreName}/loadUsers`,
+    (payload: WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>) => ({ payload })
+  ),
   addUser: createAction(`${authStoreName}/addUser`, (payload: WithCallback<IAddUser, ITeamUser>) => ({ payload })),
   updateUser: createAction(`${authStoreName}/updateUser`, (payload: IUpdateUser) => ({ payload })),
   deleteUser: createAction(`${authStoreName}/deleteUser`, (payload: IDeleteUser) => ({ payload })),
@@ -59,7 +62,7 @@ type DispatchedActions = {
   setTeamError: (payload: TeamStateIndicator) => void;
   setTeamState: (payload: Partial<TeamState>) => void;
   resetTeamState: () => void;
-  loadUsers: (payload: WithSilentLoad<ILoadUsers>) => void;
+  loadUsers: (payload: WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>) => void;
   addUser: (payload: WithCallback<IAddUser, ITeamUser>) => void;
   updateUser: (payload: IUpdateUser) => void;
   deleteUser: (payload: IDeleteUser) => void;

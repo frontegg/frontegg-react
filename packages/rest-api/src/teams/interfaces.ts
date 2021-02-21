@@ -38,6 +38,7 @@ export type IUserProfile = {
   activatedForTenant?: boolean;
   metadata: any;
   roleIds?: string[]; // { addRoles: true } params
+  verified?: boolean;
 };
 
 export type ITeamUser = {

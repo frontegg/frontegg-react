@@ -16,8 +16,8 @@ import { authStoreName } from '../../constants';
 
 const select = () => sagaSelect((_) => _[authStoreName].teamState);
 
-function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any {
-  const { silentLoading } = payload;
+function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>>): any {
+  const { silentLoading, callback } = payload;
   const state = yield select();
 
   const pageSize = payload.pageSize ?? state.pageSize;
@@ -44,9 +44,11 @@ function* loadUsers({ payload }: PayloadAction<WithSilentLoad<ILoadUsers>>): any
       call(api.teams.loadAvailableRoles),
     ]);
     yield put(actions.setTeamState({ users, totalPages, totalItems, roles }));
+    callback?.(users);
   } catch (e) {
     yield put(actions.setTeamError({ key: TeamStateKeys.USERS, value: e.message }));
     yield put(actions.setTeamState({ totalPages: 0, users: [] }));
+    callback?.(null, e);
   }
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: false }));
 }

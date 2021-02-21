@@ -68,7 +68,7 @@ export const useAuthUser = (): User => {
 };
 
 export const useAuthUserOrNull = (): User | null => {
-  const { user } = useSelector(({ [authStoreName]: { user } }: { auth: AuthState }) => ({ user }), shallowEqual);
+  const { user } = useSelector(({ [authStoreName]: { user } }: any) => ({ user }), shallowEqual);
   return user || null;
 };
 

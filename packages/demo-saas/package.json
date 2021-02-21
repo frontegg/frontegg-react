@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@frontegg/react-auth": "^1.23.0",
-    "@frontegg/react-core": "^1.22.1",
+    "@frontegg/react-core": "^1.23.0",
     "classnames": "^2.2.6",
     "react": ">16.8.6",
     "react-dom": ">16.8.6",

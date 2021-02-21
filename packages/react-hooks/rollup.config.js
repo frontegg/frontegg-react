@@ -5,6 +5,7 @@ import fs from 'fs';
 
 const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json')));
 const distFolder = path.join(__dirname, './dist/');
+const nodeModulesPath = path.join(__dirname, '../../node_modules', pkg.name);
 
 function movePackageJson() {
   return {
@@ -19,6 +20,11 @@ function movePackageJson() {
       fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), {
         encoding: 'utf8',
       });
+      console.log('removing existing symlink from node_modules', nodeModulesPath);
+      fs.rmdirSync(nodeModulesPath, { recursive: true });
+
+      console.log('creating new symlink from node_modules', nodeModulesPath);
+      fs.symlinkSync(distFolder, nodeModulesPath, 'dir');
     },
   };
 }

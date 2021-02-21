@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-semantic",
   "libName": "FronteggElementsSemantic",
-  "version": "1.22.1",
+  "version": "1.23.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -11,9 +11,6 @@
     "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
-  },
-  "peerDependencies": {
-    "@frontegg/react-core": "^1.0.63"
   },
   "dependencies": {
     "classnames": "^2.2.6",
