@@ -7,6 +7,7 @@ export interface ISocialLoginCallbackState {
 
 export interface ISocialLoginsContext {
   action: SocialLoginsActions;
+  redirectUri?: string;
 }
 
 export enum SocialLoginsActions {

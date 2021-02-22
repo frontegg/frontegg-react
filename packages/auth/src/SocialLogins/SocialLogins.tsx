@@ -9,6 +9,7 @@ import { SocialLoginsContext } from './SocialLoginContext';
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
+  redirectUri?: string;
   children?: ReactNode;
 }
 
@@ -37,7 +38,11 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
     return null;
   }
 
-  return <SocialLoginsContext.Provider value={{ action: props.action }}>{props.children}</SocialLoginsContext.Provider>;
+  return (
+    <SocialLoginsContext.Provider value={{ action: props.action, redirectUri: props.redirectUri }}>
+      {props.children}
+    </SocialLoginsContext.Provider>
+  );
 };
 
 SocialLogins.Google = GoogleLogin;

@@ -15,7 +15,7 @@ export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
   socialLoginType: SocialLoginsProviders
 ): string | null => {
-  const { action } = useSocialLoginContext();
+  const { action, redirectUri } = useSocialLoginContext();
   const { socialLoginsConfig } = useAuth(stateMapper);
   const config = useMemo(
     () => socialLoginsConfig?.find(({ type }) => type.toLowerCase() === socialLoginType.toLowerCase()),
@@ -26,10 +26,11 @@ export const useRedirectUrl = (
     if (config) {
       return urlCreator({
         ...config,
+        redirectUrl: redirectUri ?? config.redirectUrl,
         state: createSocialLoginState({ provider: socialLoginType, action }),
       });
     }
-  }, [config?.clientId, config?.redirectUrl, action]);
+  }, [config?.clientId, config?.redirectUrl, action, redirectUri]);
 
   if (!config?.active || !redirectUrl) {
     return null;

@@ -6,7 +6,7 @@ export const SocialLoginsWithWrapper: FC<SocialLoginsProps> = (props) => {
   return (
     <>
       <div className={'fe-col fe-center'}>
-        <SocialLogins action={props.action}>
+        <SocialLogins action={props.action} redirectUri={props.redirectUri}>
           <div className={'fe-social-login__or-container'}>
             <span>OR</span>
           </div>
@@ -22,10 +22,12 @@ export const SocialLoginsWithWrapper: FC<SocialLoginsProps> = (props) => {
   );
 };
 
-export const SocialLoginsLoginWithWrapper: FC = () => {
-  return <SocialLoginsWithWrapper action={SocialLoginsActions.Login} />;
+export type SocialLoginsWithWrapperProps = Omit<SocialLoginsProps, 'action'>;
+
+export const SocialLoginsLoginWithWrapper: FC<SocialLoginsWithWrapperProps> = (props) => {
+  return <SocialLoginsWithWrapper action={SocialLoginsActions.Login} redirectUri={props.redirectUri} />;
 };
 
-export const SocialLoginsSignUpWithWrapper: FC = () => {
-  return <SocialLoginsWithWrapper action={SocialLoginsActions.SignUp} />;
+export const SocialLoginsSignUpWithWrapper: FC<SocialLoginsWithWrapperProps> = (props) => {
+  return <SocialLoginsWithWrapper action={SocialLoginsActions.SignUp} redirectUri={props.redirectUri} />;
 };

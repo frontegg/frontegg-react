@@ -21,6 +21,8 @@ export const SocialLoginsSuccess: FC = () => {
     const params: URLSearchParams = new URLSearchParams(location.search);
     const state = params.get('state');
     const code = params.get('code');
+    const redirectUri = `${window.location.origin}${location.pathname}`;
+
     let parsedState: ISocialLoginCallbackState;
     const error = t('auth.social-logins.error.invalid-callback-url');
 
@@ -44,7 +46,7 @@ export const SocialLoginsSuccess: FC = () => {
     switch (parsedState.action) {
       case SocialLoginsActions.Login:
       case SocialLoginsActions.SignUp:
-        loginViaSocialLogin({ code, ...parsedState });
+        loginViaSocialLogin({ code, ...parsedState, redirectUri });
         break;
       default:
         setSocialLoginError({ error });
