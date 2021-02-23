@@ -12,17 +12,16 @@ interface IReCaptchaProps {
 const stateMapper = ({ captchaState }: AuthState) => captchaState;
 
 export const FReCaptcha: FC<IReCaptchaProps> = ({ action }) => {
-  const state = useAuth(stateMapper);
+  const { siteKey, enabled } = useAuth(stateMapper);
   const [, , { setValue }] = useField('recaptchaToken');
 
   useEffect(() => {
-    const { siteKey, enabled } = state;
     if (enabled) loadReCaptcha(siteKey || '');
-  }, [state]);
+  }, [siteKey, enabled]);
 
-  if (!state.enabled || !state.siteKey) return null;
+  if (!enabled || !siteKey) return null;
 
   const handleCallback = useCallback((token: string) => setValue(token), [setValue]);
 
-  return <Captcha sitekey={state.siteKey} verifyCallback={handleCallback} action={action} />;
+  return <Captcha sitekey={siteKey} verifyCallback={handleCallback} action={action} />;
 };

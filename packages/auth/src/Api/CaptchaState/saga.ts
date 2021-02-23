@@ -6,7 +6,7 @@ function* loadCaptchaPolicyFunction() {
   yield put(actions.setCaptchaState({ loading: true }));
   try {
     const policy = yield call(api.auth.getCaptchaPolicy);
-    const body = policy ? { ...policy } : {};
+    const body = policy || {};
     yield put(actions.setCaptchaState({ loading: false, ...body }));
   } catch (e) {
     yield put(actions.setCaptchaState({ loading: false, error: true }));
