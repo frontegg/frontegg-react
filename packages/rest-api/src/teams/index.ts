@@ -1,6 +1,7 @@
 /* tslint:disable:no-console */
 import { Get, Post, Put, Delete } from '../fetch';
 import {
+  TEAMS_PERMISSIONS_SERVICE_URL_V1,
   TEAMS_PROFILE_SERVICE_URL,
   TEAMS_ROLES_SERVICE_URL_V1,
   TEAMS_STATS_SERVICE_URL_V1,
@@ -21,6 +22,7 @@ import {
   IUpdateUser,
   IDeleteUser,
   IUpdateProfileImage,
+  ITeamUserPermission,
 } from './interfaces';
 import { PaginationResult } from '../interfaces';
 
@@ -131,6 +133,11 @@ export async function updateUser(body: IUpdateUser): Promise<ITeamUser> {
 export async function loadAvailableRoles(): Promise<ITeamUserRole[]> {
   console.debug('loadAvailableRoles()');
   return Get(TEAMS_ROLES_SERVICE_URL_V1);
+}
+
+export async function loadAvailablePermissions(): Promise<ITeamUserPermission[]> {
+  console.debug('loadAvailablePermissions()');
+  return Get(TEAMS_PERMISSIONS_SERVICE_URL_V1);
 }
 
 /**

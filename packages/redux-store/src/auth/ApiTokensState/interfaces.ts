@@ -1,4 +1,4 @@
-import { ITeamUserRole } from '@frontegg/rest-api';
+import { ITeamUserPermission, ITeamUserRole } from '@frontegg/rest-api';
 import { LoaderIndicatorState, WithCallback } from '../../interfaces';
 
 export interface ApiTokensState {
@@ -19,6 +19,7 @@ export interface ApiTokensState {
   };
   apiTokenType: ApiTokenType;
   roles: ITeamUserRole[];
+  permissions: ITeamUserPermission[];
   errors?: any;
 }
 

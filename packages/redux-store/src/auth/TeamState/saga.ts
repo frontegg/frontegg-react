@@ -42,6 +42,7 @@ function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoad
         sort,
       }),
       call(api.teams.loadAvailableRoles),
+      call(api.teams.loadAvailablePermissions),
     ]);
     yield put(actions.setTeamState({ users, totalPages, totalItems, roles }));
     callback?.(users);
@@ -134,7 +135,7 @@ function* updateUser({ payload }: PayloadAction<WithCallback<IUpdateUser, ITeamU
   }
 }
 
-function* deleteUser({ payload }: PayloadAction<WithCallback<IDeleteUser, boolean>>) {
+function* deleteUser({ payload }: PayloadAction<WithCallback<IDeleteUser>>) {
   const { callback, ...body } = payload;
   const teamState = yield select();
   yield put(actions.setTeamState({ deleteUserDialogState: { ...teamState.deleteUserDialogState, loading: true } }));

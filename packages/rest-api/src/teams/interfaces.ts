@@ -71,6 +71,18 @@ export type ITeamUserRole = {
   permissionLevel?: number;
 };
 
+export type ITeamUserPermission = {
+  description: string;
+  fePermission: boolean;
+  id: string;
+  key: string;
+  name: string;
+  roleIds: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  categoryId: string;
+};
+
 export type ITeamStats = {
   totalItems: number;
   addedThisWeek: number;

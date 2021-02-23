@@ -1,4 +1,4 @@
-import { ITeamUserRole, ITeamUser, QuerySort, QueryFilter } from '@frontegg/rest-api';
+import { ITeamUserRole, ITeamUser, QuerySort, QueryFilter, ITeamUserPermission } from '@frontegg/rest-api';
 import { LoaderIndicatorState } from '../../interfaces';
 
 export enum TeamStateKeys {
@@ -41,6 +41,7 @@ export interface TeamState {
   pageSize: number;
   totalPages: number;
   roles: ITeamUserRole[];
+  permissions: ITeamUserPermission[];
 
   filter: QueryFilter[];
   sort: QuerySort[];

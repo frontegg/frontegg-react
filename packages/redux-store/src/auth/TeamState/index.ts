@@ -12,6 +12,7 @@ const teamState: TeamState = {
   errors: {},
   users: [],
   roles: [],
+  permissions: [],
   totalPages: 0,
   filter: [],
   sort: [],
@@ -39,8 +40,10 @@ const actions = {
     (payload: WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>) => ({ payload })
   ),
   addUser: createAction(`${authStoreName}/addUser`, (payload: WithCallback<IAddUser, ITeamUser>) => ({ payload })),
-  updateUser: createAction(`${authStoreName}/updateUser`, (payload: IUpdateUser) => ({ payload })),
-  deleteUser: createAction(`${authStoreName}/deleteUser`, (payload: IDeleteUser) => ({ payload })),
+  updateUser: createAction(`${authStoreName}/updateUser`, (payload: WithCallback<IUpdateUser, ITeamUser>) => ({
+    payload,
+  })),
+  deleteUser: createAction(`${authStoreName}/deleteUser`, (payload: WithCallback<IDeleteUser>) => ({ payload })),
   resendActivationLink: createAction(
     `${authStoreName}/resendActivationLink`,
     (payload: WithCallback<IResendActivationLink>) => ({ payload })
@@ -64,8 +67,8 @@ type DispatchedActions = {
   resetTeamState: () => void;
   loadUsers: (payload: WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>) => void;
   addUser: (payload: WithCallback<IAddUser, ITeamUser>) => void;
-  updateUser: (payload: IUpdateUser) => void;
-  deleteUser: (payload: IDeleteUser) => void;
+  updateUser: (payload: WithCallback<IUpdateUser>) => void;
+  deleteUser: (payload: WithCallback<IDeleteUser>) => void;
   resendActivationLink: (payload: WithCallback<IResendActivationLink>) => void;
   openAddUserDialog: (payload?: ISetAddUserDialog) => void;
   closeAddUserDialog: (payload?: any) => void;
