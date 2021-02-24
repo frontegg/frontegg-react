@@ -33,7 +33,7 @@ const EMAIL_2 = 'test2@frontegg.com';
 const PASSWORD = 'ValidPassword123!';
 const SSO_PATH = '/my-test-sso-login';
 const GOOGLE_AUTH_URL =
-  '/account/https://accounts.google.com/o/oauth2/v2/auth?client_id=google_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Faccount%2Fsocial%2Fsuccess&response_type=code&include_granted_scopes=true&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=%7B%22provider%22%3A%22google%22%2C%22action%22%3A%22login%22%7D';
+  '/account/https://accounts.google.com/o/oauth2/v2/auth?client_id=google_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A35723%2Faccount%2Fsocial%2Fsuccess&response_type=code&include_granted_scopes=true&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=%7B%22provider%22%3A%22google%22%2C%22action%22%3A%22login%22%7D';
 const GOOGLE_AUTH_RESPONSE = '?state=%7B%22provider%22:%22google%22,%22action%22:%22login%22%7D&code=google_auth_code';
 const MFA_TOKEN = 'mfaToken';
 const RECOVERY_CODE = '123412341234';
