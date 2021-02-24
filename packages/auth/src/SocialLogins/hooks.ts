@@ -11,6 +11,14 @@ export type UrlCreatorConfigType = ISocialLoginProviderConfiguration & { state: 
 
 export const createSocialLoginState = (state: ISocialLoginCallbackState): string => JSON.stringify(state);
 
+export const useRedirectUri = (): string => {
+  const routes = useAuth(({ routes }) => routes);
+  const redirectUri = useMemo<string>(() => {
+    return `${window.location.origin}${routes.socialLoginCallbackUrl}`;
+  }, [window.location.origin, routes.socialLoginCallbackUrl]);
+  return redirectUri;
+};
+
 export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
   socialLoginType: SocialLoginsProviders
@@ -22,10 +30,13 @@ export const useRedirectUrl = (
     [socialLoginsConfig]
   );
 
+  const redirectUri = useRedirectUri();
+
   const redirectUrl: string | undefined = useMemo(() => {
     if (config) {
       return urlCreator({
         ...config,
+        redirectUrl: redirectUri,
         state: createSocialLoginState({ provider: socialLoginType, action }),
       });
     }
