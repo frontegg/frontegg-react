@@ -114,7 +114,7 @@ export interface ISocialLoginProviderConfiguration {
 
 export interface ILoginViaSocialLogin {
   code: string;
-  redirectUri: string;
+  redirectUri?: string;
   provider: SocialLoginsProviders;
 }
 

@@ -36,17 +36,16 @@ const GOOGLE_AUTH_RESPONSE = '?state=%7B%22provider%22:%22google%22,%22action%22
 const MFA_TOKEN = 'mfaToken';
 const RECOVERY_CODE = '123412341234';
 
-const getGoogleAuthUrl = (): string => {
-  const origin = cy.location('origin');
+const getGoogleAuthUrl = (origin): string => {
   const search = new URLSearchParams({
     client_id: 'google_client_id',
-    include_granted_scopes: 'true',
     redirect_uri: `${origin}/account/social/success`,
     response_type: 'code',
+    include_granted_scopes: 'true',
     scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
     state: '{"provider":"google","action":"login"}',
   });
-  return `account/https://accounts.google.com/o/oauth2/v2/auth?${search.toString()}`;
+  return `/account/https://accounts.google.com/o/oauth2/v2/auth?${search.toString()}`;
 };
 
 const checkPasswordValidation = () => {
@@ -510,41 +509,43 @@ describe('Login Tests', () => {
     cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
     cy.get('.loader').should('not.be.visible');
 
-    const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+    cy.location('origin').then((origin) => {
+      const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+      cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+      cy.location().should((loc) => {
+        expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl(origin));
+      });
 
-    cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
-    cy.location().should((loc) => {
-      expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl());
-    });
+      const redirectUri = origin + defaultAuthPlugin.routes.socialLoginCallbackUrl;
 
-    navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code&redirectUri=${redirectUri}`,
+        status: 200,
+        delay: 200,
+        response: {},
+      }).as('submitSocialLogin');
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+        status: 200,
+        response: {
+          accessToken: '',
+          refreshToken: '',
+        },
+      }).as('refreshToken');
 
-    cy.get('.loader').should('not.be.visible');
+      mockAuthMe();
+      navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
 
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code`,
-      status: 200,
-      delay: 200,
-      response: {},
-    }).as('submitSocialLogin');
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-      status: 200,
-      response: {
-        accessToken: '',
-        refreshToken: '',
-      },
-    }).as('refreshToken');
+      cy.get('.loader').should('not.be.visible');
+      cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants']);
 
-    mockAuthMe();
-    cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants']);
+      cy.wait(1000);
 
-    cy.wait(1000);
-
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/');
+      cy.location().should((loc) => {
+        expect(loc.pathname).to.eq('/');
+      });
     });
   });
 
@@ -568,35 +569,37 @@ describe('Login Tests', () => {
     cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
     cy.get('.loader').should('not.be.visible');
 
-    const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+    cy.location('origin').then((origin) => {
+      const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+      cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+      cy.location().should((loc) => {
+        expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl(origin));
+      });
 
-    cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
-    cy.location().should((loc) => {
-      expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl());
+      navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+
+      cy.get('.loader').should('not.be.visible');
+
+      const redirectUri = origin + defaultAuthPlugin.routes.socialLoginCallbackUrl;
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code?redirectUri=${redirectUri}`,
+        status: 200,
+        delay: 200,
+        response: {},
+      }).as('submitSocialLogin');
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+        status: 200,
+        response: {
+          mfaRequired: true,
+          mfaToken: MFA_TOKEN,
+        },
+      }).as('refreshToken');
+
+      cy.wait(['@submitSocialLogin', '@refreshToken']);
     });
-
-    navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
-
-    cy.get('.loader').should('not.be.visible');
-
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code`,
-      status: 200,
-      delay: 200,
-      response: {},
-    }).as('submitSocialLogin');
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-      status: 200,
-      response: {
-        mfaRequired: true,
-        mfaToken: MFA_TOKEN,
-      },
-    }).as('refreshToken');
-
-    cy.wait(['@submitSocialLogin', '@refreshToken']);
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
