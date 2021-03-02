@@ -329,8 +329,12 @@ export async function getSocialLoginsProviders(): Promise<ISocialLoginProviderCo
  * Login using social login
  * @return cookie with refresh token
  */
-export async function loginViaSocialLogin({ provider, ...params }: ILoginViaSocialLogin): Promise<void> {
+export async function loginViaSocialLogin({ provider, code, redirectUri }: ILoginViaSocialLogin): Promise<void> {
   console.debug('loginViaSocialLogin()');
+  const params: {code: string, redirectUri?: string} = {code}
+  if(redirectUri) {
+    params.redirectUri = redirectUri
+  }
   return Post(`${AUTH_SERVICE_URL_V1}/user/sso/${provider}/postlogin`, {}, { params });
 }
 
