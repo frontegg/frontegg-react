@@ -22,7 +22,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
 
   if (!user) {
     return (
-      <Button size='large' variant='primary' onClick={() => onRedirectTo(routes.loginUrl)}>
+      <Button data-test-id='login-btn' size='large' variant='primary' onClick={() => onRedirectTo(routes.loginUrl)}>
         {t('login')}
       </Button>
     );
@@ -39,7 +39,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   return (
     <>
       <Popup
-        data-test-id='popUp-btn'
+        data-test-id={props}
         className={'fe-account-popup__container'}
         action='click'
         open={popupOpen}
