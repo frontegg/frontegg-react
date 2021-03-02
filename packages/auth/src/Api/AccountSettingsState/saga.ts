@@ -1,12 +1,14 @@
-import { call, put, takeLeading } from 'redux-saga/effects';
+import { call, put, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { api, IUpdateSettings } from '@frontegg/rest-api';
 
 function* updateAccountSettingsFunction({ payload }: PayloadAction<IUpdateSettings>) {
   try {
+    const { accountSettingsState } = yield select((state) => state.auth);
+    delete accountSettingsState.loading;
     yield put(actions.setAccountSettingsState({ loading: true }));
-    const { body } = yield call(api.accountSettings.updateSettings, payload);
+    const { body } = yield call(api.accountSettings.updateSettings, { ...accountSettingsState, ...payload });
     yield put(actions.setAccountSettingsState({ ...body, loading: false }));
   } catch (e) {
     yield put(actions.setAccountSettingsState({ loading: false, error: e.message }));
