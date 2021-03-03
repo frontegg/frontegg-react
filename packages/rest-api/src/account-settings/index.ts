@@ -1,4 +1,4 @@
-import { ACCOUNT_SETTINGS_SERVICE } from '../constants';
+import { ACCOUNT_SETTINGS_SERVICE_V1 } from '../constants';
 import { ISettingsResponse, IUpdateSettings } from './interfaces';
 import { Put, Get } from '../fetch';
 
@@ -9,10 +9,10 @@ import { Put, Get } from '../fetch';
 
 export async function updateSettings(body: IUpdateSettings): Promise<ISettingsResponse> {
   console.debug('updateSettings()', body);
-  return Put(`${ACCOUNT_SETTINGS_SERVICE}/`, body);
+  return Put(`${ACCOUNT_SETTINGS_SERVICE_V1}/`, body);
 }
 
 export async function getSettings(): Promise<ISettingsResponse> {
   console.debug('getSettings()');
-  return Get(`${ACCOUNT_SETTINGS_SERVICE}/`);
+  return Get(ACCOUNT_SETTINGS_SERVICE_V1);
 }

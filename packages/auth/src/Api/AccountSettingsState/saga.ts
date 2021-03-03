@@ -5,10 +5,10 @@ import { api, IUpdateSettings } from '@frontegg/rest-api';
 
 function* updateAccountSettingsFunction({ payload }: PayloadAction<IUpdateSettings>) {
   try {
-    const { accountSettingsState } = yield select((state) => state.auth);
-    delete accountSettingsState.loading;
     yield put(actions.setAccountSettingsState({ loading: true }));
-    const { body } = yield call(api.accountSettings.updateSettings, { ...accountSettingsState, ...payload });
+    const { accountSettingsState } = yield select((state) => state.auth);
+    const { loading, ...stateWithoutLoading } = accountSettingsState;
+    const { body } = yield call(api.accountSettings.updateSettings, { ...stateWithoutLoading, ...payload });
     yield put(actions.setAccountSettingsState({ ...body, loading: false }));
   } catch (e) {
     yield put(actions.setAccountSettingsState({ loading: false, error: e.message }));
