@@ -12,7 +12,7 @@ import {
   PageTabProps,
   OnError,
 } from '@frontegg/react-core';
-import { useProfileActions, useProfileState } from '../hooks';
+import { useProfileActions, useProfileState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

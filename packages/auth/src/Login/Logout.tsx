@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Loader, omitProps, RendererFunctionFC } from '@frontegg/react-core';
-import { useAuthRoutes } from '../hooks';
-import { useLoginActions } from './hooks';
+import { useAuthRoutes, useLoginActions } from '@frontegg/react-hooks/auth';
 
 export interface LogoutProps {
   renderer?: RendererFunctionFC<LogoutProps>;

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { useT, RendererFunctionFC, Button, omitProps } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useActivateAccountActions } from './hooks';
+import { useAuthRoutes, useOnRedirectTo, useActivateAccountActions } from '@frontegg/react-hooks/auth';
 
 export interface ActivateAccountFailedRedirectProps {
   renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>;

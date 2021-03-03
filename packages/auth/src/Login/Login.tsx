@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { ComponentsTypesWithProps, Loader, useDynamicComponents, useT, Button } from '@frontegg/react-core';
 import { LoginStep } from '@frontegg/redux-store/auth';
+import { useAuth, useAuthRoutes, useOnRedirectTo, useLoginActions, useLoginState } from '@frontegg/react-hooks/auth';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
@@ -9,9 +10,7 @@ import { LoginWithTwoFactor, LoginWithTwoFactorProps } from './LoginWithTwoFacto
 import { RedirectToSSO, RedirectToSSOProps } from './RedirectToSSO';
 import { LoginWithSSOFailed, LoginWithSSOFailedProps } from './LoginWithSSOFailed';
 import { ForceEnrollMfa, ForceEnrollMfaProps } from './ForceEnrollMfa';
-import { useAuth, useAuthRoutes, useOnRedirectTo } from '../hooks';
 import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
-import { useLoginActions, useLoginState } from './hooks';
 
 type Components = {
   LoginSuccessRedirect: LoginSuccessRedirectProps;

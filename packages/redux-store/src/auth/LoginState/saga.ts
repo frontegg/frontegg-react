@@ -1,16 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { all, call, delay, put, putResolve, select, takeLeading } from 'redux-saga/effects';
-import {
-  api,
-  ContextHolder,
-  ILogin,
-  ILoginWithMfa,
-  IPostLogin,
-  IPreLogin,
-  IRecoverMFAToken,
-  ISwitchTenant,
-  ITenantsResponse,
-} from '@frontegg/rest-api';
+import { all, call, delay, put, select, takeLeading } from 'redux-saga/effects';
+import { api, ContextHolder, ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
 import { WithCallback } from '../../interfaces';
@@ -258,29 +248,6 @@ function* recoverMfa({ payload }: PayloadAction<IRecoverMFAToken>) {
   }
 }
 
-function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCallback<ISwitchTenant>>) {
-  yield put(actions.setState({ isLoading: true }));
-  try {
-    yield call(api.tenants.switchTenant, { tenantId });
-    yield putResolve(actions.requestAuthorize(true));
-    callback?.(true);
-  } catch (e) {
-    callback?.(false, e);
-    yield put(actions.setState({ isLoading: false }));
-  }
-}
-
-function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsResponse[]>>) {
-  try {
-    const tenants = yield call(api.tenants.getTenants);
-    yield put(actions.setLoginState({ tenants, tenantsLoading: false }));
-    payload?.callback?.([]);
-  } catch (e) {
-    payload?.callback?.([], e);
-    yield put(actions.setLoginState({ tenantsLoading: false }));
-  }
-}
-
 function* logout({ payload }: PayloadAction<() => void>) {
   yield put(actions.setState({ isLoading: true }));
   try {
@@ -311,6 +278,4 @@ export function* loginSagas() {
   yield takeLeading(actions.silentLogout, silentLogout);
   yield takeLeading(actions.loginWithMfa, loginWithMfa);
   yield takeLeading(actions.recoverMfa, recoverMfa);
-  yield takeLeading(actions.switchTenant, switchTenant);
-  yield takeLeading(actions.loadTenants, loadTenants);
 }

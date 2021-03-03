@@ -2,7 +2,7 @@ import React from 'react';
 import { PageProps, useT } from '@frontegg/react-core';
 import { MFA } from '../../MFA';
 
-export const ProfileMfaPage: PageProps = (props) => {
+export const ProfileMfaPage: PageProps = () => {
   const { t } = useT();
   return (
     <div className='fe-profile-mfa-page'>

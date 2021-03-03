@@ -14,7 +14,7 @@ import { MFADisableDialogMessage } from './MFADisableDialogMessage';
 import { MFADisableDialogFooter } from './MFADisableDialogFooter';
 import { MFADisableDialogForm } from './MFADisableDialogForm';
 import { MFADisableDialogErrorMessage } from './MFADisableDialogErrorMessage';
-import { useMfaActions } from '../hooks';
+import { useMfaActions } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

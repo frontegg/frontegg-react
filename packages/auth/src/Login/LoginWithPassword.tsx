@@ -11,10 +11,15 @@ import {
   FInput,
   FFormik,
 } from '@frontegg/react-core';
-import { useAuth, useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useLoginActions, useLoginState } from './hooks';
-import { useForgotPasswordActions } from '../ForgotPassword';
-import { useSignUpState } from '../SignUp';
+import {
+  useAuth,
+  useAuthRoutes,
+  useOnRedirectTo,
+  useLoginActions,
+  useLoginState,
+  useSignUpState,
+  useForgotPasswordActions,
+} from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

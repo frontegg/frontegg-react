@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { SSORouter } from './SSORouter';
 import { useRootPath, RootPathContext, useProxyComponent, ProxyComponent } from '@frontegg/react-core';
 import { SSOHeader } from './SSOHeader';

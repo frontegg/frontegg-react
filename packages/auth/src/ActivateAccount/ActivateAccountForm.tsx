@@ -11,7 +11,7 @@ import {
   FFormik,
   validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
-import { useAuth, useAuthActions } from '../hooks';
+import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
 import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;

@@ -13,7 +13,7 @@ import {
   Grid,
   useT,
 } from '@frontegg/react-core';
-import { useApiTokensActions, useApiTokensState } from '../hooks';
+import { useApiTokensActions, useApiTokensState } from '@frontegg/react-hooks/auth';
 import { prefixCls } from '../constants';
 
 const { Formik } = FFormik;

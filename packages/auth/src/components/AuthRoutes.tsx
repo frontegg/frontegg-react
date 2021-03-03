@@ -8,7 +8,7 @@ import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps } from '../interfaces';
-import { useAuth } from '../hooks';
+import { useAuth } from '@frontegg/react-hooks/auth';
 import { SocialLoginsSuccess, SocialLoginsSuccessPageComponent } from '../SocialLogins';
 import { SignUp, SignUpPageComponent } from '../SignUp';
 

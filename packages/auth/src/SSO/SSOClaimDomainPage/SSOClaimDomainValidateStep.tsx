@@ -1,7 +1,6 @@
 import React, { FC, useContext, useRef } from 'react';
 import { useT, FFormik, FButton, Input, ErrorMessage, Icon, ButtonProps, RootPathContext } from '@frontegg/react-core';
-import { useSSOState } from '../hooks';
-import { useOnRedirectTo } from '../../hooks';
+import { useSSOState, useOnRedirectTo } from '@frontegg/react-hooks/auth';
 
 const { useFormikContext } = FFormik;
 

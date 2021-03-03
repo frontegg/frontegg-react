@@ -5,7 +5,7 @@ import { ResetPasswordSuccessRedirect, ResetPasswordSuccessRedirectProps } from 
 import { ResetPasswordFailed, ResetPasswordFailedProps } from './ResetPasswordFailedRedirect';
 import { ResetPasswordForm, ResetPasswordFormProps } from './ResetPasswordForm';
 import { authPageWrapper } from '../components';
-import { useForgotPasswordActions, useForgotPasswordState } from '../ForgotPassword';
+import { useForgotPasswordActions, useForgotPasswordState } from '@frontegg/react-hooks/auth';
 
 type Components = {
   ResetPasswordForm: ResetPasswordFormProps;

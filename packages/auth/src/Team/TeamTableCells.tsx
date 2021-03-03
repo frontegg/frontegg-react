@@ -13,7 +13,7 @@ import {
   useT,
 } from '@frontegg/react-core';
 import React, { useCallback, useMemo } from 'react';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 import classNames from 'classnames';
 
 const LEAVE_TEAM_OPTION = false;

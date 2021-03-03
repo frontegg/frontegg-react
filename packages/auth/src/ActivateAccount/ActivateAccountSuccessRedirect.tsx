@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useT, RendererFunctionFC, omitProps, Loader } from '@frontegg/react-core';
-import { useAuthActions, useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useAuthActions, useAuthRoutes, useOnRedirectTo } from '@frontegg/react-hooks/auth';
 
 export interface ActivateAccountSuccessRedirectProps {
   renderer?: RendererFunctionFC<ActivateAccountSuccessRedirectProps>;

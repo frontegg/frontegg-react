@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Grid, Icon, Input, useT, useDebounce } from '@frontegg/react-core';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 
 export const TeamTableToolbar = () => {
   const { filter: filters } = useAuthTeamState((state) => ({ filter: state.filter || [] }));

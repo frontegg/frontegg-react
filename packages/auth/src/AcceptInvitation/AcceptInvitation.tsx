@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 import { AcceptInvitationStep } from '@frontegg/redux-store/auth';
+import { useAcceptInvitationActions, useAcceptInvitationState } from '@frontegg/react-hooks/auth';
 import { Success, SuccessProps } from './Success';
 import { Failed, FailedProps } from './Failed';
 import { authPageWrapper } from '../components';
 import { InvalidProps, Invalid } from './Invalid';
 import { Pending, PendingProps } from './Pending';
-import { useAcceptInvitationActions, useAcceptInvitationState } from './hooks';
 
 type Components = {
   Success: SuccessProps;

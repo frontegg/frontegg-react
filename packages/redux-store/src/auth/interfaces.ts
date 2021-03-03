@@ -13,6 +13,7 @@ import { SignUpState } from './SignUp/interfaces';
 import { SocialLoginState } from './SocialLogins/interfaces';
 import { SecurityPolicyState } from './SecurityPolicyState/interfaces';
 import { AccountSettingsState } from './AccountSettingsState/interfaces';
+import { TenantsState } from './TenantsState/interfaces';
 
 export interface User extends IUserProfile {
   accessToken: string;
@@ -52,6 +53,7 @@ export interface AuthState extends Routes, PluginOptions {
   apiTokensState: ApiTokensState;
   securityPolicyState: SecurityPolicyState;
   accountSettingsState: AccountSettingsState;
+  tenantsState: TenantsState;
 }
 
 export type AuthPageRoutes = {

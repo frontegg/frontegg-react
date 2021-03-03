@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { validateUrl, validateRequired, validateSchemaSync } from '@frontegg/react-core';
 import { SSOActions } from '@frontegg/redux-store/auth';
-import { useSSOActions, useSSOState } from './hooks';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SamlVendors } from './SSOConfigureIDPPage/SSOVendors';
 import { IInitialValues } from './SSOConfigureIDPPage/SSOConfigureIDPForm';
 

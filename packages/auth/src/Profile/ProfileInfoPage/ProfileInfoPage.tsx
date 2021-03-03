@@ -10,7 +10,7 @@ import {
 } from '@frontegg/react-core';
 import { ProfileImageUploader } from './ProfileImageUploader';
 import { ProfileBasicInformation } from './ProfileBasicInformation';
-import { useProfileActions, useProfileState } from '../hooks';
+import { useProfileActions, useProfileState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = ({ children }) => {

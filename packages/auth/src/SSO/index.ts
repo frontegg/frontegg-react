@@ -12,7 +12,6 @@ import {
 import { SSOConfigureIDPComponent, SSOConfigureIDPPage } from './SSOConfigureIDPPage';
 import { SSOManageAuthorizationComponent, SSOManageAuthorizationPage } from './SSOManageAuthorizationPage';
 
-export * from './hooks';
 export const SSO = {
   Page: SSOPage,
   Header: SSOHeader,

@@ -11,7 +11,7 @@ import {
   useT,
 } from '@frontegg/react-core';
 import { SamlVendors } from './SSOVendors';
-import { useSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 
 type InstructionsAccordionProps = {
   steps: {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 import { useT, FFormik, FForm } from '@frontegg/react-core';
-import { useSSOActions, useSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SSOManageAuthorizationSelect } from './SSOManageAuthorizationSelect';
 
 const { Formik } = FFormik;

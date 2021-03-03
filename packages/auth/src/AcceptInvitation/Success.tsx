@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useT, RendererFunctionFC, omitProps } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useAcceptInvitationActions } from './hooks';
+import { useAuthRoutes, useOnRedirectTo, useAcceptInvitationActions } from '@frontegg/react-hooks/auth';
 
 export interface SuccessProps {
   renderer?: RendererFunctionFC<SuccessProps>;

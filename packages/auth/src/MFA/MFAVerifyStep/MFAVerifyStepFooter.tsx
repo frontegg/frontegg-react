@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Button, FButton, FForm, Grid, useDialog, useT } from '@frontegg/react-core';
-import { useMfaState } from '../hooks';
+import { Button, FButton, Grid, useDialog, useT } from '@frontegg/react-core';
+import { useMfaState } from '@frontegg/react-hooks/auth';
 
 export const MFAVerifyStepFooter: FC = () => {
   const { loading } = useMfaState(({ loading }) => ({ loading }));

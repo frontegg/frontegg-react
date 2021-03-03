@@ -12,7 +12,7 @@ import {
   useT,
 } from '@frontegg/react-core';
 import Dropzone from 'react-dropzone';
-import { useSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 import { SamlVendors } from './SSOVendors';
 
 const { useField, useFormikContext } = FFormik;

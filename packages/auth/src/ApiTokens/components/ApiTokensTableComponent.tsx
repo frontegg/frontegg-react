@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Loader, Table, useT } from '@frontegg/react-core';
 import { IUserApiTokensData, ITenantApiTokensData } from '@frontegg/redux-store/auth';
-import { useApiTokensState } from '../hooks';
+import { useApiTokensState } from '@frontegg/react-hooks/auth';
 import { prefixCls, tableColumnsUser, tableColumnsTenant } from '../constants';
 
 export const ApiTokensTableComponent: FC = () => {

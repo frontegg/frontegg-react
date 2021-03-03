@@ -6,7 +6,7 @@ import { SSOConfigureIDPGuide } from './SSOConfigureIDPGuide';
 import { SSOConfigureIDPForm } from './SSOConfigureIDPForm';
 import { SSOConfigureIDPSelect } from './SSOConfigureIDPSelect';
 import { SamlVendors } from './SSOVendors';
-import { useSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 import { reloadSSOIfNeeded } from '../helpers';
 
 export const SSOConfigureIDPComponent: FC = (props) => {

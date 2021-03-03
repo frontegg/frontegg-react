@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { SSOClaimDomainForm } from './SSOClaimDomainForm';
 import { SSOClaimDomainGuide } from './SSOClaimDomainGuide';
 import { HideOption, RouteWrapper } from '../../interfaces';
-import { useSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 import { reloadSSOIfNeeded } from '../helpers';
 
 export const SSOClaimDomainComponent: FC = (props) => {

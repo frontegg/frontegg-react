@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { PageHeader, PageHeaderProps, useT } from '@frontegg/react-core';
 import classNames from 'classnames';
-import { useAuth } from '../hooks';
+import { useAuth } from '@frontegg/react-hooks/auth';
 
 export type TeamHeaderProps = PageHeaderProps;
 

@@ -13,8 +13,7 @@ import {
   validateEmail,
   validateSchema,
 } from '@frontegg/react-core';
-import { useAuthUserOrNull } from '../hooks';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { useAuthUserOrNull, useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 import { checkRoleAccess } from './helpers';
 
 type TRoles = {

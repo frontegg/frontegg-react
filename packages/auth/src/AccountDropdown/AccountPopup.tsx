@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Icon } from '@frontegg/react-core';
 import classNames from 'classnames';
-import { useAuth, useAuthUserOrNull } from '../hooks';
+import { useAuth, useAuthUserOrNull } from '@frontegg/react-hooks/auth';
 import { AccountPopupSection, AccountPopupSectionProps } from './AccountPopupSection';
 import { AccountPopupSwitchTenant } from './AccountPopupSwitchTenant';
 

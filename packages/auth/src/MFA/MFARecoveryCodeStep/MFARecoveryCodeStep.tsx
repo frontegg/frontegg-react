@@ -4,7 +4,7 @@ import { MFARecoveryCodeStepMessage } from './MFARecoveryCodeStepMessage';
 import { MFARecoveryCodeStepForm } from './MFARecoveryCodeStepForm';
 import { MFARecoveryCodeStepFooter } from './MFARecoveryCodeStepFooter';
 
-import { useMfaState } from '../hooks';
+import { useMfaState } from '@frontegg/react-hooks/auth';
 
 type MFARecoveryCodeStepProps = {
   MFARecoveryCodeStepFooter?: ComponentType;

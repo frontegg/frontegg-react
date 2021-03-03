@@ -9,8 +9,7 @@ import {
   validateSchema,
   validateEmail,
 } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useSignUpActions, useSignUpState } from './hooks';
+import { useAuthRoutes, useOnRedirectTo, useSignUpActions, useSignUpState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

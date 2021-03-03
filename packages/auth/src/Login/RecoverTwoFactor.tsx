@@ -11,7 +11,7 @@ import {
   FForm,
   FFormik,
 } from '@frontegg/react-core';
-import { useLoginActions, useLoginState } from './hooks';
+import { useLoginActions, useLoginState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { authPageWrapper } from '../components';
 import { Loader, RendererFunctionFC, omitProps } from '@frontegg/react-core';
 import { LoginWithSSOFailed } from './LoginWithSSOFailed';
-import { useLoginActions } from './hooks';
+import { useLoginActions } from '@frontegg/react-hooks/auth';
 
 export interface LoginWithSSOProps {
   renderer?: RendererFunctionFC<LoginWithSSOProps>;

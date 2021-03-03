@@ -11,3 +11,4 @@ export * from './team';
 export * from './sso';
 export * from './hooks';
 export * from './securityPolicy';
+export * from './tenants';

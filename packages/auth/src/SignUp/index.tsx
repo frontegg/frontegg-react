@@ -1,4 +1,3 @@
 export * from './SignUp';
 export * from './SignUpForm';
-
-export * from './hooks';
+export * from './SignUpSuccess';

@@ -1,13 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import {
-  ILogin,
-  ILoginWithMfa,
-  IPostLogin,
-  IPreLogin,
-  IRecoverMFAToken,
-  ISwitchTenant,
-  ITenantsResponse,
-} from '@frontegg/rest-api';
+import { ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
 import { LoginState, LoginStep } from './interfaces';
 import { ActionDispatchMatcher, WithCallback } from '../../interfaces';
 import { resetStateByKey, typeReducerForKey } from '../utils';
@@ -34,10 +26,6 @@ const actions = {
   recoverMfa: createAction(`${authStoreName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
   logout: createAction(`${authStoreName}/logout`, (payload?: () => void) => ({ payload })),
   silentLogout: createAction(`${authStoreName}/silentLogout`, (payload?: () => void) => ({ payload })),
-  switchTenant: createAction(`${authStoreName}/switchTenant`, (payload: WithCallback<ISwitchTenant>) => ({ payload })),
-  loadTenants: createAction(`${authStoreName}/loadTenants`, (payload?: WithCallback<{}, ITenantsResponse[]>) => ({
-    payload,
-  })),
 };
 
 /**
@@ -55,8 +43,6 @@ type DispatchedActions = {
   recoverMfa: (payload: IRecoverMFAToken) => void;
   logout: (payload?: () => void) => void;
   silentLogout: (payload?: () => void) => void;
-  switchTenant: (payload: WithCallback<ISwitchTenant>) => void;
-  loadTenants: (payload?: WithCallback<{}, ITenantsResponse[]>) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { HideOption, RouteWrapper } from '../../interfaces';
-import { useSSOActions, useSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SSOManageAuthorizationForm } from './SSOManageAuthorizationForm';
 import { reloadSSOIfNeeded } from '../helpers';
 

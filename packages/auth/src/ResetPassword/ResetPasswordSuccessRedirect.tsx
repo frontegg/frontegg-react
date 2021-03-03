@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Loader, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useForgotPasswordActions } from '../ForgotPassword';
+import { useAuthRoutes, useOnRedirectTo, useForgotPasswordActions } from '@frontegg/react-hooks/auth';
 
 export interface ResetPasswordSuccessRedirectProps {
   renderer?: RendererFunctionFC<ResetPasswordSuccessRedirectProps>;

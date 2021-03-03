@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, useCallback, useRef } from 'react';
 import { FFormik, Button, Icon, Loader, useT, FFileInput, OnError, ErrorMessage } from '@frontegg/react-core';
-import { useProfileState } from '../hooks';
+import { useProfileState } from '@frontegg/react-hooks/auth';
 
 const { useFormikContext, useField } = FFormik;
 

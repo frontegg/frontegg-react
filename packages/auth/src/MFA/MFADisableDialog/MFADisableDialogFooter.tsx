@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Button, FButton, Grid, useDialog, useT } from '@frontegg/react-core';
-import { useMfaState } from '../hooks';
+import { useMfaState } from '@frontegg/react-hooks/auth';
 
 export const MFADisableDialogFooter: FC = () => {
   const { t } = useT();

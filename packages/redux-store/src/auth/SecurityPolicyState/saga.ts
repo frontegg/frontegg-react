@@ -7,7 +7,7 @@ import { SaveSecurityPolicyLockoutPayload, SaveSecurityPolicyMfaPayload } from '
 function* loadSecurityPolicy() {
   yield put(actions.setSecurityPolicyGlobalState({ loading: true, error: null }));
   try {
-    const policy = yield retry(3, 2000, api.auth.getGlobalSecurityPolicy);
+    const policy = yield call(api.auth.getGlobalSecurityPolicy);
     yield put(actions.setSecurityPolicyGlobalState({ policy, loading: false }));
   } catch (e) {
     yield put(actions.setSecurityPolicyGlobalState({ error: e.message, loading: false }));
@@ -17,7 +17,7 @@ function* loadSecurityPolicy() {
 function* loadSecurityPolicyMfa() {
   yield put(actions.setSecurityPolicyMfaState({ loading: true, error: null }));
   try {
-    const policy = yield retry(3, 2000, api.auth.getMfaPolicy);
+    const policy = yield call(api.auth.getMfaPolicy);
     yield put(actions.setSecurityPolicyMfaState({ policy, loading: false }));
   } catch (e) {
     yield put(actions.setSecurityPolicyMfaState({ error: e.message, loading: false }));
@@ -41,7 +41,7 @@ function* saveSecurityPolicyMfa({
 function* loadSecurityPolicyLockout() {
   yield put(actions.setSecurityPolicyLockoutState({ loading: true, error: null }));
   try {
-    const policy = yield retry(3, 2000, api.auth.getLockoutPolicy);
+    const policy = yield call(api.auth.getLockoutPolicy);
     yield put(actions.setSecurityPolicyLockoutState({ policy, loading: false }));
   } catch (e) {
     yield put(actions.setSecurityPolicyLockoutState({ error: e.message, loading: false }));

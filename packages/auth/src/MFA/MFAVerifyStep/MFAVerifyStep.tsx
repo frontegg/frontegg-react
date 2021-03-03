@@ -7,7 +7,7 @@ import { MFAVerifyStepForm } from './MFAVerifyStepForm';
 import { MFAVerifyStepErrorMessage } from './MFAVerifyStepErrorMessage';
 import { MFAVerifyStepFooter } from './MFAVerifyStepFooter';
 
-import { useMfaActions, useMfaState } from '../hooks';
+import { useMfaActions, useMfaState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

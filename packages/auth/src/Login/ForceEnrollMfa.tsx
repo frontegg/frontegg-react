@@ -13,9 +13,8 @@ import {
   FButton,
 } from '@frontegg/react-core';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
-import { useMfaActions, useMfaState } from '../MFA';
+import { useMfaActions, useMfaState, useLoginActions } from '@frontegg/react-hooks/auth';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
-import { useLoginActions } from './hooks';
 
 const { Formik } = FFormik;
 

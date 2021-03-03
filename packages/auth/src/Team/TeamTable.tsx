@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Table, TableColumnProps, useT } from '@frontegg/react-core';
 import { TeamState } from '@frontegg/redux-store/auth';
-import { useAuthUserOrNull } from '../hooks';
+import { useAuthUserOrNull, useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 import {
   TeamTableActions,
   TeamTableAvatarCell,
@@ -11,7 +11,6 @@ import {
   TeamTableTitleCell,
   TeamTableRoles,
 } from './TeamTableCells';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
 import { checkRoleAccess } from './helpers';
 
 type TRoles = {

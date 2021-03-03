@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { Button, Dialog, ErrorMessage, Grid, useT } from '@frontegg/react-core';
 import { ApiStateKeys, ApiTokensState } from '@frontegg/redux-store/auth';
-import { useApiTokensState, useApiTokensActions } from '../hooks';
+import { useApiTokensState, useApiTokensActions } from '@frontegg/react-hooks/auth';
 import { prefixCls } from '../constants';
 
 const stateMapper = ({

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Button, Grid, Input, useT } from '@frontegg/react-core';
 import { prefixCls } from '../constants';
-import { useApiTokensActions, useApiTokensState } from '../hooks';
+import { useApiTokensActions, useApiTokensState } from '@frontegg/react-hooks/auth';
 
 export const ApiTokensTableToolbar: FC = () => {
   const { setApiTokensState } = useApiTokensActions();

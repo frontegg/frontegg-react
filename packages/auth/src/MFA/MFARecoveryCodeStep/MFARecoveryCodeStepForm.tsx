@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useT, Icon } from '@frontegg/react-core';
 import classNames from 'classnames';
 import copy from 'clipboard-copy';
-import { useMfaState } from '../hooks';
+import { useMfaState } from '@frontegg/react-hooks/auth';
 
 export const MFARecoveryCodeStepForm: FC = (props) => {
   const { t } = useT();

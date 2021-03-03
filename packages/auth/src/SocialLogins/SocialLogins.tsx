@@ -4,7 +4,7 @@ import { SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
 import { SocialLoginsContext } from './SocialLoginContext';
-import { useSocialLoginActions, useSocialLoginState } from './hooks';
+import { useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hooks/auth';
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;

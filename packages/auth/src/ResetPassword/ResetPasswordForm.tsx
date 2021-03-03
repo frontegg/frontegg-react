@@ -12,7 +12,7 @@ import {
   FForm,
   FFormik,
 } from '@frontegg/react-core';
-import { useForgotPasswordActions, useForgotPasswordState } from '../ForgotPassword';
+import { useForgotPasswordActions, useForgotPasswordState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 

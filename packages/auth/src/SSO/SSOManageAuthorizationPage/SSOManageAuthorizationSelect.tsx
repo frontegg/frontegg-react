@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { Select, FFormik, ErrorMessage, FButton, useT } from '@frontegg/react-core';
-import { useSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 
 const { useFormikContext } = FFormik;
 

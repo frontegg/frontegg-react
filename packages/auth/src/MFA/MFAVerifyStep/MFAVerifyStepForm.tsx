@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { FInput, Loader, useT } from '@frontegg/react-core';
-import { useMfaActions, useMfaState } from '../hooks';
+import { useMfaActions, useMfaState } from '@frontegg/react-hooks/auth';
 
 export const MFAVerifyStepForm: FC = (props) => {
   const { t } = useT();

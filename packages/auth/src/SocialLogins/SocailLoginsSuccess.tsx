@@ -3,8 +3,7 @@ import { Button, Loader, useT } from '@frontegg/react-core';
 import { useLocation } from 'react-router-dom';
 import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
-import { useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useSocialLoginActions, useSocialLoginState } from './hooks';
+import { useAuthRoutes, useOnRedirectTo, useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hooks/auth';
 import { useRedirectUri } from './hooks';
 
 export const SocialLoginsSuccess: FC = () => {

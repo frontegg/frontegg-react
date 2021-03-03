@@ -4,7 +4,7 @@ import { ForgotPasswordStep } from '@frontegg/redux-store/auth';
 import { authPageWrapper } from '../components';
 import { ForgotPasswordSuccessRedirect, ForgotPasswordSuccessRedirectProps } from './ForgotPasswordSuccessRedirect';
 import { ForgotPasswordForm, ForgotPasswordFormProps } from './ForgotPasswordForm';
-import { useForgotPasswordState } from './hooks';
+import { useForgotPasswordState } from '@frontegg/react-hooks/auth';
 
 type Components = {
   ForgotPasswordSuccessRedirect: ForgotPasswordSuccessRedirectProps;

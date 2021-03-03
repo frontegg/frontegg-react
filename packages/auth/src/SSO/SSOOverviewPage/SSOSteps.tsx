@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useT, Loader, checkRootPath } from '@frontegg/react-core';
 import { SSOStep } from './SSOStep';
 import { HideOption } from '../../interfaces';
-import { useSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 
 export const SSOSteps: FC<HideOption> = (props) => {
   const { t } = useT();

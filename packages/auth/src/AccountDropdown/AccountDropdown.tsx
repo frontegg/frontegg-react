@@ -1,6 +1,6 @@
 import { Button, Icon, Popup, useT } from '@frontegg/react-core';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useAuthRoutes, useAuthUserOrNull, useOnRedirectTo } from '../hooks';
+import { useAuthRoutes, useAuthUserOrNull, useOnRedirectTo } from '@frontegg/react-hooks/auth';
 import './style.scss';
 import { AccountPopup } from './AccountPopup';
 import { AccountPopupSectionProps } from './AccountPopupSection';

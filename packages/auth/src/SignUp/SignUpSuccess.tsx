@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { useT } from '@frontegg/react-core';
-import { AuthState } from '@frontegg/redux-store/auth';
-import { useAuth } from '../hooks';
-
-const stateMapper = ({ signUpState, routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo, ...signUpState });
+import { useSignUpActions, useAuthRoutes, useOnRedirectTo, useSignUpState } from '@frontegg/react-hooks/auth';
 
 export const SignUpSuccess: FC = () => {
   const { t } = useT();
-  const { shouldActivate, resetSignUpStateSoft, onRedirectTo, routes } = useAuth(stateMapper);
+  const { shouldActivate } = useSignUpState();
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const { resetSignUpStateSoft } = useSignUpActions();
 
   const message: string = useMemo(() => {
     if (shouldActivate) {

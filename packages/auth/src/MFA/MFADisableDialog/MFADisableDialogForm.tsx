@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { FInput, useT } from '@frontegg/react-core';
-import { useMfaState } from '../hooks';
+import { useMfaState } from '@frontegg/react-hooks/auth';
 
 export const MFADisableDialogForm: FC = (props) => {
   const { t } = useT();

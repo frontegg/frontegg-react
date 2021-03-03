@@ -45,6 +45,9 @@ export * from './SecurityPolicyState';
 export * from './AccountSettingsState/interfaces';
 export * from './AccountSettingsState';
 
+export * from './TenantsState/interfaces';
+export * from './TenantsState';
+
 export { AuthActions } from './reducer';
 
 export {
