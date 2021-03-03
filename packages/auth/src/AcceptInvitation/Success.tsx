@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useT, RendererFunctionFC, omitProps } from '@frontegg/react-core';
-import { useAuth, useAuthRoutes, useOnRedirectTo } from '../hooks';
-import { useActivateAccountActions } from '../ActivateAccount';
+import { useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useAcceptInvitationActions } from './hooks';
 
 export interface SuccessProps {
   renderer?: RendererFunctionFC<SuccessProps>;
@@ -12,14 +12,14 @@ export const Success: FC<SuccessProps> = (props) => {
   const { t } = useT();
   const onRedirectTo = useOnRedirectTo();
   const { loginUrl } = useAuthRoutes();
-  const { resetActivateState } = useActivateAccountActions();
+  const { resetAcceptInvitationState } = useAcceptInvitationActions();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }
   useEffect(() => {
     setTimeout(() => {
-      resetActivateState();
+      resetAcceptInvitationState();
       onRedirectTo(loginUrl);
     }, 1000);
   }, []);
