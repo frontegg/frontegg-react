@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/frontegg/frontegg-react/compare/v1.23.1...v1.24.0) (2021-03-03)
+
+
+### Bug Fixes
+
+* **audits:** align icon and add cursor pointer on icons ([c6977b0](https://github.com/frontegg/frontegg-react/commit/c6977b006c2086600ed42c36aee29116871a457f))
+
+
+
+
+
 ## [1.23.1](https://github.com/frontegg/frontegg-react/compare/v1.23.0...v1.23.1) (2021-02-21)
 
 **Note:** Version bump only for package @frontegg/react-audits
