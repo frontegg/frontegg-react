@@ -15,6 +15,7 @@ import { SocialLoginActions, socialLoginsActions, socialLoginsReducer } from './
 import { SignUpActions, signUpActions, signUpReducers } from './SignUp';
 import { ApiTokensActions, apiTokensActions, apiTokensReducers } from './ApiTokensState';
 import { SecurityPolicyActions, securityPolicyActions, securityPolicyReducers } from './SecurityPolicyState';
+import { AccountSettingsActions, accountSettingsActions, accountSettingsReducers } from './AccountSettingsState';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: authStoreName,
@@ -35,6 +36,7 @@ const { reducer, actions: sliceActions } = createSlice({
     ...teamReducers,
     ...apiTokensReducers,
     ...securityPolicyReducers,
+    ...accountSettingsReducers,
   },
 });
 
@@ -52,6 +54,7 @@ const actions = {
   ...teamActions,
   ...apiTokensActions,
   ...securityPolicyActions,
+  ...accountSettingsActions,
 };
 
 export type RootActions = {
@@ -72,6 +75,7 @@ export type AuthActions = RootActions &
   MfaActions &
   TeamActions &
   ApiTokensActions &
-  SecurityPolicyActions;
+  SecurityPolicyActions &
+  AccountSettingsActions;
 
 export { reducer, actions };

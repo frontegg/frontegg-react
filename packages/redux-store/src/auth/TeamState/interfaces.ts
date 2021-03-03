@@ -1,5 +1,5 @@
 import { ITeamUserRole, ITeamUser, QuerySort, QueryFilter, ITeamUserPermission } from '@frontegg/rest-api';
-import { LoaderIndicatorState } from '../../interfaces';
+import { LoaderIndicatorState, WithCallback } from '../../interfaces';
 
 export enum TeamStateKeys {
   USERS = 'USERS',
@@ -7,6 +7,7 @@ export enum TeamStateKeys {
   UPDATE_USER = 'UPDATE_USER',
   DELETE_USER = 'DELETE_USER',
   RESEND_ACTIVATE_LINK = 'RESEND_ACTIVATE_LINK',
+  ROLES_AND_PERMISSIONS = 'ROLES_AND_PERMISSIONS',
 }
 
 export type TeamStateIndicator = {
@@ -31,6 +32,11 @@ export type DeleteUserDialogState = BaseDialogState & {
   email?: string;
 };
 export type ISetDeleteUserDialog = Omit<DeleteUserDialogState, 'loading' | 'error' | 'open'>;
+
+export type LoadRolesAndPermissionsPayload = WithCallback<
+  {},
+  { roles: ITeamUserRole[]; permissions: ITeamUserPermission[] }
+>;
 
 export interface TeamState {
   loaders: LoaderIndicatorState<TeamStateKeys>;

@@ -346,6 +346,14 @@
       }
     }
 
+    &-useragent {
+      margin-left: auto;
+      margin-right: auto;
+      > span {
+        cursor: pointer;
+      }
+    }
+
     &-high,
     &-error {
       color: var(--color-danger);

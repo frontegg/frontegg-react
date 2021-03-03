@@ -11,6 +11,7 @@ import { socialLoginState } from './SocialLogins';
 import { signUpState } from './SignUp';
 import { apiTokensState } from './ApiTokensState';
 import { securityPolicyState } from './SecurityPolicyState';
+import { accountSettingsState } from './AccountSettingsState';
 
 export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isAuthenticated: false,
@@ -30,6 +31,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   socialLoginState,
   apiTokensState,
   securityPolicyState,
+  accountSettingsState,
 };
 export const initialState: AuthState = {
   routes: {

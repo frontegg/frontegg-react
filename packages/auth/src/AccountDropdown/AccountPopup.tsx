@@ -23,6 +23,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
         {
           icon: <Icon name='profile' />,
           title: 'Profile',
+          dataTestId: 'profile-btn',
           onClick: () => {
             onRedirectTo('/profile');
             props.closePopup();
@@ -37,6 +38,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
               {
                 icon: <Icon name='swap' />,
                 title: 'Switch Tenant',
+                dataTestId: 'switch-tenant-btn',
                 onClick: () => {
                   setShowSwitchTenant(true);
                 },
@@ -46,6 +48,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
         {
           icon: <Icon name='exit' />,
           title: 'Logout',
+          dataTestId: 'logout-btn',
           onClick: () => {
             onRedirectTo(routes.logoutUrl);
             props.closePopup();

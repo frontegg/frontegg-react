@@ -7,7 +7,7 @@ import {
   SocialLoginState,
 } from '@frontegg/redux-store/auth';
 import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
-import { reducerActionsGenerator, StateHookFunction, stateHookGenerator } from '../hooks';
+import { reducerActionsGenerator, StateHookFunction, stateHookGenerator, useAuthRoutes } from '../hooks';
 import { SocialLoginsContext } from './SocialLoginContext';
 
 export type SocialLoginStateMapper<S extends object> = (state: SocialLoginState) => S;
@@ -21,6 +21,16 @@ export const useSocialLoginActions = (): SocialLoginActions =>
 
 export type UrlCreatorConfigType = ISocialLoginProviderConfiguration & { state: string };
 
+export const createSocialLoginState = (state: ISocialLoginCallbackState): string => JSON.stringify(state);
+
+export const useRedirectUri = (): string => {
+  const routes = useAuthRoutes();
+  const redirectUri = useMemo<string>(() => {
+    return `${window.location.origin}${routes.socialLoginCallbackUrl}`;
+  }, [window.location.origin, routes.socialLoginCallbackUrl]);
+  return redirectUri;
+};
+
 export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
   socialLoginType: SocialLoginsProviders
@@ -32,11 +42,14 @@ export const useRedirectUrl = (
     [socialLoginsConfig]
   );
 
+  const redirectUri = useRedirectUri();
+
   const redirectUrl: string | undefined = useMemo(() => {
     if (config) {
       return urlCreator({
         ...config,
-        state: JSON.stringify({ provider: socialLoginType, action } as ISocialLoginCallbackState),
+        redirectUrl: redirectUri,
+        state: createSocialLoginState({ provider: socialLoginType, action }),
       });
     }
   }, [config?.clientId, config?.redirectUrl, action]);

@@ -7,11 +7,13 @@ import {
   ILoadUsers,
   IResendActivationLink,
   ITeamUser,
+  ITeamUserPermission,
+  ITeamUserRole,
   IUpdateUser,
 } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback, WithSilentLoad } from '../../interfaces';
-import { ISetAddUserDialog, ISetDeleteUserDialog, TeamStateKeys } from './interfaces';
+import { ISetAddUserDialog, ISetDeleteUserDialog, LoadRolesAndPermissionsPayload, TeamStateKeys } from './interfaces';
 import { authStoreName } from '../../constants';
 
 const select = () => sagaSelect((_) => _[authStoreName].teamState);
@@ -34,7 +36,7 @@ function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoad
     })
   );
   try {
-    const [{ items: users, totalPages, totalItems }, { items: roles }] = yield all([
+    const [{ items: users, totalPages, totalItems }, { items: roles }, { items: permissions }] = yield all([
       call(api.teams.loadUsers, {
         pageSize,
         pageOffset,
@@ -44,7 +46,7 @@ function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoad
       call(api.teams.loadAvailableRoles),
       call(api.teams.loadAvailablePermissions),
     ]);
-    yield put(actions.setTeamState({ users, totalPages, totalItems, roles }));
+    yield put(actions.setTeamState({ users, totalPages, totalItems, roles, permissions }));
     callback?.(users);
   } catch (e) {
     yield put(actions.setTeamError({ key: TeamStateKeys.USERS, value: e.message }));
@@ -52,6 +54,24 @@ function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoad
     callback?.(null, e);
   }
   yield put(actions.setTeamLoader({ key: TeamStateKeys.USERS, value: false }));
+}
+
+function* loadRoles({ payload }: PayloadAction<LoadRolesAndPermissionsPayload>) {
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.ROLES_AND_PERMISSIONS, value: true }));
+  try {
+    const [{ items: roles }, { items: permissions }] = yield all([
+      call(api.teams.loadAvailableRoles),
+      call(api.teams.loadAvailablePermissions),
+    ]);
+
+    yield put(actions.setTeamState({ roles, permissions }));
+    payload?.callback?.({ roles, permissions });
+  } catch (e) {
+    payload?.callback?.(null, e);
+    yield put(actions.setTeamError({ key: TeamStateKeys.ROLES_AND_PERMISSIONS, value: e.message }));
+  }
+
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.ROLES_AND_PERMISSIONS, value: true }));
 }
 
 function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>) {
@@ -231,6 +251,7 @@ function* closeDeleteUserDialog({ payload }: PayloadAction<any>) {
 
 export function* teamSagas() {
   yield takeLatest(actions.loadUsers, loadUsers);
+  yield takeLatest(actions.loadRoles, loadRoles);
   yield takeEvery(actions.addUser, addUser);
   yield takeEvery(actions.updateUser, updateUser);
   yield takeEvery(actions.deleteUser, deleteUser);

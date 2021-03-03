@@ -28,6 +28,7 @@ const apiTokensState: ApiTokensState = {
   apiTokensDataTenant: [],
   apiTokensDataUser: [],
   roles: [],
+  permissions: [],
   errors: {},
 };
 

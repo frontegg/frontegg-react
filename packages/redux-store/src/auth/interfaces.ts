@@ -12,6 +12,7 @@ import { AcceptInvitationState } from './AcceptInvitationState/interfaces';
 import { SignUpState } from './SignUp/interfaces';
 import { SocialLoginState } from './SocialLogins/interfaces';
 import { SecurityPolicyState } from './SecurityPolicyState/interfaces';
+import { AccountSettingsState } from './AccountSettingsState/interfaces';
 
 export interface User extends IUserProfile {
   accessToken: string;
@@ -50,6 +51,7 @@ export interface AuthState extends Routes, PluginOptions {
   signUpState: SignUpState;
   apiTokensState: ApiTokensState;
   securityPolicyState: SecurityPolicyState;
+  accountSettingsState: AccountSettingsState;
 }
 
 export type AuthPageRoutes = {

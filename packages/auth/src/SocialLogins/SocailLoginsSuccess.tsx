@@ -3,8 +3,9 @@ import { Button, Loader, useT } from '@frontegg/react-core';
 import { useLocation } from 'react-router-dom';
 import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
-import { useAuth, useAuthRoutes, useOnRedirectTo } from '../hooks';
+import { useAuthRoutes, useOnRedirectTo } from '../hooks';
 import { useSocialLoginActions, useSocialLoginState } from './hooks';
+import { useRedirectUri } from './hooks';
 
 export const SocialLoginsSuccess: FC = () => {
   const routes = useAuthRoutes();
@@ -13,6 +14,7 @@ export const SocialLoginsSuccess: FC = () => {
   const { resetSocialLoginsState, setSocialLoginError, loginViaSocialLogin } = useSocialLoginActions();
   const location = useLocation();
   const { t } = useT();
+  const redirectUri = useRedirectUri();
 
   useEffect((): void => {
     const params: URLSearchParams = new URLSearchParams(location.search);
@@ -41,7 +43,7 @@ export const SocialLoginsSuccess: FC = () => {
     switch (parsedState.action) {
       case SocialLoginsActions.Login:
       case SocialLoginsActions.SignUp:
-        loginViaSocialLogin({ code, ...parsedState });
+        loginViaSocialLogin({ code, ...parsedState, redirectUri });
         break;
       default:
         setSocialLoginError({ error });

@@ -42,6 +42,9 @@ export * from './ApiTokensState';
 export * from './SecurityPolicyState/interfaces';
 export * from './SecurityPolicyState';
 
+export * from './AccountSettingsState/interfaces';
+export * from './AccountSettingsState';
+
 export { AuthActions } from './reducer';
 
 export {

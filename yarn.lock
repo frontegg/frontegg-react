@@ -2980,6 +2980,13 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
+"@frontegg/rest-api@^1.23.1":
+  version "1.23.2"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-1.23.2.tgz#7411e4a33b4aeae2223673d21c1005ad32a1c76f"
+  integrity sha512-JtE/DOwoL+1ar9uurcO+S8uQjylAG3QUaFEB0tZCaENAI1jdAuzPkj8OP8K3zoMlPmSCNEsnDl5NOBeccM8t7g==
+  dependencies:
+    jwt-decode "2.2.0"
+
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.1.tgz#b7f02c04d8d8602fb4bd873b03685fccefce1c6f"
