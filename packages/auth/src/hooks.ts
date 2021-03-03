@@ -24,11 +24,11 @@ const defaultMapper: AuthMapper = {
 
 export const useAuth = <S extends object>(stateMapper: AuthStateMapper<S> = defaultMapper.state): S & AuthActions => {
   const dispatch = useDispatch();
-  const bindedActions = useMemo(() => bindActionCreators(authActions, dispatch), [authActions, dispatch]);
+  const boundActions = useMemo(() => bindActionCreators(authActions, dispatch), [authActions, dispatch]);
   const state = useSelector((state: any) => stateMapper(state[pluginName]), memoEqual);
   return {
     ...(state as S),
-    ...bindedActions,
+    ...boundActions,
   };
 };
 export const useAuthActions = (): AuthActions => {
