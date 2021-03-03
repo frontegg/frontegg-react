@@ -40,8 +40,9 @@ const UserAgent: CellComponent = ({ value }: { value: string }) => {
 
   const triggerElement = useMemo(() => {
     const br = browser.toLowerCase();
-    if (browserIcons[br as TBrowserIcons]) {
-      return React.createElement(browserIcons[br as TBrowserIcons], { width: sizeOfIcon, height: sizeOfIcon });
+    const ComponentIcon = browserIcons[br as TBrowserIcons];
+    if (ComponentIcon) {
+      return <ComponentIcon width={sizeOfIcon} height={sizeOfIcon} />;
     }
 
     const imgSrc = `//cdnjs.cloudflare.com/ajax/libs/browser-logos/69.0.4/${br}/${br}_${sizeOfIcon}x${sizeOfIcon}.png`;
@@ -53,7 +54,7 @@ const UserAgent: CellComponent = ({ value }: { value: string }) => {
   }
 
   return (
-    <div className={classNames('fe-audits__severity')}>
+    <div className={'fe-audits__severity fe-audits__severity-useragent'}>
       <Popup
         action='hover'
         content={<div className={`${prefixCls}__useragent-hover`}>{value}</div>}
