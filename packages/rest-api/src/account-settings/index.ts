@@ -9,7 +9,7 @@ import { Put, Get } from '../fetch';
 
 export async function updateSettings(body: IUpdateSettings): Promise<ISettingsResponse> {
   console.debug('updateSettings()', body);
-  return Put(`${ACCOUNT_SETTINGS_SERVICE_V1}/`, body);
+  return Put(ACCOUNT_SETTINGS_SERVICE_V1, body);
 }
 
 export async function getSettings(): Promise<ISettingsResponse> {
