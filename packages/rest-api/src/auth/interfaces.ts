@@ -6,7 +6,12 @@ export type IPostLogin = {
   SAMLResponse: string;
 };
 
-export type ILogin = { email: string; password: string };
+export interface ICaptchaPolicy {
+  siteKey: string;
+  enabled: boolean;
+}
+
+export type ILogin = { email: string; password: string; recaptchaToken?: string };
 
 export type ILoginResponse = IUserProfile & {
   mfaRequired: boolean;
@@ -129,6 +134,7 @@ export interface IVendorConfig {
 export interface ISignUpUser {
   email: string;
   companyName: string;
+  recaptchaToken?: string;
   name?: string;
   password?: string;
   phoneNumber?: string;

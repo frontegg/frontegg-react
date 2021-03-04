@@ -9,6 +9,7 @@ import { mfaState } from './MfaState';
 import { teamState } from './TeamState';
 import { socialLoginsState } from './SocialLogins';
 import { signUpState } from './SignUp';
+import { captchaState } from './CaptchaState';
 import { apiTokensState } from './ApiTokensState';
 import { accountSettingsState } from './AccountSettingsState';
 
@@ -18,6 +19,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isSSOAuth: false,
   user: null,
 
+  captchaState,
   signUpState,
   loginState,
   activateState,

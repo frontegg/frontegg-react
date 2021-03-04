@@ -13,6 +13,7 @@ import { teamActions, teamStateReducers } from './TeamState';
 import { socialLoginsActions, socialLoginsStateReducer } from './SocialLogins';
 import { signUpActions, signUpStateReducers } from './SignUp';
 import { apiTokensActions, apiTokensStateReducers } from './ApiTokensState';
+import { captchaActions, captchaStateReducers } from './CaptchaState';
 import { accountSettingsActions, accountSettingsReducers } from './AccountSettingsState';
 
 const { reducer, actions: sliceActions } = createSlice({
@@ -33,6 +34,7 @@ const { reducer, actions: sliceActions } = createSlice({
     ...teamStateReducers,
     ...socialLoginsStateReducer,
     ...apiTokensStateReducers,
+    ...captchaStateReducers,
     ...accountSettingsReducers,
   },
 });
@@ -50,6 +52,7 @@ const actions = {
   ...teamActions,
   ...socialLoginsActions,
   ...apiTokensActions,
+  ...captchaActions,
   ...accountSettingsActions,
 };
 
