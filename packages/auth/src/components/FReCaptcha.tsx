@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect } from 'react';
 import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3';
 import { useField } from 'formik';
 import { AuthState } from '../Api';
