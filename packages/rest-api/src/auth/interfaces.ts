@@ -11,7 +11,7 @@ export interface ICaptchaPolicy {
   enabled: boolean;
 }
 
-export type ILogin = { email: string; password: string; recaptchaToken: string };
+export type ILogin = { email: string; password: string; recaptchaToken?: string };
 
 export type ILoginResponse = IUserProfile & {
   mfaRequired: boolean;
@@ -133,7 +133,7 @@ export interface IVendorConfig {
 export interface ISignUpUser {
   email: string;
   companyName: string;
-  recaptchaToken: string;
+  recaptchaToken?: string;
   name?: string;
   password?: string;
   phoneNumber?: string;

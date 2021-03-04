@@ -107,7 +107,6 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
         initialValues={{ email: '', password: '', recaptchaToken: '' }}
         validationSchema={validateSchema(validationSchema)}
         onSubmit={async ({ email, password, recaptchaToken }) => {
-          console.log(recaptchaToken);
           shouldDisplayPassword ? login({ email, password, recaptchaToken }) : preLogin({ email });
         }}
       >
@@ -141,7 +140,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             </FButton>
 
             <ErrorMessage separator error={error} />
-            <FReCaptcha action='Login' />
+            <FReCaptcha action='login' />
           </FForm>
         )}
       </Formik>

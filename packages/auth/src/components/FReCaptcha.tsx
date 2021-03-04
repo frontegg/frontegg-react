@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from 'react';
-import { loadReCaptcha, ReCaptcha as Captcha } from 'react-recaptcha-v3';
+import React, { FC, useEffect, useRef } from 'react';
+import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3';
 import { useField } from 'formik';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
@@ -12,6 +12,7 @@ interface IReCaptchaProps {
 const stateMapper = ({ captchaState }: AuthState) => captchaState;
 
 export const FReCaptcha: FC<IReCaptchaProps> = ({ action }) => {
+  const captchaRef = useRef(null);
   const { siteKey, enabled } = useAuth(stateMapper);
   const [, , { setValue }] = useField('recaptchaToken');
 
@@ -21,7 +22,12 @@ export const FReCaptcha: FC<IReCaptchaProps> = ({ action }) => {
 
   if (!enabled || !siteKey) return null;
 
-  const handleCallback = useCallback((token: string) => setValue(token), [setValue]);
+  const handleCallback = useCallback(
+    (token: string) => {
+      setValue(token);
+    },
+    [setValue]
+  );
 
-  return <Captcha sitekey={siteKey} verifyCallback={handleCallback} action={action} />;
+  return <ReCaptcha ref={captchaRef} sitekey={siteKey} verifyCallback={handleCallback} action={action} />;
 };

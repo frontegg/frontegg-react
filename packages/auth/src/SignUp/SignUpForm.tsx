@@ -80,7 +80,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
             {t('auth.sign-up.form.submit-button')}
           </FButton>
-          <FReCaptcha action='Sign Up' />
+          <FReCaptcha action='sign_up' />
         </FForm>
       </Formik>
     </>
