@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "1.23.1",
+  "version": "1.24.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -17,8 +17,8 @@
     "react-dropzone": "^9.0.0"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^1.23.1",
-    "@frontegg/react-hooks": "^1.23.1",
+    "@frontegg/react-core": "^1.24.0",
+    "@frontegg/react-hooks": "^1.24.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8"
   },
