@@ -13,7 +13,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^1.23.1",
+    "@frontegg/react-core": "^1.24.0",
     "@types/react": "^16.9.19"
   },
   "jest": {
