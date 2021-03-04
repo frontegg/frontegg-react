@@ -8,7 +8,7 @@ function* updateAccountSettingsFunction({ payload }: PayloadAction<IUpdateSettin
     yield put(actions.setAccountSettingsState({ loading: true }));
     const { accountSettingsState } = yield select((state) => state.auth);
     const { loading, ...stateWithoutLoading } = accountSettingsState;
-    const { body } = yield call(api.accountSettings.updateSettings, { ...stateWithoutLoading, ...payload });
+    const body = yield call(api.accountSettings.updateSettings, { ...stateWithoutLoading, ...payload });
     yield put(actions.setAccountSettingsState({ ...body, loading: false }));
   } catch (e) {
     yield put(actions.setAccountSettingsState({ loading: false, error: e.message }));
@@ -18,7 +18,7 @@ function* updateAccountSettingsFunction({ payload }: PayloadAction<IUpdateSettin
 function* getAccountSettingsFunction() {
   try {
     yield put(actions.setAccountSettingsState({ loading: true }));
-    const { body } = yield call(api.accountSettings.getSettings);
+    const body = yield call(api.accountSettings.getSettings);
     yield put(actions.setAccountSettingsState({ ...body, loading: false }));
   } catch (e) {
     yield put(actions.setAccountSettingsState({ loading: false, error: e.message }));
