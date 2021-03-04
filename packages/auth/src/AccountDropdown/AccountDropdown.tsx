@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useAuth, useAuthUserOrNull } from '../hooks';
+import { useAuth } from '../hooks';
 import { Button, Icon, Popup, useT } from '@frontegg/react-core';
 import './style.scss';
 import { AccountPopup } from './AccountPopup';
@@ -22,7 +22,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
 
   if (!user) {
     return (
-      <Button size='large' variant='primary' onClick={() => onRedirectTo(routes.loginUrl)}>
+      <Button data-test-id='login-btn' size='large' variant='primary' onClick={() => onRedirectTo(routes.loginUrl)}>
         {t('login')}
       </Button>
     );
@@ -39,7 +39,6 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   return (
     <>
       <Popup
-        data-test-id='popUp-btn'
         className={'fe-account-popup__container'}
         action='click'
         open={popupOpen}

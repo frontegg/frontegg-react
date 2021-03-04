@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/frontegg/frontegg-react/compare/v1.23.1...v1.24.0) (2021-03-03)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+## [1.23.1](https://github.com/frontegg/frontegg-react/compare/v1.23.0...v1.23.1) (2021-02-21)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
+# [1.23.0](https://github.com/frontegg/frontegg-react/compare/v1.22.1...v1.23.0) (2021-02-18)
+
+**Note:** Version bump only for package @frontegg/demo-saas
+
+
+
+
+
 ## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
 
 

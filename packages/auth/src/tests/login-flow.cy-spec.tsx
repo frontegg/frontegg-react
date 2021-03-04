@@ -32,11 +32,21 @@ const defaultAuthPlugin = {
 const EMAIL_2 = 'test2@frontegg.com';
 const PASSWORD = 'ValidPassword123!';
 const SSO_PATH = '/my-test-sso-login';
-const GOOGLE_AUTH_URL =
-  '/account/https://accounts.google.com/o/oauth2/v2/auth?client_id=google_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Faccount%2Fsocial%2Fsuccess&response_type=code&include_granted_scopes=true&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=%7B%22provider%22%3A%22google%22%2C%22action%22%3A%22login%22%7D';
 const GOOGLE_AUTH_RESPONSE = '?state=%7B%22provider%22:%22google%22,%22action%22:%22login%22%7D&code=google_auth_code';
 const MFA_TOKEN = 'mfaToken';
 const RECOVERY_CODE = '123412341234';
+
+const getGoogleAuthUrl = (origin): string => {
+  const search = new URLSearchParams({
+    client_id: 'google_client_id',
+    redirect_uri: `${origin}/account/social/success`,
+    response_type: 'code',
+    include_granted_scopes: 'true',
+    scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+    state: '{"provider":"google","action":"login"}',
+  });
+  return `/account/https://accounts.google.com/o/oauth2/v2/auth?${search.toString()}`;
+};
 
 const checkPasswordValidation = () => {
   const passwordSelector = '[name="password"]';
@@ -511,41 +521,43 @@ describe('Login Tests', () => {
     cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
     cy.get('.loader').should('not.be.visible');
 
-    const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+    cy.location('origin').then((origin) => {
+      const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+      cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+      cy.location().should((loc) => {
+        expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl(origin));
+      });
 
-    cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
-    cy.location().should((loc) => {
-      expect(loc.pathname + loc.search).to.eq(GOOGLE_AUTH_URL);
-    });
+      const redirectUri = origin + defaultAuthPlugin.routes.socialLoginCallbackUrl;
 
-    navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code&redirectUri=${redirectUri}`,
+        status: 200,
+        delay: 200,
+        response: {},
+      }).as('submitSocialLogin');
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+        status: 200,
+        response: {
+          accessToken: '',
+          refreshToken: '',
+        },
+      }).as('refreshToken');
 
-    cy.get('.loader').should('not.be.visible');
+      mockAuthMe();
+      navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
 
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code`,
-      status: 200,
-      delay: 200,
-      response: {},
-    }).as('submitSocialLogin');
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-      status: 200,
-      response: {
-        accessToken: '',
-        refreshToken: '',
-      },
-    }).as('refreshToken');
+      cy.get('.loader').should('not.be.visible');
+      cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants']);
 
-    mockAuthMe();
-    cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants']);
+      cy.wait(1000);
 
-    cy.wait(1000);
-
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/');
+      cy.location().should((loc) => {
+        expect(loc.pathname).to.eq('/');
+      });
     });
   });
 
@@ -569,35 +581,37 @@ describe('Login Tests', () => {
     cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
     cy.get('.loader').should('not.be.visible');
 
-    const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+    cy.location('origin').then((origin) => {
+      const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+      cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+      cy.location().should((loc) => {
+        expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl(origin));
+      });
 
-    cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
-    cy.location().should((loc) => {
-      expect(loc.pathname + loc.search).to.eq(GOOGLE_AUTH_URL);
+      navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+
+      cy.get('.loader').should('not.be.visible');
+
+      const redirectUri = origin + defaultAuthPlugin.routes.socialLoginCallbackUrl;
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code?redirectUri=${redirectUri}`,
+        status: 200,
+        delay: 200,
+        response: {},
+      }).as('submitSocialLogin');
+      cy.route({
+        method: 'POST',
+        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+        status: 200,
+        response: {
+          mfaRequired: true,
+          mfaToken: MFA_TOKEN,
+        },
+      }).as('refreshToken');
+
+      cy.wait(['@submitSocialLogin', '@refreshToken']);
     });
-
-    navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
-
-    cy.get('.loader').should('not.be.visible');
-
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code`,
-      status: 200,
-      delay: 200,
-      response: {},
-    }).as('submitSocialLogin');
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-      status: 200,
-      response: {
-        mfaRequired: true,
-        mfaToken: MFA_TOKEN,
-      },
-    }).as('refreshToken');
-
-    cy.wait(['@submitSocialLogin', '@refreshToken']);
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 

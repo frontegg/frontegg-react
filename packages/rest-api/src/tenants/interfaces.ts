@@ -11,4 +11,10 @@ export interface ITenantsResponse {
   vendorId: string;
   createdAt: Date;
   updatedAt: Date;
+  address?: string;
+  timezone?: string;
+  dateFormat?: string;
+  timeFormat?: string;
+  currency?: string;
+  logo?: string;
 }

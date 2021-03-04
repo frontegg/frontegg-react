@@ -12,7 +12,6 @@ interface IReCaptchaProps {
 const stateMapper = ({ captchaState }: AuthState) => captchaState;
 
 export const FReCaptcha: FC<IReCaptchaProps> = ({ action }) => {
-  const captchaRef = useRef(null);
   const { siteKey, enabled } = useAuth(stateMapper);
   const [, , { setValue }] = useField('recaptchaToken');
 
@@ -29,5 +28,5 @@ export const FReCaptcha: FC<IReCaptchaProps> = ({ action }) => {
     [setValue]
   );
 
-  return <ReCaptcha ref={captchaRef} sitekey={siteKey} verifyCallback={handleCallback} action={action} />;
+  return <ReCaptcha sitekey={siteKey} verifyCallback={handleCallback} action={action} />;
 };

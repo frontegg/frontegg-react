@@ -4,6 +4,7 @@ import { authPageWrapper } from '../components';
 import { useAuth } from '../hooks';
 import { useLocation } from 'react-router';
 import { Button, Loader, useT } from '@frontegg/react-core';
+import { useRedirectUri } from './hooks';
 
 export const SocialLoginsSuccess: FC = () => {
   const {
@@ -16,6 +17,7 @@ export const SocialLoginsSuccess: FC = () => {
   } = useAuth();
   const location = useLocation();
   const { t } = useT();
+  const redirectUri = useRedirectUri();
 
   useEffect((): void => {
     const params: URLSearchParams = new URLSearchParams(location.search);
@@ -44,7 +46,7 @@ export const SocialLoginsSuccess: FC = () => {
     switch (parsedState.action) {
       case SocialLoginsActions.Login:
       case SocialLoginsActions.SignUp:
-        loginViaSocialLogin({ code, ...parsedState });
+        loginViaSocialLogin({ code, ...parsedState, redirectUri });
         break;
       default:
         setSocialLoginError({ error });

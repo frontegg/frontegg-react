@@ -12,6 +12,7 @@ import { AcceptInvitationState } from './AcceptInvitationState';
 import { SignUpState } from './SignUp/interfaces';
 import { SocialLoginsState } from './SocialLogins';
 import { CaptchaState } from './CaptchaState';
+import { AccountSettingsState } from './AccountSettingsState';
 
 export type WithSilentLoad<T> = T & {
   silentLoading?: boolean;
@@ -57,4 +58,5 @@ export interface AuthState extends Omit<AuthPageProps, 'pageHeader' | 'pageProps
   socialLoginsState: SocialLoginsState;
   signUpState: SignUpState;
   apiTokensState: ApiTokensState;
+  accountSettingsState: AccountSettingsState;
 }

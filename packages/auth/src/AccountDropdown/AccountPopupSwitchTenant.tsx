@@ -36,6 +36,7 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
         {!tenantsLoading &&
           tenants.map((tenant) => (
             <MenuItem
+              data-test-id={`switch-to-tenant-${tenant.tenantId}`}
               key={tenant.tenantId}
               text={
                 <>

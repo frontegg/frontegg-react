@@ -14,6 +14,7 @@ import { socialLoginsActions, socialLoginsStateReducer } from './SocialLogins';
 import { signUpActions, signUpStateReducers } from './SignUp';
 import { apiTokensActions, apiTokensStateReducers } from './ApiTokensState';
 import { captchaActions, captchaStateReducers } from './CaptchaState';
+import { accountSettingsActions, accountSettingsReducers } from './AccountSettingsState';
 
 const { reducer, actions: sliceActions } = createSlice({
   name: storeName,
@@ -34,6 +35,7 @@ const { reducer, actions: sliceActions } = createSlice({
     ...socialLoginsStateReducer,
     ...apiTokensStateReducers,
     ...captchaStateReducers,
+    ...accountSettingsReducers,
   },
 });
 
@@ -51,6 +53,7 @@ const actions = {
   ...socialLoginsActions,
   ...apiTokensActions,
   ...captchaActions,
+  ...accountSettingsActions,
 };
 
 export type AuthActions = typeof actions;

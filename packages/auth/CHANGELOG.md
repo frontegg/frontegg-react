@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/frontegg/frontegg-react/compare/v1.23.1...v1.24.0) (2021-03-03)
+
+
+### Features
+
+* account-settings ([134b7b0](https://github.com/frontegg/frontegg-react/commit/134b7b0a8f2b33630ded395cbef90eb6929d7754))
+* **auth:** change social login redriect url behavior ([7199487](https://github.com/frontegg/frontegg-react/commit/7199487a71b524b9de7843048ac6f92836f8b592))
+
+
+
+
+
+## [1.23.1](https://github.com/frontegg/frontegg-react/compare/v1.23.0...v1.23.1) (2021-02-21)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+# [1.23.0](https://github.com/frontegg/frontegg-react/compare/v1.22.1...v1.23.0) (2021-02-18)
+
+
+### Features
+
+* **auth:** support render prop ([f96ca8b](https://github.com/frontegg/frontegg-react/commit/f96ca8b2fe0ff90abaa502ec7ad639e1380af254))
+
+
+
+
+
 ## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
 
 
