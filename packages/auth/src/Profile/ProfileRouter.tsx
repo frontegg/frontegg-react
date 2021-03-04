@@ -6,7 +6,7 @@ import { ProfileInfoPage } from './ProfileInfoPage';
 import { ProfilePasswordSettingsPage } from './ProfilePasswordSettingsPage';
 import { ProfileMfaPage } from './ProfileMfaPage';
 import { Redirect, Route, Switch } from 'react-router';
-import { useAuthUser } from '../hooks';
+import { useAuthUser } from '@frontegg/react-hooks/auth';
 
 export const ProfileTabs = PageTabs;
 const logger = Logger.from('ProfileRouter');

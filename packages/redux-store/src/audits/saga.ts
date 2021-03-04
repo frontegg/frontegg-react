@@ -1,10 +1,10 @@
 import { takeLatest, select as sagaSelect, put, all, call } from 'redux-saga/effects';
 import { api } from '@frontegg/rest-api';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { defaultItemsPerPage } from './constants';
 import { actions } from './reducer';
 import { LoadAuditsPayload } from './interfaces';
 import { auditsStoreName } from '../constants';
-import { PayloadAction } from '@reduxjs/toolkit';
 import { filterToObject } from './utils';
 
 const select = () => sagaSelect((_) => _[auditsStoreName]);

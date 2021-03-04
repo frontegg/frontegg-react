@@ -2,9 +2,6 @@ import { IUpdateSamlRoles } from './interfaces';
 
 export * from './secutiry-poilicy';
 
-/* tslint:disable:no-console */
-// noinspection JSUnusedGlobalSymbols
-import jwtDecode from 'jwt-decode';
 import { Get, Post, Put, Delete } from '../fetch';
 import {
   AUTH_SERVICE_URL_V1,
@@ -50,6 +47,7 @@ import {
   IUserIdResponse,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
+import { jwtDecode } from '../jwt';
 
 /*****************************************
  * Authentication

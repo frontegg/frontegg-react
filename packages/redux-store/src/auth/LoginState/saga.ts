@@ -6,7 +6,6 @@ import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
 import { WithCallback } from '../../interfaces';
 import { AuthPageRoutes } from '../interfaces';
 import { LoginStep } from './interfaces';
-import { loadSocialLoginsConfigurations } from '../SocialLogins/saga';
 import { loadAllowSignUps } from '../SignUp/saga';
 import { MFAStep } from '../MfaState/interfaces';
 
@@ -104,7 +103,7 @@ function* requestAuthorize({ payload: firstTime }: PayloadAction<boolean>) {
   if (firstTime) {
     yield put(actions.setState({ isLoading: true }));
     calls.push(call(refreshMetadata));
-    calls.push(call(loadSocialLoginsConfigurations));
+    yield put(actions.loadSocialLoginsConfiguration());
     calls.push(call(loadAllowSignUps));
   }
   yield all(calls);

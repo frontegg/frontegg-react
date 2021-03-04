@@ -28,7 +28,7 @@ function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsRespon
   }
 }
 
-export function* ssoSagas() {
+export function* tenantsSagas() {
   yield takeEvery(actions.loadTenants, loadTenants);
   yield takeEvery(actions.switchTenant, switchTenant);
 }

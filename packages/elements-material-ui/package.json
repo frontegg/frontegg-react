@@ -18,16 +18,12 @@
     "underscore": "^1.10.2"
   },
   "devDependencies": {
+    "@types/react": "^16.9.19",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@types/classnames": "^2.2.10",
-    "@types/moment": "^2.13.0",
-    "@types/react": "^16.9.19",
-    "@types/react-dom": "^16.9.8",
-    "@types/underscore": "^1.10.2",
-    "react": ">16.8.6",
-    "react-dom": ">16.8.6"
+    "@types/underscore": "^1.10.2"
   },
   "jest": {
     "preset": "ts-jest",

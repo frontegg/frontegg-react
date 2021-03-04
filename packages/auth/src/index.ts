@@ -6,7 +6,7 @@ import { AuthPluginOptions } from './interfaces';
 import './index.scss';
 import { AuthRoutes } from './components/AuthRoutes';
 
-export * from './hooks';
+export * from '@frontegg/react-hooks/auth';
 export * from './HOCs';
 export * from './components';
 export * from './Login';

@@ -2,7 +2,7 @@ import React, { FC, MouseEventHandler, ReactElement, useContext, useState } from
 import { Button, checkValidChildren, useT, ProxyComponent, useProxyComponent } from '@frontegg/react-core';
 import { MFAEnrollDialog } from './MFAEnrollDialog';
 import { MFADisableDialog } from './MFADisableDialog';
-import { useAuth } from '../hooks';
+import { useAuthUserOrNull } from '@frontegg/react-hooks/auth';
 
 const MFAButtonContext = React.createContext({
   openEnrollDialog: () => {},
@@ -15,7 +15,7 @@ type MFAButtonProps = {
 };
 
 const EnrollButton = (props: MFAButtonProps) => {
-  const { user } = useAuth(({ user }) => ({ user }));
+  const user = useAuthUserOrNull();
   const { t } = useT();
   const { openEnrollDialog } = useContext(MFAButtonContext);
   if (user?.mfaEnrolled) {
@@ -29,7 +29,7 @@ const EnrollButton = (props: MFAButtonProps) => {
   return React.cloneElement(children as any, { onClick: openEnrollDialog });
 };
 const DisableButton = (props: MFAButtonProps) => {
-  const { user } = useAuth(({ user }) => ({ user }));
+  const user = useAuthUserOrNull();
   const { t } = useT();
   const { openDisableDialog } = useContext(MFAButtonContext);
 

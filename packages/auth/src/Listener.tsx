@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { AuthActions, AuthState, authStoreName } from '@frontegg/redux-store/auth';
-import { useAuth, useAuthActions } from './hooks';
+import { useAuth, useAuthActions } from '@frontegg/react-hooks';
 import { ContextHolder } from '@frontegg/rest-api';
 import { ListenerProps } from '@frontegg/react-core';
 

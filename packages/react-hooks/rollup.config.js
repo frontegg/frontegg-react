@@ -60,7 +60,7 @@ const entryPoints = [
   // Main Entry Point
   'index',
 ];
-const nodeModules = ['tslib', 'react', '@frontegg/rest-api', '@frontegg/redux-store', '/node_modules/'];
+const nodeModules = ['tslib', 'react', '@frontegg/rest-api', 'react-redux', '@frontegg/redux-store', '/node_modules/'];
 
 export default {
   input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),

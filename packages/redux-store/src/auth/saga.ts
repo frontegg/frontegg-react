@@ -12,6 +12,7 @@ import { all, call } from 'redux-saga/effects';
 import { apiTokensSaga } from './ApiTokensState/saga';
 import { securityPolicySagas } from './SecurityPolicyState/saga';
 import { accountSettingsSaga } from './AccountSettingsState/saga';
+import { tenantsSagas } from './TenantsState/saga';
 
 export function* sagas() {
   yield all([
@@ -28,5 +29,6 @@ export function* sagas() {
     call(apiTokensSaga),
     call(securityPolicySagas),
     call(accountSettingsSaga),
+    call(tenantsSagas),
   ]);
 }

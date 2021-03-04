@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Logger } from '@frontegg/react-core';
-import { useAuthUserOrNull } from '../hooks';
+import { useAuthUserOrNull } from '@frontegg/react-hooks/auth';
 
 export interface AuthorizationProps {
   requiredRoles?: string[];
