@@ -122,6 +122,7 @@ export type ILoadUsers = {
 export type IAddUser = {
   name: string;
   email: string;
+  phone?: string;
   roleIds: string[];
 };
 

@@ -1,3 +1,12 @@
+export {
+  useAuth,
+  useAuthActions,
+  useOnRedirectTo,
+  useAuthRoutes,
+  useIsAuthenticated,
+  useAuthUser,
+  useAuthUserOrNull,
+} from './hooks';
 export * from './acceptInvitation';
 export * from './activateAccount';
 export * from './apiTokens';
@@ -9,6 +18,5 @@ export * from './signup';
 export * from './socialLogin';
 export * from './team';
 export * from './sso';
-export * from './hooks';
 export * from './securityPolicy';
 export * from './tenants';

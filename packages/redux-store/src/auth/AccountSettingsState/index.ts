@@ -3,7 +3,7 @@ import { ISettingsResponse } from '@frontegg/rest-api';
 import { AccountSettingsState } from './interfaces';
 import { resetStateByKey, typeReducerForKey } from '../utils';
 import { authStoreName } from '../../constants';
-import { ActionDispatchMatcher, WithCallback } from '../../interfaces';
+import { ActionDispatchMatcher, WithCallback, WithSilentLoad } from '../../interfaces';
 
 const accountSettingsState: AccountSettingsState = {
   loading: false,
@@ -15,11 +15,14 @@ const reducers = {
 };
 
 const actions = {
-  updateAccountSettings: createAction(
-    `${authStoreName}/updateAccountSettings`,
+  loadAccountSettings: createAction(
+    `${authStoreName}/loadAccountSettings`,
+    (payload?: WithCallback<WithSilentLoad<{}>>) => ({ payload })
+  ),
+  saveAccountSettings: createAction(
+    `${authStoreName}/saveAccountSettings`,
     (payload: WithCallback<ISettingsResponse, ISettingsResponse>) => ({ payload })
   ),
-  getAccountSettings: createAction(`${authStoreName}/getAccountSettings`, (payload?: WithCallback) => ({ payload })),
 };
 
 /**
@@ -29,8 +32,8 @@ const actions = {
 type DispatchedActions = {
   setAccountSettingsState: (state: Partial<AccountSettingsState>) => void;
   resetAccountSettingsState: () => void;
-  updateAccountSettings: (payload: WithCallback<ISettingsResponse, ISettingsResponse>) => void;
-  getAccountSettings: (payload: WithCallback) => void;
+  loadAccountSettings: (payload?: WithCallback<WithSilentLoad<{}>>) => void;
+  saveAccountSettings: (payload: WithCallback<ISettingsResponse, ISettingsResponse>) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

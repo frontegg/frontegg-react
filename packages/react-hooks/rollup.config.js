@@ -57,10 +57,20 @@ const esmPlugins = [
 
 const entryPoints = [
   'auth/index',
+  'audits/index',
   // Main Entry Point
   'index',
 ];
-const nodeModules = ['tslib', 'react', '@frontegg/rest-api', 'react-redux', '@frontegg/redux-store', '/node_modules/'];
+const nodeModules = [
+  'tslib',
+  'react',
+  '@frontegg/rest-api',
+  'react-redux',
+  '@frontegg/redux-store',
+  '@frontegg/redux-store/auth',
+  '@frontegg/redux-store/audits',
+  '/node_modules/',
+];
 
 export default {
   input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),
