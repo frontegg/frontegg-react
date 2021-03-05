@@ -25,7 +25,7 @@ export interface IGetAuditsParams {
 }
 
 export interface IAudits {
-  data: Array<AuditRowData>;
+  data: AuditRowData[];
   total: number;
 }
 
@@ -41,6 +41,7 @@ export interface IAuditsStats {
 }
 
 export type TExportAudits = 'csv' | 'pdf' | 'csv/v2';
+
 export interface IExportAudits {
   headerProps: HeaderProps[];
   sortDirection: SortDirectionType;
@@ -50,6 +51,7 @@ export interface IExportAudits {
   outputFileName: string;
   endpoint: TExportAudits;
 }
+
 export interface HeaderProps {
   _id: string;
   name: string;

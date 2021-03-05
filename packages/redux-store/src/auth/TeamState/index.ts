@@ -45,7 +45,7 @@ const actions = {
     `${authStoreName}/loadUsers`,
     (payload: WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>) => ({ payload })
   ),
-  loadRoles: createAction(`${authStoreName}/loadRoles`, (payload: LoadRolesAndPermissionsPayload) => ({ payload })),
+  loadRoles: createAction(`${authStoreName}/loadRoles`, (payload?: LoadRolesAndPermissionsPayload) => ({ payload })),
   addUser: createAction(`${authStoreName}/addUser`, (payload: WithCallback<IAddUser, ITeamUser>) => ({ payload })),
   updateUser: createAction(`${authStoreName}/updateUser`, (payload: WithCallback<IUpdateUser, ITeamUser>) => ({
     payload,
@@ -73,7 +73,7 @@ type DispatchedActions = {
   setTeamState: (payload: Partial<TeamState>) => void;
   resetTeamState: () => void;
   loadUsers: (payload: WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>) => void;
-  loadRoles: (payload: LoadRolesAndPermissionsPayload) => void;
+  loadRoles: (payload?: LoadRolesAndPermissionsPayload) => void;
   addUser: (payload: WithCallback<IAddUser, ITeamUser>) => void;
   updateUser: (payload: WithCallback<IUpdateUser, ITeamUser>) => void;
   deleteUser: (payload: WithCallback<IDeleteUser>) => void;

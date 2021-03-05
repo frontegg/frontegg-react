@@ -58,7 +58,7 @@ export const errorsReducerForKey = <T extends { key: string; value: string | boo
     [key]: {
       ...state[key],
       errors: {
-        ...state[key].loaders,
+        ...state[key].errors,
         [payload.key]: payload.value ?? true,
       },
     },

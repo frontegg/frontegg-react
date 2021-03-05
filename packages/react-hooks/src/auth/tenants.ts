@@ -5,6 +5,6 @@ export type TenantsStateMapper<S extends object> = (state: TenantsState) => S;
 
 export const useTenantsState: StateHookFunction<TenantsState> = <S extends object>(
   stateMapper?: TenantsStateMapper<S>
-): S => stateHookGenerator(stateMapper, 'securityPolicyState');
+): S => stateHookGenerator(stateMapper, 'tenantsState');
 
 export const useTenantsActions = (): TenantsActions => reducerActionsGenerator(tenantsActions, tenantsReducers);

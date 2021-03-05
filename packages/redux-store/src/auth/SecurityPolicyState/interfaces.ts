@@ -7,9 +7,13 @@ import {
   ISecurityPolicyMfa,
 } from '@frontegg/rest-api';
 
-export type GlobalPolicyState = WithStatus<ISecurityPolicy>;
-export type MfaPolicyState = WithStatus<ISecurityPolicyMfa>;
-export type LockoutPolicyState = WithStatus<ISecurityPolicyLockout>;
+type PolicyState<T> = WithStatus & {
+  policy?: T;
+};
+
+export type GlobalPolicyState = PolicyState<ISecurityPolicy>;
+export type MfaPolicyState = PolicyState<ISecurityPolicyMfa>;
+export type LockoutPolicyState = PolicyState<ISecurityPolicyLockout>;
 
 export interface SecurityPolicyState {
   globalPolicy: GlobalPolicyState;

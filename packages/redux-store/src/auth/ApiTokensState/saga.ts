@@ -1,8 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, takeLeading, select, takeEvery, takeLatest, delay } from 'redux-saga/effects';
+import { call, put, takeLeading, select, takeEvery, takeLatest, delay, all } from 'redux-saga/effects';
 import { api } from '@frontegg/rest-api';
 import { actions } from '../reducer';
-import { WithCallback } from '../../interfaces';
+import { WithCallback, WithSilentLoad } from '../../interfaces';
 import { ApiStateKeys, ApiTokenType, ITenantApiTokensData, IUserApiTokensData, IApiTokensData } from './interfaces';
 
 function* loadApiTokensData({ payload: apiTokenType }: PayloadAction<ApiTokenType>) {
@@ -119,7 +119,32 @@ function* deleteTenantApiToken({ payload }: PayloadAction<string>) {
   }
 }
 
+function* loadApiTokens({ payload }: PayloadAction<WithSilentLoad<WithCallback>>) {
+  if (!payload?.silentLoading) {
+    yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: true }));
+  }
+  try {
+    const [apiTokensDataUser = [], apiTokensDataTenant = []] = yield all([
+      call(api.auth.getUserApiTokensData),
+      call(api.auth.getTenantApiTokensData),
+    ]);
+    yield put(
+      actions.setApiTokensState({
+        apiTokensDataUser,
+        apiTokensDataTenant,
+      })
+    );
+    yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
+    payload?.callback?.(true);
+  } catch (e) {
+    yield put(actions.setApiTokensError({ key: ApiStateKeys.LOAD_API_TOKENS, value: e.message }));
+    yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
+    payload?.callback?.(null, e);
+  }
+}
+
 export function* apiTokensSaga() {
+  yield takeLeading(actions.loadApiTokens, loadApiTokens);
   yield takeLeading(actions.initApiTokensData, loadApiTokensData);
   yield takeEvery(actions.addUserApiToken, addUserApiToken);
   yield takeEvery(actions.addTenantApiToken, addTenantApiToken);

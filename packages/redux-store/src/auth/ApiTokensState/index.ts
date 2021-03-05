@@ -8,7 +8,7 @@ import {
 } from './interfaces';
 import { resetStateByKey, typeReducerForKey, loadersReducerForKey, errorsReducerForKey } from '../utils';
 import { authStoreName } from '../../constants';
-import { ActionDispatchMatcher } from '../../interfaces';
+import { ActionDispatchMatcher, WithCallback, WithSilentLoad } from '../../interfaces';
 
 const apiTokensState: ApiTokensState = {
   apiTokenType: null,
@@ -40,6 +40,9 @@ const reducers = {
 };
 
 const actions = {
+  loadApiTokens: createAction(`${authStoreName}/loadApiTokens`, (payload?: WithSilentLoad<WithCallback>) => ({
+    payload,
+  })),
   initApiTokensData: createAction(`${authStoreName}/initApiTokensData`, (payload: ApiTokenType) => ({ payload })),
   addTenantApiToken: createAction(`${authStoreName}/addTenantApiToken`, (payload: AddTenantApiTokenPayload) => ({
     payload,
@@ -58,6 +61,8 @@ type DispatchedActions = {
   setApiTokensError: (payload: ApiStateIndicator) => void;
   setApiTokensState: (state: Partial<ApiTokensState>) => void;
   resetApiTokensState: () => void;
+
+  loadApiTokens: (payload?: WithSilentLoad<WithCallback>) => void;
   initApiTokensData: (payload: ApiTokenType) => void;
   addTenantApiToken: (payload: AddTenantApiTokenPayload) => void;
   addUserApiToken: (payload: AddUserApiTokenPayload) => void;

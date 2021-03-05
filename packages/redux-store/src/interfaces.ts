@@ -1,11 +1,10 @@
 export type WithCallback<T = {}, R = boolean> = T & {
   callback?: (data: R | null, error?: string) => void;
 };
-export type WithStatus<T = {}> = {
+export type WithStatus = {
   loading: boolean;
   error?: any;
   saving?: boolean;
-  policy?: T;
 };
 
 export type LoaderIndicatorState<T extends string> = Partial<

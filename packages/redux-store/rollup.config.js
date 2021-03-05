@@ -57,6 +57,7 @@ const esmPlugins = [
 
 const entryPoints = [
   'auth/index',
+  'audits/index',
   'toolkit/index',
   // Main Entry Point
   'index',

@@ -1,20 +1,15 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { AuditsFilter, AuditsState } from './interfaces';
+import { AuditsState } from './interfaces';
 
-export const resetStateByKey = <T>(initialState: Partial<AuditsState>) => () => initialState;
-export const typeReducerForKey = <T>() => ({
+export const typeReducerForKey = <T>(key: keyof AuditsState) => ({
   prepare: (payload: Partial<T>) => ({ payload }),
   reducer: (state: AuditsState, { payload }: PayloadAction<Partial<T>>) => {
     return {
       ...state,
-      ...payload,
+      [key]: {
+        ...state[key],
+        ...payload,
+      },
     };
   },
 });
-
-export const filterToObject = (arr: AuditsFilter[]) => {
-  return arr.reduce((res: Record<string, string>, curr) => {
-    res[curr.key] = curr.value;
-    return res;
-  }, {});
-};
