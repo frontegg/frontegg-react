@@ -38,7 +38,7 @@ describe('Forgot Password Tests', () => {
     cy.get('.loader').should('not.be.visible');
 
     cy.get(emailInputSelector).focus().clear().type(EMAIL_1).blur();
-    cy.get('[test-id="forgot-password-button"]').click();
+    cy.get('[data-test-id="forgotPassBtn"]').click();
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.forgetPasswordUrl);
@@ -72,7 +72,7 @@ describe('Forgot Password Tests', () => {
     cy.wait(['@preLogin']);
     cy.get('button[type="submit"]').should('not.be.disabled');
 
-    cy.get('[test-id="forgot-password-button"]').click();
+    cy.get('[data-test-id="forgotPassBtn"]').click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq(defaultAuthPlugin.routes.forgetPasswordUrl);
     });
