@@ -53,6 +53,9 @@ export const AuthListener: FC<ListenerProps<AuthActions>> = (props) => {
       actions.requestAuthorize();
     });
   };
+  useEffect(() => {
+    actions.loadSecurityPolicyCaptcha();
+  }, []);
   useEffect(() => updateSessionTimer(true), []);
   useEffect(() => updateSessionTimer(), [isAuthenticated]);
   useEffect(() => updateAuthenticationOnStorage(), [isLoading, isAuthenticated]);

@@ -10,7 +10,7 @@ import {
   validateEmail,
 } from '@frontegg/react-core';
 import { useAuthRoutes, useOnRedirectTo, useSignUpActions, useSignUpState } from '@frontegg/react-hooks/auth';
-
+import { FReCaptcha } from '../components/FReCaptcha';
 const { Formik } = FFormik;
 
 export interface SignUpFormProps {
@@ -43,6 +43,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           email: '',
           name: '',
           companyName: '',
+          recaptchaToken: '',
         }}
         onSubmit={(values) => {
           if (withCompanyName) {
@@ -78,6 +79,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
             {t('auth.sign-up.form.submit-button')}
           </FButton>
+          <FReCaptcha action='sign_up' />
         </FForm>
       </Formik>
     </>

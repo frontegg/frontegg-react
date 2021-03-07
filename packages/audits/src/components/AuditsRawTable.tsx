@@ -1,7 +1,7 @@
 import { Loader, Table, TableColumnProps, TableProps } from '@frontegg/react-core';
 import { AuditRowData } from '@frontegg/rest-api';
 import React, { FC, useMemo } from 'react';
-import { defaultItemsPerPage, HeaderProps } from '..';
+import { defaultItemsPerPage, HeaderProps } from '../Api';
 import { getAuditsTableCells } from './AuditsTableCell';
 import { Filter } from './Filter';
 import { renderExpandedComponent } from './renderExpandedComponent';

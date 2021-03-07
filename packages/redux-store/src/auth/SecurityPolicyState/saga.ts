@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, retry, takeEvery, takeLeading } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLeading } from 'redux-saga/effects';
 import { api } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { SaveSecurityPolicyLockoutPayload, SaveSecurityPolicyMfaPayload } from './interfaces';
@@ -12,6 +12,9 @@ function* loadSecurityPolicy() {
   } catch (e) {
     yield put(actions.setSecurityPolicyGlobalState({ error: e.message, loading: false }));
   }
+  yield put(actions.loadSecurityPolicyMfa);
+  yield put(actions.loadSecurityPolicyLockout);
+  yield put(actions.loadSecurityPolicyCaptcha);
 }
 
 function* loadSecurityPolicyMfa() {
@@ -62,10 +65,21 @@ function* saveSecurityPolicyLockout({
   }
 }
 
+function* loadSecurityPolicyCaptcha() {
+  yield put(actions.setSecurityPolicyLockoutState({ loading: true, error: null }));
+  try {
+    const policy = yield call(api.auth.getLockoutPolicy);
+    yield put(actions.setSecurityPolicyLockoutState({ policy, loading: false }));
+  } catch (e) {
+    yield put(actions.setSecurityPolicyLockoutState({ error: e.message, loading: false }));
+  }
+}
+
 export function* securityPolicySagas() {
   yield takeLeading(actions.loadSecurityPolicy, loadSecurityPolicy);
   yield takeEvery(actions.saveSecurityPolicyMfa, saveSecurityPolicyMfa);
   yield takeEvery(actions.loadSecurityPolicyMfa, loadSecurityPolicyMfa);
   yield takeEvery(actions.saveSecurityPolicyLockout, saveSecurityPolicyLockout);
   yield takeEvery(actions.loadSecurityPolicyLockout, loadSecurityPolicyLockout);
+  yield takeEvery(actions.loadSecurityPolicyCaptcha, loadSecurityPolicyCaptcha);
 }

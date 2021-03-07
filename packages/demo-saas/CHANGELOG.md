@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/frontegg/frontegg-react/compare/v1.24.0...v1.25.0) (2021-03-07)
+
+
+### Bug Fixes
+
+* FR-1932 - merge with master; removed unused Captcha ref; ([a088a21](https://github.com/frontegg/frontegg-react/commit/a088a21f673a843d35511cfdaa4fb5b2283bfb09))
+
+
+### Features
+
+* FR-1932 - added captcha for login/sign up; removed unused components demosaas ([e5e75c8](https://github.com/frontegg/frontegg-react/commit/e5e75c82524bfffe158924e75128fa84d5224b14))
+
+
+
+
+
 # [1.24.0](https://github.com/frontegg/frontegg-react/compare/v1.23.1...v1.24.0) (2021-03-03)
 
 **Note:** Version bump only for package @frontegg/demo-saas

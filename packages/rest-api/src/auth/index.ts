@@ -1,4 +1,4 @@
-import { IUpdateSamlRoles } from './interfaces';
+/* tslint:disable:no-console */
 
 export * from './secutiry-poilicy';
 
@@ -30,6 +30,7 @@ import {
   ISamlVendorConfigResponse,
   IUpdateSamlConfiguration,
   IUpdateSamlVendorMetadata,
+  IUpdateSamlRoles,
   IVerifyMfa,
   IVerifyMfaResponse,
   IAcceptInvitation,

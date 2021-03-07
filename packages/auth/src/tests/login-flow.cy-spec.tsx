@@ -86,7 +86,9 @@ describe('Login Tests', () => {
 
     cy.get(submitSelector).contains('Login').click();
 
-    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+    cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', { email: EMAIL_1, password: PASSWORD, recaptchaToken: '' });
     cy.contains('invalid auth').should('be.visible');
 
     cy.route({
@@ -100,7 +102,9 @@ describe('Login Tests', () => {
     cy.window().then((win) => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
     cy.get(submitSelector).contains('Login').click();
 
-    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+    cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', { email: EMAIL_1, password: PASSWORD, recaptchaToken: '' });
 
     // cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
@@ -137,7 +141,9 @@ describe('Login Tests', () => {
 
     cy.get(submitSelector).click();
 
-    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+    cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', { email: EMAIL_1, password: PASSWORD, recaptchaToken: '' });
 
     cy.contains('Home').should('be.visible');
     cy.location().should((loc) => {
@@ -202,7 +208,9 @@ describe('Login Tests', () => {
     cy.window().then((win) => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
     cy.get(submitSelector).click();
 
-    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+    cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', { email: EMAIL_1, password: PASSWORD, recaptchaToken: '' });
 
     // cy.contains('Authentication Succeeded').should('be.visible');
     cy.contains('Home').should('be.visible');
@@ -388,7 +396,9 @@ describe('Login Tests', () => {
     cy.window().then((win) => win.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL));
     cy.get(submitSelector).contains('Login').click();
 
-    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+    cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', { email: EMAIL_1, password: PASSWORD, recaptchaToken: '' });
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
@@ -453,7 +463,9 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Login').should('not.be.disabled');
 
     cy.get(submitSelector).contains('Login').click();
-    cy.wait('@login').its('request.body').should('deep.equal', { email: EMAIL_1, password: PASSWORD });
+    cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', { email: EMAIL_1, password: PASSWORD, recaptchaToken: '' });
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
     cy.get('[test-id="recover-two-factor-button"]').click();

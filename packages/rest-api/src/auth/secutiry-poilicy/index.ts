@@ -1,18 +1,22 @@
+/* tslint:disable:no-console */
+
 import {
-  ISaveSecurityPolicyLockout,
   ISaveSecurityPolicyMfa,
-  ISecurityPolicyLockout,
+  ISaveSecurityPolicyLockout,
+  ISaveSecurityPolicyCaptcha,
   ISecurityPolicyMfa,
+  ISecurityPolicyLockout,
+  ISecurityPolicyCaptcha,
 } from './interfaces';
 import { Get, Patch, Post } from '../../fetch';
-import { SECURITY_POLICY_API_V1 } from '../../constants';
+import { IDENTITY_CONFIGURATION_SERVICE_URL_V1 } from '../../constants';
 
 /**
  * Get global secure access configuration
  */
 export async function getGlobalSecurityPolicy(): Promise<ISecurityPolicyMfa> {
   console.debug('getGlobalSecurityPolicy()');
-  return Get(SECURITY_POLICY_API_V1);
+  return Get(IDENTITY_CONFIGURATION_SERVICE_URL_V1);
 }
 
 /**
@@ -20,7 +24,7 @@ export async function getGlobalSecurityPolicy(): Promise<ISecurityPolicyMfa> {
  */
 export async function getMfaPolicy(): Promise<ISecurityPolicyMfa> {
   console.debug('getMfaPolicy()');
-  return Get(`${SECURITY_POLICY_API_V1}/mfa-policy`);
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/mfa-policy`);
 }
 
 /**
@@ -29,9 +33,9 @@ export async function getMfaPolicy(): Promise<ISecurityPolicyMfa> {
 export async function saveMfaPolicy(body: ISaveSecurityPolicyMfa): Promise<ISecurityPolicyMfa> {
   console.debug('saveMfaPolicy()');
   if (body.id) {
-    return Patch(`${SECURITY_POLICY_API_V1}/mfa-policy`, body);
+    return Patch(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/mfa-policy`, body);
   } else {
-    return Post(`${SECURITY_POLICY_API_V1}/mfa-policy`, body);
+    return Post(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/mfa-policy`, body);
   }
 }
 
@@ -40,7 +44,7 @@ export async function saveMfaPolicy(body: ISaveSecurityPolicyMfa): Promise<ISecu
  */
 export async function getLockoutPolicy(): Promise<ISecurityPolicyLockout> {
   console.debug('getLockoutPolicy()');
-  return Get(`${SECURITY_POLICY_API_V1}/lockout-policy`);
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/lockout-policy`);
 }
 
 /**
@@ -49,8 +53,16 @@ export async function getLockoutPolicy(): Promise<ISecurityPolicyLockout> {
 export async function saveLockoutPolicy(body: ISaveSecurityPolicyLockout): Promise<ISecurityPolicyLockout> {
   console.debug('saveLockoutPolicy()');
   if (body.id) {
-    return Patch(`${SECURITY_POLICY_API_V1}/lockout-policy`, body);
+    return Patch(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/lockout-policy`, body);
   } else {
-    return Post(`${SECURITY_POLICY_API_V1}/lockout-policy`, body);
+    return Post(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/lockout-policy`, body);
   }
+}
+
+/**
+ * Get Captcha configuration from security policy
+ */
+export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha> {
+  console.debug('getCaptchaPolicy()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
 }

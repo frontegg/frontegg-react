@@ -41,3 +41,17 @@ export interface ISaveSecurityPolicyLockout {
   enforceLockout: boolean;
   maxAttemptsForLockout: number;
 }
+
+export interface ISecurityPolicyCaptcha {
+  id: string;
+  siteKey: string;
+  enabled: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ISaveSecurityPolicyCaptcha {
+  id?: string;
+  siteKey: string;
+  enabled: boolean;
+}

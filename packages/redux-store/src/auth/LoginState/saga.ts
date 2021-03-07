@@ -152,10 +152,10 @@ function* postLogin({ payload }: PayloadAction<IPostLogin>) {
   }
 }
 
-function* login({ payload: { email, password } }: PayloadAction<ILogin>) {
+function* login({ payload: { email, password, recaptchaToken } }: PayloadAction<ILogin>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
-    const user = yield call(api.auth.login, { email, password });
+    const user = yield call(api.auth.login, { email, password, recaptchaToken });
 
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);

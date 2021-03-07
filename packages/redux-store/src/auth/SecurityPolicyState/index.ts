@@ -3,6 +3,7 @@ import { resetStateByKey, typeReducerForKey, typeReducerNestedKey } from '../uti
 import { authStoreName } from '../../constants';
 import { ActionDispatchMatcher } from '../../interfaces';
 import {
+  CaptchaPolicyState,
   GlobalPolicyState,
   LockoutPolicyState,
   MfaPolicyState,
@@ -21,6 +22,9 @@ const securityPolicyState: SecurityPolicyState = {
   lockoutPolicy: {
     loading: true,
   },
+  captchaPolicy: {
+    loading: true,
+  },
 };
 
 const reducers = {
@@ -37,6 +41,10 @@ const reducers = {
     'securityPolicyState',
     'lockoutPolicy'
   ),
+  setSecurityPolicyCaptchaState: typeReducerNestedKey<SecurityPolicyState, CaptchaPolicyState>(
+    'securityPolicyState',
+    'captchaPolicy'
+  ),
   resetSecurityPolicyState: resetStateByKey<SecurityPolicyState>('securityPolicyState', { securityPolicyState }),
 };
 
@@ -52,6 +60,7 @@ const actions = {
     `${authStoreName}/saveSecurityPolicyLockout`,
     (payload: SaveSecurityPolicyLockoutPayload) => ({ payload })
   ),
+  loadSecurityPolicyCaptcha: createAction(`${authStoreName}/loadSecurityPolicyCaptcha`),
 };
 
 /**
@@ -63,6 +72,7 @@ type DispatchedActions = {
   setSecurityPolicyGlobalState: (state: Partial<GlobalPolicyState>) => void;
   setSecurityPolicyMfaState: (state: Partial<MfaPolicyState>) => void;
   setSecurityPolicyLockoutState: (state: Partial<LockoutPolicyState>) => void;
+  setSecurityPolicyCaptchaState: (state: Partial<CaptchaPolicyState>) => void;
   resetSecurityPolicyState: () => void;
 
   loadSecurityPolicy: () => void;
@@ -70,6 +80,7 @@ type DispatchedActions = {
   saveSecurityPolicyMfa: (payload: SaveSecurityPolicyMfaPayload) => void;
   loadSecurityPolicyLockout: () => void;
   saveSecurityPolicyLockout: (payload: SaveSecurityPolicyLockoutPayload) => void;
+  loadSecurityPolicyCaptcha: () => void;
 };
 
 // noinspection JSUnusedLocalSymbols
