@@ -1,10 +1,10 @@
 import { call, put, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { api, IUpdateSettings } from '@frontegg/rest-api';
+import { api, ISettingsResponse, IUpdateSettings } from '@frontegg/rest-api';
 import { WithCallback, WithSilentLoad } from '../../interfaces';
 
-function* saveAccountSettings({ payload }: PayloadAction<IUpdateSettings>) {
+function* saveAccountSettings({ payload }: PayloadAction<WithCallback<IUpdateSettings, ISettingsResponse>>) {
   try {
     yield put(actions.setAccountSettingsState({ loading: true }));
     const { accountSettingsState } = yield select((state) => state.auth);
@@ -19,8 +19,10 @@ function* saveAccountSettings({ payload }: PayloadAction<IUpdateSettings>) {
       ...payload,
     });
     yield put(actions.setAccountSettingsState({ ...body, loading: false }));
+    payload.callback?.(body);
   } catch (e) {
     yield put(actions.setAccountSettingsState({ loading: false, error: e.message }));
+    payload.callback?.(null, e);
   }
 }
 
