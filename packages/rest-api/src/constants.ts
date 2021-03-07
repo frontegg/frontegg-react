@@ -19,6 +19,6 @@ export const NOTIFICATIONS_SERVICE_URL = '/notification';
 export const AUDITS_SERVICE_URL = '/audits';
 export const AUDITS_SERVICE_EXPORT_URL = '/audits/export';
 export const TENANTS_SERVICE_V1 = '/tenants/resources/tenants/v1';
-export const ACCOUNT_SETTINGS_SERVICE_V1 = '/tenants/resources/tenants/account-settings/v1';
+export const ACCOUNT_SETTINGS_SERVICE_V1 = '/tenants/resources/account-settings/v1';
 export const IDENTITY_API_TOKENS_USERS_SERVICE = '/identity/resources/users/api-tokens/v1';
 export const IDENTITY_API_TOKENS_TENANTS_SERVICE = '/identity/resources/tenants/api-tokens/v1';
