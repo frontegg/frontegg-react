@@ -2,8 +2,9 @@ import { call, put, select, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { api, IUpdateSettings } from '@frontegg/rest-api';
+import { WithCallback } from '../interfaces';
 
-function* updateAccountSettingsFunction({ payload }: PayloadAction<IUpdateSettings>) {
+function* updateAccountSettingsFunction({ payload }: PayloadAction<WithCallback<IUpdateSettings>>) {
   try {
     yield put(actions.setAccountSettingsState({ loading: true }));
     const { accountSettingsState } = yield select((state) => state.auth);
