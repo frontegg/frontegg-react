@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/frontegg/frontegg-react/compare/v1.24.0...v1.25.0) (2021-03-07)
+
+
+### Bug Fixes
+
+* Set fixed version for i18next in @frontegg/react-core ([20f9879](https://github.com/frontegg/frontegg-react/commit/20f98795e88b08e5e98e71d2d062836f47ce1061))
+* **auth:** FR-1932 - make requested changes; fix ReCaptcha token' ([4903613](https://github.com/frontegg/frontegg-react/commit/490361368e8a7bf1fa8c049eda8f2881bb15a71d))
+* **auth:** FR-1932 - removed unused import ([1e00b41](https://github.com/frontegg/frontegg-react/commit/1e00b41bd1395ba8823519eea395849625ac4e83))
+
+
+### Features
+
+* FR-1932 - added captcha for login/sign up; removed unused components demosaas ([e5e75c8](https://github.com/frontegg/frontegg-react/commit/e5e75c82524bfffe158924e75128fa84d5224b14))
+
+
+
+
+
 # [1.24.0](https://github.com/frontegg/frontegg-react/compare/v1.23.1...v1.24.0) (2021-03-03)
 
 
