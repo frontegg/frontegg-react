@@ -100,7 +100,7 @@ test-component: ##@3 Tests component test with cypress
 
 test-component-%:
 	@echo "${YELLOW}Component Test Cypress [${*}]${RESET}"
-	@./node_modules/.bin/cypress run --headless --spec "packages/${*}/**/*"
+	@./node_modules/.bin/cypress open
 
 test-unit: ##@3 Tests unit test with jest
 	@echo "${YELLOW}Unit Test Jest${RESET}"

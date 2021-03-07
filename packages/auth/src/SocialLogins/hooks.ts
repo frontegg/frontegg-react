@@ -13,8 +13,11 @@ export const createSocialLoginState = (state: ISocialLoginCallbackState): string
 
 export const useRedirectUri = (): string => {
   const routes = useAuth(({ routes }) => routes);
+
   const redirectUri = useMemo<string>(() => {
-    return `${window.location.origin}${routes.socialLoginCallbackUrl}`;
+    const url = new URL(window?.location.href);
+    const redirectUrl = url.searchParams.get('redirectUrl');
+    return `${window.location.origin}${redirectUrl || routes.socialLoginCallbackUrl}`;
   }, [window.location.origin, routes.socialLoginCallbackUrl]);
   return redirectUri;
 };
