@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "1.25.0",
+  "version": "1.25.1",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
