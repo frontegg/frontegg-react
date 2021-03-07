@@ -77,7 +77,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   }, [shouldDisplayPassword]);
 
   const labelButtonProps = (values: any) => ({
-    "data-test-id" : 'forgotPassBtn',
+    'data-test-id': 'forgotPassBtn',
     disabled: loading,
     onClick: () => {
       setForgotPasswordState({ email: values.email });
