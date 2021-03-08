@@ -64,9 +64,8 @@ function* saveSSOConfigurations({ payload }: PayloadAction<SaveSSOConfigurationP
       updateSamlConfiguration.publicCertificate = '';
       updateSamlConfiguration.signRequest = false;
     }
-    if (samlVendor === 'Oidc') {
-      updateSamlConfiguration.type = 'oidc';
-    }
+
+    updateSamlConfiguration.type = samlVendor?.toLowerCase();
 
     const newSamlConfiguration = yield call(api.auth.updateSamlConfiguration, updateSamlConfiguration);
     yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
