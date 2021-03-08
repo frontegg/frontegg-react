@@ -12,9 +12,9 @@ function* loadSecurityPolicy() {
   } catch (e) {
     yield put(actions.setSecurityPolicyGlobalState({ error: e.message, loading: false }));
   }
-  yield put(actions.loadSecurityPolicyMfa);
-  yield put(actions.loadSecurityPolicyLockout);
-  yield put(actions.loadSecurityPolicyCaptcha);
+  yield put(actions.loadSecurityPolicyMfa());
+  yield put(actions.loadSecurityPolicyLockout());
+  yield put(actions.loadSecurityPolicyCaptcha());
 }
 
 function* loadSecurityPolicyMfa() {

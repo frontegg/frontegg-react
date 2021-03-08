@@ -139,25 +139,11 @@ function* updateAuthorizationRoles({
   }
 }
 
-function* getAllRoles() {
-  try {
-    const { items: roles } = yield call(api.teams.loadAvailableRoles);
-    yield put(actions.setSSOState({ roles }));
-  } catch (e) {
-    yield put(
-      actions.setSSOState({
-        error: e.message,
-      })
-    );
-  }
-}
-
 export function* ssoSagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurationsFile, saveSSOConfigurationsFile);
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
-  yield takeEvery(actions.loadSSOAllRoles, getAllRoles);
   yield takeEvery(actions.loadSSOAuthorizationRoles, getAuthorizationRoles);
   yield takeEvery(actions.updateSSOAuthorizationRoles, updateAuthorizationRoles);
 }

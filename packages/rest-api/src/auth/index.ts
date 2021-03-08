@@ -417,5 +417,5 @@ export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<
 
 export async function getUserById({ userId }: IGetUserById): Promise<IUserIdResponse> {
   console.debug('getUserById()');
-  return Get(`${USERS_SERVICE_URL_V1}/${userId}`);
+  return Get(`${USERS_SERVICE_URL_V2}/${userId}`);
 }

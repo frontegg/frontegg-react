@@ -5,8 +5,12 @@ import { initialState } from './initialState';
 
 // export types
 export * from './interfaces';
+
 export * from './AuditLogsState/interfaces';
 export * from './AuditLogsState';
+
+export * from './AuditsMetadataState/interfaces';
+export * from './AuditsMetadataState';
 
 export { AuditsActions } from './reducer';
 

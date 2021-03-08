@@ -13,12 +13,11 @@ const auditLogsState: AuditLogsState = {
   sort: [],
   filter: [],
   totalPages: 0,
-  columns: [],
 };
 
 const reducers = {
   setAuditLogsState: typeReducerForKey<AuditLogsState>('auditLogsState'),
-  resetAuditLogsState: (state: AuditsState) => ({ ...state, auditLogsState: auditLogsState }),
+  resetAuditLogsState: (state: AuditsState) => ({ ...state, auditLogsState }),
 };
 
 const actions = {

@@ -17,7 +17,6 @@ const reducers = {
 
 const actions = {
   loadSSOConfigurations: createAction(`${authStoreName}/loadSSOConfigurations`),
-  loadSSOAllRoles: createAction(`${authStoreName}/loadSSOAllRoles`),
   loadSSOAuthorizationRoles: createAction(`${authStoreName}/loadSSOAuthorizationRoles`),
   saveSSOConfigurations: createAction(
     `${authStoreName}/saveSSOConfigurations`,
@@ -41,7 +40,6 @@ type DispatchedActions = {
   setSSOState: (state: Partial<SSOState>) => void;
   resetSSOState: () => void;
   loadSSOConfigurations: () => void;
-  loadSSOAllRoles: () => void;
   loadSSOAuthorizationRoles: () => void;
   saveSSOConfigurations: (payload: SaveSSOConfigurationPayload) => void;
   saveSSOConfigurationsFile: (payload: File[]) => void;

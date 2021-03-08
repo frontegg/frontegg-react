@@ -30,16 +30,16 @@ export interface ISaveSecurityPolicyMfa {
 
 export interface ISecurityPolicyLockout {
   id: string;
-  enforceLockout: boolean;
-  maxAttemptsForLockout: number;
+  enabled: boolean;
+  maxAttempts: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface ISaveSecurityPolicyLockout {
   id?: string;
-  enforceLockout: boolean;
-  maxAttemptsForLockout: number;
+  enabled: boolean;
+  maxAttempts: number;
 }
 
 export interface ISecurityPolicyCaptcha {

@@ -1,9 +1,10 @@
-import { takeLatest, select as sagaSelect, put, call } from 'redux-saga/effects';
+import { takeLatest, select as sagaSelect, put, call, takeEvery } from 'redux-saga/effects';
 import { api } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { AuditLogsState, LoadAuditLogsPayload } from './interfaces';
 import { auditsStoreName } from '../../constants';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { AuditsMetadataState } from '../AuditsMetadataState/interfaces';
 
 // function* loadStats() {
 //   const { sortBy, sortDirection } = yield select();
@@ -127,19 +128,33 @@ import { PayloadAction } from '@reduxjs/toolkit';
 // }
 
 const select = () => sagaSelect((_) => _[auditsStoreName].auditLogsState);
+const selectMetadata = () => sagaSelect((_) => _[auditsStoreName].auditsMetadataState);
 
 function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
   yield put(actions.setAuditLogsState({ loading: !payload?.silentLoading, error: null }));
   const state: AuditLogsState = yield select();
+  const { properties }: AuditsMetadataState = yield selectMetadata();
   try {
     const pageSize = payload.pageSize ?? state.pageSize;
     const pageOffset = payload.pageOffset ?? state.pageOffset;
     const filter = payload.filter ?? state.filter;
     const sort = payload.sort ?? state.sort;
 
+    yield put(
+      actions.setAuditLogsState({
+        pageSize,
+        pageOffset,
+        filter,
+        sort,
+      })
+    );
+
     const sortParams = sort.reduce((p, n) => ({ ...p, sortBy: n.id, sortDirection: n.desc ? 'desc' : 'asc' }), {});
     const filterParams = filter.reduce((p, n) => ({ ...p, [n.id]: encodeURIComponent(n.value) }), {});
 
+    if (!properties) {
+      yield put(actions.loadAuditsMetadata());
+    }
     const { data, total } = yield call(api.audits.getAudits, {
       offset: pageOffset,
       count: pageSize,
@@ -147,7 +162,13 @@ function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
       ...filterParams,
     } as any);
 
-    yield put(actions.setAuditLogsState({ loading: false }));
+    yield put(
+      actions.setAuditLogsState({
+        loading: false,
+        logs: data,
+        totalPages: +(total / pageSize).toFixed(0),
+      })
+    );
     payload?.callback?.(true);
   } catch (e) {
     yield put(actions.setAuditLogsState({ loading: false, error: e.message }));
@@ -156,8 +177,5 @@ function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
 }
 
 export function* auditLogsSagas() {
-  yield takeLatest(actions.loadAuditLogs, loadAuditLogs);
-  // yield takeLatest([actions.loadAudits, actions.setAuditsFilters], loadAudits);
-  // yield takeLatest(actions.exportAuditsCSV, exportAuditsCsv);
-  // yield takeLatest(actions.exportAuditsPDF, exportAuditsPdf);
+  yield takeEvery(actions.loadAuditLogs, loadAuditLogs);
 }

@@ -31,7 +31,6 @@ const ApiTokensTenantCreatedBy = ({ value }: { value: string }) => {
         setState({ loading: false, name: data.name });
       })
       .catch((error) => {
-        console.log('failed to load user', error);
         setState({ loading: false });
       });
   }, [setState]);
