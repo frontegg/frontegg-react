@@ -27,7 +27,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
   const { signUpUser, loading, routes, onRedirectTo } = useAuth(stateMapper);
 
   const redirectToLogin = useCallback(() => {
-    onRedirectTo(routes.loginUrl);
+    onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
   }, []);
 
   return (
