@@ -11,4 +11,16 @@
   &__success-container {
     margin-bottom: 3em;
   }
+
+  &__checkbox {
+    margin-bottom: 1rem;
+
+    .fe-checkbox__content {
+      display: flex;
+
+      input {
+        width: 1.5rem;
+      }
+    }
+  }
 }
