@@ -18,6 +18,9 @@
   }
 }
 
+.grecaptcha-badge {
+  z-index: 100000000;
+}
 .fe-login-container {
   display: flex;
   flex-direction: column;
