@@ -121,6 +121,7 @@ export interface ILoginViaSocialLogin {
   code: string;
   redirectUri?: string;
   provider: SocialLoginsProviders;
+  afterAuthRedirectUrl?: string;
 }
 
 export interface ISetSocialLoginError {

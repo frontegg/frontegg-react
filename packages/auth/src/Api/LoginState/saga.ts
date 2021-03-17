@@ -31,7 +31,9 @@ export function* afterAuthNavigation() {
   window.localStorage.removeItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
   yield delay(500);
   put(actions.resetLoginState());
-  onRedirectTo(authenticatedUrl);
+  const url = new URL(window?.location.href);
+  const redirectUrl = url.searchParams.get('redirectUrl');
+  onRedirectTo(redirectUrl || authenticatedUrl);
 }
 
 function* refreshMetadata() {
@@ -90,7 +92,7 @@ export function* refreshToken() {
           },
         })
       );
-      onRedirectTo(routes.loginUrl);
+      onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
       ContextHolder.setAccessToken(user.accessToken);
       ContextHolder.setUser(user);

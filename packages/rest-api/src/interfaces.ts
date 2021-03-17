@@ -36,4 +36,5 @@ export interface QueryFilter {
 export interface RedirectOptions {
   refresh?: boolean;
   replace?: boolean;
+  preserveQueryParams?: boolean;
 }
