@@ -92,7 +92,7 @@ export function* refreshToken() {
           },
         })
       );
-      onRedirectTo(routes.loginUrl);
+      onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
       ContextHolder.setAccessToken(user.accessToken);
       ContextHolder.setUser(user);

@@ -77,8 +77,7 @@ const FeState: FC<FeProviderProps> = (props) => {
         path = path.substring(baseName.length);
       }
       if (opts?.preserveQueryParams) {
-        const query = new URLSearchParams(location.search);
-        path = `${path}?${decodeURIComponent(query.toString())}`;
+        path = `${path}${window.location.search}`;
       }
       if (opts?.refresh && !isSSR) {
         window.Cypress ? history.push(path) : (window.location.href = path);

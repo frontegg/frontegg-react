@@ -14,10 +14,7 @@ export const createSocialLoginState = (state: ISocialLoginCallbackState): string
 export const useRedirectUri = (): string => {
   const routes = useAuth(({ routes }) => routes);
   const redirectUri = useMemo<string>(() => {
-    const url = new URL(window?.location.href);
-    const redirectUrl = url.searchParams.get('redirectUrl');
-
-    return `${window.location.origin}${redirectUrl || routes.socialLoginCallbackUrl}`;
+    return `${window.location.origin}${routes.socialLoginCallbackUrl}`;
   }, [window.location.origin, routes.socialLoginCallbackUrl]);
   return redirectUri;
 };
@@ -36,11 +33,18 @@ export const useRedirectUrl = (
   const redirectUri = useRedirectUri();
 
   const redirectUrl: string | undefined = useMemo(() => {
+    const url = new URL(window?.location.href);
+    const afterAuthRedirectUrl = url.searchParams.get('redirectUrl');
+
     if (config) {
       return urlCreator({
         ...config,
         redirectUrl: redirectUri,
-        state: createSocialLoginState({ provider: socialLoginType, action }),
+        state: createSocialLoginState({
+          provider: socialLoginType,
+          action,
+          afterAuthRedirectUrl: afterAuthRedirectUrl || undefined,
+        }),
       });
     }
   }, [config?.clientId, config?.redirectUrl, action]);
