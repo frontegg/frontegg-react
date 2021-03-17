@@ -8,6 +8,7 @@ import {
   validateLength,
   validateSchema,
   validateEmail,
+  ErrorMessage,
 } from '@frontegg/react-core';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
@@ -24,7 +25,7 @@ const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({ onR
 export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
   const { t } = useT();
 
-  const { signUpUser, loading, routes, onRedirectTo } = useAuth(stateMapper);
+  const { signUpUser, error, loading, routes, onRedirectTo } = useAuth(stateMapper);
 
   const redirectToLogin = useCallback(() => {
     onRedirectTo(routes.loginUrl);
@@ -80,6 +81,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
             {t('auth.sign-up.form.submit-button')}
           </FButton>
+          <ErrorMessage error={error} />
           <FReCaptcha action='sign_up' />
         </FForm>
       </Formik>
