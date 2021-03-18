@@ -55,7 +55,11 @@ export const FeCheckbox = forwardRef<HTMLInputElement, CheckboxProps>((props, re
         <span className={`${prefixCls}__input`}>
           <FeIcon name={indeterminate ? 'indeterminate' : 'checkmark'} />
         </span>
-        {label ? <label className={`${prefixCls}__label`}>{label}</label> : renderLabel?.()}
+        {label ? (
+          <label className={`${prefixCls}__label`}>{label}</label>
+        ) : (
+          <div className={`${prefixCls}__customLabel`}>{renderLabel?.()}</div>
+        )}
       </div>
     </div>
   );
