@@ -22,7 +22,7 @@ export interface SignUpProps {
   components?: ComponentsTypesWithProps<Components>;
   withCompanyName?: boolean;
   signUpConsent?: SignUpCheckbox;
-  marketingMaterial?: SignUpCheckbox;
+  marketingMaterialConsent?: SignUpCheckbox;
 }
 
 const defaultComponents = {
@@ -57,7 +57,7 @@ export const SignUp: FC<SignUpProps> = (props) => {
           <Dynamic.SignUpForm
             withCompanyName={props.withCompanyName}
             signUpConsent={props.signUpConsent}
-            marketingMaterial={props.marketingMaterial}
+            marketingMaterialConsent={props.marketingMaterialConsent}
           />
           <Dynamic.SocialLogins />
         </>

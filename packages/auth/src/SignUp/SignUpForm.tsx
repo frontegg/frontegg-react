@@ -21,7 +21,7 @@ const { Formik } = FFormik;
 export interface SignUpFormProps {
   withCompanyName?: boolean;
   signUpConsent?: SignUpCheckbox;
-  marketingMaterial?: SignUpCheckbox;
+  marketingMaterialConsent?: SignUpCheckbox;
 }
 
 const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({
@@ -30,7 +30,11 @@ const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({
   ...signUpState,
 });
 
-export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true, signUpConsent, marketingMaterial }) => {
+export const SignUpForm: FC<SignUpFormProps> = ({
+  withCompanyName = true,
+  signUpConsent,
+  marketingMaterialConsent,
+}) => {
   const { t } = useT();
 
   const { signUpUser, loading, routes, onRedirectTo } = useAuth(stateMapper);
@@ -44,7 +48,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true, signUp
   }, []);
 
   const isSignUpConsentVisible = isCheckboxVisible(signUpConsent);
-  const isMarketingMaterialVisible = isCheckboxVisible(marketingMaterial);
+  const isMarketingMaterialVisible = isCheckboxVisible(marketingMaterialConsent);
 
   return (
     <>
@@ -62,12 +66,12 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true, signUp
           companyName: '',
           recaptchaToken: '',
           acceptedTermsOfService: isSignUpConsentVisible ? false : undefined,
-          acceptedMarketingMaterial: isMarketingMaterialVisible ? false : undefined,
+          allowMarketingMaterial: isMarketingMaterialVisible ? false : undefined,
         }}
-        onSubmit={({ acceptedTermsOfService, acceptedMarketingMaterial, ...values }) => {
+        onSubmit={({ acceptedTermsOfService, allowMarketingMaterial, ...values }) => {
           const metadata = JSON.stringify({
             acceptedTermsOfService,
-            acceptedMarketingMaterial,
+            allowMarketingMaterial,
           });
 
           if (withCompanyName) {
@@ -81,8 +85,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true, signUp
           name: validateLength('name', 3, t),
           companyName: withCompanyName && validateLength('Company Name', 3, t),
           acceptedTermsOfService: isSignUpConsentVisible && signUpConsent?.required !== false && validateCheckbox(),
-          acceptedMarketingMaterial:
-            isMarketingMaterialVisible && marketingMaterial?.required !== false && validateCheckbox(),
+          allowMarketingMaterial:
+            isMarketingMaterialVisible && marketingMaterialConsent?.required !== false && validateCheckbox(),
         })}
       >
         <FForm>
@@ -111,8 +115,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true, signUp
           )}
           {isMarketingMaterialVisible && (
             <FCheckbox
-              name='acceptedMarketingMaterial'
-              renderLabel={marketingMaterial?.content}
+              name='allowMarketingMaterial'
+              renderLabel={marketingMaterialConsent?.content}
               className={'fe-sign-up__checkbox'}
             />
           )}
