@@ -89,6 +89,8 @@ export const validationPhone = (t: TFunction) =>
     )
     .required(t('validation.required-field', { name: 'phone' }));
 
+export const validateCheckbox = () => Yup.boolean().required().oneOf([true]);
+
 export const validateSchemaSync = (props: any, values: any) =>
   new Promise((resolve) => {
     validateSchema(props)
