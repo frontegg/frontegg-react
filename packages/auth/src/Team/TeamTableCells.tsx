@@ -3,7 +3,6 @@ import {
   CellComponent,
   Checkbox,
   Icon,
-  Loader,
   Menu,
   MenuItem,
   MenuItemProps,
@@ -45,11 +44,13 @@ export const TeamTableLastLogin: CellComponent = TableCells.DateAgo;
 
 export const TeamTableActions = (me?: string): CellComponent => (props) => {
   const { id: userId, email, lastLogin } = props.row.original;
-  const { resendActivationLink, openDeleteUserDialog } = useAuthTeamActions();
-  const { loading } = useAuthTeamState((state) => ({
-    loading: state.loaders.RESEND_ACTIVATE_LINK || state.loaders.UPDATE_USER || state.loaders.DELETE_USER,
-  }));
   const { t } = useT();
+  const { resendActivationLink, openDeleteUserDialog } = useAuthTeamActions();
+  const { resendLoading, deleteLoading } = useAuthTeamState(({ loaders }) => ({
+    resendLoading: loaders.RESEND_ACTIVATE_LINK === userId,
+    deleteLoading: typeof loaders.DELETE_USER === 'string' ? loaders.DELETE_USER === userId : !!loaders.DELETE_USER,
+  }));
+
   const isMe = me === userId;
 
   const handleSendActivationLink = useCallback(() => {
@@ -60,23 +61,28 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
     openDeleteUserDialog({ userId, email });
   }, [userId, email]);
 
-  const items: MenuItemProps[] = [];
+  const items: MenuItemProps[] = useMemo(() => {
+    const items = [];
 
-  if (!lastLogin) {
-    items.push({
-      icon: <Icon name='send' />,
-      onClick: handleSendActivationLink,
-      text: t('auth.team.resendActivation'),
-    });
-  }
-  if (!isMe || LEAVE_TEAM_OPTION) {
-    items.push({
-      icon: <Icon name='delete' />,
-      onClick: handleDeleteUser,
-      text: isMe ? t('auth.team.leaveTeam') : t('auth.team.deleteUser'),
-      iconClassName: 'fe-color-danger',
-    });
-  }
+    if (!lastLogin) {
+      items.push({
+        icon: <Icon name='send' />,
+        onClick: handleSendActivationLink,
+        text: t('auth.team.resendActivation'),
+        loading: resendLoading,
+      });
+    }
+    if (!isMe || LEAVE_TEAM_OPTION) {
+      items.push({
+        icon: <Icon name='delete' />,
+        onClick: handleDeleteUser,
+        text: isMe ? t('auth.team.leaveTeam') : t('auth.team.deleteUser'),
+        iconClassName: 'fe-color-danger',
+        loading: deleteLoading,
+      });
+    }
+    return items;
+  }, [lastLogin, isMe, resendLoading, deleteLoading]);
 
   return (
     <div
@@ -90,7 +96,7 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
           items={items}
           trigger={
             <Button iconButton size='small' transparent>
-              {loading === userId ? <Loader size={24} /> : <Icon name='vertical-dots' data-test-id='dots-btn' />}
+              <Icon name='vertical-dots' data-test-id='dots-btn' />
             </Button>
           }
         />
