@@ -4,12 +4,15 @@ import {
   FForm,
   FFormik,
   FInput,
+  FCheckbox,
   useT,
   validateLength,
   validateSchema,
   validateEmail,
   ErrorMessage,
+  validateCheckbox,
 } from '@frontegg/react-core';
+import { SignUpCheckbox } from './SignUp';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 import { FReCaptcha } from '../components/FReCaptcha';
@@ -18,18 +21,35 @@ const { Formik } = FFormik;
 
 export interface SignUpFormProps {
   withCompanyName?: boolean;
+  signUpConsent?: SignUpCheckbox;
+  marketingMaterialConsent?: SignUpCheckbox;
 }
 
-const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({ onRedirectTo, routes, ...signUpState });
+const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({
+  onRedirectTo,
+  routes,
+  ...signUpState,
+});
 
-export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
+export const SignUpForm: FC<SignUpFormProps> = ({
+  withCompanyName = true,
+  signUpConsent,
+  marketingMaterialConsent,
+}) => {
   const { t } = useT();
 
   const { signUpUser, error, loading, routes, onRedirectTo } = useAuth(stateMapper);
 
-  const redirectToLogin = useCallback(() => {
-    onRedirectTo(routes.loginUrl);
+  const isCheckboxVisible = useCallback((checkbox?: SignUpCheckbox) => {
+    return checkbox?.hasOwnProperty('content');
   }, []);
+
+  const redirectToLogin = useCallback(() => {
+    onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
+  }, []);
+
+  const isSignUpConsentVisible = isCheckboxVisible(signUpConsent);
+  const isMarketingMaterialVisible = isCheckboxVisible(marketingMaterialConsent);
 
   return (
     <>
@@ -46,18 +66,28 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
           name: '',
           companyName: '',
           recaptchaToken: '',
+          acceptedTermsOfService: isSignUpConsentVisible ? false : undefined,
+          allowMarketingMaterial: isMarketingMaterialVisible ? false : undefined,
         }}
-        onSubmit={(values) => {
+        onSubmit={({ acceptedTermsOfService, allowMarketingMaterial, ...values }) => {
+          const metadata = JSON.stringify({
+            acceptedTermsOfService,
+            allowMarketingMaterial,
+          });
+
           if (withCompanyName) {
-            signUpUser(values);
+            signUpUser({ ...values, metadata });
           } else {
-            signUpUser({ ...values, companyName: values.name });
+            signUpUser({ ...values, companyName: values.name, metadata });
           }
         }}
         validationSchema={validateSchema({
           email: validateEmail(t),
           name: validateLength('name', 3, t),
           companyName: withCompanyName && validateLength('Company Name', 3, t),
+          acceptedTermsOfService: isSignUpConsentVisible && signUpConsent?.required !== false && validateCheckbox(),
+          allowMarketingMaterial:
+            isMarketingMaterialVisible && marketingMaterialConsent?.required !== false && validateCheckbox(),
         })}
       >
         <FForm>
@@ -77,7 +107,20 @@ export const SignUpForm: FC<SignUpFormProps> = ({ withCompanyName = true }) => {
               data-test-id='compenyName-box'
             />
           )}
-
+          {isSignUpConsentVisible && (
+            <FCheckbox
+              name='acceptedTermsOfService'
+              renderLabel={signUpConsent?.content}
+              className={'fe-sign-up__checkbox'}
+            />
+          )}
+          {isMarketingMaterialVisible && (
+            <FCheckbox
+              name='allowMarketingMaterial'
+              renderLabel={marketingMaterialConsent?.content}
+              className={'fe-sign-up__checkbox'}
+            />
+          )}
           <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
             {t('auth.sign-up.form.submit-button')}
           </FButton>

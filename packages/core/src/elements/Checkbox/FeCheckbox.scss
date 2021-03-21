@@ -36,9 +36,14 @@
     margin: 0;
   }
 
+  .fe-checkbox__customLabel {
+    line-height: 100%;
+  }
+
   .fe-checkbox__input {
     width: 1rem;
     height: 1rem;
+    flex-shrink: 0;
     border: 2px solid var(--fe-checkbox-border-color, var(--color-gray-4));
     border-radius: var(--fe-checkbox-border-radius, var(--element-border-radius-sm));
     display: inline-block;

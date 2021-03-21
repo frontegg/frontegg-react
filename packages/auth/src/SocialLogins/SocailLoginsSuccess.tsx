@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
 import { useAuth } from '../hooks';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Button, Loader, useT } from '@frontegg/react-core';
 import { useRedirectUri } from './hooks';
 
@@ -18,11 +18,13 @@ export const SocialLoginsSuccess: FC = () => {
   const location = useLocation();
   const { t } = useT();
   const redirectUri = useRedirectUri();
+  const { replace: historyReplace } = useHistory();
 
   useEffect((): void => {
     const params: URLSearchParams = new URLSearchParams(location.search);
     const state = params.get('state');
     const code = params.get('code');
+
     let parsedState: ISocialLoginCallbackState;
     const error = t('auth.social-logins.error.invalid-callback-url');
 
@@ -33,6 +35,8 @@ export const SocialLoginsSuccess: FC = () => {
 
     try {
       parsedState = JSON.parse(state);
+      if (parsedState.afterAuthRedirectUrl)
+        historyReplace({ pathname: location.pathname, search: `?redirectUrl=${parsedState.afterAuthRedirectUrl}` });
     } catch (e) {
       setSocialLoginError({ error });
       return;

@@ -135,6 +135,9 @@ export default {
         'confirm-new-password': 'Confirm New password',
         'enter-your-password-again': 'Enter your password again',
         'activate-account-button': 'Activate',
+        'ask-for-new-activation-link': 'Ask for new activation link',
+        'request-sent': 'Request sent ',
+        send: 'send',
       },
       account: {
         'invalid-title': 'Invalid link',

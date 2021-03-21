@@ -33,11 +33,18 @@ export const useRedirectUrl = (
   const redirectUri = useRedirectUri();
 
   const redirectUrl: string | undefined = useMemo(() => {
+    const url = new URL(window?.location.href);
+    const afterAuthRedirectUrl = url.searchParams.get('redirectUrl');
+
     if (config) {
       return urlCreator({
         ...config,
         redirectUrl: redirectUri,
-        state: createSocialLoginState({ provider: socialLoginType, action }),
+        state: createSocialLoginState({
+          provider: socialLoginType,
+          action,
+          afterAuthRedirectUrl: afterAuthRedirectUrl || undefined,
+        }),
       });
     }
   }, [config?.clientId, config?.redirectUrl, action]);

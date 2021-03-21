@@ -45,6 +45,7 @@ import {
   IDeleteApiToken,
   IGetUserById,
   IUserIdResponse,
+  IResendActivationEmail,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 
@@ -142,6 +143,17 @@ export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse>
 export async function activateAccount(body: IActivateAccount): Promise<void> {
   console.debug('activateAccount()');
   return Post(`${USERS_SERVICE_URL_V1}/activate`, body);
+}
+
+/**
+ * resend activation email should be called after a failed user activation.
+ * ``resend activation email`` should contain  the user email.
+ *
+ * @throws exception if resend failed
+ */
+export async function resendActivationEmail(body: IResendActivationEmail): Promise<void> {
+  console.debug('resendActivationEmail()');
+  return Post(`${USERS_SERVICE_URL_V1}/activate/reset`, body);
 }
 
 /**
