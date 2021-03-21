@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IActivateAccount } from '@frontegg/rest-api';
+import { IActivateAccount, IResendActivationEmail } from '@frontegg/rest-api';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { ActivateState, ActivateStep } from './interfaces';
 
@@ -8,6 +8,7 @@ export * from './interfaces';
 export const activateState: ActivateState = {
   step: ActivateStep.activating,
   loading: false,
+  resentEmail: false,
 };
 
 export const activateStateReducers = {
@@ -17,4 +18,7 @@ export const activateStateReducers = {
 
 export const activateActions = {
   activateAccount: createAction(`${storeName}/activateAccount`, (payload: IActivateAccount) => ({ payload })),
+  resendActivationEmail: createAction(`${storeName}/resendActivationEmail`, (payload: IResendActivationEmail) => ({
+    payload,
+  })),
 };
