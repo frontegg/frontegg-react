@@ -66,6 +66,7 @@ function* saveProfile({
         const profileImage = base64ToFormData(profilePictureUrl, 'image');
         if (profileImage) {
           newProfilePictureUrl = yield call(api.teams.updateProfileImage, profileImage);
+          newProfilePictureUrl += `?t=${+new Date()}`;
         }
       }
     }
@@ -73,7 +74,7 @@ function* saveProfile({
     const newProfileData = {
       ...oldProfileData,
       ...payload,
-      profilePictureUrl: `${newProfilePictureUrl}?t=${+new Date()}`,
+      profilePictureUrl: newProfilePictureUrl,
     };
 
     const profile = yield call(api.teams.updateProfile, newProfileData);
