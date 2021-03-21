@@ -32,8 +32,9 @@ export function* afterAuthNavigation() {
   yield delay(500);
   put(actions.resetLoginState());
   const url = new URL(window?.location.href);
-  const redirectUrl = url.searchParams.get('redirectUrl');
-  onRedirectTo(redirectUrl || authenticatedUrl);
+  const redirectUrl = url.searchParams.get('redirectUrl') || authenticatedUrl;
+
+  onRedirectTo(redirectUrl, { refresh: redirectUrl.startsWith('http') });
 }
 
 function* refreshMetadata() {
