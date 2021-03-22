@@ -31,8 +31,10 @@
     "@types/react-recaptcha-v3": "^1.1.1",
     "@types/react-router": "^5.1.2",
     "@types/react-router-dom": "^5.1.2",
+    "@types/uuid": "^8.3.0",
     "react": ">16.8.6",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "uuid": "^8.3.2"
   },
   "jest": {
     "preset": "ts-jest",
