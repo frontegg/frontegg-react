@@ -73,8 +73,7 @@ export async function getCaptchaPolicy(): Promise<ICaptchaPolicy | null> {
   try {
     const policy = await Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
     return policy;
-  } catch (e) {
-    console.error('getCaptchaPolicy()', e);
+  } catch {
     return null;
   }
 }
@@ -89,8 +88,7 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
   try {
     const { address } = await Post(`${AUTH_SERVICE_URL_V1}/user/saml/prelogin`, body);
     return address;
-  } catch (e) {
-    console.error('preLogin()', e);
+  } catch {
     return null;
   }
 }

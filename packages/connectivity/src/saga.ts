@@ -75,7 +75,6 @@ function* loadFunction({
     const data = yield call(type2ApiGet[api], params);
     return data;
   } catch (e) {
-    console.error(e);
     return undefined;
   }
 }
@@ -85,7 +84,6 @@ function* loadSlackFunction() {
     const data = yield call(api.connectivity.getSlackChannels);
     yield put(connectivityActions.loadSlackSuccess(data));
   } catch (e) {
-    console.error(e);
     yield put(connectivityActions.loadSlackSuccess(null));
   }
 }
@@ -254,9 +252,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
           );
         }),
     ]);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   if (actionsResult.length) {
     const newData = yield loadFunction({ payload: { api: type }, type: '' });
     yield put(connectivityActions.postDataSuccess({ platform: type, data: newData }));
@@ -269,9 +265,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
 function* postCodeFunction({ payload }: PayloadAction<string>) {
   try {
     yield api.connectivity.postSlackCode(payload);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   yield put(connectivityActions.postCodeSuccess());
 }
 
@@ -279,8 +273,7 @@ function* loadSlackPermissions() {
   try {
     const { clientId } = yield call(api.connectivity.getSlackScope);
     yield put(connectivityActions.loadScopeSuccess(clientId));
-  } catch (e) {
-    console.error(e);
+  } catch {
     yield put(connectivityActions.loadScopeSuccess(null));
   }
 }
@@ -288,9 +281,7 @@ function* loadSlackPermissions() {
 function* deleteWebhookConfigFunction({ payload }: PayloadAction<string>) {
   try {
     yield call(api.connectivity.deleteWebhooksConfiguration, payload);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   const newData = yield loadFunction({ payload: { api: 'webhook' }, type: '' });
   if (newData) yield put(connectivityActions.postDataSuccess({ platform: 'webhook', data: newData }));
 }
@@ -304,7 +295,6 @@ function* postWebhookTestFunction({ payload }: PayloadAction<IWebhookTest>) {
       yield put(connectivityActions.postWebhookTestSuccess('failed', body.toString()));
     }
   } catch (e) {
-    console.error(e);
     yield put(connectivityActions.postWebhookTestSuccess('failed', e.toString()));
   }
 }
@@ -316,7 +306,6 @@ function* loadWebhookLogsFunction({
     const data = yield call(api.connectivity.getWebhookLog, id, offset, limit);
     yield put(connectivityActions.loadWebhookLogsSuccess(data));
   } catch (e) {
-    console.error(e);
     yield put(connectivityActions.loadWebhookLogsSuccess());
   }
 }

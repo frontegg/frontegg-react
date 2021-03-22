@@ -288,9 +288,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
   yield put(actions.setState({ isLoading: true }));
   try {
     yield call(api.auth.logout);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   yield put(actions.resetState());
   yield put(actions.requestAuthorize(true));
   payload?.();
@@ -299,9 +297,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
 function* silentLogout({ payload }: PayloadAction<() => void>) {
   try {
     yield call(api.auth.logout);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   payload?.();
 }
 
