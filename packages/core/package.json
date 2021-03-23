@@ -51,6 +51,10 @@
     "react": ">16.8.6",
     "react-dom": ">16.8.6"
   },
+  "peerDependencies": {
+    "react": ">16.8.6",
+    "react-dom": ">16.8.6"
+  },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
