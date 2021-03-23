@@ -8,6 +8,7 @@ import * as fetch from './fetch';
 import * as connectivity from './connectivity';
 import * as tenants from './tenants';
 import * as accountSettings from './account-settings';
+import * as roles from './roles';
 
 import { ContextHolder, FronteggContext } from './ContextHolder';
 
@@ -21,6 +22,7 @@ export * from './notifications/interfaces';
 export * from './audits/interfaces';
 export * from './tenants/interfaces';
 export * from './account-settings/interfaces';
+export * from './roles/interfaces';
 
 const api = {
   auth,
@@ -32,6 +34,7 @@ const api = {
   audits,
   tenants,
   accountSettings,
+  roles,
 };
 
 export { fetch, ContextHolder, FronteggContext, api };

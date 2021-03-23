@@ -14,6 +14,7 @@ import { SocialLoginState } from './SocialLogins/interfaces';
 import { SecurityPolicyState } from './SecurityPolicyState/interfaces';
 import { AccountSettingsState } from './AccountSettingsState/interfaces';
 import { TenantsState } from './TenantsState/interfaces';
+import { RolesState } from './RolesState/interfaces';
 
 export interface User extends IUserProfile {
   accessToken: string;
@@ -54,6 +55,7 @@ export interface AuthState extends Routes, PluginOptions {
   securityPolicyState: SecurityPolicyState;
   accountSettingsState: AccountSettingsState;
   tenantsState: TenantsState;
+  rolesState: RolesState;
 }
 
 export type AuthPageRoutes = {

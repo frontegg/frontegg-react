@@ -1,0 +1,31 @@
+{
+  "name": "@frontegg/rescript",
+  "libName": "FronteggRescript",
+  "version": "1.25.0",
+  "author": "Frontegg LTD",
+  "files": [
+    "bsconfig.json",
+    "src/**/*.res",
+    "src/**/*.resi"
+  ],
+  "scripts": {
+    "build": "bsb -make-world",
+    "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
+  },
+  "dependencies": {
+    "@frontegg/react-hooks": "file:/Users/davidfrontegg/git/frontegg-react/packages/react-hooks/dist",
+    "@frontegg/redux-store": "file:/Users/davidfrontegg/git/frontegg-react/packages/redux-store/dist",
+    "@frontegg/rest-api": "file:/Users/davidfrontegg/git/frontegg-react/packages/rest-api/dist"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.2",
+    "react": ">16.8.6",
+    "react-dom": ">16.8.6",
+    "bs-platform": "^8.4.2",
+    "@rescript/react": "^0.10.1"
+  }
+}

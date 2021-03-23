@@ -20,3 +20,4 @@ export * from './team';
 export * from './sso';
 export * from './securityPolicy';
 export * from './tenants';
+export * from './roles';
