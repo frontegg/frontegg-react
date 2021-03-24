@@ -6,7 +6,7 @@ import authStore from '../auth';
 import auditsStore from '../audits';
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
+const middleware = [...getDefaultMiddleware({ thunk: false, immutableCheck: false, serializableCheck: false }), sagaMiddleware];
 
 type InitialState = {
   context: ContextOptions

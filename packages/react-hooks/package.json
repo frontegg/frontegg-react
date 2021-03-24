@@ -7,7 +7,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
+    "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
     "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
