@@ -1,20 +1,24 @@
+import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
 import React, { FC } from 'react';
-import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
 import { v4 as uuid } from 'uuid';
-import { SocialLoginsProviders, FronteggContext } from '@frontegg/rest-api';
-import { MicrosoftIcon } from './MicrosoftIcon';
+import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
 import { SocialLoginButton } from '../SocialLoginButton';
+import { MicrosoftIcon } from './MicrosoftIcon';
+
+const code_verifier = `${uuid()}${uuid()}`;
 
 const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {
+  localStorage.setItem('code_verifier', code_verifier);
+
   const searchParams: URLSearchParams = new URLSearchParams({
     client_id: clientId,
-    redirect_uri: redirectUrl,
     response_type: 'code',
+    redirect_uri: redirectUrl,
     response_mode: 'query',
-    scope: 'https://graph.microsoft.com/User.Read',
+    scope: 'openid profile email',
+    code_verifier,
     state,
-    code_challenge: `${uuid()}${uuid()}`,
-    code_challenge_method: 'S256',
+    code_verifier_type: 'S256',
   });
   const url: URL = new URL('https://login.microsoftonline.com/common/oauth2/v2.0/authorize');
   url.search = searchParams.toString();
