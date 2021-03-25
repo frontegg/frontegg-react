@@ -16,9 +16,9 @@ const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTy
     redirect_uri: redirectUrl,
     response_mode: 'query',
     scope: 'openid profile email',
-    code_verifier,
+    code_challenge: code_verifier,
     state,
-    code_verifier_type: 'S256',
+    code_challenge_type: 'S256',
   });
   const url: URL = new URL('https://login.microsoftonline.com/common/oauth2/v2.0/authorize');
   url.search = searchParams.toString();
@@ -28,7 +28,7 @@ const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTy
 const LoginWithMicrosoft: FC = (props) => {
   const { action } = useSocialLoginContext();
 
-  const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginsProviders.Google);
+  const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginsProviders.Microsoft);
 
   const defaultButton = (
     <SocialLoginButton action={action} name={SocialLoginsProviders.Microsoft}>
