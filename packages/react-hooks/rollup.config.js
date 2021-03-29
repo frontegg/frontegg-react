@@ -62,7 +62,7 @@ const entryPoints = [
   'index',
 ];
 const nodeModules = [
-  'tslib',
+  // 'tslib',
   'react',
   '@frontegg/rest-api',
   'react-redux',

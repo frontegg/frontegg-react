@@ -13,6 +13,7 @@ import { apiTokensState } from './ApiTokensState';
 import { securityPolicyState } from './SecurityPolicyState';
 import { accountSettingsState } from './AccountSettingsState';
 import { tenantsState } from './TenantsState';
+import { rolesState } from './RolesState';
 
 export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   isAuthenticated: false,
@@ -34,6 +35,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   securityPolicyState,
   accountSettingsState,
   tenantsState,
+  rolesState
 };
 export const initialState: AuthState = {
   routes: {

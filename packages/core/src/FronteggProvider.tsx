@@ -34,7 +34,7 @@ export interface FeProviderProps extends ProxyComponent {
 }
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware];
+const middleware = [...getDefaultMiddleware({ thunk: false, immutableCheck:false, serializableCheck: false }), sagaMiddleware];
 let fronteggStore: EnhancedStore;
 
 const FePlugins: FC<FeProviderProps> = (props) => {

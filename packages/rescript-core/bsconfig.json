@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
+  "name": "@frontegg/rescript",
+  "reason": {
+    "react-jsx": 3
+  },
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
+  "sources": ["src"],
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "namespace": true,
+  "bs-dependencies": [
+    "@rescript/react"
+  ],
+  "suffix": ".bs.js",
+  "warnings": {
+    "error": "+101"
+  }
+}

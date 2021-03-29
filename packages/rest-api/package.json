@@ -11,5 +11,8 @@
     "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
+  },
+  "devDependencies": {
+    "gentype": "^3.44.0"
   }
 }

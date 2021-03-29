@@ -13,6 +13,7 @@ import { apiTokensSaga } from './ApiTokensState/saga';
 import { securityPolicySagas } from './SecurityPolicyState/saga';
 import { accountSettingsSaga } from './AccountSettingsState/saga';
 import { tenantsSagas } from './TenantsState/saga';
+import { rolesSagas } from './RolesState/saga';
 
 export function* sagas() {
   yield all([
@@ -30,5 +31,6 @@ export function* sagas() {
     call(securityPolicySagas),
     call(accountSettingsSaga),
     call(tenantsSagas),
+    call(rolesSagas),
   ]);
 }
