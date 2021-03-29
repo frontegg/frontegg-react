@@ -110,6 +110,7 @@ export type IUpdateSamlVendorMetadata = {
 export enum SocialLoginsProviders {
   Google = 'google',
   Github = 'github',
+  Facebook = 'facebook',
 }
 
 export interface ISocialLoginProviderConfiguration {
