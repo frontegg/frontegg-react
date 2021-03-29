@@ -60,7 +60,7 @@ export const ConnectivityWebhooksLog: FC = () => {
       {
         accessor: 'body',
         Cell: ({ row }) => (
-          <Button transparent onClick={() => setMoreInfo(row.original)} className='fe-connectivity-webhook-detail'>
+          <Button data-test-id="moreInfoBtn" transparent onClick={() => setMoreInfo(row.original)} className='fe-connectivity-webhook-detail'>
             {t('common.detail').toUpperCase()}
           </Button>
         ),

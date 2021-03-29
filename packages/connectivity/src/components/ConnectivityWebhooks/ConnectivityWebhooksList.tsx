@@ -185,7 +185,7 @@ export const ConnectivityWebhooksList: FC = () => {
           <Menu
             className='fe-connectivity-panel-menu'
             trigger={
-              <Button iconButton className='fe-connectivity-panel-menu-button'>
+              <Button data-test-id="menuBtn" iconButton className='fe-connectivity-panel-menu-button'>
                 <Icon name='vertical-dots' size='small' />
               </Button>
             }
@@ -207,7 +207,7 @@ export const ConnectivityWebhooksList: FC = () => {
   return (
     <div className='fe-connectivity-webhook-list'>
       {Search}
-      <Button className='fe-connectivity-webhook-add' variant='primary' onClick={onNewEvent}>
+      <Button data-test-id="addBtn" className='fe-connectivity-webhook-add' variant='primary' onClick={onNewEvent}>
         {t('connectivity.addNewHook')}
       </Button>
       <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
@@ -218,12 +218,13 @@ export const ConnectivityWebhooksList: FC = () => {
             <div className='fe-connectivity-webhook-dialog-action'>
               <Grid container spacing={2} justifyContent='flex-end'>
                 <Grid item>
-                  <Button variant='default' onClick={() => onRemove(null)}>
+                  <Button data-test-id="cancelBtn" variant='default' onClick={() => onRemove(null)}>
                     Cancel
                   </Button>
                 </Grid>
                 <Grid item>
                   <Button
+                    data-test-id="acceptBtn"
                     variant='danger'
                     loading={isSaving}
                     onClick={() => {

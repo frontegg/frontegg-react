@@ -83,14 +83,15 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
           <Grid container wrap='nowrap'>
             <Grid item className='fe-connectivity-webhook-settings' xs={6}>
               <div className='fe-section-title fe-bold fe-mb-3'>{t('connectivity.generalSettings')}</div>
-              <FInput label={t('common.displayName')} name='displayName' placeholder={t('connectivity.inputName')} />
+              <FInput  data-test-id="displayNameBox" label={t('common.displayName')} name='displayName' placeholder={t('connectivity.inputName')} />
               <FInput
+                data-test-id="descriptionBox"
                 label={t('common.description')}
                 name='description'
                 multiline
                 placeholder={t('connectivity.shortDescription')}
               />
-              <FInput label='URL' name='url' placeholder='https://' />
+              <FInput data-test-id="urlBox" label='URL' name='url' placeholder='https://' />
               <FInput
                 label={
                   <label>
@@ -110,12 +111,12 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
               />
               <Grid container justifyContent='space-between'>
                 <Grid>
-                  <FButton type='submit' variant='primary' loading={isSaving}>
+                  <FButton data-test-id="submitBtn" type='submit' variant='primary' loading={isSaving}>
                     {data ? t('connectivity.updateHook').toUpperCase() : t('connectivity.addHook').toUpperCase()}
                   </FButton>
                 </Grid>
                 <Grid>
-                  <Button size='large' onClick={toggleTestDialog}>
+                  <Button data-test-id="testHookBtn" size='large' onClick={toggleTestDialog}>
                     {t('connectivity.testHook').toUpperCase()}
                   </Button>
                 </Grid>
