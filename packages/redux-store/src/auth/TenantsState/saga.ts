@@ -3,6 +3,8 @@ import { call, put, putResolve, takeEvery } from 'redux-saga/effects';
 import { api, ISwitchTenant, ITenantsResponse } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback } from '../../interfaces';
+import { delay } from '../utils';
+import { tenantsDemo } from '../dammy';
 
 function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCallback<ISwitchTenant>>) {
   yield put(actions.setState({ isLoading: true }));
@@ -31,4 +33,17 @@ function* loadTenants({ payload }: PayloadAction<WithCallback<{}, ITenantsRespon
 export function* tenantsSagas() {
   yield takeEvery(actions.loadTenants, loadTenants);
   yield takeEvery(actions.switchTenant, switchTenant);
+}
+
+/*********************************
+ *  Preview Sagas
+ *********************************/
+
+function* loadTenantsMock({ payload }: PayloadAction<WithCallback<{}, ITenantsResponse[]>>) {
+  yield put(actions.setTenantsState({ loading: true }));
+  yield delay();
+  yield put(actions.setTenantsState({ tenants: tenantsDemo, loading: false }));
+}
+export function* tenantsSagasMock() {
+  yield takeEvery(actions.loadTenants, loadTenantsMock);
 }
