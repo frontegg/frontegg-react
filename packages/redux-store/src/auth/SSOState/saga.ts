@@ -1,10 +1,12 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { api, IUpdateSamlConfiguration } from '@frontegg/rest-api';
+import { api, ISamlConfiguration, ISamlMetadata, IUpdateSamlConfiguration } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { SaveSSOConfigurationPayload, SSOState } from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { omitProps, readFileAsText } from '../../helpers';
+import { delay } from '../utils';
+import { samlConfigurationDemo, samlMetadataDemo, ssoStateDemo } from '../dammy';
 
 function* loadSSOConfigurations() {
   try {
@@ -135,6 +137,7 @@ function* updateAuthorizationRoles({
         saving: false,
       })
     );
+    callback?.(null, e);
   }
 }
 
@@ -145,4 +148,104 @@ export function* ssoSagas() {
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
   yield takeEvery(actions.loadSSOAuthorizationRoles, getAuthorizationRoles);
   yield takeEvery(actions.updateSSOAuthorizationRoles, updateAuthorizationRoles);
+}
+
+/*********************************
+ *  Preview Sagas
+ *********************************/
+
+function* loadSSOConfigurationsMock() {
+  yield put(actions.setSSOState({ loading: true }));
+  yield delay();
+  yield put(actions.setSSOState({ samlConfiguration: samlConfigurationDemo, loading: false, firstLoad: false }));
+}
+
+function* saveSSOConfigurationsFileMock({ payload: configFile }: PayloadAction<File[]>) {
+  const loaderKey: keyof SSOState = 'saving';
+  yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
+  const newSamlConfiguration: ISamlConfiguration = { enabled: true, ...configFile[0] };
+  yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
+}
+
+function* saveSSOConfigurationsMock({ payload }: PayloadAction<SaveSSOConfigurationPayload>) {
+  const { callback, samlVendor, ...newSamlConfiguration } = payload;
+  const ssoState = ssoStateDemo;
+  const oldSamlConfiguration = ssoState.samlConfiguration!;
+  const samlConfiguration = { ...oldSamlConfiguration, ...newSamlConfiguration };
+
+  let loaderKey: keyof SSOState = 'saving';
+  if (samlConfiguration?.enabled !== oldSamlConfiguration.enabled) {
+    loaderKey = 'loading';
+  }
+  const firstTimeConfigure = !samlConfiguration?.domain;
+  if (firstTimeConfigure) {
+    yield put(actions.setSSOState({ samlConfiguration: { ...oldSamlConfiguration, ...samlConfiguration } }));
+    return;
+  } else {
+    yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
+  }
+  yield delay();
+  samlConfiguration.acsUrl = samlMetadataDemo?.configuration?.acsUrl;
+  samlConfiguration.spEntityId = samlMetadataDemo?.configuration?.spEntityId;
+
+  const updateSamlConfiguration: IUpdateSamlConfiguration = omitProps(samlConfiguration, [
+    'validated',
+    'generatedVerification',
+    'createdAt',
+    'updatedAt',
+  ]);
+  if (oldSamlConfiguration?.domain !== updateSamlConfiguration?.domain) {
+    updateSamlConfiguration.ssoEndpoint = '';
+    updateSamlConfiguration.publicCertificate = '';
+    updateSamlConfiguration.signRequest = false;
+  }
+
+  updateSamlConfiguration.type = samlVendor?.toLowerCase();
+  yield delay();
+  yield put(actions.setSSOState({ samlConfiguration: updateSamlConfiguration, error: undefined, [loaderKey]: false }));
+  callback?.(true);
+}
+
+function* validateSSODomainMock({ payload: { callback } = {} }: PayloadAction<WithCallback>) {
+  const ssoState = ssoStateDemo;
+  const samlConfiguration = ssoState.samlConfiguration!;
+  yield put(actions.setSSOState({ error: undefined, saving: true }));
+  yield delay();
+  yield put(
+    actions.setSSOState({
+      samlConfiguration: { ...samlConfiguration, validated: true },
+      error: undefined,
+      saving: false,
+    })
+  );
+  callback?.(true);
+}
+
+function* getAuthorizationRolesMock() {
+  yield delay();
+  const data = { roleIds: ['1', '2', '3'] };
+  yield put(
+    actions.setSSOState({
+      authorizationRoles: data.roleIds,
+      error: undefined,
+    })
+  );
+}
+
+function* updateAuthorizationRolesMock({
+  payload: { callback, authorizationRoles },
+}: PayloadAction<WithCallback<{ authorizationRoles: string[] }>>) {
+  yield put(actions.setSSOState({ error: undefined, saving: true }));
+  yield delay();
+  yield put(actions.setSSOState({ authorizationRoles, error: undefined, saving: false }));
+  callback?.(true);
+}
+
+export function* ssoSagasMock() {
+  yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurationsMock);
+  yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurationsMock);
+  yield takeEvery(actions.saveSSOConfigurationsFile, saveSSOConfigurationsFileMock);
+  yield takeEvery(actions.validateSSODomain, validateSSODomainMock);
+  yield takeEvery(actions.loadSSOAuthorizationRoles, getAuthorizationRolesMock);
+  yield takeEvery(actions.updateSSOAuthorizationRoles, updateAuthorizationRolesMock);
 }
