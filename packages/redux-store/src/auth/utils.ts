@@ -64,3 +64,5 @@ export const errorsReducerForKey = <T extends { key: string; value: string | boo
     },
   }),
 });
+
+export const delay = (delayTime: number = 500) => new Promise((resolve) => setTimeout(resolve, delayTime));
