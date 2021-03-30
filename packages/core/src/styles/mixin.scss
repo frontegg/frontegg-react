@@ -5,6 +5,7 @@
     &-primary,
     &-secondary,
     &-danger,
+    &-success,
     &-default,
     &-disabled {
       background-color: var(--theme-background);
@@ -27,6 +28,11 @@
     &-danger {
       --theme-color: var(--color-danger);
       --theme-background: var(--color-danger-light);
+    }
+
+    &-success {
+      --theme-color: var(--color-success);
+      --theme-background: var(--color-sucess-light);
     }
 
     &-default {
