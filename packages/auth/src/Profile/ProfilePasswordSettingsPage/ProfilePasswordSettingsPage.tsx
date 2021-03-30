@@ -13,7 +13,6 @@ import {
   OnError,
 } from '@frontegg/react-core';
 import { useAuth } from '../../hooks';
-import { FormikProps } from 'formik/dist/types';
 
 const { Formik } = FFormik;
 
