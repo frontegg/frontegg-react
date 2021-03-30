@@ -1,14 +1,15 @@
 import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
 import React, { FC } from 'react';
 import { v4 as uuid } from 'uuid';
+import { FRONTEGG_CODE_VERIFIER } from '../../constants';
 import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
 import { SocialLoginButton } from '../SocialLoginButton';
 import { MicrosoftIcon } from './MicrosoftIcon';
 
-const code_verifier = `${uuid()}${uuid()}`;
+const codeVerifier = `${uuid()}${uuid()}`;
 
 const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {
-  localStorage.setItem('code_verifier', code_verifier);
+  localStorage.setItem(FRONTEGG_CODE_VERIFIER, codeVerifier);
 
   const searchParams: URLSearchParams = new URLSearchParams({
     client_id: clientId,
@@ -16,7 +17,7 @@ const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTy
     redirect_uri: redirectUrl,
     response_mode: 'query',
     scope: 'openid profile email',
-    code_challenge: code_verifier,
+    code_challenge: codeVerifier,
     state,
     code_challenge_type: 'S256',
   });
