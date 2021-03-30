@@ -1,13 +1,14 @@
 import React, { FC, useEffect } from 'react';
 import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3';
-import { useField } from 'formik';
 import { AuthState } from '../Api';
 import { useAuth } from '../hooks';
 import { useCallback } from 'react';
-
+import { FFormik } from '@frontegg/react-core';
 interface IReCaptchaProps {
   action: string;
 }
+
+const { useField } = FFormik;
 
 const stateMapper = ({ captchaState }: AuthState) => captchaState;
 
