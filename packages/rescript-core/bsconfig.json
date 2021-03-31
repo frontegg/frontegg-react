@@ -4,18 +4,14 @@
   "reason": {
     "react-jsx": 3
   },
-  "bsc-flags": [
-    "-bs-super-errors"
-  ],
+  "bsc-flags": ["-bs-super-errors"],
   "sources": ["src"],
   "package-specs": {
     "module": "commonjs",
     "in-source": true
   },
   "namespace": true,
-  "bs-dependencies": [
-    "@rescript/react"
-  ],
+  "bs-dependencies": ["@rescript/react"],
   "suffix": ".bs.js",
   "warnings": {
     "error": "+101"

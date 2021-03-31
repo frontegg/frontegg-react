@@ -55,9 +55,7 @@ const esmPlugins = [
   }),
 ];
 
-const entryPoints = [
-  'index',
-];
+const entryPoints = ['index'];
 const nodeModules = [
   // 'tslib',
   'react',

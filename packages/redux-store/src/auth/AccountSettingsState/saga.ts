@@ -44,6 +44,7 @@ export function* accountSettingsSaga() {
 /*********************************
  *  Preview Sagas
  *********************************/
+
 function* saveAccountSettingsMock({ payload }: PayloadAction<WithCallback<IUpdateSettings, ISettingsResponse>>) {
   yield put(actions.setAccountSettingsState({ loading: true }));
 
@@ -70,7 +71,7 @@ function* loadAccountSettingsMock({ payload }: PayloadAction<WithCallback<WithSi
   yield delay();
   yield put(
     actions.setAccountSettingsState({
-      address: 'Tel-aviv ',
+      address: 'Tel-aviv',
       timezone: 'Asia/Jerusalem',
       dateFormat: 'DD/MM/YYYY',
       timeFormat: 'HH:mm',

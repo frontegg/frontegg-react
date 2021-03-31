@@ -2,13 +2,14 @@ import {
   IRole,
   IRolePermission,
   IRolePermissionCategory,
-  IAddRole, IDeleteRole, IUpdateRole, IAttachPermissionsToRole, IAttachPermissionToRoles,
+  IAddRole,
+  IDeleteRole,
+  IUpdateRole,
+  IAttachPermissionsToRole,
+  IAttachPermissionToRoles,
 } from './interfaces';
 import { Delete, Get, Patch, Post, Put } from '../fetch';
-import {
-  IDENTITY_ROLES_SERVICE_URL_V1,
-  IDENTITY_PERMISSIONS_SERVICE_URL_V1,
-} from '../constants';
+import { IDENTITY_ROLES_SERVICE_URL_V1, IDENTITY_PERMISSIONS_SERVICE_URL_V1 } from '../constants';
 
 /**
  * Gets tenant related roles
@@ -62,7 +63,10 @@ export async function getPermissions(): Promise<IRolePermission> {
 /**
  * Associate permission to roles
  */
-export async function attachPermissionToRoles({ permissionId, ...body }: IAttachPermissionToRoles): Promise<IRolePermission> {
+export async function attachPermissionToRoles({
+  permissionId,
+  ...body
+}: IAttachPermissionToRoles): Promise<IRolePermission> {
   console.debug('attachPermissionToRoles()');
   return Put(`${IDENTITY_PERMISSIONS_SERVICE_URL_V1}/${permissionId}/roles`, body);
 }

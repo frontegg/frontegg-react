@@ -1,4 +1,11 @@
-import { configureStore, EnhancedStore, getDefaultMiddleware, combineReducers, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  EnhancedStore,
+  getDefaultMiddleware,
+  combineReducers,
+  PayloadAction,
+  createSlice,
+} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
@@ -6,15 +13,18 @@ import authStore from '../auth';
 import auditsStore from '../audits';
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [...getDefaultMiddleware({ thunk: false, immutableCheck: false, serializableCheck: false }), sagaMiddleware];
+const middleware = [
+  ...getDefaultMiddleware({ thunk: false, immutableCheck: false, serializableCheck: false }),
+  sagaMiddleware,
+];
 
 type InitialState = {
-  context: ContextOptions
-}
+  context: ContextOptions;
+};
 
 declare global {
   interface Window {
-    fronteggStore?: EnhancedStore
+    fronteggStore?: EnhancedStore;
   }
 }
 
@@ -42,9 +52,21 @@ const { reducer: rootReducer } = createSlice({
   },
 });
 
-export const createFronteggStore = (rootInitialState: InitialState, rootSagas?: any): EnhancedStore => {
-  if (!window.fronteggStore) {
-    window.fronteggStore = configureStore({
+export const createFronteggStore = (rootInitialState: InitialState, storeHolder?: any): EnhancedStore => {
+  const isSSR = typeof window === 'undefined';
+  let holder = storeHolder;
+  if (isSSR && storeHolder == null) {
+    throw Error(
+      'createFronteggStore(initState, storeHolder) failed, storeHolder must not be null in Server-Side rendering'
+    );
+  }
+  if (!holder) {
+    holder = window;
+  }
+
+  if (!holder.store) {
+    ContextHolder.setContext(rootInitialState.context);
+    holder.store = configureStore({
       middleware,
       preloadedState: {
         root: { ...rootInitialState } as any,
@@ -59,14 +81,11 @@ export const createFronteggStore = (rootInitialState: InitialState, rootSagas?: 
     });
 
     const rootSaga = function* () {
-      yield all([
-        call(authStore.sagas),
-        call(auditsStore.sagas),
-      ]);
+      yield all([call(authStore.sagas), call(auditsStore.sagas)]);
     };
 
     sagaMiddleware.run(rootSaga);
   }
 
-  return window.fronteggStore;
+  return holder.store;
 };

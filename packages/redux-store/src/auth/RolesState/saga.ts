@@ -68,8 +68,9 @@ function* updateRole({ payload: { callback, ...body } }: PayloadAction<WithCallb
   }
 }
 
-
-function* attachPermissionsToRole({ payload: { callback, ...body } }: PayloadAction<WithCallback<IAttachPermissionsToRole, IRole>>) {
+function* attachPermissionsToRole({
+  payload: { callback, ...body },
+}: PayloadAction<WithCallback<IAttachPermissionsToRole, IRole>>) {
   yield put(actions.setRolesState({ saving: true }));
   try {
     const role = yield call(api.roles.attachPermissionsToRole, body);
@@ -82,7 +83,9 @@ function* attachPermissionsToRole({ payload: { callback, ...body } }: PayloadAct
   }
 }
 
-function* attachPermissionToRoles({ payload: { callback, ...body } }: PayloadAction<WithCallback<IAttachPermissionToRoles, IRolePermission>>) {
+function* attachPermissionToRoles({
+  payload: { callback, ...body },
+}: PayloadAction<WithCallback<IAttachPermissionToRoles, IRolePermission>>) {
   yield put(actions.setRolesState({ saving: true }));
   try {
     const permission = yield call(api.roles.attachPermissionToRoles, body);

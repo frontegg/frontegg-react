@@ -3,18 +3,15 @@ import {
   ISecurityPolicy,
   ISecurityPolicyLockout,
   ISecurityPolicyMfa,
-  IUserApiTokensData,
-} from '@frontegg/rest-api/dist/auth/interfaces';
-import { ISamlMetadata } from '@frontegg/rest-api/dist/metadata/interfaces';
-import {
   IRole,
   IRolePermission,
   ITeamUser,
   ITeamUserPermission,
   ITeamUserRole,
   IUserProfile,
-} from '@frontegg/rest-api/dist/teams/interfaces';
-import { ITenantsResponse } from '../../../rest-api/dist/tenants/interfaces';
+  ISamlMetadata,
+  ITenantsResponse,
+} from '@frontegg/rest-api';
 import { IApiTokensData, ITenantApiTokensData } from './ApiTokensState/interfaces';
 import { User } from './interfaces';
 import { ProfileState } from './ProfileState/interfaces';

@@ -40,7 +40,7 @@ const { reducer, actions: sliceActions } = createSlice({
     ...securityPolicyReducers,
     ...accountSettingsReducers,
     ...tenantsReducers,
-    ...rolesReducers
+    ...rolesReducers,
   },
 });
 
@@ -60,7 +60,7 @@ const actions = {
   ...securityPolicyActions,
   ...accountSettingsActions,
   ...tenantsActions,
-  ...rolesActions
+  ...rolesActions,
 };
 
 export type RootActions = {

@@ -31,7 +31,6 @@ export type IRolePermissionCategory = {
   updatedAt: Date;
 };
 
-
 export type IAddRole = {
   key: string;
   name: string;

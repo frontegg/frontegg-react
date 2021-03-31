@@ -27,16 +27,17 @@ const reducers = {
 
 const actions = {
   loadRolesAndPermissions: createAction(`${authStoreName}/loadRoles`, (payload?: WithSilentLoad<{}>) => ({ payload })),
-  addRole: createAction(`${authStoreName}/addRole`,
-    (payload: WithCallback<IAddRole, IRole>) => ({ payload })),
-  updateRole: createAction(`${authStoreName}/updateRole`,
-    (payload: WithCallback<IUpdateRole, IRole>) => ({ payload })),
-  deleteRole: createAction(`${authStoreName}/deleteRole`,
-    (payload: WithCallback<IDeleteRole>) => ({ payload })),
-  attachPermissionsToRole: createAction(`${authStoreName}/attachPermissionsToRole`,
-    (payload: WithCallback<IAttachPermissionsToRole, IRole>) => ({ payload })),
-  attachPermissionToRoles: createAction(`${authStoreName}/attachPermissionToRoles`,
-    (payload: WithCallback<IAttachPermissionToRoles, IRolePermission>) => ({ payload })),
+  addRole: createAction(`${authStoreName}/addRole`, (payload: WithCallback<IAddRole, IRole>) => ({ payload })),
+  updateRole: createAction(`${authStoreName}/updateRole`, (payload: WithCallback<IUpdateRole, IRole>) => ({ payload })),
+  deleteRole: createAction(`${authStoreName}/deleteRole`, (payload: WithCallback<IDeleteRole>) => ({ payload })),
+  attachPermissionsToRole: createAction(
+    `${authStoreName}/attachPermissionsToRole`,
+    (payload: WithCallback<IAttachPermissionsToRole, IRole>) => ({ payload })
+  ),
+  attachPermissionToRoles: createAction(
+    `${authStoreName}/attachPermissionToRoles`,
+    (payload: WithCallback<IAttachPermissionToRoles, IRolePermission>) => ({ payload })
+  ),
 };
 
 /**
@@ -52,7 +53,6 @@ type DispatchedActions = {
   deleteRole: (payload: WithCallback<IDeleteRole>) => void;
   attachPermissionsToRole: (payload: WithCallback<IAttachPermissionsToRole, IRole>) => void;
   attachPermissionToRoles: (payload: WithCallback<IAttachPermissionToRoles, IRolePermission>) => void;
-
 };
 
 // noinspection JSUnusedLocalSymbols

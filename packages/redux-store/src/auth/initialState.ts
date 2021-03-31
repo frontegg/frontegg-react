@@ -35,7 +35,7 @@ export const reinitializeState: Omit<AuthState, 'routes' | 'onRedirectTo'> = {
   securityPolicyState,
   accountSettingsState,
   tenantsState,
-  rolesState
+  rolesState,
 };
 export const initialState: AuthState = {
   routes: {
