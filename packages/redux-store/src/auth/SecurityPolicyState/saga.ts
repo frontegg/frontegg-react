@@ -1,8 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeEvery, takeLeading } from 'redux-saga/effects';
-import { api } from '@frontegg/rest-api';
+import { api, ISecurityPolicyLockout, ISecurityPolicyMfa } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { SaveSecurityPolicyLockoutPayload, SaveSecurityPolicyMfaPayload } from './interfaces';
+import { delay } from '../utils';
+import { policyDemo, policyMfaDemo, policyLockoutDemo } from '../dammy';
 
 function* loadSecurityPolicy() {
   yield put(actions.setSecurityPolicyGlobalState({ loading: true, error: null }));
@@ -82,4 +84,71 @@ export function* securityPolicySagas() {
   yield takeEvery(actions.saveSecurityPolicyLockout, saveSecurityPolicyLockout);
   yield takeEvery(actions.loadSecurityPolicyLockout, loadSecurityPolicyLockout);
   yield takeEvery(actions.loadSecurityPolicyCaptcha, loadSecurityPolicyCaptcha);
+}
+
+/*********************************
+ *  Preview Sagas
+ *********************************/
+
+function* loadSecurityPolicyMock() {
+  yield put(actions.setSecurityPolicyGlobalState({ loading: true, error: null }));
+  yield delay();
+  yield put(actions.setSecurityPolicyGlobalState({ policy: policyDemo, loading: false }));
+  yield put(actions.loadSecurityPolicyMfa());
+  yield put(actions.loadSecurityPolicyLockout());
+  yield put(actions.loadSecurityPolicyCaptcha());
+}
+
+function* loadSecurityPolicyMfaMock() {
+  yield put(actions.setSecurityPolicyMfaState({ loading: true, error: null }));
+  yield delay();
+  yield put(actions.setSecurityPolicyMfaState({ policy: policyMfaDemo, loading: false }));
+}
+
+function* saveSecurityPolicyMfaMock({
+  payload: { callback, ...newSecurityPolicy },
+}: PayloadAction<SaveSecurityPolicyMfaPayload>) {
+  yield put(actions.setSecurityPolicyMfaState({ saving: true, error: null }));
+  const policy: ISecurityPolicyMfa = {
+    ...policyLockoutDemo,
+    id: newSecurityPolicy.id ?? policyLockoutDemo.id,
+    enforceMFAType: newSecurityPolicy.enforceMFAType,
+  };
+  yield delay();
+  yield put(actions.setSecurityPolicyMfaState({ policy, saving: false }));
+}
+
+function* loadSecurityPolicyLockoutMock() {
+  yield put(actions.setSecurityPolicyLockoutState({ loading: true, error: null }));
+  yield delay();
+  yield put(actions.setSecurityPolicyLockoutState({ policy: policyLockoutDemo, loading: false }));
+}
+
+function* saveSecurityPolicyLockoutMock({
+  payload: { callback, ...newSecurityPolicy },
+}: PayloadAction<SaveSecurityPolicyLockoutPayload>) {
+  yield put(actions.setSecurityPolicyLockoutState({ saving: true, error: null }));
+  yield delay();
+  const policy: ISecurityPolicyLockout = {
+    ...newSecurityPolicy,
+    ...policyLockoutDemo,
+    id: newSecurityPolicy.id ? newSecurityPolicy.id : policyLockoutDemo.id,
+  };
+  callback?.(policy);
+  yield put(actions.setSecurityPolicyLockoutState({ policy, saving: false }));
+}
+
+function* loadSecurityPolicyCaptchaMock() {
+  yield put(actions.setSecurityPolicyLockoutState({ loading: true, error: null }));
+  yield delay();
+  yield put(actions.setSecurityPolicyLockoutState({ policy: policyLockoutDemo, loading: false }));
+}
+
+export function* securityPolicySagasMock() {
+  yield takeLeading(actions.loadSecurityPolicy, loadSecurityPolicyMock);
+  yield takeEvery(actions.saveSecurityPolicyMfa, saveSecurityPolicyMfaMock);
+  yield takeEvery(actions.loadSecurityPolicyMfa, loadSecurityPolicyMfaMock);
+  yield takeEvery(actions.saveSecurityPolicyLockout, saveSecurityPolicyLockoutMock);
+  yield takeEvery(actions.loadSecurityPolicyLockout, loadSecurityPolicyLockoutMock);
+  yield takeEvery(actions.loadSecurityPolicyCaptcha, loadSecurityPolicyCaptchaMock);
 }

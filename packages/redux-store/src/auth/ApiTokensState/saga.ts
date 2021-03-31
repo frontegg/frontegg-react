@@ -4,6 +4,7 @@ import { api } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback, WithSilentLoad } from '../../interfaces';
 import { ApiStateKeys, ApiTokenType, ITenantApiTokensData, IUserApiTokensData, IApiTokensData } from './interfaces';
+import { apiTokensDataDemo, apiTokensDataTenantDemo, rolesDemo, permissionsDemo } from '../dammy';
 
 function* loadApiTokensData({ payload: apiTokenType }: PayloadAction<ApiTokenType>) {
   yield put(actions.setApiTokensState({ apiTokenType }));
@@ -150,4 +151,84 @@ export function* apiTokensSaga() {
   yield takeEvery(actions.addTenantApiToken, addTenantApiToken);
   yield takeLatest(actions.deleteTenantApiToken, deleteTenantApiToken);
   yield takeLatest(actions.deleteUserApiToken, deleteUserApiToken);
+}
+
+/*********************************
+ *  Preview Sagas
+ *********************************/
+
+function* loadApiTokensDataMock({ payload: apiTokenType }: PayloadAction<ApiTokenType>) {
+  yield put(actions.setApiTokensState({ apiTokenType }));
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: true }));
+  if (apiTokenType === 'user') {
+    yield delay(200);
+    const apiTokensData = [apiTokensDataDemo];
+    yield put(actions.setApiTokensState({ apiTokensDataUser: apiTokensData ?? [] }));
+  } else {
+    yield delay(200);
+    yield put(
+      actions.setApiTokensState({
+        apiTokensDataTenant: [apiTokensDataTenantDemo] ?? [],
+        roles: rolesDemo ?? [],
+        permissions: permissionsDemo ?? [],
+      })
+    );
+  }
+
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
+}
+
+function* addTenantApiTokenMock({ payload }: PayloadAction<WithCallback<ITenantApiTokensData>>) {
+  const { description, roleIds, callback } = payload;
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: true }));
+  const data: ITenantApiTokensData = { ...apiTokensDataTenantDemo, description, roleIds };
+  yield put(actions.setApiTokensState({ showAddTokenDialog: false }));
+  yield delay(200);
+  yield put(
+    actions.setApiTokensState({
+      apiTokensDataTenant: [data],
+      successDialog: { open: true, secret: data.secret, clientId: data.clientId },
+    })
+  );
+  yield delay(200);
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: false }));
+  callback?.(null);
+}
+
+function* deleteTenantApiTokenMock({ payload }: PayloadAction<string>) {
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.DELETE_API_TOKEN, value: true }));
+  yield delay(200);
+  const apiTokensDataTenant: ITenantApiTokensData[] = [apiTokensDataTenantDemo];
+
+  yield put(
+    actions.setApiTokensState({
+      apiTokensDataTenant: apiTokensDataTenant.filter((i: IApiTokensData) => i.clientId !== payload),
+      deleteTokenDialog: { open: false, clientId: payload },
+    })
+  );
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.DELETE_API_TOKEN, value: false }));
+}
+
+function* loadApiTokensMock({ payload }: PayloadAction<WithSilentLoad<WithCallback>>) {
+  if (!payload?.silentLoading) {
+    yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: true }));
+  }
+  const apiTokensDataUser: IApiTokensData[] = [apiTokensDataDemo];
+  const apiTokensDataTenant: ITenantApiTokensData[] = [apiTokensDataTenantDemo];
+  yield put(
+    actions.setApiTokensState({
+      apiTokensDataUser,
+      apiTokensDataTenant,
+    })
+  );
+  yield delay(200);
+  yield put(actions.setApiTokensLoader({ key: ApiStateKeys.LOAD_API_TOKENS, value: false }));
+  payload?.callback?.(true);
+}
+
+export function* apiTokensSagaMock() {
+  yield takeLeading(actions.loadApiTokens, loadApiTokensMock);
+  yield takeLeading(actions.initApiTokensData, loadApiTokensDataMock);
+  yield takeEvery(actions.addTenantApiToken, addTenantApiTokenMock);
+  yield takeLatest(actions.deleteTenantApiToken, deleteTenantApiTokenMock);
 }

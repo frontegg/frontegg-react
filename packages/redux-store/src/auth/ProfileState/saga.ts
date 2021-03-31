@@ -3,6 +3,8 @@ import { call, put, retry, select, takeEvery, takeLeading } from 'redux-saga/eff
 import { api, IChangePassword, IUserProfile } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback } from '../../interfaces';
+import { userDemo, userProfileDemo, profileStateDemo } from '../dammy';
+import { delay } from '../utils';
 
 function* loadProfile() {
   yield put(actions.setProfileState({ loading: true }));
@@ -104,4 +106,56 @@ export function* profileSagas() {
   yield takeLeading(actions.loadProfile, loadProfile);
   yield takeEvery(actions.saveProfile, saveProfile);
   yield takeEvery(actions.changePassword, changePassword);
+}
+
+/*********************************
+ *  Preview Sagas
+ *********************************/
+
+function* loadProfileMock() {
+  yield put(actions.setProfileState({ loading: true }));
+  yield delay();
+  const currentUser = userDemo;
+  actions.setUser({ ...currentUser, ...userProfileDemo });
+  yield put(actions.setProfileState({ loading: false }));
+}
+
+function* saveProfileMock({
+  payload: { callback, profilePictureUrl, ...payload },
+}: PayloadAction<Partial<WithCallback<IUserProfile, IUserProfile>>>) {
+  yield put(actions.setProfileState({ saving: true, error: null }));
+  const oldProfileData = profileStateDemo;
+
+  let newProfilePictureUrl = oldProfileData.profile!.profilePictureUrl;
+  if (profilePictureUrl !== oldProfileData.profile!.profilePictureUrl && profilePictureUrl) {
+    const matchResult = (profilePictureUrl || '').match(/^data:image\/([A-Za-z-+\/]+);base64,(.+)$/);
+    if (matchResult) {
+      newProfilePictureUrl = profilePictureUrl;
+    }
+  }
+  const newProfileData = {
+    ...oldProfileData.profile!,
+    ...payload,
+    profilePictureUrl: newProfilePictureUrl,
+  };
+
+  const currentUser = userDemo;
+  yield delay();
+  yield put(actions.setUser({ ...currentUser, ...newProfileData }));
+  yield put(actions.setProfileState({ loading: false, error: null, saving: false, profile: newProfileData }));
+  callback?.(newProfileData);
+}
+
+function* changePasswordMock({ payload }: PayloadAction<WithCallback<IChangePassword>>) {
+  yield put(actions.setProfileState({ loading: true }));
+  yield delay();
+  yield put(actions.changePassword(payload));
+  yield put(actions.setProfileState({ loading: false, error: undefined }));
+  payload.callback?.(true);
+}
+
+export function* profileSagasMock() {
+  yield takeLeading(actions.loadProfile, loadProfileMock);
+  yield takeEvery(actions.saveProfile, saveProfileMock);
+  yield takeEvery(actions.changePassword, changePasswordMock);
 }
