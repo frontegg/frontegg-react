@@ -105,6 +105,8 @@ export type IUpdateSamlVendorMetadata = {
 export enum SocialLoginsProviders {
   Google = 'google',
   Github = 'github',
+  Microsoft = 'microsoft',
+  Facebook = 'facebook',
 }
 
 export interface ISocialLoginProviderConfiguration {
@@ -118,6 +120,7 @@ export interface ILoginViaSocialLogin {
   code: string;
   redirectUri?: string;
   provider: SocialLoginsProviders;
+  codeVerifier?: string;
 }
 
 export interface ISetSocialLoginError {
