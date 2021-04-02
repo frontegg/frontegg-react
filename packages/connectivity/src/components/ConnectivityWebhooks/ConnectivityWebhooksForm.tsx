@@ -79,80 +79,91 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
           setSubmitting(false);
         }}
       >
-        <FFormik.Form>
-          <Grid container wrap='nowrap'>
-            <Grid item className='fe-connectivity-webhook-settings' xs={6}>
-              <div className='fe-section-title fe-bold fe-mb-3'>{t('connectivity.generalSettings')}</div>
-              <FInput  data-test-id="displayNameBox" label={t('common.displayName')} name='displayName' placeholder={t('connectivity.inputName')} />
-              <FInput
-                data-test-id="descriptionBox"
-                label={t('common.description')}
-                name='description'
-                multiline
-                placeholder={t('connectivity.shortDescription')}
-              />
-              <FInput data-test-id="urlBox" label='URL' name='url' placeholder='https://' />
-              <FInput
-                label={
-                  <label>
-                    {t('common.secretKey')}
-                    <Popup
-                      trigger={<span className='fe-connectivity-webhook-help'>?</span>}
-                      position={{ vertical: 'center', horizontal: 'right' }}
-                      action='hover'
-                      content={
-                        <div className='fe-connectivity-webhook-help-block'>{t('connectivity.secretKeyHelp')}</div>
-                      }
-                    />
-                  </label>
-                }
-                name='secret'
-                placeholder='Secret key'
-              />
-              <Grid container justifyContent='space-between'>
-                <Grid>
-                  <FButton data-test-id="submitBtn" type='submit' variant='primary' loading={isSaving}>
-                    {data ? t('connectivity.updateHook').toUpperCase() : t('connectivity.addHook').toUpperCase()}
-                  </FButton>
-                </Grid>
-                <Grid>
-                  <Button data-test-id="testHookBtn" size='large' onClick={toggleTestDialog}>
-                    {t('connectivity.testHook').toUpperCase()}
-                  </Button>
-                </Grid>
-                {error && (
-                  <Grid xs={12} className='fe-error-message'>
-                    {error}
+        {({ values }) => (
+          <>
+            <FFormik.Form>
+              <Grid container wrap='nowrap'>
+                <Grid item className='fe-connectivity-webhook-settings' xs={6}>
+                  <div className='fe-section-title fe-bold fe-mb-3'>{t('connectivity.generalSettings')}</div>
+                  <FInput
+                    data-test-id='displayNameBox'
+                    label={t('common.displayName')}
+                    name='displayName'
+                    placeholder={t('connectivity.inputName')}
+                  />
+                  <FInput
+                    data-test-id='descriptionBox'
+                    label={t('common.description')}
+                    name='description'
+                    multiline
+                    placeholder={t('connectivity.shortDescription')}
+                  />
+                  <FInput data-test-id='urlBox' label='URL' name='url' placeholder='https://' />
+                  <FInput
+                    label={
+                      <label>
+                        {t('common.secretKey')}
+                        <Popup
+                          trigger={<span className='fe-connectivity-webhook-help'>?</span>}
+                          position={{ vertical: 'center', horizontal: 'right' }}
+                          action='hover'
+                          content={
+                            <div className='fe-connectivity-webhook-help-block'>{t('connectivity.secretKeyHelp')}</div>
+                          }
+                        />
+                      </label>
+                    }
+                    name='secret'
+                    placeholder='Secret key'
+                  />
+                  <Grid container justifyContent='space-between'>
+                    <Grid>
+                      <FButton data-test-id='submitBtn' type='submit' variant='primary' loading={isSaving}>
+                        {data ? t('connectivity.updateHook').toUpperCase() : t('connectivity.addHook').toUpperCase()}
+                      </FButton>
+                    </Grid>
+                    <Grid>
+                      <Button data-test-id='testHookBtn' size='large' onClick={toggleTestDialog}>
+                        {t('connectivity.testHook').toUpperCase()}
+                      </Button>
+                    </Grid>
+                    {error && (
+                      <Grid xs={12} className='fe-error-message'>
+                        {error}
+                      </Grid>
+                    )}
                   </Grid>
-                )}
+                </Grid>
+                <Grid item className='fe-connectivity-webhook-settings' xs={6}>
+                  <div className='fe-section-title fe-bold fe-mb-2'>{t('connectivity.eventSettings')}</div>
+                  <div className='fe-connectivity-webhook-settings__frame'>
+                    <div className='fe-connectivity-webhook-settings__frame-title'>
+                      {t('connectivity.selectEvents')}
+                    </div>
+                    <SelectWebhook cleanCategory={cleanCategory} />
+                    <div className='fe-connectivity-webhook-settings__frame-title fe-mt-2'>
+                      {t('connectivity.manageCategories')}
+                    </div>
+                    <AccordingCategories cleanCategory={cleanCategory} />
+                  </div>
+                </Grid>
               </Grid>
-            </Grid>
-            <Grid item className='fe-connectivity-webhook-settings' xs={6}>
-              <div className='fe-section-title fe-bold fe-mb-2'>{t('connectivity.eventSettings')}</div>
-              <div className='fe-connectivity-webhook-settings__frame'>
-                <div className='fe-connectivity-webhook-settings__frame-title'>{t('connectivity.selectEvents')}</div>
-                <SelectWebhook cleanCategory={cleanCategory} />
-                <div className='fe-connectivity-webhook-settings__frame-title fe-mt-2'>
-                  {t('connectivity.manageCategories')}
-                </div>
-                <AccordingCategories cleanCategory={cleanCategory} />
-              </div>
-            </Grid>
-          </Grid>
-        </FFormik.Form>
+            </FFormik.Form>
+            <Dialog
+              header={t('connectivity.testHook')}
+              className={`fe-connectivity-webhook-dialog-${testResult?.status ?? ''}`}
+              open={openTestDialog}
+              onClose={toggleTestDialog}
+            >
+              <ConnectivityWebhooksTestForm
+                toggleTestDialog={toggleTestDialog}
+                secret={values?.secret ?? ''}
+                url={values?.url ?? ''}
+              />
+            </Dialog>
+          </>
+        )}
       </FFormik.Formik>
-      <Dialog
-        header={t('connectivity.testHook')}
-        className={`fe-connectivity-webhook-dialog-${testResult?.status ?? ''}`}
-        open={openTestDialog}
-        onClose={toggleTestDialog}
-      >
-        <ConnectivityWebhooksTestForm
-          toggleTestDialog={toggleTestDialog}
-          secret={data?.secret ?? ''}
-          url={data?.url ?? ''}
-        />
-      </Dialog>
     </>
   );
 };
