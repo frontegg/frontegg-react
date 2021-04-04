@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/rest-api",
   "libName": "FronteggRestApi",
-  "version": "1.28.0-alpha-split-store",
+  "version": "1.28.1-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -11,5 +11,6 @@
     "build": "rollup -c ../../scripts/rollup.config.js && echo DONE",
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
-  }
+  },
+  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
 }

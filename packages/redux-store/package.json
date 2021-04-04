@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/redux-store",
   "libName": "FronteggReduxStore",
-  "version": "1.28.0-alpha-split-store",
+  "version": "1.28.1-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -12,8 +12,9 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/rest-api": "1.28.0-alpha-split-store",
+    "@frontegg/rest-api": "1.28.1-alpha-split-store",
     "@reduxjs/toolkit": "1.x",
     "redux-saga": "1.x"
-  }
+  },
+  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
 }

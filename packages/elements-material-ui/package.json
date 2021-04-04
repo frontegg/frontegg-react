@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-material-ui",
   "libName": "FronteggElementsMaterialUi",
-  "version": "1.28.0-alpha-split-store",
+  "version": "1.28.1-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -18,11 +18,11 @@
     "underscore": "^1.10.2"
   },
   "devDependencies": {
-    "@types/react": "^16.9.19",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@types/classnames": "^2.2.10",
+    "@types/react": "^16.9.19",
     "@types/underscore": "^1.10.2"
   },
   "jest": {
@@ -68,5 +68,5 @@
       "jest"
     ]
   },
-  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
+  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
 }

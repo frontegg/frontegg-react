@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-connectivity",
   "libName": "FronteggConnectivity",
-  "version": "1.28.0-alpha-split-store",
+  "version": "1.28.1-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -13,7 +13,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-core": "1.28.0-alpha-split-store",
+    "@frontegg/react-core": "1.28.1-alpha-split-store",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "react": ">16.8.6",
@@ -65,5 +65,5 @@
       "jest"
     ]
   },
-  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
+  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-core",
   "libName": "FronteggCore",
-  "version": "1.28.0-alpha-split-store",
+  "version": "1.28.1-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -13,14 +13,14 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-hooks": "^1.28.0",
+    "@frontegg/react-hooks": "1.28.1-alpha-split-store",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "history": "^4.9.0",
+    "i18next": "^19.6.3",
     "moment": "^2.27.0",
     "owasp-password-strength-test": "^1.3.0",
     "rc-dialog": "^8.4.3",
-    "i18next": "^19.6.3",
     "react-i18next": "11.7.0",
     "react-popper-tooltip": "^3.1.1",
     "react-router-dom": "^5.1.2",
@@ -88,5 +88,5 @@
       "jest"
     ]
   },
-  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
+  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
 }

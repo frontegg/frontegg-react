@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-semantic",
   "libName": "FronteggElementsSemantic",
-  "version": "1.28.0-alpha-split-store",
+  "version": "1.28.1-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -62,5 +62,5 @@
       "jest"
     ]
   },
-  "gitHead": "24cf6de0ec5e320cb5d2cc604b8a9d33970defd2"
+  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
 }
