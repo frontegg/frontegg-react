@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "1.25.0",
+  "version": "1.28.0-alpha-split-store",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -18,8 +18,8 @@
     "react-recaptcha-v3": "^2.0.1"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^1.25.0",
-    "@frontegg/rest-api": "^1.25.0",
+    "@frontegg/react-core": "1.28.0-alpha-split-store",
+    "@frontegg/rest-api": "1.28.0-alpha-split-store",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
     "@types/react-recaptcha-v3": "^1.1.1"

@@ -18,7 +18,10 @@ export const SignUpSuccess: FC = () => {
 
   useEffect((): (() => void) => {
     if (!shouldActivate) {
-      setTimeout(() => onRedirectTo(routes.authenticatedUrl), 3000);
+      const url = new URL(window?.location.href);
+      const redirectUrl = url.searchParams.get('redirectUrl');
+
+      setTimeout(() => onRedirectTo(redirectUrl || routes.authenticatedUrl), 3000);
     }
     return resetSignUpStateSoft;
   }, [shouldActivate, routes, resetSignUpStateSoft]);

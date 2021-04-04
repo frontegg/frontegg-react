@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.28.0](https://github.com/frontegg/frontegg-react/compare/v1.27.0...v1.28.0) (2021-03-22)
+
+
+### Bug Fixes
+
+* FR-2220 - add loader for MenuItem ([4a3e62e](https://github.com/frontegg/frontegg-react/commit/4a3e62e68f7041e0d376ffc411c57198557c20f1))
+* **core:** FR-2126 - removed list dots for error message ([6a233b0](https://github.com/frontegg/frontegg-react/commit/6a233b0dc1f7650f27c1b14548b59539bb7f9966))
+
+
+### Features
+
+* **auth:** request new activation email ([748255f](https://github.com/frontegg/frontegg-react/commit/748255fc924ef5e36764ba264d9a3767a9ea0c59))
+
+
+
+
+
+# [1.27.0](https://github.com/frontegg/frontegg-react/compare/v1.26.0...v1.27.0) (2021-03-18)
+
+
+### Features
+
+* **auth:** added option for terms of service in signup page ([f876091](https://github.com/frontegg/frontegg-react/commit/f876091cfde000c7ae003b878bea13ab8271f171))
+
+
+
+
+
+# [1.26.0](https://github.com/frontegg/frontegg-react/compare/v1.25.0...v1.26.0) (2021-03-17)
+
+
+### Features
+
+* **auth:** allow getting login/signup redirect url via query param ([ce909fd](https://github.com/frontegg/frontegg-react/commit/ce909fd1a5f430ebdeeeb9182837f837c97f720c))
+
+
+
+
+
 # [1.25.0](https://github.com/frontegg/frontegg-react/compare/v1.24.0...v1.25.0) (2021-03-07)
 
 

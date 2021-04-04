@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IActivateAccount } from '@frontegg/rest-api';
+import { IActivateAccount, IResendActivationEmail } from '@frontegg/rest-api';
 import { resetStateByKey, typeReducerForKey } from '../utils';
 import { ActivateAccountState, ActivateAccountStep } from './interfaces';
 import { ActionDispatchMatcher } from '../../interfaces';
@@ -8,6 +8,7 @@ import { authStoreName } from '../../constants';
 const activateState: ActivateAccountState = {
   step: ActivateAccountStep.activating,
   loading: false,
+  resentEmail: false,
 };
 
 const reducers = {
@@ -17,6 +18,9 @@ const reducers = {
 
 const actions = {
   activateAccount: createAction(`${authStoreName}/activateAccount`, (payload: IActivateAccount) => ({ payload })),
+  resendActivationEmail: createAction(`${authStoreName}/resendActivationEmail`, (payload: IResendActivationEmail) => ({
+    payload,
+  })),
 };
 
 /**
@@ -27,6 +31,7 @@ type DispatchedActions = {
   setActivateState: (state: Partial<ActivateAccountState>) => void;
   resetActivateState: () => void;
   activateAccount: (payload: IActivateAccount) => void;
+  resendActivationEmail: (payload: IResendActivationEmail) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

@@ -1,9 +1,15 @@
-import React, { cloneElement, FC } from 'react';
-import { MenuItemProps } from '@frontegg/react-core';
+import React, { cloneElement, FC, useCallback } from 'react';
+import { Loader, MenuItemProps } from '@frontegg/react-core';
 import { ListItemIcon, ListItemText, MenuItem as MaterialMenuItem } from '@material-ui/core';
 
 export const MenuItem: FC<MenuItemProps> = (props) => {
-  const { withIcons } = props;
+  const { withIcons, loading, icon, iconClassName } = props;
+
+  const renderIcon = useCallback(() => {
+    if (loading) return <Loader size={24} className={iconClassName} />;
+    if (icon) return cloneElement(icon, { className: iconClassName });
+    return null;
+  }, [loading, icon, iconClassName]);
 
   if (withIcons) {
     return (
@@ -12,11 +18,19 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
         className={props.className}
         onClick={(e) => props.onClick?.(e, props)}
       >
-        <ListItemIcon>{props.icon && cloneElement(props.icon, { className: props.iconClassName })}</ListItemIcon>
+        <ListItemIcon>{renderIcon()}</ListItemIcon>
         <ListItemText>{props.text}</ListItemText>
       </MaterialMenuItem>
     );
   } else {
-    return <MaterialMenuItem>{props.text}</MaterialMenuItem>;
+    return (
+      <MaterialMenuItem
+        selected={props.selected}
+        className={props.className}
+        onClick={(e) => props.onClick?.(e, props)}
+      >
+        {props.text}
+      </MaterialMenuItem>
+    );
   }
 };

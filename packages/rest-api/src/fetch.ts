@@ -121,6 +121,11 @@ const sendRequest = async (opts: RequestOptions) => {
     } else if (typeof errorMessage !== 'string') {
       errorMessage = `Error ${response.status} - ${response.statusText}`;
     }
+
+    if (response.status >= 400 && response.status < 500 && ['warn'].includes(context.logLevel))
+      console.warn(errorMessage);
+    else if (response.status === 500 && ['warn', 'error'].includes(context.logLevel)) console.error(errorMessage);
+
     throw new Error(errorMessage);
   }
 

@@ -63,6 +63,7 @@
     padding-left: 1.5rem;
     text-align: left;
     font-size: 0.8rem;
+    list-style-type: none;
   }
 }
 
@@ -84,6 +85,10 @@
 
 .fe-dflex-space-between {
   justify-content: space-between;
+}
+
+.fe-dflex-column {
+  flex-direction: column;
 }
 
 .fe-mb-0 {

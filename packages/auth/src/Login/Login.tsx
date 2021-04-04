@@ -91,7 +91,7 @@ export const Login: FC<LoginProps> = (props) => {
           fullWidth={true}
           className='fe-login-component__back-to-login'
           onClick={() => {
-            onRedirectTo(routes.loginUrl);
+            onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
             resetLoginState();
           }}
         >

@@ -5,14 +5,21 @@ import { useActivateAccountState } from '@frontegg/react-hooks/auth';
 import { ActivateAccountSuccessRedirect, ActivateAccountSuccessRedirectProps } from './ActivateAccountSuccessRedirect';
 import { ActivateAccountFailedRedirect, ActivateAccountFailedRedirectProps } from './ActivateAccountFailedRedirect';
 import { ActivateAccountForm, ActivateAccountFormProps } from './ActivateAccountForm';
+import { ActivateAccountResendEmail, ActivateAccountResendEmailProps } from './ActivateAccountResendEmail';
 import { authPageWrapper } from '../components';
 
 type Components = {
   ActivateAccountForm: ActivateAccountFormProps;
   ActivateAccountSuccessRedirect: ActivateAccountSuccessRedirectProps;
   ActivateAccountFailedRedirect: ActivateAccountFailedRedirectProps;
+  ActivateAccountResendEmail: ActivateAccountResendEmailProps;
 };
-const defaultComponents = { ActivateAccountSuccessRedirect, ActivateAccountFailedRedirect, ActivateAccountForm };
+const defaultComponents = {
+  ActivateAccountSuccessRedirect,
+  ActivateAccountFailedRedirect,
+  ActivateAccountForm,
+  ActivateAccountResendEmail,
+};
 
 export interface ActivateAccountProps {
   components?: ComponentsTypesWithProps<Components>;
@@ -27,7 +34,9 @@ export const ActivateAccount: FC<ActivateAccountProps> = (props) => {
   const token = url.searchParams.get('token') || '';
 
   let components: any;
-  if (!userId || !token) {
+  if (step === ActivateAccountStep.resend) {
+    components = <Dynamic.ActivateAccountResendEmail />;
+  } else if (!userId || !token) {
     components = <Dynamic.ActivateAccountFailedRedirect />;
   } else if (step === ActivateAccountStep.success) {
     components = <Dynamic.ActivateAccountSuccessRedirect />;

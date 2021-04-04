@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { useT, RendererFunctionFC, Button, omitProps } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo, useActivateAccountActions } from '@frontegg/react-hooks/auth';
+import { Button, Grid, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
+import { useActivateAccountActions, useAuthRoutes, useOnRedirectTo } from '@frontegg/react-hooks/auth';
+import { ActivateAccountStep } from '@frontegg/redux-store';
 
 export interface ActivateAccountFailedRedirectProps {
   renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>;
@@ -11,7 +12,7 @@ export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProp
   const { t } = useT();
   const routes = useAuthRoutes();
   const onRedirectTo = useOnRedirectTo();
-  const { resetActivateState } = useActivateAccountActions();
+  const { resetActivateState, setActivateState } = useActivateAccountActions();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
@@ -23,16 +24,31 @@ export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProp
         <br />
         {t('auth.activate-account.failed-description')}
       </div>
-      <Button
-        data-test-id='activate-btn'
-        fullWidth
-        onClick={() => {
-          resetActivateState();
-          onRedirectTo(routes.loginUrl);
-        }}
-      >
-        {t('auth.activate-account.back-to-login')}
-      </Button>
+      <Grid container spacing={1}>
+        <Grid item xs={12} sm={12}>
+          <Button
+            data-test-id='activate-btn'
+            fullWidth
+            onClick={() => {
+              setActivateState({ step: ActivateAccountStep.resend });
+            }}
+          >
+            {t('auth.activate-account.ask-for-new-activation-link')}
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <Button
+            data-test-id='activate-btn'
+            fullWidth
+            onClick={() => {
+              resetActivateState();
+              onRedirectTo(routes.loginUrl);
+            }}
+          >
+            {t('auth.activate-account.back-to-login')}
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 };

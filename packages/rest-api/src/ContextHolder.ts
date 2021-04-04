@@ -50,6 +50,7 @@ export class ContextHolder {
       ContextHolder.getInstance().context ?? {
         baseUrl: window.location.href,
         tokenResolver: () => 'my-authentication-token',
+        logLevel: 'error',
       }
     );
   }

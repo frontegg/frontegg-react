@@ -46,6 +46,8 @@ import {
   IDeleteApiToken,
   IGetUserById,
   IUserIdResponse,
+  IResendActivationEmail,
+  ISecurityPolicyCaptcha,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 import { jwtDecode } from '../jwt';
@@ -70,6 +72,15 @@ async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILo
   return user;
 }
 
+export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha | null> {
+  try {
+    const policy = await Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
+    return policy;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Check if requested email address has sso configuration
  * If true, this function will return the sso address to navigate to
@@ -80,8 +91,7 @@ export async function preLogin(body: IPreLogin): Promise<string | null> {
   try {
     const { address } = await Post(`${AUTH_SERVICE_URL_V1}/user/saml/prelogin`, body);
     return address;
-  } catch (e) {
-    console.error('preLogin()', e);
+  } catch {
     return null;
   }
 }
@@ -134,6 +144,17 @@ export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse>
 export async function activateAccount(body: IActivateAccount): Promise<void> {
   console.debug('activateAccount()');
   return Post(`${USERS_SERVICE_URL_V1}/activate`, body);
+}
+
+/**
+ * resend activation email should be called after a failed user activation.
+ * ``resend activation email`` should contain  the user email.
+ *
+ * @throws exception if resend failed
+ */
+export async function resendActivationEmail(body: IResendActivationEmail): Promise<void> {
+  console.debug('resendActivationEmail()');
+  return Post(`${USERS_SERVICE_URL_V1}/activate/reset`, body);
 }
 
 /**

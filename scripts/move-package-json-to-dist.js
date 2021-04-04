@@ -35,12 +35,14 @@ function movePackageJson(packagePath) {
   newPkg.peerDependencies = {
     ...(newPkg.peerDependencies || {}),
     ...(peerDeps
-      .map(dep => newPkg.dependencies[dep] ? { [dep]: newPkg.dependencies[dep] } : {})
+      .map(dep => newPkg.dependencies && newPkg.dependencies[dep] ? { [dep]: newPkg.dependencies[dep] } : {})
       .reduce((p, n) => ({ ...p, ...n }), {})),
   };
 
   peerDeps.forEach(dep => {
-    delete newPkg.dependencies[dep];
+    if(newPkg.dependencies) {
+      delete newPkg.dependencies[dep];
+    }
   });
 
 

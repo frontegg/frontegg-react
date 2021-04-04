@@ -78,7 +78,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   });
 
   const redirectToSignUp = useCallback(() => {
-    onRedirectTo(routes.signUpUrl);
+    onRedirectTo(routes.signUpUrl, { preserveQueryParams: true });
   }, []);
 
   const signUpMessage = !allowSignUps ? null : (

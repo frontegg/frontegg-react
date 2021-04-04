@@ -12,9 +12,16 @@ interface Components {
   SocialLogins: {};
 }
 
+export interface SignUpCheckbox {
+  required: boolean;
+  content: () => JSX.Element;
+}
+
 export interface SignUpProps {
   components?: ComponentsTypesWithProps<Components>;
   withCompanyName?: boolean;
+  signUpConsent?: SignUpCheckbox;
+  marketingMaterialConsent?: SignUpCheckbox;
 }
 
 const defaultComponents = {
@@ -43,7 +50,11 @@ export const SignUp: FC<SignUpProps> = (props) => {
     default:
       return (
         <>
-          <Dynamic.SignUpForm withCompanyName={props.withCompanyName} />
+          <Dynamic.SignUpForm
+            withCompanyName={props.withCompanyName}
+            signUpConsent={props.signUpConsent}
+            marketingMaterialConsent={props.marketingMaterialConsent}
+          />
           <Dynamic.SocialLogins />
         </>
       );

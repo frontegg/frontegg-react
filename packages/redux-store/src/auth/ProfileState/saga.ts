@@ -68,6 +68,10 @@ function* saveProfile({
         const profileImage = base64ToFormData(profilePictureUrl, 'image');
         if (profileImage) {
           newProfilePictureUrl = yield call(api.teams.updateProfileImage, profileImage);
+          const imageTimeStamp = Date.now().toString();
+          const urlTemplate = new URL(newProfilePictureUrl);
+          urlTemplate.searchParams.set('t', imageTimeStamp);
+          newProfilePictureUrl = urlTemplate.href;
         }
       }
     }

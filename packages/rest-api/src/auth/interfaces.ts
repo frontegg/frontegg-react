@@ -37,6 +37,8 @@ export type IAcceptInvitation = {
   token: string;
 };
 
+export type IResendActivationEmail = { email: string };
+
 export type IForgotPassword = { email: string };
 
 export type IResetPassword = {
@@ -121,6 +123,7 @@ export interface ILoginViaSocialLogin {
   redirectUri?: string;
   provider: SocialLoginsProviders;
   codeVerifier?: string;
+  afterAuthRedirectUrl?: string;
 }
 
 export interface ISetSocialLoginError {

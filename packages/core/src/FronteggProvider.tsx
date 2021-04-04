@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { getDefaultMiddleware, combineReducers, configureStore, Reducer, EnhancedStore } from '@reduxjs/toolkit';
 import { I18nextProvider } from 'react-i18next';
-import { ContextOptions, ListenerProps } from './interfaces';
+import { ContextOptions, ListenerProps, LogLevel } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
 import { i18n } from './I18nInitializer';
 import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
@@ -79,6 +79,9 @@ const FeState: FC<FeProviderProps> = (props) => {
       if (path.startsWith(baseName)) {
         path = path.substring(baseName.length);
       }
+      if (opts?.preserveQueryParams) {
+        path = `${path}${window.location.search}`;
+      }
       if (opts?.refresh && !isSSR) {
         window.Cypress ? history.push(path) : (window.location.href = path);
       } else {
@@ -143,8 +146,10 @@ const FeState: FC<FeProviderProps> = (props) => {
   );
 };
 
+const defaultLogLevel: LogLevel = 'error';
+
 export const FronteggProvider: FC<FeProviderProps> = (props) => {
-  ContextHolder.setContext(props.context);
+  ContextHolder.setContext({ ...props.context, logLevel: props.context.logLevel || defaultLogLevel });
   ElementsFactory.setElements(props.uiLibrary);
 
   if (props._history) {
