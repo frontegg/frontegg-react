@@ -12,5 +12,5 @@
     "build:watch": "rollup -w -c ../../scripts/rollup.config.js",
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
-  "gitHead": "0849b995f611b8a31f2bc9c961345cd748ca9e53"
+  "gitHead": "00c0bd425a211916eec1170b8359cf302727b338"
 }
