@@ -195,3 +195,7 @@ export interface IUserIdResponse {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IGetUserPasswordConfig {
+  userId: string;
+}
