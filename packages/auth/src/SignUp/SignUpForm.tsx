@@ -9,6 +9,7 @@ import {
   validateLength,
   validateSchema,
   validateEmail,
+  ErrorMessage,
   validateCheckbox,
 } from '@frontegg/react-core';
 import { SignUpCheckbox } from './SignUp';
@@ -37,7 +38,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
 }) => {
   const { t } = useT();
 
-  const { signUpUser, loading, routes, onRedirectTo } = useAuth(stateMapper);
+  const { signUpUser, error, loading, routes, onRedirectTo } = useAuth(stateMapper);
 
   const isCheckboxVisible = useCallback((checkbox?: SignUpCheckbox) => {
     return checkbox?.hasOwnProperty('content');
@@ -123,6 +124,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
             {t('auth.sign-up.form.submit-button')}
           </FButton>
+          <ErrorMessage error={error} />
           <FReCaptcha action='sign_up' />
         </FForm>
       </Formik>
