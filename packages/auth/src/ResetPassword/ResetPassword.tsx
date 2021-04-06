@@ -27,9 +27,9 @@ export const ResetPassword: FC<ResetPasswordProps> = (props) => {
   const token = url.searchParams.get('token') || '';
 
   useEffect((): (() => void) => {
-    loadPasswordConfig();
+    loadPasswordConfig({ userId });
     return resetForgotPasswordState;
-  }, []);
+  }, [userId]);
 
   let components;
   if (!userId || !token) {
