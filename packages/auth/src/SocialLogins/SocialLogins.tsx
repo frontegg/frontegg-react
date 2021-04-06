@@ -6,13 +6,14 @@ import { SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
 import { SocialLoginsContext } from './SocialLoginContext';
+import FacebookLogin from './FacebookLogin';
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
   children?: ReactNode;
 }
 
-export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & { Google: FC; Github: FC };
+export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & { Google: FC; Github: FC; Facebook: FC };
 
 const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
 
@@ -42,3 +43,4 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
 
 SocialLogins.Google = GoogleLogin;
 SocialLogins.Github = GithubLogin;
+SocialLogins.Facebook = FacebookLogin;
