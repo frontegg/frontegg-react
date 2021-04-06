@@ -17,6 +17,13 @@ const useStyles = makeStyles({
       backgroundColor: 'var(--color-red-8)',
     },
   },
+  successStyle: {
+    color: 'var(--color-success)',
+    backgroundColor: 'var(--color-success-25)',
+    '&:hover': {
+      backgroundColor: 'var(--color-success-50)',
+    },
+  },
   asLink: {
     backgroundColor: 'transparent',
     boxShadow: 'none',
@@ -52,7 +59,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     testId,
     ...restProps
   } = props;
-  const variantColor = variant === 'danger' || variant === 'disabled' ? 'default' : variant;
+  const variantColor = variant === 'danger' || variant === 'disabled' || variant === 'success' ? 'default' : variant;
 
   const classes = useStyles();
   const calculatedVariant = isCancel || transparent ? 'text' : 'contained';
@@ -69,6 +76,7 @@ const mapper = (props: ButtonProps): MaterialButtonProps => {
     classes: {
       root: classNames(className, {
         [classes.dangerStyle]: variant === 'danger',
+        [classes.successStyle]: variant === 'success',
         [classes.asLink]: asLink,
       }),
     },
