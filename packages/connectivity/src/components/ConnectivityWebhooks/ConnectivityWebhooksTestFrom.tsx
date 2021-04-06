@@ -2,9 +2,7 @@ import React, { FC, useEffect } from 'react';
 import {
   Grid,
   useT,
-  Popup,
   Button,
-  Dialog,
   FInput,
   FButton,
   FFormik,
@@ -60,8 +58,9 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
       <FFormik.Form>
         <Grid container wrap='nowrap'>
           <Grid container className='fe-connectivity-webhook-test-settings' direction='column' xs={12}>
-            <Input className='fe-mb-1' label='URL' placeholder='https://' value={url} disabled />
+            <Input data-test-id='urlBox' className='fe-mb-1' label='URL' placeholder='https://' value={url} disabled />
             <Input
+              data-test-id='secretBox'
               className='fe-mb-1'
               label={t('common.secretKey')}
               placeholder={t('common.secretKey')}
@@ -69,6 +68,7 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
               disabled
             />
             <FInput
+              data-test-id='testBox'
               className='fe-connectivity-webhook-test-payload'
               label={t('connectivity.json')}
               name='payload'
@@ -84,12 +84,13 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
         <div className='fe-dialog__footer'>
           <Grid container justifyContent='space-between'>
             <Grid>
-              <Button onClick={toggleTestDialog} size='large'>
+              <Button data-test-id='closeBtn' onClick={toggleTestDialog} size='large'>
                 {t('common.close')}
               </Button>
             </Grid>
             <Grid>
               <FButton
+                data-test-id='submitBtn'
                 size='large'
                 variant={testResult?.status === 'failed' ? 'danger' : undefined}
                 loading={isTesting}

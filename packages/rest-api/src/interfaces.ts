@@ -13,6 +13,8 @@ export interface KeyValuePair {
   value: string;
 }
 
+export type LogLevel = 'warn' | 'error';
+
 export interface ContextOptions {
   baseUrl: string;
   tokenResolver?: () => Promise<string> | string; // custom resolve Authorization Header value
@@ -21,6 +23,7 @@ export interface ContextOptions {
   currentUserRoles?: string[];
   requestCredentials?: RequestCredentials;
   urlPrefix?: string;
+  logLevel: LogLevel;
 }
 
 export interface QuerySort {

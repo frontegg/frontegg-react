@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.28.0](https://github.com/frontegg/frontegg-react/compare/v1.27.0...v1.28.0) (2021-03-22)
+
+
+### Bug Fixes
+
+* FR-2220 - add loader for MenuItem ([4a3e62e](https://github.com/frontegg/frontegg-react/commit/4a3e62e68f7041e0d376ffc411c57198557c20f1))
+* **auth:** FR-2257 - fix t param duplication ([be144f5](https://github.com/frontegg/frontegg-react/commit/be144f5ec204ece9d5e62e0a762400a3b8f284d1))
+* **core:** FR-2126 - removed list dots for error message ([6a233b0](https://github.com/frontegg/frontegg-react/commit/6a233b0dc1f7650f27c1b14548b59539bb7f9966))
+
+
+### Features
+
+* **auth:** request new activation email ([748255f](https://github.com/frontegg/frontegg-react/commit/748255fc924ef5e36764ba264d9a3767a9ea0c59))
+
+
+
+
+
 # [1.27.0](https://github.com/frontegg/frontegg-react/compare/v1.26.0...v1.27.0) (2021-03-18)
 
 

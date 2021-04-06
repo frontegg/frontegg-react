@@ -87,6 +87,8 @@ export interface ThemeOptions {
   notificationsPaginationWeight?: string;
 }
 
+export type LogLevel = 'warn' | 'error';
+
 export interface ContextOptions {
   baseUrl: string;
   tokenResolver?: () => Promise<string> | string; // custom resolve Authorization Header value
@@ -100,6 +102,7 @@ export interface ContextOptions {
   currentUserRoles?: string[];
   currentUserPermissions?: string[];
   urlPrefix?: string;
+  logLevel?: LogLevel;
 }
 
 export interface ListenerProps<T> {

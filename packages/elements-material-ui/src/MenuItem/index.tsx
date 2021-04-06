@@ -23,6 +23,14 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
       </MaterialMenuItem>
     );
   } else {
-    return <MaterialMenuItem>{props.text}</MaterialMenuItem>;
+    return (
+      <MaterialMenuItem
+        selected={props.selected}
+        className={props.className}
+        onClick={(e) => props.onClick?.(e, props)}
+      >
+        {props.text}
+      </MaterialMenuItem>
+    );
   }
 };

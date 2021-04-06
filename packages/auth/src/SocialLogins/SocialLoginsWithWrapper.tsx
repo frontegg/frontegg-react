@@ -15,6 +15,7 @@ export const SocialLoginsWithWrapper: FC<SocialLoginsProps> = (props) => {
               <SocialLogins.Google />
               <SocialLogins.Github />
               <SocialLogins.Microsoft />
+              <SocialLogins.Facebook />
             </>
           )}
         </SocialLogins>

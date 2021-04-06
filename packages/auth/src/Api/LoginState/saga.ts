@@ -32,8 +32,9 @@ export function* afterAuthNavigation() {
   yield delay(500);
   put(actions.resetLoginState());
   const url = new URL(window?.location.href);
-  const redirectUrl = url.searchParams.get('redirectUrl');
-  onRedirectTo(redirectUrl || authenticatedUrl);
+  const redirectUrl = url.searchParams.get('redirectUrl') || authenticatedUrl;
+
+  onRedirectTo(redirectUrl, { refresh: redirectUrl.startsWith('http') });
 }
 
 function* refreshMetadata() {
@@ -287,9 +288,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
   yield put(actions.setState({ isLoading: true }));
   try {
     yield call(api.auth.logout);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   yield put(actions.resetState());
   yield put(actions.requestAuthorize(true));
   payload?.();
@@ -298,9 +297,7 @@ function* logout({ payload }: PayloadAction<() => void>) {
 function* silentLogout({ payload }: PayloadAction<() => void>) {
   try {
     yield call(api.auth.logout);
-  } catch (e) {
-    console.error(e);
-  }
+  } catch {}
   payload?.();
 }
 

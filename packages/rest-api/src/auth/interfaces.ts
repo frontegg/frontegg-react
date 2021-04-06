@@ -111,6 +111,7 @@ export enum SocialLoginsProviders {
   Google = 'google',
   Github = 'github',
   Microsoft = 'microsoft',
+  Facebook = 'facebook',
 }
 
 export interface ISocialLoginProviderConfiguration {
@@ -196,4 +197,8 @@ export interface IUserIdResponse {
   vendorId: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IGetUserPasswordConfig {
+  userId: string;
 }
