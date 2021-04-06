@@ -6,13 +6,14 @@ import {
   useT,
   validateSchema,
   validatePassword,
+  validatePasswordUsingOWASP,
   validatePasswordConfirmation,
   FButton,
   ErrorMessage,
   PageTabProps,
   OnError,
 } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
+import { useAuth, useAuthActions, useAuthUser } from '../../hooks';
 
 const { Formik } = FFormik;
 
@@ -21,9 +22,20 @@ type ProfilePasswordSettingsPageProps = OnError;
 export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> & PageTabProps = (props) => {
   const { t } = useT();
   const { onError } = props;
-  const { loading, error, changePassword } = useAuth((state) => state.profileState);
+  const { loadPasswordConfig } = useAuthActions();
+  const {
+    profileState: { loading, error },
+    forgotPasswordState: { passwordConfig },
+    changePassword,
+  } = useAuth(({ profileState, forgotPasswordState }) => ({ profileState, forgotPasswordState }));
+  const { id: userId } = useAuthUser();
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const changePasswordSubmitted = useRef(false);
+
+  useEffect(() => {
+    loadPasswordConfig({ userId });
+  }, [loadPasswordConfig, userId]);
 
   useEffect(() => {
     if (changePasswordSubmitted.current && !loading && !error) {
@@ -45,7 +57,7 @@ export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> &
         }}
         validationSchema={validateSchema({
           password: validatePassword(t),
-          newPassword: validatePassword(t),
+          newPassword: validatePasswordUsingOWASP(passwordConfig),
           confirmNewPassword: validatePasswordConfirmation(t, 'newPassword'),
         })}
         onSubmit={async ({ password, newPassword }, { resetForm }) => {

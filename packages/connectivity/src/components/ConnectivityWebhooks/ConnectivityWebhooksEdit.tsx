@@ -46,7 +46,7 @@ export const ConnectivityWebhooksEdit: FC = () => {
     <div className='fe-connectivity__content'>
       <div className='fe-connectivity__content-heading'>
         <span onClick={onBack} className={'fe-back-button fe-block'}>
-          <Icon name='back' />
+          <Icon data-test-id='backBtn' name='back' />
         </span>
         {data?.displayName ?? t('connectivity.addNewHook')}
       </div>

@@ -48,6 +48,7 @@ export const ConnectivityTable: FC = () => {
   const platformCell = useCallback(
     ({ value, row: { original } }): CellComponent<IData> => (
       <Button
+        data-test-id='editBtn'
         transparent
         fullWidth
         className={classnames(cssPrefix, {
@@ -71,6 +72,7 @@ export const ConnectivityTable: FC = () => {
   const actionCell = useCallback(
     ({ row }): CellComponent<IData> => (
       <Button
+        data-test-id='keyBtn'
         className='fe-connectivity-button'
         variant={row.original.active ? 'primary' : 'secondary'}
         onClick={() => {

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IForgotPassword, IResetPassword } from '@frontegg/rest-api';
+import { IForgotPassword, IGetUserPasswordConfig, IResetPassword } from '@frontegg/rest-api';
 import { resetStateByKey, storeName, typeReducerForKey } from '../utils';
 import { ForgotPasswordState, ForgotPasswordStep } from './interfaces';
 
@@ -20,5 +20,7 @@ export const forgotPasswordStateReducers = {
 export const forgotPasswordActions = {
   forgotPassword: createAction(`${storeName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
   resetPassword: createAction(`${storeName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
-  loadPasswordConfig: createAction(`${storeName}/loadPasswordConfig`),
+  loadPasswordConfig: createAction(`${storeName}/loadPasswordConfig`, (payload: IGetUserPasswordConfig) => ({
+    payload,
+  })),
 };
