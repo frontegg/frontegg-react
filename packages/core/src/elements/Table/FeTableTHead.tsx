@@ -47,19 +47,30 @@ export const FeTableTHead: FC<FeTableTHeadProps<any>> = <T extends object>(props
                 </div>
               );
             }
+            const withExpander = headerGroup.headers[0].id === 'fe-expander';
+            const minWidth = headerGroup.headers[0].minWidth || 0;
+            const ownWidth = column.width || 0;
+            const width = index === 1 && withExpander ? { width: Number(ownWidth) + minWidth } : {};
+
+            const { style, ...headerProps } = {
+              ...column.getHeaderProps(
+                column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
+                  ...p,
+                  onClick: column.canSort ? () => onSortChange?.(column) : undefined,
+                }))
+              ),
+            };
+
             return (
               <div
                 className={classNames('fe-table__thead-tr-th', {
                   'fe-table__thead-tr-th__first-cell': index === 0,
+                  'fe-table__thead-tr-th__first-cell__expander': index === 0 && withExpander,
                   'fe-table__thead-sortable-asc': column.isSorted && !column.isSortedDesc,
                   'fe-table__thead-sortable-desc': column.isSorted && column.isSortedDesc,
                 })}
-                {...column.getHeaderProps(
-                  column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
-                    ...p,
-                    onClick: column.canSort ? () => onSortChange?.(column) : undefined,
-                  }))
-                )}
+                {...headerProps}
+                style={{ ...style, ...width }}
               >
                 {column.render('Header')}
                 <FeTableSortColumn column={column} />

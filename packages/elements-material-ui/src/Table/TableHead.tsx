@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
   firstHeadCell: {
     paddingLeft: '2rem',
   },
+  expander: {
+    padding: 0,
+    minWidth: '0 !important',
+    width: 0,
+  },
 }));
 
 type FeTableTHeadProps<T extends object> = {
@@ -64,17 +69,23 @@ export const TableHead: FC<FeTableTHeadProps<any>> = <T extends object>(props: F
                 </TableCell>
               );
             }
+            const withExpander = headerGroup.headers[0].id === 'fe-expander';
             const tableCellProps = column.getHeaderProps(
               column.getSortByToggleProps((p: Partial<TableSortByToggleProps>) => ({
                 ...p,
                 onClick: column.canSort ? () => onSortChange?.(column) : undefined,
               }))
             );
+            const minWidth = headerGroup.headers[0].minWidth || 0;
+            const ownWidth = column.width || 0;
+            const width = index === 1 && withExpander ? { width: Number(ownWidth) + minWidth, paddingLeft: 32 } : {};
+            const cellStyle = { ...tableCellProps?.style, ...width };
             tableCellProps.className = classNames(tableCellProps.className, {
               [classes.firstHeadCell]: index === 0,
+              [classes.expander]: index === 0 && withExpander,
             });
             return (
-              <TableCell padding='default' {...tableCellProps}>
+              <TableCell padding='default' {...tableCellProps} style={cellStyle}>
                 <Box display='flex' alignItems='center' justifyContent='space-between' flexWrap='nowrap'>
                   <Box display='flex' flexGrow='1'>
                     {column.canSort ? (
