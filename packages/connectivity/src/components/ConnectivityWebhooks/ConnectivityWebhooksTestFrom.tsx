@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import {
   Grid,
   useT,
@@ -39,6 +39,17 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
   const validationSchema = validateSchema({
     payload: validateObject(t('common.payload'), t),
   });
+
+  const btnVariant = useMemo(() => {
+    switch (testResult?.status) {
+      case 'failed':
+        return 'danger';
+      case 'success':
+        return 'success';
+      default:
+        return undefined;
+    }
+  }, [testResult?.status]);
 
   return (
     <FFormik.Formik
@@ -89,13 +100,7 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
               </Button>
             </Grid>
             <Grid>
-              <FButton
-                data-test-id='submitBtn'
-                size='large'
-                variant={testResult?.status === 'failed' ? 'danger' : undefined}
-                loading={isTesting}
-                type='submit'
-              >
+              <FButton size='large' data-test-id='submitBtn' variant={btnVariant} loading={isTesting} type='submit'>
                 {testResult?.status?.toUpperCase() ?? t('connectivity.testHook').toUpperCase()}
               </FButton>
             </Grid>
