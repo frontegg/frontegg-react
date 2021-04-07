@@ -21,7 +21,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
     {
       items: [
         {
-          icon: <Icon name='profile' />,
+          icon: <Icon data-test-id='profileBtn' name='profile' />,
           title: 'Profile',
           dataTestId: 'profile-btn',
           onClick: () => {
@@ -36,7 +36,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
         ...((user?.tenantIds?.length ?? 0) > 1
           ? [
               {
-                icon: <Icon name='swap' />,
+                icon: <Icon data-test-id='switchTenant' name='swap' />,
                 title: 'Switch Tenant',
                 dataTestId: 'switch-tenant-btn',
                 onClick: () => {
@@ -46,7 +46,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
             ]
           : []),
         {
-          icon: <Icon name='exit' />,
+          icon: <Icon data-test-id='logoutBtn' name='exit' />,
           title: 'Logout',
           dataTestId: 'logout-btn',
           onClick: () => {
