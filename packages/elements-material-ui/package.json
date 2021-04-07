@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-material-ui",
   "libName": "FronteggElementsMaterialUi",
-  "version": "1.28.1-alpha-split-store",
+  "version": "1.28.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

@@ -2987,37 +2987,6 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/react-core@^1.28.0":
-  version "1.28.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-core/-/react-core-1.28.0.tgz#0643e31ea1c73fe0c81f7eb2664cacc60b4c63f3"
-  integrity sha512-FRnsQ+9ektVHhYi13Q9oivC/Soe/+XREL75B/nVxI8wFkQk4fL2XJ/vvQm1hQfiOnuy8eGh7KrXBcNmC+7oacg==
-  dependencies:
-    "@frontegg/rest-api" "^1.28.0"
-    "@reduxjs/toolkit" "^1.4.0"
-    classnames "^2.2.6"
-    formik "^2.1.5"
-    history "^4.9.0"
-    i18next "^19.6.3"
-    jwt-decode "2.2.0"
-    moment "^2.27.0"
-    owasp-password-strength-test "^1.3.0"
-    rc-dialog "^8.4.3"
-    react-i18next "11.7.0"
-    react-popper-tooltip "^3.1.1"
-    react-redux "^7.1.1"
-    react-select "^3.1.0"
-    react-table "^7.5.1"
-    redux-saga "^1.1.3"
-    underscore "^1.10.2"
-    yup "^0.28.3"
-
-"@frontegg/rest-api@^1.28.0":
-  version "1.28.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-1.28.0.tgz#267b1c3701279df9570caa5f5f9604d93135dc4d"
-  integrity sha512-Vco57p6GU2C6w0VElnri1ST8KdD6Jyz8jcNfL6PSbWLhlwFk2EXstL2V/P0f3INctMy2cW2LJI4b2If6EpvldA==
-  dependencies:
-    jwt-decode "2.2.0"
-
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.1.tgz#b7f02c04d8d8602fb4bd873b03685fccefce1c6f"
@@ -13484,11 +13453,6 @@ jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3, jsx-ast-utils@^2.4.1:
   dependencies:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
-
-jwt-decode@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
-  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
 
 keyboard-key@^1.1.0:
   version "1.1.0"
