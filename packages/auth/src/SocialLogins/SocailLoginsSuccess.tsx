@@ -5,6 +5,7 @@ import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
 import { useAuthRoutes, useOnRedirectTo, useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hooks/auth';
 import { useRedirectUri } from './hooks';
+import { FRONTEGG_CODE_VERIFIER } from '../constants';
 import { useHistory } from 'react-router-dom';
 
 export const SocialLoginsSuccess: FC = () => {
@@ -21,6 +22,8 @@ export const SocialLoginsSuccess: FC = () => {
     const params: URLSearchParams = new URLSearchParams(location.search);
     const state = params.get('state');
     const code = params.get('code');
+    const codeVerifier: any = localStorage.getItem(FRONTEGG_CODE_VERIFIER);
+    localStorage.removeItem(FRONTEGG_CODE_VERIFIER);
 
     let parsedState: ISocialLoginCallbackState;
     const error = t('auth.social-logins.error.invalid-callback-url');
@@ -47,7 +50,7 @@ export const SocialLoginsSuccess: FC = () => {
     switch (parsedState.action) {
       case SocialLoginsActions.Login:
       case SocialLoginsActions.SignUp:
-        loginViaSocialLogin({ code, ...parsedState, redirectUri });
+        loginViaSocialLogin({ code, ...parsedState, redirectUri, codeVerifier });
         break;
       default:
         setSocialLoginError({ error });

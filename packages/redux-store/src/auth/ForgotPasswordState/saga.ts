@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLeading } from 'redux-saga/effects';
-import { api, IForgotPassword, IResetPassword } from '@frontegg/rest-api';
+import { api, IForgotPassword, IResetPassword, IGetUserPasswordConfig } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { ForgotPasswordStep } from './interfaces';
 
@@ -24,10 +24,10 @@ function* resetPassword({ payload }: PayloadAction<IResetPassword>) {
   }
 }
 
-export function* loadPasswordConfig() {
+export function* loadPasswordConfig({ payload }: PayloadAction<IGetUserPasswordConfig>) {
   yield put(actions.setForgotPasswordState({ loading: true }));
   try {
-    const passwordConfig = yield call(api.auth.loadPasswordConfig);
+    const passwordConfig = yield call(api.auth.loadPasswordConfig, payload);
     yield put(actions.setForgotPasswordState({ loading: false, passwordConfig }));
   } catch (e) {
     yield put(actions.setForgotPasswordState({ loading: false, error: e.message }));

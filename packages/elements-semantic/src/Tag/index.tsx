@@ -9,6 +9,7 @@ const variantToColor: { [variant in Theme]: SemanticCOLORS } = {
   danger: 'red',
   disabled: 'grey',
   default: 'grey',
+  success: 'green',
 };
 
 const mapper = (props: TagProps): SemanticLabelProps => {

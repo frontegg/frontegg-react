@@ -1,29 +1,30 @@
 import React, { FC } from 'react';
 import { SocialLoginButton } from '../SocialLoginButton';
-import { GithubIcon } from './GithubIcon';
+import { FacebookIcon } from './FacebookIcon';
 import { FronteggContext, SocialLoginProviders } from '@frontegg/rest-api';
 import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
 
-const createGithubUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {
+const createFacebookUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {
   const searchParams: URLSearchParams = new URLSearchParams({
+    scope: 'email',
     client_id: clientId,
     redirect_uri: redirectUrl,
-    scope: 'read:user user:email',
+    response_type: 'code',
     state,
   });
-  const url: URL = new URL('https://github.com/login/oauth/authorize');
+  const url: URL = new URL('https://www.facebook.com/v10.0/dialog/oauth');
   url.search = searchParams.toString();
   return url.toString();
 };
 
-const GithubLogin: FC = (props) => {
+const FacebookLogin: FC = (props) => {
   const { action } = useSocialLoginContext();
 
-  const redirectUrl: string | null = useRedirectUrl(createGithubUrl, SocialLoginProviders.Github);
+  const redirectUrl: string | null = useRedirectUrl(createFacebookUrl, SocialLoginProviders.Facebook);
 
   const defaultButton = (
-    <SocialLoginButton name={SocialLoginProviders.Github} action={action}>
-      <GithubIcon />
+    <SocialLoginButton name={SocialLoginProviders.Facebook} action={action}>
+      <FacebookIcon />
     </SocialLoginButton>
   );
 
@@ -38,4 +39,4 @@ const GithubLogin: FC = (props) => {
   return null;
 };
 
-export default GithubLogin;
+export default FacebookLogin;

@@ -54,7 +54,7 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, ..
       pagination='pages'
       pageSize={defaultItemsPerPage}
       pageCount={Math.max(Math.ceil(tableProps.totalData / defaultItemsPerPage), 1)}
-      expandable
+      expandable={!!headersToShow.length}
       renderExpandedComponent={renderExpandedComponent(headersToShow)}
       toolbar
     />

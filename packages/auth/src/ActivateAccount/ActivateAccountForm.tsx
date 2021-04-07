@@ -40,9 +40,9 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
 
   useEffect((): (() => void) => {
     silentLogout(() => setLogoutLoader(false));
-    loadPasswordConfig();
+    loadPasswordConfig({ userId });
     return resetForgotPasswordState;
-  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState]);
+  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, userId]);
 
   const loading = logoutLoader || activateStateLoading;
 
@@ -79,7 +79,6 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           {t('auth.activate-account.activate-account-button')}
         </FButton>
         <ErrorMessage error={error} />
-        <SocialLoginsLoginWithWrapper />
       </FForm>
     </Formik>
   );

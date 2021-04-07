@@ -26,13 +26,14 @@ export const validateTwoFactorRecoveryCode = (t: TFunction) =>
 export const validatePasswordConfirmation = (t: TFunction, field: string = 'password') =>
   Yup.string()
     .required(t('validation.required-field', { name: 'confirmation of the password' }))
-    .when('password', {
+    .when(field, {
       is: (val) => !!(val && val.length > 0),
       then: Yup.string().oneOf([Yup.ref(field)], t('validation.passwords-must-match', 'Passwords must match')),
     });
 
 export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | null) =>
   Yup.string()
+    .label('password')
     .required()
     .test('validate_owasp', 'Invalid Password', async function (value) {
       // Use function to access Yup 'this' context

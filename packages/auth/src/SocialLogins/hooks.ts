@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import { ISocialLoginProviderConfiguration, SocialLoginsProviders } from '@frontegg/rest-api';
+import { ISocialLoginProviderConfiguration, SocialLoginProviders } from '@frontegg/rest-api';
 import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
 import { useAuthRoutes, useSocialLoginState } from '@frontegg/react-hooks/auth';
 import { SocialLoginsContext } from './SocialLoginContext';
@@ -17,7 +17,7 @@ export const useRedirectUri = (): string => {
 
 export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
-  socialLoginType: SocialLoginsProviders
+  socialLoginType: any
 ): string | null => {
   const { action } = useSocialLoginContext();
   const { socialLoginsConfig } = useSocialLoginState();
@@ -41,7 +41,7 @@ export const useRedirectUrl = (
           action,
           afterAuthRedirectUrl: afterAuthRedirectUrl || undefined,
         }),
-      });
+      } as any);
     }
   }, [config?.clientId, config?.redirectUrl, action]);
 

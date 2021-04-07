@@ -2987,6 +2987,37 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
+"@frontegg/react-core@^1.28.0":
+  version "1.28.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-core/-/react-core-1.28.0.tgz#0643e31ea1c73fe0c81f7eb2664cacc60b4c63f3"
+  integrity sha512-FRnsQ+9ektVHhYi13Q9oivC/Soe/+XREL75B/nVxI8wFkQk4fL2XJ/vvQm1hQfiOnuy8eGh7KrXBcNmC+7oacg==
+  dependencies:
+    "@frontegg/rest-api" "^1.28.0"
+    "@reduxjs/toolkit" "^1.4.0"
+    classnames "^2.2.6"
+    formik "^2.1.5"
+    history "^4.9.0"
+    i18next "^19.6.3"
+    jwt-decode "2.2.0"
+    moment "^2.27.0"
+    owasp-password-strength-test "^1.3.0"
+    rc-dialog "^8.4.3"
+    react-i18next "11.7.0"
+    react-popper-tooltip "^3.1.1"
+    react-redux "^7.1.1"
+    react-select "^3.1.0"
+    react-table "^7.5.1"
+    redux-saga "^1.1.3"
+    underscore "^1.10.2"
+    yup "^0.28.3"
+
+"@frontegg/rest-api@^1.28.0":
+  version "1.28.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-1.28.0.tgz#267b1c3701279df9570caa5f5f9604d93135dc4d"
+  integrity sha512-Vco57p6GU2C6w0VElnri1ST8KdD6Jyz8jcNfL6PSbWLhlwFk2EXstL2V/P0f3INctMy2cW2LJI4b2If6EpvldA==
+  dependencies:
+    jwt-decode "2.2.0"
+
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.1.tgz#b7f02c04d8d8602fb4bd873b03685fccefce1c6f"
@@ -5091,6 +5122,11 @@
   version "1.10.24"
   resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.10.24.tgz#dede004deed3b3f99c4db0bdb9ee21cae25befdd"
   integrity sha512-T3NQD8hXNW2sRsSbLNjF/aBo18MyJlbw0lSpQHB/eZZtScPdexN4HSa8cByYwTw9Wy7KuOFr81mlDQcQQaZ79w==
+
+"@types/uuid@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
+  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
 
 "@types/validator@10.11.3":
   version "10.11.3"
@@ -13449,6 +13485,11 @@ jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3, jsx-ast-utils@^2.4.1:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
 
+jwt-decode@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
+
 keyboard-key@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.1.0.tgz#6f2e8e37fa11475bb1f1d65d5174f1b35653f5b7"
@@ -20522,6 +20563,11 @@ uuid@^8.2.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.2.0.tgz#cb10dd6b118e2dada7d0cd9730ba7417c93d920e"
   integrity sha512-CYpGiFTUrmI6OBMkAdjSDM0k5h8SkkiTP4WAjQgDgNB1S3Ou9VBEvr6q0Kv2H1mMk7IWfxYGpMH5sd5AvcIV2Q==
 
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
 v8-compile-cache@^2.0.3:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.1.1.tgz#54bc3cdd43317bca91e35dcaf305b1a7237de745"
@@ -21278,9 +21324,9 @@ xtend@^4.0.0, xtend@^4.0.1, xtend@^4.0.2, xtend@~4.0.1:
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
 y18n@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
-  integrity sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.1.tgz#8db2b83c31c5d75099bb890b23f3094891e247d4"
+  integrity sha512-wNcy4NvjMYL8gogWWYAO7ZFWFfHcbdbE57tZO8e4cbpj8tfUcwrwqSl3ad8HxpYWCdXcJUCeKKZS62Av1affwQ==
 
 yallist@^2.1.2:
   version "2.1.2"

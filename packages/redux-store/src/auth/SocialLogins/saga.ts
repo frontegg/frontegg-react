@@ -7,7 +7,7 @@ import { refreshToken } from '../LoginState/saga';
 export function* loadSocialLoginsConfigurations() {
   try {
     yield put(actions.setSocialLoginsState({ loading: true }));
-    const socialLoginsConfig = yield call(api.auth.getSocialLoginsProviders);
+    const socialLoginsConfig = yield call(api.auth.getSocialLoginProviders);
     yield put(actions.setSocialLoginsState({ socialLoginsConfig, loading: false, firstLoad: false }));
   } catch (e) {
     yield put(actions.setSocialLoginsState({ error: e.message, loading: false, firstLoad: false }));

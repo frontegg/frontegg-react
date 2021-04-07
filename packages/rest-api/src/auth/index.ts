@@ -26,6 +26,7 @@ import {
   IPostLogin,
   IRecoverMFAToken,
   IResetPassword,
+  IGetUserPasswordConfig,
   ISamlConfiguration,
   ISamlVendorConfigResponse,
   IUpdateSamlConfiguration,
@@ -208,11 +209,11 @@ export async function resetPassword(body: IResetPassword): Promise<void> {
 }
 
 /**
- * load password configuration for vendor.
+ * load password configuration for user.
  */
-export async function loadPasswordConfig(): Promise<void> {
+export async function loadPasswordConfig(params?: IGetUserPasswordConfig): Promise<void> {
   console.debug('loadPasswordConfig()');
-  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password`);
+  return Get(`${USERS_SERVICE_URL_V1}/passwords/config`, params);
 }
 
 /**
@@ -344,8 +345,8 @@ export async function updateSamlRoles({ roleIds }: IUpdateSamlRoles): Promise<vo
  *  Get social logins providers configurations for vendor
  * @return array of providers configurations
  */
-export async function getSocialLoginsProviders(): Promise<ISocialLoginProviderConfiguration[]> {
-  console.debug('getSocialLoginsProviders()');
+export async function getSocialLoginProviders(): Promise<ISocialLoginProviderConfiguration[]> {
+  console.debug('getSocialLoginProviders()');
   return Get(IDENTITY_SSO_SERVICE_URL_V1);
 }
 
@@ -364,7 +365,6 @@ export async function loginViaSocialLogin({
   if (redirectUri) {
     params.redirectUri = redirectUri;
   }
-
   if (codeVerifier) {
     params.code_verifier = codeVerifier;
   }

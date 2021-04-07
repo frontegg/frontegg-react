@@ -6,7 +6,10 @@ import './style.scss';
 
 const mapper = (props: LoaderProps): MaterialLoaderProps => {
   const { className, center, variant, color, ...rest } = props;
-  const variantColor = variant === 'danger' || variant === 'disabled' || variant === 'default' ? 'inherit' : variant;
+  const variantColor =
+    variant === 'danger' || variant === 'disabled' || variant === 'default' || variant === 'success'
+      ? 'inherit'
+      : variant;
   return {
     className: classNames(className, { 'fe-material-loader__centered': center }),
     color: variantColor,

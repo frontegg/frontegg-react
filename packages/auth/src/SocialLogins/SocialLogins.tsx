@@ -3,7 +3,9 @@ import { Loader } from '@frontegg/react-core';
 import { SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
+import MicrosoftLogin from './MicrosoftLogin';
 import { SocialLoginsContext } from './SocialLoginContext';
+import FacebookLogin from './FacebookLogin';
 import { useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hooks/auth';
 
 export interface SocialLoginsProps {
@@ -11,7 +13,12 @@ export interface SocialLoginsProps {
   children?: ReactNode;
 }
 
-export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & { Google: FC; Github: FC };
+export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & {
+  Google: FC;
+  Github: FC;
+  Microsoft: FC;
+  Facebook: FC;
+};
 
 export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLoginsProps) => {
   const { firstLoad, socialLoginsConfig, error } = useSocialLoginState();
@@ -40,3 +47,5 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
 
 SocialLogins.Google = GoogleLogin;
 SocialLogins.Github = GithubLogin;
+SocialLogins.Microsoft = MicrosoftLogin;
+SocialLogins.Facebook = FacebookLogin;

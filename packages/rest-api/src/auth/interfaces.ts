@@ -104,15 +104,15 @@ export type IUpdateSamlVendorMetadata = {
   metadata: string;
 };
 
-export enum SocialLoginsProviders {
-  Google = 'google',
-  Github = 'github',
+export enum SocialLoginProviders {
   Microsoft = 'microsoft',
   Facebook = 'facebook',
+  Google = 'google',
+  Github = 'github',
 }
 
 export interface ISocialLoginProviderConfiguration {
-  type: SocialLoginsProviders;
+  type: SocialLoginProviders;
   clientId: string;
   redirectUrl: string;
   active: boolean;
@@ -121,9 +121,9 @@ export interface ISocialLoginProviderConfiguration {
 export interface ILoginViaSocialLogin {
   code: string;
   redirectUri?: string;
-  provider: SocialLoginsProviders;
-  codeVerifier?: string;
+  provider: SocialLoginProviders;
   afterAuthRedirectUrl?: string;
+  codeVerifier?: string;
 }
 
 export interface ISetSocialLoginError {
@@ -194,4 +194,8 @@ export interface IUserIdResponse {
   vendorId: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IGetUserPasswordConfig {
+  userId: string;
 }

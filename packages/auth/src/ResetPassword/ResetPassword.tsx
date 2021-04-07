@@ -27,10 +27,10 @@ export const ResetPassword: FC<ResetPasswordProps> = (props) => {
   const userId = url.searchParams.get('userId') || '';
   const token = url.searchParams.get('token') || '';
 
-  useEffect(() => {
-    loadPasswordConfig();
+  useEffect((): (() => void) => {
+    loadPasswordConfig({ userId });
     return resetForgotPasswordState;
-  }, []);
+  }, [userId]);
 
   let components;
   if (!userId || !token) {

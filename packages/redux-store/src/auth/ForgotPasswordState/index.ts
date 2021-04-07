@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IForgotPassword, IResetPassword } from '@frontegg/rest-api';
+import { IForgotPassword, IGetUserPasswordConfig, IResetPassword } from '@frontegg/rest-api';
 import { resetStateByKey, typeReducerForKey } from '../utils';
 import { ForgotPasswordState, ForgotPasswordStep } from './interfaces';
 import { authStoreName } from '../../constants';
@@ -20,7 +20,9 @@ const reducers = {
 const actions = {
   forgotPassword: createAction(`${authStoreName}/forgotPassword`, (payload: IForgotPassword) => ({ payload })),
   resetPassword: createAction(`${authStoreName}/resetPassword`, (payload: IResetPassword) => ({ payload })),
-  loadPasswordConfig: createAction(`${authStoreName}/loadPasswordConfig`),
+  loadPasswordConfig: createAction(`${authStoreName}/loadPasswordConfig`, (payload?: IGetUserPasswordConfig) => ({
+    payload,
+  })),
 };
 
 /**
@@ -32,7 +34,7 @@ type DispatchedActions = {
   resetForgotPasswordState: () => void;
   forgotPassword: (payload: IForgotPassword) => void;
   resetPassword: (payload: IResetPassword) => void;
-  loadPasswordConfig: () => void;
+  loadPasswordConfig: (payload?: IGetUserPasswordConfig) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

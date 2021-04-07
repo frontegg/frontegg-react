@@ -54,8 +54,12 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
                   cellProps.className = classNames(classes.cell, {
                     [classes.firstCell]: index === 0,
                   });
-                  if (cell.column.id.includes('fe-expander') || cell.column.id.includes('fe-selection')) {
-                    return <TableCell {...cellProps}>{cell.render('Cell')}</TableCell>;
+                  if (cell.column.id.includes('fe-expander')) {
+                    return (
+                      <TableCell {...cellProps} style={{ ...cellProps.style, maxWidth: cell.column.maxWidth || 60 }}>
+                        {cell.render('Cell')}
+                      </TableCell>
+                    );
                   }
 
                   return <TableCell {...cellProps}>{cell.render('Cell')}</TableCell>;

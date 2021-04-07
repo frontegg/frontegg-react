@@ -18,6 +18,7 @@
 
   &__button {
     color: var(--color-white);
+    margin: 0.2em 0;
 
     div {
       div:last-of-type {
@@ -39,6 +40,14 @@
 
     &__github {
       background-color: var(--color-github);
+    }
+
+    &__microsoft {
+      background-color: var(--color-microsoft);
+    }
+
+    &__facebook {
+      background-color: var(--color-facebook);
     }
   }
 }
