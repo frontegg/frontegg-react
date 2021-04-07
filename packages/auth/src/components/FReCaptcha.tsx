@@ -1,16 +1,15 @@
 import React, { FC, useEffect } from 'react';
 import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3';
-import { AuthState } from '../Api';
-import { useAuth } from '../hooks';
 import { useCallback } from 'react';
 import { FFormik } from '@frontegg/react-core';
-interface IReCaptchaProps {
-  action: string;
-}
+import { useSecurityPolicyState } from '@frontegg/react-hooks/auth';
 
 const { useField } = FFormik;
 
-const stateMapper = ({ captchaState }: AuthState) => captchaState;
+interface IReCaptchaProps {
+  action: string;
+  fieldName?: string;
+}
 
 const unload = (recaptchaSiteKey?: string) => {
   if (!recaptchaSiteKey) {
@@ -27,27 +26,28 @@ const unload = (recaptchaSiteKey?: string) => {
   }
 };
 
-export const FReCaptcha: FC<IReCaptchaProps> = ({ action }) => {
-  const { siteKey, enabled } = useAuth(stateMapper);
-  const [, , { setValue }] = useField('recaptchaToken');
+export const FReCaptcha: FC<IReCaptchaProps> = ({ action, fieldName = 'recaptchaToken' }) => {
+  const { policy } = useSecurityPolicyState((state) => state.captchaPolicy);
+  const [, , { setValue }] = useField(fieldName);
 
   useEffect(() => {
-    if (enabled) {
-      loadReCaptcha(siteKey || '');
-    }
-    return () => unload(siteKey);
-  }, [siteKey, enabled]);
+    if (policy?.enabled) loadReCaptcha(policy?.siteKey || '');
 
-  if (!enabled || !siteKey) {
+    return () => unload(policy?.siteKey);
+  }, [policy?.enabled, policy?.siteKey]);
+
+  if (!policy?.enabled || !policy?.siteKey) {
     return null;
   }
 
   const handleCallback = useCallback(
     (token: string) => {
-      setValue(token);
+      setValue(token, false);
     },
     [setValue]
   );
 
-  return <ReCaptcha sitekey={siteKey} verifyCallback={handleCallback} action={action} />;
+  if (!policy || !policy.enabled) return null;
+
+  return <ReCaptcha sitekey={policy?.siteKey} verifyCallback={handleCallback} action={action} />;
 };

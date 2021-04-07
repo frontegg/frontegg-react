@@ -1,13 +1,12 @@
 import React, { FC, useCallback } from 'react';
-import { Button, Dialog, ErrorMessage, FButton, Grid, useT } from '@frontegg/react-core';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
-import { useAuthUserOrNull } from '../hooks';
+import { Button, Dialog, ErrorMessage, Grid, useT } from '@frontegg/react-core';
+import { useAuthTeamActions, useAuthTeamState, useAuthUserOrNull } from '@frontegg/react-hooks/auth';
 
 export interface TeamDeleteUserDialogProps {
   open?: boolean;
 }
 
-export const TeamDeleteUserDialog: FC<TeamDeleteUserDialogProps> = (props) => {
+export const TeamDeleteUserDialog: FC<TeamDeleteUserDialogProps> = () => {
   const { t } = useT();
   const user = useAuthUserOrNull();
   const { open, error, loading, userId, email } = useAuthTeamState(

@@ -1,7 +1,7 @@
-import { SocialLoginsProviders } from '@frontegg/rest-api';
+import { SocialLoginProviders } from '@frontegg/rest-api';
 
 export interface ISocialLoginCallbackState {
-  provider: SocialLoginsProviders;
+  provider: SocialLoginProviders;
   action: SocialLoginsActions;
   afterAuthRedirectUrl?: string;
 }

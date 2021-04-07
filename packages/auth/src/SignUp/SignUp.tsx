@@ -1,12 +1,11 @@
 import React, { FC, useCallback } from 'react';
+import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
+import { useAuthRoutes, useOnRedirectTo, useSignUpState } from '@frontegg/react-hooks/auth';
+import { SignUpStage } from '@frontegg/redux-store/auth';
 import { SignUpForm } from './SignUpForm';
 import { authPageWrapper } from '../components';
-import { AuthState } from '../Api';
-import { AuthStateMapper, useAuth } from '../hooks';
-import { SignUpStage } from '../Api/SignUp/interfaces';
 import { SignUpSuccess } from './SignUpSuccess';
 import { SocialLoginsSignUpWithWrapper } from '../SocialLogins';
-import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 
 interface Components {
   SignUpForm: {};
@@ -30,14 +29,11 @@ const defaultComponents = {
   SocialLogins: SocialLoginsSignUpWithWrapper,
 };
 
-const stateMapper: AuthStateMapper<Pick<AuthState, 'routes' | 'onRedirectTo' | 'signUpState'>> = ({
-  routes,
-  onRedirectTo,
-  signUpState,
-}: AuthState) => ({ onRedirectTo, routes, signUpState });
-
 export const SignUp: FC<SignUpProps> = (props) => {
-  const { routes, onRedirectTo, signUpState } = useAuth(stateMapper);
+  const signUpState = useSignUpState();
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+
   const Dynamic = useDynamicComponents(defaultComponents, props);
   const redirectToLogin = useCallback(() => {
     onRedirectTo(routes.loginUrl);

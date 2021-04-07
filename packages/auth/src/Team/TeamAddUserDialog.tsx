@@ -13,8 +13,7 @@ import {
   validateEmail,
   validateSchema,
 } from '@frontegg/react-core';
-import { useAuthUserOrNull } from '../hooks';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { useAuthUserOrNull, useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 import { checkRoleAccess } from './helpers';
 
 type TRoles = {
@@ -29,7 +28,7 @@ type AddUserFormValues = {
   email: string;
   roles: { label: string; value: string }[];
 };
-export const TeamAddUserDialog: FC = (props) => {
+export const TeamAddUserDialog: FC = () => {
   const user = useAuthUserOrNull();
   const [roleOptionsToDisplay, setRoleOptionsToDisplay] = useState<TRoles[]>([]);
   const { open, error, loading, roles } = useAuthTeamState(({ addUserDialogState, roles }) => ({

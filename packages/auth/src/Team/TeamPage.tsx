@@ -1,16 +1,10 @@
 import React, { FC, useMemo } from 'react';
-import {
-  checkValidChildren,
-  RootPathContext,
-  useRootPath,
-  useProxyComponent,
-  ProxyComponent,
-} from '@frontegg/react-core';
+import { checkValidChildren, useProxyComponent, ProxyComponent } from '@frontegg/react-core';
 import { BasePageProps } from '../interfaces';
 import { TeamLayout } from './TeamLayout';
 import { TeamHeader } from './TeamHeader';
 
-export interface TeamPageProps extends BasePageProps, ProxyComponent {}
+export type TeamPageProps = BasePageProps & ProxyComponent;
 
 export const TeamPage: FC<TeamPageProps> = (props) => {
   const proxyPortals = useProxyComponent(props);

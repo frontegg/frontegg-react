@@ -1,15 +1,16 @@
 import React, { ComponentType, FC } from 'react';
+import { MFAStep } from '@frontegg/redux-store/auth';
 import { MFARecoveryCodeStepMessage } from './MFARecoveryCodeStepMessage';
 import { MFARecoveryCodeStepForm } from './MFARecoveryCodeStepForm';
 import { MFARecoveryCodeStepFooter } from './MFARecoveryCodeStepFooter';
-import { MFAStep } from '../../Api';
-import { useAuthMfaState } from '../hooks';
+
+import { useMfaState } from '@frontegg/react-hooks/auth';
 
 type MFARecoveryCodeStepProps = {
   MFARecoveryCodeStepFooter?: ComponentType;
 };
 export const MFARecoveryCodeStep: FC<MFARecoveryCodeStepProps> = (props) => {
-  const { step } = useAuthMfaState(({ step }) => ({ step }));
+  const { step } = useMfaState(({ step }) => ({ step }));
 
   const Footer = props.MFARecoveryCodeStepFooter ?? MFARecoveryCodeStepFooter;
   if (step !== MFAStep.recoveryCode) {

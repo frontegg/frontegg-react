@@ -1,11 +1,8 @@
 import React, { FC, useEffect } from 'react';
 import { authPageWrapper } from '../components';
-import { AuthState } from '../Api';
 import { Loader, RendererFunctionFC, omitProps } from '@frontegg/react-core';
 import { LoginWithSSOFailed } from './LoginWithSSOFailed';
-import { useAuth } from '../hooks';
-
-const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
+import { useLoginActions } from '@frontegg/react-hooks/auth';
 
 export interface LoginWithSSOProps {
   renderer?: RendererFunctionFC<LoginWithSSOProps>;
@@ -13,7 +10,7 @@ export interface LoginWithSSOProps {
 
 export const LoginWithSSO: FC<LoginWithSSOProps> = (props) => {
   const { renderer } = props;
-  const { postLogin } = useAuth(stateMapper);
+  const { postLogin } = useLoginActions();
 
   const url = new URL(window?.location.href);
   const RelayState = url.searchParams.get('RelayState') || '';

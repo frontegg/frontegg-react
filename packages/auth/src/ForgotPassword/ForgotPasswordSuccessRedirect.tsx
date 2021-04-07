@@ -1,28 +1,18 @@
 import React, { FC } from 'react';
-import { Button, omitProps, RendererFunctionFC, WithT, useT } from '@frontegg/react-core';
-import { AuthActions, AuthState } from '../Api';
-import { useAuth } from '../hooks';
-
-const stateMapper = ({ onRedirectTo, routes }: AuthState) => ({ onRedirectTo, routes });
-const actionsMapper = ({ resetForgotPasswordState }: AuthActions) => ({ resetForgotPasswordState });
+import { Button, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
+import { useAuthRoutes, useOnRedirectTo, useForgotPasswordActions } from '@frontegg/react-hooks/auth';
 
 export interface ForgotPasswordSuccessRedirectProps {
   renderer?: RendererFunctionFC<ForgotPasswordSuccessRedirectProps>;
 }
 
-export type Props = ReturnType<typeof stateMapper> &
-  ReturnType<typeof actionsMapper> &
-  WithT &
-  ForgotPasswordSuccessRedirectProps;
-
 export const ForgotPasswordSuccessRedirect: FC<ForgotPasswordSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const {
-    onRedirectTo,
-    routes: { loginUrl },
-    resetForgotPasswordState,
-  } = useAuth(({ onRedirectTo, routes }) => ({ onRedirectTo, routes }));
+  const onRedirectTo = useOnRedirectTo();
+  const { loginUrl } = useAuthRoutes();
+  const { resetForgotPasswordState } = useForgotPasswordActions();
+
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
   }

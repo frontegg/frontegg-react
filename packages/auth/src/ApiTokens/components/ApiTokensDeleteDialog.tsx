@@ -1,25 +1,23 @@
 import React, { FC, useCallback } from 'react';
 import { Button, Dialog, ErrorMessage, Grid, useT } from '@frontegg/react-core';
-import { useApiTokensState, useApiTokensActions } from '../hooks';
-import { ApiStateKeys } from '../../Api/ApiTokensState/interfaces';
+import { ApiStateKeys, ApiTokensState } from '@frontegg/redux-store/auth';
+import { useApiTokensState, useApiTokensActions } from '@frontegg/react-hooks/auth';
 import { prefixCls } from '../constants';
 
+const stateMapper = ({
+  deleteTokenDialog,
+  apiTokenType,
+  loaders: { DELETE_API_TOKEN: loading },
+  errors: { DELETE_API_TOKEN: error },
+}: ApiTokensState) => ({
+  ...deleteTokenDialog,
+  apiTokenType,
+  loading,
+  error,
+});
 export const ApiTokensDeleteDialog: FC = () => {
   const { t } = useT();
-  const {
-    open,
-    clientId,
-    apiTokenType,
-    loading,
-    error,
-  } = useApiTokensState(
-    ({
-      deleteTokenDialog,
-      apiTokenType,
-      loaders: { DELETE_API_TOKEN: loading },
-      errors: { DELETE_API_TOKEN: error },
-    }) => ({ ...deleteTokenDialog, apiTokenType, loading, error })
-  );
+  const { open, clientId, apiTokenType, loading, error } = useApiTokensState(stateMapper);
   const { deleteTenantApiToken, deleteUserApiToken, setApiTokensState, setApiTokensError } = useApiTokensActions();
 
   const handleDeleteUser = useCallback(() => {

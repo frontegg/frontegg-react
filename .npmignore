@@ -5,7 +5,7 @@ dist
 tsconfig.json
 scripts
 Makefile
-
+.npmrc
 
 packages/*/coverage
 packages/*/src

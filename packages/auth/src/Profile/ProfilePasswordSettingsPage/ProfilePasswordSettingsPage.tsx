@@ -13,7 +13,13 @@ import {
   PageTabProps,
   OnError,
 } from '@frontegg/react-core';
-import { useAuth, useAuthActions, useAuthUser } from '../../hooks';
+import {
+  useProfileActions,
+  useProfileState,
+  useForgotPasswordActions,
+  useForgotPasswordState,
+  useAuthUser,
+} from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 
@@ -22,16 +28,13 @@ type ProfilePasswordSettingsPageProps = OnError;
 export const ProfilePasswordSettingsPage: FC<ProfilePasswordSettingsPageProps> & PageTabProps = (props) => {
   const { t } = useT();
   const { onError } = props;
-  const { loadPasswordConfig } = useAuthActions();
-  const {
-    profileState: { loading, error },
-    forgotPasswordState: { passwordConfig },
-    changePassword,
-  } = useAuth(({ profileState, forgotPasswordState }) => ({ profileState, forgotPasswordState }));
-  const { id: userId } = useAuthUser();
-
+  const { passwordConfig } = useForgotPasswordState();
+  const { loadPasswordConfig } = useForgotPasswordActions();
+  const { loading, error } = useProfileState();
+  const { changePassword } = useProfileActions();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const changePasswordSubmitted = useRef(false);
+  const { id: userId } = useAuthUser();
 
   useEffect(() => {
     loadPasswordConfig({ userId });

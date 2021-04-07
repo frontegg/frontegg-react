@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Table, TableColumnProps, useT } from '@frontegg/react-core';
-import { useAuthUserOrNull } from '../hooks';
-import { TeamState } from '../Api/TeamState';
+import { TeamState } from '@frontegg/redux-store/auth';
+import { useAuthUserOrNull, useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 import {
   TeamTableActions,
   TeamTableAvatarCell,
@@ -11,7 +11,6 @@ import {
   TeamTableTitleCell,
   TeamTableRoles,
 } from './TeamTableCells';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
 import { checkRoleAccess } from './helpers';
 
 type TRoles = {
@@ -31,20 +30,21 @@ const stateMapper = ({ users, loaders, totalItems, pageSize, totalPages, errors,
   filter,
 });
 
-export const TeamTable: FC = (props) => {
+export const TeamTable: FC = () => {
   const [roleOptionsToDisplay, setRoleOptionsToDisplay] = useState<TRoles[]>([]);
   const { users, loaders, totalItems, sort, pageSize, totalPages, roles } = useAuthTeamState(stateMapper);
-  const user = useAuthUserOrNull();
   const { loadUsers } = useAuthTeamActions();
+  const user = useAuthUserOrNull();
   const { t } = useT();
+
   useEffect(() => {
     loadUsers({ pageOffset: 0 });
-  }, []);
+  }, [loadUsers]);
 
   useEffect(() => {
     const rolesWithAccess = checkRoleAccess(roles, user);
     setRoleOptionsToDisplay(rolesWithAccess);
-  }, [roles]);
+  }, [roles, setRoleOptionsToDisplay]);
 
   const teamTableColumns: TableColumnProps[] = useMemo(
     () => [

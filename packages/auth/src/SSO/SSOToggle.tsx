@@ -1,14 +1,13 @@
 import React, { FC, useCallback } from 'react';
 import { SwitchToggle, SwitchToggleProps, useT } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
 import { reloadSSOIfNeeded } from './helpers';
 import { HideOption } from '../interfaces';
-import { useAuthSSOActions, useAuthSSOState } from './hooks';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 
 export const SSOToggle: FC<SwitchToggleProps & HideOption> = (props) => {
   reloadSSOIfNeeded();
-  const { samlConfiguration, loading } = useAuthSSOState();
-  const { saveSSOConfigurations } = useAuthSSOActions();
+  const { samlConfiguration, loading } = useSSOState();
+  const { saveSSOConfigurations } = useSSOActions();
 
   const { t } = useT();
   if (props.hide) {

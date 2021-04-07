@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { SocialLoginButton } from '../SocialLoginButton';
 import { GithubIcon } from './GithubIcon';
-import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
+import { FronteggContext, SocialLoginProviders } from '@frontegg/rest-api';
 import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
 
 const createGithubUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType): string => {
@@ -19,10 +19,10 @@ const createGithubUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
 const GithubLogin: FC = (props) => {
   const { action } = useSocialLoginContext();
 
-  const redirectUrl: string | null = useRedirectUrl(createGithubUrl, SocialLoginsProviders.Github);
+  const redirectUrl: string | null = useRedirectUrl(createGithubUrl, SocialLoginProviders.Github);
 
   const defaultButton = (
-    <SocialLoginButton name={SocialLoginsProviders.Github} action={action}>
+    <SocialLoginButton name={SocialLoginProviders.Github} action={action}>
       <GithubIcon />
     </SocialLoginButton>
   );

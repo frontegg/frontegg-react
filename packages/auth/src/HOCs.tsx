@@ -1,15 +1,14 @@
 /* istanbul ignore file */
-
-import React, { ComponentType, FC, useEffect } from 'react';
+import React, { ComponentType, FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { AuthState, actions, AuthActions } from './Api';
-import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
-import { useAuth, useIsAuthenticated } from './hooks';
+import { AuthState, authActions, AuthActions } from '@frontegg/redux-store/auth';
+import { useAuth, useIsAuthenticated } from '@frontegg/react-hooks/auth';
 import { connect, withT } from '@frontegg/react-core';
+import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 
 const pluginName = 'auth';
-const pluginActions = actions;
+const pluginActions = authActions;
 
 const emptySelector = () => ({});
 export const withAuth = <P extends any>(
@@ -122,7 +121,9 @@ export class ProtectedRoute extends React.Component<RouteProps> {
       return (
         <Route
           {...routeProps}
-          render={(props) => <ProtectedComponent>{React.createElement(component, props)}</ProtectedComponent>}
+          render={(props) => (
+            <ProtectedComponent>{React.createElement(component as any, props as any)}</ProtectedComponent>
+          )}
         />
       );
     }

@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
+import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
+import { ForgotPasswordStep } from '@frontegg/redux-store/auth';
 import { ResetPasswordSuccessRedirect, ResetPasswordSuccessRedirectProps } from './ResetPasswordSuccessRedirect';
 import { ResetPasswordFailed, ResetPasswordFailedProps } from './ResetPasswordFailedRedirect';
 import { ResetPasswordForm, ResetPasswordFormProps } from './ResetPasswordForm';
-import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
 import { authPageWrapper } from '../components';
-import { useAuth } from '../hooks';
-import { ForgotPasswordStep } from '../Api';
+import { useForgotPasswordActions, useForgotPasswordState } from '@frontegg/react-hooks/auth';
 
 type Components = {
   ResetPasswordForm: ResetPasswordFormProps;
@@ -20,7 +20,8 @@ export interface ResetPasswordProps {
 const defaultComponent = { ResetPasswordForm, ResetPasswordSuccessRedirect, ResetPasswordFailed };
 export const ResetPassword: FC<ResetPasswordProps> = (props) => {
   const Dynamic = useDynamicComponents(defaultComponent, props);
-  const { step, loadPasswordConfig, resetForgotPasswordState } = useAuth((state) => state.forgotPasswordState);
+  const { step } = useForgotPasswordState();
+  const { loadPasswordConfig, resetForgotPasswordState } = useForgotPasswordActions();
 
   const url = new URL(window?.location.href);
   const userId = url.searchParams.get('userId') || '';

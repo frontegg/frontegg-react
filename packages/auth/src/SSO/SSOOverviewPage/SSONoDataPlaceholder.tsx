@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { Loader, useT } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
 import { HideOption } from '../../interfaces';
-import { useAuthSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 
 export const SSONoDataPlaceholder: FC<HideOption> = (props) => {
   const { t } = useT();
-  const { samlConfiguration, loading } = useAuthSSOState(({ samlConfiguration, loading }) => ({
+  const { samlConfiguration, loading } = useSSOState(({ samlConfiguration, loading }) => ({
     samlConfiguration,
     loading,
   }));

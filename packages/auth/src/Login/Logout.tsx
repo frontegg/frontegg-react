@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Loader, omitProps, RendererFunctionFC } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useAuthRoutes, useLoginActions } from '@frontegg/react-hooks/auth';
 
 export interface LogoutProps {
   renderer?: RendererFunctionFC<LogoutProps>;
@@ -8,7 +8,9 @@ export interface LogoutProps {
 
 export const Logout: FC<LogoutProps> = (props) => {
   const { renderer } = props;
-  const { logout, loginUrl } = useAuth((state) => state.routes);
+  const { loginUrl } = useAuthRoutes();
+  const { logout } = useLoginActions();
+
   useEffect(() => {
     setTimeout(() => {
       logout(() => (window.location.href = loginUrl));

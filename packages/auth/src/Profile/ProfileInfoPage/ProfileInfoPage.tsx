@@ -10,11 +10,12 @@ import {
 } from '@frontegg/react-core';
 import { ProfileImageUploader } from './ProfileImageUploader';
 import { ProfileBasicInformation } from './ProfileBasicInformation';
-import { useAuthProfile } from '../helpers';
+import { useProfileActions, useProfileState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 export const ProfileInfoPage: FC & PageTabProps = ({ children }) => {
-  const { profile, saveProfile } = useAuthProfile();
+  const { profile } = useProfileState();
+  const { saveProfile } = useProfileActions();
   const { t } = useT();
 
   const isChildrenExist = !!children;

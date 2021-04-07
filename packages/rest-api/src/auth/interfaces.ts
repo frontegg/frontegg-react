@@ -1,15 +1,12 @@
 import { IUserProfile } from '..';
 
+export * from './secutiry-poilicy/interfaces';
+
 export type IPreLogin = { email: string };
 export type IPostLogin = {
   RelayState: string;
   SAMLResponse: string;
 };
-
-export interface ICaptchaPolicy {
-  siteKey: string;
-  enabled: boolean;
-}
 
 export type ILogin = { email: string; password: string; recaptchaToken?: string };
 
@@ -107,15 +104,15 @@ export type IUpdateSamlVendorMetadata = {
   metadata: string;
 };
 
-export enum SocialLoginsProviders {
-  Google = 'google',
-  Github = 'github',
+export enum SocialLoginProviders {
   Microsoft = 'microsoft',
   Facebook = 'facebook',
+  Google = 'google',
+  Github = 'github',
 }
 
 export interface ISocialLoginProviderConfiguration {
-  type: SocialLoginsProviders;
+  type: SocialLoginProviders;
   clientId: string;
   redirectUrl: string;
   active: boolean;
@@ -124,7 +121,7 @@ export interface ISocialLoginProviderConfiguration {
 export interface ILoginViaSocialLogin {
   code: string;
   redirectUri?: string;
-  provider: SocialLoginsProviders;
+  provider: SocialLoginProviders;
   afterAuthRedirectUrl?: string;
   codeVerifier?: string;
 }
@@ -183,7 +180,7 @@ export interface IDeleteApiToken {
 }
 
 export interface IUpdateSamlRoles {
-  roleIds: Array<string>;
+  roleIds: string[];
 }
 
 export type IGetUserById = { userId: string };

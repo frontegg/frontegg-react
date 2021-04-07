@@ -1,24 +1,28 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 import { Button, Icon, Loader, MenuItem, Tag, useT } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useAuthUser, useTenantsActions, useTenantsState } from '@frontegg/react-hooks/auth';
 
 type AccountPopupSwitchTenantProps = {
   show: boolean;
   onClose: () => void;
 };
 
+type TenantInfo = {
+  id: string;
+  name: string;
+  tenantId: string;
+};
 export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (props) => {
-  const { tenantsLoading, user, tenants: tenantsFromState, switchTenant } = useAuth(({ loginState, user }) => ({
-    ...loginState,
-    user,
-  }));
+  const user = useAuthUser();
+  const { tenants: tenantsFromState, loading } = useTenantsState();
+  const { switchTenant } = useTenantsActions();
   const { t } = useT();
   const { show } = props;
-  const tenants =
+  const tenants: TenantInfo[] =
     tenantsFromState.length > 0
       ? tenantsFromState
-      : (user?.tenantIds ?? []).map((tenantId) => ({ id: tenantId, tenantId, name: tenantId }));
+      : (user?.tenantIds ?? []).map((tenantId: string) => ({ id: tenantId, tenantId, name: tenantId }));
   return (
     <div
       className={classNames('fe-account-switch-tenant', {
@@ -32,8 +36,8 @@ export const AccountPopupSwitchTenant: FC<AccountPopupSwitchTenantProps> = (prop
         <span>{t('common.switchTenant')}</span>
       </div>
       <div className='fe-account-switch-tenant__body'>
-        {tenantsLoading && <Loader center={true} />}
-        {!tenantsLoading &&
+        {loading && <Loader center={true} />}
+        {!loading &&
           tenants.map((tenant) => (
             <MenuItem
               data-test-id={`switch-to-tenant-${tenant.tenantId}`}

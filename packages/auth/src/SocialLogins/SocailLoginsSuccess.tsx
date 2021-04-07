@@ -1,21 +1,18 @@
 import React, { FC, useEffect } from 'react';
+import { Button, Loader, useT } from '@frontegg/react-core';
+import { useLocation } from 'react-router-dom';
 import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import { authPageWrapper } from '../components';
-import { useAuth } from '../hooks';
-import { useHistory, useLocation } from 'react-router';
-import { Button, Loader, useT } from '@frontegg/react-core';
+import { useAuthRoutes, useOnRedirectTo, useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hooks/auth';
 import { useRedirectUri } from './hooks';
 import { FRONTEGG_CODE_VERIFIER } from '../constants';
+import { useHistory } from 'react-router-dom';
 
 export const SocialLoginsSuccess: FC = () => {
-  const {
-    routes,
-    onRedirectTo,
-    resetSocialLoginsState,
-    setSocialLoginError,
-    loginViaSocialLogin,
-    socialLoginsState,
-  } = useAuth();
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const socialLoginState = useSocialLoginState();
+  const { resetSocialLoginsState, setSocialLoginError, loginViaSocialLogin } = useSocialLoginActions();
   const location = useLocation();
   const { t } = useT();
   const redirectUri = useRedirectUri();
@@ -25,7 +22,7 @@ export const SocialLoginsSuccess: FC = () => {
     const params: URLSearchParams = new URLSearchParams(location.search);
     const state = params.get('state');
     const code = params.get('code');
-    const codeVerifier = localStorage.getItem(FRONTEGG_CODE_VERIFIER);
+    const codeVerifier: any = localStorage.getItem(FRONTEGG_CODE_VERIFIER);
     localStorage.removeItem(FRONTEGG_CODE_VERIFIER);
 
     let parsedState: ISocialLoginCallbackState;
@@ -60,7 +57,7 @@ export const SocialLoginsSuccess: FC = () => {
     }
   }, []);
 
-  if (socialLoginsState.firstLoad || socialLoginsState.loading) {
+  if (socialLoginState.firstLoad || socialLoginState.loading) {
     return (
       <div className={'fe-center'}>
         <Loader />
@@ -70,7 +67,7 @@ export const SocialLoginsSuccess: FC = () => {
 
   return (
     <>
-      <div className='fe-error-message'>{socialLoginsState.error}</div>
+      <div className='fe-error-message'>{socialLoginState.error}</div>
       <Button
         fullWidth={true}
         onClick={() => {

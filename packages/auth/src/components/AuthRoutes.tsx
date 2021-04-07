@@ -1,14 +1,14 @@
 import React, { FC, useMemo, createElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Logger } from '@frontegg/react-core';
+import { AuthState } from '@frontegg/redux-store/auth';
 import { LoginPage, LogoutPage, LoginWithSSOPage, Login, Logout, LoginWithSSO } from '../Login';
 import { ActivateAccount, ActivateAccountPage } from '../ActivateAccount';
 import { AcceptInvitation, AcceptInvitationPage } from '../AcceptInvitation';
 import { ForgotPassword, ForgotPasswordPage } from '../ForgotPassword';
 import { ResetPassword, ResetPasswordPage } from '../ResetPassword';
 import { AuthPageProps } from '../interfaces';
-import { AuthState } from '../Api';
-import { useAuth } from '../hooks';
+import { useAuth } from '@frontegg/react-hooks/auth';
 import { SocialLoginsSuccess, SocialLoginsSuccessPageComponent } from '../SocialLogins';
 import { SignUp, SignUpPageComponent } from '../SignUp';
 

@@ -1,17 +1,17 @@
 import React, { FC, useEffect } from 'react';
 import { useT, FFormik, FButton, ErrorMessage } from '@frontegg/react-core';
-import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 
 const { useFormikContext } = FFormik;
 
 export const SSOClaimDomainProceedStep: FC = (props) => {
   const { t } = useT();
-  const { samlConfiguration, saving, error } = useAuthSSOState(({ samlConfiguration, saving, error }) => ({
+  const { samlConfiguration, saving, error } = useSSOState(({ samlConfiguration, saving, error }) => ({
     samlConfiguration,
     saving,
     error,
   }));
-  const { setSSOState } = useAuthSSOActions();
+  const { setSSOState } = useSSOActions();
   const { values } = useFormikContext<{ domain: string }>();
 
   useEffect(() => {

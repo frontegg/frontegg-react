@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useT, RendererFunctionFC, Button, omitProps } from '@frontegg/react-core';
+import { useT, RendererFunctionFC, omitProps } from '@frontegg/react-core';
 
 export interface FailedProps {
   renderer?: RendererFunctionFC<FailedProps>;

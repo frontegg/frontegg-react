@@ -1,0 +1,20 @@
+{
+  "name": "@frontegg/redux-store",
+  "libName": "FronteggReduxStore",
+  "version": "1.28.0",
+  "author": "Frontegg LTD",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
+    "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
+  },
+  "dependencies": {
+    "@frontegg/rest-api": "1.28.0",
+    "@reduxjs/toolkit": "1.x",
+    "redux-saga": "1.x"
+  },
+  "gitHead": "00c0bd425a211916eec1170b8359cf302727b338"
+}

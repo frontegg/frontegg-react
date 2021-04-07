@@ -11,7 +11,7 @@ import {
   useT,
 } from '@frontegg/react-core';
 import { SamlVendors } from './SSOVendors';
-import { useAuth } from '../../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 
 type InstructionsAccordionProps = {
   steps: {
@@ -74,7 +74,7 @@ const InstructionsAccordion: FC<InstructionsAccordionProps> = (props) => {
 };
 
 const OktaInstructions = () => {
-  const { samlConfiguration } = useAuth((state) => state.ssoState);
+  const { samlConfiguration } = useSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
   const steps = [
     {
       text: (
@@ -132,7 +132,7 @@ const OktaInstructions = () => {
 };
 
 const AzureInstructions = () => {
-  const { samlConfiguration } = useAuth((state) => state.ssoState);
+  const { samlConfiguration } = useSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
   const steps = [
     {
       text: <>Navigate to your azure management portal and select Azure Active Directory from the search bar</>,
@@ -203,7 +203,7 @@ const AzureInstructions = () => {
 };
 
 const GoogleInstructions = () => {
-  const { samlConfiguration } = useAuth((state) => state.ssoState);
+  const { samlConfiguration } = useSSOState(({ samlConfiguration }) => ({ samlConfiguration }));
   const steps = [
     {
       text: <>Navigate to your GSuite admin console and select Apps from the tiles menu</>,

@@ -1,18 +1,19 @@
 import React, { FC, useEffect } from 'react';
-import { checkRootPath, Grid, useT } from '@frontegg/react-core';
+import { checkRootPath, Grid } from '@frontegg/react-core';
 import { Route } from 'react-router-dom';
 import { HideOption, RouteWrapper } from '../../interfaces';
-import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { useAuthTeamActions, useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SSOManageAuthorizationForm } from './SSOManageAuthorizationForm';
 import { reloadSSOIfNeeded } from '../helpers';
 
 export const SSOManageAuthorizationComponent: FC<HideOption> = (props) => {
   reloadSSOIfNeeded();
-  const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
-  const { loadSSOAllRoles, loadSSOAuthorizationRoles } = useAuthSSOActions();
+  const { loading } = useSSOState(({ loading }) => ({ loading }));
+  const { loadSSOAuthorizationRoles } = useSSOActions();
+  const { loadRoles } = useAuthTeamActions();
 
   useEffect(() => {
-    loadSSOAllRoles();
+    loadRoles();
     loadSSOAuthorizationRoles();
   }, []);
 

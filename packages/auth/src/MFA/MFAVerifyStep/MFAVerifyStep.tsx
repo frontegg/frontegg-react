@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import { FFormik, FForm, useT, validateSchema, validateTwoFactorCode } from '@frontegg/react-core';
-import { useAuth } from '../../hooks';
+import { MFAStep } from '@frontegg/redux-store/auth';
 import { HideOption } from '../../interfaces';
 import { MFAVerifyStepMessage } from './MFAVerifyStepMessage';
 import { MFAVerifyStepForm } from './MFAVerifyStepForm';
 import { MFAVerifyStepErrorMessage } from './MFAVerifyStepErrorMessage';
 import { MFAVerifyStepFooter } from './MFAVerifyStepFooter';
-import { MFAStep } from '../../Api/MfaState';
-import { useAuthMfaActions, useAuthMfaState } from '../hooks';
+
+import { useMfaActions, useMfaState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 
 export const MFAVerifyStep: FC<HideOption> = (props) => {
   const { t } = useT();
-  const { step } = useAuthMfaState(({ step }) => ({ step }));
-  const { verifyMfa } = useAuthMfaActions();
+  const { step } = useMfaState(({ step }) => ({ step }));
+  const { verifyMfa } = useMfaActions();
 
   if (step !== MFAStep.verify) {
     return null;

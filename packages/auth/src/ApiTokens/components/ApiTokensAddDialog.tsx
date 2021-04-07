@@ -1,4 +1,6 @@
 import React, { FC, useCallback } from 'react';
+import { ITeamUserRole } from '@frontegg/rest-api';
+import { ApiStateKeys, ApiTokensState } from '@frontegg/redux-store/auth';
 import {
   Button,
   Dialog,
@@ -11,11 +13,8 @@ import {
   Grid,
   useT,
 } from '@frontegg/react-core';
-import { useApiTokensActions, useApiTokensState } from '../hooks';
-import { ITeamUserRole } from '@frontegg/rest-api';
+import { useApiTokensActions, useApiTokensState } from '@frontegg/react-hooks/auth';
 import { prefixCls } from '../constants';
-import { ApiStateKeys } from '../../Api/ApiTokensState';
-import { ApiTokensState } from '../../Api/ApiTokensState';
 
 const { Formik } = FFormik;
 

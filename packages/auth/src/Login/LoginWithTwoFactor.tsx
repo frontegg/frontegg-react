@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { LoginStep } from '@frontegg/redux-store/auth';
 import {
   validateSchema,
   validateTwoFactorCode,
@@ -11,12 +12,9 @@ import {
   FButton,
   FFormik,
 } from '@frontegg/react-core';
-import { AuthState, LoginStep } from '../Api';
-import { useAuth } from '../hooks';
+import { useLoginActions, useLoginState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
-
-const stateMapper = ({ loginState }: AuthState) => ({ ...loginState });
 
 export interface LoginWithTwoFactorProps {
   renderer?: RendererFunctionFC<LoginWithTwoFactorProps>;
@@ -25,7 +23,8 @@ export interface LoginWithTwoFactorProps {
 export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loading, error, mfaToken, loginWithMfa, setLoginState } = useAuth(stateMapper);
+  const { loading, error, mfaToken } = useLoginState();
+  const { loginWithMfa, setLoginState } = useLoginActions();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));

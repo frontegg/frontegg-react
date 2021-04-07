@@ -1,14 +1,15 @@
 import React, { FC, useEffect } from 'react';
 import { Dialog, DialogContext, DialogProps, omitProps, useT } from '@frontegg/react-core';
+import { MFAStep } from '@frontegg/redux-store/auth';
 import { MFAVerifyStep } from './MFAVerifyStep';
 import { MFARecoveryCodeStep } from './MFARecoveryCodeStep';
-import { useAuth } from '../hooks';
-import { MFAStep } from '../Api/MfaState';
+import { useMfaActions } from '@frontegg/react-hooks/auth';
 
 export type MFADialogProps = DialogProps;
 export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
-  const { setMfaState } = useAuth();
+  const { setMfaState } = useMfaActions();
+
   const dialogProps = omitProps(props, ['children']);
   useEffect(() => {
     props.open && setMfaState({ step: MFAStep.verify, loading: true, qrCode: null });

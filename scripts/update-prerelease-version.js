@@ -15,6 +15,8 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
 
   [
     '@frontegg/rest-api',
+    '@frontegg/redux-store',
+    '@frontegg/react-hooks',
     '@frontegg/react-core',
     '@frontegg/react-auth',
     '@frontegg/react-audits',

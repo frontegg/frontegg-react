@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { AuthActions, AuthState, storeName } from './Api';
-import { useAuth, useAuthActions } from './hooks';
+import { AuthActions, AuthState, authStoreName } from '@frontegg/redux-store/auth';
+import { useAuth, useAuthActions } from '@frontegg/react-hooks';
 import { ContextHolder } from '@frontegg/rest-api';
 import { ListenerProps } from '@frontegg/react-core';
 
@@ -54,14 +54,14 @@ export const AuthListener: FC<ListenerProps<AuthActions>> = (props) => {
     });
   };
   useEffect(() => {
-    actions.loadCaptchaPolicy();
+    actions.loadSecurityPolicyCaptcha();
   }, []);
   useEffect(() => updateSessionTimer(true), []);
   useEffect(() => updateSessionTimer(), [isAuthenticated]);
   useEffect(() => updateAuthenticationOnStorage(), [isLoading, isAuthenticated]);
   useEffect(() => addStorageListener(), []);
   useEffect(() => {
-    props.resolveActions?.(storeName, actions);
+    props.resolveActions?.(authStoreName, actions);
   }, [props.resolveActions, actions]);
   return null;
 };

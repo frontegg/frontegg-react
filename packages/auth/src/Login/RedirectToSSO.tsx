@@ -1,5 +1,5 @@
-import { Loader, omitProps, RendererFunction, useT } from '@frontegg/react-core';
 import React, { FC, ReactElement } from 'react';
+import { Loader, omitProps, RendererFunction, useT } from '@frontegg/react-core';
 
 export interface RedirectToSSOProps {
   renderer?: RendererFunction<RedirectToSSOProps, RedirectToSSOProps, ReactElement>;

@@ -12,7 +12,7 @@ import {
   FForm,
   FFormik,
 } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import { useForgotPasswordActions, useForgotPasswordState } from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 
@@ -25,7 +25,8 @@ export interface ResetPasswordFormProps {
 export const ResetPasswordForm: FC<ResetPasswordFormProps> = (props) => {
   const { renderer, userId, token } = props;
   const { t } = useT();
-  const { loading, error, resetPassword, passwordConfig } = useAuth(({ forgotPasswordState }) => forgotPasswordState);
+  const { loading, error, passwordConfig } = useForgotPasswordState();
+  const { resetPassword } = useForgotPasswordActions();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));

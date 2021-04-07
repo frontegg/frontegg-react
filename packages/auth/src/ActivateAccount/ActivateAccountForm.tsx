@@ -1,5 +1,5 @@
 import React, { ComponentType, createElement, FC, useEffect, useState } from 'react';
-import { AuthActions, AuthState } from '../Api';
+import { AuthActions, AuthState } from '@frontegg/redux-store/auth';
 import {
   validatePasswordConfirmation,
   validateSchema,
@@ -11,7 +11,8 @@ import {
   FFormik,
   validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
-import { useAuth, useAuthActions } from '../hooks';
+import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
+import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 

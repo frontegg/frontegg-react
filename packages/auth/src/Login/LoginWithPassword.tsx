@@ -1,6 +1,5 @@
 import React, { ComponentType, createElement, FC, useCallback, useEffect } from 'react';
-import { AuthActions, AuthState } from '../Api';
-import { LoginStep } from '../Api/LoginState';
+import { LoginStep } from '@frontegg/redux-store/auth';
 import {
   validateEmail,
   validateSchema,
@@ -12,22 +11,20 @@ import {
   FInput,
   FFormik,
 } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
+import {
+  useAuth,
+  useAuthRoutes,
+  useOnRedirectTo,
+  useLoginActions,
+  useLoginState,
+  useSignUpState,
+  useForgotPasswordActions,
+} from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
 
 const { Formik } = FFormik;
 
-const stateMapper = ({ loginState, isSSOAuth, onRedirectTo, routes, signUpState }: AuthState) => ({
-  ...loginState,
-  isSSOAuth,
-  onRedirectTo,
-  routes,
-  signUpState,
-});
-
-export type LoginWithPasswordRendererProps = Omit<LoginWithPasswordProps, 'renderer'> &
-  ReturnType<typeof stateMapper> &
-  Pick<AuthActions, 'login' | 'preLogin'>;
+export type LoginWithPasswordRendererProps = Omit<LoginWithPasswordProps, 'renderer'>;
 
 export interface LoginWithPasswordProps {
   renderer?: ComponentType<LoginWithPasswordRendererProps>;
@@ -43,26 +40,19 @@ const HideChildrenIfRequired: FC<{ hide: boolean }> = ({ hide, children }) => {
 export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const authState = useAuth(stateMapper);
 
-  const {
-    loading,
-    step,
-    error,
-    isSSOAuth,
-    routes,
-    setLoginState,
-    login,
-    preLogin,
-    setForgotPasswordState,
-    resetLoginState,
-    onRedirectTo,
-    signUpState,
-  } = authState;
+  const onRedirectTo = useOnRedirectTo();
+  const routes = useAuthRoutes();
+  const { isSSOAuth } = useAuth(({ isSSOAuth }) => ({ isSSOAuth }));
+  const { allowSignUps } = useSignUpState(({ allowSignUps }) => ({ allowSignUps }));
+  const { setForgotPasswordState } = useForgotPasswordActions();
+  const { loading, step, error } = useLoginState();
+  const { setLoginState, login, preLogin, resetLoginState } = useLoginActions();
+
   const backToPreLogin = () => setLoginState({ step: LoginStep.preLogin });
 
   if (renderer) {
-    return createElement(renderer, { ...props, ...authState });
+    return createElement(renderer, props);
   }
   const shouldDisplayPassword = !isSSOAuth || step === LoginStep.loginWithPassword;
   const shouldBackToLoginIfEmailChanged = isSSOAuth && shouldDisplayPassword;
@@ -91,7 +81,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     onRedirectTo(routes.signUpUrl, { preserveQueryParams: true });
   }, []);
 
-  const signUpMessage = !signUpState.allowSignUps ? null : (
+  const signUpMessage = !allowSignUps ? null : (
     <div>
       {t('auth.login.suggest-sign-up.message')}
       <span onClick={redirectToSignUp} className={'fe-login-component__back-to-sign-up-link'} data-testid='email-box'>

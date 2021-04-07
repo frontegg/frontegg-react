@@ -2,16 +2,16 @@ import React, { FC, useCallback, useState } from 'react';
 import { Button, Dialog, Input, Grid, useT, Icon } from '@frontegg/react-core';
 import copy from 'clipboard-copy';
 import { prefixCls } from '../constants';
-import { useApiTokensActions, useApiTokensState } from '../hooks';
+import { useApiTokensActions, useApiTokensState } from '@frontegg/react-hooks/auth';
 
 export type copyType = 'secret' | 'clientId';
 
 export const ApiTokensSucceessDialog: FC = () => {
   const { t } = useT();
+  const { open, secret, clientId } = useApiTokensState(({ successDialog }) => successDialog);
   const { setApiTokensState } = useApiTokensActions();
   const [copiedSecret, setCopiedSecret] = useState(false);
   const [copiedClientId, setCopiedClientId] = useState(false);
-  const { open, secret, clientId } = useApiTokensState(({ successDialog }) => ({ ...successDialog }));
 
   const copySecret = (type: copyType) => {
     copy(type === 'secret' ? secret ?? '' : clientId ?? '').then(() => displayCopied(type));

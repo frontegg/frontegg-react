@@ -6,12 +6,12 @@ import { SSOConfigureIDPGuide } from './SSOConfigureIDPGuide';
 import { SSOConfigureIDPForm } from './SSOConfigureIDPForm';
 import { SSOConfigureIDPSelect } from './SSOConfigureIDPSelect';
 import { SamlVendors } from './SSOVendors';
-import { useAuthSSOState } from '../hooks';
+import { useSSOState } from '@frontegg/react-hooks/auth';
 import { reloadSSOIfNeeded } from '../helpers';
 
 export const SSOConfigureIDPComponent: FC = (props) => {
   reloadSSOIfNeeded();
-  const { loading } = useAuthSSOState(({ loading }) => ({ loading }));
+  const { loading } = useSSOState(({ loading }) => ({ loading }));
   const [samlVendor, setSamlVendor] = useState<SamlVendors>(SamlVendors.Saml);
   if (loading) {
     return null;

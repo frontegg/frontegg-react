@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Logger } from '@frontegg/react-core';
-import { ContextHolder } from '@frontegg/rest-api';
+import { useAuthUserOrNull } from '@frontegg/react-hooks/auth';
 
 export interface AuthorizationProps {
   requiredRoles?: string[];
@@ -12,7 +12,7 @@ const logger = Logger.from('AuthorizedContent');
 
 export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
   let isAuthorized = true; // Initially
-  const user = ContextHolder.getUser();
+  const user = useAuthUserOrNull();
 
   if (props.requiredPermissions) {
     if (!user?.permissions || user?.permissions.length === 0) {

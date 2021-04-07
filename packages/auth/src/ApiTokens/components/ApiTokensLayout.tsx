@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { ApiTokensTableToolbar } from '../components/ApiTokensTableToolbar';
-import { ApiTokensTableComponent } from '../components/ApiTokensTableComponent';
+import { ApiTokensTableToolbar } from './ApiTokensTableToolbar';
+import { ApiTokensTableComponent } from './ApiTokensTableComponent';
 import { ApiTokensSucceessDialog } from './ApiTokensSuccessDialog';
 import { ApiTokensAddDialog } from './ApiTokensAddDialog';
 import { ApiTokensDeleteDialog } from './ApiTokensDeleteDialog';

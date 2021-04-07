@@ -2,11 +2,12 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { FFormik, FForm, Grid, useT } from '@frontegg/react-core';
 import { HideOption } from '../../interfaces';
 import { SSOConfigureIDPStep1, SSOConfigureIDPStep2 } from './SSOConfigureIDPSteps';
-import { useAuthSSOActions, useAuthSSOState } from '../hooks';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SamlVendors } from './SSOVendors';
 import { ssoConfigureIdpFormValidation, ssoConfigureIdpFormSubmit } from '../helpers';
 
 const { Formik } = FFormik;
+
 export interface HeaderProps {
   step: number;
 }
@@ -58,17 +59,18 @@ const initialOidcValues: IInitialValues = {
   oidcSecret: '',
   oidcClientId: '',
 };
+
 export interface SSOConfigureIDPFormProps {
   samlVendor: SamlVendors;
 }
 
 export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPFormProps> = ({ samlVendor }) => {
   const [step, goToStep] = useState(1);
-  const { samlConfiguration, saving } = useAuthSSOState(({ samlConfiguration, saving }) => ({
+  const { samlConfiguration, saving } = useSSOState(({ samlConfiguration, saving }) => ({
     samlConfiguration,
     saving,
   }));
-  const { saveSSOConfigurations, saveSSOConfigurationsFile } = useAuthSSOActions();
+  const { saveSSOConfigurations, saveSSOConfigurationsFile } = useSSOActions();
   const { t } = useT();
   const formikRef = useRef<FFormik.FormikProps<IInitialValues>>(null);
   const initValues = samlVendor === 'Oidc' ? initialOidcValues : initialValues;
@@ -87,9 +89,20 @@ export const SSOConfigureIDPForm: FC<HideOption & SSOConfigureIDPFormProps> = ({
           ...samlConfiguration,
         }}
         enableReinitialize
-        validate={(values) => ssoConfigureIdpFormValidation({ ...values, samlVendor, t })}
+        validate={(values) =>
+          ssoConfigureIdpFormValidation({
+            ...values,
+            samlVendor,
+            t,
+          })
+        }
         onSubmit={(values) =>
-          ssoConfigureIdpFormSubmit({ ...values, saveSSOConfigurationsFile, saveSSOConfigurations, samlVendor })
+          ssoConfigureIdpFormSubmit({
+            ...values,
+            saveSSOConfigurationsFile,
+            saveSSOConfigurations,
+            samlVendor,
+          })
         }
       >
         <FForm>

@@ -1,5 +1,4 @@
 import React, { ComponentType, createElement, FC } from 'react';
-import { AuthActions, AuthState } from '../Api';
 import {
   validateSchema,
   ErrorMessage,
@@ -11,14 +10,17 @@ import {
   validateEmail,
   Button,
 } from '@frontegg/react-core';
-import { useAuth, useAuthActions } from '../hooks';
+import { AuthActions } from '@frontegg/redux-store/auth';
+import {
+  useActivateAccountActions,
+  useActivateAccountState,
+  useAuthRoutes,
+  useOnRedirectTo,
+} from '@frontegg/react-hooks/auth';
 
 const { Formik } = FFormik;
 
-const stateMapper = ({ activateState, routes, onRedirectTo }: AuthState) => ({ activateState, routes, onRedirectTo });
-
 export type ActivateAccountFormRendererProps = Omit<ActivateAccountResendEmailProps, 'renderer'> &
-  ReturnType<typeof stateMapper> &
   Pick<AuthActions, 'resendActivationEmail'>;
 
 export interface ActivateAccountResendEmailProps {
@@ -28,13 +30,10 @@ export interface ActivateAccountResendEmailProps {
 export const ActivateAccountResendEmail: FC<ActivateAccountResendEmailProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { resendActivationEmail } = useAuthActions();
-  const {
-    activateState: { loading, error, resentEmail },
-    resetActivateState,
-    routes,
-    onRedirectTo,
-  } = useAuth(stateMapper);
+  const { loading, error, resentEmail } = useActivateAccountState();
+  const { resetActivateState, resendActivationEmail } = useActivateAccountActions();
+  const onRedirectTo = useOnRedirectTo();
+  const routes = useAuthRoutes();
 
   if (renderer) {
     return createElement(renderer, { ...props, loading, error } as any);

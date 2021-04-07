@@ -3,7 +3,7 @@ import { checkValidChildren, RootPathContext, useRootPath } from '@frontegg/reac
 import { ProfileHeader } from './ProfileHeader';
 import { ProfileRouter } from './ProfileRouter';
 import { BasePageProps } from '../interfaces';
-import { reloadProfileIfNeeded } from './helpers';
+import { reloadProfileIfNeeded } from './hooks';
 
 export const ProfilePage: FC<BasePageProps> = (props) => {
   const [rootPath] = useRootPath(props, '/profile');

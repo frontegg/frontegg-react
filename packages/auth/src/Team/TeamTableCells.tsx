@@ -12,7 +12,7 @@ import {
   useT,
 } from '@frontegg/react-core';
 import React, { useCallback, useMemo } from 'react';
-import { useAuthTeamActions, useAuthTeamState } from './hooks';
+import { useAuthTeamActions, useAuthTeamState } from '@frontegg/react-hooks/auth';
 import classNames from 'classnames';
 
 const LEAVE_TEAM_OPTION = false;
@@ -46,11 +46,10 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
   const { id: userId, email, lastLogin } = props.row.original;
   const { t } = useT();
   const { resendActivationLink, openDeleteUserDialog } = useAuthTeamActions();
-  const { resendLoading, deleteLoading } = useAuthTeamState(({ loaders }) => ({
-    resendLoading: loaders.RESEND_ACTIVATE_LINK === userId,
-    deleteLoading: typeof loaders.DELETE_USER === 'string' ? loaders.DELETE_USER === userId : !!loaders.DELETE_USER,
-  }));
-
+  const loaders = useAuthTeamState((state) => state.loaders);
+  const resendLoading = loaders.RESEND_ACTIVATE_LINK || loaders.UPDATE_USER || loaders.DELETE_USER;
+  const deleteLoading =
+    typeof loaders.DELETE_USER === 'string' ? loaders.DELETE_USER === userId : !!loaders.DELETE_USER;
   const isMe = me === userId;
 
   const handleSendActivationLink = useCallback(() => {
@@ -69,7 +68,7 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
         icon: <Icon name='send' />,
         onClick: handleSendActivationLink,
         text: t('auth.team.resendActivation'),
-        loading: resendLoading,
+        loading: !!resendLoading,
       });
     }
     if (!isMe || LEAVE_TEAM_OPTION) {
@@ -78,7 +77,7 @@ export const TeamTableActions = (me?: string): CellComponent => (props) => {
         onClick: handleDeleteUser,
         text: isMe ? t('auth.team.leaveTeam') : t('auth.team.deleteUser'),
         iconClassName: 'fe-color-danger',
-        loading: deleteLoading,
+        loading: !!deleteLoading,
       });
     }
     return items;

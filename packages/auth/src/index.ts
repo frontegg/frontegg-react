@@ -1,14 +1,12 @@
 import React from 'react';
+import auth from '@frontegg/redux-store/auth';
 import { PluginConfig, Loader } from '@frontegg/react-core';
-import { reducer, sagas, storeName } from './Api';
-import { initialState } from './Api/initialState';
 import { AuthListener } from './Listener';
 import { AuthPluginOptions } from './interfaces';
 import './index.scss';
 import { AuthRoutes } from './components/AuthRoutes';
 
-export * from './Api';
-export * from './hooks';
+export * from '@frontegg/react-hooks/auth';
 export * from './HOCs';
 export * from './components';
 export * from './Login';
@@ -28,18 +26,18 @@ export * from './SignUp';
 
 export { AuthRoutes };
 export const AuthPlugin = (options?: AuthPluginOptions): PluginConfig => ({
-  storeName,
+  storeName: auth.storeName,
   preloadedState: {
-    ...initialState,
+    ...auth.initialState,
     ...options,
     loaderComponent: options?.loaderComponent ?? React.createElement(Loader, { center: true }),
     routes: {
-      ...initialState.routes,
+      ...auth.initialState.routes,
       ...options?.routes,
     },
   },
-  reducer,
-  sagas,
+  reducer: auth.reducer,
+  sagas: auth.sagas,
   Listener: AuthListener,
   WrapperComponent:
     options?.injectAuthRoutes ?? true

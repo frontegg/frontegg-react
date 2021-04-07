@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useT, useProxyComponent, ProxyComponent } from '@frontegg/react-core';
-import { useAuthUser } from '../hooks';
+import { useAuthUser } from '@frontegg/react-hooks/auth';
 import { MFAButton } from './MFAButton';
 
 const MFAStatus = () => {

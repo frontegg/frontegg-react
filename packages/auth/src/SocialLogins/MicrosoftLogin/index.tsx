@@ -1,4 +1,4 @@
-import { FronteggContext, SocialLoginsProviders } from '@frontegg/rest-api';
+import { FronteggContext, SocialLoginProviders } from '@frontegg/rest-api';
 import React, { FC } from 'react';
 import { v4 as uuid } from 'uuid';
 import { FRONTEGG_CODE_VERIFIER } from '../../constants';
@@ -29,10 +29,10 @@ const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTy
 const LoginWithMicrosoft: FC = (props) => {
   const { action } = useSocialLoginContext();
 
-  const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginsProviders.Microsoft);
+  const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginProviders.Microsoft);
 
   const defaultButton = (
-    <SocialLoginButton action={action} name={SocialLoginsProviders.Microsoft}>
+    <SocialLoginButton action={action} name={SocialLoginProviders.Microsoft}>
       <MicrosoftIcon />
     </SocialLoginButton>
   );

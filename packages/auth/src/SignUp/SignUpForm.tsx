@@ -12,11 +12,9 @@ import {
   ErrorMessage,
   validateCheckbox,
 } from '@frontegg/react-core';
-import { SignUpCheckbox } from './SignUp';
-import { AuthState } from '../Api';
-import { useAuth } from '../hooks';
+import { useAuthRoutes, useOnRedirectTo, useSignUpActions, useSignUpState } from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
-
+import { SignUpCheckbox } from './SignUp';
 const { Formik } = FFormik;
 
 export interface SignUpFormProps {
@@ -25,12 +23,6 @@ export interface SignUpFormProps {
   marketingMaterialConsent?: SignUpCheckbox;
 }
 
-const stateMapper = ({ signUpState, onRedirectTo, routes }: AuthState) => ({
-  onRedirectTo,
-  routes,
-  ...signUpState,
-});
-
 export const SignUpForm: FC<SignUpFormProps> = ({
   withCompanyName = true,
   signUpConsent,
@@ -38,7 +30,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({
 }) => {
   const { t } = useT();
 
-  const { signUpUser, error, loading, routes, onRedirectTo } = useAuth(stateMapper);
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const { signUpUser } = useSignUpActions();
+  const { loading, error } = useSignUpState();
 
   const isCheckboxVisible = useCallback((checkbox?: SignUpCheckbox) => {
     return checkbox?.hasOwnProperty('content');

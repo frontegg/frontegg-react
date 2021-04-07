@@ -1,26 +1,27 @@
 import { useEffect } from 'react';
-import { useAuthSSOActions, useAuthSSOState } from './hooks';
+import { validateUrl, validateRequired, validateSchemaSync } from '@frontegg/react-core';
+import { SSOActions } from '@frontegg/redux-store/auth';
+import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SamlVendors } from './SSOConfigureIDPPage/SSOVendors';
 import { IInitialValues } from './SSOConfigureIDPPage/SSOConfigureIDPForm';
-import { validateUrl, validateRequired, validateSchemaSync } from '@frontegg/react-core';
-import { ssoActions } from '../Api/SSOState';
 
 export interface IssoConfigureIdpFormValidation extends IInitialValues {
   t: any;
   samlVendor: SamlVendors;
 }
+
 export interface IssoConfigureIdpFormSubmit extends IInitialValues {
   samlVendor: SamlVendors;
-  saveSSOConfigurations: typeof ssoActions.saveSSOConfigurations;
-  saveSSOConfigurationsFile: typeof ssoActions.saveSSOConfigurationsFile;
+  saveSSOConfigurations: SSOActions['saveSSOConfigurations'];
+  saveSSOConfigurationsFile: SSOActions['saveSSOConfigurationsFile'];
 }
 
 export const reloadSSOIfNeeded = () => {
-  const { samlConfiguration, loading } = useAuthSSOState(({ samlConfiguration, loading }) => ({
+  const { samlConfiguration, loading } = useSSOState(({ samlConfiguration, loading }) => ({
     samlConfiguration,
     loading,
   }));
-  const { loadSSOConfigurations } = useAuthSSOActions();
+  const { loadSSOConfigurations } = useSSOActions();
   useEffect(() => {
     if (loading && !samlConfiguration) {
       loadSSOConfigurations();

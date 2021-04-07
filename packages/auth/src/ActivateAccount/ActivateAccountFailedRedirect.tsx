@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
-import { useT, RendererFunctionFC, Button, omitProps, Grid } from '@frontegg/react-core';
-import { useAuth } from '../hooks';
-import { AuthState } from '../Api';
-import { ActivateStep } from '../Api/ActivateState';
-
-const stateMapper = ({ routes, onRedirectTo }: AuthState) => ({ routes, onRedirectTo });
+import { Button, Grid, omitProps, RendererFunctionFC, useT } from '@frontegg/react-core';
+import { useActivateAccountActions, useAuthRoutes, useOnRedirectTo } from '@frontegg/react-hooks/auth';
+import { ActivateAccountStep } from '@frontegg/redux-store';
 
 export interface ActivateAccountFailedRedirectProps {
   renderer?: RendererFunctionFC<ActivateAccountFailedRedirectProps>;
@@ -13,7 +10,9 @@ export interface ActivateAccountFailedRedirectProps {
 export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { routes, onRedirectTo, resetActivateState, setActivateState } = useAuth(stateMapper);
+  const routes = useAuthRoutes();
+  const onRedirectTo = useOnRedirectTo();
+  const { resetActivateState, setActivateState } = useActivateAccountActions();
 
   if (renderer) {
     return renderer(omitProps(props, ['renderer']));
@@ -31,7 +30,7 @@ export const ActivateAccountFailedRedirect: FC<ActivateAccountFailedRedirectProp
             data-test-id='activate-btn'
             fullWidth
             onClick={() => {
-              setActivateState({ step: ActivateStep.resend });
+              setActivateState({ step: ActivateAccountStep.resend });
             }}
           >
             {t('auth.activate-account.ask-for-new-activation-link')}

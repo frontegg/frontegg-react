@@ -1,6 +1,7 @@
 /* tslint:disable:no-console */
 
-import jwtDecode from 'jwt-decode';
+export * from './secutiry-poilicy';
+
 import { Get, Post, Put, Delete } from '../fetch';
 import {
   AUTH_SERVICE_URL_V1,
@@ -12,6 +13,7 @@ import {
   IDENTITY_API_TOKENS_USERS_SERVICE,
   IDENTITY_API_TOKENS_TENANTS_SERVICE,
 } from '../constants';
+
 import {
   IActivateAccount,
   IDisableMfa,
@@ -22,8 +24,6 @@ import {
   ILoginWithMfa,
   IPreLogin,
   IPostLogin,
-  ICaptchaPolicy,
-  IUpdateSamlRoles,
   IRecoverMFAToken,
   IResetPassword,
   IGetUserPasswordConfig,
@@ -31,6 +31,7 @@ import {
   ISamlVendorConfigResponse,
   IUpdateSamlConfiguration,
   IUpdateSamlVendorMetadata,
+  IUpdateSamlRoles,
   IVerifyMfa,
   IVerifyMfaResponse,
   IAcceptInvitation,
@@ -47,8 +48,10 @@ import {
   IGetUserById,
   IUserIdResponse,
   IResendActivationEmail,
+  ISecurityPolicyCaptcha,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
+import { jwtDecode } from '../jwt';
 
 /*****************************************
  * Authentication
@@ -70,7 +73,7 @@ async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILo
   return user;
 }
 
-export async function getCaptchaPolicy(): Promise<ICaptchaPolicy | null> {
+export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha | null> {
   try {
     const policy = await Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
     return policy;
@@ -208,7 +211,7 @@ export async function resetPassword(body: IResetPassword): Promise<void> {
 /**
  * load password configuration for user.
  */
-export async function loadPasswordConfig(params: IGetUserPasswordConfig): Promise<void> {
+export async function loadPasswordConfig(params?: IGetUserPasswordConfig): Promise<void> {
   console.debug('loadPasswordConfig()');
   return Get(`${USERS_SERVICE_URL_V1}/passwords/config`, params);
 }
@@ -325,7 +328,7 @@ export async function validateSamlDomain(): Promise<ISamlConfiguration> {
  *  Get Saml roles for authorization
  * @return array of role IDs
  */
-export async function getSamlRoles(): Promise<Array<string>> {
+export async function getSamlRoles(): Promise<string[]> {
   console.debug('getSamlRoles()');
   return Get(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`);
 }
@@ -342,8 +345,8 @@ export async function updateSamlRoles({ roleIds }: IUpdateSamlRoles): Promise<vo
  *  Get social logins providers configurations for vendor
  * @return array of providers configurations
  */
-export async function getSocialLoginsProviders(): Promise<ISocialLoginProviderConfiguration[]> {
-  console.debug('getSocialLoginsProviders()');
+export async function getSocialLoginProviders(): Promise<ISocialLoginProviderConfiguration[]> {
+  console.debug('getSocialLoginProviders()');
   return Get(IDENTITY_SSO_SERVICE_URL_V1);
 }
 
@@ -392,7 +395,7 @@ export async function signUpUser(body: ISignUpUser): Promise<ISignUpResponse> {
 /**
  * Get user api tokens data
  */
-export async function getUserApiTokensData(): Promise<Array<IUserApiTokensData>> {
+export async function getUserApiTokensData(): Promise<IUserApiTokensData[]> {
   console.debug('getUserApiTokensData()');
   return Get(`${IDENTITY_API_TOKENS_USERS_SERVICE}`);
 }
@@ -400,7 +403,7 @@ export async function getUserApiTokensData(): Promise<Array<IUserApiTokensData>>
 /**
  * Get tenant api tokens data
  */
-export async function getTenantApiTokensData(): Promise<Array<ITenantApiTokensData>> {
+export async function getTenantApiTokensData(): Promise<ITenantApiTokensData[]> {
   console.debug('geTenantApiTokensData()');
   return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`);
 }
@@ -444,5 +447,5 @@ export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<
 
 export async function getUserById({ userId }: IGetUserById): Promise<IUserIdResponse> {
   console.debug('getUserById()');
-  return Get(`${USERS_SERVICE_URL_V1}/${userId}`);
+  return Get(`${USERS_SERVICE_URL_V2}/${userId}`);
 }

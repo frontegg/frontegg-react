@@ -1,27 +1,5 @@
 import { QueryFilter, QuerySort } from '../interfaces';
-
-export type IRole = {
-  id: string;
-  key: string;
-  isDefault: boolean;
-  name: string;
-  description?: null;
-  permissions: string[];
-  tenantId?: string;
-  vendorId: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
-export type IRolePermission = {
-  id: string;
-  key: string;
-  name: string;
-  description?: string;
-  categoryId: string;
-  fePermission: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { IRole, IRolePermission } from '../roles/interfaces';
 
 export type IUserProfile = {
   id: string;
@@ -38,6 +16,7 @@ export type IUserProfile = {
   activatedForTenant?: boolean;
   metadata: any;
   roleIds?: string[]; // { addRoles: true } params
+  verified?: boolean;
 };
 
 export type ITeamUser = {
@@ -68,6 +47,18 @@ export type ITeamUserRole = {
   name: string;
   permissions?: string[];
   permissionLevel?: number;
+};
+
+export type ITeamUserPermission = {
+  description: string;
+  fePermission: boolean;
+  id: string;
+  key: string;
+  name: string;
+  roleIds: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  categoryId: string;
 };
 
 export type ITeamStats = {
@@ -109,6 +100,7 @@ export type ILoadUsers = {
 export type IAddUser = {
   name: string;
   email: string;
+  phone?: string;
   roleIds: string[];
 };
 

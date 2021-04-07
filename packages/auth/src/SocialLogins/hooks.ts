@@ -1,30 +1,26 @@
-import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
-import { useAuth } from '../hooks';
 import { useContext, useMemo } from 'react';
-import { AuthState } from '../Api';
-import { ISocialLoginProviderConfiguration, SocialLoginsProviders } from '@frontegg/rest-api';
+import { ISocialLoginProviderConfiguration, SocialLoginProviders } from '@frontegg/rest-api';
+import { ISocialLoginCallbackState, ISocialLoginsContext } from './types';
+import { useAuthRoutes, useSocialLoginState } from '@frontegg/react-hooks/auth';
 import { SocialLoginsContext } from './SocialLoginContext';
-
-const stateMapper = ({ socialLoginsState }: AuthState) => socialLoginsState;
 
 export type UrlCreatorConfigType = ISocialLoginProviderConfiguration & { state: string };
 
 export const createSocialLoginState = (state: ISocialLoginCallbackState): string => JSON.stringify(state);
 
 export const useRedirectUri = (): string => {
-  const routes = useAuth(({ routes }) => routes);
-  const redirectUri = useMemo<string>(() => {
+  const routes = useAuthRoutes();
+  return useMemo<string>(() => {
     return `${window.location.origin}${routes.socialLoginCallbackUrl}`;
   }, [window.location.origin, routes.socialLoginCallbackUrl]);
-  return redirectUri;
 };
 
 export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
-  socialLoginType: SocialLoginsProviders
+  socialLoginType: any
 ): string | null => {
   const { action } = useSocialLoginContext();
-  const { socialLoginsConfig } = useAuth(stateMapper);
+  const { socialLoginsConfig } = useSocialLoginState();
   const config = useMemo(
     () => socialLoginsConfig?.find(({ type }) => type.toLowerCase() === socialLoginType.toLowerCase()),
     [socialLoginsConfig]
@@ -45,7 +41,7 @@ export const useRedirectUrl = (
           action,
           afterAuthRedirectUrl: afterAuthRedirectUrl || undefined,
         }),
-      });
+      } as any);
     }
   }, [config?.clientId, config?.redirectUrl, action]);
 
