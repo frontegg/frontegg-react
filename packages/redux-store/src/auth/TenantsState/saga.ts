@@ -4,7 +4,7 @@ import { api, ISwitchTenant, ITenantsResponse } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback } from '../../interfaces';
 import { delay } from '../utils';
-import { tenantsDemo } from '../dammy';
+import { tenantsDemo } from '../dummy';
 
 function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCallback<ISwitchTenant>>) {
   yield put(actions.setState({ isLoading: true }));

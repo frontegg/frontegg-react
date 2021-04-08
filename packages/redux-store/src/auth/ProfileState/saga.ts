@@ -3,7 +3,7 @@ import { call, put, retry, select, takeEvery, takeLeading } from 'redux-saga/eff
 import { api, IChangePassword, IUserProfile } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback } from '../../interfaces';
-import { userDemo, userProfileDemo, profileStateDemo } from '../dammy';
+import { userDemo, userProfileDemo, profileStateDemo } from '../dummy';
 import { delay } from '../utils';
 
 function* loadProfile() {

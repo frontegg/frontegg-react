@@ -1,5 +1,5 @@
 import { reducer, actions } from './reducer';
-import { sagas } from './saga';
+import { mockSagas, sagas } from './saga';
 import { authStoreName as storeName } from '../constants';
 import { initialState } from './initialState';
 
@@ -55,6 +55,7 @@ export { AuthActions } from './reducer';
 
 export {
   sagas as authSagas,
+  mockSagas as authMockSagas,
   reducer as authReducers,
   actions as authActions,
   initialState as authInitialState,
@@ -63,6 +64,7 @@ export {
 // export store
 export default {
   sagas,
+  mockSagas,
   storeName,
   initialState,
   reducer,

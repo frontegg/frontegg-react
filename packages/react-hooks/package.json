@@ -3,7 +3,7 @@
   "libName": "FronteggReactHooks",
   "version": "1.28.0",
   "author": "Frontegg LTD",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

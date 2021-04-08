@@ -20,7 +20,7 @@ import {
 } from './interfaces';
 import { authStoreName } from '../../constants';
 import { delay } from '../utils';
-import { permissionsDemo, rolesDemo, usersDemo, userTeamDemo } from '../dammy';
+import { permissionsDemo, rolesDemo, usersDemo, userTeamDemo } from '../dummy';
 const select = () => sagaSelect((_) => _[authStoreName].teamState);
 
 function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>>): any {

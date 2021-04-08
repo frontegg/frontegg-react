@@ -13,6 +13,8 @@ const auditLogsState: AuditLogsState = {
   sort: [],
   filter: [],
   totalPages: 0,
+  isDownloadingCsv: false,
+  isDownloadingPdf: false,
 };
 
 const reducers = {
@@ -21,6 +23,8 @@ const reducers = {
 };
 
 const actions = {
+  exportAuditsCsv: createAction(`${auditsStoreName}/exportAuditsCsv`),
+  exportAuditsPdf: createAction(`${auditsStoreName}/exportAuditsPdf`),
   loadAuditLogs: createAction(`${auditsStoreName}/loadAuditLogs`, (payload: LoadAuditLogsPayload) => ({ payload })),
 };
 
@@ -31,6 +35,8 @@ const actions = {
 type DispatchedActions = {
   setAuditLogsState: (state: Partial<AuditLogsState>) => void;
   resetAuditLogsState: () => void;
+  exportAuditsCsv: () => void;
+  exportAuditsPdf: () => void;
   loadAuditLogs: (payload: LoadAuditLogsPayload) => void;
 };
 

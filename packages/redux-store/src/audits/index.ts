@@ -1,5 +1,5 @@
 import { reducer, actions } from './reducer';
-import { sagas } from './saga';
+import { sagas, mockSagas } from './saga';
 import { auditsStoreName as storeName } from '../constants';
 import { initialState } from './initialState';
 
@@ -16,6 +16,7 @@ export { AuditsActions } from './reducer';
 
 export {
   sagas as auditsSagas,
+  mockSagas as auditsMockSagas,
   reducer as auditsReducers,
   actions as auditsActions,
   initialState as auditsInitialState,
@@ -25,6 +26,7 @@ export {
 // export store
 export default {
   sagas,
+  mockSagas,
   storeName,
   initialState,
   reducer,

@@ -11,7 +11,7 @@ type FronteggProviderProps = {
 };
 
 const setLoading = (loading: boolean): void => {
-  const isSSR = typeof window === 'undefined';
+  const isSSR = typeof document === 'undefined' || typeof window === 'undefined';
 
   if (!isSSR) {
     if (loading) {
