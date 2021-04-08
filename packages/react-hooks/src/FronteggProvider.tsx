@@ -11,10 +11,14 @@ type FronteggProviderProps = {
 };
 
 const setLoading = (loading: boolean): void => {
-  if (loading) {
-    document.body.classList.add('frontegg-loading');
-  } else {
-    document.body.classList.remove('frontegg-loading');
+  const isSSR = typeof window === 'undefined';
+
+  if (!isSSR) {
+    if (loading) {
+      document.body.classList.add('frontegg-loading');
+    } else {
+      document.body.classList.remove('frontegg-loading');
+    }
   }
 };
 const FronteggContent: FC<{ setLoading: (loading: boolean) => void }> = ({ children, setLoading }) => {
