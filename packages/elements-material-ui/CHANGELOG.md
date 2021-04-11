@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* FR-2312 - add success variant support for all elements libraries ([58b85b7](https://github.com/frontegg/frontegg-react/commit/58b85b7fe2f07a954a95ba87a17d44567efd946f))
+* **elements:** fix onclick event for material menu item ([71193e1](https://github.com/frontegg/frontegg-react/commit/71193e1bbda6c3300bd73fde612f1ba6f5b60ad8))
+* FR-2100 - fix expandable table styles ([9586201](https://github.com/frontegg/frontegg-react/commit/9586201e2f95c43648f5c72b3b353c6a3c9766e2))
+
+
+
+
+
 # [1.28.0](https://github.com/frontegg/frontegg-react/compare/v1.27.0...v1.28.0) (2021-03-22)
 
 

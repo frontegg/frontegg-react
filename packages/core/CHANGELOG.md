@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* **connectivity:** FR-2312 - merge with master ([41b7a2b](https://github.com/frontegg/frontegg-react/commit/41b7a2b7147c249aac61352f2fc70bb068e6ccaf))
+* Fix build for rescript ([58c4b3c](https://github.com/frontegg/frontegg-react/commit/58c4b3c09c45bc42b14614e5012e054615d1de4c))
+* FR-2100 - fix expandable table styles ([9586201](https://github.com/frontegg/frontegg-react/commit/9586201e2f95c43648f5c72b3b353c6a3c9766e2))
+* FR-2312 - fixstyle status button (webhooks); add success for theme' ([1c4ca9d](https://github.com/frontegg/frontegg-react/commit/1c4ca9de4ced5a567740bb2d812c104a51435c3a))
+
+
+### Features
+
+* **auth:** enforce users password config on activate/reset/change password ([#342](https://github.com/frontegg/frontegg-react/issues/342)) ([7aeaeb2](https://github.com/frontegg/frontegg-react/commit/7aeaeb2568608dc9f8d6f0f66caf109fa52a6a66))
+* **auth:** login with microsoft account ([8fd8590](https://github.com/frontegg/frontegg-react/commit/8fd8590866bf58c6697f2390930c7a05bb2db220))
+* Extract react hooks to separated sub package ([8ad0333](https://github.com/frontegg/frontegg-react/commit/8ad033332fde18e3f10f7f6f4f5d0d24fc88f0b0))
+
+
+
+
+
 # [1.28.0](https://github.com/frontegg/frontegg-react/compare/v1.27.0...v1.28.0) (2021-03-22)
 
 

@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* **auth:** duplicate profile picture timestamps ([1e54a4f](https://github.com/frontegg/frontegg-react/commit/1e54a4f820cf46526b29a6d0fba52967392b59ed))
+* **auth:** fix fromik import in FeRecaptcha to prevent build fails ([1f93494](https://github.com/frontegg/frontegg-react/commit/1f934948657dc97663a38760c8c445f50bd77e0f))
+* **auth:** FR-2218 - remove social logins from activate user form ([738ab4f](https://github.com/frontegg/frontegg-react/commit/738ab4f80862203d1be2cc1897d1efb2d634ee86))
+* Fix build for rescript ([58c4b3c](https://github.com/frontegg/frontegg-react/commit/58c4b3c09c45bc42b14614e5012e054615d1de4c))
+* **auth:** FR-2206 - add error message for sign up form ([fe97e35](https://github.com/frontegg/frontegg-react/commit/fe97e3554e38399678445690f05e4ea2ca434e8d))
+
+
+### Features
+
+* **auth:** enforce users password config on activate/reset/change password ([#342](https://github.com/frontegg/frontegg-react/issues/342)) ([7aeaeb2](https://github.com/frontegg/frontegg-react/commit/7aeaeb2568608dc9f8d6f0f66caf109fa52a6a66))
+* **auth:** login with facebook account ([#339](https://github.com/frontegg/frontegg-react/issues/339)) ([f231d75](https://github.com/frontegg/frontegg-react/commit/f231d758a2c2202e037b0caed104d606b9fb3888))
+* **auth:** login with microsoft account ([8fd8590](https://github.com/frontegg/frontegg-react/commit/8fd8590866bf58c6697f2390930c7a05bb2db220))
+* Add Audit logs to frontegg/react-hooks and frontegg/redux-store ([2e46638](https://github.com/frontegg/frontegg-react/commit/2e466385db3242a0547912a8daf3eb6bbd088709))
+* add redux-store for auth state ([ee807ef](https://github.com/frontegg/frontegg-react/commit/ee807efd45a4a2ef494ce2420a80dc0a458fe4ab))
+* Add Security Policy API and Store Hooks ([e9b7abf](https://github.com/frontegg/frontegg-react/commit/e9b7abfa38e5e958a63f69dd45bd6631f2811e53))
+* Expose onRedirectTo via hooks ([bd38109](https://github.com/frontegg/frontegg-react/commit/bd381097a87e2794d668e3951d9a221f9c9acd51))
+* Split State-Management and hooks from UI components ([20d24cd](https://github.com/frontegg/frontegg-react/commit/20d24cd19f536a7f519d670bd8735feb350e54e9))
+
+
+### BREAKING CHANGES
+
+* hooks and Entity Types should be imported from @frontegg/react-hooks and @frontegg/redux-store
+
+
+
+
+
 # [1.28.0](https://github.com/frontegg/frontegg-react/compare/v1.27.0...v1.28.0) (2021-03-22)
 
 

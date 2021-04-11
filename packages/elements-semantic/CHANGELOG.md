@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* FR-2312 - add success variant support for all elements libraries ([58b85b7](https://github.com/frontegg/frontegg-react/commit/58b85b7fe2f07a954a95ba87a17d44567efd946f))
+
+
+
+
+
 ## [1.22.1](https://github.com/frontegg/frontegg-react/compare/v1.22.0...v1.22.1) (2021-02-16)
 
 **Note:** Version bump only for package @frontegg/react-elements-semantic
