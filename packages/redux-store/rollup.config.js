@@ -55,6 +55,21 @@ const esmPlugins = [
   }),
 ];
 
+const cjsPlugins = [
+  ...commonPlugins,
+  ts({
+    tsconfig: `${__dirname}/tsconfig.json`,
+    useTsconfigDeclarationDir: false,
+    tsconfigOverride: {
+      compilerOptions: {
+        declaration: false,
+        target: 'ES5',
+        module: 'ES6',
+      },
+    },
+  }),
+];
+
 const entryPoints = [
   'auth/index',
   'audits/index',
@@ -72,19 +87,33 @@ const nodeModules = [
   '/node_modules/',
 ];
 
-export default {
-  input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),
-  plugins: esmPlugins,
-  external: (id) => {
-    if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
-      return true;
-    }
-    return false;
-  },
-  output: {
-    dir: distFolder,
-    entryFileNames: '[name].js',
-    sourcemap: true,
-    format: 'es',
-  },
+const isExternal = (id) => {
+  if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
+    return true;
+  }
+  return false;
 };
+
+export default [
+  {
+    input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),
+    plugins: esmPlugins,
+    external: isExternal,
+    output: {
+      dir: distFolder,
+      entryFileNames: '[name].js',
+      sourcemap: true,
+      format: 'es',
+    },
+  },
+  {
+    input: './src/index.ts',
+    plugins: cjsPlugins,
+    external: isExternal,
+    output: {
+      file: path.join(distFolder, 'index.cjs.js'),
+      sourcemap: true,
+      format: 'cjs',
+    },
+  },
+];

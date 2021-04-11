@@ -6,7 +6,7 @@ export type IUserProfile = {
   email: string;
   mfaEnrolled: boolean;
   name: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   profileImage?: string;
   profilePictureUrl: string;
   roles: IRole[];

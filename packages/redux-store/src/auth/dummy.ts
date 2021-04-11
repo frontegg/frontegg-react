@@ -18,26 +18,26 @@ import { ProfileState } from './ProfileState/interfaces';
 import { SSOState } from './SSOState/interfaces';
 
 export const apiTokensDataDemo: IApiTokensData = {
-  clientId: '1',
+  clientId: 'CLIENT_ID_16806d3d-8fc3-4450-be97-abdaf66b723e',
+  secret: 'SECRET_16806d3d-8fc3-4450-be97-abdaf66b723e',
   createdAt: 'createdAt',
-  description: 'description',
-  secret: 'secret',
+  description: 'This is dummy api token for preview only',
 };
 
 export const apiTokensDataTenantDemo: ITenantApiTokensData = {
   ...apiTokensDataDemo,
   roleIds: [],
-  tenantId: 'tenantId',
+  tenantId: 'my-tenant-id',
   createdByUserId: 'createdByUserId',
 };
 export const roleDemo: IRole[] = [
   {
-    id: 'id',
-    key: 'key',
+    id: 'roleId',
+    key: 'admin',
     isDefault: false,
-    name: 'name',
+    name: 'Admin',
     description: null,
-    permissions: ['h', 'i'],
+    permissions: ['adminPermissionId'],
     tenantId: 'tenantId',
     vendorId: 'vendorId',
     createdAt: new Date(),
@@ -46,9 +46,9 @@ export const roleDemo: IRole[] = [
 ];
 export const rolePermissionDemo: IRolePermission[] = [
   {
-    id: 'stringId',
-    key: 'stringKey',
-    name: 'stringName',
+    id: 'adminPermissionId',
+    key: 'fe.*',
+    name: 'General Admin',
     description: undefined,
     categoryId: 'category',
     fePermission: true,
@@ -59,29 +59,35 @@ export const rolePermissionDemo: IRolePermission[] = [
 
 export const userProfileDemo: IUserProfile = {
   id: 'testId',
-  email: 'email@r.com',
+  name: 'Dummy User',
+  email: 'dummy@frontegg.com',
   mfaEnrolled: true,
-  name: 'name',
-  phoneNumber: '7676777777',
   profileImage: undefined,
-  profilePictureUrl: 'string',
+  profilePictureUrl:
+    'https://www.gravatar.com/avatar/42b2ad2bad6fc9b9db5086dfcf8072ac?d=https://ui-avatars.com/api/fe/128/random?t=1617261890875?t=1617261917434',
   roles: roleDemo,
   permissions: rolePermissionDemo,
-  tenantId: 'tenantId',
-  tenantIds: ['1', '3', '5'],
+  tenantId: 'my-tenant-id',
+  tenantIds: ['my-tenant-id'],
   activatedForTenant: true,
-  metadata: 'metadata',
+  metadata: {},
   roleIds: undefined,
   verified: undefined,
 };
 
 export const userDemo: User = {
   ...userProfileDemo,
-  accessToken: 'accessToken',
-  refreshToken: 'refreshToken',
-  expiresIn: 0,
-  expires: 'expires',
-};
+  accessToken:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MTY5YmY0Zi02YmI5LTQ5NGMtOGNkZS05MDc4NDQ0NWY4MDciLCJuYW1lIjoiRHVtbXkgVXNlciIsImVtYWlsIjoiZHVtbXlAZnJvbnRlZ2cuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm1ldGFkYXRhIjp7fSwicm9sZXMiOlsiYWRtaW4iXSwicGVybWlzc2lvbnMiOlsiZmUuKiJdLCJ0ZW5hbnRJZCI6Im15LXRlbmFudC1pZCIsInRlbmFudElkcyI6WyJteS10ZW5hbnQtaWQiXSwicHJvZmlsZVBpY3R1cmVVcmwiOiJodHRwczovL3d3dy5ncmF2YXRhci5jb20vYXZhdGFyLzQyYjJhZDJiYWQ2ZmM5YjlkYjUwODZkZmNmODA3MmFjP2Q9aHR0cHM6Ly91aS1hdmF0YXJzLmNvbS9hcGkvZmUvMTI4L3JhbmRvbT90PTE2MTcyNjE4OTA4NzU_dD0xNjE3MjYxOTE3NDM0IiwidHlwZSI6InVzZXJUb2tlbiIsImlhdCI6MTYxNzkwNjMyNCwiZXhwIjoxNjE3OTkyNzI0LCJpc3MiOiJmcm9udGVnZyJ9.paaXLkpWEWbQmUtoK2P8IwXCxK4WJp7XhXonvzF8g1I',
+  expiresIn: 86400,
+  mfaRequired: false,
+  refreshToken: 'refresh-token-dummy-de39dc9c-9d22-4852-b7f5-c3c0aa613b58',
+  type: 'userToken',
+  iat: 1617906324,
+  exp: 1617992724,
+  iss: 'frontegg',
+  email_verified: true,
+} as any;
 
 export const profileStateDemo: ProfileState = {
   loading: false,
@@ -197,7 +203,7 @@ export const userTeamDemo: ITeamUser = {
   vendorId: 'vendorId',
   roleIds: [],
   activatedForTenant: true,
-  createdAt: 'createdAt',
+  createdAt: new Date().toISOString(),
   customData: undefined,
   lastLogin: undefined,
   mfaEnabled: undefined,
@@ -207,11 +213,11 @@ export const usersDemo: ITeamUser[] = [userTeamDemo];
 
 export const tenantsDemo: ITenantsResponse[] = [
   {
-    id: 'id',
-    name: 'name',
+    id: 'my-tenant-id',
+    name: 'My Tenant Name',
     deletedAt: null,
     metadata: undefined,
-    tenantId: 'tenantId',
+    tenantId: 'my-tenant-id',
     vendorId: 'vendorId',
     createdAt: new Date(),
     updatedAt: new Date(),

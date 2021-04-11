@@ -4,7 +4,7 @@ import { api } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { WithCallback, WithSilentLoad } from '../../interfaces';
 import { ApiStateKeys, ApiTokenType, ITenantApiTokensData, IUserApiTokensData, IApiTokensData } from './interfaces';
-import { apiTokensDataDemo, apiTokensDataTenantDemo, rolesDemo, permissionsDemo } from '../dammy';
+import { apiTokensDataDemo, apiTokensDataTenantDemo, rolesDemo, permissionsDemo } from '../dummy';
 
 function* loadApiTokensData({ payload: apiTokenType }: PayloadAction<ApiTokenType>) {
   yield put(actions.setApiTokensState({ apiTokenType }));
@@ -181,13 +181,15 @@ function* loadApiTokensDataMock({ payload: apiTokenType }: PayloadAction<ApiToke
 function* addTenantApiTokenMock({ payload }: PayloadAction<WithCallback<ITenantApiTokensData>>) {
   const { description, roleIds, callback } = payload;
   yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: true }));
-  const data: ITenantApiTokensData = { ...apiTokensDataTenantDemo, description, roleIds };
+
+  const { apiTokensDataTenant } = yield select((state) => state.auth.apiTokensState);
+  const newToken: ITenantApiTokensData = { ...apiTokensDataTenantDemo, description, roleIds };
   yield put(actions.setApiTokensState({ showAddTokenDialog: false }));
   yield delay(200);
   yield put(
     actions.setApiTokensState({
-      apiTokensDataTenant: [data],
-      successDialog: { open: true, secret: data.secret, clientId: data.clientId },
+      apiTokensDataTenant: [...apiTokensDataTenant, newToken],
+      successDialog: { open: true, secret: newToken.secret, clientId: newToken.clientId },
     })
   );
   yield delay(200);

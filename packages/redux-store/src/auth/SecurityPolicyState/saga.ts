@@ -4,7 +4,7 @@ import { api, ISecurityPolicyLockout, ISecurityPolicyMfa } from '@frontegg/rest-
 import { actions } from '../reducer';
 import { SaveSecurityPolicyLockoutPayload, SaveSecurityPolicyMfaPayload } from './interfaces';
 import { delay } from '../utils';
-import { policyDemo, policyMfaDemo, policyLockoutDemo } from '../dammy';
+import { policyDemo, policyMfaDemo, policyLockoutDemo } from '../dummy';
 
 function* loadSecurityPolicy() {
   yield put(actions.setSecurityPolicyGlobalState({ loading: true, error: null }));

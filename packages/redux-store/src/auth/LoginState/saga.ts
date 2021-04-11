@@ -8,6 +8,7 @@ import { AuthPageRoutes } from '../interfaces';
 import { LoginStep } from './interfaces';
 import { loadAllowSignUps } from '../SignUp/saga';
 import { MFAStep } from '../MfaState/interfaces';
+import { userDemo } from '../dummy';
 
 export function* afterAuthNavigation() {
   const { routes, onRedirectTo } = yield select((state) => state.auth);
@@ -26,7 +27,7 @@ export function* afterAuthNavigation() {
   onRedirectTo(redirectUrl, { refresh: redirectUrl.startsWith('http') });
 }
 
-function* refreshMetadata() {
+export function* refreshMetadata() {
   let isSSOAuth;
   let ssoACS = null;
   try {
@@ -276,4 +277,24 @@ export function* loginSagas() {
   yield takeLeading(actions.silentLogout, silentLogout);
   yield takeLeading(actions.loginWithMfa, loginWithMfa);
   yield takeLeading(actions.recoverMfa, recoverMfa);
+}
+
+/*********************************
+ *  Preview Sagas
+ *********************************/
+
+function* requestAuthorizeMock({ payload: firstTime }: PayloadAction<boolean>) {
+  if (firstTime) {
+    yield put(actions.setState({ isLoading: true }));
+  }
+
+  const user = userDemo;
+  ContextHolder.setAccessToken(user.accessToken);
+  ContextHolder.setUser(user);
+  yield put(actions.loadTenants());
+  yield put(actions.setState({ user, isAuthenticated: true, isLoading: false }));
+}
+
+export function* loginSagasMock() {
+  yield takeLeading(actions.requestAuthorize, requestAuthorizeMock);
 }

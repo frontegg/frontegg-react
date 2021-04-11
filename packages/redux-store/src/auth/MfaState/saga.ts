@@ -5,7 +5,7 @@ import { actions } from '../reducer';
 import { MFAState, MFAStep } from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { delay } from '../utils';
-import { userDemo } from '../dammy';
+import { userDemo } from '../dummy';
 
 function* enrollMfa() {
   yield put(actions.setMfaState({ loading: true }));

@@ -6,7 +6,7 @@ import { SaveSSOConfigurationPayload, SSOState } from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { omitProps, readFileAsText } from '../../helpers';
 import { delay } from '../utils';
-import { samlConfigurationDemo, samlMetadataDemo, ssoStateDemo } from '../dammy';
+import { samlConfigurationDemo, samlMetadataDemo, ssoStateDemo } from '../dummy';
 
 function* loadSSOConfigurations() {
   try {

@@ -8,6 +8,7 @@ export interface AuditRowData {
   resource: string;
   time: string;
   user: string;
+  email: string;
   severity: string;
   vendorId: string;
   tenantId: string;

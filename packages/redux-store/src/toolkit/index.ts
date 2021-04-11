@@ -52,7 +52,11 @@ const { reducer: rootReducer } = createSlice({
   },
 });
 
-export const createFronteggStore = (rootInitialState: InitialState, storeHolder?: any): EnhancedStore => {
+export const createFronteggStore = (
+  rootInitialState: InitialState,
+  storeHolder?: any,
+  previewMode: boolean = false
+): EnhancedStore => {
   const isSSR = typeof window === 'undefined';
   let holder = storeHolder;
   if (isSSR && storeHolder == null) {
@@ -84,7 +88,15 @@ export const createFronteggStore = (rootInitialState: InitialState, storeHolder?
       yield all([call(authStore.sagas), call(auditsStore.sagas)]);
     };
 
-    sagaMiddleware.run(rootSaga);
+    const rootMockSaga = function* () {
+      yield all([call(authStore.mockSagas), call(auditsStore.mockSagas)]);
+    };
+
+    if (previewMode) {
+      sagaMiddleware.run(rootMockSaga);
+    } else {
+      sagaMiddleware.run(rootSaga);
+    }
   }
 
   return holder.store;
