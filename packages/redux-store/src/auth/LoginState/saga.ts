@@ -27,7 +27,7 @@ export function* afterAuthNavigation() {
   onRedirectTo(redirectUrl, { refresh: redirectUrl.startsWith('http') });
 }
 
-function* refreshMetadata() {
+export function* refreshMetadata() {
   let isSSOAuth;
   let ssoACS = null;
   try {

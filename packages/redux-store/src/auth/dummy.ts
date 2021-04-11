@@ -203,7 +203,7 @@ export const userTeamDemo: ITeamUser = {
   vendorId: 'vendorId',
   roleIds: [],
   activatedForTenant: true,
-  createdAt: 'createdAt',
+  createdAt: new Date().toISOString(),
   customData: undefined,
   lastLogin: undefined,
   mfaEnabled: undefined,
@@ -213,11 +213,11 @@ export const usersDemo: ITeamUser[] = [userTeamDemo];
 
 export const tenantsDemo: ITenantsResponse[] = [
   {
-    id: 'id',
-    name: 'name',
+    id: 'my-tenant-id',
+    name: 'My Tenant Name',
     deletedAt: null,
     metadata: undefined,
-    tenantId: 'tenantId',
+    tenantId: 'my-tenant-id',
     vendorId: 'vendorId',
     createdAt: new Date(),
     updatedAt: new Date(),
