@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* **connectivity:** FR-2310 - fix test hook form filling ([d54e053](https://github.com/frontegg/frontegg-react/commit/d54e053d3b40059558f91012c3cc82a709da96ff))
+* **connectivity:** FR-2312 - merge with master ([41b7a2b](https://github.com/frontegg/frontegg-react/commit/41b7a2b7147c249aac61352f2fc70bb068e6ccaf))
+* FR-2312 - fixstyle status button (webhooks); add success for theme' ([1c4ca9d](https://github.com/frontegg/frontegg-react/commit/1c4ca9de4ced5a567740bb2d812c104a51435c3a))
+
+
+
+
+
 # [1.28.0](https://github.com/frontegg/frontegg-react/compare/v1.27.0...v1.28.0) (2021-03-22)
 
 **Note:** Version bump only for package @frontegg/react-connectivity
