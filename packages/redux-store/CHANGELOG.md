@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/frontegg/frontegg-react/compare/v2.0.0...v2.1.0) (2021-04-13)
+
+
+### Bug Fixes
+
+* remove live sagas from mock generator function ([ae3a366](https://github.com/frontegg/frontegg-react/commit/ae3a366633d1ab7f502437bec9413942e902104b))
+
+
+### Features
+
+* add option to consume switch tenant callback ([74fd8c6](https://github.com/frontegg/frontegg-react/commit/74fd8c65a3e4dd624d0144d7a330b98ad8a09d43))
+
+
+
+
+
 # [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
 
 
