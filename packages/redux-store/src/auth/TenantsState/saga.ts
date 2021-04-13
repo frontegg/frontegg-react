@@ -12,8 +12,10 @@ function* switchTenant({ payload: { tenantId, callback } }: PayloadAction<WithCa
   try {
     yield call(api.tenants.switchTenant, { tenantId });
     yield call(refreshToken);
-    yield put(actions.setState({ isLoading: false }));
-    callback?.(true);
+    const callbackConsumed = callback?.(true);
+    if (!callbackConsumed) {
+      yield put(actions.setState({ isLoading: false }));
+    }
   } catch (e) {
     yield put(actions.setState({ isLoading: false }));
     callback?.(false, e);
@@ -46,6 +48,7 @@ function* loadTenantsMock({ payload }: PayloadAction<WithCallback<{}, ITenantsRe
   yield delay();
   yield put(actions.setTenantsState({ tenants: tenantsDemo, loading: false }));
 }
+
 export function* tenantsSagasMock() {
   yield takeEvery(actions.loadTenants, loadTenantsMock);
 }
