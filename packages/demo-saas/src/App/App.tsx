@@ -4,12 +4,12 @@ import {
   ProtectedRoute,
   Profile,
   SSO,
-  useAuthUser,
   Team,
   AccountDropdown,
   UserApiTokens,
   SignUpPageComponent,
 } from '@frontegg/react-auth';
+import { useAuthUser } from '@frontegg/react-hooks';
 import { ElementsPage } from '../Elements/ElementsPage';
 import { PopupExample } from '../PopupExample';
 import { TableExample } from '../TableExample';

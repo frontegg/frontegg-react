@@ -49,9 +49,12 @@ import {
   IUserIdResponse,
   IResendActivationEmail,
   ISecurityPolicyCaptcha,
+  SocialLoginProviders,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 import { jwtDecode } from '../jwt';
+
+export { SocialLoginProviders };
 
 /*****************************************
  * Authentication

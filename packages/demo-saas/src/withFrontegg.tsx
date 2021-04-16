@@ -5,11 +5,11 @@ import { ConnectivityPlugin } from '@frontegg/react-connectivity';
 // import { NotificationsPlugin } from '@frontegg/react-notifications';
 import { AuditsPlugin } from '@frontegg/react-audits';
 
-const developmentHosts = ['localhost', 'local.frontegg.com'];
-const host =
-  developmentHosts.indexOf(window.location.hostname) !== -1
-    ? `${window.location.hostname}:8080`
-    : window.location.hostname;
+// const developmentHosts = ['localhost', 'local.frontegg.com'];
+// const host =
+//   developmentHosts.indexOf(window.location.hostname) !== -1
+//     ? `${window.location.hostname}:8080`
+//     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
   baseUrl: `https://app-5F2WTIbpomg1.frontegg.com`,
