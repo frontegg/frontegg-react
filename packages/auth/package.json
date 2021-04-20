@@ -21,6 +21,8 @@
   "devDependencies": {
     "@frontegg/react-core": "^2.1.0",
     "@frontegg/rest-api": "^2.0.0",
+    "@frontegg/react-hooks": "^2.1.0",
+    "@frontegg/redux-store": "^2.1.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
     "@types/react-recaptcha-v3": "^1.1.1",

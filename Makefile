@@ -66,9 +66,11 @@ install: ##@1 Global yarn install all packages
   		| sed 's|^./packages/||' \
   		| xargs -I '{}' sh -c '$(MAKE) add-dist-folders-{}'
 	@echo "${YELLOW}Running lerna bootstrap${RESET}"
-	@./node_modules/.bin/lerna bootstrap --ignore redux-store
+	@./node_modules/.bin/lerna bootstrap --ignore redux-store --ignore react-hooks
 	@rm "${DIR}/node_modules/@frontegg/redux-store"
+	@rm "${DIR}/node_modules/@frontegg/react-hooks"
 	@ln -s "${DIR}/packages/redux-store/dist" "${DIR}/node_modules/@frontegg/redux-store"
+	@ln -s "${DIR}/packages/react-hooks/dist" "${DIR}/node_modules/@frontegg/react-hooks"
 
 add-dist-folders-%:
 	@mkdir -p ./packages/${*}/dist
