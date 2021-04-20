@@ -1,4 +1,4 @@
-import { terser } from 'rollup-plugin-terser';
+// import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -9,7 +9,10 @@ import postcss from 'rollup-plugin-postcss';
 import fs from 'fs';
 import path from 'path';
 
-const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json')));
+const workDir = process.cwd();
+const distFolder = path.join(workDir, './dist/');
+
+const pkg = JSON.parse(fs.readFileSync(path.join(workDir, './package.json')));
 const isProduction = process.env.NODE_ENV === 'production';
 const isWatching = process.argv.includes('-w') || process.argv.includes('--watch');
 
@@ -17,10 +20,42 @@ console.warn('****************************************');
 console.log('* Building   :', pkg.libName);
 console.log('* ENV        :', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
 console.log('* isWatching :', isWatching);
+console.log('* INCLUDES   :', process.env.INCLUDES || 'none');
 console.warn('****************************************');
 
+const entryPoints = process.env.INCLUDES
+  ? process.env.INCLUDES.split(':').reduce((a, c) => ({ ...a, [c]: `./src/${c}/index.ts` }), {
+      index: './src/index.ts',
+    })
+  : './src/index.ts';
 
-const distFolder = path.join(process.cwd(), './dist/');
+const outputProps = process.env.INCLUDES
+  ? {
+      esm: {
+        dir: distFolder,
+        entryFileNames: '[name].esm.js',
+        sourcemap: !isProduction,
+        format: 'esm',
+      },
+      cjs: {
+        dir: distFolder,
+        entryFileNames: '[name].js',
+        sourcemap: !isProduction,
+        format: 'cjs',
+      },
+    }
+  : {
+      esm: {
+        file: path.join(distFolder, 'index.esm.js'),
+        sourcemap: !isProduction,
+        format: 'esm',
+      },
+      cjs: {
+        file: path.join(distFolder, 'index.js'),
+        sourcemap: !isProduction,
+        format: 'cjs',
+      },
+    };
 
 const isExternal = (id) => {
   const internal = [
@@ -50,25 +85,18 @@ const isExternal = (id) => {
   //   'immer',
   //   '@reduxjs/toolkit',
   // ];
-  const startWith = [
-    '@babel/runtime',
-    '.',
-  ];
-  const contains = [
-    'style-inject',
-  ];
+  const startWith = ['@babel/runtime', '.'];
+  const contains = ['style-inject'];
   if (internal.includes(id)) {
     return false;
   }
-  if (startWith.find(s => id.indexOf(s) === 0)) {
+  if (startWith.find((s) => id.indexOf(s) === 0)) {
     return false;
   }
-  return !contains.find(s => id.indexOf(s) !== -1);
-
+  return !contains.find((s) => id.indexOf(s) !== -1);
 };
 
 const commonPlugins = [
-
   replace({
     __BUILD_ENV__: isProduction ? 'prod' : 'dev',
     __BUILD_DATE__: () => new Date(),
@@ -96,29 +124,14 @@ const commonPlugins = [
 const esmPlugins = [
   ...commonPlugins,
   ts({
-    tsconfig: `${process.cwd()}/tsconfig.json`,
+    tsconfig: `${workDir}/tsconfig.json`,
     useTsconfigDeclarationDir: true,
     tsconfigOverride: {
-      'compilerOptions': {
-        'declaration': true,
-        'declarationDir': distFolder,
-        'target': 'ES6',
-        'module': 'ES6',
-      },
-    },
-  }),
-];
-
-const esPlugins = [
-  ...commonPlugins,
-  ts({
-    tsconfig: `${process.cwd()}/tsconfig.json`,
-    useTsconfigDeclarationDir: false,
-    tsconfigOverride: {
-      'compilerOptions': {
-        'declaration': false,
-        'target': 'ES5',
-        'module': 'ES6',
+      compilerOptions: {
+        declaration: true,
+        declarationDir: distFolder,
+        target: 'ES6',
+        module: 'ES6',
       },
     },
   }),
@@ -127,87 +140,33 @@ const esPlugins = [
 const cjsPlugins = [
   ...commonPlugins,
   ts({
-    tsconfig: `${process.cwd()}/tsconfig.json`,
+    tsconfig: `${workDir}/tsconfig.json`,
     useTsconfigDeclarationDir: false,
     tsconfigOverride: {
-      'compilerOptions': {
-        'declaration': false,
-        'target': 'ES5',
-        'module': 'ES6',
+      compilerOptions: {
+        declaration: false,
+        target: 'ES5',
+        module: 'ES6',
       },
     },
   }),
 ];
 
-const umdPlugins = [
-  ...commonPlugins,
-  ts({
-    tsconfig: `${process.cwd()}/tsconfig.json`,
-    tsconfigOverride: {
-      'compilerOptions': {
-        'declaration': false,
-        'target': 'ES2015',
-        'module': 'ES2015',
-      },
-    },
-  }),
-];
-
-export default [{
-  input: './src/index.ts',
-  plugins: esmPlugins,
-  external: isExternal,
-  output: {
-    file: path.join(distFolder, 'index.esm.js'),
-    sourcemap: true,
-    format: 'esm',
+export default [
+  {
+    input: entryPoints,
+    plugins: cjsPlugins,
+    external: isExternal,
+    output: outputProps.cjs,
   },
-},
-  ...(isWatching ? [] : [
-    {
-      input: './src/index.ts',
-      plugins: esPlugins,
-      external: isExternal,
-      output: {
-        file: path.join(distFolder, 'index.es.js'),
-        sourcemap: true,
-        format: 'es',
-      },
-    }, {
-      input: './src/index.ts',
-      plugins: cjsPlugins,
-      external: isExternal,
-      output: {
-        file: path.join(distFolder, 'index.js'),
-        sourcemap: true,
-        format: 'cjs',
-      },
-    },
-    // {
-    //   input: './src/index.ts',
-    //   plugins: umdPlugins,
-    //   external: [
-    //     'react',
-    //     'react-dom',
-    //     '@frontegg/react-core',
-    //     '@frontegg/react-auth',
-    //     '@frontegg/react-elements-material-ui',
-    //     '@frontegg/react-elements-semantic',
-    //   ],
-    //   output: {
-    //     globals: {
-    //       'react': 'React',
-    //       'react-dom': 'ReactDOM',
-    //       '@frontegg/react-core': 'FronteggCore',
-    //       '@frontegg/react-auth': 'FronteggAuth',
-    //       '@frontegg/react-elements-material-ui': 'FronteggElementsMaterialUi',
-    //       '@frontegg/react-elements-semantic': 'FronteggElementsSemantic',
-    //     },
-    //     file: path.join(distFolder, 'index.umd.js'),
-    //     name: pkg.libName,
-    //     format: 'umd',
-    //   },
-    // }
-  ]),
+  ...(isWatching
+    ? []
+    : [
+        {
+          input: entryPoints,
+          plugins: esmPlugins,
+          external: isExternal,
+          output: outputProps.esm,
+        },
+      ]),
 ];
-

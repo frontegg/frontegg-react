@@ -30,9 +30,12 @@ const plugins = [
     include: [/node_modules/],
     sourceMap: false,
   }),
-  isProduction ? terser({
-    ecma: '6', module: true,
-  }) : progress(),
+  isProduction
+    ? terser({
+        ecma: '6',
+        module: true,
+      })
+    : progress(),
   ts({
     rollupCommonJSResolveHack: true,
     clean: true,
@@ -51,7 +54,7 @@ export default {
   input: './src/index.ts',
   plugins,
   inlineDynamicImports: true,
-  external: (id)=> !id.startsWith('.'),
+  external: (id) => !id.startsWith('.'),
   output: {
     sourcemap: !isProduction,
     dir: distFolder,

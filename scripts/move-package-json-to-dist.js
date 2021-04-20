@@ -11,7 +11,6 @@ function movePackageJson(packagePath) {
   const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
   newPkg.main = 'index.js';
   newPkg.module = 'index.esm.js';
-  newPkg.es2015 = 'index.es.js';
   newPkg.types = 'index.d.ts';
   if (newPkg.bin) {
     for (const k in newPkg.bin) {
@@ -34,23 +33,26 @@ function movePackageJson(packagePath) {
   ];
   newPkg.peerDependencies = {
     ...(newPkg.peerDependencies || {}),
-    ...(peerDeps
-      .map(dep => newPkg.dependencies && newPkg.dependencies[dep] ? { [dep]: newPkg.dependencies[dep] } : {})
-      .reduce((p, n) => ({ ...p, ...n }), {})),
+    ...peerDeps
+      .map((dep) => (newPkg.dependencies && newPkg.dependencies[dep] ? { [dep]: newPkg.dependencies[dep] } : {}))
+      .reduce((p, n) => ({ ...p, ...n }), {}),
   };
 
-  peerDeps.forEach(dep => {
-    if(newPkg.dependencies) {
+  peerDeps.forEach((dep) => {
+    if (newPkg.dependencies) {
       delete newPkg.dependencies[dep];
     }
   });
 
-
   fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(newPkg, null, 2), { encoding: 'utf8' });
   if (fs.existsSync(`${packagePath}/README.md`)) {
-    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(`${packagePath}/README.md`), { encoding: 'utf8' });
+    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(`${packagePath}/README.md`), {
+      encoding: 'utf8',
+    });
   } else if (packagePath.indexOf('/core') !== -1) {
-    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(path.join(__dirname, `../README.md`)), { encoding: 'utf8' });
+    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(path.join(__dirname, `../README.md`)), {
+      encoding: 'utf8',
+    });
   }
 }
 
