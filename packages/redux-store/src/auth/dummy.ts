@@ -11,6 +11,7 @@ import {
   IUserProfile,
   ISamlMetadata,
   ITenantsResponse,
+  ISecurityPolicyPasswordHistory,
 } from '@frontegg/rest-api';
 import { IApiTokensData, ITenantApiTokensData } from './ApiTokensState/interfaces';
 import { User } from './interfaces';
@@ -123,6 +124,14 @@ export const policyLockoutDemo: ISecurityPolicyLockout = {
   id: 'id',
   enabled: true,
   maxAttempts: 1,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const policyPasswordHistoryDemo: ISecurityPolicyPasswordHistory = {
+  id: 'id',
+  enabled: true,
+  historySize: 1,
   createdAt: new Date(),
   updatedAt: new Date(),
 };

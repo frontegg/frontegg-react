@@ -55,3 +55,17 @@ export interface ISaveSecurityPolicyCaptcha {
   siteKey: string;
   enabled: boolean;
 }
+
+export interface ISecurityPolicyPasswordHistory {
+  id: string;
+  enabled: boolean;
+  historySize: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ISaveSecurityPolicyPasswordHistory {
+  id?: string;
+  enabled: boolean;
+  historySize: number;
+}
