@@ -79,7 +79,6 @@ const nodeModules = [
   // 'tslib',
   'react',
   '@frontegg/rest-api',
-  'react-redux',
   '@frontegg/redux-store',
   '@frontegg/redux-store/auth',
   '@frontegg/redux-store/audits',

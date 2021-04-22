@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { IWebhooksConfigurations, IWebhooksSaveData } from '@frontegg/rest-api';
@@ -210,7 +210,7 @@ export const ConnectivityWebhooksList: FC = () => {
       <Button data-test-id='addBtn' className='fe-connectivity-webhook-add' variant='primary' onClick={onNewEvent}>
         {t('connectivity.addNewHook')}
       </Button>
-      <Table rowKey='_id' columns={columns} data={data} totalData={webhook?.length || 0} />
+      <Table rowKey='_id' columns={columns as any} data={data} totalData={webhook?.length || 0} />
       <Dialog header={t('connectivity.deleteWebhook')} open={!!remove} onClose={() => onRemove(null)}>
         {!!remove && (
           <>

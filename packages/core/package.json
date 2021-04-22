@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@frontegg/react-hooks": "^2.1.0",
+    "@frontegg/redux-store": "^2.1.0",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "history": "^4.9.0",
@@ -38,7 +39,6 @@
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
     "@types/react-i18next": "^8.1.0",
-    "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.2",
     "@types/react-select": "^3.0.22",
     "@types/react-table": "^7.0.23",

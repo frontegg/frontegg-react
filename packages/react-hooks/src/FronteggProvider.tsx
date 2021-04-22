@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { Provider } from 'react-redux';
-import { createFronteggStore } from '@frontegg/redux-store';
+import { Provider, createFronteggStore } from '@frontegg/redux-store';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import { useAuth, useAuthRoutes } from './auth';
 
