@@ -1,7 +1,17 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react';
-import { Provider } from 'react-redux';
-import createSagaMiddleware, { Task } from 'redux-saga';
-import { getDefaultMiddleware, combineReducers, configureStore, Reducer, EnhancedStore } from '@reduxjs/toolkit';
+import {
+  all,
+  call,
+  Middleware,
+  getDefaultMiddleware,
+  combineReducers,
+  configureStore,
+  Reducer,
+  EnhancedStore,
+  Task,
+  createSagaMiddleware,
+} from '@frontegg/redux-store/toolkit';
+import { Provider } from '@frontegg/react-hooks';
 import { I18nextProvider } from 'react-i18next';
 import { ContextOptions, ListenerProps, LogLevel } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
@@ -10,8 +20,6 @@ import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { ProxyComponent, useProxyComponent } from './ngSupport';
-import { all, call } from 'redux-saga/effects';
-import { Middleware } from 'redux';
 
 const isSSR = typeof window === 'undefined';
 

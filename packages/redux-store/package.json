@@ -12,7 +12,9 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/rest-api": "^2.0.0",
+    "@frontegg/rest-api": "^2.0.0"
+  },
+  "devDependencies": {
     "@reduxjs/toolkit": "1.x",
     "redux-saga": "1.x"
   },

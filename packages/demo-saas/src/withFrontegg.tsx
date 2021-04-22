@@ -2,7 +2,6 @@ import React, { ComponentType } from 'react';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { ConnectivityPlugin } from '@frontegg/react-connectivity';
-// import { NotificationsPlugin } from '@frontegg/react-notifications';
 import { AuditsPlugin } from '@frontegg/react-audits';
 
 const developmentHosts = ['localhost', 'local.frontegg.com'];
@@ -12,7 +11,7 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: `https://app-5F2WTIbpomg1.frontegg.com`,
+  baseUrl: `${window.location.protocol}//${host}`,
   requestCredentials: 'include',
 };
 

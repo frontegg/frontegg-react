@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@frontegg/redux-store/toolkit';
+
 import { auditsActions, AuditsActions, AuditsState, auditsStoreName } from '@frontegg/redux-store/audits';
+import { shallowEqual, useDispatch, useSelector } from '../FronteggProvider';
 
 export type AuthStateMapper<S extends object> = (state: AuditsState) => S;
 export type StateHookFunction<T> = (() => T) & (<S extends object>(mapper: (state: T) => S) => S);

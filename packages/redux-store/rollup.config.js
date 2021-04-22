@@ -79,10 +79,10 @@ const entryPoints = [
 ];
 const nodeModules = [
   'tslib',
-  'redux',
-  '@reduxjs/toolkit',
-  'redux-saga',
-  'redux-saga/effects',
+  // 'redux',
+  // '@reduxjs/toolkit',
+  // 'redux-saga',
+  // 'redux-saga/effects',
   '@frontegg/rest-api',
   '/node_modules/',
 ];

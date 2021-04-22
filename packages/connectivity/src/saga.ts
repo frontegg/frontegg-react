@@ -1,4 +1,5 @@
-import { put, call, takeEvery, all, takeLatest, select } from 'redux-saga/effects';
+import { put, call, takeEvery, all, takeLatest, select } from '@frontegg/redux-store';
+
 import { PayloadAction } from '@reduxjs/toolkit';
 import { connectivityActions } from './reducer';
 import { IConnectivityState, IPluginState, TPlatform, TPostDataSuccess } from './interfaces';

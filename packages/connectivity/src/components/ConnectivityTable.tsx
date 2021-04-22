@@ -40,7 +40,7 @@ export const ConnectivityTable: FC = () => {
     list,
   }));
 
-  const data = useMemo(() => list.map((el) => ({ ...el, isSelect: locationState?.open === el.key })), [
+  const data = useMemo(() => list.map((el: any) => ({ ...el, isSelect: locationState?.open === el.key })), [
     list,
     locationState,
   ]);
@@ -116,7 +116,7 @@ export const ConnectivityTable: FC = () => {
   );
 
   useLayoutEffect(() => {
-    locationState && data?.length && setEdit(data.find(({ key }) => key === locationState.open) ?? null);
+    locationState && data?.length && setEdit(data.find(({ key }: any) => key === locationState.open) ?? null);
   }, [locationState, data]);
 
   const onCloseEdit = () => {
