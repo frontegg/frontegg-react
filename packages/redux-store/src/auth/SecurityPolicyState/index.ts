@@ -7,6 +7,7 @@ import {
   GlobalPolicyState,
   LockoutPolicyState,
   MfaPolicyState,
+  PasswordPolicyState,
   SaveSecurityPolicyLockoutPayload,
   SaveSecurityPolicyMfaPayload,
   SecurityPolicyState,
@@ -28,6 +29,9 @@ const securityPolicyState: SecurityPolicyState = {
     loading: true,
   },
   passwordHistoryPolicy: {
+    loading: true,
+  },
+  passwordPolicy: {
     loading: true,
   },
 };
@@ -54,6 +58,10 @@ const reducers = {
     'securityPolicyState',
     'passwordHistoryPolicy'
   ),
+  setSecurityPolicyPasswordState: typeReducerNestedKey<SecurityPolicyState, PasswordPolicyState>(
+    'securityPolicyState',
+    'passwordPolicy'
+  ),
   resetSecurityPolicyState: resetStateByKey<SecurityPolicyState>('securityPolicyState', { securityPolicyState }),
 };
 
@@ -75,6 +83,7 @@ const actions = {
     `${authStoreName}/saveSecurityPolicyPasswordHistory`,
     (payload: SaveSecurityPolicyPasswordHistoryPayload) => ({ payload })
   ),
+  loadVendorPasswordConfig: createAction(`${authStoreName}/loadVendorPasswordConfig`),
 };
 
 /**
@@ -89,8 +98,10 @@ type DispatchedActions = {
   setSecurityPolicyCaptchaState: (state: Partial<CaptchaPolicyState>) => void;
   setSecurityPolicyPasswordHistoryState: (state: Partial<PasswordHistoryPolicyState>) => void;
   resetSecurityPolicyState: () => void;
+  setSecurityPolicyPasswordState: (state: Partial<PasswordPolicyState>) => void;
 
   loadSecurityPolicy: () => void;
+  loadVendorPasswordConfig: () => void;
   loadSecurityPolicyMfa: () => void;
   saveSecurityPolicyMfa: (payload: SaveSecurityPolicyMfaPayload) => void;
   loadSecurityPolicyLockout: () => void;

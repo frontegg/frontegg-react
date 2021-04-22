@@ -90,6 +90,7 @@ export const mockAuthApi = (
       response: {
         accessToken: '',
         refreshToken: '',
+        verified: true,
       },
     }).as('refreshToken');
   } else {

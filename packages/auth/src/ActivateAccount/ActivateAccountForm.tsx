@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useEffect, useState } from 'react';
+import React, { ComponentType, createElement, FC, useCallback, useEffect, useState } from 'react';
 import { AuthActions, AuthState } from '@frontegg/redux-store/auth';
 import {
   validatePasswordConfirmation,
@@ -10,13 +10,17 @@ import {
   useT,
   FFormik,
   validatePasswordUsingOWASP,
+  Loader,
 } from '@frontegg/react-core';
 import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
-import { SocialLoginsLoginWithWrapper } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
-const stateMapper = ({ activateState, forgotPasswordState }: AuthState) => ({ activateState, forgotPasswordState });
+const stateMapper = ({ activateState, forgotPasswordState, signUpState }: AuthState) => ({
+  activateState,
+  forgotPasswordState,
+  signUpState,
+});
 
 export type ActivateAccountFormRendererProps = Omit<ActivateAccountFormProps, 'renderer'> &
   ReturnType<typeof stateMapper> &
@@ -26,11 +30,12 @@ export interface ActivateAccountFormProps {
   renderer?: ComponentType<ActivateAccountFormRendererProps>;
   userId: string;
   token: string;
+  shouldSetPassword: boolean;
 }
 
 export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
   const [logoutLoader, setLogoutLoader] = useState(true);
-  const { renderer, userId, token } = props;
+  const { renderer, userId, token, shouldSetPassword } = props;
   const { t } = useT();
   const { activateAccount, loadPasswordConfig, resetForgotPasswordState, silentLogout } = useAuthActions();
   const {
@@ -38,16 +43,27 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
     forgotPasswordState: { passwordConfig },
   } = useAuth(stateMapper);
 
+  const logoutCallback = useCallback(() => {
+    setLogoutLoader(false);
+    if (!shouldSetPassword) {
+      activateAccount({ userId, token });
+    }
+  }, [shouldSetPassword, userId, token]);
+
   useEffect((): (() => void) => {
-    silentLogout(() => setLogoutLoader(false));
+    silentLogout(logoutCallback);
     loadPasswordConfig({ userId });
     return resetForgotPasswordState;
-  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, userId]);
+  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, logoutCallback, userId]);
 
   const loading = logoutLoader || activateStateLoading;
 
   if (renderer) {
     return createElement(renderer, { ...props, loading, error, passwordConfig } as any);
+  }
+
+  if (!shouldSetPassword && loading) {
+    return <Loader />;
   }
 
   return (

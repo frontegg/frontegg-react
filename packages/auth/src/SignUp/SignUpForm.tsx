@@ -11,10 +11,19 @@ import {
   validateEmail,
   ErrorMessage,
   validateCheckbox,
+  validatePassword,
+  validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo, useSignUpActions, useSignUpState } from '@frontegg/react-hooks/auth';
+import {
+  useAuthRoutes,
+  useOnRedirectTo,
+  useSecurityPolicyState,
+  useSignUpActions,
+  useSignUpState,
+} from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
 import { SignUpCheckbox } from './SignUp';
+
 const { Formik } = FFormik;
 
 export interface SignUpFormProps {
@@ -33,7 +42,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({
   const routes = useAuthRoutes();
   const onRedirectTo = useOnRedirectTo();
   const { signUpUser } = useSignUpActions();
-  const { loading, error } = useSignUpState();
+  const { loading, error, allowNotVerifiedUsersLogin } = useSignUpState();
+  const {
+    passwordPolicy: { policy },
+  } = useSecurityPolicyState();
 
   const isCheckboxVisible = useCallback((checkbox?: SignUpCheckbox) => {
     return checkbox?.hasOwnProperty('content');
@@ -63,6 +75,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           recaptchaToken: '',
           acceptedTermsOfService: isSignUpConsentVisible ? false : undefined,
           allowMarketingMaterial: isMarketingMaterialVisible ? false : undefined,
+          password: allowNotVerifiedUsersLogin ? '' : undefined,
         }}
         onSubmit={({ acceptedTermsOfService, allowMarketingMaterial, ...values }) => {
           const metadata = JSON.stringify({
@@ -83,6 +96,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           acceptedTermsOfService: isSignUpConsentVisible && signUpConsent?.required !== false && validateCheckbox(),
           allowMarketingMaterial:
             isMarketingMaterialVisible && marketingMaterialConsent?.required !== false && validateCheckbox(),
+          password: allowNotVerifiedUsersLogin && validatePasswordUsingOWASP(policy),
         })}
       >
         <FForm>
@@ -94,6 +108,16 @@ export const SignUpForm: FC<SignUpFormProps> = ({
             placeholder={t('auth.sign-up.form.email')}
             data-test-id='email-box'
           />
+          {allowNotVerifiedUsersLogin && (
+            <FInput
+              size='large'
+              type='password'
+              name='password'
+              tabIndex={allowNotVerifiedUsersLogin ? undefined : -1}
+              placeholder={t('auth.login.enter-your-password')}
+              data-testid='password-box'
+            />
+          )}
           {withCompanyName && (
             <FInput
               name='companyName'

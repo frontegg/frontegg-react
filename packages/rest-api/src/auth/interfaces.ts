@@ -132,6 +132,7 @@ export interface ISetSocialLoginError {
 
 export interface IVendorConfig {
   allowSignups: boolean;
+  allowNotVerifiedUsersLogin: boolean;
 }
 
 export interface ISignUpUser {
@@ -147,6 +148,7 @@ export interface ISignUpUser {
 
 export interface ISignUpResponse {
   shouldActivate: boolean;
+  user?: ILoginResponse;
 }
 
 export interface IUserApiTokensData {
