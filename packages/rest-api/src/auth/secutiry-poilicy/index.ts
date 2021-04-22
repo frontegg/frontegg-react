@@ -7,6 +7,8 @@ import {
   ISecurityPolicyMfa,
   ISecurityPolicyLockout,
   ISecurityPolicyCaptcha,
+  ISecurityPolicyPasswordHistory,
+  ISaveSecurityPolicyPasswordHistory,
 } from './interfaces';
 import { Get, Patch, Post } from '../../fetch';
 import { IDENTITY_CONFIGURATION_SERVICE_URL_V1 } from '../../constants';
@@ -65,4 +67,26 @@ export async function saveLockoutPolicy(body: ISaveSecurityPolicyLockout): Promi
 export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha> {
   console.debug('getCaptchaPolicy()');
   return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
+}
+
+/**
+ * Get Password History configuration from security policy
+ */
+export async function getPasswordHistoryPolicy(): Promise<ISecurityPolicyPasswordHistory> {
+  console.debug('getPasswordHistoryPolicy()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password-history-policy`);
+}
+
+/**
+ * Create/Update Password History configuration from security policy
+ */
+export async function savePasswordHistoryPolicy(
+  body: ISaveSecurityPolicyPasswordHistory
+): Promise<ISecurityPolicyPasswordHistory> {
+  console.debug('savePasswordHistoryPolicy()');
+  if (body.id) {
+    return Patch(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password-history-policy`, body);
+  } else {
+    return Post(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password-history-policy`, body);
+  }
 }

@@ -1,10 +1,14 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeEvery, takeLeading } from 'redux-saga/effects';
-import { api, ISecurityPolicyLockout, ISecurityPolicyMfa } from '@frontegg/rest-api';
+import { api, ISecurityPolicyLockout, ISecurityPolicyMfa, ISecurityPolicyPasswordHistory } from '@frontegg/rest-api';
 import { actions } from '../reducer';
-import { SaveSecurityPolicyLockoutPayload, SaveSecurityPolicyMfaPayload } from './interfaces';
+import {
+  SaveSecurityPolicyLockoutPayload,
+  SaveSecurityPolicyMfaPayload,
+  SaveSecurityPolicyPasswordHistoryPayload,
+} from './interfaces';
 import { delay } from '../utils';
-import { policyDemo, policyMfaDemo, policyLockoutDemo } from '../dummy';
+import { policyDemo, policyMfaDemo, policyLockoutDemo, policyPasswordHistoryDemo } from '../dummy';
 
 function* loadSecurityPolicy() {
   yield put(actions.setSecurityPolicyGlobalState({ loading: true, error: null }));
@@ -77,6 +81,30 @@ function* loadSecurityPolicyCaptcha() {
   }
 }
 
+function* loadSecurityPolicyPasswordHistory() {
+  yield put(actions.setSecurityPolicyPasswordHistoryState({ loading: true, error: null }));
+  try {
+    const policy = yield call(api.auth.getPasswordHistoryPolicy);
+    yield put(actions.setSecurityPolicyPasswordHistoryState({ policy, loading: false }));
+  } catch (e) {
+    yield put(actions.setSecurityPolicyPasswordHistoryState({ error: e.message, loading: false }));
+  }
+}
+
+function* saveSecurityPolicyPasswordHistory({
+  payload: { callback, ...newSecurityPolicy },
+}: PayloadAction<SaveSecurityPolicyPasswordHistoryPayload>) {
+  yield put(actions.setSecurityPolicyPasswordHistoryState({ saving: true, error: null }));
+  try {
+    const policy = yield call(api.auth.savePasswordHistoryPolicy, newSecurityPolicy);
+    yield put(actions.setSecurityPolicyPasswordHistoryState({ policy, saving: false }));
+    callback?.(policy);
+  } catch (e) {
+    yield put(actions.setSecurityPolicyPasswordHistoryState({ saving: false, error: e.message }));
+    callback?.(null, e);
+  }
+}
+
 export function* securityPolicySagas() {
   yield takeLeading(actions.loadSecurityPolicy, loadSecurityPolicy);
   yield takeEvery(actions.saveSecurityPolicyMfa, saveSecurityPolicyMfa);
@@ -84,6 +112,8 @@ export function* securityPolicySagas() {
   yield takeEvery(actions.saveSecurityPolicyLockout, saveSecurityPolicyLockout);
   yield takeEvery(actions.loadSecurityPolicyLockout, loadSecurityPolicyLockout);
   yield takeEvery(actions.loadSecurityPolicyCaptcha, loadSecurityPolicyCaptcha);
+  yield takeEvery(actions.saveSecurityPolicyPasswordHistory, saveSecurityPolicyPasswordHistory);
+  yield takeEvery(actions.loadSecurityPolicyPasswordHistory, loadSecurityPolicyPasswordHistory);
 }
 
 /*********************************
@@ -144,6 +174,26 @@ function* loadSecurityPolicyCaptchaMock() {
   yield put(actions.setSecurityPolicyLockoutState({ policy: policyLockoutDemo, loading: false }));
 }
 
+function* loadSecurityPolicyPasswordHistoryMock() {
+  yield put(actions.setSecurityPolicyPasswordHistoryState({ loading: true, error: null }));
+  yield delay();
+  yield put(actions.setSecurityPolicyPasswordHistoryState({ policy: policyPasswordHistoryDemo, loading: false }));
+}
+
+function* saveSecurityPolicyPasswordHistoryMock({
+  payload: { callback, ...newSecurityPolicy },
+}: PayloadAction<SaveSecurityPolicyPasswordHistoryPayload>) {
+  yield put(actions.setSecurityPolicyPasswordHistoryState({ saving: true, error: null }));
+  yield delay();
+  const policy: ISecurityPolicyPasswordHistory = {
+    ...newSecurityPolicy,
+    ...policyPasswordHistoryDemo,
+    id: newSecurityPolicy.id ? newSecurityPolicy.id : policyPasswordHistoryDemo.id,
+  };
+  callback?.(policy);
+  yield put(actions.setSecurityPolicyPasswordHistoryState({ policy, saving: false }));
+}
+
 export function* securityPolicySagasMock() {
   yield takeLeading(actions.loadSecurityPolicy, loadSecurityPolicyMock);
   yield takeEvery(actions.saveSecurityPolicyMfa, saveSecurityPolicyMfaMock);
@@ -151,4 +201,6 @@ export function* securityPolicySagasMock() {
   yield takeEvery(actions.saveSecurityPolicyLockout, saveSecurityPolicyLockoutMock);
   yield takeEvery(actions.loadSecurityPolicyLockout, loadSecurityPolicyLockoutMock);
   yield takeEvery(actions.loadSecurityPolicyCaptcha, loadSecurityPolicyCaptchaMock);
+  yield takeEvery(actions.saveSecurityPolicyPasswordHistory, saveSecurityPolicyPasswordHistoryMock);
+  yield takeEvery(actions.loadSecurityPolicyPasswordHistory, loadSecurityPolicyPasswordHistoryMock);
 }

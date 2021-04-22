@@ -10,6 +10,8 @@ import {
   SaveSecurityPolicyLockoutPayload,
   SaveSecurityPolicyMfaPayload,
   SecurityPolicyState,
+  PasswordHistoryPolicyState,
+  SaveSecurityPolicyPasswordHistoryPayload,
 } from './interfaces';
 
 const securityPolicyState: SecurityPolicyState = {
@@ -23,6 +25,9 @@ const securityPolicyState: SecurityPolicyState = {
     loading: true,
   },
   captchaPolicy: {
+    loading: true,
+  },
+  passwordHistoryPolicy: {
     loading: true,
   },
 };
@@ -45,6 +50,10 @@ const reducers = {
     'securityPolicyState',
     'captchaPolicy'
   ),
+  setSecurityPolicyPasswordHistoryState: typeReducerNestedKey<SecurityPolicyState, PasswordHistoryPolicyState>(
+    'securityPolicyState',
+    'passwordHistoryPolicy'
+  ),
   resetSecurityPolicyState: resetStateByKey<SecurityPolicyState>('securityPolicyState', { securityPolicyState }),
 };
 
@@ -61,6 +70,11 @@ const actions = {
     (payload: SaveSecurityPolicyLockoutPayload) => ({ payload })
   ),
   loadSecurityPolicyCaptcha: createAction(`${authStoreName}/loadSecurityPolicyCaptcha`),
+  loadSecurityPolicyPasswordHistory: createAction(`${authStoreName}/loadSecurityPolicyPasswordHistory`),
+  saveSecurityPolicyPasswordHistory: createAction(
+    `${authStoreName}/saveSecurityPolicyPasswordHistory`,
+    (payload: SaveSecurityPolicyPasswordHistoryPayload) => ({ payload })
+  ),
 };
 
 /**
@@ -73,6 +87,7 @@ type DispatchedActions = {
   setSecurityPolicyMfaState: (state: Partial<MfaPolicyState>) => void;
   setSecurityPolicyLockoutState: (state: Partial<LockoutPolicyState>) => void;
   setSecurityPolicyCaptchaState: (state: Partial<CaptchaPolicyState>) => void;
+  setSecurityPolicyPasswordHistoryState: (state: Partial<PasswordHistoryPolicyState>) => void;
   resetSecurityPolicyState: () => void;
 
   loadSecurityPolicy: () => void;
@@ -81,6 +96,8 @@ type DispatchedActions = {
   loadSecurityPolicyLockout: () => void;
   saveSecurityPolicyLockout: (payload: SaveSecurityPolicyLockoutPayload) => void;
   loadSecurityPolicyCaptcha: () => void;
+  loadSecurityPolicyPasswordHistory: () => void;
+  saveSecurityPolicyPasswordHistory: (payload: SaveSecurityPolicyPasswordHistoryPayload) => void;
 };
 
 // noinspection JSUnusedLocalSymbols
