@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 import {
-  Provider,
   all,
   call,
   Middleware,
@@ -12,6 +11,7 @@ import {
   Task,
   createSagaMiddleware,
 } from '@frontegg/redux-store/toolkit';
+import { Provider } from '@frontegg/react-hooks';
 import { I18nextProvider } from 'react-i18next';
 import { ContextOptions, ListenerProps, LogLevel } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';

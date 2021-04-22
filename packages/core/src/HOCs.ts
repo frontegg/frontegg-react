@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
-import { bindActionCreators, Dispatch, connect } from '@frontegg/redux-store/toolkit';
+import { bindActionCreators, Dispatch } from '@frontegg/redux-store/toolkit';
+import { connect } from '@frontegg/react-hooks';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 export type WithT = WithTranslation;
