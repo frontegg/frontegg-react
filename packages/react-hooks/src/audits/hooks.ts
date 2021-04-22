@@ -1,5 +1,12 @@
 import { useMemo } from 'react';
-import { bindActionCreators, CaseReducerActions, SliceCaseReducers, useSelector, useDispatch, shallowEqual } from '@frontegg/redux-store/toolkit';
+import {
+  bindActionCreators,
+  CaseReducerActions,
+  SliceCaseReducers,
+  useSelector,
+  useDispatch,
+  shallowEqual,
+} from '@frontegg/redux-store/toolkit';
 import { auditsActions, AuditsActions, AuditsState, auditsStoreName } from '@frontegg/redux-store/audits';
 
 export type AuthStateMapper<S extends object> = (state: AuditsState) => S;

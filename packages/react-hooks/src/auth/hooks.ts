@@ -1,5 +1,12 @@
 import { useMemo } from 'react';
-import { bindActionCreators, CaseReducerActions, SliceCaseReducers, useSelector, useDispatch, shallowEqual } from '@frontegg/redux-store/toolkit';
+import {
+  bindActionCreators,
+  CaseReducerActions,
+  SliceCaseReducers,
+  useSelector,
+  useDispatch,
+  shallowEqual,
+} from '@frontegg/redux-store/toolkit';
 import { authActions, AuthActions, AuthPageRoutes, AuthState, User, authStoreName } from '@frontegg/redux-store/auth';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 

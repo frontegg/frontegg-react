@@ -12,8 +12,8 @@ import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import authStore from '../auth';
 import auditsStore from '../audits';
 
-export * from './redux'
-export * from './redux-saga'
+export * from './redux';
+export * from './redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [
