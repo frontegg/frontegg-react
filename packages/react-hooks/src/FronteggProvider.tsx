@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { Provider, createFronteggStore } from '@frontegg/redux-store';
+import { Provider } from 'react-redux';
+import { createFronteggStore } from '@frontegg/redux-store';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import { useAuth, useAuthRoutes } from './auth';
 
@@ -8,6 +9,8 @@ type FronteggProviderProps = {
   contextOptions?: ContextOptions;
   setLoading?: (loading: boolean) => void;
 };
+
+export { Provider, useSelector, useDispatch, shallowEqual, connect } from 'react-redux';
 
 const setLoading = (loading: boolean): void => {
   const isSSR = typeof document === 'undefined' || typeof window === 'undefined';
