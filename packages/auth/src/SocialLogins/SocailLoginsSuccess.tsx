@@ -57,7 +57,7 @@ export const SocialLoginsSuccess: FC = () => {
     }
   }, []);
 
-  if (socialLoginState.firstLoad || socialLoginState.loading) {
+  if (socialLoginState.firstLoad || socialLoginState.loading || !socialLoginState.error) {
     return (
       <div className={'fe-center'}>
         <Loader />
