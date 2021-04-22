@@ -2,7 +2,7 @@ import React, { FC, memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { FeTableExpandable } from './FeTableExpandable';
-import { shallowEqual } from 'react-redux';
+import { shallowEqual } from '@frontegg/redux-store/toolkit';
 import { FeLoader } from '../Loader/FeLoader';
 import { useT } from '../../hooks';
 

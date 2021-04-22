@@ -1,4 +1,5 @@
-import { put, call, takeEvery, all, takeLatest, select } from 'redux-saga/effects';
+import { put, call, takeEvery, all, takeLatest, select } from '@frontegg/redux-store';
+
 import { PayloadAction } from '@reduxjs/toolkit';
 import { connectivityActions } from './reducer';
 import { IConnectivityState, IPluginState, TPlatform, TPostDataSuccess } from './interfaces';
@@ -46,20 +47,20 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
       payload[idx]
         ? values[values.length - 1][payload[idx]].length
           ? {
-              ...acc,
-              [`${payload[idx]}`]: curr,
-              list: [
-                ...acc.list,
-                {
-                  id: idx,
-                  key: payload[idx],
-                  events: channels2Platform[payload[idx]].events(curr),
-                  active: channels2Platform[payload[idx]].isActive(curr),
-                  platform: channels2Platform[payload[idx]].title,
-                  image: channels2Platform[payload[idx]].image,
-                },
-              ],
-            }
+            ...acc,
+            [`${payload[idx]}`]: curr,
+            list: [
+              ...acc.list,
+              {
+                id: idx,
+                key: payload[idx],
+                events: channels2Platform[payload[idx]].events(curr),
+                active: channels2Platform[payload[idx]].isActive(curr),
+                platform: channels2Platform[payload[idx]].title,
+                image: channels2Platform[payload[idx]].image,
+              },
+            ],
+          }
           : acc
         : { ...acc, [`${addApi[idx - payload.length]}`]: curr },
     { list: [] }
@@ -252,7 +253,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
           );
         }),
     ]);
-  } catch {}
+  } catch { }
   if (actionsResult.length) {
     const newData = yield loadFunction({ payload: { api: type }, type: '' });
     yield put(connectivityActions.postDataSuccess({ platform: type, data: newData }));
@@ -265,7 +266,7 @@ function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigRespo
 function* postCodeFunction({ payload }: PayloadAction<string>) {
   try {
     yield api.connectivity.postSlackCode(payload);
-  } catch {}
+  } catch { }
   yield put(connectivityActions.postCodeSuccess());
 }
 
@@ -281,7 +282,7 @@ function* loadSlackPermissions() {
 function* deleteWebhookConfigFunction({ payload }: PayloadAction<string>) {
   try {
     yield call(api.connectivity.deleteWebhooksConfiguration, payload);
-  } catch {}
+  } catch { }
   const newData = yield loadFunction({ payload: { api: 'webhook' }, type: '' });
   if (newData) yield put(connectivityActions.postDataSuccess({ platform: 'webhook', data: newData }));
 }

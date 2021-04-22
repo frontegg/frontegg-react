@@ -1,7 +1,7 @@
 import { Ref, useCallback, useEffect, useRef, useState } from 'react';
 import * as FFormik from 'formik';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from '@frontegg/redux-store/toolkit';
 
 export { useSelector, useDispatch, shallowEqual };
 export { FFormik };

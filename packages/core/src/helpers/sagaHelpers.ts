@@ -1,6 +1,5 @@
-import { delay, select } from 'redux-saga/effects';
+import { delay, select, PayloadAction } from '@frontegg/redux-store/toolkit';
 import { ContextOptions } from '../interfaces';
-import { PayloadAction } from '@reduxjs/toolkit';
 
 export function* getContext() {
   let result;
