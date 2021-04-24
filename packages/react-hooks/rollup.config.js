@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import ts from 'rollup-plugin-typescript2';
 import path from 'path';
 import fs from 'fs';
+import commonjs from '@rollup/plugin-commonjs';
 
 const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json')));
 const distFolder = path.join(__dirname, './dist/');
@@ -37,6 +38,15 @@ const commonPlugins = [
   }),
   // progress(),
   movePackageJson(),
+  commonjs({
+    include: [
+      /node_modules\/prop-types/,
+      /node_modules\/hoist-non-react-statics/,
+      /node_modules\/invariant/,
+      /node_modules\/react-is/,
+      /node_modules\/warning/,
+    ],
+  }),
 ];
 
 const esmPlugins = [
@@ -77,16 +87,24 @@ const entryPoints = [
 ];
 const nodeModules = [
   // 'tslib',
-  'react',
+  // 'react',
   '@frontegg/rest-api',
   '@frontegg/redux-store',
   '@frontegg/redux-store/auth',
   '@frontegg/redux-store/audits',
-  '/node_modules/',
+  // '/node_modules/',
 ];
 
 const isExternal = (id) => {
-  if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
+  if (
+    !!nodeModules.find((t) => id.indexOf(t) !== -1) ||
+    id === 'react' ||
+    id === 'react-dom'
+    // && id !== 'react-redux'
+    // && id !== 'hoist-non-react-statics'
+    // && id !== 'prop-types'
+    // && id !== 'react-is'
+  ) {
     return true;
   }
   return false;
