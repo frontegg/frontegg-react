@@ -38,15 +38,6 @@ const commonPlugins = [
   }),
   // progress(),
   movePackageJson(),
-  commonjs({
-    include: [
-      /node_modules\/prop-types/,
-      /node_modules\/hoist-non-react-statics/,
-      /node_modules\/invariant/,
-      /node_modules\/react-is/,
-      /node_modules\/warning/,
-    ],
-  }),
 ];
 
 const esmPlugins = [
@@ -87,19 +78,24 @@ const entryPoints = [
 ];
 const nodeModules = [
   // 'tslib',
-  // 'react',
+  'react',
   '@frontegg/rest-api',
   '@frontegg/redux-store',
   '@frontegg/redux-store/auth',
   '@frontegg/redux-store/audits',
-  // '/node_modules/',
+  '/node_modules/',
 ];
 
 const isExternal = (id) => {
   if (
-    !!nodeModules.find((t) => id.indexOf(t) !== -1) ||
+    // !!nodeModules.find((t) => id.indexOf(t) !== -1)
+    // && id !== 'react-redux'
+    // && id !== 'prop-types'
     id === 'react' ||
-    id === 'react-dom'
+    id === 'react-is' ||
+    id === 'react-dom' ||
+    id === 'hoist-non-react-statics' ||
+    id === 'prop-types'
     // && id !== 'react-redux'
     // && id !== 'hoist-non-react-statics'
     // && id !== 'prop-types'
