@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import ts from 'rollup-plugin-typescript2';
 import path from 'path';
 import fs from 'fs';
+import commonjs from '@rollup/plugin-commonjs';
 
 const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json')));
 const distFolder = path.join(__dirname, './dist/');
@@ -86,7 +87,24 @@ const nodeModules = [
 ];
 
 const isExternal = (id) => {
-  if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
+  if (
+    // !!nodeModules.find((t) => id.indexOf(t) !== -1)
+    // && id !== 'react-redux'
+    // && id !== 'prop-types'
+    id === 'react' ||
+    id === 'react-is' ||
+    id === 'react-dom' ||
+    id === 'hoist-non-react-statics' ||
+    id === 'prop-types' ||
+    id === '@frontegg/rest-api' ||
+    id === '@frontegg/redux-store' ||
+    id === '@frontegg/redux-store/auth' ||
+    id === '@frontegg/redux-store/audits'
+    // && id !== 'react-redux'
+    // && id !== 'hoist-non-react-statics'
+    // && id !== 'prop-types'
+    // && id !== 'react-is'
+  ) {
     return true;
   }
   return false;
