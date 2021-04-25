@@ -74,10 +74,10 @@ function* saveSecurityPolicyLockout({
 function* loadSecurityPolicyCaptcha() {
   yield put(actions.setSecurityPolicyLockoutState({ loading: true, error: null }));
   try {
-    const policy = yield call(api.auth.getLockoutPolicy);
-    yield put(actions.setSecurityPolicyLockoutState({ policy, loading: false }));
+    const policy = yield call(api.auth.getCaptchaPolicy);
+    yield put(actions.setSecurityPolicyCaptchaState({ policy, loading: false }));
   } catch (e) {
-    yield put(actions.setSecurityPolicyLockoutState({ error: e.message, loading: false }));
+    yield put(actions.setSecurityPolicyCaptchaState({ error: e.message, loading: false }));
   }
 }
 
