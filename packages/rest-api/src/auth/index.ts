@@ -57,7 +57,7 @@ import { jwtDecode } from '../jwt';
  * Authentication
  *****************************************/
 
-async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILoginResponse> {
+export async function generateLoginResponse(loginResponse: ILoginResponse): Promise<ILoginResponse> {
   if (!loginResponse.accessToken) {
     return loginResponse;
   }
@@ -385,7 +385,10 @@ export async function getVendorConfig(): Promise<IVendorConfig> {
  */
 export async function signUpUser(body: ISignUpUser): Promise<ISignUpResponse> {
   console.debug('signUpUser()', body);
-  return Post(`${USERS_SERVICE_URL_V1}/signUp`, body);
+  const { shouldActivate, authResponse } = await Post(`${USERS_SERVICE_URL_V1}/signUp`, body);
+  const loginResponse =
+    !shouldActivate && authResponse ? await generateLoginResponse(authResponse as ILoginResponse) : undefined;
+  return { shouldActivate, user: loginResponse };
 }
 
 /**

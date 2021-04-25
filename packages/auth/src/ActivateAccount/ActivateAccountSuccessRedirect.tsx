@@ -9,8 +9,6 @@ export interface ActivateAccountSuccessRedirectProps {
 export const ActivateAccountSuccessRedirect: FC<ActivateAccountSuccessRedirectProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const onRedirectTo = useOnRedirectTo();
-  const routes = useAuthRoutes();
   const { requestAuthorize, resetActivateState } = useAuthActions();
 
   if (renderer) {
