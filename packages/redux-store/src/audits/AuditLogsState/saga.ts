@@ -84,7 +84,7 @@ function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
     );
 
     const sortParams = sort.reduce((p, n) => ({ ...p, sortBy: n.id, sortDirection: n.desc ? 'desc' : 'asc' }), {});
-    const filterParams = filter.reduce((p, n) => ({ ...p, [n.id]: encodeURIComponent(n.value) }), {});
+    const filterParams = filter.reduce((p, n) => ({ ...p, [n.id]: n.value }), {});
 
     if (!columns) {
       yield put(actions.loadAuditsMetadata());
