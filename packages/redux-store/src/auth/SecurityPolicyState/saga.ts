@@ -23,6 +23,16 @@ function* loadSecurityPolicy() {
   yield put(actions.loadSecurityPolicyCaptcha());
 }
 
+function* loadPublicSecurityPolicy() {
+  yield put(actions.setSecurityPolicyPublicState({ loading: true, error: null }));
+  try {
+    const policy = yield call(api.auth.getVendorConfig);
+    yield put(actions.setSecurityPolicyPublicState({ policy, loading: false }));
+  } catch (e) {
+    yield put(actions.setSecurityPolicyPublicState({ error: e.message, loading: false }));
+  }
+}
+
 function* loadSecurityPolicyMfa() {
   yield put(actions.setSecurityPolicyMfaState({ loading: true, error: null }));
   try {
@@ -125,6 +135,7 @@ export function* securityPolicySagas() {
   yield takeEvery(actions.saveSecurityPolicyPasswordHistory, saveSecurityPolicyPasswordHistory);
   yield takeEvery(actions.loadSecurityPolicyPasswordHistory, loadSecurityPolicyPasswordHistory);
   yield takeEvery(actions.loadVendorPasswordConfig, loadVendorPasswordConfig);
+  yield takeEvery(actions.loadPublicSecurityPolicy, loadPublicSecurityPolicy);
 }
 
 /*********************************
