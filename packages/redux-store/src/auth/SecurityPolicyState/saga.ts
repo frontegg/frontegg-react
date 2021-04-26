@@ -105,6 +105,16 @@ function* saveSecurityPolicyPasswordHistory({
   }
 }
 
+function* loadVendorPasswordConfig() {
+  yield put(actions.setSecurityPolicyPasswordState({ loading: true, error: null }));
+  try {
+    const policy = yield call(api.auth.getPasswordConfigPolicy);
+    yield put(actions.setSecurityPolicyPasswordState({ policy, loading: false }));
+  } catch (e) {
+    yield put(actions.setSecurityPolicyPasswordState({ error: e.message, loading: false }));
+  }
+}
+
 export function* securityPolicySagas() {
   yield takeLeading(actions.loadSecurityPolicy, loadSecurityPolicy);
   yield takeEvery(actions.saveSecurityPolicyMfa, saveSecurityPolicyMfa);
@@ -114,6 +124,7 @@ export function* securityPolicySagas() {
   yield takeEvery(actions.loadSecurityPolicyCaptcha, loadSecurityPolicyCaptcha);
   yield takeEvery(actions.saveSecurityPolicyPasswordHistory, saveSecurityPolicyPasswordHistory);
   yield takeEvery(actions.loadSecurityPolicyPasswordHistory, loadSecurityPolicyPasswordHistory);
+  yield takeEvery(actions.loadVendorPasswordConfig, loadVendorPasswordConfig);
 }
 
 /*********************************

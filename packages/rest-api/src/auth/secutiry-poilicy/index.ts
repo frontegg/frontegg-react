@@ -9,6 +9,7 @@ import {
   ISecurityPolicyCaptcha,
   ISecurityPolicyPasswordHistory,
   ISaveSecurityPolicyPasswordHistory,
+  ISecurityPolicyPasswordConfig,
 } from './interfaces';
 import { Get, Patch, Post } from '../../fetch';
 import { IDENTITY_CONFIGURATION_SERVICE_URL_V1 } from '../../constants';
@@ -89,4 +90,11 @@ export async function savePasswordHistoryPolicy(
   } else {
     return Post(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password-history-policy`, body);
   }
+}
+/**
+ * load vendor password configuration.
+ */
+export async function getPasswordConfigPolicy(): Promise<ISecurityPolicyPasswordConfig> {
+  console.debug('getPasswordConfigPolicy()');
+  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/password`);
 }

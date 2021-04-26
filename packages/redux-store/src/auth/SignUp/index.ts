@@ -8,6 +8,7 @@ import { authStoreName } from '../../constants';
 const signUpState: SignUpState = {
   loading: false,
   allowSignUps: false,
+  allowNotVerifiedUsersLogin: false,
   firstLoad: true,
   stage: SignUpStage.SignUp,
 };

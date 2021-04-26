@@ -1,6 +1,6 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { ComponentsTypesWithProps, useDynamicComponents } from '@frontegg/react-core';
-import { useAuthRoutes, useOnRedirectTo, useSignUpState } from '@frontegg/react-hooks/auth';
+import { useAuthRoutes, useOnRedirectTo, useSecurityPolicyActions, useSignUpState } from '@frontegg/react-hooks/auth';
 import { SignUpStage } from '@frontegg/redux-store/auth';
 import { SignUpForm } from './SignUpForm';
 import { authPageWrapper } from '../components';
@@ -35,6 +35,8 @@ export const SignUp: FC<SignUpProps> = (props) => {
   const onRedirectTo = useOnRedirectTo();
 
   const Dynamic = useDynamicComponents(defaultComponents, props);
+  const { loadVendorPasswordConfig } = useSecurityPolicyActions();
+
   const redirectToLogin = useCallback(() => {
     onRedirectTo(routes.loginUrl);
   }, []);
@@ -42,6 +44,10 @@ export const SignUp: FC<SignUpProps> = (props) => {
   if (!signUpState.firstLoad && !signUpState.allowSignUps) {
     redirectToLogin();
   }
+
+  useEffect(() => {
+    loadVendorPasswordConfig();
+  }, []);
 
   switch (signUpState.stage) {
     case SignUpStage.SignUpSuccess:

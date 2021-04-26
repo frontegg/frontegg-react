@@ -31,7 +31,7 @@ export const validatePasswordConfirmation = (t: TFunction, field: string = 'pass
       then: Yup.string().oneOf([Yup.ref(field)], t('validation.passwords-must-match', 'Passwords must match')),
     });
 
-export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | null) =>
+export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | null | undefined) =>
   Yup.string()
     .label('password')
     .required()

@@ -1,6 +1,7 @@
 export interface SignUpState {
   loading: boolean;
   allowSignUps: boolean;
+  allowNotVerifiedUsersLogin: boolean;
   error?: string;
   firstLoad: boolean;
   shouldActivate?: boolean;

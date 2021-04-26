@@ -8,6 +8,7 @@ import {
   ISecurityPolicyLockout,
   ISecurityPolicyMfa,
   ISecurityPolicyPasswordHistory,
+  ISecurityPolicyPasswordConfig,
 } from '@frontegg/rest-api';
 
 type PolicyState<T> = WithStatus & {
@@ -19,6 +20,7 @@ export type MfaPolicyState = PolicyState<ISecurityPolicyMfa>;
 export type LockoutPolicyState = PolicyState<ISecurityPolicyLockout>;
 export type CaptchaPolicyState = PolicyState<ISecurityPolicyCaptcha>;
 export type PasswordHistoryPolicyState = PolicyState<ISecurityPolicyPasswordHistory>;
+export type PasswordPolicyState = PolicyState<ISecurityPolicyPasswordConfig>;
 
 export interface SecurityPolicyState {
   globalPolicy: GlobalPolicyState;
@@ -26,6 +28,7 @@ export interface SecurityPolicyState {
   lockoutPolicy: LockoutPolicyState;
   captchaPolicy: CaptchaPolicyState;
   passwordHistoryPolicy: PasswordHistoryPolicyState;
+  passwordPolicy: PasswordPolicyState;
 }
 
 export type SaveSecurityPolicyMfaPayload = WithCallback<ISaveSecurityPolicyMfa, ISecurityPolicyMfa>;
