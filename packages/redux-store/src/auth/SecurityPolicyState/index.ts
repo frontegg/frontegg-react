@@ -5,6 +5,7 @@ import { ActionDispatchMatcher } from '../../interfaces';
 import {
   CaptchaPolicyState,
   GlobalPolicyState,
+  PublicPolicyState,
   LockoutPolicyState,
   MfaPolicyState,
   PasswordPolicyState,
@@ -18,6 +19,9 @@ import {
 const securityPolicyState: SecurityPolicyState = {
   globalPolicy: {
     loading: true,
+  },
+  publicPolicy: {
+    loading: false,
   },
   mfaPolicy: {
     loading: true,
@@ -41,6 +45,10 @@ const reducers = {
   setSecurityPolicyGlobalState: typeReducerNestedKey<SecurityPolicyState, GlobalPolicyState>(
     'securityPolicyState',
     'globalPolicy'
+  ),
+  setSecurityPolicyPublicState: typeReducerNestedKey<SecurityPolicyState, PublicPolicyState>(
+    'securityPolicyState',
+    'publicPolicy'
   ),
   setSecurityPolicyMfaState: typeReducerNestedKey<SecurityPolicyState, MfaPolicyState>(
     'securityPolicyState',
@@ -67,6 +75,7 @@ const reducers = {
 
 const actions = {
   loadSecurityPolicy: createAction(`${authStoreName}/loadSecurityPolicy`),
+  loadPublicSecurityPolicy: createAction(`${authStoreName}/loadPublicSecurityPolicy`),
   loadSecurityPolicyMfa: createAction(`${authStoreName}/loadSecurityPolicyMfa`),
   saveSecurityPolicyMfa: createAction(
     `${authStoreName}/saveSecurityPolicyMfa`,
@@ -93,6 +102,7 @@ const actions = {
 type DispatchedActions = {
   setSecurityPolicyState: (state: Partial<SecurityPolicyState>) => void;
   setSecurityPolicyGlobalState: (state: Partial<GlobalPolicyState>) => void;
+  setSecurityPolicyPublicState: (state: Partial<PublicPolicyState>) => void;
   setSecurityPolicyMfaState: (state: Partial<MfaPolicyState>) => void;
   setSecurityPolicyLockoutState: (state: Partial<LockoutPolicyState>) => void;
   setSecurityPolicyCaptchaState: (state: Partial<CaptchaPolicyState>) => void;
@@ -101,6 +111,7 @@ type DispatchedActions = {
   setSecurityPolicyPasswordState: (state: Partial<PasswordPolicyState>) => void;
 
   loadSecurityPolicy: () => void;
+  loadPublicSecurityPolicy: () => void;
   loadVendorPasswordConfig: () => void;
   loadSecurityPolicyMfa: () => void;
   saveSecurityPolicyMfa: (payload: SaveSecurityPolicyMfaPayload) => void;
