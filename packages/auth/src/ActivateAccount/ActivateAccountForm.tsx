@@ -15,7 +15,6 @@ import {
 import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
 
-
 const { Formik } = FFormik;
 
 const stateMapper = ({ activateState, forgotPasswordState, signUpState }: AuthState) => ({
