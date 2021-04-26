@@ -30,6 +30,7 @@ export type IActivateAccount = {
   userId: string;
   token: string;
   password?: string;
+  recaptchaToken?: string;
 };
 
 export type IAcceptInvitation = {

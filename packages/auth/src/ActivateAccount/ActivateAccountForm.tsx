@@ -13,6 +13,8 @@ import {
   Loader,
 } from '@frontegg/react-core';
 import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
+import { FReCaptcha } from '../components/FReCaptcha';
+
 
 const { Formik } = FFormik;
 
@@ -30,6 +32,7 @@ export interface ActivateAccountFormProps {
   renderer?: ComponentType<ActivateAccountFormRendererProps>;
   userId: string;
   token: string;
+  recaptchaToken?: string;
   shouldSetPassword: boolean;
 }
 
@@ -73,8 +76,8 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
         confirmPassword: validatePasswordConfirmation(t),
       })}
       enableReinitialize={true}
-      initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={async ({ password }) => activateAccount({ userId, token, password })}
+      initialValues={{ password: '', confirmPassword: '', recaptchaToken: '' }}
+      onSubmit={async ({ password, recaptchaToken }) => activateAccount({ userId, token, password, recaptchaToken })}
     >
       <FForm>
         <FInput
@@ -95,6 +98,7 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           {t('auth.activate-account.activate-account-button')}
         </FButton>
         <ErrorMessage error={error} />
+        <FReCaptcha action='activate_account' />
       </FForm>
     </Formik>
   );
