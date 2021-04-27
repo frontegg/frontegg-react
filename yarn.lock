@@ -2987,10 +2987,10 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.0.0.tgz#99762a140df019dc8b7aeadae59c8b101dc8af27"
-  integrity sha512-jjTOXqOf/1WPkzLOEMwSPOGL4+eSyU0hF5HAJxyomxfngR+Ko8uZBDFia71RY/mlcrOwMxaAjpVlFWGoPecWGA==
+"@frontegg/admin-portal@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.0.1.tgz#8b2f443932a33e19ea0a9736caf8b344b83337a5"
+  integrity sha512-qrecSv48tZmKETBsm5N7Bn5CMaFEZz17DuJ8nO2GHFtRsZPCpQixznvUsth7oMX3SMiA0OaJgC0wE3ABcKXeiw==
   dependencies:
     "@frontegg/injector" "^0.0.23"
 
