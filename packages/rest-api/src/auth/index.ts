@@ -49,6 +49,8 @@ import {
   IVendorConfig,
   IVerifyMfa,
   IVerifyMfaResponse,
+  IGetActivateAccountStrategy,
+  IGetActivateAccountStrategyResponse,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 import { jwtDecode } from '../jwt';
@@ -136,6 +138,16 @@ export async function loginWithMfa(body: ILoginWithMfa): Promise<ILoginResponse>
 export async function activateAccount(body: IActivateAccount): Promise<void> {
   console.debug('activateAccount()');
   return Post(`${USERS_SERVICE_URL_V1}/activate`, body);
+}
+
+/**
+ * get account activation configuration.
+ */
+export async function getActivateAccountStrategy(
+  params: IGetActivateAccountStrategy
+): Promise<IGetActivateAccountStrategyResponse> {
+  console.debug('getActivateAccountStrategy()');
+  return Get(`${USERS_SERVICE_URL_V1}/activate/strategy`, params);
 }
 
 /**

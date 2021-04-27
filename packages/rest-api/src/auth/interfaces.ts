@@ -136,7 +136,6 @@ export interface IVendorConfig {
   allowNotVerifiedUsersLogin: boolean;
   apiTokensEnabled: boolean;
 }
-
 export interface ISignUpUser {
   email: string;
   companyName: string;
@@ -202,4 +201,13 @@ export interface IUserIdResponse {
 
 export interface IGetUserPasswordConfig {
   userId: string;
+}
+
+export interface IGetActivateAccountStrategy {
+  userId: string;
+  token: string;
+}
+
+export interface IGetActivateAccountStrategyResponse {
+  shouldSetPassword: boolean;
 }
