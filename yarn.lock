@@ -2987,8 +2987,10 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal@file:../admin-box/packages/injector/dist":
-  version "0.7.1"
+"@frontegg/admin-portal@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.0.0.tgz#99762a140df019dc8b7aeadae59c8b101dc8af27"
+  integrity sha512-jjTOXqOf/1WPkzLOEMwSPOGL4+eSyU0hF5HAJxyomxfngR+Ko8uZBDFia71RY/mlcrOwMxaAjpVlFWGoPecWGA==
   dependencies:
     "@frontegg/injector" "^0.0.23"
 
