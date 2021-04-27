@@ -12,6 +12,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
+    "@frontegg/admin-portal": "^1.0.0",
     "@frontegg/react-hooks": "^2.1.0",
     "react-router-dom": "*"
   },
