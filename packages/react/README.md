@@ -7,7 +7,7 @@ and integrate them into their SaaS portals in up to 5 lines of code.
 
 ## BREAKING CHANGES SINCE VERSION 2.1.0
 
-### The new Frontegg React uses AdminPortal and LoginBox instead of multiple components.
+### The new @frontegg/react uses AdminPortal and LoginBox instead of multiple components.
 
 ## Installation
 
@@ -19,7 +19,7 @@ npm install @frontegg/react
 
 ## Configuration
 
-Wrap your application with Frontegg Provider:
+Wrap your application with `Frontegg Provider`:
 
 ```js
 import { FronteggProvider } from '@frontegg/react'
@@ -52,7 +52,7 @@ const HomePage = () => {
 }
 ```
 
-You can use React Hooks to access Frontegg store.
+Openning the Admin Portal is available via the following code snippet.
 
 ```js
 import { AdminPortal } from '@frontegg/react'
