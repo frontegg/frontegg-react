@@ -44,7 +44,6 @@ export const Connector: FC<ConnectorProps> = (props) => {
       onRedirectTo,
     });
   }, []);
-  debugger;
   return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
 };
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
