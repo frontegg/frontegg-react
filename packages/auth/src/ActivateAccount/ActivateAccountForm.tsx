@@ -12,6 +12,7 @@ import {
   validatePasswordUsingOWASP,
   Loader,
 } from '@frontegg/react-core';
+import { IGetActivateAccountStrategyResponse } from '@frontegg/rest-api';
 import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
 
@@ -31,41 +32,52 @@ export interface ActivateAccountFormProps {
   renderer?: ComponentType<ActivateAccountFormRendererProps>;
   userId: string;
   token: string;
-  recaptchaToken?: string;
-  shouldSetPassword: boolean;
 }
 
 export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
   const [logoutLoader, setLogoutLoader] = useState(true);
-  const { renderer, userId, token, shouldSetPassword } = props;
+  const { renderer, userId, token } = props;
   const { t } = useT();
-  const { activateAccount, loadPasswordConfig, resetForgotPasswordState, silentLogout } = useAuthActions();
   const {
-    activateState: { loading: activateStateLoading, error },
+    activateAccount,
+    loadPasswordConfig,
+    resetForgotPasswordState,
+    silentLogout,
+    getActivateAccountStrategy,
+  } = useAuthActions();
+
+  const {
+    activateState: { loading: activateStateLoading, error, activationStrategy },
     forgotPasswordState: { passwordConfig },
   } = useAuth(stateMapper);
 
-  const logoutCallback = useCallback(() => {
-    setLogoutLoader(false);
-    if (!shouldSetPassword) {
-      activateAccount({ userId, token });
-    }
-  }, [shouldSetPassword, userId, token]);
+  useEffect(() => {
+    const callback = (data: IGetActivateAccountStrategyResponse | null) => {
+      if (!data?.shouldSetPassword) {
+        activateAccount({ userId, token });
+      }
+    };
+
+    getActivateAccountStrategy({ userId, token, callback });
+  }, [userId, token]);
 
   useEffect((): (() => void) => {
-    silentLogout(logoutCallback);
+    silentLogout(() => setLogoutLoader(false));
     loadPasswordConfig({ userId });
     return resetForgotPasswordState;
-  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, logoutCallback, userId]);
+  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, userId]);
 
-  const loading = logoutLoader || activateStateLoading;
+  const loading =
+    logoutLoader ||
+    activationStrategy.loading ||
+    (!activationStrategy.strategy?.shouldSetPassword && activateStateLoading);
 
   if (renderer) {
     return createElement(renderer, { ...props, loading, error, passwordConfig } as any);
   }
 
-  if (!shouldSetPassword && loading) {
-    return <Loader />;
+  if (loading) {
+    return <Loader center />;
   }
 
   return (
@@ -93,7 +105,7 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           placeholder={t('auth.activate-account.enter-your-password-again')}
           data-test-id='confirmPassword-box'
         />
-        <FButton type='submit' loading={loading} variant='primary' data-test-id='activate-btn'>
+        <FButton type='submit' loading={activateStateLoading} variant='primary' data-test-id='activate-btn'>
           {t('auth.activate-account.activate-account-button')}
         </FButton>
         <ErrorMessage error={error} />

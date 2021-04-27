@@ -1,8 +1,16 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, select, takeLeading } from 'redux-saga/effects';
-import { api, ContextHolder, IActivateAccount, IResendActivationEmail } from '@frontegg/rest-api';
+import {
+  api,
+  ContextHolder,
+  IActivateAccount,
+  IResendActivationEmail,
+  IGetActivateAccountStrategy,
+  IGetActivateAccountStrategyResponse,
+} from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { afterAuthNavigation, getMfaRequiredState, isMfaRequired } from '../LoginState/saga';
+import { WithCallback } from '../../interfaces';
 
 function* activateAccount({ payload }: PayloadAction<IActivateAccount>) {
   yield put(actions.setActivateState({ loading: true }));
@@ -25,6 +33,20 @@ function* activateAccount({ payload }: PayloadAction<IActivateAccount>) {
   }
 }
 
+function* getActivateAccountStrategy({
+  payload,
+}: PayloadAction<WithCallback<IGetActivateAccountStrategy, IGetActivateAccountStrategyResponse>>) {
+  const { callback, ...params } = payload;
+  yield put(actions.setActivateStrategyState({ loading: true }));
+  try {
+    const strategy = yield call(api.auth.getActivateAccountStrategy, params);
+    yield put(actions.setActivateStrategyState({ strategy, loading: false, error: undefined }));
+    callback?.(strategy);
+  } catch (e) {
+    yield put(actions.setActivateStrategyState({ loading: false, error: e.message }));
+  }
+}
+
 function* resendActivationEmailFunction({ payload }: PayloadAction<IResendActivationEmail>) {
   yield put(actions.setActivateState({ loading: true }));
   try {
@@ -37,5 +59,6 @@ function* resendActivationEmailFunction({ payload }: PayloadAction<IResendActiva
 
 export function* activateSagas() {
   yield takeLeading(actions.activateAccount, activateAccount);
+  yield takeLeading(actions.getActivateAccountStrategy, getActivateAccountStrategy);
   yield takeLeading(actions.resendActivationEmail, resendActivationEmailFunction);
 }

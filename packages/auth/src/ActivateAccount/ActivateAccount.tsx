@@ -32,7 +32,6 @@ export const ActivateAccount: FC<ActivateAccountProps> = (props) => {
   const url = new URL(window?.location.href);
   const userId = url.searchParams.get('userId') || '';
   const token = url.searchParams.get('token') || '';
-  const shouldSetPassword = (url.searchParams.get('shouldSetPassword') || 'true') === 'true';
 
   let components: any;
   if (step === ActivateAccountStep.resend) {
@@ -42,7 +41,7 @@ export const ActivateAccount: FC<ActivateAccountProps> = (props) => {
   } else if (step === ActivateAccountStep.success) {
     components = <Dynamic.ActivateAccountSuccessRedirect />;
   } else {
-    components = <Dynamic.ActivateAccountForm userId={userId} token={token} shouldSetPassword={shouldSetPassword} />;
+    components = <Dynamic.ActivateAccountForm userId={userId} token={token} />;
   }
   return <div className='fe-activate-account-component'>{components}</div>;
 };
