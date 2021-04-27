@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { bindActionCreators, CaseReducerActions, SliceCaseReducers } from '@frontegg/redux-store/toolkit';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { authActions, AuthActions, AuthPageRoutes, AuthState, User, authStoreName } from '@frontegg/redux-store/auth';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 export type AuthMapper = {
