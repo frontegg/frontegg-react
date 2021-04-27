@@ -79,7 +79,6 @@ export const SSOConfigureIDPStep1: FC<SSOConfigureIDPStepProps> = ({ goToStep, s
 
 const SSOAutomaticConfig: FC = () => {
   const { t } = useT();
-  const { useField } = FFormik;
   const [{ value: configFile }, , { setValue: setConfigFile }] = useField('configFile');
 
   return (
