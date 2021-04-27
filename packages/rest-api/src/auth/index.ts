@@ -2,53 +2,53 @@
 
 export * from './secutiry-poilicy';
 
-import { Get, Post, Put, Delete } from '../fetch';
+import { Delete, Get, Post, Put } from '../fetch';
 import {
   AUTH_SERVICE_URL_V1,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE,
+  IDENTITY_API_TOKENS_USERS_SERVICE,
+  IDENTITY_CONFIGURATION_SERVICE_URL_V1,
+  IDENTITY_SSO_SERVICE_URL_V1,
   SSO_SERVICE_URL_V1,
   USERS_SERVICE_URL_V1,
   USERS_SERVICE_URL_V2,
-  IDENTITY_SSO_SERVICE_URL_V1,
-  IDENTITY_CONFIGURATION_SERVICE_URL_V1,
-  IDENTITY_API_TOKENS_USERS_SERVICE,
-  IDENTITY_API_TOKENS_TENANTS_SERVICE,
 } from '../constants';
 
 import {
+  IAcceptInvitation,
   IActivateAccount,
+  IDeleteApiToken,
   IDisableMfa,
   IEnrollMfaResponse,
   IForgotPassword,
+  IGetUserById,
+  IGetUserPasswordConfig,
   ILogin,
   ILoginResponse,
+  ILoginViaSocialLogin,
   ILoginWithMfa,
-  IPreLogin,
   IPostLogin,
+  IPreLogin,
   IRecoverMFAToken,
+  IResendActivationEmail,
   IResetPassword,
-  IGetUserPasswordConfig,
   ISamlConfiguration,
   ISamlVendorConfigResponse,
+  ISecurityPolicyCaptcha,
+  ISignUpResponse,
+  ISignUpUser,
+  ISocialLoginProviderConfiguration,
+  ITenantApiTokensData,
   IUpdateSamlConfiguration,
-  IUpdateSamlVendorMetadata,
   IUpdateSamlRoles,
+  IUpdateSamlVendorMetadata,
+  IUpdateTenantApiTokensData,
+  IUpdateUserApiTokensData,
+  IUserApiTokensData,
+  IUserIdResponse,
+  IVendorConfig,
   IVerifyMfa,
   IVerifyMfaResponse,
-  IAcceptInvitation,
-  ISocialLoginProviderConfiguration,
-  ILoginViaSocialLogin,
-  IVendorConfig,
-  ISignUpUser,
-  ISignUpResponse,
-  IUserApiTokensData,
-  ITenantApiTokensData,
-  IUpdateUserApiTokensData,
-  IUpdateTenantApiTokensData,
-  IDeleteApiToken,
-  IGetUserById,
-  IUserIdResponse,
-  IResendActivationEmail,
-  ISecurityPolicyCaptcha,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 import { jwtDecode } from '../jwt';
@@ -71,15 +71,6 @@ export async function generateLoginResponse(loginResponse: ILoginResponse): Prom
   };
   ContextHolder.setUser(user);
   return user;
-}
-
-export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha | null> {
-  try {
-    const policy = await Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
-    return policy;
-  } catch {
-    return null;
-  }
 }
 
 /**

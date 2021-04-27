@@ -1,6 +1,6 @@
 {
-  "name": "@frontegg/redux-store",
-  "libName": "FronteggReduxStore",
+  "name": "@frontegg/react",
+  "libName": "FronteggReact",
   "version": "2.1.0",
   "author": "Frontegg LTD",
   "main": "dist/index.cjs.js",
@@ -12,11 +12,14 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/rest-api": "^2.1.0"
+    "@frontegg/admin-portal": "^1.0.0",
+    "@frontegg/react-hooks": "^2.1.0",
+    "react-router-dom": "*"
   },
-  "devDependencies": {
-    "@reduxjs/toolkit": "1.x",
-    "redux-saga": "1.x"
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.0"
   },
   "gitHead": "00c0bd425a211916eec1170b8359cf302727b338"
 }

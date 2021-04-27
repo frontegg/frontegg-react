@@ -1,6 +1,15 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { all, call, delay, put, select, takeLeading } from 'redux-saga/effects';
-import { api, ContextHolder, ILogin, ILoginWithMfa, IPostLogin, IPreLogin, IRecoverMFAToken } from '@frontegg/rest-api';
+import {
+  api,
+  ContextHolder,
+  ILogin,
+  ILoginResponse,
+  ILoginWithMfa,
+  IPostLogin,
+  IPreLogin,
+  IRecoverMFAToken,
+} from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../../constants';
 import { WithCallback } from '../../interfaces';
@@ -11,7 +20,8 @@ import { MFAStep } from '../MfaState/interfaces';
 import { userDemo } from '../dummy';
 
 export function* afterAuthNavigation() {
-  const { routes, onRedirectTo } = yield select((state) => state.auth);
+  const onRedirectTo = ContextHolder.onRedirectTo;
+  const { routes } = yield select((state) => state.auth);
   const { loginUrl, logoutUrl, socialLoginCallbackUrl, activateUrl } = routes as AuthPageRoutes;
   let { authenticatedUrl } = routes as AuthPageRoutes;
   const afterAuthRedirect = window.localStorage.getItem(FRONTEGG_AFTER_AUTH_REDIRECT_URL);
@@ -40,59 +50,65 @@ export function* refreshMetadata() {
   yield put(actions.setState({ isSSOAuth, ssoACS }));
 }
 
+export const isMfaRequired = (user: ILoginResponse) => {
+  if (user.mfaRequired && user.mfaToken) {
+    ContextHolder.setAccessToken(null);
+    ContextHolder.setUser(null);
+    return true;
+  } else {
+    ContextHolder.setAccessToken(user.accessToken);
+    ContextHolder.setUser(user);
+    return false;
+  }
+};
+
+export const getMfaRequiredState = (user: any) => {
+  let setMfaState = {};
+  let step = LoginStep.loginWithTwoFactor;
+  if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
+    setMfaState = {
+      mfaState: {
+        step: MFAStep.verify,
+        qrCode: user.qrCode,
+        recoveryCode: user.recoveryCode,
+        loading: false,
+        mfaToken: user.mfaToken,
+      },
+    };
+    step = LoginStep.forceTwoFactor;
+  }
+  return {
+    user: undefined,
+    isAuthenticated: false,
+    ...setMfaState,
+    loginState: {
+      mfaToken: user.mfaToken,
+      mfaRequired: user.mfaRequired,
+      loading: false,
+      error: undefined,
+      step,
+      tenantsLoading: true,
+      tenants: [],
+    },
+  };
+};
+
 export function* refreshToken() {
   try {
-    const { routes, onRedirectTo } = yield select((state) => state.auth);
+    const onRedirectTo = ContextHolder.onRedirectTo;
+    const { routes } = yield select((state) => state.auth);
     const user = yield call(api.auth.refreshToken);
 
-    if (user.mfaRequired && user.mfaToken) {
-      ContextHolder.setAccessToken(null);
-      ContextHolder.setUser(null);
-
-      let setMfaState = {};
-      let step = LoginStep.success;
-      if (user.mfaRequired && user.mfaToken) {
-        step = LoginStep.loginWithTwoFactor;
-        if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
-          setMfaState = {
-            mfaState: {
-              step: MFAStep.verify,
-              qrCode: user.qrCode,
-              recoveryCode: user.recoveryCode,
-              loading: false,
-              mfaToken: user.mfaToken,
-            },
-          };
-          step = LoginStep.forceTwoFactor;
-        }
-      }
-
-      yield put(
-        actions.setState({
-          user: undefined,
-          isAuthenticated: false,
-          ...setMfaState,
-          loginState: {
-            mfaToken: user.mfaToken,
-            mfaRequired: user.mfaRequired,
-            loading: false,
-            error: undefined,
-            step,
-            tenantsLoading: true,
-            tenants: [],
-          },
-        })
-      );
+    if (isMfaRequired(user)) {
+      yield put(actions.setState(getMfaRequiredState(user)));
       onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
-      ContextHolder.setAccessToken(user.accessToken);
-      ContextHolder.setUser(user);
       yield put(actions.loadTenants());
       yield put(actions.setState({ user, isAuthenticated: true }));
 
       if (
         [routes.loginUrl, routes.socialLoginCallbackUrl, routes.signupUrl].includes(window.location.pathname) ||
-        (routes.activateUrl === window.location.pathname && user.verified)
+        (window.location.pathname.endsWith(routes.activateUrl) && user.verified)
       ) {
         yield afterAuthNavigation();
       }

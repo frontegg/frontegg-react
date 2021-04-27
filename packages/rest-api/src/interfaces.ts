@@ -23,7 +23,7 @@ export interface ContextOptions {
   currentUserRoles?: string[];
   requestCredentials?: RequestCredentials;
   urlPrefix?: string;
-  logLevel: LogLevel;
+  logLevel?: LogLevel;
 }
 
 export interface QuerySort {

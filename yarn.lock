@@ -2987,6 +2987,16 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
+"@frontegg/admin-portal@file:../admin-box/packages/injector/dist":
+  version "0.7.1"
+  dependencies:
+    "@frontegg/injector" "^0.0.23"
+
+"@frontegg/injector@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.23.tgz#d4fca57659c6b5fec913b801f0196a8c8e77512f"
+  integrity sha512-aZNZCIHuZwPpkPkXTmBpJS3Ot8ID00vMuN8z1YGCvBKHzA6PhaitJV6ZxAUQweUG7suv872iNdNJFr85ObPOLg==
+
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.1.tgz#b7f02c04d8d8602fb4bd873b03685fccefce1c6f"
@@ -17322,7 +17332,7 @@ react-redux@^7.2.3:
     prop-types "^15.7.2"
     react-is "^16.13.1"
 
-react-router-dom@^5.1.2:
+react-router-dom@*, react-router-dom@^5.1.2:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.2.0.tgz#9e65a4d0c45e13289e66c7b17c7e175d0ea15662"
   integrity sha512-gxAmfylo2QUjcwxI63RhQ5G85Qqt4voZpUXSEqCwykV0baaOTQDR1f0PmY8AELqIyVc0NEZUj0Gov5lNGcXgsA==

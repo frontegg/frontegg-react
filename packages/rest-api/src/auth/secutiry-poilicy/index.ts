@@ -65,9 +65,12 @@ export async function saveLockoutPolicy(body: ISaveSecurityPolicyLockout): Promi
 /**
  * Get Captcha configuration from security policy
  */
-export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha> {
-  console.debug('getCaptchaPolicy()');
-  return Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
+export async function getCaptchaPolicy(): Promise<ISecurityPolicyCaptcha | null> {
+  try {
+    return await Get(`${IDENTITY_CONFIGURATION_SERVICE_URL_V1}/captcha-policy/public`);
+  } catch {
+    return null;
+  }
 }
 
 /**

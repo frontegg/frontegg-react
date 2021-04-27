@@ -127,6 +127,7 @@ build: ##@4 Build build all packages
 	${MAKE} build-rest-api
 	${MAKE} build-redux-store
 	${MAKE} build-react-hooks
+	${MAKE} build-react
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui

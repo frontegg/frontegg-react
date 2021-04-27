@@ -122,9 +122,9 @@ const sendRequest = async (opts: RequestOptions) => {
       errorMessage = `Error ${response.status} - ${response.statusText}`;
     }
 
-    if (response.status >= 400 && response.status < 500 && ['warn'].includes(context.logLevel))
+    if (response.status >= 400 && response.status < 500 && ['warn'].includes(context.logLevel ?? ''))
       console.warn(errorMessage);
-    else if (response.status === 500 && ['warn', 'error'].includes(context.logLevel)) console.error(errorMessage);
+    else if (response.status === 500 && ['warn', 'error'].includes(context.logLevel ?? '')) console.error(errorMessage);
 
     throw new Error(errorMessage);
   }
@@ -141,7 +141,7 @@ const sendRequest = async (opts: RequestOptions) => {
       .blob()
       .then((blob) => URL.createObjectURL(blob))
       .then((url) => {
-        let tempLink = document.createElement('a');
+        const tempLink = document.createElement('a');
         tempLink.href = url;
         tempLink.setAttribute('download', outputFileName || 'output');
         tempLink.click();
