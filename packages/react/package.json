@@ -1,0 +1,24 @@
+{
+  "name": "@frontegg/react",
+  "libName": "FronteggReact",
+  "version": "2.1.0",
+  "author": "Frontegg LTD",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
+    "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
+  },
+  "dependencies": {
+    "@frontegg/react-hooks": "^2.1.0",
+    "react-router-dom": "*"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.0"
+  },
+  "gitHead": "00c0bd425a211916eec1170b8359cf302727b338"
+}

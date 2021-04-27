@@ -6,11 +6,13 @@ import { MFAState, MFAStep } from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { delay } from '../utils';
 import { userDemo } from '../dummy';
+import { call } from '../../toolkit';
+import { afterAuthNavigation } from '../LoginState/saga';
 
 function* enrollMfa() {
   yield put(actions.setMfaState({ loading: true }));
   try {
-    const { qrCode } = yield api.auth.enrollMfa();
+    const { qrCode } = yield call(api.auth.enrollMfa);
     yield put(actions.setMfaState({ loading: false, error: undefined, qrCode }));
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
@@ -23,7 +25,7 @@ function* verifyMfa({
   yield put(actions.setMfaState({ loading: true }));
   try {
     const user = yield select((state) => state.auth.user);
-    const data = yield api.auth.verifyMfa(payload);
+    const data = yield call(api.auth.verifyMfa, payload);
 
     const mfaState: MFAState = {
       step: MFAStep.recoveryCode,
@@ -47,19 +49,19 @@ function* verifyMfaAfterForce({
 }: PayloadAction<WithCallback<ILoginWithMfa, string | undefined>>) {
   yield put(actions.setMfaState({ loading: true }));
   try {
-    const user = yield select((state) => state.auth.user);
-    const data = yield api.auth.loginWithMfa(payload);
+    const user = yield call(api.auth.loginWithMfa, payload);
 
     const mfaState: MFAState = {
       step: MFAStep.recoveryCode,
       loading: false,
       error: undefined,
     };
-    if (data?.recoveryCode) {
-      mfaState.recoveryCode = data.recoveryCode;
+    if (user?.recoveryCode) {
+      mfaState.recoveryCode = user.recoveryCode;
     }
     yield put(actions.setMfaState(mfaState));
-    yield put(actions.setUser({ ...user, mfaEnrolled: true }));
+    yield put(actions.setState({ user }));
+    yield put(actions.loadTenants());
     callback?.(mfaState.recoveryCode);
   } catch (e) {
     yield put(actions.setMfaState({ loading: false, error: e.message }));
