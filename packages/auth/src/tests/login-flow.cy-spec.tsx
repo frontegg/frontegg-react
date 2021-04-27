@@ -561,97 +561,97 @@ describe('Login Tests', () => {
     });
   });
 
-  it('Login with Social, with two-factor', () => {
-    cy.server();
-    mockAuthApi(false, false, true);
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
-      status: 200,
-      response: { address: SSO_PATH },
-      delay: 200,
-    }).as('preLogin');
-
-    mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
-      ...mountOptions,
-      alias: 'providerComponent',
-    });
-
-    navigateTo(defaultAuthPlugin.routes.loginUrl);
-    cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
-    cy.get('.loader').should('not.be.visible');
-
-    cy.location('origin').then((origin) => {
-      const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
-      cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
-      cy.location().should((loc) => {
-        expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl(origin));
-      });
-
-      navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
-
-      cy.get('.loader').should('not.be.visible');
-
-      const redirectUri = origin + defaultAuthPlugin.routes.socialLoginCallbackUrl;
-      cy.route({
-        method: 'POST',
-        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code?redirectUri=${redirectUri}`,
-        status: 200,
-        delay: 200,
-        response: {},
-      }).as('submitSocialLogin');
-      cy.route({
-        method: 'POST',
-        url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
-        status: 200,
-        response: {
-          mfaRequired: true,
-          mfaToken: MFA_TOKEN,
-        },
-      }).as('refreshToken');
-
-      cy.wait(['@submitSocialLogin', '@refreshToken']);
-    });
-
-    cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
-
-    const submitSelector = 'button[type=submit]';
-    const codeSelector = '[name="code"]';
-
-    const validCode = '123123';
-    cy.get(codeSelector).focus().type('111').blur();
-    cy.get(codeSelector).parents('.field').should('have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('be.disabled');
-    cy.get(codeSelector).focus().clear().type(validCode).blur();
-    cy.get(codeSelector).parents('.field').should('not.have.class', 'error');
-    cy.get(submitSelector).contains('Login').should('not.be.disabled');
-
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
-      status: 400,
-      response: { errors: ['invalid code'] },
-      delay: 200,
-    }).as('verifyMfa');
-    cy.get(submitSelector).contains('Login').click();
-    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
-    cy.contains('invalid code').should('be.visible');
-
-    mockAuthMe();
-    cy.route({
-      method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
-      status: 200,
-      response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
-      delay: 200,
-    }).as('verifyMfa');
-    cy.get(submitSelector).contains('Login').click();
-    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
-
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/');
-    });
-  });
+  // it('Login with Social, with two-factor', () => {
+  //   cy.server();
+  //   mockAuthApi(false, false, true);
+  //   cy.route({
+  //     method: 'POST',
+  //     url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+  //     status: 200,
+  //     response: { address: SSO_PATH },
+  //     delay: 200,
+  //   }).as('preLogin');
+  //
+  //   mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
+  //     ...mountOptions,
+  //     alias: 'providerComponent',
+  //   });
+  //
+  //   navigateTo(defaultAuthPlugin.routes.loginUrl);
+  //   cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
+  //   cy.get('.loader').should('not.be.visible');
+  //
+  //   cy.location('origin').then((origin) => {
+  //     const loginWithGoogleSelector = '[data-test-id="googleSocialLogin-btn"]';
+  //     cy.get(loginWithGoogleSelector).contains('Login with Google').should('not.be.disabled').click();
+  //     cy.location().should((loc) => {
+  //       expect(loc.pathname + loc.search).to.eq(getGoogleAuthUrl(origin));
+  //     });
+  //
+  //     navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
+  //
+  //     cy.get('.loader').should('not.be.visible');
+  //
+  //     const redirectUri = origin + defaultAuthPlugin.routes.socialLoginCallbackUrl;
+  //     cy.route({
+  //       method: 'POST',
+  //       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/sso/google/postlogin?code=google_auth_code?redirectUri=${redirectUri}`,
+  //       status: 200,
+  //       delay: 200,
+  //       response: {},
+  //     }).as('submitSocialLogin');
+  //     cy.route({
+  //       method: 'POST',
+  //       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
+  //       status: 200,
+  //       response: {
+  //         mfaRequired: true,
+  //         mfaToken: MFA_TOKEN,
+  //       },
+  //     }).as('refreshToken');
+  //
+  //     cy.wait(['@submitSocialLogin', '@refreshToken']);
+  //   });
+  //
+  //   cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
+  //
+  //   const submitSelector = 'button[type=submit]';
+  //   const codeSelector = '[name="code"]';
+  //
+  //   const validCode = '123123';
+  //   cy.get(codeSelector).focus().type('111').blur();
+  //   cy.get(codeSelector).parents('.field').should('have.class', 'error');
+  //   cy.get(submitSelector).contains('Login').should('be.disabled');
+  //   cy.get(codeSelector).focus().clear().type(validCode).blur();
+  //   cy.get(codeSelector).parents('.field').should('not.have.class', 'error');
+  //   cy.get(submitSelector).contains('Login').should('not.be.disabled');
+  //
+  //   cy.route({
+  //     method: 'POST',
+  //     url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
+  //     status: 400,
+  //     response: { errors: ['invalid code'] },
+  //     delay: 200,
+  //   }).as('verifyMfa');
+  //   cy.get(submitSelector).contains('Login').click();
+  //   cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+  //   cy.contains('invalid code').should('be.visible');
+  //
+  //   mockAuthMe();
+  //   cy.route({
+  //     method: 'POST',
+  //     url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
+  //     status: 200,
+  //     response: { accessToken: ACCESS_TOKEN, refreshToken: 'refreshToken' },
+  //     delay: 200,
+  //   }).as('verifyMfa');
+  //   cy.get(submitSelector).contains('Login').click();
+  //   cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+  //
+  //   cy.location().should((loc) => {
+  //     expect(loc.pathname).to.eq('/');
+  //   });
+  // });
 
   it('Logout Component', () => {
     cy.server();
