@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/frontegg/frontegg-react/compare/v2.1.0...v2.2.0) (2021-04-28)
+
+
+### Bug Fixes
+
+* disable refresh token after activate user ([84db237](https://github.com/frontegg/frontegg-react/commit/84db2376901b34f53d7079108d989b7d1c5d57b7)), closes [#FR-2761](https://github.com/frontegg/frontegg-react/issues/FR-2761)
+
+
+### Features
+
+* **auth:** get activate account config in order to determine if user should set password ([#370](https://github.com/frontegg/frontegg-react/issues/370)) ([b04d42a](https://github.com/frontegg/frontegg-react/commit/b04d42a8d84778bfdadcc3a7a872f9b24eb18028))
+* add frontegg react library to support routing and sharing store ([2fed55f](https://github.com/frontegg/frontegg-react/commit/2fed55f61832c785d4ec99d7193226b9cf4f3a16)), closes [#FR-2761](https://github.com/frontegg/frontegg-react/issues/FR-2761)
+* **auth:** add action to get public vendor config ([#367](https://github.com/frontegg/frontegg-react/issues/367)) ([48eb6ec](https://github.com/frontegg/frontegg-react/commit/48eb6ecf523def554fd9622609fffc5e2bef9692))
+
+
+
+
+
 # [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
 
 

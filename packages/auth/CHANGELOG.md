@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/frontegg/frontegg-react/compare/v2.1.0...v2.2.0) (2021-04-28)
+
+
+### Features
+
+* **auth:** get activate account config in order to determine if user should set password ([#370](https://github.com/frontegg/frontegg-react/issues/370)) ([b04d42a](https://github.com/frontegg/frontegg-react/commit/b04d42a8d84778bfdadcc3a7a872f9b24eb18028))
+
+
+
+
+
 # [2.1.0](https://github.com/frontegg/frontegg-react/compare/v2.0.0...v2.1.0) (2021-04-13)
 
 **Note:** Version bump only for package @frontegg/react-auth
