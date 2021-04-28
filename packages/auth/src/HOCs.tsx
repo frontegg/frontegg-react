@@ -8,7 +8,7 @@ import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
 const onRedirecting = (loginUrl: string) => {
   window.localStorage.setItem(
     FRONTEGG_AFTER_AUTH_REDIRECT_URL,
-    window.location.href.substring(window.location.origin.length),
+    window.location.href.substring(window.location.origin.length)
   );
   return <Redirect to={loginUrl} />;
 };

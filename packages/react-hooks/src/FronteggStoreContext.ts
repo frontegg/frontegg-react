@@ -1,7 +1,6 @@
 import React from 'react';
 import { createSelectorHook, createDispatchHook, createStoreHook, ReactReduxContextValue } from 'react-redux';
 
-
 export const FronteggStoreContext = React.createContext<ReactReduxContextValue>(null as any);
 
 // @ts-ignore
