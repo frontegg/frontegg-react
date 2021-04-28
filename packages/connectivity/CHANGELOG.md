@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/frontegg/frontegg-react/compare/v2.1.0...v2.2.0) (2021-04-28)
+
+
+### Bug Fixes
+
+* **connectivity:** FR-2311 validate webhook secret key length and format error message ([#358](https://github.com/frontegg/frontegg-react/issues/358)) ([589fccb](https://github.com/frontegg/frontegg-react/commit/589fccbf8c34704cbf16f246cda96cdcd5b85f92))
+
+
+### Features
+
+* **connectivity:** FR-2586 format dates on webhook page ([#357](https://github.com/frontegg/frontegg-react/issues/357)) ([80a6832](https://github.com/frontegg/frontegg-react/commit/80a683273d49517583967ed04fc589da74e8d020))
+
+
+
+
+
 # [2.1.0](https://github.com/frontegg/frontegg-react/compare/v2.0.0...v2.1.0) (2021-04-13)
 
 **Note:** Version bump only for package @frontegg/react-connectivity

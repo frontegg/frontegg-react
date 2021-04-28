@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-hooks",
   "libName": "FronteggReactHooks",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "Frontegg LTD",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -12,11 +12,11 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/redux-store": "^2.1.0"
+    "@frontegg/redux-store": "^2.2.0"
   },
   "devDependencies": {
-    "react-redux": "^7.2.3",
-    "@types/react-redux": "^7.1.16"
+    "@types/react-redux": "^7.1.16",
+    "react-redux": "^7.2.3"
   },
   "gitHead": "00c0bd425a211916eec1170b8359cf302727b338"
 }

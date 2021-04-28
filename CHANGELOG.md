@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/frontegg/frontegg-react/compare/v2.1.0...v2.2.0) (2021-04-28)
+
+
+### Bug Fixes
+
+* **connectivity:** FR-2311 validate webhook secret key length and format error message ([#358](https://github.com/frontegg/frontegg-react/issues/358)) ([589fccb](https://github.com/frontegg/frontegg-react/commit/589fccbf8c34704cbf16f246cda96cdcd5b85f92))
+* Add react-redux to react-hooks dist file ([a1244e7](https://github.com/frontegg/frontegg-react/commit/a1244e7fe49fbad6c53e02331493a7a3aaef7d64)), closes [#FR-2682](https://github.com/frontegg/frontegg-react/issues/FR-2682)
+* disable refresh token after activate user ([84db237](https://github.com/frontegg/frontegg-react/commit/84db2376901b34f53d7079108d989b7d1c5d57b7)), closes [#FR-2761](https://github.com/frontegg/frontegg-react/issues/FR-2761)
+* fix rollup config for  react-hooks ([7338e52](https://github.com/frontegg/frontegg-react/commit/7338e5229636754342e8cf4efa817095fd681b48)), closes [#FR-2682](https://github.com/frontegg/frontegg-react/issues/FR-2682)
+* fix rollup config for  react-hooks ([a13f343](https://github.com/frontegg/frontegg-react/commit/a13f3433cf44057a6479c3b4267d9116271a2a1a)), closes [#FR-2682](https://github.com/frontegg/frontegg-react/issues/FR-2682)
+* remove encoding variable in audits ip filtering ([8f77b39](https://github.com/frontegg/frontegg-react/commit/8f77b39d6f059efc2031f58d0464af3b407c2013))
+
+
+### Features
+
+* **auth:** add action to get public vendor config ([#367](https://github.com/frontegg/frontegg-react/issues/367)) ([48eb6ec](https://github.com/frontegg/frontegg-react/commit/48eb6ecf523def554fd9622609fffc5e2bef9692))
+* **auth:** get activate account config in order to determine if user should set password ([#370](https://github.com/frontegg/frontegg-react/issues/370)) ([b04d42a](https://github.com/frontegg/frontegg-react/commit/b04d42a8d84778bfdadcc3a7a872f9b24eb18028))
+* **connectivity:** FR-2586 format dates on webhook page ([#357](https://github.com/frontegg/frontegg-react/issues/357)) ([80a6832](https://github.com/frontegg/frontegg-react/commit/80a683273d49517583967ed04fc589da74e8d020))
+* add frontegg react library to support routing and sharing store ([2fed55f](https://github.com/frontegg/frontegg-react/commit/2fed55f61832c785d4ec99d7193226b9cf4f3a16)), closes [#FR-2761](https://github.com/frontegg/frontegg-react/issues/FR-2761)
+
+
+
+
+
 # [2.1.0](https://github.com/frontegg/frontegg-react/compare/v2.0.0...v2.1.0) (2021-04-13)
 
 

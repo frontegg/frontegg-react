@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/frontegg/frontegg-react/compare/v2.1.0...v2.2.0) (2021-04-28)
+
+
+### Bug Fixes
+
+* Add react-redux to react-hooks dist file ([a1244e7](https://github.com/frontegg/frontegg-react/commit/a1244e7fe49fbad6c53e02331493a7a3aaef7d64)), closes [#FR-2682](https://github.com/frontegg/frontegg-react/issues/FR-2682)
+* fix rollup config for  react-hooks ([7338e52](https://github.com/frontegg/frontegg-react/commit/7338e5229636754342e8cf4efa817095fd681b48)), closes [#FR-2682](https://github.com/frontegg/frontegg-react/issues/FR-2682)
+* fix rollup config for  react-hooks ([a13f343](https://github.com/frontegg/frontegg-react/commit/a13f3433cf44057a6479c3b4267d9116271a2a1a)), closes [#FR-2682](https://github.com/frontegg/frontegg-react/issues/FR-2682)
+
+
+
+
+
 # [2.1.0](https://github.com/frontegg/frontegg-react/compare/v2.0.0...v2.1.0) (2021-04-13)
 
 **Note:** Version bump only for package @frontegg/react-hooks

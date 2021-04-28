@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -19,8 +19,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^2.1.0",
-    "@frontegg/rest-api": "^2.1.0",
+    "@frontegg/react-core": "^2.2.0",
+    "@frontegg/rest-api": "^2.2.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
     "@types/react-recaptcha-v3": "^1.1.1",
