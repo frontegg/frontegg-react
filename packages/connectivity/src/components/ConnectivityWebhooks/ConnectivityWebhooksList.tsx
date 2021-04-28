@@ -172,7 +172,7 @@ export const ConnectivityWebhooksList: FC = () => {
           return (
             <div className='fe-connectivity-webhook-cell'>
               <div>{date.fromNow()}</div>
-              <div className='fe-connectivity-webhook-description'>{date.format('D/M/YYYY hh:mm')}</div>
+              <div className='fe-connectivity-webhook-description'>{date.format('D/M/YYYY hh:mm A')}</div>
             </div>
           );
         },
