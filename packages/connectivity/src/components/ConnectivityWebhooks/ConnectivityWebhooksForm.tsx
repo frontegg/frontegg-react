@@ -14,6 +14,7 @@ import {
   validateSchema,
   validateRequired,
   validateArrayLength,
+  validateLength,
 } from '@frontegg/react-core';
 import { initialValues } from './consts';
 import { IWebhooksSaveData } from '@frontegg/rest-api';
@@ -59,6 +60,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
     displayName: validateRequired(t('common.displayName'), t),
     url: validateUrl('URL', t),
     eventKeys: validateArrayLength(t, t('connectivity.events')),
+    secret: validateLength('Secret Key', 8, t),
   });
 
   const cleanCategory = filterCategories(categories, channelMap);
