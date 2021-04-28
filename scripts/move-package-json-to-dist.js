@@ -2,9 +2,13 @@ const path = require('path');
 const fs = require('fs');
 
 function movePackageJson(packagePath) {
-  if (packagePath.indexOf('demo-saas') !== -1) {
+  if (packagePath.indexOf('demo-saas') !== -1
+    || packagePath.endsWith('/react-hooks') !== -1
+    || packagePath.endsWith('/redux-store') !== -1
+    || packagePath.endsWith('/react') !== -1) {
     return;
   }
+
   const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, { encoding: 'utf8' }));
   const distFolder = `${packagePath}/dist`;
 
@@ -40,7 +44,7 @@ function movePackageJson(packagePath) {
   };
 
   peerDeps.forEach(dep => {
-    if(newPkg.dependencies) {
+    if (newPkg.dependencies) {
       delete newPkg.dependencies[dep];
     }
   });
