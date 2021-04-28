@@ -11,7 +11,7 @@ import {
   Task,
   createSagaMiddleware,
 } from '@frontegg/redux-store/toolkit';
-import { Provider } from '@frontegg/react-hooks';
+import { Provider, FronteggStoreContext } from '@frontegg/react-hooks';
 import { I18nextProvider } from 'react-i18next';
 import { ContextOptions, ListenerProps, LogLevel } from './interfaces';
 import { rootInitialState, rootReducer } from './reducer';
@@ -146,7 +146,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   }
 
   return (
-    <Provider store={store}>
+    <Provider context={FronteggStoreContext} store={store}>
       <I18nextProvider i18n={i18n}>
         <FePlugins {...props} />
       </I18nextProvider>

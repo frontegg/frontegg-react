@@ -11,9 +11,6 @@ type FronteggProviderProps = {
   setLoading?: (loading: boolean) => void;
 };
 
-export { shallowEqual, connectAdvanced } from 'react-redux';
-export { useSelector, useDispatch, useStore } from './FronteggStoreContext';
-
 const setLoading = (loading: boolean): void => {
   const isSSR = typeof document === 'undefined' || typeof window === 'undefined';
 
