@@ -77,21 +77,14 @@ const entryPoints = [
   // Main Entry Point
   'index',
 ];
-const nodeModules = [
-  'tslib',
-  // 'redux',
-  // '@reduxjs/toolkit',
-  // 'redux-saga',
-  // 'redux-saga/effects',
-  '@frontegg/rest-api',
-  '/node_modules/',
-];
+
+const internal = ['tslib'];
 
 const isExternal = (id) => {
-  if (!!nodeModules.find((t) => id.indexOf(t) !== -1)) {
-    return true;
+  if (id.startsWith('.') || internal.includes(id)) {
+    return false;
   }
-  return false;
+  return true;
 };
 
 export default [
