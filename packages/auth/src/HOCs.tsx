@@ -1,32 +1,9 @@
 /* istanbul ignore file */
 import React, { ComponentType, FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { AuthState, authActions, AuthActions } from '@frontegg/redux-store/auth';
+import { AuthState } from '@frontegg/redux-store/auth';
 import { useAuth, useIsAuthenticated } from '@frontegg/react-hooks/auth';
-import { connect, withT } from '@frontegg/react-core';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from './constants';
-
-const pluginName = 'auth';
-const pluginActions = authActions;
-
-const emptySelector = () => ({});
-export const withAuth = <P extends any>(
-  Component: ComponentType<P>,
-  stateSelector?: (state: AuthState) => any,
-  actionsSelector?: (actions: AuthActions) => any
-) => {
-  const _stateSelector = stateSelector || emptySelector;
-  const _actionsSelector = actionsSelector || emptySelector;
-
-  const mapStateToProps = (state: any) => _stateSelector(state[pluginName]);
-  const mapDispatchToProps = (dispatch: Dispatch) =>
-    bindActionCreators(_actionsSelector(pluginActions) || {}, dispatch);
-
-  return connect(mapStateToProps, mapDispatchToProps)(withT()(Component as any)) as ComponentType<
-    Omit<P, keyof (ReturnType<typeof _stateSelector> & ReturnType<typeof _actionsSelector>)>
-  >;
-};
 
 const onRedirecting = (loginUrl: string) => {
   window.localStorage.setItem(

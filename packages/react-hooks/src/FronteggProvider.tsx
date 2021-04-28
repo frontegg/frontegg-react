@@ -3,14 +3,13 @@ import { Provider } from 'react-redux';
 import { createFronteggStore } from '@frontegg/redux-store';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import { useAuth, useAuthRoutes } from './auth';
+import { FronteggStoreContext } from './FronteggStoreContext';
 
 type FronteggProviderProps = {
   app?: any; // FronteggApp
   contextOptions?: ContextOptions;
   setLoading?: (loading: boolean) => void;
 };
-
-export { Provider, useSelector, useDispatch, shallowEqual, connect } from 'react-redux';
 
 const setLoading = (loading: boolean): void => {
   const isSSR = typeof document === 'undefined' || typeof window === 'undefined';
@@ -92,7 +91,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = ({
   const store = useMemo(() => createFronteggStore({ context }, app, previewMode), [app, previewMode]);
 
   return (
-    <Provider store={store}>
+    <Provider context={FronteggStoreContext} store={store}>
       <FronteggContent setLoading={setLoadingProps ?? setLoading} app={app}>
         {children}
       </FronteggContent>
