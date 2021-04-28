@@ -24,7 +24,7 @@ export const ConnectivityWebhooksLog: FC = () => {
 
   const formatDate = (date: string) => {
     const momentDate = moment.utc(date).local();
-    return { now: momentDate.fromNow(), date: momentDate.format('D/M/YYYY hh:mm') };
+    return { now: momentDate.fromNow(), date: momentDate.format('D/M/YYYY hh:mm A') };
   };
 
   const dispatch = useDispatch();
