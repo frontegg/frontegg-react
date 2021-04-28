@@ -51,21 +51,22 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
     forgotPasswordState: { passwordConfig },
   } = useAuth(stateMapper);
 
-  useEffect(() => {
-    const callback = (data: IGetActivateAccountStrategyResponse | null) => {
-      if (!data?.shouldSetPassword) {
-        activateAccount({ userId, token });
-      }
+  useEffect((): (() => void) => {
+    const logoutCallback = () => {
+      setLogoutLoader(false);
+      const callback = (data: IGetActivateAccountStrategyResponse | null) => {
+        if (!data?.shouldSetPassword) {
+          activateAccount({ userId, token });
+        }
+      };
+
+      getActivateAccountStrategy({ userId, token, callback });
     };
 
-    getActivateAccountStrategy({ userId, token, callback });
-  }, [userId, token]);
-
-  useEffect((): (() => void) => {
-    silentLogout(() => setLogoutLoader(false));
+    silentLogout(logoutCallback);
     loadPasswordConfig({ userId });
     return resetForgotPasswordState;
-  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, userId]);
+  }, [silentLogout, loadPasswordConfig, resetForgotPasswordState, getActivateAccountStrategy, userId, token]);
 
   const loading =
     logoutLoader ||

@@ -52,6 +52,9 @@ export function* singUpUser({ payload }: PayloadAction<ISignUpUser>) {
           isAuthenticated: !!user?.accessToken,
         })
       );
+      if (!shouldActivate) {
+        yield put(actions.loadTenants());
+      }
     }
   } catch (e) {
     ContextHolder.setAccessToken(null);
