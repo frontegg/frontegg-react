@@ -21,6 +21,8 @@ import {
 import { authStoreName } from '../../constants';
 import { delay } from '../utils';
 import { permissionsDemo, rolesDemo, usersDemo, userTeamDemo } from '../dummy';
+import { v4 as uuid } from 'uuid';
+
 const select = () => sagaSelect((_) => _[authStoreName].teamState);
 
 function* loadUsers({ payload }: PayloadAction<WithCallback<WithSilentLoad<ILoadUsers>, ITeamUser[]>>): any {
@@ -306,7 +308,7 @@ function* addUserMock({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUse
   const teamState: TeamState = yield select();
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   yield delay();
-  const newUser: ITeamUser = { ...body, ...userTeamDemo };
+  const newUser: ITeamUser = { ...userTeamDemo, ...body, id: `${uuid()}` };
   callback?.(newUser);
   yield put(
     actions.setTeamState({

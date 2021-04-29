@@ -5,6 +5,7 @@ import { actions } from '../reducer';
 import { WithCallback, WithSilentLoad } from '../../interfaces';
 import { ApiStateKeys, ApiTokenType, ITenantApiTokensData, IUserApiTokensData, IApiTokensData } from './interfaces';
 import { apiTokensDataDemo, apiTokensDataTenantDemo, rolesDemo, permissionsDemo } from '../dummy';
+import { v4 as uuid } from 'uuid';
 
 function* loadApiTokensData({ payload: apiTokenType }: PayloadAction<ApiTokenType>) {
   yield put(actions.setApiTokensState({ apiTokenType }));
@@ -183,7 +184,12 @@ function* addTenantApiTokenMock({ payload }: PayloadAction<WithCallback<ITenantA
   yield put(actions.setApiTokensLoader({ key: ApiStateKeys.ADD_API_TOKEN, value: true }));
 
   const { apiTokensDataTenant } = yield select((state) => state.auth.apiTokensState);
-  const newToken: ITenantApiTokensData = { ...apiTokensDataTenantDemo, description, roleIds };
+  const newToken: ITenantApiTokensData = {
+    ...apiTokensDataTenantDemo,
+    description,
+    roleIds,
+    clientId: `CLIENT_ID_${uuid()}`,
+  };
   yield put(actions.setApiTokensState({ showAddTokenDialog: false }));
   yield delay(200);
   yield put(
