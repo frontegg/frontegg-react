@@ -373,6 +373,14 @@
     }
   }
 
+  &__useragent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
   &__expand-content {
     gap: var(--element-height) 0;
     padding: var(--element-height) var(--element-spacing);
