@@ -308,7 +308,7 @@ function* addUserMock({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUse
   const teamState: TeamState = yield select();
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   yield delay();
-  const newUser: ITeamUser = { ...body, ...userTeamDemo, id: `${uuid()}` };
+  const newUser: ITeamUser = { ...userTeamDemo, ...body, id: `${uuid()}` };
   callback?.(newUser);
   yield put(
     actions.setTeamState({
