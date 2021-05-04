@@ -17,8 +17,8 @@
     "react-router-dom": "5.x"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": ">16.9.0",
+    "react-dom": ">16.9.0"
   },
   "gitHead": "00c0bd425a211916eec1170b8359cf302727b338"
 }
