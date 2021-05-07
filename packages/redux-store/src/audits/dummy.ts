@@ -1,4 +1,17 @@
-import { AuditRowData, IAudits } from '@frontegg/rest-api';
+const dummyUsersData = [
+  { user: 'Dianne Deck', email: 'dianne@frontegg.com' },
+  { user: 'Betty Martin', email: 'betty@frontegg.com' },
+  { user: 'Joann Schmidt', email: 'joann@frontegg.com' },
+  { user: 'Kristine Bodnar', email: 'kristine@frontegg.com' },
+  { user: 'Harold Marcus', email: 'harold@frontegg.com' },
+  { user: 'Alice Williams', email: 'allice@frontegg.com' },
+  { user: 'Beatrice Wilkinson', email: 'beatrice@frontegg.com' },
+];
+
+const randomUser = () => {
+  const random = Math.floor(Math.random() * dummyUsersData.length);
+  return dummyUsersData[random];
+};
 
 const randomAction = () => {
   const random = Math.floor(Math.random() * 6);
@@ -47,7 +60,7 @@ export const auditLogsDataDemo: { data: any[]; total: number } = {
   total: 20,
   data: Array.from(Array(10).keys()).map((i) => ({
     ip: '198.143.51.1',
-    email: 'user@frontegg.com',
+    ...randomUser(),
     ...randomAction(),
     json: { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4' },
     tenantId: 'my-tenant-id',
