@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-connectivity",
   "libName": "FronteggConnectivity",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -13,8 +13,8 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-core": "^2.2.2",
-    "@frontegg/redux-store": "^2.2.2",
+    "@frontegg/react-core": "^2.3.0",
+    "@frontegg/redux-store": "^2.3.0",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "react": ">16.8.6"
