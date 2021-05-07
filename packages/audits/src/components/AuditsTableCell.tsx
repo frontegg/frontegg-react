@@ -34,7 +34,7 @@ const Parser = new UAParser(undefined, { browser: ownRegexp });
 
 const UserAgent: CellComponent = ({ value }: { value: string }) => {
   const browser = useMemo(() => {
-    const browser = Parser.setUA(value).getBrowser().name;
+    const browser = value ? Parser.setUA(value).getBrowser().name : '';
     return browser && browsers.includes(browser?.toLowerCase() ?? '') ? browser : 'Web';
   }, [value]);
 
@@ -54,7 +54,7 @@ const UserAgent: CellComponent = ({ value }: { value: string }) => {
   }
 
   return (
-    <div className={'fe-audits__severity fe-audits__severity-useragent'}>
+    <div className={'fe-audits__useragent'}>
       <Popup
         action='hover'
         content={<div className={`${prefixCls}__useragent-hover`}>{value}</div>}
