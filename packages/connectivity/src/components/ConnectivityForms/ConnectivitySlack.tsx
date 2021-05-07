@@ -128,7 +128,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
     return () => {
       dispatch(connectivityActions.cleanSlackData());
     };
-  }, [dispatch]);
+  }, []);
 
   const [filterTableData, Search] = useSearch({
     data: tablesData,
@@ -171,7 +171,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
 
       dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
     },
-    [dispatch, slack]
+    [slack]
   );
 
   if (isLoading) {
@@ -183,7 +183,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   }
 
   return (
-    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
+    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)} enableReinitialize>
       <FFormik.Form>
         <FormikAutoSave isSaving={isSaving} />
         {Search}
