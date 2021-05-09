@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
+
+
+### Bug Fixes
+
+* **audits:** fix position and behaviors of the User Agent logo ([3e067ef](https://github.com/frontegg/frontegg-react/commit/3e067efe8253c460174e6ea103774a5fc64016e9))
+
+
+
+
+
 ## [2.2.2](https://github.com/frontegg/frontegg-react/compare/v2.2.1...v2.2.2) (2021-04-29)
 
 **Note:** Version bump only for package @frontegg/react-audits

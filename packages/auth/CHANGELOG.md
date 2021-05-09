@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
+
+
+### Bug Fixes
+
+* **auth:** remove duplicated useField destructure ([4efd3f1](https://github.com/frontegg/frontegg-react/commit/4efd3f1e477c29c7198d46fd3400ad5c7ec5f21f))
+
+
+
+
+
 ## [2.2.2](https://github.com/frontegg/frontegg-react/compare/v2.2.1...v2.2.2) (2021-04-29)
 
 
