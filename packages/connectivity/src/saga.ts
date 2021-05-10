@@ -131,57 +131,72 @@ function* postDataFunction({ payload: { platform, data } }: ReturnType<typeof co
   }
 }
 
+const findUpdatedSubscription = (oldState, newState) => {
+  const stringifiedOldState = oldState.map(JSON.stringify);
+  return newState.filter((item) => {
+    const stringifiedItem = JSON.stringify(item);
+    return !stringifiedOldState.some((oldItem) => oldItem === stringifiedItem);
+  });
+};
+
 function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
-  const {
-    connectivity: { slack },
-  }: IPluginState = yield select();
+  const { connectivity }: IPluginState = yield select();
+  const { slack } = connectivity;
   if (!slack) {
     return;
   }
   const { slackSubscriptions: stateSlackSubscriptions } = slack;
   const { slackSubscriptions } = payload;
-  yield all([
-    ...slackSubscriptions
-      .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
-        if (!curr.id && curr.slackEvents && curr.slackEvents[0].channelIds?.length) {
-          return [...acc, curr];
-        }
-        const el = stateSlackSubscriptions.find(
-          ({ id, ...props }) => id === curr.id && JSON.stringify({ id, ...props }) !== JSON.stringify(curr)
-        );
-        if (el && curr.slackEvents && curr.slackEvents[0].channelIds?.length) {
-          return [...acc, curr];
-        }
-        return acc;
-      }, [])
-      .map(function* (el: ISlackSubscription) {
-        return yield call(type2ApiPost.slack, el);
-      }),
-    ...slackSubscriptions
-      .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
-        if (curr.id && !curr.slackEvents[0].channelIds.length) {
-          return [...acc, curr];
-        }
-        return acc;
-      }, [])
-      .map(function* (el) {
-        return yield call(api.connectivity.deleteSlackConfiguration, el as Required<ISlackSubscription>);
-      }),
-    // clean the old data
-    // ...stateSlackSubscriptions
-    //   // @ts-ignore
-    //   .reduce((acc, curr) => {
-    //     const el = slackSubscriptions.find(({ id }) => id === curr.id);
-    //     if (!el) {
-    //       return [...acc, curr];
-    //     }
-    //     return acc;
-    //   }, [])
-    //   // @ts-ignore
-    //   .map(function* (el) {
-    //     return yield call(api.connectivity.deleteSlackConfiguration, el as Required<ISlackSubscription>);
-    //   }),
-  ]);
+  const subscriptionsToUpdate = findUpdatedSubscription(stateSlackSubscriptions, slackSubscriptions);
+
+  yield all(
+    subscriptionsToUpdate.map(function* (el: ISlackSubscription) {
+      return yield call(type2ApiPost.slack, el);
+    })
+  );
+
+  // yield all([
+  //   ...slackSubscriptions
+  //     .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
+  //       if (!curr.id && curr.slackEvents && curr.slackEvents[0].channelIds?.length) {
+  //         return [...acc, curr];
+  //       }
+  //       const el = stateSlackSubscriptions.find(
+  //         ({ id, ...props }) => id === curr.id && JSON.stringify({ id, ...props }) !== JSON.stringify(curr)
+  //       );
+  //       if (el && curr.slackEvents && curr.slackEvents[0].channelIds?.length) {
+  //         return [...acc, curr];
+  //       }
+  //       return acc;
+  //     }, [])
+  //     .map(function* (el: ISlackSubscription) {
+  //       return yield call(type2ApiPost.slack, el);
+  //     }),
+  //   ...slackSubscriptions
+  //     .reduce((acc: ISlackSubscription[], curr: ISlackSubscription) => {
+  //       if (curr.id && !curr.slackEvents[0].channelIds.length) {
+  //         return [...acc, curr];
+  //       }
+  //       return acc;
+  //     }, [])
+  //     .map(function* (el) {
+  //       return yield call(api.connectivity.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+  //     }),
+  //   // clean the old data
+  //   // ...stateSlackSubscriptions
+  //   //   // @ts-ignore
+  //   //   .reduce((acc, curr) => {
+  //   //     const el = slackSubscriptions.find(({ id }) => id === curr.id);
+  //   //     if (!el) {
+  //   //       return [...acc, curr];
+  //   //     }
+  //   //     return acc;
+  //   //   }, [])
+  //   //   // @ts-ignore
+  //   //   .map(function* (el) {
+  //   //     return yield call(api.connectivity.deleteSlackConfiguration, el as Required<ISlackSubscription>);
+  //   //   }),
+  // ]);
 }
 
 function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[], 'email' | 'sms'>) {
@@ -314,7 +329,7 @@ function* loadWebhookLogsFunction({
 export function* sagas() {
   yield takeEvery(connectivityActions.loadDataAction, loadDataFunction);
   yield takeLatest(connectivityActions.loadSlackActions, loadSlackFunction);
-  yield takeLatest(connectivityActions.postDataAction, postDataFunction);
+  yield takeEvery(connectivityActions.postDataAction, postDataFunction);
   yield takeEvery(connectivityActions.postCodeAction, postCodeFunction);
   yield takeEvery(connectivityActions.loadScope, loadSlackPermissions);
   yield takeEvery(connectivityActions.deleteWebhookConfigAction, deleteWebhookConfigFunction);

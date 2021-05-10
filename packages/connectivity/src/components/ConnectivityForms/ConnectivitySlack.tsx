@@ -75,7 +75,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
           })),
         }))) ||
       undefined,
-    [cleanCategory, slackSubscriptions]
+    [cleanCategory]
   );
 
   const columns = useMemo(
@@ -185,7 +185,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   return (
     <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)} enableReinitialize>
       <FFormik.Form>
-        <FormikAutoSave isSaving={isSaving} debounceMs={1500} />
+        <FormikAutoSave isSaving={isSaving} debounceMs={0} />
         {Search}
         {filterTableData.map(({ id, events, index }, idx) => (
           <Table
