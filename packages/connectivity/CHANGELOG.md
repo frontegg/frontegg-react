@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/frontegg/frontegg-react/compare/v2.3.0...v2.3.1) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix connectivity slack UI ([b214466](https://github.com/frontegg/frontegg-react/commit/b2144661bad8a6d827f4e6fc652fae1b9eae7dde))
+
+
+
+
+
 # [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
 
 
