@@ -314,7 +314,7 @@ function* loadWebhookLogsFunction({
 export function* sagas() {
   yield takeEvery(connectivityActions.loadDataAction, loadDataFunction);
   yield takeLatest(connectivityActions.loadSlackActions, loadSlackFunction);
-  yield takeEvery(connectivityActions.postDataAction, postDataFunction);
+  yield takeLatest(connectivityActions.postDataAction, postDataFunction);
   yield takeEvery(connectivityActions.postCodeAction, postCodeFunction);
   yield takeEvery(connectivityActions.loadScope, loadSlackPermissions);
   yield takeEvery(connectivityActions.deleteWebhookConfigAction, deleteWebhookConfigFunction);
