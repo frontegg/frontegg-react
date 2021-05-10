@@ -11,7 +11,7 @@ export const FormikAutoSave: FC<IFormikAutoSave> = ({ debounceMs = 500, isSaving
 
   const saveData = useDebounce(values, debounceMs);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     return () => {
       submitForm();
     };
