@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/frontegg/frontegg-react/compare/v2.3.0...v2.3.1) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix changes not saved on swithcing connecticity context ([04758b5](https://github.com/frontegg/frontegg-react/commit/04758b5070da15f20f93010ddd24d9bd9b4f27ab))
+
+
+
+
+
 # [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
 
 **Note:** Version bump only for package @frontegg/react-core

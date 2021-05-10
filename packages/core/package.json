@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-core",
   "libName": "FronteggCore",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
