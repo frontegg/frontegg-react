@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/frontegg/frontegg-react/compare/v2.3.1...v2.3.2) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix UI glitches ([a78c4f0](https://github.com/frontegg/frontegg-react/commit/a78c4f0587a606cc529909d35a24d98ab3e66f01))
+
+
+
+
+
 ## [2.3.1](https://github.com/frontegg/frontegg-react/compare/v2.3.0...v2.3.1) (2021-05-10)
 
 
