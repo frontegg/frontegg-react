@@ -120,7 +120,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
             },
           ] as TableColumnProps<ISlackEventData>[]
       ),
-    [tablesData, t, close, isFiltering]
+    [t, close, isFiltering]
   );
 
   useEffect(() => {
@@ -185,7 +185,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   return (
     <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)} enableReinitialize>
       <FFormik.Form>
-        <FormikAutoSave isSaving={isSaving} />
+        <FormikAutoSave isSaving={isSaving} debounceMs={1500} />
         {Search}
         {filterTableData.map(({ id, events, index }, idx) => (
           <Table
