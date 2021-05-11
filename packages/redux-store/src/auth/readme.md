@@ -13,9 +13,6 @@ The APIs and states are available by using the using the `useAuth()` hook:
 import { useAuth } from "@frontegg/react-auth";
 
 const { user, isAuthenticated } = useAuth();
-if (isAuthenticated) {
-  console.log(`Yay! ${user.email} is authenticated!`);
-}
 ```
 
 The `useAuth()` allows to get status and call apis on each of the functionalities exposed by the Frontegg Authentication Module.

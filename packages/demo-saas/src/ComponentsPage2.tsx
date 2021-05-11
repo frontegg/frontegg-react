@@ -1189,9 +1189,6 @@ export const ComponentsPage2: FC = () => {
         pagination='pages'
         pageSize={20}
         pageCount={100}
-        onPageChange={(pageSize, page) => {
-          console.log(pageSize, page);
-        }}
         expandable
         renderExpandedComponent={renderExpandedComponent}
 
