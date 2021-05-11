@@ -11,6 +11,7 @@ import { all, call } from 'redux-saga/effects';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import authStore from '../auth';
 import auditsStore from '../audits';
+import connectivityStore from '../connectivity';
 
 export * from './redux';
 export * from './redux-saga';
@@ -79,16 +80,18 @@ export const createFronteggStore = (
         root: { ...rootInitialState } as any,
         [authStore.storeName]: authStore.initialState,
         [auditsStore.storeName]: auditsStore.initialState,
+        [connectivityStore.storeName]: connectivityStore.initialState,
       },
       reducer: combineReducers({
         root: rootReducer,
         [authStore.storeName]: authStore.reducer,
         [auditsStore.storeName]: auditsStore.reducer,
+        [connectivityStore.storeName]: connectivityStore.reducer,
       }),
     });
 
     const rootSaga = function* () {
-      yield all([call(authStore.sagas), call(auditsStore.sagas)]);
+      yield all([call(authStore.sagas), call(auditsStore.sagas), call(connectivityStore.sagas)]);
     };
 
     const rootMockSaga = function* () {

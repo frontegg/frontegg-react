@@ -66,7 +66,7 @@ function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | u
     { list: [] }
   );
 
-  yield put(connectivityActions.setConnectivityState({ error: undefined, isSaving: false, isLoading: false, ...data }));
+  yield put(connectivityActions.setConnectivityState({ ...data, error: undefined, isSaving: false, isLoading: false }));
 }
 
 function* loadFunction({
@@ -104,6 +104,7 @@ function* checkNewStatus(
   if (!currPlatform) return;
   const newActive = channels2Platform[platform].isActive(data);
   if (newActive === currPlatform.active) return;
+  //TODO: double check
   yield put(
     connectivityActions.setConnectivityState({
       list: list.map((elm) => (elm.key === platform ? { ...elm, active: newActive } : elm)),
@@ -114,10 +115,10 @@ function* checkNewStatus(
 function* postDataFunction({ payload: { platform, data } }: ReturnType<typeof connectivityActions.postDataAction>) {
   const { processIds } = yield select();
   try {
-    //@ts-ignore
     yield put(
       connectivityActions.setConnectivityState({
         isSaving: true,
+        //@ts-ignore
         processIds: platform === 'webhook' ? [data._id, ...processIds] : processIds,
       })
     );

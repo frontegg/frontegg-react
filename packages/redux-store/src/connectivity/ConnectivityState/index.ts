@@ -17,7 +17,8 @@ export const initialState: IConnectivityState = {
 
 const reducers = {
   initData: () => ({ ...initialState }),
-  cleanData: () => ({ ...initialState }),
+  //deprecated use initData instead;
+  // cleanData: () => ({ ...initialState }),
   setConnectivityState: (state: IConnectivityState, { payload }: PayloadAction<Partial<IConnectivityState>>) => ({
     ...state,
     ...payload,
@@ -49,6 +50,8 @@ const actions = {
  *  the reducers and actions as standalone function
  */
 type DispatchedActions = {
+  setConnectivityState: (state: Partial<IConnectivityState>) => void;
+  initData: () => void;
   loadSlackActions: () => void;
   loadDataAction: (payload: TPlatform[] | undefined) => void;
   postDataAction: (payload: TPostData) => void;
@@ -56,7 +59,7 @@ type DispatchedActions = {
   loadScope: () => void;
   deleteWebhookConfigAction: (payload: string) => void;
   postWebhookTestAction: (payload: IWebhookTest) => void;
-  loadWebhookLogsAction: (payload: { id: string; offset: number; limit: number }) => void;
+  loadWebhookLogsAction: (id: string, offset: number, limit: number) => void;
 };
 
 // noinspection JSUnusedLocalSymbols
