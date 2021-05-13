@@ -11,7 +11,7 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: `${window.location.protocol}//${host}`,
+  baseUrl: `https://app-fvVcpn6ArI50.frontegg.com`,
   requestCredentials: 'include',
 };
 

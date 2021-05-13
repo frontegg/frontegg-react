@@ -42,7 +42,6 @@ export const AuditsTable: FC = () => {
 
   const handlerFilterChange = useCallback(
     (filters: TableFilter[]) => {
-      console.log(filters);
       setFilterData(filters.map(({ id, value }) => ({ key: id, value })));
     },
     [setFilterData]
