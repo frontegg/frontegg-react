@@ -244,8 +244,8 @@ export default {
         'enable-message': 'Enable two-factor authentication to get an extra layer of security',
         'disable-title': 'Disable two-factor authentication',
         'enroll-button': 'Enroll MFA',
-        'remember-this-device': 'Remember this device for {{count}} day',
-        'remember-this-device_plural': 'Remember this device for {{count}} days',
+        'remember-this-device': `Don't ask again on this device for {{count}} day`,
+        'remember-this-device_plural': `Don't ask again on this device for {{count}} days`,
         'disable-button': 'Disable MFA',
         verify: {
           message: 'Enable two-factor to get an extra layer of security.',
