@@ -10,11 +10,12 @@ import {
   IEmailSMSSubscriptionResponse,
   IWebhooksSaveData,
 } from '@frontegg/rest-api';
-import { FC } from 'react';
 
 export type TPlatform = 'slack' | 'email' | 'sms' | 'webhook';
 
 export type TWebhookStatus = 'success' | 'failed' | undefined;
+
+export type TWebhookImage = 'sms' | 'email' | 'slack' | 'webhook';
 export interface IPluginState {
   connectivity: IConnectivityState;
 }
@@ -53,7 +54,8 @@ export interface IConnectivityData {
   key: TPlatform;
   active: boolean;
   events: number;
-  image: FC<React.SVGProps<SVGSVGElement>>;
+  // image: FC<React.SVGProps<SVGSVGElement>;
+  image: TWebhookImage;
 }
 
 export interface IRootPath {

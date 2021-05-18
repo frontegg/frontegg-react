@@ -1,6 +1,5 @@
 import { PayloadAction } from '../../toolkit/redux';
 import { IConnectivityState, TPlatform, TPostData } from '../interfaces';
-// import { typeReducer } from '../utils';
 import { createAction } from '@reduxjs/toolkit';
 import { connectivityStoreName } from '../../constants';
 import { IWebhookTest } from '@frontegg/rest-api';

@@ -1,7 +1,5 @@
 import { api, IEmailSMSConfigResponse, ISlackConfigurations, IWebhooksConfigurations } from '@frontegg/rest-api';
-import { FC } from 'react';
-import { EmailSvg, SlackSvg, SmsSvg, WebhookSvg } from './elements/Svgs';
-import { TPlatform } from './interfaces';
+import { TPlatform, TWebhookImage } from './interfaces';
 
 export const type2ApiGet: Record<TPlatform | 'categories' | 'channelMap', any> = {
   slack: api.connectivity.getSlackConfiguration,
@@ -29,31 +27,31 @@ export const channels2Platform: Record<
     title: string;
     events(data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]): number;
     isActive(data: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[]): boolean;
-    image: FC<React.SVGProps<SVGSVGElement>>;
+    image: TWebhookImage;
   }
 > = {
   sms: {
     title: 'connectivity.sms',
     events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
     isActive: (data) => (data as IEmailSMSConfigResponse[])?.some(({ enabled }) => enabled) ?? false,
-    image: SmsSvg,
+    image: 'sms',
   },
   email: {
     title: 'common.email',
     events: (data) => (data as IEmailSMSConfigResponse[])?.length || 0,
     isActive: (data) => (data as IEmailSMSConfigResponse[])?.some(({ enabled }) => enabled) ?? false,
-    image: EmailSvg,
+    image: 'email',
   },
   slack: {
     title: 'connectivity.slack',
     events: (data) => (data as ISlackConfigurations)?.slackSubscriptions?.length || 0,
     isActive: (data) => !!(data as ISlackConfigurations)?.slackSubscriptions.some(({ isActive }) => isActive) ?? false,
-    image: SlackSvg,
+    image: 'slack',
   },
   webhook: {
     title: 'connectivity.webhook',
     events: (data) => (data as IWebhooksConfigurations[])?.length || 0,
     isActive: (data) => (data as IWebhooksConfigurations[])?.some(({ isActive }) => isActive) ?? false,
-    image: WebhookSvg,
+    image: 'webhook',
   },
 };
