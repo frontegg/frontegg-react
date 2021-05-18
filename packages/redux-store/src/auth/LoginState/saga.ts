@@ -107,7 +107,8 @@ export function* refreshToken() {
     const user = yield call(api.auth.refreshToken);
 
     if (isMfaRequired(user)) {
-      yield put(actions.setState(yield getMfaRequiredState(user)));
+      const mfaRequiredState = yield getMfaRequiredState(user);
+      yield put(actions.setState(yield getMfaRequiredState(mfaRequiredState)));
       onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
       yield put(actions.loadTenants());

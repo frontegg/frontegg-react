@@ -398,7 +398,7 @@ describe('Login Tests', () => {
       method: 'GET',
       url: `${IDENTITY_SERVICE}/resources/configurations/v1/mfa-policy/allow-remember-device?mfaToken=${MFA_TOKEN}`,
       status: 200,
-      response: { isAllowedToRemember: true, mfaDeviceExpiration: 60 * 60 * 24 * 7 },
+      response: { isAllowedToRemember: true, mfaDeviceExpiration: 60 * 60 * 24 * 3 },
       delay: 200,
     }).as('checkIfAllowToRememberDevice');
 
@@ -448,6 +448,7 @@ describe('Login Tests', () => {
       .its('request.body')
       .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: false });
     cy.contains('invalid code').should('be.visible');
+    cy.contains(`Don't ask again on this device for 3 days`).should('be.visible');
     cy.get(rememberDeviceSelector).should('be.visible').check({ force: true });
     cy.route({
       method: 'POST',
