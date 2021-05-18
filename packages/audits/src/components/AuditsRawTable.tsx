@@ -43,14 +43,17 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, da
   }, [headerProps]);
 
   const getTableData = useCallback(() => {
-    const jsonColumns = headerProps.filter(({ type }) => type === 'Json').map(({ name }) => name);
+    const columnsName = headerProps.map(({ name }) => name);
     let tableData = [...data];
 
-    for (const jsonColumn of jsonColumns) {
-      tableData = tableData.map((item) => ({
-        ...item,
-        [jsonColumn]: typeof item[jsonColumn] === 'object' ? JSON.stringify(item[jsonColumn]) : item[jsonColumn],
-      }));
+    for (const columnName of columnsName) {
+      tableData = tableData.map((item) => {
+        const value = item[columnName];
+        return {
+          ...item,
+          [columnName]: value && typeof value === 'object' ? JSON.stringify(value) : value,
+        };
+      });
     }
 
     return tableData;
