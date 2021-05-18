@@ -1,21 +1,22 @@
-import React, { FC } from 'react';
-import { LoginStep } from '@frontegg/redux-store/auth';
 import {
-  validateSchema,
-  validateTwoFactorCode,
-  omitProps,
   ErrorMessage,
+  FButton,
+  FCheckbox,
+  FForm,
+  FFormik,
+  FInput,
+  omitProps,
   RendererFunctionFC,
   useT,
-  FForm,
-  FInput,
-  FButton,
-  FFormik,
+  validateSchema,
+  validateTwoFactorCode,
 } from '@frontegg/react-core';
 import { useLoginActions, useLoginState } from '@frontegg/react-hooks/auth';
+import { LoginStep } from '@frontegg/redux-store/auth';
+import React, { FC } from 'react';
 
 const { Formik } = FFormik;
-
+const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
 export interface LoginWithTwoFactorProps {
   renderer?: RendererFunctionFC<LoginWithTwoFactorProps>;
 }
@@ -23,7 +24,7 @@ export interface LoginWithTwoFactorProps {
 export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
   const { renderer } = props;
   const { t } = useT();
-  const { loading, error, mfaToken } = useLoginState();
+  const { loading, error, mfaToken, allowRememberMfaDevice, mfaDeviceExpiration } = useLoginState();
   const { loginWithMfa, setLoginState } = useLoginActions();
 
   if (renderer) {
@@ -32,12 +33,12 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
 
   return (
     <Formik
-      initialValues={{ code: '' }}
+      initialValues={{ code: '', rememberDevice: false }}
       validationSchema={validateSchema({
         code: validateTwoFactorCode(t),
       })}
-      onSubmit={async ({ code }, { setSubmitting }) =>
-        loginWithMfa({ mfaToken: mfaToken || '', value: code, callback: () => setSubmitting(false) })
+      onSubmit={async ({ code, rememberDevice }, { setSubmitting }) =>
+        loginWithMfa({ mfaToken: mfaToken || '', value: code, rememberDevice, callback: () => setSubmitting(false) })
       }
     >
       <FForm>
@@ -48,6 +49,14 @@ export const LoginWithTwoFactor: FC<LoginWithTwoFactorProps> = (props) => {
           label={t('auth.login.please-enter-the-6-digit-code')}
           name='code'
         />
+        {allowRememberMfaDevice && mfaDeviceExpiration && (
+          <FCheckbox
+            name='rememberDevice'
+            label={t('auth.mfa.remember-this-device', {
+              count: Math.floor(mfaDeviceExpiration / ONE_DAY_IN_SECONDS),
+            })}
+          />
+        )}
 
         <FButton type='submit' variant='primary' loading={loading} data-test-id='submit-btn'>
           {t('auth.login.login')}

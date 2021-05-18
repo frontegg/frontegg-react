@@ -163,6 +163,13 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('preLogin');
     cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/configurations/v1/mfa-policy/allow-remember-device?mfaToken=${MFA_TOKEN}`,
+      status: 200,
+      response: { isAllowedToRemember: false, mfaDeviceExpiration: 0 },
+      delay: 200,
+    }).as('checkIfAllowToRememberDevice');
+    cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user`,
       status: 200,
@@ -270,6 +277,13 @@ describe('Login Tests', () => {
       response: { address: SSO_PATH },
       delay: 200,
     }).as('preLogin');
+    cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/configurations/v1/mfa-policy/allow-remember-device?mfaToken=${MFA_TOKEN}`,
+      status: 200,
+      response: { isAllowedToRemember: false, mfaDeviceExpiration: 0 },
+      delay: 200,
+    }).as('checkIfAllowToRememberDevice');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
       ...mountOptions,
@@ -339,7 +353,9 @@ describe('Login Tests', () => {
     }).as('verifyMfa');
 
     cy.get(submitSelector).contains('Login').click();
-    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.wait('@verifyMfa')
+      .its('request.body')
+      .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: false });
     cy.contains('invalid code').should('be.visible');
 
     cy.route({
@@ -357,7 +373,9 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('me');
     cy.get(submitSelector).contains('Login').click();
-    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.wait('@verifyMfa')
+      .its('request.body')
+      .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: false });
     cy.wait('@me');
 
     cy.location().should((loc) => {
@@ -376,6 +394,13 @@ describe('Login Tests', () => {
       response: { mfaToken: MFA_TOKEN, mfaRequired: true },
       delay: 200,
     }).as('login');
+    cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/configurations/v1/mfa-policy/allow-remember-device?mfaToken=${MFA_TOKEN}`,
+      status: 200,
+      response: { isAllowedToRemember: true, mfaDeviceExpiration: 60 * 60 * 24 * 7 },
+      delay: 200,
+    }).as('checkIfAllowToRememberDevice');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 
@@ -385,6 +410,7 @@ describe('Login Tests', () => {
 
     const submitSelector = 'button[type=submit]';
     const codeSelector = '[name="code"]';
+    const rememberDeviceSelector = '[name="rememberDevice"]';
 
     cy.get(submitSelector).contains('Login').should('be.disabled');
     checkEmailValidation();
@@ -418,9 +444,11 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('verifyMfa');
     cy.get(submitSelector).contains('Login').click();
-    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.wait('@verifyMfa')
+      .its('request.body')
+      .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: false });
     cy.contains('invalid code').should('be.visible');
-
+    cy.get(rememberDeviceSelector).should('be.visible').check({ force: true });
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
@@ -429,7 +457,9 @@ describe('Login Tests', () => {
       delay: 200,
     }).as('verifyMfa');
     cy.get(submitSelector).contains('Login').click();
-    cy.wait('@verifyMfa').its('request.body').should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode });
+    cy.wait('@verifyMfa')
+      .its('request.body')
+      .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: true });
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
@@ -446,6 +476,13 @@ describe('Login Tests', () => {
       response: { mfaToken: MFA_TOKEN, mfaRequired: true },
       delay: 200,
     }).as('login');
+    cy.route({
+      method: 'GET',
+      url: `${IDENTITY_SERVICE}/resources/configurations/v1/mfa-policy/allow-remember-device?mfaToken=${MFA_TOKEN}`,
+      status: 200,
+      response: { isAllowedToRemember: false, mfaDeviceExpiration: 0 },
+      delay: 200,
+    }).as('checkIfAllowToRememberDevice');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, mountOptions);
 

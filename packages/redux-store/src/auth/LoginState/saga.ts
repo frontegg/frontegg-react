@@ -62,9 +62,14 @@ export const isMfaRequired = (user: ILoginResponse) => {
   }
 };
 
-export const getMfaRequiredState = (user: any) => {
+export function* getMfaRequiredState(user: any) {
   let setMfaState = {};
   let step = LoginStep.loginWithTwoFactor;
+
+  const { isAllowedToRemember, mfaDeviceExpiration } = yield call(
+    api.auth.checkIfAllowToRememberMfaDevice,
+    user.mfaToken
+  );
   if (user.hasOwnProperty('mfaEnrolled') && !user.mfaEnrolled) {
     setMfaState = {
       mfaState: {
@@ -89,9 +94,11 @@ export const getMfaRequiredState = (user: any) => {
       step,
       tenantsLoading: true,
       tenants: [],
+      allowRememberMfaDevice: isAllowedToRemember,
+      mfaDeviceExpiration,
     },
   };
-};
+}
 
 export function* refreshToken() {
   try {
@@ -100,7 +107,7 @@ export function* refreshToken() {
     const user = yield call(api.auth.refreshToken);
 
     if (isMfaRequired(user)) {
-      yield put(actions.setState(getMfaRequiredState(user)));
+      yield put(actions.setState(yield getMfaRequiredState(user)));
       onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
       yield put(actions.loadTenants());
@@ -179,7 +186,6 @@ function* login({ payload: { email, password, recaptchaToken } }: PayloadAction<
   yield put(actions.setLoginState({ loading: true }));
   try {
     const user = yield call(api.auth.login, { email, password, recaptchaToken });
-
     ContextHolder.setAccessToken(user.accessToken);
     ContextHolder.setUser(user);
 
@@ -202,6 +208,9 @@ function* login({ payload: { email, password, recaptchaToken } }: PayloadAction<
     }
     const isAuthenticated = step === LoginStep.success && !!user.accessToken;
     const loggedInUser = step === LoginStep.success && step === LoginStep.success ? user : undefined;
+    const { isAllowedToRemember, mfaDeviceExpiration } = user.mfaRequired
+      ? yield call(api.auth.checkIfAllowToRememberMfaDevice, user.mfaToken)
+      : { isAllowedToRemember: false, mfaDeviceExpiration: 0 };
     yield put(
       actions.setState({
         user: loggedInUser,
@@ -215,6 +224,8 @@ function* login({ payload: { email, password, recaptchaToken } }: PayloadAction<
           step,
           tenants: [],
           tenantsLoading: true,
+          allowRememberMfaDevice: isAllowedToRemember,
+          mfaDeviceExpiration,
         },
       })
     );
@@ -235,10 +246,12 @@ function* login({ payload: { email, password, recaptchaToken } }: PayloadAction<
   }
 }
 
-function* loginWithMfa({ payload: { mfaToken, value, callback } }: PayloadAction<WithCallback<ILoginWithMfa>>) {
+function* loginWithMfa({
+  payload: { mfaToken, value, rememberDevice, callback },
+}: PayloadAction<WithCallback<ILoginWithMfa>>) {
   yield put(actions.setLoginState({ loading: true }));
   try {
-    const user = yield call(api.auth.loginWithMfa, { mfaToken, value });
+    const user = yield call(api.auth.loginWithMfa, { mfaToken, value, rememberDevice });
 
     const step = LoginStep.success;
     yield put(

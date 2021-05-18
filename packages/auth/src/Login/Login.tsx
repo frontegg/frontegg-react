@@ -1,7 +1,14 @@
 import React, { FC } from 'react';
 import { ComponentsTypesWithProps, Loader, useDynamicComponents, useT, Button } from '@frontegg/react-core';
-import { LoginStep } from '@frontegg/redux-store/auth';
-import { useAuth, useAuthRoutes, useOnRedirectTo, useLoginActions, useLoginState } from '@frontegg/react-hooks/auth';
+import { LoginStep, MFAStep } from '@frontegg/redux-store/auth';
+import {
+  useAuth,
+  useAuthRoutes,
+  useOnRedirectTo,
+  useLoginActions,
+  useLoginState,
+  useMfaState,
+} from '@frontegg/react-hooks/auth';
 import { authPageWrapper } from '../components';
 import { LoginSuccessRedirect, LoginSuccessRedirectProps } from './LoginSuccessRedirect';
 import { LoginWithPassword, LoginWithPasswordProps } from './LoginWithPassword';
@@ -51,6 +58,7 @@ export const Login: FC<LoginProps> = (props) => {
   const { resetLoginState } = useLoginActions();
   const { isLoading, isAuthenticated } = useAuth(({ isLoading, isAuthenticated }) => ({ isLoading, isAuthenticated }));
   const { step } = useLoginState(({ step }) => ({ step }));
+  const { step: mfaStep } = useMfaState(({ step }) => ({ step }));
 
   const { t } = useT();
 
@@ -78,9 +86,9 @@ export const Login: FC<LoginProps> = (props) => {
     components = <Dynamic.LoginSuccessRedirect />;
   }
 
-  const showBackButton = [LoginStep.loginWithSSOFailed, LoginStep.forceTwoFactor, LoginStep.recoverTwoFactor].includes(
-    step
-  );
+  const showBackButton =
+    [LoginStep.loginWithSSOFailed, LoginStep.forceTwoFactor, LoginStep.recoverTwoFactor].includes(step) &&
+    mfaStep !== MFAStep.recoveryCode;
 
   return (
     <div className='fe-login-component'>

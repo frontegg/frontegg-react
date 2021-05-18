@@ -21,4 +21,6 @@ export interface LoginState {
   email?: string;
   tenants: ITenantsResponse[];
   tenantsLoading?: boolean;
+  allowRememberMfaDevice?: boolean;
+  mfaDeviceExpiration?: number;
 }

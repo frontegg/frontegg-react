@@ -20,7 +20,7 @@ function* activateAccount({ payload }: PayloadAction<IActivateAccount>) {
     const data = yield call(api.auth.activateAccount, payload);
 
     if (isMfaRequired(data)) {
-      yield put(actions.setState(getMfaRequiredState(data)));
+      yield put(actions.setState(yield getMfaRequiredState(data)));
       onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
       const user = yield call(api.auth.generateLoginResponse, data);
