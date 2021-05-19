@@ -314,8 +314,6 @@ describe('Login Tests', () => {
       expect(loc.pathname).to.eq(SSO_PATH);
     });
 
-    cy.wait(1000);
-
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
@@ -325,6 +323,7 @@ describe('Login Tests', () => {
         mfaToken: MFA_TOKEN,
       },
     }).as('refreshToken');
+    cy.wait(1000);
     navigateTo(defaultAuthPlugin.routes.authenticatedUrl);
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
