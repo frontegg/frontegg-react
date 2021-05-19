@@ -108,7 +108,7 @@ export function* refreshToken() {
 
     if (isMfaRequired(user)) {
       const mfaRequiredState = yield getMfaRequiredState(user);
-      yield put(actions.setState(yield getMfaRequiredState(mfaRequiredState)));
+      yield put(actions.setState(mfaRequiredState));
       onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
     } else {
       yield put(actions.loadTenants());
