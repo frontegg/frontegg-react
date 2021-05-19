@@ -8,6 +8,7 @@ import {
   IDENTITY_API_TOKENS_TENANTS_SERVICE,
   IDENTITY_API_TOKENS_USERS_SERVICE,
   IDENTITY_CONFIGURATION_SERVICE_URL_V1,
+  IDENTITY_MFA_POLICY_SERVICE_V1,
   IDENTITY_SSO_SERVICE_URL_V1,
   SSO_SERVICE_URL_V1,
   USERS_SERVICE_URL_V1,
@@ -51,6 +52,7 @@ import {
   IVerifyMfaResponse,
   IGetActivateAccountStrategy,
   IGetActivateAccountStrategyResponse,
+  IAllowedToRememberMfaDevice,
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 import { jwtDecode } from '../jwt';
@@ -454,4 +456,12 @@ export async function deleteUserApiToken({ tokenId }: IDeleteApiToken): Promise<
 export async function getUserById({ userId }: IGetUserById): Promise<IUserIdResponse> {
   console.debug('getUserById()');
   return Get(`${USERS_SERVICE_URL_V2}/${userId}`);
+}
+
+/**
+ * Checks if remember MFA device is enabled for user.
+ */
+export async function checkIfAllowToRememberMfaDevice(mfaToken: string): Promise<IAllowedToRememberMfaDevice> {
+  console.debug('checkIfAllowToRememberMfaDevice()');
+  return Get(`${IDENTITY_MFA_POLICY_SERVICE_V1}/allow-remember-device`, { mfaToken });
 }

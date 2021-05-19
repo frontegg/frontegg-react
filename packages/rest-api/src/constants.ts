@@ -21,6 +21,6 @@ export const AUDITS_SERVICE_EXPORT_URL = '/audits/export';
 export const ACCOUNT_SETTINGS_SERVICE_V1 = '/tenants/resources/account-settings/v1';
 export const IDENTITY_API_TOKENS_USERS_SERVICE = '/identity/resources/users/api-tokens/v1';
 export const IDENTITY_API_TOKENS_TENANTS_SERVICE = '/identity/resources/tenants/api-tokens/v1';
-
+export const IDENTITY_MFA_POLICY_SERVICE_V1 = '/identity/resources/configurations/v1/mfa-policy';
 export const IDENTITY_ROLES_SERVICE_URL_V1 = '/identity/resources/roles/v1';
 export const IDENTITY_PERMISSIONS_SERVICE_URL_V1 = '/identity/resources/permissions/v1';
