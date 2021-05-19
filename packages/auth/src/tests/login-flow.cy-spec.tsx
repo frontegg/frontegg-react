@@ -322,7 +322,7 @@ describe('Login Tests', () => {
         mfaRequired: true,
         mfaToken: MFA_TOKEN,
       },
-    }).as('refreshToken');
+    }).as('refreshTokenForMfa');
     cy.wait(1000);
     navigateTo(defaultAuthPlugin.routes.authenticatedUrl);
 
@@ -331,7 +331,7 @@ describe('Login Tests', () => {
       alias: 'providerComponent',
     });
 
-    cy.wait(['@refreshToken']);
+    cy.wait(['@refreshTokenForMfa']);
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
