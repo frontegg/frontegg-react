@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { SocialLoginButton } from '../SocialLoginButton';
 import { GithubIcon } from './GithubIcon';
 import { FronteggContext, SocialLoginProviders } from '@frontegg/rest-api';
@@ -17,22 +17,24 @@ const createGithubUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
 };
 
 const GithubLogin: FC = (props) => {
-  const { action } = useSocialLoginContext();
+  const { action, disabled, state } = useSocialLoginContext();
 
-  const redirectUrl: string | null = useRedirectUrl(createGithubUrl, SocialLoginProviders.Github);
+  const redirectUrl: string | null = useRedirectUrl(createGithubUrl, SocialLoginProviders.Github, state);
 
   const defaultButton = (
-    <SocialLoginButton name={SocialLoginProviders.Github} action={action}>
+    <SocialLoginButton name={SocialLoginProviders.Github} action={action} disabled={disabled}>
       <GithubIcon />
     </SocialLoginButton>
   );
 
+  const handleLogin = useCallback(() => {
+    if (!disabled && redirectUrl) {
+      FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true });
+    }
+  }, [disabled, redirectUrl]);
+
   if (redirectUrl) {
-    return (
-      <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true })}>
-        {props.children || defaultButton}
-      </div>
-    );
+    return <div onClick={handleLogin}>{props.children || defaultButton}</div>;
   }
 
   return null;

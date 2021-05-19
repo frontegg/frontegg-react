@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useEffect } from 'react';
 import { Loader } from '@frontegg/react-core';
-import { SocialLoginsActions } from './types';
+import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
 import MicrosoftLogin from './MicrosoftLogin';
@@ -10,7 +10,9 @@ import { useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hook
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
+  disabled?: boolean;
   children?: ReactNode;
+  state?: Partial<ISocialLoginCallbackState>;
 }
 
 export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & {
@@ -42,7 +44,13 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
     return null;
   }
 
-  return <SocialLoginsContext.Provider value={{ action: props.action }}>{props.children}</SocialLoginsContext.Provider>;
+  return (
+    <SocialLoginsContext.Provider
+      value={{ action: props.action, disabled: props.disabled ?? false, state: props.state }}
+    >
+      {props.children}
+    </SocialLoginsContext.Provider>
+  );
 };
 
 SocialLogins.Google = GoogleLogin;

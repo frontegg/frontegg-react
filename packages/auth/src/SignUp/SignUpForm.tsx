@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { ComponentType, FC, useCallback } from 'react';
 import {
   FButton,
   FForm,
@@ -11,7 +11,6 @@ import {
   validateEmail,
   ErrorMessage,
   validateCheckbox,
-  validatePassword,
   validatePasswordUsingOWASP,
 } from '@frontegg/react-core';
 import {
@@ -23,6 +22,7 @@ import {
 } from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
 import { SignUpCheckbox } from './SignUp';
+import { SocialLoginActionWrapperProps } from '../SocialLogins';
 
 const { Formik } = FFormik;
 
@@ -30,12 +30,14 @@ export interface SignUpFormProps {
   withCompanyName?: boolean;
   signUpConsent?: SignUpCheckbox;
   marketingMaterialConsent?: SignUpCheckbox;
+  SocialLogins: ComponentType<SocialLoginActionWrapperProps>;
 }
 
 export const SignUpForm: FC<SignUpFormProps> = ({
   withCompanyName = true,
   signUpConsent,
   marketingMaterialConsent,
+  SocialLogins,
 }) => {
   const { t } = useT();
 
@@ -47,16 +49,19 @@ export const SignUpForm: FC<SignUpFormProps> = ({
     passwordPolicy: { policy },
   } = useSecurityPolicyState();
 
-  const isCheckboxVisible = useCallback((checkbox?: SignUpCheckbox) => {
-    return checkbox?.hasOwnProperty('content');
+  const getCheckboxDetails = useCallback((checkbox?: SignUpCheckbox) => {
+    const isVisible = checkbox?.hasOwnProperty('content');
+    const isRequired = isVisible && checkbox?.required !== false;
+
+    return { isVisible, isRequired };
   }, []);
 
   const redirectToLogin = useCallback(() => {
     onRedirectTo(routes.loginUrl, { preserveQueryParams: true });
   }, []);
 
-  const isSignUpConsentVisible = isCheckboxVisible(signUpConsent);
-  const isMarketingMaterialVisible = isCheckboxVisible(marketingMaterialConsent);
+  const signUpConsentDetails = getCheckboxDetails(signUpConsent);
+  const marketingMaterialConsentDetails = getCheckboxDetails(marketingMaterialConsent);
 
   return (
     <>
@@ -73,8 +78,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           name: '',
           companyName: '',
           recaptchaToken: '',
-          acceptedTermsOfService: isSignUpConsentVisible ? false : undefined,
-          allowMarketingMaterial: isMarketingMaterialVisible ? false : undefined,
+          acceptedTermsOfService: signUpConsentDetails.isVisible ? false : undefined,
+          allowMarketingMaterial: marketingMaterialConsentDetails.isVisible ? false : undefined,
           password: allowNotVerifiedUsersLogin ? '' : undefined,
         }}
         onSubmit={({ acceptedTermsOfService, allowMarketingMaterial, ...values }) => {
@@ -93,59 +98,69 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           email: validateEmail(t),
           name: validateLength('name', 3, t),
           companyName: withCompanyName && validateLength('Company Name', 3, t),
-          acceptedTermsOfService: isSignUpConsentVisible && signUpConsent?.required !== false && validateCheckbox(),
-          allowMarketingMaterial:
-            isMarketingMaterialVisible && marketingMaterialConsent?.required !== false && validateCheckbox(),
+          acceptedTermsOfService: signUpConsentDetails.isRequired && validateCheckbox(),
+          allowMarketingMaterial: marketingMaterialConsentDetails.isRequired && validateCheckbox(),
           password: allowNotVerifiedUsersLogin && validatePasswordUsingOWASP(policy),
         })}
       >
-        <FForm>
-          <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id='name-box' />
-          <FInput
-            name='email'
-            type={'email'}
-            size='large'
-            placeholder={t('auth.sign-up.form.email')}
-            data-test-id='email-box'
-          />
-          {allowNotVerifiedUsersLogin && (
-            <FInput
-              size='large'
-              type='password'
-              name='password'
-              tabIndex={allowNotVerifiedUsersLogin ? undefined : -1}
-              placeholder={t('auth.login.enter-your-password')}
-              data-testid='password-box'
-            />
-          )}
-          {withCompanyName && (
-            <FInput
-              name='companyName'
-              size='large'
-              placeholder={t('auth.sign-up.form.company-name')}
-              data-test-id='compenyName-box'
-            />
-          )}
-          {isSignUpConsentVisible && (
-            <FCheckbox
-              name='acceptedTermsOfService'
-              renderLabel={signUpConsent?.content}
-              className={'fe-sign-up__checkbox'}
-            />
-          )}
-          {isMarketingMaterialVisible && (
-            <FCheckbox
-              name='allowMarketingMaterial'
-              renderLabel={marketingMaterialConsent?.content}
-              className={'fe-sign-up__checkbox'}
-            />
-          )}
-          <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
-            {t('auth.sign-up.form.submit-button')}
-          </FButton>
-          <ErrorMessage error={error} />
-          <FReCaptcha action='sign_up' />
-        </FForm>
+        {({ values: { acceptedTermsOfService, allowMarketingMaterial } }) => {
+          return (
+            <FForm>
+              <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id='name-box' />
+              <FInput
+                name='email'
+                type={'email'}
+                size='large'
+                placeholder={t('auth.sign-up.form.email')}
+                data-test-id='email-box'
+              />
+              {allowNotVerifiedUsersLogin && (
+                <FInput
+                  size='large'
+                  type='password'
+                  name='password'
+                  tabIndex={allowNotVerifiedUsersLogin ? undefined : -1}
+                  placeholder={t('auth.login.enter-your-password')}
+                  data-testid='password-box'
+                />
+              )}
+              {withCompanyName && (
+                <FInput
+                  name='companyName'
+                  size='large'
+                  placeholder={t('auth.sign-up.form.company-name')}
+                  data-test-id='compenyName-box'
+                />
+              )}
+              {signUpConsentDetails.isVisible && (
+                <FCheckbox
+                  name='acceptedTermsOfService'
+                  renderLabel={signUpConsent?.content}
+                  className={'fe-sign-up__checkbox'}
+                />
+              )}
+              {marketingMaterialConsentDetails.isVisible && (
+                <FCheckbox
+                  name='allowMarketingMaterial'
+                  renderLabel={marketingMaterialConsent?.content}
+                  className={'fe-sign-up__checkbox'}
+                />
+              )}
+              <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
+                {t('auth.sign-up.form.submit-button')}
+              </FButton>
+              <ErrorMessage error={error} />
+              <FReCaptcha action='sign_up' />
+              <SocialLogins
+                disabled={
+                  (marketingMaterialConsentDetails.isRequired && !allowMarketingMaterial) ||
+                  (signUpConsentDetails.isRequired && !acceptedTermsOfService)
+                }
+                state={{ acceptedTermsOfService, allowMarketingMaterial }}
+              />
+            </FForm>
+          );
+        }}
       </Formik>
     </>
   );

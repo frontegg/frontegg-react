@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { SocialLoginButton } from '../SocialLoginButton';
 import { FacebookIcon } from './FacebookIcon';
 import { FronteggContext, SocialLoginProviders } from '@frontegg/rest-api';
@@ -18,22 +18,24 @@ const createFacebookUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTyp
 };
 
 const FacebookLogin: FC = (props) => {
-  const { action } = useSocialLoginContext();
+  const { action, disabled, state } = useSocialLoginContext();
 
-  const redirectUrl: string | null = useRedirectUrl(createFacebookUrl, SocialLoginProviders.Facebook);
+  const redirectUrl: string | null = useRedirectUrl(createFacebookUrl, SocialLoginProviders.Facebook, state);
 
   const defaultButton = (
-    <SocialLoginButton name={SocialLoginProviders.Facebook} action={action}>
+    <SocialLoginButton name={SocialLoginProviders.Facebook} action={action} disabled={disabled}>
       <FacebookIcon />
     </SocialLoginButton>
   );
 
+  const handleLogin = useCallback(() => {
+    if (!disabled && redirectUrl) {
+      FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true });
+    }
+  }, [disabled, redirectUrl]);
+
   if (redirectUrl) {
-    return (
-      <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true })}>
-        {props.children || defaultButton}
-      </div>
-    );
+    return <div onClick={handleLogin}>{props.children || defaultButton}</div>;
   }
 
   return null;

@@ -364,16 +364,23 @@ export async function loginViaSocialLogin({
   code,
   redirectUri,
   codeVerifier,
+  metadata,
 }: ILoginViaSocialLogin): Promise<void> {
   console.debug('loginViaSocialLogin()');
-  const params: { code: string; redirectUri?: string; code_verifier?: string } = { code };
+  const params: {
+    code: string;
+    redirectUri?: string;
+    code_verifier?: string;
+    metadata?: string;
+  } = { code };
   if (redirectUri) {
     params.redirectUri = redirectUri;
   }
   if (codeVerifier) {
     params.code_verifier = codeVerifier;
   }
-  return Post(`${AUTH_SERVICE_URL_V1}/user/sso/${provider}/postlogin`, {}, { params });
+
+  return Post(`${AUTH_SERVICE_URL_V1}/user/sso/${provider}/postlogin`, { metadata }, { params });
 }
 
 /**

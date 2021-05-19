@@ -5,12 +5,12 @@ import { SignUpStage } from '@frontegg/redux-store/auth';
 import { SignUpForm } from './SignUpForm';
 import { authPageWrapper } from '../components';
 import { SignUpSuccess } from './SignUpSuccess';
-import { SocialLoginsSignUpWithWrapper } from '../SocialLogins';
+import { SocialLoginActionWrapperProps, SocialLoginsSignUpWithWrapper } from '../SocialLogins';
 
-interface Components {
+type Components = {
   SignUpForm: {};
-  SocialLogins: {};
-}
+  SocialLogins: SocialLoginActionWrapperProps;
+};
 
 export interface SignUpCheckbox {
   required: boolean;
@@ -55,14 +55,12 @@ export const SignUp: FC<SignUpProps> = (props) => {
     case SignUpStage.SignUp:
     default:
       return (
-        <>
-          <Dynamic.SignUpForm
-            withCompanyName={props.withCompanyName}
-            signUpConsent={props.signUpConsent}
-            marketingMaterialConsent={props.marketingMaterialConsent}
-          />
-          <Dynamic.SocialLogins />
-        </>
+        <Dynamic.SignUpForm
+          withCompanyName={props.withCompanyName}
+          signUpConsent={props.signUpConsent}
+          marketingMaterialConsent={props.marketingMaterialConsent}
+          SocialLogins={Dynamic.SocialLogins}
+        />
       );
   }
 };
