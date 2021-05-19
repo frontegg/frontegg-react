@@ -282,7 +282,6 @@ describe('Login Tests', () => {
       url: `${IDENTITY_SERVICE}/resources/configurations/v1/mfa-policy/allow-remember-device?mfaToken=${MFA_TOKEN}`,
       status: 200,
       response: { isAllowedToRemember: false, mfaDeviceExpiration: 0 },
-      delay: 200,
     }).as('checkIfAllowToRememberDevice');
 
     mount(<TestFronteggWrapper plugins={[AuthPlugin(defaultAuthPlugin)]}>Home</TestFronteggWrapper>, {
@@ -331,7 +330,7 @@ describe('Login Tests', () => {
       alias: 'providerComponent',
     });
 
-    cy.wait(['@refreshTokenForMfa']);
+    cy.wait(['@refreshTokenForMfa', 'checkIfAllowToRememberDevice']);
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
