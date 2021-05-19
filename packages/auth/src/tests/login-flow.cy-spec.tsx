@@ -449,7 +449,7 @@ describe('Login Tests', () => {
       .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: false });
     cy.contains('invalid code').should('be.visible');
     cy.contains(`Don't ask again on this device for 3 days`).should('be.visible');
-    cy.get(rememberDeviceSelector).should('be.visible').check({ force: true });
+    cy.get(rememberDeviceSelector).should('be.visible');
     cy.route({
       method: 'POST',
       url: `${IDENTITY_SERVICE}/resources/auth/v1/user/mfa/verify`,
@@ -460,7 +460,7 @@ describe('Login Tests', () => {
     cy.get(submitSelector).contains('Login').click();
     cy.wait('@verifyMfa')
       .its('request.body')
-      .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: true });
+      .should('deep.equal', { mfaToken: MFA_TOKEN, value: validCode, rememberDevice: false });
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/');
