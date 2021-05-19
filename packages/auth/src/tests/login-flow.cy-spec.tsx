@@ -330,7 +330,7 @@ describe('Login Tests', () => {
       alias: 'providerComponent',
     });
 
-    cy.wait(['@refreshTokenForMfa', 'checkIfAllowToRememberDevice']);
+    cy.wait(['@refreshTokenForMfa', '@checkIfAllowToRememberDevice']);
 
     cy.contains('Please enter the 6 digit code from your authenticator app').should('be.visible');
 
