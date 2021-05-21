@@ -1,6 +1,19 @@
-.fe-connectivity-page {
+// .fe-connectivity-page {
+//   height: 100%;
+//   overflow: auto;
+// }
+.fe-connectivity-page-fit {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  overflow: auto;
+  .fe-connectivity-context {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  .fe-connectivity-panel-shown,
+  .fe-connectivity-list {
+    height: 100%;
+  }
 }
 .fe-connectivity-context,
 .fe-connectivity-component {
@@ -163,6 +176,10 @@
       }
       .fe-switch {
         min-width: 3rem;
+      }
+      .fe-connectivity-page-fit & {
+        height: 100%;
+        overflow: auto;
       }
     }
   }
