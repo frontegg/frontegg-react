@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/frontegg/frontegg-react/compare/v2.4.0...v2.5.0) (2021-05-21)
+
+
+### Bug Fixes
+
+* **connectivity:** add overflow auto to connectivity page FR-3005 ([fd4b341](https://github.com/frontegg/frontegg-react/commit/fd4b34177d0da2b386325b4144bba2bad4a235d8))
+
+
+### Features
+
+* **connectivity:** add new paraneter fitConntent ([d31c281](https://github.com/frontegg/frontegg-react/commit/d31c28122b09b2b41ebcab1cc89d5a5f0bc93d17))
+
+
+
+
+
 # [2.4.0](https://github.com/frontegg/frontegg-react/compare/v2.3.2...v2.4.0) (2021-05-19)
 
 **Note:** Version bump only for package @frontegg/react-connectivity
