@@ -24,6 +24,7 @@ export type ILoginResponse = IUserProfile & {
 export type ILoginWithMfa = {
   mfaToken: string;
   value: string;
+  rememberDevice?: boolean;
 };
 
 export type IActivateAccount = {
@@ -211,4 +212,9 @@ export interface IGetActivateAccountStrategy {
 
 export interface IGetActivateAccountStrategyResponse {
   shouldSetPassword: boolean;
+}
+
+export interface IAllowedToRememberMfaDevice {
+  isAllowedToRemember: boolean;
+  mfaDeviceExpiration: number;
 }
