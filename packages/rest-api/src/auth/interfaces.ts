@@ -136,6 +136,7 @@ export interface IVendorConfig {
   allowSignups: boolean;
   allowNotVerifiedUsersLogin: boolean;
   apiTokensEnabled: boolean;
+  permissionsEnforced: boolean;
 }
 export interface ISignUpUser {
   email: string;
