@@ -20,21 +20,22 @@ const createGoogleUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
 };
 
 const LoginWithGoogle: FC = (props) => {
-  const { action, disabled, state } = useSocialLoginContext();
+  const { action, state, isValid } = useSocialLoginContext();
 
   const redirectUrl = useRedirectUrl(createGoogleUrl, SocialLoginProviders.Google, state);
 
   const defaultButton = (
-    <SocialLoginButton action={action} name={SocialLoginProviders.Google} disabled={disabled}>
+    <SocialLoginButton action={action} name={SocialLoginProviders.Google}>
       <GoogleIcon />
     </SocialLoginButton>
   );
 
   const handleLogin = useCallback(() => {
-    if (!disabled && redirectUrl) {
+    const valid = isValid?.() ?? true;
+    if (redirectUrl && valid) {
       FronteggContext.onRedirectTo(redirectUrl, { refresh: true });
     }
-  }, [disabled, redirectUrl]);
+  }, [redirectUrl, isValid]);
 
   if (redirectUrl) {
     return <div onClick={handleLogin}>{props.children || defaultButton}</div>;

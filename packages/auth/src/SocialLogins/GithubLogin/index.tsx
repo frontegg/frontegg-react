@@ -17,21 +17,22 @@ const createGithubUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigType)
 };
 
 const GithubLogin: FC = (props) => {
-  const { action, disabled, state } = useSocialLoginContext();
+  const { action, state, isValid } = useSocialLoginContext();
 
   const redirectUrl: string | null = useRedirectUrl(createGithubUrl, SocialLoginProviders.Github, state);
 
   const defaultButton = (
-    <SocialLoginButton name={SocialLoginProviders.Github} action={action} disabled={disabled}>
+    <SocialLoginButton name={SocialLoginProviders.Github} action={action}>
       <GithubIcon />
     </SocialLoginButton>
   );
 
-  const handleLogin = useCallback(() => {
-    if (!disabled && redirectUrl) {
+  const handleLogin = useCallback(async () => {
+    const valid = (await isValid?.()) ?? true;
+    if (redirectUrl && valid) {
       FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true });
     }
-  }, [disabled, redirectUrl]);
+  }, [redirectUrl, isValid]);
 
   if (redirectUrl) {
     return <div onClick={handleLogin}>{props.children || defaultButton}</div>;

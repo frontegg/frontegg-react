@@ -18,21 +18,22 @@ const createFacebookUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTyp
 };
 
 const FacebookLogin: FC = (props) => {
-  const { action, disabled, state } = useSocialLoginContext();
+  const { action, state, isValid } = useSocialLoginContext();
 
   const redirectUrl: string | null = useRedirectUrl(createFacebookUrl, SocialLoginProviders.Facebook, state);
 
   const defaultButton = (
-    <SocialLoginButton name={SocialLoginProviders.Facebook} action={action} disabled={disabled}>
+    <SocialLoginButton name={SocialLoginProviders.Facebook} action={action}>
       <FacebookIcon />
     </SocialLoginButton>
   );
 
-  const handleLogin = useCallback(() => {
-    if (!disabled && redirectUrl) {
+  const handleLogin = useCallback(async () => {
+    const valid = (await isValid?.()) ?? true;
+    if (redirectUrl && valid) {
       FronteggContext.onRedirectTo(redirectUrl, { replace: true, refresh: true });
     }
-  }, [disabled, redirectUrl]);
+  }, [redirectUrl, isValid]);
 
   if (redirectUrl) {
     return <div onClick={handleLogin}>{props.children || defaultButton}</div>;

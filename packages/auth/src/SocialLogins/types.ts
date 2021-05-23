@@ -11,8 +11,8 @@ export interface ISocialLoginCallbackState {
 
 export interface ISocialLoginsContext {
   action: SocialLoginsActions;
-  disabled?: boolean;
   state?: Partial<ISocialLoginCallbackState>;
+  isValid?: () => boolean;
 }
 
 export enum SocialLoginsActions {

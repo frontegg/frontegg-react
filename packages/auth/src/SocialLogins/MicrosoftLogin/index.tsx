@@ -27,21 +27,22 @@ const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTy
 };
 
 const LoginWithMicrosoft: FC = (props) => {
-  const { action, disabled, state } = useSocialLoginContext();
+  const { action, state, isValid } = useSocialLoginContext();
 
   const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginProviders.Microsoft, state);
 
   const defaultButton = (
-    <SocialLoginButton action={action} name={SocialLoginProviders.Microsoft} disabled={disabled}>
+    <SocialLoginButton action={action} name={SocialLoginProviders.Microsoft}>
       <MicrosoftIcon />
     </SocialLoginButton>
   );
 
-  const handleLogin = useCallback(() => {
-    if (!disabled && redirectUrl) {
+  const handleLogin = useCallback(async () => {
+    const valid = (await isValid?.()) ?? true;
+    if (redirectUrl && valid) {
       FronteggContext.onRedirectTo(redirectUrl, { refresh: true });
     }
-  }, [disabled, redirectUrl]);
+  }, [redirectUrl, isValid]);
 
   if (redirectUrl) {
     return <div onClick={handleLogin}>{props.children || defaultButton}</div>;

@@ -10,9 +10,9 @@ import { useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hook
 
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
-  disabled?: boolean;
   children?: ReactNode;
   state?: Partial<ISocialLoginCallbackState>;
+  isValid?: () => boolean;
 }
 
 export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & {
@@ -45,9 +45,7 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
   }
 
   return (
-    <SocialLoginsContext.Provider
-      value={{ action: props.action, disabled: props.disabled ?? false, state: props.state }}
-    >
+    <SocialLoginsContext.Provider value={{ action: props.action, state: props.state, isValid: props.isValid }}>
       {props.children}
     </SocialLoginsContext.Provider>
   );

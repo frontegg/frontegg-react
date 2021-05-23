@@ -1,6 +1,5 @@
 import React, { ComponentType, FC, useCallback } from 'react';
 import {
-  FButton,
   FForm,
   FFormik,
   FInput,
@@ -12,6 +11,7 @@ import {
   ErrorMessage,
   validateCheckbox,
   validatePasswordUsingOWASP,
+  Button,
 } from '@frontegg/react-core';
 import {
   useAuthRoutes,
@@ -82,7 +82,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           allowMarketingMaterial: marketingMaterialConsentDetails.isVisible ? false : undefined,
           password: allowNotVerifiedUsersLogin ? '' : undefined,
         }}
-        onSubmit={({ acceptedTermsOfService, allowMarketingMaterial, ...values }) => {
+        onSubmit={({ acceptedTermsOfService, allowMarketingMaterial, ...values }, b) => {
           const metadata = JSON.stringify({
             acceptedTermsOfService,
             allowMarketingMaterial,
@@ -103,7 +103,11 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           password: allowNotVerifiedUsersLogin && validatePasswordUsingOWASP(policy),
         })}
       >
-        {({ values: { acceptedTermsOfService, allowMarketingMaterial } }) => {
+        {({ values: { acceptedTermsOfService, allowMarketingMaterial }, dirty, errors, touched, setFieldTouched }) => {
+          const isValid = !errors.name && !errors.email && !errors.password && !errors.companyName;
+          const showTermsError = errors.acceptedTermsOfService && touched.acceptedTermsOfService;
+          const showMarketingError = errors.allowMarketingMaterial && touched.allowMarketingMaterial;
+
           return (
             <FForm>
               <FInput name='name' size='large' placeholder={t('auth.sign-up.form.name')} data-test-id='name-box' />
@@ -119,7 +123,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({
                   size='large'
                   type='password'
                   name='password'
-                  tabIndex={allowNotVerifiedUsersLogin ? undefined : -1}
                   placeholder={t('auth.login.enter-your-password')}
                   data-testid='password-box'
                 />
@@ -146,16 +149,33 @@ export const SignUpForm: FC<SignUpFormProps> = ({
                   className={'fe-sign-up__checkbox'}
                 />
               )}
-              <FButton type='submit' fullWidth variant='primary' loading={loading} data-test-id='signupSubmit-btn'>
+
+              {showTermsError && <div className='fe-sign-up__error'>{t('auth.sign-up.form.terms-error')}</div>}
+              {showMarketingError && <div className='fe-sign-up__error'>{t('auth.sign-up.form.marketing-error')}</div>}
+
+              <Button
+                type='submit'
+                fullWidth
+                variant='primary'
+                loading={loading}
+                disabled={!(isValid && dirty)}
+                data-test-id='signupSubmit-btn'
+              >
                 {t('auth.sign-up.form.submit-button')}
-              </FButton>
+              </Button>
+
               <ErrorMessage error={error} />
               <FReCaptcha action='sign_up' />
               <SocialLogins
-                disabled={
-                  (marketingMaterialConsentDetails.isRequired && !allowMarketingMaterial) ||
-                  (signUpConsentDetails.isRequired && !acceptedTermsOfService)
-                }
+                isValid={() => {
+                  setFieldTouched('acceptedTermsOfService', true, true);
+                  setFieldTouched('allowMarketingMaterial', true, true);
+
+                  return !(
+                    (signUpConsentDetails.isRequired && !acceptedTermsOfService) ||
+                    (marketingMaterialConsentDetails.isRequired && !allowMarketingMaterial)
+                  );
+                }}
                 state={{ acceptedTermsOfService, allowMarketingMaterial }}
               />
             </FForm>
