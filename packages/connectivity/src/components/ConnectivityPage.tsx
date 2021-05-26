@@ -12,14 +12,12 @@ export interface IConnectivityPage
   className?: string;
   headClassName?: string;
   contentClassName?: string;
-  fitContent?: boolean;
 }
 
 export const ConnectivityPage: FC<IConnectivityPage> = ({
   children,
   className,
   rootPath = defaultRootPath,
-  fitContent,
   headClassName,
   titleClassName,
   contentClassName,
@@ -35,11 +33,11 @@ export const ConnectivityPage: FC<IConnectivityPage> = ({
 
   return (
     <RootPathContext.Provider value={rootPath}>
-      <div className={classnames('fe-connectivity-page', className, fitContent && 'fe-connectivity-page-fit')}>
+      <div className={classnames('fe-connectivity-page', className)}>
         {children ?? (
           <>
-            <ConnectivityHeader className={headClassName} titleClassName={titleClassName} />
             <ConnectivityContent className={contentClassName} {...contentProps} />
+            <ConnectivityHeader className={headClassName} titleClassName={titleClassName} />
           </>
         )}
       </div>
