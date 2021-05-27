@@ -7,6 +7,7 @@ import { useAuthRoutes, useOnRedirectTo, useSocialLoginActions, useSocialLoginSt
 import { useRedirectUri } from './hooks';
 import { FRONTEGG_CODE_VERIFIER } from '../constants';
 import { useHistory } from 'react-router-dom';
+import { parse } from 'uuid';
 
 export const SocialLoginsSuccess: FC = () => {
   const routes = useAuthRoutes();
@@ -50,7 +51,16 @@ export const SocialLoginsSuccess: FC = () => {
     switch (parsedState.action) {
       case SocialLoginsActions.Login:
       case SocialLoginsActions.SignUp:
-        loginViaSocialLogin({ code, ...parsedState, redirectUri, codeVerifier });
+        loginViaSocialLogin({
+          code,
+          redirectUri,
+          codeVerifier,
+          provider: parsedState.provider,
+          metadata: JSON.stringify({
+            allowMarketingMaterial: parsedState.allowMarketingMaterial,
+            acceptedTermsOfService: parsedState.acceptedTermsOfService,
+          }),
+        });
         break;
       default:
         setSocialLoginError({ error });

@@ -12,6 +12,12 @@
     margin-bottom: 3em;
   }
 
+  &__error {
+    margin-bottom: 1rem;
+    color: var(--color-danger);
+    font-size: var(--element-font-size-sm);
+  }
+
   &__checkbox {
     margin-bottom: 1rem;
 

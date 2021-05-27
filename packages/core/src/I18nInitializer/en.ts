@@ -316,6 +316,8 @@ export default {
           'submit-button': 'Sign Up',
           email: 'Email',
           'company-name': 'Company Name',
+          'terms-error': 'You must accept our Terms of Service to proceed',
+          'marketing-error': 'You must allow Marketing Material to proceed',
         },
         'suggest-login': {
           message: 'Already have an account? ',

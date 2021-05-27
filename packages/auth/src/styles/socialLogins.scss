@@ -17,8 +17,9 @@
   }
 
   &__button {
-    color: var(--color-white);
     margin: 0.2em 0;
+    border: 1px solid var(--element-border-color) !important;
+    color: var(--color-white);
 
     div {
       div:last-of-type {
