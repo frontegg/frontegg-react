@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { Select, FFormik, ErrorMessage, FButton, useT } from '@frontegg/react-core';
-import { useSSOState } from '@frontegg/react-hooks/auth';
+import { useRolesState, useSSOState } from '@frontegg/react-hooks/auth';
 
 const { useFormikContext } = FFormik;
 
@@ -11,7 +11,8 @@ export const SSOManageAuthorizationSelect: FC = () => {
     values: { authorizationRoles },
     dirty,
   } = useFormikContext<any>();
-  const { roles: allRoles, saving, error } = useSSOState(({ roles, saving, error }) => ({ roles, saving, error }));
+  const { saving, error } = useSSOState(({ roles, saving, error }) => ({ roles, saving, error }));
+  const { roles: allRoles } = useRolesState();
 
   const selectValue = useMemo(() => {
     return allRoles
