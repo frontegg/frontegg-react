@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react",
   "libName": "FronteggReact",
-  "version": "2.5.2",
+  "version": "2.6.0",
   "author": "Frontegg LTD",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@frontegg/admin-portal": "^1.0.1",
-    "@frontegg/react-hooks": "^2.5.2",
+    "@frontegg/react-hooks": "^2.6.0",
     "react-router-dom": "5.x"
   },
   "peerDependencies": {
