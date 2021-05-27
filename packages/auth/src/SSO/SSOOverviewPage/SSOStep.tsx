@@ -15,6 +15,7 @@ export interface SSOStepProps extends Pick<WithT, 't'> {
 export class SSOStep extends React.Component<SSOStepProps> {
   render() {
     const { t, num, title, subtitle, configured, to, optional } = this.props;
+
     return (
       <Link to={to} className='fe-sso-step'>
         <div className='fe-sso-step__inner'>
