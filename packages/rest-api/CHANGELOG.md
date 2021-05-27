@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
+
+
+### Features
+
+* **auth:** force terms on social sign up FR-2869 ([#406](https://github.com/frontegg/frontegg-react/issues/406)) ([4462402](https://github.com/frontegg/frontegg-react/commit/4462402c8648a023eb7595c4153a9943c039f995))
+
+
+
+
+
 ## [2.5.2](https://github.com/frontegg/frontegg-react/compare/v2.5.1...v2.5.2) (2021-05-24)
 
 **Note:** Version bump only for package @frontegg/rest-api
