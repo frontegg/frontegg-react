@@ -54,7 +54,7 @@ export const validatePasswordUsingOWASP = (testConfig: Partial<TestConfig> | nul
 export const validateDomain = (t: TFunction) =>
   Yup.string()
     .matches(
-      /(?=.{4,253}$)^((([A-Za-z0-9]{1,63})|([0-9]{1}))([\.]{1}|[\-]{0,}))*(?=.[a-zA-Z]{1,})([a-zA-Z0-9]{1,25}){1}/,
+      /(?=.{4,253}$)^((([A-Za-z0-9]{1,63})|([0-9]{1}))([\.]{1}|[\-]{1,})){1,}((?=.[a-zA-Z]{1,})[0-9a-zA-Z]{1,25}){1}/,
       t('validation.must-be-a-valid-domain', 'Must be a valid domain')
     )
     .required(t('validation.required-field', { name: 'domain' }));
