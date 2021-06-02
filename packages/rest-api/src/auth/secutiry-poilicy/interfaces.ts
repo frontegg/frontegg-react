@@ -1,5 +1,3 @@
-import { TestConfig } from 'owasp-password-strength-test';
-
 export type EnforceMFAType = 'DontForce' | 'Force' | 'ForceExceptSAML';
 
 export interface ISecurityPolicy {
@@ -71,4 +69,13 @@ export interface ISaveSecurityPolicyPasswordHistory {
   enabled: boolean;
   historySize: number;
 }
+
+export interface TestConfig {
+  allowPassphrases: boolean;
+  maxLength: number;
+  minLength: number;
+  minPhraseLength: number;
+  minOptionalTestsToPass: number;
+}
+
 export type ISecurityPolicyPasswordConfig = Partial<TestConfig>;
