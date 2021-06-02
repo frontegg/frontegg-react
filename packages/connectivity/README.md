@@ -65,7 +65,6 @@ Then add `ConnectivityPage` component to your route:
   - className - a className for the whole container
   - headClassName - a className for the header component
   - contentClassName - a className for the container of the table
-  - fitContent - the parameter makes a scrollable container for the table data
 
 ## Contributing
 

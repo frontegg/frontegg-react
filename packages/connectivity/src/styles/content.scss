@@ -1,6 +1,14 @@
 .fe-connectivity {
+  &-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
   &-context {
     padding: 2rem;
+    flex-grow: 1;
+    order: 1;
+    overflow: auto;
     .fe-connectivity-search {
       margin-bottom: 2rem;
     }
