@@ -103,7 +103,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
       trigger={
         <div className={`${prefixCls}__ipCell`}>
           <div className={`${prefixCls}__ipCell-countryFlag`}>
-            {loading ? <Loader size={15} /> : data.location.country_flag_emoji ?? <Icon name='globe' />}
+            {loading ? <Loader size={15} /> : data?.location?.country_flag_emoji ?? <Icon name='globe' />}
           </div>
           <div className={`${prefixCls}__ipCell-ipAddress`}>{props.value}</div>
         </div>
