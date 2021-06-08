@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* **audits:** fix ip cell crash ([#425](https://github.com/frontegg/frontegg-react/issues/425)) ([169c4b6](https://github.com/frontegg/frontegg-react/commit/169c4b67f038d53f4eee600f0c9973cc56855779))
+* fix owasp type error FR-3131 ([ad57394](https://github.com/frontegg/frontegg-react/commit/ad57394fe6ec8483f450be4b492490cf73f655e5))
+* **connectivity:** fix the documentation ([02946a9](https://github.com/frontegg/frontegg-react/commit/02946a928360e12045ad5f23ba4717d8cbbf499b))
+* **connectivity:** remove the fitContent property. fix scrolling of the container ([b2a7c8f](https://github.com/frontegg/frontegg-react/commit/b2a7c8f13425c90d51b22cce613c71819a9c9f64))
+* **core:** increase domain suffix length ([02af3e9](https://github.com/frontegg/frontegg-react/commit/02af3e9d379831e833adfae85003506146013da3))
+
+
+### Features
+
+* **auth:** display error from strategy on activation form ([ad6a5c4](https://github.com/frontegg/frontegg-react/commit/ad6a5c43d18564cbb91d9ebb4901c33741c5a8ae))
+
+
+
+
+
 # [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
 
 

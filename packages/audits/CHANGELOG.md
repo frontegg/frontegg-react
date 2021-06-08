@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* **audits:** fix ip cell crash ([#425](https://github.com/frontegg/frontegg-react/issues/425)) ([169c4b6](https://github.com/frontegg/frontegg-react/commit/169c4b67f038d53f4eee600f0c9973cc56855779))
+
+
+
+
+
 # [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
 
 **Note:** Version bump only for package @frontegg/react-audits

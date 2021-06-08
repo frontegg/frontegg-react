@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Features
+
+* **auth:** display error from strategy on activation form ([ad6a5c4](https://github.com/frontegg/frontegg-react/commit/ad6a5c43d18564cbb91d9ebb4901c33741c5a8ae))
+
+
+
+
+
 # [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
 
 
