@@ -16,6 +16,7 @@ import { IConnectivityData, IPluginState, TPlatform } from '../interfaces';
 import { ConnectivityPanel } from './ConnectivityPanel';
 import { platformForm } from '../consts';
 import { CheckSvg } from '../elements/Svgs';
+import { useConnectivityState } from '@frontegg/react-hooks';
 
 interface ILocationState {
   open: TPlatform;
@@ -35,11 +36,12 @@ export const ConnectivityTable: FC = () => {
   } = useHistory<ILocationState>();
   const [edit, setEdit] = useState<IData | null>(null);
 
-  const { isLoading, list } = useSelector(({ connectivity: { isLoading, list } }: IPluginState) => ({
-    isLoading,
-    list,
-  }));
+  // const { isLoading, list } = useSelector(({ connectivity: { isLoading, list } }: IPluginState) => ({
+  //   isLoading,
+  //   list,
+  // }));
 
+  const { isLoading, list } = useConnectivityState();
   const data = useMemo(() => list.map((el: any) => ({ ...el, isSelect: locationState?.open === el.key })), [
     list,
     locationState,

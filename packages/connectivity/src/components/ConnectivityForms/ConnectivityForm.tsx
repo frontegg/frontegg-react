@@ -8,17 +8,18 @@ import {
   Loader,
   FFormik,
   useSearch,
-  useDispatch,
-  useSelector,
+  // useDispatch,
+  // useSelector,
   FormikAutoSave,
   TableColumnProps,
 } from '@frontegg/react-core';
 import { IEmailSMSConfigResponse } from '@frontegg/rest-api';
-import { connectivityActions } from '../../reducer';
-import { IConnectivityComponent, IEventFormData, IPluginState, ITableFormData } from '../../interfaces';
+// import { connectivityActions } from '../../reducer';
+import { IConnectivityComponent, IEventFormData, ITableFormData } from '../../interfaces';
 import { filterCategories } from '../../utils';
 import { FConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 import { InputEmailOrPhone } from '../../elements/InputEmailOrPhone';
+import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 interface IConnectivityForm extends IConnectivityComponent {
   form: 'email' | 'sms';
@@ -26,20 +27,24 @@ interface IConnectivityForm extends IConnectivityComponent {
 
 export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
   const { t } = useT();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [close, setClose] = useState<number[]>([]);
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
-  const { categories, channelMap, data, isSaving, isLoading } = useSelector(
-    ({ connectivity: { isLoading, isSaving, categories, channelMap, ...connectivity } }: IPluginState) => ({
-      isLoading,
-      data: connectivity[form],
-      isSaving,
-      categories,
-      channelMap: channelMap && channelMap[form],
-    })
-  );
+  const { categories, channelMap: _channelMap, isSaving, isLoading, ...connectivity } = useConnectivityState();
+  const { postDataAction } = useConnectivityActions();
+  const data = connectivity[form];
+  const channelMap = _channelMap[form];
+  // const { categories, channelMap, data, isSaving, isLoading } = useSelector(
+  //   ({ connectivity: { isLoading, isSaving, categories, channelMap, ...connectivity } }: IPluginState) => ({
+  //     isLoading,
+  //     data: connectivity[form],
+  //     isSaving,
+  //     categories,
+  //     channelMap: channelMap && channelMap[form],
+  //   })
+  // );
 
   const validate = useCallback(
     (values) => {
@@ -93,12 +98,13 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
         []
       );
       if (JSON.stringify(newData) !== JSON.stringify(data)) {
-        dispatch(connectivityActions.postDataAction({ platform: form, data: newData }));
+        // dispatch(connectivityActions.postDataAction({ platform: form, data: newData }));
+        postDataAction({ platform: form, data: newData });
       } else {
         setSubmitting(false);
       }
     },
-    [dispatch, data]
+    [data]
   );
 
   const cleanCategory = filterCategories(categories, channelMap);

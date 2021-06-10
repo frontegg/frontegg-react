@@ -71,6 +71,7 @@ const entryPoints = [
   'auth/index',
   'audits/index',
   'toolkit/index',
+  'connectivity/index',
   // Main Entry Point
   'index',
 ];

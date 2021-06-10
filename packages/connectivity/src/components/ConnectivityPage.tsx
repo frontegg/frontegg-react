@@ -4,8 +4,8 @@ import { ConnectivityContent, ConnectivityContentProps } from './ConnectivityCon
 import { ConnectivityHeader, ConnectivityHeadersProps } from './ConnectivityHeader';
 import { RootPathContext, useDispatch } from '@frontegg/react-core';
 import { defaultRootPath } from '../consts';
-import { connectivityActions } from '../reducer';
-
+// import { connectivityActions } from '../reducer';
+import { useConnectivityActions } from '@frontegg/react-hooks';
 export interface IConnectivityPage
   extends Omit<ConnectivityContentProps, 'className'>,
     Omit<ConnectivityHeadersProps, 'className'> {
@@ -23,11 +23,14 @@ export const ConnectivityPage: FC<IConnectivityPage> = ({
   contentClassName,
   ...contentProps
 }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const { loadDataAction, initData } = useConnectivityActions();
   useEffect(() => {
-    dispatch(connectivityActions.loadDataAction());
+    loadDataAction();
+    // dispatch(connectivityActions.loadDataAction());
     return () => {
-      dispatch(connectivityActions.cleanData());
+      initData();
+      // dispatch(connectivityActions.cleanData());
     };
   }, []);
 

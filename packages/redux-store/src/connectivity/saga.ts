@@ -18,55 +18,61 @@ const addApi = ['categories', 'channelMap'];
 
 function* loadDataFunction({ payload = channels }: PayloadAction<TPlatform[] | undefined>) {
   yield put(connectivityActions.setConnectivityState({ isLoading: true }));
-  const values = yield all([
-    ...payload.map(function* (ch: TPlatform) {
-      return yield loadFunction({ payload: { api: ch }, type: '' });
-    }),
-    yield loadFunction({ payload: { api: 'categories' }, type: '' }),
-    yield (function* () {
-      const res = yield all(
-        payload.map(function* (ch: TPlatform) {
-          return yield loadFunction({ payload: { api: 'channelMap', params: ch }, type: '' });
-        })
-      );
-      return res.reduce(
-        (acc: Record<TPlatform, IChannelsMap>, curr: IChannelsMap, idx: number) => ({
-          ...acc,
-          [`${payload[idx]}`]: curr,
-        }),
-        {}
-      );
-    })(),
-  ]);
-  const data = values.reduce(
-    (
-      acc: Omit<IConnectivityState, 'isLoading'>,
-      curr: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[],
-      idx: number
-    ) =>
-      payload[idx]
-        ? values[values.length - 1][payload[idx]].length
-          ? {
-              ...acc,
-              [`${payload[idx]}`]: curr,
-              list: [
-                ...acc.list,
-                {
-                  id: idx,
-                  key: payload[idx],
-                  events: channels2Platform[payload[idx]].events(curr),
-                  active: channels2Platform[payload[idx]].isActive(curr),
-                  platform: channels2Platform[payload[idx]].title,
-                  image: channels2Platform[payload[idx]].image,
-                },
-              ],
-            }
-          : acc
-        : { ...acc, [`${addApi[idx - payload.length]}`]: curr },
-    { list: [] }
-  );
-
-  yield put(connectivityActions.setConnectivityState({ ...data, error: undefined, isSaving: false, isLoading: false }));
+  try {
+    const values = yield all([
+      ...payload.map(function* (ch: TPlatform) {
+        return yield loadFunction({ payload: { api: ch }, type: '' });
+      }),
+      yield loadFunction({ payload: { api: 'categories' }, type: '' }),
+      yield (function* () {
+        const res = yield all(
+          payload.map(function* (ch: TPlatform) {
+            return yield loadFunction({ payload: { api: 'channelMap', params: ch }, type: '' });
+          })
+        );
+        return res.reduce(
+          (acc: Record<TPlatform, IChannelsMap>, curr: IChannelsMap, idx: number) => ({
+            ...acc,
+            [`${payload[idx]}`]: curr,
+          }),
+          {}
+        );
+      })(),
+    ]);
+    const data = values.reduce(
+      (
+        acc: Omit<IConnectivityState, 'isLoading'>,
+        curr: IEmailSMSConfigResponse[] | ISlackConfigurations | IWebhooksConfigurations[],
+        idx: number
+      ) =>
+        payload[idx]
+          ? values[values.length - 1][payload[idx]].length
+            ? {
+                ...acc,
+                [`${payload[idx]}`]: curr,
+                list: [
+                  ...acc.list,
+                  {
+                    id: idx,
+                    key: payload[idx],
+                    events: channels2Platform[payload[idx]].events(curr),
+                    active: channels2Platform[payload[idx]].isActive(curr),
+                    platform: channels2Platform[payload[idx]].title,
+                    image: channels2Platform[payload[idx]].image,
+                  },
+                ],
+              }
+            : acc
+          : { ...acc, [`${addApi[idx - payload.length]}`]: curr },
+      { list: [] }
+    );
+    yield put(
+      connectivityActions.setConnectivityState({ ...data, error: undefined, isSaving: false, isLoading: false })
+    );
+  } catch (e) {
+    console.log('load webhooks data failed');
+    yield put(connectivityActions.setConnectivityState({ isLoading: false }));
+  }
 }
 
 function* loadFunction({
@@ -113,7 +119,8 @@ function* checkNewStatus(
 }
 
 function* postDataFunction({ payload: { platform, data } }: ReturnType<typeof connectivityActions.postDataAction>) {
-  const { processIds } = yield select();
+  const { processIds } = yield select((state) => state.connectivity);
+
   try {
     yield put(
       connectivityActions.setConnectivityState({
@@ -211,7 +218,7 @@ function* postSlackData({ payload }: PayloadAction<ISlackConfigurations>) {
 
 function* postEmailSMSData({ payload, type }: PayloadAction<IEmailSMSConfigResponse[], 'email' | 'sms'>) {
   const { connectivity }: IPluginState = yield select();
-  const { processIds } = yield select();
+  const { processIds } = yield select((state) => state.connectivity);
   const stateData = connectivity[type as 'email' | 'sms'];
   if (!stateData) return;
 
@@ -314,7 +321,7 @@ function* postCodeFunction({ payload }: PayloadAction<string>) {
 }
 
 function* loadSlackPermissions() {
-  const { slackChannels } = yield select();
+  const { slackChannels } = yield select((state) => state.connectivity);
   try {
     yield put(connectivityActions.setConnectivityState({ slackChannels: { ...slackChannels, isLoadingScope: true } }));
     const { clientId } = yield call(api.connectivity.getSlackScope);
@@ -335,7 +342,7 @@ function* loadSlackPermissions() {
 }
 
 function* deleteWebhookConfigFunction({ payload }: PayloadAction<string>) {
-  const { processIds } = yield select();
+  const { processIds } = yield select((state) => state.connectivity);
   try {
     yield put(connectivityActions.setConnectivityState({ isSaving: true }));
     yield call(api.connectivity.deleteWebhooksConfiguration, payload);
@@ -382,7 +389,7 @@ function* postWebhookTestFunction({ payload }: PayloadAction<IWebhookTest>) {
 function* loadWebhookLogsFunction({
   payload: { id, limit, offset },
 }: PayloadAction<{ id: string; offset: number; limit: number }>) {
-  const { webhookLogs } = yield select();
+  const { webhookLogs } = yield select((state) => state.connectivity);
   try {
     yield put(connectivityActions.setConnectivityState({ webhookLogs: { ...webhookLogs, isLoading: true } }));
     //TODO: Fix types

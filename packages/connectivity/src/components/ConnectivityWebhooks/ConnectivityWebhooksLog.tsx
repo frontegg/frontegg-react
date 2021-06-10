@@ -1,11 +1,12 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import { Button, Dialog, Grid, Table, TableColumnProps, useDispatch, useSelector, useT } from '@frontegg/react-core';
-import { connectivityActions } from '../../reducer';
+import { Button, Dialog, Grid, Table, TableColumnProps, useT } from '@frontegg/react-core';
+// import { connectivityActions } from '../../reducer';
 import { IWebhookLocationState } from './interfaces';
 import { IWebhookLog } from '@frontegg/rest-api';
-import { IPluginState } from '../../interfaces';
+// import { IPluginState } from '../../interfaces';
+import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 interface IWebhookData extends IWebhookLog {
   now: string;
@@ -27,10 +28,12 @@ export const ConnectivityWebhooksLog: FC = () => {
     return { now: momentDate.fromNow(), date: momentDate.format('D/M/YYYY hh:mm A') };
   };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [moreInfo, setMoreInfo] = useState<IWebhookData | null>(null);
 
-  const { webhookLogs } = useSelector(({ connectivity: { webhookLogs } }: IPluginState) => ({ webhookLogs }));
+  // const { webhookLogs } = useSelector(({ connectivity: { webhookLogs } }: IPluginState) => ({ webhookLogs }));
+  const { webhookLogs } = useConnectivityState();
+  const { loadWebhookLogsAction, cleanWebhookLogsData } = useConnectivityActions();
 
   const data = useMemo(
     () =>
@@ -84,17 +87,19 @@ export const ConnectivityWebhooksLog: FC = () => {
   const loadData = useCallback(
     (pageSize: number, page: number) => {
       locationState.id &&
-        dispatch(connectivityActions.loadWebhookLogsAction(locationState.id, page * pageSize, pageSize));
+        // dispatch(connectivityActions.loadWebhookLogsAction(locationState.id, page * pageSize, pageSize));
+        loadWebhookLogsAction(locationState.id, page * pageSize, pageSize);
     },
-    [dispatch, locationState.id]
+    [locationState.id]
   );
 
   useLayoutEffect(() => {
     loadData(defaultPageSize, 0);
     return () => {
-      dispatch(connectivityActions.cleanWebhookLogsData());
+      // dispatch(connectivityActions.cleanWebhookLogsData());
+      cleanWebhookLogsData();
     };
-  }, [dispatch, loadData]);
+  }, [loadData]);
 
   return (
     <>

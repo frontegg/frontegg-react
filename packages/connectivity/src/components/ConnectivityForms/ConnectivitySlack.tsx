@@ -22,6 +22,7 @@ import { FConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
 import { MessageSlack } from '../../elements/MessageSlack';
 
+//TODO: replace useSelectors with react hooks
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
   const dispatch = useDispatch();

@@ -6,6 +6,7 @@ import { SlackSvg } from '../../elements/Svgs';
 
 const defaultScope = ['chat:write', 'channels:read', 'chat:write.public'].join(',');
 
+//TODO: replace useSelectors with react hooks
 export const ConnectivitySlackAuth: FC<any> = () => {
   const dispatch = useDispatch();
   const { isLoadingScope, clientId = '' } = useSelector(
