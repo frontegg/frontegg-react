@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useEffect } from 'react';
 import { Loader } from '@frontegg/react-core';
-import { SocialLoginsActions } from './types';
+import { ISocialLoginCallbackState, SocialLoginsActions } from './types';
 import GoogleLogin from './GoogleLogin';
 import GithubLogin from './GithubLogin';
 import MicrosoftLogin from './MicrosoftLogin';
@@ -11,6 +11,8 @@ import { useSocialLoginActions, useSocialLoginState } from '@frontegg/react-hook
 export interface SocialLoginsProps {
   action: SocialLoginsActions;
   children?: ReactNode;
+  state?: Partial<ISocialLoginCallbackState>;
+  isValid?: () => boolean;
 }
 
 export type SocialLoginsWithCompoundComponents = FC<SocialLoginsProps> & {
@@ -42,7 +44,11 @@ export const SocialLogins: SocialLoginsWithCompoundComponents = (props: SocialLo
     return null;
   }
 
-  return <SocialLoginsContext.Provider value={{ action: props.action }}>{props.children}</SocialLoginsContext.Provider>;
+  return (
+    <SocialLoginsContext.Provider value={{ action: props.action, state: props.state, isValid: props.isValid }}>
+      {props.children}
+    </SocialLoginsContext.Provider>
+  );
 };
 
 SocialLogins.Google = GoogleLogin;

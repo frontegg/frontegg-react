@@ -26,6 +26,10 @@ const actions = {
   recoverMfa: createAction(`${authStoreName}/recoverMfa`, (payload: IRecoverMFAToken) => ({ payload })),
   logout: createAction(`${authStoreName}/logout`, (payload?: () => void) => ({ payload })),
   silentLogout: createAction(`${authStoreName}/silentLogout`, (payload?: () => void) => ({ payload })),
+  checkIfAllowToRememberMfaDevice: createAction(
+    `${authStoreName}/checkIfAllowToRememberMfaDevice`,
+    (payload: { mfaToken: string }) => ({ payload })
+  ),
 };
 
 /**
@@ -43,6 +47,7 @@ type DispatchedActions = {
   recoverMfa: (payload: IRecoverMFAToken) => void;
   logout: (payload?: () => void) => void;
   silentLogout: (payload?: () => void) => void;
+  checkIfAllowToRememberMfaDevice: (payload: { mfaToken: string }) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

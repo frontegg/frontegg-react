@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* **connectivity:** fix the documentation ([02946a9](https://github.com/frontegg/frontegg-react/commit/02946a928360e12045ad5f23ba4717d8cbbf499b))
+* **connectivity:** remove the fitContent property. fix scrolling of the container ([b2a7c8f](https://github.com/frontegg/frontegg-react/commit/b2a7c8f13425c90d51b22cce613c71819a9c9f64))
+
+
+
+
+
+# [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+## [2.5.2](https://github.com/frontegg/frontegg-react/compare/v2.5.1...v2.5.2) (2021-05-24)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+## [2.5.1](https://github.com/frontegg/frontegg-react/compare/v2.5.0...v2.5.1) (2021-05-23)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+# [2.5.0](https://github.com/frontegg/frontegg-react/compare/v2.4.0...v2.5.0) (2021-05-21)
+
+
+### Bug Fixes
+
+* **connectivity:** add overflow auto to connectivity page FR-3005 ([fd4b341](https://github.com/frontegg/frontegg-react/commit/fd4b34177d0da2b386325b4144bba2bad4a235d8))
+
+
+### Features
+
+* **connectivity:** add new paraneter fitConntent ([d31c281](https://github.com/frontegg/frontegg-react/commit/d31c28122b09b2b41ebcab1cc89d5a5f0bc93d17))
+
+
+
+
+
+# [2.4.0](https://github.com/frontegg/frontegg-react/compare/v2.3.2...v2.4.0) (2021-05-19)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+## [2.3.2](https://github.com/frontegg/frontegg-react/compare/v2.3.1...v2.3.2) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix UI glitches ([a78c4f0](https://github.com/frontegg/frontegg-react/commit/a78c4f0587a606cc529909d35a24d98ab3e66f01))
+
+
+
+
+
+## [2.3.1](https://github.com/frontegg/frontegg-react/compare/v2.3.0...v2.3.1) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix connectivity slack UI ([b214466](https://github.com/frontegg/frontegg-react/commit/b2144661bad8a6d827f4e6fc652fae1b9eae7dde))
+
+
+
+
+
+# [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
+
+
+### Bug Fixes
+
+* **connectivity:** fix save data in the slack configurattionn ([23ff145](https://github.com/frontegg/frontegg-react/commit/23ff1452cafc91debd4ee99ee473798e37e5d739))
+
+
+
+
+
 ## [2.2.2](https://github.com/frontegg/frontegg-react/compare/v2.2.1...v2.2.2) (2021-04-29)
 
 **Note:** Version bump only for package @frontegg/react-connectivity

@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* fix owasp type error FR-3131 ([ad57394](https://github.com/frontegg/frontegg-react/commit/ad57394fe6ec8483f450be4b492490cf73f655e5))
+
+
+
+
+
+# [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
+
+**Note:** Version bump only for package @frontegg/redux-store
+
+
+
+
+
+## [2.5.2](https://github.com/frontegg/frontegg-react/compare/v2.5.1...v2.5.2) (2021-05-24)
+
+**Note:** Version bump only for package @frontegg/redux-store
+
+
+
+
+
+## [2.5.1](https://github.com/frontegg/frontegg-react/compare/v2.5.0...v2.5.1) (2021-05-23)
+
+**Note:** Version bump only for package @frontegg/redux-store
+
+
+
+
+
+# [2.4.0](https://github.com/frontegg/frontegg-react/compare/v2.3.2...v2.4.0) (2021-05-19)
+
+
+### Features
+
+* **auth:** [FR-2731] remember MFA devices  ([#404](https://github.com/frontegg/frontegg-react/issues/404)) ([7f135d2](https://github.com/frontegg/frontegg-react/commit/7f135d200657ffd19ab54bcf9fd2049c07db43b4))
+
+
+
+
+
+# [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
+
+
+### Features
+
+* add random user for auditLogsDataDemo ([b7aaa9d](https://github.com/frontegg/frontegg-react/commit/b7aaa9d3c1367aa547ca62b7e878127ebd9cbfbd))
+
+
+
+
+
 ## [2.2.2](https://github.com/frontegg/frontegg-react/compare/v2.2.1...v2.2.2) (2021-04-29)
 
 

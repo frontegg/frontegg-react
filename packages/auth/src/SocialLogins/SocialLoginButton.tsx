@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { fronteggElements as FE, useT } from '@frontegg/react-core';
 import { SocialLoginProviders } from '@frontegg/rest-api';
 import { SocialLoginsActions } from './types';
+import classNames from 'classnames';
 
 export interface SocialLoginButtonProps {
   name: SocialLoginProviders;

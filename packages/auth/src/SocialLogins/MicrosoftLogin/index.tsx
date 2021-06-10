@@ -1,5 +1,5 @@
 import { FronteggContext, SocialLoginProviders } from '@frontegg/rest-api';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { v4 as uuid } from 'uuid';
 import { FRONTEGG_CODE_VERIFIER } from '../../constants';
 import { UrlCreatorConfigType, useRedirectUrl, useSocialLoginContext } from '../hooks';
@@ -27,9 +27,9 @@ const createMicrosoftUrl = ({ clientId, redirectUrl, state }: UrlCreatorConfigTy
 };
 
 const LoginWithMicrosoft: FC = (props) => {
-  const { action } = useSocialLoginContext();
+  const { action, state, isValid } = useSocialLoginContext();
 
-  const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginProviders.Microsoft);
+  const redirectUrl = useRedirectUrl(createMicrosoftUrl, SocialLoginProviders.Microsoft, state);
 
   const defaultButton = (
     <SocialLoginButton action={action} name={SocialLoginProviders.Microsoft}>
@@ -37,12 +37,15 @@ const LoginWithMicrosoft: FC = (props) => {
     </SocialLoginButton>
   );
 
+  const handleLogin = useCallback(async () => {
+    const valid = (await isValid?.()) ?? true;
+    if (redirectUrl && valid) {
+      FronteggContext.onRedirectTo(redirectUrl, { refresh: true });
+    }
+  }, [redirectUrl, isValid]);
+
   if (redirectUrl) {
-    return (
-      <div onClick={() => FronteggContext.onRedirectTo(redirectUrl, { refresh: true })}>
-        {props.children || defaultButton}
-      </div>
-    );
+    return <div onClick={handleLogin}>{props.children || defaultButton}</div>;
   }
 
   return null;

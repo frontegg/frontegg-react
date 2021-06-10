@@ -28,6 +28,7 @@ export const SSOManageAuthorizationForm: FC = () => {
       <Title />
       <Subtitle />
       <Formik
+        enableReinitialize
         initialValues={{ authorizationRoles: authorizationRoles || [] }}
         onSubmit={({ authorizationRoles }, { resetForm }) => {
           const callback = () => resetForm({ values: { authorizationRoles } });

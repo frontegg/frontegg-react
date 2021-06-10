@@ -17,7 +17,8 @@ export const useRedirectUri = (): string => {
 
 export const useRedirectUrl = (
   urlCreator: (config: UrlCreatorConfigType) => string,
-  socialLoginType: any
+  socialLoginType: any,
+  state?: Partial<ISocialLoginCallbackState>
 ): string | null => {
   const { action } = useSocialLoginContext();
   const { socialLoginsConfig } = useSocialLoginState();
@@ -40,10 +41,11 @@ export const useRedirectUrl = (
           provider: socialLoginType,
           action,
           afterAuthRedirectUrl: afterAuthRedirectUrl || undefined,
+          ...state,
         }),
       } as any);
     }
-  }, [config?.clientId, config?.redirectUrl, action]);
+  }, [config?.clientId, config?.redirectUrl, action, state]);
 
   if (!config?.active || !redirectUrl) {
     return null;

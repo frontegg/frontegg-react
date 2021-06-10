@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* fix owasp type error FR-3131 ([ad57394](https://github.com/frontegg/frontegg-react/commit/ad57394fe6ec8483f450be4b492490cf73f655e5))
+
+
+
+
+
+# [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
+
+
+### Features
+
+* **auth:** force terms on social sign up FR-2869 ([#406](https://github.com/frontegg/frontegg-react/issues/406)) ([4462402](https://github.com/frontegg/frontegg-react/commit/4462402c8648a023eb7595c4153a9943c039f995))
+
+
+
+
+
+## [2.5.2](https://github.com/frontegg/frontegg-react/compare/v2.5.1...v2.5.2) (2021-05-24)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
+## [2.5.1](https://github.com/frontegg/frontegg-react/compare/v2.5.0...v2.5.1) (2021-05-23)
+
+**Note:** Version bump only for package @frontegg/rest-api
+
+
+
+
+
+# [2.4.0](https://github.com/frontegg/frontegg-react/compare/v2.3.2...v2.4.0) (2021-05-19)
+
+
+### Features
+
+* **auth:** [FR-2731] remember MFA devices  ([#404](https://github.com/frontegg/frontegg-react/issues/404)) ([7f135d2](https://github.com/frontegg/frontegg-react/commit/7f135d200657ffd19ab54bcf9fd2049c07db43b4))
+
+
+
+
+
 # [2.2.0](https://github.com/frontegg/frontegg-react/compare/v2.1.0...v2.2.0) (2021-04-28)
 
 

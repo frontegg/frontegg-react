@@ -3,6 +3,85 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* **core:** increase domain suffix length ([02af3e9](https://github.com/frontegg/frontegg-react/commit/02af3e9d379831e833adfae85003506146013da3))
+
+
+
+
+
+# [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
+
+
+### Features
+
+* **auth:** force terms on social sign up FR-2869 ([#406](https://github.com/frontegg/frontegg-react/issues/406)) ([4462402](https://github.com/frontegg/frontegg-react/commit/4462402c8648a023eb7595c4153a9943c039f995))
+
+
+
+
+
+## [2.5.2](https://github.com/frontegg/frontegg-react/compare/v2.5.1...v2.5.2) (2021-05-24)
+
+**Note:** Version bump only for package @frontegg/react-core
+
+
+
+
+
+## [2.5.1](https://github.com/frontegg/frontegg-react/compare/v2.5.0...v2.5.1) (2021-05-23)
+
+**Note:** Version bump only for package @frontegg/react-core
+
+
+
+
+
+# [2.4.0](https://github.com/frontegg/frontegg-react/compare/v2.3.2...v2.4.0) (2021-05-19)
+
+
+### Features
+
+* **auth:** [FR-2731] remember MFA devices  ([#404](https://github.com/frontegg/frontegg-react/issues/404)) ([7f135d2](https://github.com/frontegg/frontegg-react/commit/7f135d200657ffd19ab54bcf9fd2049c07db43b4))
+
+
+
+
+
+## [2.3.2](https://github.com/frontegg/frontegg-react/compare/v2.3.1...v2.3.2) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix UI glitches ([a78c4f0](https://github.com/frontegg/frontegg-react/commit/a78c4f0587a606cc529909d35a24d98ab3e66f01))
+
+
+
+
+
+## [2.3.1](https://github.com/frontegg/frontegg-react/compare/v2.3.0...v2.3.1) (2021-05-10)
+
+
+### Bug Fixes
+
+* **connectivity:** fix changes not saved on swithcing connecticity context ([04758b5](https://github.com/frontegg/frontegg-react/commit/04758b5070da15f20f93010ddd24d9bd9b4f27ab))
+
+
+
+
+
+# [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
+
+**Note:** Version bump only for package @frontegg/react-core
+
+
+
+
+
 ## [2.2.2](https://github.com/frontegg/frontegg-react/compare/v2.2.1...v2.2.2) (2021-04-29)
 
 **Note:** Version bump only for package @frontegg/react-core

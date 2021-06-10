@@ -160,6 +160,10 @@
       .fe-switch {
         min-width: 3rem;
       }
+      .fe-connectivity-page-fit & {
+        height: 100%;
+        overflow: auto;
+      }
     }
   }
 

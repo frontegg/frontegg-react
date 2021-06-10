@@ -11,12 +11,14 @@ import {
   Button,
   Grid,
   FButton,
+  FCheckbox,
 } from '@frontegg/react-core';
 import { MFAVerifyStepErrorMessage, MFAVerifyStepForm, MFAVerifyStepMessage } from '../MFA/MFAVerifyStep';
-import { useMfaActions, useMfaState, useLoginActions } from '@frontegg/react-hooks/auth';
+import { useMfaActions, useMfaState, useLoginActions, useLoginState } from '@frontegg/react-hooks/auth';
 import { MFARecoveryCodeStep } from '../MFA/MFARecoveryCodeStep';
 
 const { Formik } = FFormik;
+const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
 
 export interface ForceEnrollMfaProps {
   renderer?: RendererFunctionFC<ForceEnrollMfaProps>;
@@ -27,6 +29,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
   const { renderer } = props;
   const { requestAuthorize } = useLoginActions();
   const { step, loading, recoveryCode, mfaToken } = useMfaState();
+  const { allowRememberMfaDevice, mfaDeviceExpiration } = useLoginState();
   const { setMfaState, verifyMfaAfterForce } = useMfaActions();
 
   const recoveryCodeRef = useRef<string>('');
@@ -63,6 +66,7 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
             <Button
               data-test-id='mfa-btn'
               variant='primary'
+              className='fe-full-width'
               onClick={() => {
                 requestAuthorize(true);
               }}
@@ -80,11 +84,12 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
       validationSchema={validateSchema({
         token: validateTwoFactorCode(t),
       })}
-      initialValues={{ token: '' }}
-      onSubmit={async ({ token }, { setSubmitting }) => {
+      initialValues={{ token: '', rememberDevice: false }}
+      onSubmit={async ({ token, rememberDevice }, { setSubmitting }) => {
         verifyMfaAfterForce({
           mfaToken: mfaToken || '',
           value: token,
+          rememberDevice,
           callback: (success) => {
             if (success) {
               setMfaState({ recoveryCode });
@@ -98,6 +103,15 @@ export const ForceEnrollMfa: FC<ForceEnrollMfaProps> = (props) => {
         <MFAVerifyStepMessage>{t('auth.mfa.verify.forceMfaMessage')}</MFAVerifyStepMessage>
         <MFAVerifyStepForm />
         <MFAVerifyStepErrorMessage />
+        {allowRememberMfaDevice && mfaDeviceExpiration && (
+          <FCheckbox
+            name='rememberDevice'
+            className='fe-ml-2'
+            label={t('auth.mfa.remember-this-device', {
+              count: Math.floor(mfaDeviceExpiration / ONE_DAY_IN_SECONDS),
+            })}
+          />
+        )}
 
         <div className='fe-dialog__footer'>
           <Grid container>

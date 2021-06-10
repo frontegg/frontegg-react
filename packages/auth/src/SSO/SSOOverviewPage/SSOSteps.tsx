@@ -58,7 +58,7 @@ export const SSOSteps: FC<HideOption> = (props) => {
         optional
         to={`${rootPath}/authorization`}
         title={t('auth.sso.overview.manage-authorization')}
-        subtitle={!!authorizationRoles?.length ? `${authorizationValue}...` : ''}
+        subtitle={!!authorizationRoles?.length && authorizationValue ? `${authorizationValue}...` : ''}
         configured={isAuthorizationValidated}
       />
     </div>

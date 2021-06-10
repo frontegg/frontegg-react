@@ -1,8 +1,14 @@
-import { TestConfig } from 'owasp-password-strength-test';
-
 export enum ForgotPasswordStep {
   'forgotPassword' = 'forgotPassword',
   'success' = 'success',
+}
+
+export interface TestConfig {
+  allowPassphrases: boolean;
+  maxLength: number;
+  minLength: number;
+  minPhraseLength: number;
+  minOptionalTestsToPass: number;
 }
 
 export interface ForgotPasswordState {

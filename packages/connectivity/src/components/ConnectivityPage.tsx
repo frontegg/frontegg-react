@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import classnames from 'classnames';
 import { ConnectivityContent, ConnectivityContentProps } from './ConnectivityContent';
 import { ConnectivityHeader, ConnectivityHeadersProps } from './ConnectivityHeader';
-import { RootPathContext, useDispatch, useRootPath } from '@frontegg/react-core';
+import { RootPathContext, useDispatch } from '@frontegg/react-core';
 import { defaultRootPath } from '../consts';
 import { connectivityActions } from '../reducer';
 
@@ -36,8 +36,8 @@ export const ConnectivityPage: FC<IConnectivityPage> = ({
       <div className={classnames('fe-connectivity-page', className)}>
         {children ?? (
           <>
-            <ConnectivityHeader className={headClassName} titleClassName={titleClassName} />
             <ConnectivityContent className={contentClassName} {...contentProps} />
+            <ConnectivityHeader className={headClassName} titleClassName={titleClassName} />
           </>
         )}
       </div>

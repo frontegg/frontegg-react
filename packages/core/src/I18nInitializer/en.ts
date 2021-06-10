@@ -244,6 +244,8 @@ export default {
         'enable-message': 'Enable two-factor authentication to get an extra layer of security',
         'disable-title': 'Disable two-factor authentication',
         'enroll-button': 'Enroll MFA',
+        'remember-this-device': `Don't ask again on this device for {{count}} day`,
+        'remember-this-device_plural': `Don't ask again on this device for {{count}} days`,
         'disable-button': 'Disable MFA',
         verify: {
           message: 'Enable two-factor to get an extra layer of security.',
@@ -314,6 +316,8 @@ export default {
           'submit-button': 'Sign Up',
           email: 'Email',
           'company-name': 'Company Name',
+          'terms-error': 'You must accept our Terms of Service to proceed',
+          'marketing-error': 'You must allow Marketing Material to proceed',
         },
         'suggest-login': {
           message: 'Already have an account? ',

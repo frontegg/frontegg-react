@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
+
+
+### Features
+
+* **auth:** display error from strategy on activation form ([ad6a5c4](https://github.com/frontegg/frontegg-react/commit/ad6a5c43d18564cbb91d9ebb4901c33741c5a8ae))
+
+
+
+
+
+# [2.6.0](https://github.com/frontegg/frontegg-react/compare/v2.5.2...v2.6.0) (2021-05-27)
+
+
+### Features
+
+* **auth:** force terms on social sign up FR-2869 ([#406](https://github.com/frontegg/frontegg-react/issues/406)) ([4462402](https://github.com/frontegg/frontegg-react/commit/4462402c8648a023eb7595c4153a9943c039f995))
+* **auth:** space for release ([#420](https://github.com/frontegg/frontegg-react/issues/420)) ([fd18c60](https://github.com/frontegg/frontegg-react/commit/fd18c60e41dcc76f713b32ed84b5bfd7e2f8c355))
+
+
+
+
+
+## [2.5.2](https://github.com/frontegg/frontegg-react/compare/v2.5.1...v2.5.2) (2021-05-24)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+## [2.5.1](https://github.com/frontegg/frontegg-react/compare/v2.5.0...v2.5.1) (2021-05-23)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+# [2.4.0](https://github.com/frontegg/frontegg-react/compare/v2.3.2...v2.4.0) (2021-05-19)
+
+
+### Features
+
+* **auth:** [FR-2731] remember MFA devices  ([#404](https://github.com/frontegg/frontegg-react/issues/404)) ([7f135d2](https://github.com/frontegg/frontegg-react/commit/7f135d200657ffd19ab54bcf9fd2049c07db43b4))
+
+
+
+
+
+## [2.3.2](https://github.com/frontegg/frontegg-react/compare/v2.3.1...v2.3.2) (2021-05-10)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+## [2.3.1](https://github.com/frontegg/frontegg-react/compare/v2.3.0...v2.3.1) (2021-05-10)
+
+**Note:** Version bump only for package @frontegg/react-auth
+
+
+
+
+
+# [2.3.0](https://github.com/frontegg/frontegg-react/compare/v2.2.2...v2.3.0) (2021-05-07)
+
+
+### Bug Fixes
+
+* **auth:** remove duplicated useField destructure ([4efd3f1](https://github.com/frontegg/frontegg-react/commit/4efd3f1e477c29c7198d46fd3400ad5c7ec5f21f))
+
+
+
+
+
 ## [2.2.2](https://github.com/frontegg/frontegg-react/compare/v2.2.1...v2.2.2) (2021-04-29)
 
 

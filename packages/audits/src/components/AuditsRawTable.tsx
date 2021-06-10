@@ -1,6 +1,6 @@
 import { Loader, Table, TableColumnProps, TableProps } from '@frontegg/react-core';
 import { AuditRowData } from '@frontegg/rest-api';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { defaultItemsPerPage, HeaderProps } from '../Api';
 import { getAuditsTableCells } from './AuditsTableCell';
 import { Filter } from './Filter';
@@ -15,7 +15,7 @@ export interface IAuditsRawTable
   headerProps: HeaderProps[];
 }
 
-export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, ...tableProps }) => {
+export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, data, ...tableProps }) => {
   const headersToShow = useMemo(() => headerProps.filter((_) => str2bool(_.showInMoreInfo)), [headerProps]);
 
   const columns = useMemo(() => {
@@ -42,6 +42,23 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, ..
       );
   }, [headerProps]);
 
+  const getTableData = useCallback(() => {
+    const columnsName = headerProps.map(({ name }) => name);
+    let tableData = [...data];
+
+    for (const columnName of columnsName) {
+      tableData = tableData.map((item) => {
+        const value = item[columnName];
+        return {
+          ...item,
+          [columnName]: value && typeof value === 'object' ? JSON.stringify(value) : value,
+        };
+      });
+    }
+
+    return tableData;
+  }, [data, headerProps]);
+
   if (!headerProps.length) {
     return <Loader center />;
   }
@@ -49,6 +66,7 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, ..
   return (
     <Table
       {...tableProps}
+      data={getTableData()}
       columns={columns}
       rowKey='frontegg_id'
       pagination='pages'

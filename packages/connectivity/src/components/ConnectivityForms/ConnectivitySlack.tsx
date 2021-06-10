@@ -75,7 +75,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
           })),
         }))) ||
       undefined,
-    [cleanCategory, slackSubscriptions]
+    [cleanCategory]
   );
 
   const columns = useMemo(
@@ -120,7 +120,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
             },
           ] as TableColumnProps<ISlackEventData>[]
       ),
-    [tablesData, t, close, isFiltering]
+    [t, close, isFiltering]
   );
 
   useEffect(() => {
@@ -128,7 +128,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
     return () => {
       dispatch(connectivityActions.cleanSlackData());
     };
-  }, [dispatch]);
+  }, []);
 
   const [filterTableData, Search] = useSearch({
     data: tablesData,
@@ -171,7 +171,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
 
       dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
     },
-    [dispatch, slack]
+    [slack]
   );
 
   if (isLoading) {
@@ -183,9 +183,9 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   }
 
   return (
-    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)}>
+    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)} enableReinitialize>
       <FFormik.Form>
-        <FormikAutoSave isSaving={isSaving} />
+        <FormikAutoSave isSaving={isSaving} debounceMs={0} />
         {Search}
         {filterTableData.map(({ id, events, index }, idx) => (
           <Table

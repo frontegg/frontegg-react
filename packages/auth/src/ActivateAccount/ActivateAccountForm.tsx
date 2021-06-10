@@ -81,6 +81,8 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
     return <Loader center />;
   }
 
+  if (activationStrategy.error) return <ErrorMessage error={activationStrategy.error} />;
+
   return (
     <Formik
       validationSchema={validateSchema({

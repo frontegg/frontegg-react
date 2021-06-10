@@ -42,7 +42,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const iconContent = useMemo(() => restProps.prefixIcon ?? restProps.suffixIcon, [restProps]);
 
     const inputProps = { ...mapper(restProps), label: inputLabel };
-    console.log(forwardRef);
 
     return multiline ? (
       <Form.TextArea {...(inputProps as StrictTextAreaProps)} ref={forwardRef}></Form.TextArea>

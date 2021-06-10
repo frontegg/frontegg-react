@@ -33,13 +33,13 @@ All you need is to pass AuditsPlugin to the ``FronteggProvider``:
 import { FronteggProvider } from '@frontegg/react-core';
 import { ConnectivityPlugin } from '@frontegg/react-connectivity';
 
+const plugins = [ConnectivityPlugin()];
+
 ReactDOM.render(
 <BrowserRouter>
   <FronteggProvider
       context={/* context options */}
-      plugins={[
-        ConnectivityPlugin()
-      ]}>
+      plugins={plugins}>
     <App />
   </FronteggProvider>
 </BrowserRouter>, document.querySelector('#app'));
@@ -51,7 +51,20 @@ Then add `ConnectivityPage` component to your route:
   import { ConnectivityPage } from '@frontegg/react-connectivity';
 
   <Route exact={false} path={'/connectivity'} component={ConnectivityPage}/>
+
+  // or if you want to add special parameters for the ConnectivityPage component
+
+  <Router exact={false} path={'/somewhere/connectivity''}>
+    <ConnectivityPage rootPath='/somewhere/connectivity' />
+  </Router>
+
   ```
+
+## Parameters
+  - rootPath - a custom root path for the component by default it's `/connectivity`
+  - className - a className for the whole container
+  - headClassName - a className for the header component
+  - contentClassName - a className for the container of the table
 
 ## Contributing
 
