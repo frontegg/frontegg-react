@@ -7,15 +7,12 @@ import {
   Loader,
   Button,
   FFormik,
-  // useDispatch,
-  // useSelector,
   FormikAutoSave,
   TableColumnProps,
   useSearch,
 } from '@frontegg/react-core';
 import { ISlackConfigurations, ISlackSubscription } from '@frontegg/rest-api';
 import { IConnectivityComponent, ISlackEventData, ISlackTableData } from '../../interfaces';
-// import { connectivityActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { FConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
@@ -25,29 +22,9 @@ import { useConnectivityActions, useConnectivityState } from '@frontegg/react-ho
 
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
-  // const dispatch = useDispatch();
   const [close, setClose] = useState<number[]>([]);
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
-  // const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
-  //   ({
-  //     connectivity: {
-  //       slack,
-  //       isSaving,
-  //       categories,
-  //       channelMap,
-  //       slackChannels: { isLoading, clientId, data: slackChannels },
-  //     },
-  //   }: IPluginState) => ({
-  //     slack,
-  //     clientId,
-  //     isSaving,
-  //     isLoading,
-  //     categories,
-  //     slackChannels,
-  //     channelMap: channelMap?.slack,
-  //   })
-  // );
   const {
     isLoading,
     categories,
@@ -137,10 +114,8 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { loadSlackActions, cleanSlackData, postDataAction } = useConnectivityActions();
 
   useEffect(() => {
-    // dispatch(connectivityActions.loadSlackActions());
     loadSlackActions();
     return () => {
-      // dispatch(connectivityActions.cleanSlackData());
       cleanSlackData();
     };
   }, []);
@@ -184,7 +159,6 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
         }, []),
       };
 
-      // dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
       postDataAction({ platform: 'slack', data: newData });
     },
     [slack]

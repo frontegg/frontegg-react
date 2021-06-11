@@ -1,18 +1,17 @@
 import React, { FC, useEffect } from 'react';
-import { bindActionCreators } from '@reduxjs/toolkit';
-import { ListenerProps, useDispatch } from '@frontegg/react-core';
-import { connectivityActions, storeName } from '../reducer';
+import { ListenerProps } from '@frontegg/react-core';
+import connectivity from '@frontegg/redux-store/connectivity';
+import { useConnectivityActions } from '@frontegg/react-hooks';
 
-export const ConnectivityListener: FC<ListenerProps<typeof connectivityActions>> = (props) => {
-  const dispatch = useDispatch();
-  const actions = bindActionCreators(connectivityActions, dispatch);
-
+export const ConnectivityListener: FC<ListenerProps<typeof connectivity.actions>> = (props) => {
+  const { initData } = useConnectivityActions();
+  const { storeName, actions } = connectivity;
   useEffect(() => {
-    actions.initData();
-  }, [actions]);
+    initData();
+  }, [initData]);
 
   useEffect(() => {
     props.resolveActions?.(storeName, actions);
-  }, [props.resolveActions, actions]);
+  }, [props.resolveActions, actions, storeName]);
   return null;
 };

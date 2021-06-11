@@ -2,10 +2,8 @@ import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'reac
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { Button, Dialog, Grid, Table, TableColumnProps, useT } from '@frontegg/react-core';
-// import { connectivityActions } from '../../reducer';
 import { IWebhookLocationState } from './interfaces';
 import { IWebhookLog } from '@frontegg/rest-api';
-// import { IPluginState } from '../../interfaces';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 interface IWebhookData extends IWebhookLog {
@@ -28,10 +26,8 @@ export const ConnectivityWebhooksLog: FC = () => {
     return { now: momentDate.fromNow(), date: momentDate.format('D/M/YYYY hh:mm A') };
   };
 
-  // const dispatch = useDispatch();
   const [moreInfo, setMoreInfo] = useState<IWebhookData | null>(null);
 
-  // const { webhookLogs } = useSelector(({ connectivity: { webhookLogs } }: IPluginState) => ({ webhookLogs }));
   const { webhookLogs } = useConnectivityState();
   const { loadWebhookLogsAction, cleanWebhookLogsData } = useConnectivityActions();
 
@@ -86,9 +82,7 @@ export const ConnectivityWebhooksLog: FC = () => {
 
   const loadData = useCallback(
     (pageSize: number, page: number) => {
-      locationState.id &&
-        // dispatch(connectivityActions.loadWebhookLogsAction(locationState.id, page * pageSize, pageSize));
-        loadWebhookLogsAction(locationState.id, page * pageSize, pageSize);
+      locationState.id && loadWebhookLogsAction(locationState.id, page * pageSize, pageSize);
     },
     [locationState.id]
   );
@@ -96,7 +90,6 @@ export const ConnectivityWebhooksLog: FC = () => {
   useLayoutEffect(() => {
     loadData(defaultPageSize, 0);
     return () => {
-      // dispatch(connectivityActions.cleanWebhookLogsData());
       cleanWebhookLogsData();
     };
   }, [loadData]);

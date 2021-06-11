@@ -12,14 +12,10 @@ import {
   Loader,
   Dialog,
   useSearch,
-  // useDispatch,
-  // useSelector,
   TableColumnProps,
 } from '@frontegg/react-core';
-// import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories, selectedEvents } from '../../utils';
-// import { connectivityActions } from '../../reducer';
 import { ConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
@@ -36,7 +32,6 @@ interface IWebhooksFullConfigurations extends IWebhooksConfigurations {
 export const ConnectivityWebhooksList: FC = () => {
   const prevSaving = useRef<{ isSaving: boolean }>({ isSaving: false });
   const { t } = useT();
-  // const dispatch = useDispatch();
   const {
     replace: historyReplace,
     location: { state: locationState, ...location },
@@ -44,16 +39,6 @@ export const ConnectivityWebhooksList: FC = () => {
 
   const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
 
-  // const { webhookState, isSaving, categories, channelMap, isLoading, processIds } = useSelector(
-  //   ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap, processIds } }: IPluginState) => ({
-  //     webhookState: webhook,
-  //     isSaving,
-  //     isLoading,
-  //     categories,
-  //     channelMap: channelMap && channelMap.webhook,
-  //     processIds,
-  //   })
-  // );
   const { postDataAction, deleteWebhookConfigAction } = useConnectivityActions();
   const { webhook: webhookState, isSaving, categories, channelMap, isLoading, processIds } = useConnectivityState();
 
@@ -102,9 +87,6 @@ export const ConnectivityWebhooksList: FC = () => {
   }, [Location, locationState]);
 
   const onChangeStatus = useCallback((data: IWebhooksSaveData) => {
-    // dispatch(
-    //   connectivityActions.postDataAction({ platform: 'webhook', data: { ...data, isActive: !data.isActive } })
-    // );
     postDataAction({ platform: 'webhook', data: { ...data, isActive: !data.isActive } });
   }, []);
 
@@ -235,7 +217,6 @@ export const ConnectivityWebhooksList: FC = () => {
                     variant='danger'
                     loading={isSaving}
                     onClick={() => {
-                      // dispatch(connectivityActions.deleteWebhookConfigAction(remove._id));
                       deleteWebhookConfigAction(remove._id);
                     }}
                   >

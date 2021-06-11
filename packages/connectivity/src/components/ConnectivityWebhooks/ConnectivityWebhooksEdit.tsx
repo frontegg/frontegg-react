@@ -1,7 +1,6 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo } from 'react';
 import { Icon, Tabs, TabItem, usePrevious, useT } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
-// import { IPluginState } from '../../interfaces';
 import { ConnectivityWebhooksForm } from './ConnectivityWebhooksForm';
 import { ConnectivityWebhooksLog } from './ConnectivityWebhooksLog';
 import { IWebhookLocationState } from './interfaces';
@@ -19,11 +18,6 @@ export const ConnectivityWebhooksEdit: FC = () => {
   } = useHistory<IWebhookLocationState>();
 
   const { error, webhook, isSaving } = useConnectivityState();
-  // const { error, webhook, isSaving } = useSelector(({ connectivity: { error, webhook, isSaving } }: IPluginState) => ({
-  //   error,
-  //   webhook,
-  //   isSaving,
-  // }));
 
   const prevIsSaving = usePrevious(isSaving);
   const preparedWebhook = webhook?.data ?? webhook;

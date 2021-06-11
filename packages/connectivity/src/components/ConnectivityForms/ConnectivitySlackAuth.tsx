@@ -8,24 +8,12 @@ import { useConnectivityActions, useConnectivityState } from '@frontegg/react-ho
 const defaultScope = ['chat:write', 'channels:read', 'chat:write.public'].join(',');
 
 export const ConnectivitySlackAuth: FC<any> = () => {
-  // const dispatch = useDispatch();
-  // const { isLoadingScope, clientId = '' } = useSelector(
-  //   ({
-  //     connectivity: {
-  //       slackChannels: { isLoadingScope, clientId },
-  //     },
-  //   }: IPluginState) => ({
-  //     isLoadingScope,
-  //     clientId,
-  //   })
-  // );
   const { loadScope } = useConnectivityActions();
   const {
     slackChannels: { isLoadingScope, clientId },
   } = useConnectivityState();
 
   useEffect(() => {
-    // dispatch(connectivityActions.loadScope());
     loadScope();
   }, []);
 

@@ -1,17 +1,7 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
-import {
-  Grid,
-  Icon,
-  useT,
-  Table,
-  Button,
-  Loader,
-  // useSelector,
-  TableColumnProps,
-  CellComponent,
-} from '@frontegg/react-core';
+import { Grid, Icon, useT, Table, Button, Loader, TableColumnProps, CellComponent } from '@frontegg/react-core';
 import { IConnectivityData, TPlatform } from '../interfaces';
 import { ConnectivityPanel } from './ConnectivityPanel';
 import { platformForm } from '../consts';
@@ -36,10 +26,6 @@ export const ConnectivityTable: FC = () => {
   } = useHistory<ILocationState>();
   const [edit, setEdit] = useState<IData | null>(null);
 
-  // const { isLoading, list } = useSelector(({ connectivity: { isLoading, list } }: IPluginState) => ({
-  //   isLoading,
-  //   list,
-  // }));
   const { isLoading, list } = useConnectivityState();
   const data = useMemo(() => list.map((el: any) => ({ ...el, isSelect: locationState?.open === el.key })), [
     list,

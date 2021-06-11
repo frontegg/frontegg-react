@@ -6,15 +6,11 @@ import {
   FInput,
   FButton,
   FFormik,
-  // useDispatch,
-  // useSelector,
   validateSchema,
   validateObject,
   Input,
   ErrorMessage,
 } from '@frontegg/react-core';
-// import { connectivityActions } from '../../reducer';
-// import { IPluginState } from '../../interfaces';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 export interface IConnectivityWebhookTestForm {
@@ -25,17 +21,11 @@ export interface IConnectivityWebhookTestForm {
 
 export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({ secret, url, toggleTestDialog }) => {
   const { t } = useT();
-  // const dispatch = useDispatch();
-  // const { isTesting, testResult } = useSelector(({ connectivity: { isTesting, testResult } }: IPluginState) => ({
-  //   isTesting,
-  //   testResult,
-  // }));
   const { isTesting, testResult } = useConnectivityState();
   const { cleanWebhookTestData, postWebhookTestAction } = useConnectivityActions();
 
   useEffect(() => {
     return () => {
-      // dispatch(connectivityActions.cleanWebhookTestData());
       cleanWebhookTestData();
     };
   }, [cleanWebhookTestData]);
@@ -60,13 +50,6 @@ export const ConnectivityWebhooksTestForm: FC<IConnectivityWebhookTestForm> = ({
       validationSchema={validationSchema}
       initialValues={{ payload: '' }}
       onSubmit={({ payload }, { setSubmitting }) => {
-        // dispatch(
-        //   connectivityActions.postWebhookTestAction({
-        //     url,
-        //     secret: secret ? secret : null,
-        //     payload: { ...JSON.parse(payload) },
-        //   })
-        // );
         postWebhookTestAction({
           url,
           secret: secret ? secret : null,

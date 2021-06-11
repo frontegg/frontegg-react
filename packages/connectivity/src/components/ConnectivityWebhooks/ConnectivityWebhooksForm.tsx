@@ -8,8 +8,6 @@ import {
   FInput,
   FButton,
   FFormik,
-  // useDispatch,
-  // useSelector,webhook
   validateUrl,
   validateSchema,
   validateRequired,
@@ -21,8 +19,6 @@ import { IWebhooksSaveData } from '@frontegg/rest-api';
 import { AccordingCategories } from '../../elements/AccordingCategories';
 import { SelectWebhook } from '../../elements/SelectWebhook';
 import { filterCategories } from '../../utils';
-// import { IPluginState } from '../../interfaces';
-// import { connectivityActions } from '../../reducer';
 import { ConnectivityWebhooksTestForm } from './ConnectivityWebhooksTestFrom';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
@@ -32,32 +28,19 @@ export interface IConnectivityWebhooksForm {
 
 export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }) => {
   const { t } = useT();
-  // const dispatch = useDispatch();
   const [openTestDialog, setOpenTestDialog] = useState(false);
 
-  // const { error, categories, channelMap, testResult, isSaving } = useSelector(
-  //   ({ connectivity: { error, categories, channelMap, isTesting, testResult, isSaving } }: IPluginState) => ({
-  //     error,
-  //     isSaving,
-  //     isTesting,
-  //     categories,
-  //     testResult,
-  //     channelMap: channelMap && channelMap.webhook,
-  //   })
-  // );
   const { cleanWebhookTestMessage, cleanWebhookTestData, cleanError, postDataAction } = useConnectivityActions();
   const { error, categories, channelMap, testResult, isSaving } = useConnectivityState();
 
   useEffect(() => {
     return () => {
-      // dispatch(connectivityActions.cleanWebhookTestData());
       cleanWebhookTestData();
     };
   }, []);
 
   const toggleTestDialog = useCallback(() => {
     if (openTestDialog) {
-      // dispatch(connectivityActions.cleanWebhookTestMessage());
       cleanWebhookTestMessage();
     }
     setOpenTestDialog(!openTestDialog);
@@ -78,13 +61,6 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
         validationSchema={validationSchema}
         initialValues={{ ...initialValues, ...data, secret: data?.secret || '' }}
         onSubmit={(val, { setSubmitting }) => {
-          // dispatch(connectivityActions.cleanError());
-          // dispatch(
-          //   connectivityActions.postDataAction({
-          //     platform: 'webhook',
-          //     data: { ...val, secret: val.secret ? val.secret : null },
-          //   })
-          // );
           cleanError();
           postDataAction({
             platform: 'webhook',
