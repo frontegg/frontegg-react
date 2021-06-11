@@ -189,3 +189,10 @@ export const CheckSvg: FC<React.SVGProps<SVGSVGElement>> = (props) => {
     </svg>
   );
 };
+
+export const channelsSvgs = {
+  email: EmailSvg,
+  sms: SmsSvg,
+  slack: SlackSvg,
+  webhook: WebhookSvg,
+};

@@ -29,6 +29,7 @@ const reducers = {
     testResult: { status: state.testResult?.status, message: undefined },
   }),
   cleanError: (state: IConnectivityState) => ({ ...state, error: undefined }),
+  cleanSlackData: (state: IConnectivityState) => ({ ...state, slackChannels: { isLoading: false } }),
 };
 
 const actions = {
@@ -70,6 +71,7 @@ type DispatchedActions = {
   cleanWebhookLogsData: () => void;
   cleanWebhookTestMessage: () => void;
   cleanError: () => void;
+  cleanSlackData: () => void;
 };
 
 // noinspection JSUnusedLocalSymbols

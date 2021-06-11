@@ -35,7 +35,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
   const { categories, channelMap: _channelMap, isSaving, isLoading, ...connectivity } = useConnectivityState();
   const { postDataAction } = useConnectivityActions();
   const data = connectivity[form];
-  const channelMap = _channelMap[form];
+  const channelMap = _channelMap?.[form];
   // const { categories, channelMap, data, isSaving, isLoading } = useSelector(
   //   ({ connectivity: { isLoading, isSaving, categories, channelMap, ...connectivity } }: IPluginState) => ({
   //     isLoading,
@@ -48,7 +48,8 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
 
   const validate = useCallback(
     (values) => {
-      const errors = values.data.map((data: ITableFormData) => {
+      console.log(values, 'values');
+      const errors = values?.data?.map((data: ITableFormData) => {
         const { events = [] } = data;
         return {
           events: events.map(({ recipients }) => {
@@ -70,7 +71,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
           }),
         };
       });
-      return errors.filter(({ events }: { events: string[] }) => events.filter((el: string) => !!el).length).length
+      return errors?.filter(({ events }: { events: string[] }) => events.filter((el: string) => !!el).length).length
         ? { data: errors }
         : {};
     },

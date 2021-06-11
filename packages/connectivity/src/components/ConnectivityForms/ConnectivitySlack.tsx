@@ -7,47 +7,57 @@ import {
   Loader,
   Button,
   FFormik,
-  useDispatch,
-  useSelector,
+  // useDispatch,
+  // useSelector,
   FormikAutoSave,
   TableColumnProps,
   useSearch,
 } from '@frontegg/react-core';
 import { ISlackConfigurations, ISlackSubscription } from '@frontegg/rest-api';
-import { IConnectivityComponent, IPluginState, ISlackEventData, ISlackTableData } from '../../interfaces';
-import { connectivityActions } from '../../reducer';
+import { IConnectivityComponent, ISlackEventData, ISlackTableData } from '../../interfaces';
+// import { connectivityActions } from '../../reducer';
 import { filterCategories } from '../../utils';
 import { SelectSlack } from '../../elements/SelectSlack';
 import { FConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
 import { ConnectivitySlackAuth } from './ConnectivitySlackAuth';
 import { MessageSlack } from '../../elements/MessageSlack';
+import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
-//TODO: replace useSelectors with react hooks
 export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { t } = useT();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [close, setClose] = useState<number[]>([]);
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
-  const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
-    ({
-      connectivity: {
-        slack,
-        isSaving,
-        categories,
-        channelMap,
-        slackChannels: { isLoading, clientId, data: slackChannels },
-      },
-    }: IPluginState) => ({
-      slack,
-      clientId,
-      isSaving,
-      isLoading,
-      categories,
-      slackChannels,
-      channelMap: channelMap?.slack,
-    })
-  );
+  // const { isLoading, categories, channelMap, slack, isSaving, slackChannels } = useSelector(
+  //   ({
+  //     connectivity: {
+  //       slack,
+  //       isSaving,
+  //       categories,
+  //       channelMap,
+  //       slackChannels: { isLoading, clientId, data: slackChannels },
+  //     },
+  //   }: IPluginState) => ({
+  //     slack,
+  //     clientId,
+  //     isSaving,
+  //     isLoading,
+  //     categories,
+  //     slackChannels,
+  //     channelMap: channelMap?.slack,
+  //   })
+  // );
+  const {
+    isLoading,
+    categories,
+    channelMap: _channelMap,
+    slack,
+    isSaving,
+    slackChannels: _slackChannels,
+  } = useConnectivityState();
+  const slackChannels = _slackChannels?.data;
+  const channelMap = _channelMap?.slack;
 
   const cleanCategory = filterCategories(categories, channelMap);
 
@@ -124,10 +134,14 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
     [t, close, isFiltering]
   );
 
+  const { loadSlackActions, cleanSlackData, postDataAction } = useConnectivityActions();
+
   useEffect(() => {
-    dispatch(connectivityActions.loadSlackActions());
+    // dispatch(connectivityActions.loadSlackActions());
+    loadSlackActions();
     return () => {
-      dispatch(connectivityActions.cleanSlackData());
+      // dispatch(connectivityActions.cleanSlackData());
+      cleanSlackData();
     };
   }, []);
 
@@ -170,7 +184,8 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
         }, []),
       };
 
-      dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
+      // dispatch(connectivityActions.postDataAction({ platform: 'slack', data: newData }));
+      postDataAction({ platform: 'slack', data: newData });
     },
     [slack]
   );

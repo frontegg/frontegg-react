@@ -1,5 +1,5 @@
 import { PluginConfig } from '@frontegg/react-core';
-import { initialState, storeName } from './reducer';
+// import { initialState, storeName } from './reducer';
 // import { sagas } from './saga';
 import { makeComponent } from './elements/makeComponent';
 import './index.scss';
@@ -15,11 +15,11 @@ export const EmailComponent = makeComponent({ type: 'email', defaultPath: '/emai
 export const SMSComponent = makeComponent({ type: 'sms', defaultPath: '/sms' });
 
 export const ConnectivityPlugin = (): PluginConfig => ({
-  storeName,
+  storeName: connectivity.storeName,
   reducer: connectivity.reducer,
   sagas: connectivity.sagas,
   preloadedState: {
-    ...initialState,
+    ...connectivity.initialState,
   },
   Listener: ConnectivityListener,
 });

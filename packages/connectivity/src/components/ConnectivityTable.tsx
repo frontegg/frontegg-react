@@ -8,14 +8,14 @@ import {
   Table,
   Button,
   Loader,
-  useSelector,
+  // useSelector,
   TableColumnProps,
   CellComponent,
 } from '@frontegg/react-core';
-import { IConnectivityData, IPluginState, TPlatform } from '../interfaces';
+import { IConnectivityData, TPlatform } from '../interfaces';
 import { ConnectivityPanel } from './ConnectivityPanel';
 import { platformForm } from '../consts';
-import { CheckSvg } from '../elements/Svgs';
+import { CheckSvg, channelsSvgs } from '../elements/Svgs';
 import { useConnectivityState } from '@frontegg/react-hooks';
 
 interface ILocationState {
@@ -40,7 +40,6 @@ export const ConnectivityTable: FC = () => {
   //   isLoading,
   //   list,
   // }));
-
   const { isLoading, list } = useConnectivityState();
   const data = useMemo(() => list.map((el: any) => ({ ...el, isSelect: locationState?.open === el.key })), [
     list,
@@ -48,26 +47,29 @@ export const ConnectivityTable: FC = () => {
   ]);
 
   const platformCell = useCallback(
-    ({ value, row: { original } }): CellComponent<IData> => (
-      <Button
-        data-test-id='editBtn'
-        transparent
-        fullWidth
-        className={classnames(cssPrefix, {
-          'fe-connectivity-active': original.isSelect,
-        })}
-        onClick={() => {
-          setEdit(original);
-          historyReplace({ ...location, state: { open: original.key } });
-        }}
-      >
-        <div className={`${cssPrefix}-icon`}>
-          <original.image />
-        </div>
-        {!edit && <div className={`${cssPrefix}-title`}>{t(value)}</div>}
-        <Icon className={`${cssPrefix}-right-arrow`} name='right-arrow' />
-      </Button>
-    ),
+    ({ value, row: { original } }): CellComponent<IData> => {
+      const ChannelImage = channelsSvgs[original.image];
+      return (
+        <Button
+          data-test-id='editBtn'
+          transparent
+          fullWidth
+          className={classnames(cssPrefix, {
+            'fe-connectivity-active': original.isSelect,
+          })}
+          onClick={() => {
+            setEdit(original);
+            historyReplace({ ...location, state: { open: original.key } });
+          }}
+        >
+          <div className={`${cssPrefix}-icon`}>
+            <ChannelImage />
+          </div>
+          {!edit && <div className={`${cssPrefix}-title`}>{t(value)}</div>}
+          <Icon className={`${cssPrefix}-right-arrow`} name='right-arrow' />
+        </Button>
+      );
+    },
     [historyReplace, setEdit, location, edit]
   );
 
