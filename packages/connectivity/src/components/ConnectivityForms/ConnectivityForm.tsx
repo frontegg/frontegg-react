@@ -48,7 +48,6 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
 
   const validate = useCallback(
     (values) => {
-      console.log(values, 'values');
       const errors = values?.data?.map((data: ITableFormData) => {
         const { events = [] } = data;
         return {

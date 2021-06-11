@@ -195,7 +195,6 @@ export const ConnectivityWebhooksList: FC = () => {
                 text: t('common.edit'),
                 icon: <Icon name='edit' />,
                 onClick: () => {
-                  console.log(row.original._id);
                   onEdit(row.original._id);
                 },
               },
