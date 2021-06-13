@@ -61,6 +61,11 @@ export type ITeamUserPermission = {
   categoryId: string;
 };
 
+export interface ISamlRolesGroup {
+  roleIds: string[];
+  group?: string;
+}
+
 export type ITeamStats = {
   totalItems: number;
   addedThisWeek: number;

@@ -11,6 +11,7 @@ import {
   IDENTITY_MFA_POLICY_SERVICE_V1,
   IDENTITY_SSO_SERVICE_URL_V1,
   SSO_SERVICE_URL_V1,
+  SSO_SERVICE_URL_V2,
   USERS_SERVICE_URL_V1,
   USERS_SERVICE_URL_V2,
 } from '../constants';
@@ -56,6 +57,7 @@ import {
 } from './interfaces';
 import { ContextHolder } from '../ContextHolder';
 import { jwtDecode } from '../jwt';
+import { ISamlRolesGroup } from '../teams/interfaces';
 
 /*****************************************
  * Authentication
@@ -339,11 +341,20 @@ export async function getSamlRoles(): Promise<string[]> {
 }
 
 /**
+ *  Get Saml roles groups
+ * @return array of groups and assigend role IDs
+ */
+export async function getSamlRoleGroups(): Promise<ISamlRolesGroup[]> {
+  console.debug('getSamlRoles()');
+  return Get(`${SSO_SERVICE_URL_V2}/saml/configurations/groups/roles/default`);
+}
+
+/**
  *  Update Saml roles for authorization
  */
-export async function updateSamlRoles({ roleIds }: IUpdateSamlRoles): Promise<void> {
+export async function updateSamlRoles({ roleIds, group }: IUpdateSamlRoles): Promise<void> {
   console.debug('updateSamlRoles()');
-  return Post(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`, { roleIds });
+  return Post(`${SSO_SERVICE_URL_V2}/saml/configurations/roles/default`, { roleIds, group });
 }
 
 /**

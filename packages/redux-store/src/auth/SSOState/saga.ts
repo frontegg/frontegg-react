@@ -106,9 +106,11 @@ function* validateSSODomain({ payload: { callback } = {} }: PayloadAction<WithCa
 function* getAuthorizationRoles() {
   try {
     const data = yield call(api.auth.getSamlRoles);
+    const groupsData = yield call(api.auth.getSamlRoleGroups);
     yield put(
       actions.setSSOState({
         authorizationRoles: data.roleIds,
+        roleGroups: groupsData,
         error: undefined,
       })
     );
@@ -122,11 +124,11 @@ function* getAuthorizationRoles() {
 }
 
 function* updateAuthorizationRoles({
-  payload: { callback, authorizationRoles },
-}: PayloadAction<WithCallback<{ authorizationRoles: string[] }>>) {
+  payload: { callback, authorizationRoles, group },
+}: PayloadAction<WithCallback<{ authorizationRoles: string[]; group?: string }>>) {
   try {
     yield put(actions.setSSOState({ error: undefined, saving: true }));
-    yield call(api.auth.updateSamlRoles, { roleIds: authorizationRoles });
+    yield call(api.auth.updateSamlRoles, { roleIds: authorizationRoles, group });
     yield getAuthorizationRoles();
     yield put(actions.setSSOState({ error: undefined, saving: false }));
     callback?.(true);

@@ -1,4 +1,4 @@
-import { ISamlConfiguration, ITeamUserRole } from '@frontegg/rest-api';
+import { ISamlConfiguration, ISamlRolesGroup, ITeamUserRole } from '@frontegg/rest-api';
 import { WithCallback } from '../../interfaces';
 
 export interface SSOState {
@@ -8,6 +8,7 @@ export interface SSOState {
   saving?: boolean;
   samlConfiguration?: ISamlConfiguration;
   roles?: ITeamUserRole[];
+  roleGroups?: ISamlRolesGroup[];
   authorizationRoles?: string[];
 }
 

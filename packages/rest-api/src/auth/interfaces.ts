@@ -187,6 +187,7 @@ export interface IDeleteApiToken {
 
 export interface IUpdateSamlRoles {
   roleIds: string[];
+  group?: string;
 }
 
 export type IGetUserById = { userId: string };
