@@ -2987,17 +2987,18 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.0.1.tgz#8b2f443932a33e19ea0a9736caf8b344b83337a5"
-  integrity sha512-qrecSv48tZmKETBsm5N7Bn5CMaFEZz17DuJ8nO2GHFtRsZPCpQixznvUsth7oMX3SMiA0OaJgC0wE3ABcKXeiw==
+"@frontegg/admin-portal@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.3.1.tgz#437ec29339652217603a9801cb424c872417a66e"
+  integrity sha512-DWsHDTURCTAnWte5kfc3VWE8ZxG8kqUhMInvuAQCeJkGjFU3EHpBfrRMXme+dngo0yPWeUF+WjNxrV8M1czZMQ==
   dependencies:
-    "@frontegg/injector" "^0.0.23"
+    "@frontegg/injector" "0.0.25"
+    uuid "^8.3.0"
 
-"@frontegg/injector@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.23.tgz#d4fca57659c6b5fec913b801f0196a8c8e77512f"
-  integrity sha512-aZNZCIHuZwPpkPkXTmBpJS3Ot8ID00vMuN8z1YGCvBKHzA6PhaitJV6ZxAUQweUG7suv872iNdNJFr85ObPOLg==
+"@frontegg/injector@0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.25.tgz#05009e41f8f1790941fa907c97c67b0496ddbf00"
+  integrity sha512-NXbn9gCD6hopsPGQzBnfxI2qEFqiqTSuqop6tm/1fu6jgWWxhRu9+rX3VRoGDYqWgeuypgLN67EtWcG0LLDnKQ==
 
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
@@ -20536,7 +20537,7 @@ uuid@^8.2.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.2.0.tgz#cb10dd6b118e2dada7d0cd9730ba7417c93d920e"
   integrity sha512-CYpGiFTUrmI6OBMkAdjSDM0k5h8SkkiTP4WAjQgDgNB1S3Ou9VBEvr6q0Kv2H1mMk7IWfxYGpMH5sd5AvcIV2Q==
 
-uuid@^8.3.2:
+uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
@@ -21256,9 +21257,9 @@ write@1.0.3:
     mkdirp "^0.5.1"
 
 ws@^5.2.0:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.2.tgz#dffef14866b8e8dc9133582514d1befaf96e980f"
-  integrity sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.3.tgz#05541053414921bc29c63bee14b8b0dd50b07b3d"
+  integrity sha512-jZArVERrMsKUatIdnLzqvcfydI85dvd/Fp1u/VOpfdDWQ4c9qWXe+VIeAbQ5FrDwciAkr+lzofXLz3Kuf26AOA==
   dependencies:
     async-limiter "~1.0.0"
 
