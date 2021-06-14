@@ -1,4 +1,5 @@
 import { IUserProfile } from '..';
+import { ISamlRolesGroup } from '../teams/interfaces';
 
 export * from './secutiry-poilicy/interfaces';
 

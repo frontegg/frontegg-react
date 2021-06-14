@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { api, ISamlConfiguration, ISamlMetadata, IUpdateSamlConfiguration } from '@frontegg/rest-api';
+import { call, put, select, takeEvery, all } from 'redux-saga/effects';
+import { api, ISamlConfiguration, ISamlRolesGroup, IUpdateSamlConfiguration } from '@frontegg/rest-api';
 import { actions } from '../reducer';
 import { SaveSSOConfigurationPayload, SSOState } from './interfaces';
 import { WithCallback } from '../../interfaces';
@@ -106,11 +106,11 @@ function* validateSSODomain({ payload: { callback } = {} }: PayloadAction<WithCa
 function* getAuthorizationRoles() {
   try {
     const data = yield call(api.auth.getSamlRoles);
-    const groupsData = yield call(api.auth.getSamlRoleGroups);
+    const groupsData = yield call(api.auth.getSamlRolesGroups);
     yield put(
       actions.setSSOState({
         authorizationRoles: data.roleIds,
-        roleGroups: groupsData,
+        rolesGroups: groupsData,
         error: undefined,
       })
     );
@@ -123,13 +123,40 @@ function* getAuthorizationRoles() {
   }
 }
 
+function* updateRolesGroups(groups: ISamlRolesGroup[]) {
+  const prevRolesGroups = yield select((state) => state.auth.ssoState.rolesGroups);
+  try {
+    const newGroupNames: string[] = groups.map(({ group }: ISamlRolesGroup) => group);
+    const deletedGroups = prevRolesGroups.filter(
+      ({ group: currentGroup }: ISamlRolesGroup) => !newGroupNames.includes(currentGroup)
+    );
+    yield all(
+      deletedGroups.map((groupName: string) => call(api.auth.updateSamlRoles, { roleIds: [], group: groupName }))
+    );
+    yield all(
+      groups.map((group: ISamlRolesGroup) =>
+        call(api.auth.updateSamlRoles, { roleIds: group.roleIds, group: group.group })
+      )
+    );
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        error: e.message,
+      })
+    );
+  }
+}
+
 function* updateAuthorizationRoles({
-  payload: { callback, authorizationRoles, group },
-}: PayloadAction<WithCallback<{ authorizationRoles: string[]; group?: string }>>) {
+  payload: { callback, authorizationRoles, groups },
+}: PayloadAction<WithCallback<{ authorizationRoles: string[]; groups?: ISamlRolesGroup[] }>>) {
   try {
     yield put(actions.setSSOState({ error: undefined, saving: true }));
-    yield call(api.auth.updateSamlRoles, { roleIds: authorizationRoles, group });
+    yield call(api.auth.updateSamlRoles, { roleIds: authorizationRoles });
     yield getAuthorizationRoles();
+    if (groups) {
+      yield updateRolesGroups(groups);
+    }
     yield put(actions.setSSOState({ error: undefined, saving: false }));
     callback?.(true);
   } catch (e) {

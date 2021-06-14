@@ -63,7 +63,7 @@ export type ITeamUserPermission = {
 
 export interface ISamlRolesGroup {
   roleIds: string[];
-  group?: string;
+  group: string;
 }
 
 export type ITeamStats = {

@@ -344,7 +344,7 @@ export async function getSamlRoles(): Promise<string[]> {
  *  Get Saml roles groups
  * @return array of groups and assigend role IDs
  */
-export async function getSamlRoleGroups(): Promise<ISamlRolesGroup[]> {
+export async function getSamlRolesGroups(): Promise<ISamlRolesGroup[]> {
   console.debug('getSamlRoles()');
   return Get(`${SSO_SERVICE_URL_V2}/saml/configurations/groups/roles/default`);
 }

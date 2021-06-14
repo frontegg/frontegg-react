@@ -8,7 +8,7 @@ export interface SSOState {
   saving?: boolean;
   samlConfiguration?: ISamlConfiguration;
   roles?: ITeamUserRole[];
-  roleGroups?: ISamlRolesGroup[];
+  rolesGroups?: ISamlRolesGroup[];
   authorizationRoles?: string[];
 }
 
@@ -21,4 +21,7 @@ export enum SamlVendors {
 }
 
 export type SaveSSOConfigurationPayload = WithCallback<Partial<ISamlConfiguration & { samlVendor: SamlVendors }>>;
-export type UpdateSSOAuthorizationRolesPayload = WithCallback<{ authorizationRoles: string[] }>;
+export type UpdateSSOAuthorizationRolesPayload = WithCallback<{
+  authorizationRoles: string[];
+  groups?: ISamlRolesGroup[];
+}>;
