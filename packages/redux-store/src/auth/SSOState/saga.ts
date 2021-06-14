@@ -127,9 +127,9 @@ function* updateRolesGroups(groups: ISamlRolesGroup[]) {
   const prevRolesGroups = yield select((state) => state.auth.ssoState.rolesGroups);
   try {
     const newGroupNames: string[] = groups.map(({ group }: ISamlRolesGroup) => group);
-    const deletedGroups = prevRolesGroups.filter(
-      ({ group: currentGroup }: ISamlRolesGroup) => !newGroupNames.includes(currentGroup)
-    );
+    const deletedGroups =
+      prevRolesGroups?.filter(({ group: currentGroup }: ISamlRolesGroup) => !newGroupNames.includes(currentGroup)) ??
+      [];
     yield all(
       deletedGroups.map((groupName: string) => call(api.auth.updateSamlRoles, { roleIds: [], group: groupName }))
     );
@@ -153,10 +153,10 @@ function* updateAuthorizationRoles({
   try {
     yield put(actions.setSSOState({ error: undefined, saving: true }));
     yield call(api.auth.updateSamlRoles, { roleIds: authorizationRoles });
-    yield getAuthorizationRoles();
     if (groups) {
       yield updateRolesGroups(groups);
     }
+    yield getAuthorizationRoles();
     yield put(actions.setSSOState({ error: undefined, saving: false }));
     callback?.(true);
   } catch (e) {
