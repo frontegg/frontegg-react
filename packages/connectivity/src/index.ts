@@ -1,6 +1,4 @@
 import { PluginConfig } from '@frontegg/react-core';
-// import { initialState, storeName } from './reducer';
-// import { sagas } from './saga';
 import { makeComponent } from './elements/makeComponent';
 import './index.scss';
 import { ConnectivityListener } from './components/ConnectivityListener';

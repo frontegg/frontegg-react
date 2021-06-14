@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { Grid, Loader } from '@frontegg/react-core';
-// import { IPluginState } from '../../interfaces';
-// import { connectivityActions } from '../../reducer';
 import { SlackSvg } from '../../elements/Svgs';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
@@ -10,7 +8,7 @@ const defaultScope = ['chat:write', 'channels:read', 'chat:write.public'].join('
 export const ConnectivitySlackAuth: FC<any> = () => {
   const { loadScope } = useConnectivityActions();
   const {
-    slackChannels: { isLoadingScope, clientId },
+    slackChannels: { isLoadingScope, clientId = '' },
   } = useConnectivityState();
 
   useEffect(() => {

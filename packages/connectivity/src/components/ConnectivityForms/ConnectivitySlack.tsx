@@ -26,7 +26,6 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
 
   const {
-    isLoading,
     categories,
     channelMap: _channelMap,
     slack,
@@ -35,6 +34,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   } = useConnectivityState();
   const slackChannels = _slackChannels?.data;
   const channelMap = _channelMap?.slack;
+  const isLoading = _slackChannels?.isLoading;
 
   const cleanCategory = filterCategories(categories, channelMap);
 
