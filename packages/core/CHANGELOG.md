@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.2](https://github.com/frontegg/frontegg-react/compare/v2.7.1...v2.7.2) (2021-06-14)
+
+**Note:** Version bump only for package @frontegg/react-core
+
+
+
+
+
 # [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
 
 
