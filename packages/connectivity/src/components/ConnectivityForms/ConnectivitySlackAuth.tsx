@@ -1,26 +1,18 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import { Grid, useSelector, Loader, useDispatch } from '@frontegg/react-core';
-import { IPluginState } from '../../interfaces';
-import { connectivityActions } from '../../reducer';
+import { Grid, Loader } from '@frontegg/react-core';
 import { SlackSvg } from '../../elements/Svgs';
+import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 const defaultScope = ['chat:write', 'channels:read', 'chat:write.public'].join(',');
 
 export const ConnectivitySlackAuth: FC<any> = () => {
-  const dispatch = useDispatch();
-  const { isLoadingScope, clientId = '' } = useSelector(
-    ({
-      connectivity: {
-        slackChannels: { isLoadingScope, clientId },
-      },
-    }: IPluginState) => ({
-      isLoadingScope,
-      clientId,
-    })
-  );
+  const { loadScope } = useConnectivityActions();
+  const {
+    slackChannels: { isLoadingScope, clientId = '' },
+  } = useConnectivityState();
 
   useEffect(() => {
-    dispatch(connectivityActions.loadScope());
+    loadScope();
   }, []);
 
   const redirectUrl = (() => {
@@ -31,7 +23,7 @@ export const ConnectivitySlackAuth: FC<any> = () => {
   })();
 
   const query = useMemo(() => {
-    return new URLSearchParams({ client_id: clientId, scope: defaultScope, redirect_uri: redirectUrl });
+    return new URLSearchParams({ client_id: clientId ?? '', scope: defaultScope, redirect_uri: redirectUrl });
   }, [clientId]);
 
   if (isLoadingScope) {

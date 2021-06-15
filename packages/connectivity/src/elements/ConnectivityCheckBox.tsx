@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import React, { FC } from 'react';
 import { FFormik, SwitchToggle, SwitchToggleProps } from '@frontegg/react-core';
 
 export interface IConnectivityCheckBox {
