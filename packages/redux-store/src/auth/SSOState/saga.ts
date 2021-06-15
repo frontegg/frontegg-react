@@ -131,7 +131,7 @@ function* updateRolesGroups(groups: ISamlRolesGroup[]) {
       prevRolesGroups?.filter(({ group: currentGroup }: ISamlRolesGroup) => !newGroupNames.includes(currentGroup)) ??
       [];
     yield all(
-      deletedGroups.map((groupName: string) => call(api.auth.updateSamlRoles, { roleIds: [], group: groupName }))
+      deletedGroups.map(({ group }: ISamlRolesGroup) => call(api.auth.updateSamlRoles, { roleIds: [], group }))
     );
     yield all(
       groups.map((group: ISamlRolesGroup) =>
