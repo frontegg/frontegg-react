@@ -99,7 +99,7 @@ function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
     yield put(
       actions.setAuditLogsState({
         loading: false,
-        logs: data,
+        logs: data ?? [],
         totalPages: +(total / pageSize).toFixed(0),
       })
     );
@@ -148,7 +148,7 @@ function* loadAuditLogsMock({ payload }: PayloadAction<LoadAuditLogsPayload>) {
     yield put(
       actions.setAuditLogsState({
         loading: false,
-        logs: data,
+        logs: data ?? [],
         totalPages: +(total / pageSize).toFixed(0),
       })
     );
