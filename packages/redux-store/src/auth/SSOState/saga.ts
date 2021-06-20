@@ -2,11 +2,12 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, select, takeEvery, all } from 'redux-saga/effects';
 import { api, ISamlConfiguration, ISamlRolesGroup, IUpdateSamlConfiguration } from '@frontegg/rest-api';
 import { actions } from '../reducer';
-import { SaveSSOConfigurationPayload, SSOState } from './interfaces';
+import { CreateSamlGroupPayload, DeleteSamlGroupPayload, SaveSSOConfigurationPayload, SSOState } from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { omitProps, readFileAsText } from '../../helpers';
 import { delay } from '../utils';
 import { samlConfigurationDemo, samlMetadataDemo, ssoStateDemo } from '../dummy';
+import { deleteSamlGroup } from '@frontegg/rest-api/dist/auth';
 
 function* loadSSOConfigurations() {
   try {
@@ -124,18 +125,10 @@ function* getAuthorizationRoles() {
 }
 
 function* updateRolesGroups(groups: ISamlRolesGroup[]) {
-  const prevRolesGroups = yield select((state) => state.auth.ssoState.rolesGroups);
   try {
-    const newGroupNames: string[] = groups.map(({ group }: ISamlRolesGroup) => group);
-    const deletedGroups =
-      prevRolesGroups?.filter(({ group: currentGroup }: ISamlRolesGroup) => !newGroupNames.includes(currentGroup)) ??
-      [];
-    yield all(
-      deletedGroups.map(({ group }: ISamlRolesGroup) => call(api.auth.updateSamlRoles, { roleIds: [], group }))
-    );
     yield all(
       groups.map((group: ISamlRolesGroup) =>
-        call(api.auth.updateSamlRoles, { roleIds: group.roleIds, group: group.group })
+        call(api.auth.updateSamlGroup, { id: group.id, roleIds: group.roleIds, group: group.group })
       )
     );
   } catch (e) {
@@ -170,6 +163,42 @@ function* updateAuthorizationRoles({
   }
 }
 
+function* deleteSamlGroupFunction({ payload: { callback, id } }: PayloadAction<DeleteSamlGroupPayload>) {
+  try {
+    yield put(actions.setSSOState({ error: undefined, saving: true }));
+    yield call(api.auth.deleteSamlGroup, { id });
+    yield getAuthorizationRoles();
+    yield put(actions.setSSOState({ error: undefined, saving: false }));
+    callback?.(true);
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        error: e.message,
+        saving: false,
+      })
+    );
+    callback?.(null, e);
+  }
+}
+
+function* createSamlGroupFunction({ payload: { group, roleIds, callback } }: PayloadAction<CreateSamlGroupPayload>) {
+  try {
+    yield put(actions.setSSOState({ error: undefined, saving: true }));
+    yield call(api.auth.createSamlGroup, { group, roleIds });
+    yield getAuthorizationRoles();
+    yield put(actions.setSSOState({ error: undefined, saving: false }));
+    callback?.(true);
+  } catch (e) {
+    yield put(
+      actions.setSSOState({
+        error: e.message,
+        saving: false,
+      })
+    );
+    callback?.(null, e);
+  }
+}
+
 export function* ssoSagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
@@ -177,6 +206,8 @@ export function* ssoSagas() {
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
   yield takeEvery(actions.loadSSOAuthorizationRoles, getAuthorizationRoles);
   yield takeEvery(actions.updateSSOAuthorizationRoles, updateAuthorizationRoles);
+  yield takeEvery(actions.deleteSamlGroup, deleteSamlGroupFunction);
+  yield takeEvery(actions.createSamlGroup, createSamlGroupFunction);
 }
 
 /*********************************

@@ -1,5 +1,4 @@
 import { IUserProfile } from '..';
-import { ISamlRolesGroup } from '../teams/interfaces';
 
 export * from './secutiry-poilicy/interfaces';
 
@@ -188,7 +187,17 @@ export interface IDeleteApiToken {
 
 export interface IUpdateSamlRoles {
   roleIds: string[];
-  group?: string;
+}
+
+export interface IUpdateSamlGroup {
+  id: string;
+  group: string;
+  roleIds: string[];
+}
+
+export interface ICreateSamlGroup {
+  group: string;
+  roleIds?: string[];
 }
 
 export type IGetUserById = { userId: string };
