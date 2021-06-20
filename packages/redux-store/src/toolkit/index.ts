@@ -1,3 +1,4 @@
+import { AuthState } from '@frontegg/redux-store/auth';
 import {
   configureStore,
   EnhancedStore,
@@ -59,7 +60,8 @@ const { reducer: rootReducer } = createSlice({
 export const createFronteggStore = (
   rootInitialState: InitialState,
   storeHolder?: any,
-  previewMode: boolean = false
+  previewMode: boolean = false,
+  authInitialState?: Partial<AuthState>
 ): EnhancedStore => {
   const isSSR = typeof window === 'undefined';
   let holder = storeHolder;
@@ -78,7 +80,14 @@ export const createFronteggStore = (
       middleware,
       preloadedState: {
         root: { ...rootInitialState } as any,
-        [authStore.storeName]: authStore.initialState,
+        [authStore.storeName]: {
+          ...authStore.initialState,
+          ...authInitialState,
+          routes: {
+            ...authStore.initialState.routes,
+            ...(authInitialState?.routes ?? {}),
+          },
+        },
         [auditsStore.storeName]: auditsStore.initialState,
         [connectivityStore.storeName]: connectivityStore.initialState,
       },
