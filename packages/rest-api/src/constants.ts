@@ -5,6 +5,7 @@ export const IDENTITY_CONFIGURATION_SERVICE_URL_V1 = '/identity/resources/config
 export const REPORTS_SERVICE_URL_V2 = '/reports/resources/reports/v2';
 export const REPORTS_ENGINE_TRIGGER_SERVICE_URL_V1 = '/reports/engine/resources/triggers/v1';
 export const SSO_SERVICE_URL_V1 = '/team/resources/sso/v1';
+export const SSO_SERVICE_URL_V2 = '/team/resources/sso/v2';
 export const CONNECTIVITY_SERVICE_URL_V1 = '/integrations/resources/configurations/v1';
 export const CONNECTIVITY_SERVICE_URL_V2 = '/integrations/resources/configurations/v2';
 export const CONNECTIVITY_SERVICE_WEBHOOKS_URL = '/webhook';
