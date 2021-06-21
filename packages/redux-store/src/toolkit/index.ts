@@ -1,4 +1,4 @@
-import { AuthState } from '@frontegg/redux-store/auth';
+import { AuthState } from '../auth';
 import {
   configureStore,
   EnhancedStore,
