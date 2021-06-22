@@ -86,10 +86,10 @@ export const FronteggProvider: FC<FronteggProviderProps> = ({
   setLoading: setLoadingProps,
 }) => {
   const context = app?.options?.contextOptions ?? contextOptions;
-  const routes = app?.options?.authRoutes ?? {};
+  const authOptions = app?.options?.authOptions ?? {};
   const previewMode = app?.options?.previewMode ?? false;
   ContextHolder.setContext(context);
-  const store = useMemo(() => createFronteggStore({ context }, app, previewMode, { routes }), [app, previewMode]);
+  const store = useMemo(() => createFronteggStore({ context }, app, previewMode, authOptions), [app, previewMode]);
 
   return (
     <Provider context={FronteggStoreContext} store={store}>
