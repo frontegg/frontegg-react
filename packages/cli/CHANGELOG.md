@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.2](https://github.com/frontegg/frontegg-react/compare/v2.8.1...v2.8.2) (2021-06-23)
+
+
+### Bug Fixes
+
+* update libraries version ([77da072](https://github.com/frontegg/frontegg-react/commit/77da072c67cb11e6cccb86b044a3a1a22b09625c))
+
+
+
+
+
 # [2.0.0](https://github.com/frontegg/frontegg-react/compare/v1.28.0...v2.0.0) (2021-04-11)
 
 **Note:** Version bump only for package @frontegg/react-cli
