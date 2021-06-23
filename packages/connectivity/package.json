@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@frontegg/react-core": "^2.8.1",
-    "@frontegg/redux-store": "^2.8.0",
     "@reduxjs/toolkit": "^1.4.0",
     "classnames": "^2.2.6",
     "react": ">16.8.6"

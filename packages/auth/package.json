@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "@frontegg/react-core": "^2.8.1",
-    "@frontegg/rest-api": "^2.7.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
     "@types/react-recaptcha-v3": "^1.1.1",

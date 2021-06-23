@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@frontegg/react-hooks": "^2.8.1",
-    "@frontegg/redux-store": "^2.8.0",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "history": "^4.9.0",
