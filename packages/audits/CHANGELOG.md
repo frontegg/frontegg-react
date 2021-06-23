@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.3](https://github.com/frontegg/frontegg-react/compare/v2.8.1...v2.8.3) (2021-06-23)
+
+
+### Bug Fixes
+
+* align all dependencies versions ([f1d5c48](https://github.com/frontegg/frontegg-react/commit/f1d5c48aba34827ea06a554cfb61734f1a40c93b))
+
+
+
+
+
 ## [2.8.2](https://github.com/frontegg/frontegg-react/compare/v2.8.1...v2.8.2) (2021-06-23)
 
 **Note:** Version bump only for package @frontegg/react-audits
