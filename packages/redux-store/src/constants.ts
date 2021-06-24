@@ -2,3 +2,4 @@ export const FRONTEGG_AFTER_AUTH_REDIRECT_URL = 'FRONTEGG_AFTER_AUTH_REDIRECT_UR
 
 export const authStoreName = 'auth';
 export const auditsStoreName = 'audits';
+export const subscriptionsStoreName = 'subscriptions';

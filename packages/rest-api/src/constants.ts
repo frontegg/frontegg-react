@@ -24,3 +24,4 @@ export const IDENTITY_API_TOKENS_TENANTS_SERVICE = '/identity/resources/tenants/
 export const IDENTITY_MFA_POLICY_SERVICE_V1 = '/identity/resources/configurations/v1/mfa-policy';
 export const IDENTITY_ROLES_SERVICE_URL_V1 = '/identity/resources/roles/v1';
 export const IDENTITY_PERMISSIONS_SERVICE_URL_V1 = '/identity/resources/permissions/v1';
+export const SUBSCRIPTIONS_BILLING_SERVICE_URL_V1 = '/subscriptions/resources/billing/v1';
