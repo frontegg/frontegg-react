@@ -100,7 +100,7 @@ function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
       actions.setAuditLogsState({
         loading: false,
         logs: data ?? [],
-        totalPages: +(total / pageSize).toFixed(0),
+        totalPages: +Math.ceil(total / pageSize),
       })
     );
     payload?.callback?.(true);
@@ -149,7 +149,7 @@ function* loadAuditLogsMock({ payload }: PayloadAction<LoadAuditLogsPayload>) {
       actions.setAuditLogsState({
         loading: false,
         logs: data ?? [],
-        totalPages: +(total / pageSize).toFixed(0),
+        totalPages: +Math.ceil(total / pageSize),
       })
     );
     payload?.callback?.(true);
