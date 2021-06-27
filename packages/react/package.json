@@ -12,8 +12,8 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/admin-portal": "3.3.4",
-    "@frontegg/react-hooks": "3.3.4",
+    "@frontegg/admin-portal": "3.3.5",
+    "@frontegg/react-hooks": "3.3.5",
     "react-router-dom": "5.x"
   },
   "peerDependencies": {
