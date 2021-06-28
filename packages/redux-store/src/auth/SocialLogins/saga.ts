@@ -17,8 +17,9 @@ export function* loadSocialLoginsConfigurations() {
 function* loginViaSocialLogin({ payload }: PayloadAction<ILoginViaSocialLogin>) {
   try {
     yield put(actions.setSocialLoginsState({ loading: true }));
-    yield call(api.auth.loginViaSocialLogin, payload);
+    const res = yield call(api.auth.loginViaSocialLogin, payload);
     yield refreshToken();
+    yield put(actions.setLoginState({ email: res.email }));
   } catch (e) {
     yield put(
       actions.setSocialLoginsState({ loading: false, error: e.message ?? 'Failed to authenticate', firstLoad: false })
