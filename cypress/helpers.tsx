@@ -108,7 +108,7 @@ export const mockAuthApi = (
       status: 200,
       delay: 200,
       response: {
-        rows: [{}],
+        rows: [{ isActive: true }],
       },
     }).as('metadata');
   } else {
