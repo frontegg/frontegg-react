@@ -89,6 +89,7 @@ export interface ThemeOptions {
 
 export type LogLevel = 'warn' | 'error';
 
+//TODO: DOUBLE ContextOptions IN PACKAGESS
 export interface ContextOptions {
   baseUrl: string;
   tokenResolver?: () => Promise<string> | string; // custom resolve Authorization Header value
@@ -103,6 +104,9 @@ export interface ContextOptions {
   currentUserPermissions?: string[];
   urlPrefix?: string;
   logLevel?: LogLevel;
+  auditsOptions?: {
+    virtualScroll?: boolean;
+  };
 }
 
 export interface ListenerProps<T> {

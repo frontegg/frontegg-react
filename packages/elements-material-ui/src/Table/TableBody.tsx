@@ -1,18 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { useT } from '@frontegg/react-core';
-import { TableBody as MTableBody, TableRow, TableCell, CircularProgress } from '@material-ui/core';
+import { useT, TableProps } from '@frontegg/react-core';
+import { TableBody as MTableBody, TableRow, TableCell } from '@material-ui/core';
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { TableExpandable } from './TableExpandable';
 import { Loader } from '../Loader';
 import classNames from 'classnames';
+import { Waypoint } from 'react-waypoint';
 
 type TableTBodyProps<T extends object> = {
+  pagination?: TableProps['pagination'];
+  onInfiniteScroll?: () => void;
   loading?: boolean;
   getTableBodyProps: (propGetter?: TableBodyPropGetter<T>) => TableBodyProps;
   prepareRow: (row: Row<T>) => void;
   rows: (Row<T> & UseExpandedRowProps<T>)[];
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
+  pageSize: number;
 };
 
 const useRowStyles = makeStyles({
@@ -32,7 +36,17 @@ const useRowStyles = makeStyles({
 });
 
 export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: TableTBodyProps<T>) => {
-  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading } = props;
+  const prevRowsLength = useRef(0);
+  const {
+    getTableBodyProps,
+    prepareRow,
+    rows,
+    renderExpandedComponent,
+    loading,
+    pagination,
+    onInfiniteScroll,
+    pageSize,
+  } = props;
   const { t } = useT();
   const classes = useRowStyles();
 
@@ -44,7 +58,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
         })}
         {...getTableBodyProps()}
       >
-        {rows.map((row) => {
+        {rows.map((row, index) => {
           prepareRow(row);
           return (
             <React.Fragment key={row.getRowProps().key}>
@@ -70,9 +84,26 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
                 row={row}
                 renderExpandedComponent={renderExpandedComponent}
               />
+              {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
+                <Waypoint
+                  onEnter={() => {
+                    if (!loading && rows.length !== prevRowsLength.current) {
+                      onInfiniteScroll?.();
+                      prevRowsLength.current = rows.length;
+                    }
+                  }}
+                />
+              )}
             </React.Fragment>
           );
         })}
+        {pagination === 'infinite-scroll' && loading && rows.length !== 0 && (
+          <TableRow>
+            <TableCell align='center'>
+              <Loader size={20} />
+            </TableCell>
+          </TableRow>
+        )}
 
         {loading && rows.length === 0 && (
           <TableRow>

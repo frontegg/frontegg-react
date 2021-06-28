@@ -40,7 +40,7 @@ export interface TableProps<T extends object = {}> {
   pagination?: 'pages' | 'infinite-scroll';
   onPageChange?: (pageSize: number, page: number) => void;
   pageCount?: number;
-  pageSize?: number;
+  pageSize: number;
 
   toolbar?: boolean;
   loading?: boolean;

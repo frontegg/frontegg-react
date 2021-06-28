@@ -20,4 +20,5 @@ export const initialState: AuditsState = {
   predefinedFilters: [],
   isDownloadingCsv: false,
   isDownloadingPdf: false,
+  virtualScroll: false,
 };

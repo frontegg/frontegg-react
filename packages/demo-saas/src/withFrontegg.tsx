@@ -3,7 +3,7 @@ import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-
 import { AuthPlugin } from '@frontegg/react-auth';
 import { ConnectivityPlugin } from '@frontegg/react-connectivity';
 import { AuditsPlugin } from '@frontegg/react-audits';
-
+import { uiLibrary } from '@frontegg/react-elements-material-ui';
 const developmentHosts = ['localhost', 'local.frontegg.com'];
 const host =
   developmentHosts.indexOf(window.location.hostname) !== -1
@@ -11,8 +11,11 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: `https://app-fvVcpn6ArI50.frontegg.com`,
+  baseUrl: `https://maxx.stg.frontegg.com`,
   requestCredentials: 'include',
+  auditsOptions: {
+    virtualScroll: true,
+  },
 };
 
 const plugins: PluginConfig[] = [
@@ -23,7 +26,7 @@ const plugins: PluginConfig[] = [
 ];
 
 export const withFrontegg = (Component: ComponentType<any>) => () => (
-  <FronteggProvider debugMode context={contextOptions} plugins={plugins}>
+  <FronteggProvider debugMode context={contextOptions} plugins={plugins} uiLibrary={uiLibrary}>
     <Component />
   </FronteggProvider>
 );

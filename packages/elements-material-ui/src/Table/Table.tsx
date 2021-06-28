@@ -276,7 +276,9 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
   );
 
   const handleOnPageChange = useCallback(() => {
-    tableRef.current?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    if (pagination === 'pages') {
+      tableRef.current?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    }
     props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
   }, [tableState.pageIndex]);
 
@@ -304,9 +306,11 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
     }
   };
 
+  const { className, loading, pagination, totalData, pageSize } = props;
+
   return (
     <Paper ref={tableRef} className={classes.paper}>
-      <MaUTable className={classNames(classes.table, props.className)} {...getTableProps()}>
+      <MaUTable className={classNames(classes.table, className)} {...getTableProps()}>
         <TableHead
           headerGroups={headerGroups}
           onSortChange={onSortChange}
@@ -316,21 +320,24 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
           selectedFlatRows={selectedFlatRows}
         />
         <TableBody
+          pageSize={pageSize}
+          pagination={pagination}
           getTableBodyProps={getTableBodyProps}
           prepareRow={prepareRow}
-          loading={props.loading}
-          rows={(props.pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
+          loading={loading}
+          rows={(pagination ? page : rows) as (Row<T> & UseExpandedRowProps<T>)[]}
           renderExpandedComponent={props.renderExpandedComponent}
+          onInfiniteScroll={handleOnPageChange}
         />
       </MaUTable>
 
-      {props.loading && rows.length > 0 && <Loader center size={24} />}
-      {props.pagination === 'pages' && (
+      {loading && pagination !== 'infinite-scroll' && rows.length > 0 && <Loader center size={24} />}
+      {pagination === 'pages' && (
         <TablePagination
           className={classes.footer}
           rowsPerPageOptions={[]}
           component='div'
-          count={props.totalData || rows.length}
+          count={totalData || rows.length}
           rowsPerPage={tableState.pageSize}
           page={tableState.pageIndex}
           onChangePage={(e, page) => onPageChangeHandler(page)}
