@@ -43,7 +43,7 @@ export function* refreshMetadata() {
   try {
     const metadata = yield call(api.metadata.getSamlMetadata);
     ssoACS = metadata?.configuration?.acsUrl;
-    isSSOAuth = metadata?.configuration?.isActive;
+    isSSOAuth = metadata?.isActive;
   } catch (e) {
     isSSOAuth = false;
   }
