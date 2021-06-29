@@ -331,7 +331,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         />
       </MaUTable>
 
-      {loading && pagination !== 'infinite-scroll' && rows.length > 0 && <Loader center size={24} />}
+      {loading && pagination === 'pages' && rows.length > 0 && <Loader center size={24} />}
       {pagination === 'pages' && (
         <TablePagination
           className={classes.footer}

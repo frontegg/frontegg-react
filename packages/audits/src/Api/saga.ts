@@ -58,6 +58,7 @@ function* loadAuditsFunction({ payload }: LoadAuditsProps) {
   const { filters, sortBy, sortDirection, filter, offset, virtualScroll } = yield select();
   const { appendMode = virtualScroll, onlyOneLoad = true, offset: incomeOffset } = payload || {};
   const { rowsData } = appendMode ? yield select() : { rowsData: [] };
+
   try {
     const f2o = filterToObject(filters);
     const { data, total } = yield call(api.audits.getAudits, {
@@ -175,11 +176,14 @@ export function* sagas() {
       actions.loadAudits,
       actions.textSearch,
       actions.onPageChange,
-      actions.setFilterData,
-      actions.setDataSorting,
-      actions.startRefresh,
+      // actions.setFilterData,
+      // actions.setDataSorting,
+      // actions.startRefresh,
     ],
     loadAuditsFunction
+  );
+  yield takeLatest([actions.setFilterData, actions.setDataSorting, actions.startRefresh], () =>
+    loadAuditsFunction({ payload: { appendMode: false }, type: '' })
   );
   yield takeLatest(actions.exportCSV, exportCsvFunction);
   yield takeLatest(actions.exportPDF, exportPdfFunction);

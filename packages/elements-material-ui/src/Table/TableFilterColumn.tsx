@@ -33,7 +33,7 @@ export const TableFilterColumn: FC<FeTableFilterColumnProps> = <T extends object
 
   const closePopup = useCallback(() => {
     if (popupRef.current) {
-      (popupRef.current.children[0] as any)?.click?.();
+      (popupRef.current as any)?.closePopup?.();
     }
   }, [popupRef]);
 

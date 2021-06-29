@@ -10,13 +10,13 @@ import { Waypoint } from 'react-waypoint';
 
 type TableTBodyProps<T extends object> = {
   pagination?: TableProps['pagination'];
-  onInfiniteScroll?: () => void;
   loading?: boolean;
   getTableBodyProps: (propGetter?: TableBodyPropGetter<T>) => TableBodyProps;
   prepareRow: (row: Row<T>) => void;
   rows: (Row<T> & UseExpandedRowProps<T>)[];
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
-  pageSize: number;
+  pageSize?: number;
+  onInfiniteScroll?: () => void;
 };
 
 const useRowStyles = makeStyles({
@@ -54,7 +54,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
     <>
       <MTableBody
         className={classNames('fe-table__tbody', {
-          'fe-table__tbody__loading': loading,
+          'fe-table__tbody__loading': pagination === 'pages' && loading,
         })}
         {...getTableBodyProps()}
       >
@@ -87,6 +87,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
               {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
                 <Waypoint
                   onEnter={() => {
+                    console.log(loading, rows.length, prevRowsLength, 'loading, rows.length, prevRowsLength');
                     if (!loading && rows.length !== prevRowsLength.current) {
                       onInfiniteScroll?.();
                       prevRowsLength.current = rows.length;
