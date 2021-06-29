@@ -102,7 +102,7 @@ export async function loadUsers(params: ILoadUsers): Promise<PaginationResult<IT
  */
 export async function addUser(body: IAddUser): Promise<ITeamUser> {
   console.debug('addUser()', body);
-  return Post(TEAMS_USERS_SERVICE_URL_V1, body);
+  return Post(USERS_SERVICE_URL_V2, body);
 }
 
 /**

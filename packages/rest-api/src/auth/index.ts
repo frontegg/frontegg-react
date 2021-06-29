@@ -2,10 +2,10 @@
 
 export * from './secutiry-poilicy';
 
-import { Delete, Get, Patch, Post, Put } from '../fetch';
 import {
   AUTH_SERVICE_URL_V1,
-  IDENTITY_API_TOKENS_TENANTS_SERVICE,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE_V1,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE_V2,
   IDENTITY_API_TOKENS_USERS_SERVICE,
   IDENTITY_CONFIGURATION_SERVICE_URL_V1,
   IDENTITY_MFA_POLICY_SERVICE_V1,
@@ -15,14 +15,21 @@ import {
   USERS_SERVICE_URL_V1,
   USERS_SERVICE_URL_V2,
 } from '../constants';
-
+import { ContextHolder } from '../ContextHolder';
+import { Delete, Get, Patch, Post, Put } from '../fetch';
+import { jwtDecode } from '../jwt';
+import { ISamlRolesGroup } from '../teams/interfaces';
 import {
   IAcceptInvitation,
   IActivateAccount,
+  IAllowedToRememberMfaDevice,
+  ICreateSamlGroup,
   IDeleteApiToken,
   IDisableMfa,
   IEnrollMfaResponse,
   IForgotPassword,
+  IGetActivateAccountStrategy,
+  IGetActivateAccountStrategyResponse,
   IGetUserById,
   IGetUserPasswordConfig,
   ILogin,
@@ -36,12 +43,12 @@ import {
   IResetPassword,
   ISamlConfiguration,
   ISamlVendorConfigResponse,
-  ISecurityPolicyCaptcha,
   ISignUpResponse,
   ISignUpUser,
   ISocialLoginProviderConfiguration,
   ITenantApiTokensData,
   IUpdateSamlConfiguration,
+  IUpdateSamlGroup,
   IUpdateSamlRoles,
   IUpdateSamlVendorMetadata,
   IUpdateTenantApiTokensData,
@@ -51,15 +58,7 @@ import {
   IVendorConfig,
   IVerifyMfa,
   IVerifyMfaResponse,
-  IGetActivateAccountStrategy,
-  IGetActivateAccountStrategyResponse,
-  IAllowedToRememberMfaDevice,
-  IUpdateSamlGroup,
-  ICreateSamlGroup,
 } from './interfaces';
-import { ContextHolder } from '../ContextHolder';
-import { jwtDecode } from '../jwt';
-import { ISamlRolesGroup } from '../teams/interfaces';
 
 /*****************************************
  * Authentication
@@ -457,7 +456,7 @@ export async function getUserApiTokensData(): Promise<IUserApiTokensData[]> {
  */
 export async function getTenantApiTokensData(): Promise<ITenantApiTokensData[]> {
   console.debug('geTenantApiTokensData()');
-  return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`);
+  return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE_V1}`);
 }
 
 /**
@@ -474,7 +473,7 @@ export async function updateUserApiTokensData(body: IUpdateUserApiTokensData): P
  */
 export async function updateTenantApiTokensData(body: IUpdateTenantApiTokensData): Promise<ITenantApiTokensData> {
   console.debug('updateTenantApiTokensData()', body);
-  return Post(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`, body);
+  return Post(`${IDENTITY_API_TOKENS_TENANTS_SERVICE_V2}`, body);
 }
 
 /**
@@ -482,7 +481,7 @@ export async function updateTenantApiTokensData(body: IUpdateTenantApiTokensData
  */
 export async function deleteTenantApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
   console.debug('deleteTenantApiToken()', tokenId);
-  return Delete(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}/${tokenId}`);
+  return Delete(`${IDENTITY_API_TOKENS_TENANTS_SERVICE_V1}/${tokenId}`);
 }
 
 /**
