@@ -242,7 +242,7 @@ export const Table: FC<TableProps> = <T extends object>(props: TableProps<T>) =>
         column.setFilter(filterValue);
       }
     },
-    [props.onFilterChange]
+    [props.onFilterChange, tableState]
   );
 
   const onToggleAllRowsSelected = useCallback(

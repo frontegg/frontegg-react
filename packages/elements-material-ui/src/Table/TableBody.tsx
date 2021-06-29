@@ -87,7 +87,6 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
               {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
                 <Waypoint
                   onEnter={() => {
-                    console.log(loading, rows.length, prevRowsLength, 'loading, rows.length, prevRowsLength');
                     if (!loading && rows.length !== prevRowsLength.current) {
                       onInfiniteScroll?.();
                       prevRowsLength.current = rows.length;
