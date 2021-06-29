@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.4](https://github.com/frontegg/frontegg-react/compare/v2.8.3...v2.8.4) (2021-06-29)
+
+
+### Bug Fixes
+
+* **redux-store:** [FR-3203] - skip prelogin when saml is disabled ([#448](https://github.com/frontegg/frontegg-react/issues/448)) ([e6febcd](https://github.com/frontegg/frontegg-react/commit/e6febcd6f9305a6fc81a563baba875299eb331e8))
+* FR-3342, round number of total pages to bigger ([7a0fb1f](https://github.com/frontegg/frontegg-react/commit/7a0fb1f8410fb36469d1e3a0a2ad00b725c8bff7))
+
+
+
+
+
 ## [2.8.3](https://github.com/frontegg/frontegg-react/compare/v2.8.1...v2.8.3) (2021-06-23)
 
 
