@@ -6,6 +6,7 @@ import {
   IDeleteUser,
   ILoadUsers,
   IResendActivationLink,
+  IRole,
   ITeamUser,
   IUpdateUser,
 } from '@frontegg/rest-api';
@@ -86,7 +87,11 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
   const teamState = yield select();
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   try {
-    const newUser = yield call(api.teams.addUser, body);
+    const res = yield call(api.teams.addUser, body);
+    const { roles, ...userWithoutRoleIds } = res;
+    const roleIds = roles.map((role: IRole) => role.id);
+    const newUser = { ...userWithoutRoleIds, roleIds };
+
     callback?.(newUser);
     yield put(
       actions.setTeamState({
