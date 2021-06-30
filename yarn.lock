@@ -2987,18 +2987,18 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.3.1.tgz#437ec29339652217603a9801cb424c872417a66e"
-  integrity sha512-DWsHDTURCTAnWte5kfc3VWE8ZxG8kqUhMInvuAQCeJkGjFU3EHpBfrRMXme+dngo0yPWeUF+WjNxrV8M1czZMQ==
+"@frontegg/admin-portal@^1.3.6":
+  version "1.3.9"
+  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.3.9.tgz#330ce574b2c5129edb52c3bd33fe0757b57b8c67"
+  integrity sha512-8jPAV0FQo4zzOh7OcFWk9pQ+CXNEPg2kHCXP1nIF8EGeuKhw+mhYb8yo66yvDmWlwKNKbyNUxY36wB6rOiszKw==
   dependencies:
-    "@frontegg/injector" "0.0.25"
+    "@frontegg/injector" "0.0.26"
     uuid "^8.3.0"
 
-"@frontegg/injector@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.25.tgz#05009e41f8f1790941fa907c97c67b0496ddbf00"
-  integrity sha512-NXbn9gCD6hopsPGQzBnfxI2qEFqiqTSuqop6tm/1fu6jgWWxhRu9+rX3VRoGDYqWgeuypgLN67EtWcG0LLDnKQ==
+"@frontegg/injector@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.26.tgz#771c96da1f930d732d5d286ed1067697c7e239eb"
+  integrity sha512-Y0a2QKihNi7l4jdT5mez7ecIEZCaKW5ga+RzpD5JvrpX5N6ZM7bsSCaKoyAXJgMdU1mWy/2ZNjp9vY8Z2OQdKA==
 
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
