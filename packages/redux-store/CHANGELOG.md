@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.6](https://github.com/frontegg/frontegg-react/compare/v2.8.5...v2.8.6) (2021-06-30)
+
+
+### Bug Fixes
+
+* **redux-store:** fix add user saga ([#454](https://github.com/frontegg/frontegg-react/issues/454)) ([3c6aaea](https://github.com/frontegg/frontegg-react/commit/3c6aaea3f4b12805e2c5e1f6116c0f2c77cfba53))
+
+
+
+
+
 ## [2.8.5](https://github.com/frontegg/frontegg-react/compare/v2.8.4...v2.8.5) (2021-06-30)
 
 
