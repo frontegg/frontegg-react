@@ -1,17 +1,22 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { FeTableExpandable } from './FeTableExpandable';
 import { FeLoader } from '../Loader/FeLoader';
 import { useT } from '../../hooks';
+import { Waypoint } from 'react-waypoint';
+import { TableProps } from './interfaces';
 
 export type FeTableTBodyProps<T extends object> = {
+  pagination?: TableProps['pagination'];
   loading?: boolean;
   prefixCls: string;
   getTableBodyProps: (propGetter?: TableBodyPropGetter<T>) => TableBodyProps;
   prepareRow: (row: Row<T>) => void;
   rows: (Row<T> & UseExpandedRowProps<T>)[];
   renderExpandedComponent?: (data: T, index: number) => React.ReactNode;
+  pageSize?: number;
+  onInfiniteScroll?: () => void;
 };
 export type FeTableTBodyRowProps<T extends object> = {
   prepareRow: (row: Row<T>) => void;
@@ -43,24 +48,41 @@ export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = (props: FeTableTBo
 };
 
 export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props: FeTableTBodyProps<T>) => {
-  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading } = props;
+  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading, pagination, onInfiniteScroll } = props;
+  const prevRowsLength = useRef(0);
   const { t } = useT();
 
   return (
     <div
       className={classNames('fe-table__tbody', {
-        'fe-table__tbody__loading': props.loading,
+        'fe-table__tbody__loading': pagination === 'pages' && props.loading,
       })}
       {...getTableBodyProps()}
     >
-      {rows.map((row) => (
-        <FeTableTBodyRow
-          key={row.id}
-          prepareRow={prepareRow}
-          row={row}
-          renderExpandedComponent={renderExpandedComponent}
-        />
+      {rows.map((row, index) => (
+        <React.Fragment key={row.id}>
+          <FeTableTBodyRow prepareRow={prepareRow} row={row} renderExpandedComponent={renderExpandedComponent} />
+          {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
+            <Waypoint
+              onEnter={() => {
+                if (!loading && rows.length !== prevRowsLength.current) {
+                  onInfiniteScroll?.();
+                  prevRowsLength.current = rows.length;
+                }
+              }}
+            />
+          )}
+        </React.Fragment>
       ))}
+
+      {pagination === 'infinite-scroll' && loading && rows.length !== 0 && (
+        <div className={classNames('fe-table__tr')}>
+          <div className={classNames('fe-table__tr-td fe-table__tr-td-loader')}>
+            <FeLoader size={20} />
+          </div>
+        </div>
+      )}
+
       {loading && rows.length === 0 && (
         <div className={classNames('fe-table__tr')}>
           <div className={classNames('fe-table__tr-td fe-table__tr-td-loader')}>

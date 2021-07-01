@@ -55,21 +55,22 @@ const filterToObject = (arr: Array<Filter>) =>
   }, {});
 
 function* loadAuditsFunction({ payload }: LoadAuditsProps) {
-  const { appendMode = false, onlyOneLoad = true, offset: incomeOffset } = payload || {};
-  const { filters, sortBy, sortDirection, filter, offset } = yield select();
+  const { filters, sortBy, sortDirection, filter, offset, virtualScroll } = yield select();
+  const { appendMode = virtualScroll, onlyOneLoad = true, offset: incomeOffset } = payload || {};
+  const { rowsData } = appendMode ? yield select() : { rowsData: [] };
+
   try {
     const f2o = filterToObject(filters);
-
     const { data, total } = yield call(api.audits.getAudits, {
+      ...(virtualScroll && { paginationMode: 'virtual' }),
       sortDirection,
       sortBy,
       filter,
       ...f2o,
-      offset: incomeOffset || offset,
+      //TODO: refactor once api become V2 with query field for virtual scroll
+      offset: virtualScroll ? rowsData.length + incomeOffset || rowsData.length + offset : incomeOffset || offset,
       count: defaultItemsPerPage,
     });
-
-    const { rowsData } = appendMode ? yield select() : { rowsData: [] };
     yield put(actions.loadAuditsSuccess({ rowsData: [...rowsData, ...data], total }));
     onlyOneLoad && (yield put(actions.finishLoading()));
   } catch (e) {
@@ -175,11 +176,14 @@ export function* sagas() {
       actions.loadAudits,
       actions.textSearch,
       actions.onPageChange,
-      actions.setFilterData,
-      actions.setDataSorting,
-      actions.startRefresh,
+      // actions.setFilterData,
+      // actions.setDataSorting,
+      // actions.startRefresh,
     ],
     loadAuditsFunction
+  );
+  yield takeLatest([actions.setFilterData, actions.setDataSorting, actions.startRefresh], () =>
+    loadAuditsFunction({ payload: { appendMode: false }, type: '' })
   );
   yield takeLatest(actions.exportCSV, exportCsvFunction);
   yield takeLatest(actions.exportPDF, exportPdfFunction);

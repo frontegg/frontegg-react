@@ -222,7 +222,9 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
   );
 
   const handleOnPageChange = useCallback(() => {
-    tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    if (pagination === 'pages') {
+      tableRef.current?.querySelector(`.${prefixCls}__tbody`)?.scroll?.({ top: 0, left: 0, behavior: 'smooth' });
+    }
     props.onPageChange?.(tableState.pageSize, tableState.pageIndex);
   }, [tableState.pageIndex]);
 
@@ -270,18 +272,23 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
     setPageSize,
   };
 
+  const { className, toolbar, loading, pagination, pageSize } = props;
+
   return (
     <div className='fe-table__container'>
-      <div ref={tableRef} className={classNames(prefixCls, props.className)} {...getTableProps()}>
-        {props.toolbar && <FeTableToolbar />}
+      <div ref={tableRef} className={classNames(prefixCls, className)} {...getTableProps()}>
+        {toolbar && <FeTableToolbar />}
 
         <div
           className={classNames(
             `${prefixCls}__table-container`,
-            props.loading && `${prefixCls}__table-container-loading`
+            loading && pagination === 'pages' && `${prefixCls}__table-container-loading`
           )}
         >
           <FeTableTBody
+            pageSize={pageSize}
+            pagination={pagination}
+            onInfiniteScroll={handleOnPageChange}
             loading={props.loading}
             prefixCls={prefixCls}
             prepareRow={prepareRow}
@@ -292,8 +299,8 @@ export const FeTable: FC<TableProps> = <T extends object>(props: TableProps<T>) 
           <FeTableTHead {...tableHeadProps} />
         </div>
 
-        {props.loading && rows.length > 0 && <FeLoader center size={24} />}
-        {props.pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}
+        {loading && pagination === 'pages' && rows.length > 0 && <FeLoader center size={24} />}
+        {pagination === 'pages' && <FeTablePagination {...tablePaginationProps} />}
       </div>
     </div>
   );

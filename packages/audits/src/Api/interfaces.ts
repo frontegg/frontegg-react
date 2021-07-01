@@ -45,6 +45,7 @@ export interface AuditsState {
   predefinedFilters: Array<{ [key: string]: string }>;
   isDownloadingCsv?: boolean;
   isDownloadingPdf?: boolean;
+  virtualScroll?: boolean;
 }
 
 export interface LoadAudits {
