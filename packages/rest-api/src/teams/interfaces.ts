@@ -120,6 +120,10 @@ export type IResendActivationLink = {
   userId: string;
 };
 
+export type IResendInvitationLink = {
+  email: string;
+};
+
 export type ISendResetPasswordLink = {
   userId: string;
 };

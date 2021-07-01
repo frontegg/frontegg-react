@@ -1,5 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IAddUser, IDeleteUser, ILoadUsers, IResendActivationLink, ITeamUser, IUpdateUser } from '@frontegg/rest-api';
+import {
+  IAddUser,
+  IDeleteUser,
+  ILoadUsers,
+  IResendActivationLink,
+  IResendInvitationLink,
+  ITeamUser,
+  IUpdateUser,
+} from '@frontegg/rest-api';
 import {
   ISetAddUserDialog,
   ISetDeleteUserDialog,
@@ -55,6 +63,10 @@ const actions = {
     `${authStoreName}/resendActivationLink`,
     (payload: WithCallback<IResendActivationLink>) => ({ payload })
   ),
+  resendInvitationLink: createAction(
+    `${authStoreName}/resendInvitationLink`,
+    (payload: WithCallback<IResendInvitationLink>) => ({ payload })
+  ),
   openAddUserDialog: createAction(`${authStoreName}/openAddUserDialog`, (payload?: ISetAddUserDialog) => ({ payload })),
   closeAddUserDialog: createAction(`${authStoreName}/closeAddUserDialog`, (payload?: any) => ({ payload })),
   openDeleteUserDialog: createAction(`${authStoreName}/openDeleteUserDialog`, (payload?: ISetDeleteUserDialog) => ({
@@ -78,6 +90,7 @@ type DispatchedActions = {
   updateUser: (payload: WithCallback<IUpdateUser, ITeamUser>) => void;
   deleteUser: (payload: WithCallback<IDeleteUser>) => void;
   resendActivationLink: (payload: WithCallback<IResendActivationLink>) => void;
+  resendInvitationLink: (payload: WithCallback<IResendInvitationLink>) => void;
   openAddUserDialog: (payload?: ISetAddUserDialog) => void;
   closeAddUserDialog: (payload?: any) => void;
   openDeleteUserDialog: (payload?: ISetDeleteUserDialog) => void;
