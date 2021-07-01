@@ -403,7 +403,7 @@ function* resendActivationLinkMock({ payload }: PayloadAction<WithCallback<IRese
 
 function* resendInvitationLinkMock({ payload }: PayloadAction<WithCallback<IResendInvitationLink, boolean>>) {
   const { callback, ...body } = payload;
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: body.userId }));
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: body.email }));
   yield delay();
   callback?.(true);
   yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: false }));
