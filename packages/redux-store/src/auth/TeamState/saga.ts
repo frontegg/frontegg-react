@@ -200,7 +200,7 @@ function* resendActivationLink({ payload }: PayloadAction<WithCallback<IResendAc
 
 function* resendInvitationLink({ payload }: PayloadAction<WithCallback<IResendInvitationLink, boolean>>) {
   const { callback, ...body } = payload;
-  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: body.userId }));
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: body.email }));
   try {
     yield call(api.teams.resendInvitationLink, body);
     callback?.(true);
