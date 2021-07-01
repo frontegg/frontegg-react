@@ -14,7 +14,7 @@ export const AuditsPage: FC = () => {
   useEffect(() => {
     const context = ContextHolder.getContext();
     setVirtualScroll(!!context?.auditsOptions?.virtualScroll);
-  }, [setVirtualScroll, ContextHolder]);
+  }, [setVirtualScroll]);
 
   return (
     <Grid container direction='column' wrap='nowrap' className={prefixCls}>
