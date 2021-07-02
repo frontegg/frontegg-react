@@ -1,4 +1,4 @@
-import React, { FC, memo, useMemo, useRef } from 'react';
+import React, { FC, useMemo } from 'react';
 import classNames from 'classnames';
 import { Row, TableBodyPropGetter, TableBodyProps, UseExpandedRowProps } from 'react-table';
 import { FeTableExpandable } from './FeTableExpandable';
@@ -49,7 +49,6 @@ export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = (props: FeTableTBo
 
 export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props: FeTableTBodyProps<T>) => {
   const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading, pagination, onInfiniteScroll } = props;
-  const prevRowsLength = useRef(0);
   const { t } = useT();
 
   return (
@@ -65,9 +64,8 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
           {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
             <Waypoint
               onEnter={() => {
-                if (!loading && rows.length !== prevRowsLength.current) {
+                if (!loading) {
                   onInfiniteScroll?.();
-                  prevRowsLength.current = rows.length;
                 }
               }}
             />

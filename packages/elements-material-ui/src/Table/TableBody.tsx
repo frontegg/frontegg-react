@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useT, TableProps } from '@frontegg/react-core';
 import { TableBody as MTableBody, TableRow, TableCell } from '@material-ui/core';
@@ -36,7 +36,6 @@ const useRowStyles = makeStyles({
 });
 
 export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: TableTBodyProps<T>) => {
-  const prevRowsLength = useRef(0);
   const {
     getTableBodyProps,
     prepareRow,
@@ -87,9 +86,8 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
               {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
                 <Waypoint
                   onEnter={() => {
-                    if (!loading && rows.length !== prevRowsLength.current) {
+                    if (!loading) {
                       onInfiniteScroll?.();
-                      prevRowsLength.current = rows.length;
                     }
                   }}
                 />
