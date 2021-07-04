@@ -11,6 +11,7 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
+    "@frontegg/react": "^2.8.8-alpha.993988844",
     "@frontegg/react-auth": "^2.8.7",
     "@frontegg/react-core": "^2.8.7",
     "classnames": "^2.2.6",
