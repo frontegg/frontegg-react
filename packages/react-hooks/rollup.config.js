@@ -69,6 +69,7 @@ const cjsPlugins = [
 const entryPoints = [
   'auth/index',
   'audits/index',
+  'connectivity/index',
   'subscriptions/index',
   // Main Entry Point
   'index',

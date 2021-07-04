@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo } from 'react';
-import { Icon, Tabs, TabItem, usePrevious, useSelector, useT } from '@frontegg/react-core';
+import { Icon, Tabs, TabItem, usePrevious, useT } from '@frontegg/react-core';
 import { useHistory } from 'react-router-dom';
-import { IPluginState } from '../../interfaces';
 import { ConnectivityWebhooksForm } from './ConnectivityWebhooksForm';
 import { ConnectivityWebhooksLog } from './ConnectivityWebhooksLog';
 import { IWebhookLocationState } from './interfaces';
+import { useConnectivityState } from '@frontegg/react-hooks';
 
 const itemsArray = ['common.detail', 'common.logs'];
 
@@ -17,15 +17,14 @@ export const ConnectivityWebhooksEdit: FC = () => {
     location: { state: locationState, ...location },
   } = useHistory<IWebhookLocationState>();
 
-  const { error, webhook, isSaving } = useSelector(({ connectivity: { error, webhook, isSaving } }: IPluginState) => ({
-    error,
-    webhook,
-    isSaving,
-  }));
+  const { error, webhook, isSaving } = useConnectivityState();
 
   const prevIsSaving = usePrevious(isSaving);
-
-  const data = useMemo(() => webhook?.find(({ _id }) => _id === locationState.id), [webhook, locationState]);
+  const preparedWebhook = webhook?.data ?? webhook;
+  const data = useMemo(() => webhook && preparedWebhook?.find(({ _id }) => _id === locationState.id), [
+    webhook?.data,
+    locationState,
+  ]);
 
   const onBack = useCallback(() => {
     historyReplace({ ...location, state: { ...locationState, view: 'list', id: undefined } });

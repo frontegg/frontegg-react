@@ -4,13 +4,14 @@ import { useAuditsState, useAuditsActions } from '../helpers/hooks';
 import { AuditsRawTable } from './AuditsRawTable';
 
 export const AuditsTable: FC = () => {
-  const { isLoading, headerProps, rowsData, filters, total } = useAuditsState(
-    ({ isLoading, headerProps, rowsData, filters, total }) => ({
+  const { isLoading, headerProps, rowsData, filters, total, virtualScroll } = useAuditsState(
+    ({ isLoading, headerProps, rowsData, filters, total, virtualScroll }) => ({
       isLoading,
       headerProps,
       rowsData,
       filters,
       total,
+      virtualScroll,
     })
   );
   const { onPageChange, setDataSorting, setFilterData, initData } = useAuditsActions();
@@ -20,7 +21,6 @@ export const AuditsTable: FC = () => {
   }, [initData]);
 
   const dataFilters = useMemo(() => (filters ? filters.map((f) => ({ id: f.key, value: f.value })) : []), [filters]);
-
   const handlerPageChange = useCallback(
     (pageSize: number, pageIndex: number) => {
       onPageChange(pageIndex + 1);
@@ -54,6 +54,7 @@ export const AuditsTable: FC = () => {
       loading={isLoading}
       filters={dataFilters}
       headerProps={headerProps}
+      virtualScroll={virtualScroll}
       onSortChange={handlerSortChange}
       onPageChange={handlerPageChange}
       onFilterChange={handlerFilterChange}

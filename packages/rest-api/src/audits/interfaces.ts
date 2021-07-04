@@ -23,6 +23,7 @@ export interface IGetAuditsParams {
   filter: string;
   offset: number;
   count: number;
+  paginationMode?: 'virtual';
 }
 
 export interface IAudits {

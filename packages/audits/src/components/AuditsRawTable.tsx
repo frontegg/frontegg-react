@@ -13,9 +13,10 @@ export interface IAuditsRawTable
     'data' | 'totalData' | 'loading' | 'onPageChange' | 'onSortChange' | 'filters' | 'onFilterChange'
   > {
   headerProps: HeaderProps[];
+  virtualScroll?: boolean;
 }
 
-export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, data, ...tableProps }) => {
+export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, data, virtualScroll, ...tableProps }) => {
   const headersToShow = useMemo(() => headerProps.filter((_) => str2bool(_.showInMoreInfo)), [headerProps]);
 
   const columns = useMemo(() => {
@@ -69,7 +70,7 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, da
       data={getTableData()}
       columns={columns}
       rowKey='frontegg_id'
-      pagination='pages'
+      pagination={virtualScroll ? 'infinite-scroll' : 'pages'}
       pageSize={defaultItemsPerPage}
       pageCount={Math.max(Math.ceil(tableProps.totalData / defaultItemsPerPage), 1)}
       expandable={!!headersToShow.length}

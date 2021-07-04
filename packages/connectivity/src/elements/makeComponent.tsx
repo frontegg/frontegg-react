@@ -5,7 +5,7 @@ import { RootPathContext, useDispatch } from '@frontegg/react-core';
 import { ConnectivityContentProps } from '../components/ConnectivityContent';
 import { TPlatform } from '../interfaces';
 import { platformForm } from '../consts';
-import { connectivityActions } from '../reducer';
+import { useConnectivityActions } from '@frontegg/react-hooks';
 
 export interface IMakeComponent {
   type: TPlatform;
@@ -16,6 +16,7 @@ export const makeComponent = ({ type, defaultPath }: IMakeComponent): FC<Connect
   rootPath = defaultPath,
   className,
 }) => {
+  const { loadDataAction, initData } = useConnectivityActions();
   const dispatch = useDispatch();
   const {
     replace: historyReplace,
@@ -27,9 +28,9 @@ export const makeComponent = ({ type, defaultPath }: IMakeComponent): FC<Connect
   }, [historyReplace, location, state]);
 
   useLayoutEffect(() => {
-    dispatch(connectivityActions.loadDataAction([type]));
+    loadDataAction([type]);
     return () => {
-      dispatch(connectivityActions.cleanData());
+      initData();
     };
   }, [dispatch]);
 

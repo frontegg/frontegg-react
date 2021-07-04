@@ -2,26 +2,34 @@
 
 export * from './secutiry-poilicy';
 
-import { Delete, Get, Post, Put } from '../fetch';
 import {
   AUTH_SERVICE_URL_V1,
-  IDENTITY_API_TOKENS_TENANTS_SERVICE,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE_V1,
+  IDENTITY_API_TOKENS_TENANTS_SERVICE_V2,
   IDENTITY_API_TOKENS_USERS_SERVICE,
   IDENTITY_CONFIGURATION_SERVICE_URL_V1,
   IDENTITY_MFA_POLICY_SERVICE_V1,
   IDENTITY_SSO_SERVICE_URL_V1,
   SSO_SERVICE_URL_V1,
+  SSO_SERVICE_URL_V2,
   USERS_SERVICE_URL_V1,
   USERS_SERVICE_URL_V2,
 } from '../constants';
-
+import { ContextHolder } from '../ContextHolder';
+import { Delete, Get, Patch, Post, Put } from '../fetch';
+import { jwtDecode } from '../jwt';
+import { ISamlRolesGroup } from '../teams/interfaces';
 import {
   IAcceptInvitation,
   IActivateAccount,
+  IAllowedToRememberMfaDevice,
+  ICreateSamlGroup,
   IDeleteApiToken,
   IDisableMfa,
   IEnrollMfaResponse,
   IForgotPassword,
+  IGetActivateAccountStrategy,
+  IGetActivateAccountStrategyResponse,
   IGetUserById,
   IGetUserPasswordConfig,
   ILogin,
@@ -35,12 +43,12 @@ import {
   IResetPassword,
   ISamlConfiguration,
   ISamlVendorConfigResponse,
-  ISecurityPolicyCaptcha,
   ISignUpResponse,
   ISignUpUser,
   ISocialLoginProviderConfiguration,
   ITenantApiTokensData,
   IUpdateSamlConfiguration,
+  IUpdateSamlGroup,
   IUpdateSamlRoles,
   IUpdateSamlVendorMetadata,
   IUpdateTenantApiTokensData,
@@ -50,12 +58,7 @@ import {
   IVendorConfig,
   IVerifyMfa,
   IVerifyMfaResponse,
-  IGetActivateAccountStrategy,
-  IGetActivateAccountStrategyResponse,
-  IAllowedToRememberMfaDevice,
 } from './interfaces';
-import { ContextHolder } from '../ContextHolder';
-import { jwtDecode } from '../jwt';
 
 /*****************************************
  * Authentication
@@ -339,11 +342,44 @@ export async function getSamlRoles(): Promise<string[]> {
 }
 
 /**
+ *  Get Saml roles groups
+ * @return array of groups and assigend role IDs
+ */
+export async function getSamlRolesGroups(): Promise<ISamlRolesGroup[]> {
+  console.debug('getSamlRoles()');
+  return Get(`${SSO_SERVICE_URL_V2}/saml/configurations/groups`);
+}
+
+/**
  *  Update Saml roles for authorization
  */
 export async function updateSamlRoles({ roleIds }: IUpdateSamlRoles): Promise<void> {
   console.debug('updateSamlRoles()');
   return Post(`${SSO_SERVICE_URL_V1}/saml/configurations/roles/default`, { roleIds });
+}
+
+/**
+ *  Create Saml group roles for authorization
+ */
+export async function createSamlGroup({ roleIds, group }: ICreateSamlGroup): Promise<void> {
+  console.debug('createSamlGroup()');
+  return Post(`${SSO_SERVICE_URL_V2}/saml/configurations/groups`, { group, roleIds });
+}
+
+/**
+ *  Update Saml group roles for authorization
+ */
+export async function updateSamlGroup({ roleIds, group, id }: IUpdateSamlGroup): Promise<void> {
+  console.debug('updateSamlGroup()');
+  return Patch(`${SSO_SERVICE_URL_V2}/saml/configurations/groups/${id}`, { group, roleIds });
+}
+
+/**
+ *  Delete Saml group
+ */
+export async function deleteSamlGroup({ id }: { id: string }): Promise<void> {
+  console.debug('deleteSamlGroup()');
+  return Delete(`${SSO_SERVICE_URL_V2}/saml/configurations/groups/${id}`);
 }
 
 /**
@@ -420,7 +456,7 @@ export async function getUserApiTokensData(): Promise<IUserApiTokensData[]> {
  */
 export async function getTenantApiTokensData(): Promise<ITenantApiTokensData[]> {
   console.debug('geTenantApiTokensData()');
-  return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`);
+  return Get(`${IDENTITY_API_TOKENS_TENANTS_SERVICE_V1}`);
 }
 
 /**
@@ -437,7 +473,7 @@ export async function updateUserApiTokensData(body: IUpdateUserApiTokensData): P
  */
 export async function updateTenantApiTokensData(body: IUpdateTenantApiTokensData): Promise<ITenantApiTokensData> {
   console.debug('updateTenantApiTokensData()', body);
-  return Post(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}`, body);
+  return Post(`${IDENTITY_API_TOKENS_TENANTS_SERVICE_V2}`, body);
 }
 
 /**
@@ -445,7 +481,7 @@ export async function updateTenantApiTokensData(body: IUpdateTenantApiTokensData
  */
 export async function deleteTenantApiToken({ tokenId }: IDeleteApiToken): Promise<void> {
   console.debug('deleteTenantApiToken()', tokenId);
-  return Delete(`${IDENTITY_API_TOKENS_TENANTS_SERVICE}/${tokenId}`);
+  return Delete(`${IDENTITY_API_TOKENS_TENANTS_SERVICE_V1}/${tokenId}`);
 }
 
 /**

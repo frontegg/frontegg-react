@@ -3,6 +3,91 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.7](https://github.com/frontegg/frontegg-react/compare/v2.8.6...v2.8.7) (2021-07-01)
+
+**Note:** Version bump only for package @frontegg/redux-store
+
+
+
+
+
+## [2.8.6](https://github.com/frontegg/frontegg-react/compare/v2.8.5...v2.8.6) (2021-06-30)
+
+
+### Bug Fixes
+
+* **redux-store:** fix add user saga ([#454](https://github.com/frontegg/frontegg-react/issues/454)) ([3c6aaea](https://github.com/frontegg/frontegg-react/commit/3c6aaea3f4b12805e2c5e1f6116c0f2c77cfba53))
+
+
+
+
+
+## [2.8.5](https://github.com/frontegg/frontegg-react/compare/v2.8.4...v2.8.5) (2021-06-30)
+
+
+### Bug Fixes
+
+* **redux-store:** fix addUser saga ([#452](https://github.com/frontegg/frontegg-react/issues/452)) ([f5b19a7](https://github.com/frontegg/frontegg-react/commit/f5b19a75a599aacfc2cd104393272860d4ff7b2e))
+
+
+
+
+
+## [2.8.4](https://github.com/frontegg/frontegg-react/compare/v2.8.3...v2.8.4) (2021-06-29)
+
+
+### Bug Fixes
+
+* **redux-store:** [FR-3203] - skip prelogin when saml is disabled ([#448](https://github.com/frontegg/frontegg-react/issues/448)) ([e6febcd](https://github.com/frontegg/frontegg-react/commit/e6febcd6f9305a6fc81a563baba875299eb331e8))
+* FR-3342, round number of total pages to bigger ([7a0fb1f](https://github.com/frontegg/frontegg-react/commit/7a0fb1f8410fb36469d1e3a0a2ad00b725c8bff7))
+
+
+
+
+
+## [2.8.3](https://github.com/frontegg/frontegg-react/compare/v2.8.1...v2.8.3) (2021-06-23)
+
+
+### Bug Fixes
+
+* align all dependencies versions ([f1d5c48](https://github.com/frontegg/frontegg-react/commit/f1d5c48aba34827ea06a554cfb61734f1a40c93b))
+* update libraries version ([77da072](https://github.com/frontegg/frontegg-react/commit/77da072c67cb11e6cccb86b044a3a1a22b09625c))
+
+
+
+
+
+## [2.8.2](https://github.com/frontegg/frontegg-react/compare/v2.8.1...v2.8.2) (2021-06-23)
+
+
+### Bug Fixes
+
+* update libraries version ([77da072](https://github.com/frontegg/frontegg-react/commit/77da072c67cb11e6cccb86b044a3a1a22b09625c))
+
+
+
+
+
+# [2.8.0](https://github.com/frontegg/frontegg-react/compare/v2.7.2...v2.8.0) (2021-06-21)
+
+
+### Features
+
+* add connectivity redux hooks FR-2889 ([b8a5f98](https://github.com/frontegg/frontegg-react/commit/b8a5f98a6e173b239d8bfc9111c9f4794a322259))
+* move connectivity state to redux-store package FR-2889 ([55b80f8](https://github.com/frontegg/frontegg-react/commit/55b80f87181fa0283f187f7b36286cb0575586c9))
+
+
+
+
+
+## [2.7.2](https://github.com/frontegg/frontegg-react/compare/v2.7.1...v2.7.2) (2021-06-14)
+
+**Note:** Version bump only for package @frontegg/redux-store
+
+
+
+
+
 # [2.7.0](https://github.com/frontegg/frontegg-react/compare/v2.6.0...v2.7.0) (2021-06-07)
 
 

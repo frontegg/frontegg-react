@@ -1,4 +1,4 @@
-import { ISamlConfiguration, ITeamUserRole } from '@frontegg/rest-api';
+import { ICreateSamlGroup, ISamlConfiguration, ISamlRolesGroup, ITeamUserRole } from '@frontegg/rest-api';
 import { WithCallback } from '../../interfaces';
 
 export interface SSOState {
@@ -8,6 +8,7 @@ export interface SSOState {
   saving?: boolean;
   samlConfiguration?: ISamlConfiguration;
   roles?: ITeamUserRole[];
+  rolesGroups?: ISamlRolesGroup[];
   authorizationRoles?: string[];
 }
 
@@ -20,4 +21,11 @@ export enum SamlVendors {
 }
 
 export type SaveSSOConfigurationPayload = WithCallback<Partial<ISamlConfiguration & { samlVendor: SamlVendors }>>;
-export type UpdateSSOAuthorizationRolesPayload = WithCallback<{ authorizationRoles: string[] }>;
+export type UpdateSSOAuthorizationRolesPayload = WithCallback<{
+  authorizationRoles: string[];
+  groups?: ISamlRolesGroup[];
+}>;
+export type DeleteSamlGroupPayload = WithCallback<{
+  id: string;
+}>;
+export type CreateSamlGroupPayload = WithCallback<ICreateSamlGroup>;

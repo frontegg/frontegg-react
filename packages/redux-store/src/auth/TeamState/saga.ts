@@ -6,6 +6,8 @@ import {
   IDeleteUser,
   ILoadUsers,
   IResendActivationLink,
+  IResendInvitationLink,
+  IRole,
   ITeamUser,
   IUpdateUser,
 } from '@frontegg/rest-api';
@@ -86,7 +88,11 @@ function* addUser({ payload }: PayloadAction<WithCallback<IAddUser, ITeamUser>>)
   const teamState = yield select();
   yield put(actions.setTeamState({ addUserDialogState: { ...teamState.addUserDialogState, loading: true } }));
   try {
-    const { item: newUser } = yield call(api.teams.addUser, body);
+    const res = yield call(api.teams.addUser, body);
+    const { roles, ...userWithoutRoleIds } = res;
+    const roleIds = roles.map((role: IRole) => role.id);
+    const newUser = { ...userWithoutRoleIds, roleIds };
+
     callback?.(newUser);
     yield put(
       actions.setTeamState({
@@ -192,7 +198,19 @@ function* resendActivationLink({ payload }: PayloadAction<WithCallback<IResendAc
   yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_ACTIVATE_LINK, value: false }));
 }
 
-//ask david
+function* resendInvitationLink({ payload }: PayloadAction<WithCallback<IResendInvitationLink, boolean>>) {
+  const { callback, ...body } = payload;
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: body.email }));
+  try {
+    yield call(api.teams.resendInvitationLink, body);
+    callback?.(true);
+  } catch (e) {
+    yield put(actions.setTeamError({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: e.message }));
+    callback?.(null, e.message);
+  }
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: false }));
+}
+
 function* openAddUserDialog({ payload }: PayloadAction<ISetAddUserDialog | undefined>) {
   yield put(
     actions.setTeamState({
@@ -258,6 +276,7 @@ export function* teamSagas() {
   yield takeEvery(actions.updateUser, updateUser);
   yield takeEvery(actions.deleteUser, deleteUser);
   yield takeEvery(actions.resendActivationLink, resendActivationLink);
+  yield takeEvery(actions.resendInvitationLink, resendInvitationLink);
   yield takeEvery(actions.openAddUserDialog, openAddUserDialog);
   yield takeEvery(actions.closeAddUserDialog, closeAddUserDialog);
   yield takeEvery(actions.openDeleteUserDialog, openDeleteUserDialog);
@@ -382,6 +401,14 @@ function* resendActivationLinkMock({ payload }: PayloadAction<WithCallback<IRese
   yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_ACTIVATE_LINK, value: false }));
 }
 
+function* resendInvitationLinkMock({ payload }: PayloadAction<WithCallback<IResendInvitationLink, boolean>>) {
+  const { callback, ...body } = payload;
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: body.email }));
+  yield delay();
+  callback?.(true);
+  yield put(actions.setTeamLoader({ key: TeamStateKeys.RESEND_INVITATION_LINK, value: false }));
+}
+
 export function* teamSagasMock() {
   yield takeLatest(actions.loadUsers, loadUsersMock);
   yield takeLatest(actions.loadRoles, loadRolesMock);
@@ -389,6 +416,7 @@ export function* teamSagasMock() {
   yield takeEvery(actions.updateUser, updateUserMock);
   yield takeEvery(actions.deleteUser, deleteUserMock);
   yield takeEvery(actions.resendActivationLink, resendActivationLinkMock);
+  yield takeEvery(actions.resendInvitationLink, resendInvitationLinkMock);
   yield takeEvery(actions.openAddUserDialog, openAddUserDialog);
   yield takeEvery(actions.closeAddUserDialog, closeAddUserDialog);
   yield takeEvery(actions.openDeleteUserDialog, openDeleteUserDialog);

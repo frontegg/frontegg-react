@@ -12,15 +12,12 @@ import {
   Loader,
   Dialog,
   useSearch,
-  useDispatch,
-  useSelector,
   TableColumnProps,
 } from '@frontegg/react-core';
-import { IPluginState } from '../../interfaces';
 import { IWebhookLocationState } from './interfaces';
 import { filterCategories, selectedEvents } from '../../utils';
-import { connectivityActions } from '../../reducer';
 import { ConnectivityCheckBox } from '../../elements/ConnectivityCheckBox';
+import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 interface IEventCount {
   name: string;
@@ -35,7 +32,6 @@ interface IWebhooksFullConfigurations extends IWebhooksConfigurations {
 export const ConnectivityWebhooksList: FC = () => {
   const prevSaving = useRef<{ isSaving: boolean }>({ isSaving: false });
   const { t } = useT();
-  const dispatch = useDispatch();
   const {
     replace: historyReplace,
     location: { state: locationState, ...location },
@@ -43,27 +39,19 @@ export const ConnectivityWebhooksList: FC = () => {
 
   const [remove, onRemove] = useState<IWebhooksConfigurations | null>(null);
 
-  const { webhookState, isSaving, categories, channelMap, isLoading, processIds } = useSelector(
-    ({ connectivity: { isLoading, isSaving, webhook, categories, channelMap, processIds } }: IPluginState) => ({
-      webhookState: webhook,
-      isSaving,
-      isLoading,
-      categories,
-      channelMap: channelMap && channelMap.webhook,
-      processIds,
-    })
-  );
+  const { postDataAction, deleteWebhookConfigAction } = useConnectivityActions();
+  const { webhook: webhookState, isSaving, categories, channelMap, isLoading, processIds } = useConnectivityState();
 
   useLayoutEffect(() => {
     remove && prevSaving.current.isSaving && onRemove(null);
     prevSaving.current.isSaving = isSaving;
   }, [isSaving, onRemove, remove, prevSaving]);
+  const cleanCatagories = filterCategories(categories, channelMap && channelMap.webhook);
 
-  const cleanCatagories = filterCategories(categories, channelMap);
-
+  const preparedWebhookState = webhookState?.data ?? webhookState;
   const webhook = useMemo(
     () =>
-      webhookState?.map((elm) => {
+      preparedWebhookState?.map((elm) => {
         const eventObject = selectedEvents(elm.eventKeys);
         const data = cleanCatagories?.reduce<IEventCount[]>((acc, cur) => {
           if (eventObject?.names.includes(cur.name)) {
@@ -98,14 +86,9 @@ export const ConnectivityWebhooksList: FC = () => {
     historyReplace({ ...location, state: { ...locationState, view: 'edit' } });
   }, [Location, locationState]);
 
-  const onChangeStatus = useCallback(
-    (data: IWebhooksSaveData) => {
-      dispatch(
-        connectivityActions.postDataAction({ platform: 'webhook', data: { ...data, isActive: !data.isActive } })
-      );
-    },
-    [dispatch]
-  );
+  const onChangeStatus = useCallback((data: IWebhooksSaveData) => {
+    postDataAction({ platform: 'webhook', data: { ...data, isActive: !data.isActive } });
+  }, []);
 
   const columns: TableColumnProps<IWebhooksFullConfigurations>[] = useMemo(
     () => [
@@ -190,7 +173,13 @@ export const ConnectivityWebhooksList: FC = () => {
               </Button>
             }
             items={[
-              { text: t('common.edit'), icon: <Icon name='edit' />, onClick: () => onEdit(row.original._id) },
+              {
+                text: t('common.edit'),
+                icon: <Icon name='edit' />,
+                onClick: () => {
+                  onEdit(row.original._id);
+                },
+              },
               { text: t('common.remove'), icon: <Icon name='delete' />, onClick: () => onRemove(row.original) },
             ]}
           />
@@ -228,7 +217,7 @@ export const ConnectivityWebhooksList: FC = () => {
                     variant='danger'
                     loading={isSaving}
                     onClick={() => {
-                      dispatch(connectivityActions.deleteWebhookConfigAction(remove._id));
+                      deleteWebhookConfigAction(remove._id);
                     }}
                   >
                     Accept

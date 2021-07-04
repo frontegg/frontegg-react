@@ -8,8 +8,6 @@ import {
   FInput,
   FButton,
   FFormik,
-  useDispatch,
-  useSelector,
   validateUrl,
   validateSchema,
   validateRequired,
@@ -21,9 +19,8 @@ import { IWebhooksSaveData } from '@frontegg/rest-api';
 import { AccordingCategories } from '../../elements/AccordingCategories';
 import { SelectWebhook } from '../../elements/SelectWebhook';
 import { filterCategories } from '../../utils';
-import { IPluginState } from '../../interfaces';
-import { connectivityActions } from '../../reducer';
 import { ConnectivityWebhooksTestForm } from './ConnectivityWebhooksTestFrom';
+import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
 export interface IConnectivityWebhooksForm {
   data: IWebhooksSaveData | null;
@@ -31,30 +28,23 @@ export interface IConnectivityWebhooksForm {
 
 export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }) => {
   const { t } = useT();
-  const dispatch = useDispatch();
   const [openTestDialog, setOpenTestDialog] = useState(false);
-  const { error, categories, channelMap, testResult, isSaving } = useSelector(
-    ({ connectivity: { error, categories, channelMap, isTesting, testResult, isSaving } }: IPluginState) => ({
-      error,
-      isSaving,
-      isTesting,
-      categories,
-      testResult,
-      channelMap: channelMap && channelMap.webhook,
-    })
-  );
+
+  const { cleanWebhookTestMessage, cleanWebhookTestData, cleanError, postDataAction } = useConnectivityActions();
+  const { error, categories, channelMap, testResult, isSaving } = useConnectivityState();
+
   useEffect(() => {
     return () => {
-      dispatch(connectivityActions.cleanWebhookTestData());
+      cleanWebhookTestData();
     };
-  }, [dispatch]);
+  }, []);
 
   const toggleTestDialog = useCallback(() => {
     if (openTestDialog) {
-      dispatch(connectivityActions.cleanWebhookTestMessage());
+      cleanWebhookTestMessage();
     }
     setOpenTestDialog(!openTestDialog);
-  }, [setOpenTestDialog, openTestDialog, dispatch]);
+  }, [setOpenTestDialog, openTestDialog]);
 
   const validationSchema = validateSchema({
     displayName: validateRequired(t('common.displayName'), t),
@@ -63,7 +53,7 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
     secret: validateLength('Secret Key', 8, t),
   });
 
-  const cleanCategory = filterCategories(categories, channelMap);
+  const cleanCategory = filterCategories(categories, channelMap && channelMap.webhook);
 
   return (
     <>
@@ -71,13 +61,11 @@ export const ConnectivityWebhooksForm: FC<IConnectivityWebhooksForm> = ({ data }
         validationSchema={validationSchema}
         initialValues={{ ...initialValues, ...data, secret: data?.secret || '' }}
         onSubmit={(val, { setSubmitting }) => {
-          dispatch(connectivityActions.cleanError());
-          dispatch(
-            connectivityActions.postDataAction({
-              platform: 'webhook',
-              data: { ...val, secret: val.secret ? val.secret : null },
-            })
-          );
+          cleanError();
+          postDataAction({
+            platform: 'webhook',
+            data: { ...val, secret: val.secret ? val.secret : null },
+          });
           setSubmitting(false);
         }}
       >

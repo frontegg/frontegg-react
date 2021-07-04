@@ -61,6 +61,12 @@ export type ITeamUserPermission = {
   categoryId: string;
 };
 
+export interface ISamlRolesGroup {
+  id: string;
+  group: string;
+  roleIds: string[];
+}
+
 export type ITeamStats = {
   totalItems: number;
   addedThisWeek: number;
@@ -112,6 +118,10 @@ export type IUpdateUser = Partial<ITeamUser>;
 
 export type IResendActivationLink = {
   userId: string;
+};
+
+export type IResendInvitationLink = {
+  email: string;
 };
 
 export type ISendResetPasswordLink = {

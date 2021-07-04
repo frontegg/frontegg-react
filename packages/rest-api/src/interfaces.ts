@@ -24,6 +24,9 @@ export interface ContextOptions {
   requestCredentials?: RequestCredentials;
   urlPrefix?: string;
   logLevel?: LogLevel;
+  auditsOptions?: {
+    virtualScroll?: boolean;
+  };
 }
 
 export interface QuerySort {

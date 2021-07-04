@@ -10,7 +10,7 @@ export const checkTableProps = <T extends {}>(props: TableProps<T>) => {
   if (props.hasOwnProperty('filters') && !props.onFilterChange) {
     throw Error('FeTable: you must provide onFilterChange property if filters is controlled');
   }
-  if (props.hasOwnProperty('pagination') && !props.pageSize) {
+  if (props.hasOwnProperty('pagination') && props.pagination === 'pages' && !props.pageSize) {
     throw Error('FeTable: you must provide pageSize property if pagination enabled');
   }
   if (props.hasOwnProperty('onPageChange') && !props.pageCount) {

@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-material-ui",
   "libName": "FronteggElementsMaterialUi",
-  "version": "2.2.0",
+  "version": "2.8.3",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -15,6 +15,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "react-popper-tooltip": "^3.1.0",
+    "react-waypoint": "^10.1.0",
     "underscore": "^1.10.2"
   },
   "devDependencies": {

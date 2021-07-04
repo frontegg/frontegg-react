@@ -1,3 +1,4 @@
+import { AuthState } from '../auth';
 import {
   configureStore,
   EnhancedStore,
@@ -11,6 +12,7 @@ import { all, call } from 'redux-saga/effects';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import authStore from '../auth';
 import auditsStore from '../audits';
+import connectivityStore from '../connectivity';
 
 export * from './redux';
 export * from './redux-saga';
@@ -58,7 +60,8 @@ const { reducer: rootReducer } = createSlice({
 export const createFronteggStore = (
   rootInitialState: InitialState,
   storeHolder?: any,
-  previewMode: boolean = false
+  previewMode: boolean = false,
+  authInitialState?: Partial<AuthState>
 ): EnhancedStore => {
   const isSSR = typeof window === 'undefined';
   let holder = storeHolder;
@@ -77,18 +80,27 @@ export const createFronteggStore = (
       middleware,
       preloadedState: {
         root: { ...rootInitialState } as any,
-        [authStore.storeName]: authStore.initialState,
+        [authStore.storeName]: {
+          ...authStore.initialState,
+          ...authInitialState,
+          routes: {
+            ...authStore.initialState.routes,
+            ...(authInitialState?.routes ?? {}),
+          },
+        },
         [auditsStore.storeName]: auditsStore.initialState,
+        [connectivityStore.storeName]: connectivityStore.initialState,
       },
       reducer: combineReducers({
         root: rootReducer,
         [authStore.storeName]: authStore.reducer,
         [auditsStore.storeName]: auditsStore.reducer,
+        [connectivityStore.storeName]: connectivityStore.reducer,
       }),
     });
 
     const rootSaga = function* () {
-      yield all([call(authStore.sagas), call(auditsStore.sagas)]);
+      yield all([call(authStore.sagas), call(auditsStore.sagas), call(connectivityStore.sagas)]);
     };
 
     const rootMockSaga = function* () {

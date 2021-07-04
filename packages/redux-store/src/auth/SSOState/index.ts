@@ -1,5 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
-import { SaveSSOConfigurationPayload, SSOState, UpdateSSOAuthorizationRolesPayload } from './interfaces';
+import {
+  CreateSamlGroupPayload,
+  DeleteSamlGroupPayload,
+  SaveSSOConfigurationPayload,
+  SSOState,
+  UpdateSSOAuthorizationRolesPayload,
+} from './interfaces';
 import { resetStateByKey, typeReducerForKey } from '../utils';
 import { ActionDispatchMatcher, WithCallback } from '../../interfaces';
 import { authStoreName } from '../../constants';
@@ -30,6 +36,8 @@ const actions = {
     `${authStoreName}/updateSSOAuthorizationRoles`,
     (payload: UpdateSSOAuthorizationRolesPayload) => ({ payload })
   ),
+  deleteSamlGroup: createAction(`${authStoreName}/deleteSamlGroup`, (payload: DeleteSamlGroupPayload) => ({ payload })),
+  createSamlGroup: createAction(`${authStoreName}/createSamlGroup`, (payload: CreateSamlGroupPayload) => ({ payload })),
 };
 
 /**
@@ -45,6 +53,8 @@ type DispatchedActions = {
   saveSSOConfigurationsFile: (payload: File[]) => void;
   validateSSODomain: (payload?: WithCallback) => void;
   updateSSOAuthorizationRoles: (payload: UpdateSSOAuthorizationRolesPayload) => void;
+  deleteSamlGroup: (payload: DeleteSamlGroupPayload) => void;
+  createSamlGroup: (payload: CreateSamlGroupPayload) => void;
 };
 
 // noinspection JSUnusedLocalSymbols

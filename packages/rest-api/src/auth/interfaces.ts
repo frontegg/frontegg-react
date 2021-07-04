@@ -189,6 +189,17 @@ export interface IUpdateSamlRoles {
   roleIds: string[];
 }
 
+export interface IUpdateSamlGroup {
+  id: string;
+  group: string;
+  roleIds: string[];
+}
+
+export interface ICreateSamlGroup {
+  group: string;
+  roleIds?: string[];
+}
+
 export type IGetUserById = { userId: string };
 
 export interface IUserIdResponse {

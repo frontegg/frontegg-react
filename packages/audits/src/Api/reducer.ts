@@ -15,6 +15,9 @@ const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
     startLoading: (state) => {
       state.isLoading = true;
     },
+    setVirtualScroll: (state, { payload }) => {
+      state.virtualScroll = payload;
+    },
     startRefresh: (state) => {
       state.isLoading = true;
     },
