@@ -2,11 +2,12 @@ import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
 import { LoadAudits, Filter, DataSorting } from './interfaces';
 import moment from 'moment';
+import { auditsStoreName } from '@frontegg/redux-store';
 
 export const defaultItemsPerPage = 20;
 
 const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
-  name: 'audits',
+  name: auditsStoreName,
   initialState,
   reducers: {
     setContext: (state, { payload }) => {
