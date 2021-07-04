@@ -1,27 +1,29 @@
-import { call, put, select, takeEvery, takeLeading } from 'redux-saga/effects';
+import { call, put, takeLeading } from 'redux-saga/effects';
 import { actions } from '../reducer';
 import { billingActions } from './index';
-import { api, ISubscriptionProductResponse, ISubscriptionResponse } from '@frontegg/rest-api';
-import { SubscriptionsState } from '../interfaces';
-import { Subscription } from './interfaces';
+import { api, ISubscriptionPlansResponse, ISubscriptionResponse } from '@frontegg/rest-api';
 
 export function* billingSagas() {
-  yield takeLeading(billingActions.loadProducts, loadProducts);
+  yield takeLeading(billingActions.loadProducts, loadPlans);
   yield takeLeading(billingActions.loadSubscriptions, loadSubscriptions);
-  yield takeEvery(actions.setSubscriptions, normalizeSubscriptions);
 }
 
-function* loadProducts() {
+function* loadPlans() {
   yield put(actions.loading(true));
 
   try {
-    const products: ISubscriptionProductResponse[] = yield call(api.subscriptions.getSubscriptionProducts);
+    const products:ISubscriptionPlansResponse[] = yield call(api.subscriptions.getSubscriptionPlans);
     yield put(
-      actions.setProducts(
-        products.map((item) => ({
+      actions.setPlans(
+        products.map((item, index) => ({
           id: item.id,
-        })),
-      ),
+          name: item.name,
+          description: item.description,
+          price: (index + 1) * 10 + '$',
+          currency: 'Usd',
+          recurringInterval: 'month',
+        }))
+      )
     );
     yield put(billingActions.loadSubscriptions(true));
     yield put(actions.loading(false));
@@ -34,44 +36,17 @@ function* loadSubscriptions() {
   yield put(actions.loading(true));
 
   try {
-    const subscriptions: ISubscriptionResponse[] = yield call(api.subscriptions.getSubscriptionProducts);
+    const subscriptions:ISubscriptionResponse[] = yield call(api.subscriptions.getTenantSubscriptions);
     yield put(
       actions.setSubscriptions(
-        subscriptions.map((item) => ({
-          id: item.id,
-        })),
-      ),
+        subscriptions.map((subscription) => ({
+          id: subscription.id,
+
+        }))
+      )
     );
     yield put(actions.loading(false));
   } catch (e) {
     yield put(actions.error(e));
   }
-}
-
-function* normalizeSubscriptions() {
-  const subscriptions: Subscription[] = yield select((state: SubscriptionsState) => state.billing.subscriptions);
-
-  const subscriptionProductMap: { [key: string]: string } = subscriptions
-    .reduce<{
-      productId: string,
-      subscriptionId: string,
-    }[]>(
-      (a, b) => [
-        ...a,
-        ...b.items.map((value) => ({
-          productId: value.productId,
-          subscriptionId: b.id,
-        })),
-      ],
-      [],
-    )
-    .reduce(
-      (a, b) => ({
-        ...a,
-        [b.productId]: [b.subscriptionId],
-      }),
-      {},
-    );
-
-  yield put(actions.setSubscriotionProductMap(subscriptionProductMap));
 }

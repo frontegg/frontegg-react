@@ -1,4 +1,4 @@
-export interface Product {
+export interface Plan {
   id: string;
   name: string;
   description: string;
@@ -16,11 +16,10 @@ export interface Subscription {
 
 export interface SubscriptionItem {
   id: string;
-  productId: string;
+  planId: string;
 }
 
 export interface BillingState {
   subscriptions: Subscription[],
-  subscriptionProductMap: { [key: string]: string };
-  products: Product[];
+  plans: Plan[];
 }

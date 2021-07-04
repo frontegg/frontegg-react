@@ -1,22 +1,7 @@
-export enum ISubscriptionPriceCurrency {
-  USD = 'Usd',
-  NIS = 'Nis',
-}
-
-export enum ISubscriptionPriceRecurringInterval {
-  DAY = 'Day',
-  WEEK = 'Week',
-  MONTH = 'Month',
-  YEAR = 'Year',
-}
-
-export interface ISubscriptionProductResponse {
+export interface ISubscriptionPlansResponse {
   id: string;
   name: string;
   description: string;
-  price: number;
-  currency: ISubscriptionPriceCurrency;
-  recurringInterval: ISubscriptionPriceRecurringInterval;
 }
 
 export interface ISubscriptionResponse {
