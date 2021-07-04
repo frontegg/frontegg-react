@@ -1,2 +1,3 @@
-export interface CheckoutState {
-}
+export interface CheckoutState {}
+
+export interface CheckoutActions {}

@@ -13,6 +13,5 @@ export interface ISubscriptionResponse {
 
 export interface ISubscriptionItemResponse {
   id: string;
-  productId: string;
-  quantity: number;
+  planId: string;
 }

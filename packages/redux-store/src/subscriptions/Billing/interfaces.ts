@@ -20,6 +20,13 @@ export interface SubscriptionItem {
 }
 
 export interface BillingState {
-  subscriptions: Subscription[],
+  subscriptions: Subscription[];
   plans: Plan[];
+}
+
+export interface BillingActions {
+  loadPlans: () => void;
+  loadSubscriptions: () => void;
+  setPlans: (payload: Plan[]) => void;
+  setSubscriptions: (payload: Subscription[]) => void;
 }

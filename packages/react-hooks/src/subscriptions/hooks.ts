@@ -1,14 +1,14 @@
-import { SubscriptionActions, subscriptionActions, SubscriptionState } from '@frontegg/redux-store/subscriptions';
+import { subscriptionActions, SubscriptionsActions, SubscriptionsState } from '@frontegg/redux-store/subscriptions';
 import { bindActionCreators } from '@frontegg/redux-store/toolkit';
 import { useDispatch, useSelector } from '../FronteggStoreContext';
 import { shallowEqual } from 'react-redux';
 import { useMemo } from 'react';
 
-export const useSubscriptionState = (): SubscriptionState => {
-  return useSelector((state: SubscriptionState) => state, shallowEqual);
+export const useSubscriptionState = (): SubscriptionsState => {
+  return useSelector((state: SubscriptionsState) => state, shallowEqual);
 };
 
-export const useSubscriptionActions = (): SubscriptionActions => {
+export const useSubscriptionActions = (): SubscriptionsActions => {
   const dispatch = useDispatch();
   return useMemo(() => bindActionCreators(subscriptionActions, dispatch), [subscriptionActions]);
 };

@@ -8,7 +8,7 @@ export const billingInitialState: BillingState = {
   plans: [],
 };
 
-export const billingReducer: ValidateSliceCaseReducers<SubscriptionsState, SliceCaseReducers<SubscriptionsState>> = {
+export const billingReducer = {
   setPlans: {
     prepare: (payload: Plan[]) => ({ payload }),
     reducer: (state: SubscriptionsState, action: PayloadAction<Plan[]>): SubscriptionsState => ({
@@ -32,7 +32,7 @@ export const billingReducer: ValidateSliceCaseReducers<SubscriptionsState, Slice
 };
 
 export const billingActions = {
-  loadProducts: createAction(`${subscriptionsStoreName}/loadProducts`, (payload: boolean = false) => ({ payload })),
+  loadPlans: createAction(`${subscriptionsStoreName}/loadPlans`, (payload: boolean = false) => ({ payload })),
   loadSubscriptions: createAction(`${subscriptionsStoreName}/loadSubscriptions`, (payload: boolean = false) => ({
     payload,
   })),
