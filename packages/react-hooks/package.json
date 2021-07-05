@@ -12,7 +12,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/redux-store": "^2.8.7",
+    "@frontegg/redux-store": "3.0.0",
     "react-redux": "^7.x"
   },
   "devDependencies": {
