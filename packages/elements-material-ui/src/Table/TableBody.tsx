@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useT, TableProps } from '@frontegg/react-core';
 import { TableBody as MTableBody, TableRow, TableCell } from '@material-ui/core';
@@ -49,6 +49,9 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
   const { t } = useT();
   const classes = useRowStyles();
 
+  const isInfiniteScroll = pagination === 'infinite-scroll';
+  const isFirstWaypoint = useMemo(() => rows.length <= (pageSize ?? 20), [pageSize, rows.length]);
+
   return (
     <>
       <MTableBody
@@ -83,7 +86,16 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
                 row={row}
                 renderExpandedComponent={renderExpandedComponent}
               />
-              {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
+              {isInfiniteScroll && isFirstWaypoint && index === rows.length - 4 && (
+                <Waypoint
+                  onEnter={({ previousPosition }) => {
+                    if (!loading && previousPosition !== 'above') {
+                      onInfiniteScroll?.();
+                    }
+                  }}
+                />
+              )}
+              {isInfiniteScroll && !isFirstWaypoint && index === rows.length - 15 && (
                 <Waypoint
                   onEnter={({ previousPosition }) => {
                     if (!loading && previousPosition !== 'above') {
@@ -95,7 +107,7 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
             </React.Fragment>
           );
         })}
-        {pagination === 'infinite-scroll' && loading && rows.length !== 0 && (
+        {isInfiniteScroll && loading && rows.length !== 0 && (
           <TableRow>
             <TableCell align='center'>
               <Loader size={20} />

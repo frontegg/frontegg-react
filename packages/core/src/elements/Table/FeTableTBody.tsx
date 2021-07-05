@@ -48,8 +48,20 @@ export const FeTableTBodyRow: FC<FeTableTBodyRowProps<any>> = (props: FeTableTBo
 };
 
 export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props: FeTableTBodyProps<T>) => {
-  const { getTableBodyProps, prepareRow, rows, renderExpandedComponent, loading, pagination, onInfiniteScroll } = props;
+  const {
+    getTableBodyProps,
+    prepareRow,
+    rows,
+    renderExpandedComponent,
+    loading,
+    pagination,
+    onInfiniteScroll,
+    pageSize,
+  } = props;
   const { t } = useT();
+
+  const isInfiniteScroll = pagination === 'infinite-scroll';
+  const isFirstWaypoint = useMemo(() => rows.length <= (pageSize ?? 20), [pageSize, rows.length]);
 
   return (
     <div
@@ -61,7 +73,16 @@ export const FeTableTBody: FC<FeTableTBodyProps<any>> = <T extends object>(props
       {rows.map((row, index) => (
         <React.Fragment key={row.id}>
           <FeTableTBodyRow prepareRow={prepareRow} row={row} renderExpandedComponent={renderExpandedComponent} />
-          {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
+          {isInfiniteScroll && isFirstWaypoint && index === rows.length - 4 && (
+            <Waypoint
+              onEnter={({ previousPosition }) => {
+                if (!loading && previousPosition !== 'above') {
+                  onInfiniteScroll?.();
+                }
+              }}
+            />
+          )}
+          {isInfiniteScroll && !isFirstWaypoint && index === rows.length - 15 && (
             <Waypoint
               onEnter={({ previousPosition }) => {
                 if (!loading && previousPosition !== 'above') {
