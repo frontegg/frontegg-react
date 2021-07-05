@@ -18,18 +18,17 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
   const prevSearch = useRef<{ search: string | null }>({ search: null });
   const { onSetFilter, onDownloadCSV, onDownloadPDF } = props as IAuditsSubHeader;
 
-  const state = useAuditsState(({ filters, isDownloadingCsv, isDownloadingPdf }) => ({
+  const state = useAuditsState(({ filters, isDownloadingCsv }) => ({
     filters,
     isDownloadingCsv,
-    isDownloadingPdf,
   }));
 
-  const { filters, isDownloadingCsv, isDownloadingPdf } = useMemo(
+  const { filters, isDownloadingCsv } = useMemo(
     () => (props.hasOwnProperty('filters') ? (props as IAuditsSubHeader) : state),
     [state, props]
   );
 
-  const { setFilterData, exportCSV, exportPDF } = useAuditsActions();
+  const { setFilterData, exportCSV } = useAuditsActions();
 
   const [search, setSearch] = useState('');
   const searchValue = useDebounce(search, 500);
@@ -45,17 +44,12 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
   const downloadItems: MenuItemProps[] = useMemo(
     () => [
       {
-        icon: isDownloadingPdf ? <Loader /> : <Icon name='pdf' />,
-        iconClassName: 'fe-audits__subHeader-menuIcon',
-        text: <div onClick={onDownloadPDF ?? exportPDF}>Download Pdf</div>,
-      },
-      {
         icon: isDownloadingCsv ? <Loader /> : <Icon name='csv' />,
         iconClassName: 'fe-audits__subHeader-menuIcon',
         text: <div onClick={onDownloadCSV ?? exportCSV}>Download Csv</div>,
       },
     ],
-    [exportPDF, exportCSV, onDownloadCSV, onDownloadPDF, isDownloadingPdf, isDownloadingCsv]
+    [exportCSV, onDownloadCSV, onDownloadPDF, isDownloadingCsv]
   );
 
   useEffect(() => {

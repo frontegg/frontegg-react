@@ -33,12 +33,6 @@ const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
     stopDownloadingCsv: (state) => {
       state.isDownloadingCsv = false;
     },
-    startDownloadingPdf: (state) => {
-      state.isDownloadingPdf = true;
-    },
-    stopDownloadingPdf: (state) => {
-      state.isDownloadingPdf = false;
-    },
     loadStatsSuccess: (state, { payload }) => {
       state.error = undefined;
       state.totalToday = payload.totalToday;
