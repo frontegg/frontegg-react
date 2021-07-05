@@ -11,7 +11,7 @@ const host =
     : window.location.hostname;
 
 const contextOptions: ContextOptions = {
-  baseUrl: `https://app-fZyyBlXSLH.stg.frontegg.com`,
+  baseUrl: `https://maxx.stg.frontegg.com`,
   requestCredentials: 'include',
   auditsOptions: {
     virtualScroll: true,
