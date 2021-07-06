@@ -17,3 +17,5 @@ export async function getTenantSubscriptions(): Promise<ISubscriptionResponse[]>
   console.debug('getTenantSubscriptions()');
   return Get(`${SUBSCRIPTIONS_BILLING_SERVICE_URL_V1}/subscriptions`);
 }
+
+export * from './stripe';

@@ -3,12 +3,14 @@ import { subscriptionsStoreName } from '../constants';
 import { SubscriptionsState } from './interfaces';
 import { checkoutInitialState, checkoutReducer } from './Checkout';
 import { billingInitialState, billingReducer } from './Billing';
+import { stripeInitialState, stripeReducer } from './Stripe';
 
 export const initialState: SubscriptionsState = {
   loading: false,
   error: null,
   checkout: checkoutInitialState,
   billing: billingInitialState,
+  stripe: stripeInitialState,
 };
 
 const subscriptionReducers = {
@@ -26,6 +28,7 @@ const subscriptionReducers = {
   },
   ...checkoutReducer,
   ...billingReducer,
+  ...stripeReducer
 };
 
 export const {
