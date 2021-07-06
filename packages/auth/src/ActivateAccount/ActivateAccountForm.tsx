@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useCallback, useEffect, useState } from 'react';
+import React, { ComponentType, createElement, FC, RefObject, useCallback, useEffect, useState } from 'react';
 import { AuthActions, AuthState } from '@frontegg/redux-store/auth';
 import {
   validatePasswordConfirmation,
@@ -15,6 +15,7 @@ import {
 import { IGetActivateAccountStrategyResponse } from '@frontegg/rest-api';
 import { useAuth, useAuthActions } from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
+import { ReCaptcha } from 'react-recaptcha-v3';
 
 const { Formik } = FFormik;
 
@@ -73,6 +74,13 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
     activationStrategy.loading ||
     (!activationStrategy.strategy?.shouldSetPassword && activateStateLoading);
 
+  const recaptchaRef: RefObject<ReCaptcha> = React.createRef();
+  useEffect(() => {
+    if (recaptchaRef.current && !loading) {
+      error && recaptchaRef.current.execute();
+    }
+  }, [loading, error, recaptchaRef]);
+
   if (renderer) {
     return createElement(renderer, { ...props, loading, error, passwordConfig } as any);
   }
@@ -112,7 +120,7 @@ export const ActivateAccountForm: FC<ActivateAccountFormProps> = (props) => {
           {t('auth.activate-account.activate-account-button')}
         </FButton>
         <ErrorMessage error={error} />
-        <FReCaptcha action='activate_account' />
+        <FReCaptcha recaptchaRef={recaptchaRef} action='activate_account' />
       </FForm>
     </Formik>
   );
