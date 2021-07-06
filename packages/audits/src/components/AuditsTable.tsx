@@ -2,6 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { TableFilter, TableSort } from '@frontegg/react-core';
 import { useAuditsState, useAuditsActions } from '../helpers/hooks';
 import { AuditsRawTable } from './AuditsRawTable';
+import { ContextHolder } from '@frontegg/rest-api';
 
 export const AuditsTable: FC = () => {
   const { isLoading, headerProps, rowsData, filters, total, virtualScroll } = useAuditsState(
@@ -14,9 +15,11 @@ export const AuditsTable: FC = () => {
       virtualScroll,
     })
   );
-  const { onPageChange, setDataSorting, setFilterData, initData } = useAuditsActions();
+  const { onPageChange, setDataSorting, setFilterData, initData, setVirtualScroll } = useAuditsActions();
 
   useEffect(() => {
+    const context = ContextHolder.getContext();
+    setVirtualScroll(!!context?.auditsOptions?.virtualScroll);
     initData();
   }, [initData]);
 
