@@ -20,15 +20,15 @@ const plugins: PluginConfig[] = [AuthPlugin(), ConnectivityPlugin(), AuditsPlugi
 const ConnectAdminPortal = ({ children }: any) => {
   const { store } = useContext(FronteggStoreContext);
 
-  // useEffect(() => {
-  //   initialize({
-  //     version: 'next',
-  //     contextOptions,
-  //     customLoader: true,
-  //     customLoginBox: true,
-  //     store,
-  //   });
-  // }, [store]);
+  useEffect(() => {
+    initialize({
+      version: 'next',
+      contextOptions,
+      customLoader: true,
+      customLoginBox: true,
+      store,
+    });
+  }, [store]);
   return <>{children}</>;
 };
 export const withFrontegg = (Component: ComponentType<any>) => () => (
