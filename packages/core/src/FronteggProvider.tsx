@@ -1,10 +1,10 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useRef } from 'react';
 import { Middleware, Reducer, EnhancedStore } from '@frontegg/redux-store/toolkit';
 import { Provider, FronteggStoreContext } from '@frontegg/react-hooks';
 import { I18nextProvider } from 'react-i18next';
 import { ContextOptions, ListenerProps, LogLevel } from './interfaces';
 import { i18n } from './I18nInitializer';
-import { BrowserRouter, useHistory, useLocation, Router } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
 import { Elements, ElementsFactory } from './ElementsFactory';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { createFronteggStore } from '@frontegg/redux-store';
@@ -28,6 +28,7 @@ export interface FeProviderProps {
   onRedirectTo?: (path: string, opts?: RedirectOptions) => void;
   debugMode?: boolean;
   storeMiddlewares?: Middleware[];
+  store?: EnhancedStore;
 }
 
 const fronteggStore: { store?: EnhancedStore } = {};
@@ -57,6 +58,7 @@ const FePlugins: FC<FeProviderProps> = (props) => {
 
 const FeState: FC<FeProviderProps> = (props) => {
   const history = useHistory();
+  const storeRef = useRef<any>({});
   const location = useLocation();
   const baseName = isSSR
     ? ''
@@ -82,9 +84,10 @@ const FeState: FC<FeProviderProps> = (props) => {
 
   const store = useMemo(
     () =>
+      props.store ??
       createFronteggStore(
         { context: props.context },
-        fronteggStore,
+        storeRef.current,
         false,
         {
           ...(props.plugins?.find((n) => n.storeName === authStoreName)?.preloadedState ?? {}),
@@ -92,12 +95,12 @@ const FeState: FC<FeProviderProps> = (props) => {
         },
         {
           audits: {
-            context,
+            context: props.context,
             ...props.context.auditsOptions,
           } as any,
         }
       ),
-    []
+    [props.store]
   );
 
   /* for Cypress tests */
