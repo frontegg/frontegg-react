@@ -36,7 +36,7 @@ export const AccountPopup: FC<AccountPopupProps> = (props) => {
         ...((user?.tenantIds?.length ?? 0) > 1
           ? [
               {
-                icon: <Icon data-test-id='switchTenant' name='swap' />,
+                icon: <Icon data-test-id='switchWorkspace' name='swap' />,
                 title: 'Switch Tenant',
                 dataTestId: 'switch-tenant-btn',
                 onClick: () => {
