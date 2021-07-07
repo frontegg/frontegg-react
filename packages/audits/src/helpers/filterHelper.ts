@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Filter } from '../Api/interfaces';
+import { Filter } from '@frontegg/redux-store/audits/backward-compatibility';
 
 export const getFilterType = (type: string): 'input' | 'select' => {
   switch (type) {

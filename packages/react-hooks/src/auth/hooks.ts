@@ -4,6 +4,7 @@ import { authActions, AuthActions, AuthPageRoutes, AuthState, User, authStoreNam
 import { shallowEqual } from 'react-redux';
 import { useSelector, useDispatch } from '../FronteggStoreContext';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { useLoginState } from './login';
 
 export type AuthMapper = {
   state: (state: AuthState) => any;

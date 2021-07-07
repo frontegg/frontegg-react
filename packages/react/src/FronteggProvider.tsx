@@ -4,6 +4,7 @@ import { FronteggProvider as ReduxProvider } from '@frontegg/react-hooks';
 import { BrowserRouter } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { useOnRedirectTo } from '@frontegg/react-hooks/auth';
 
 export type FronteggProviderProps = FronteggConfigOptions;
 type ConnectorProps = FronteggProviderProps;
@@ -17,6 +18,7 @@ export const Connector: FC<ConnectorProps> = (props) => {
   const history = useHistory();
   const isSSR = typeof window === 'undefined';
   const baseName = getBasename(history);
+
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
     let path = _path;
     if (path.startsWith(baseName)) {
@@ -46,6 +48,7 @@ export const Connector: FC<ConnectorProps> = (props) => {
   }, []);
   return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
 };
+
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   const history = useHistory();
 
