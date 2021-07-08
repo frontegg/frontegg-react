@@ -1,7 +1,6 @@
-import { AuditsState } from './interfaces';
-import moment from 'moment';
+import { OldAuditsState } from './interfaces';
 
-export const initialState: AuditsState = {
+export const initialState: OldAuditsState = {
   total: 0,
   offset: 0,
   filter: '',
@@ -9,7 +8,7 @@ export const initialState: AuditsState = {
   context: null,
   filters: [],
   rowsData: [],
-  lastUpdated: moment(),
+  lastUpdated: new Date(),
   isLoading: true,
   isFetchMore: false,
   totalToday: 0,

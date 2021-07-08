@@ -23,7 +23,9 @@ export const AuditsTable: FC = () => {
     initData();
   }, [initData]);
 
-  const dataFilters = useMemo(() => (filters ? filters.map((f) => ({ id: f.key, value: f.value })) : []), [filters]);
+  const dataFilters = useMemo(() => (filters ? filters.map((f: any) => ({ id: f.key, value: f.value })) : []), [
+    filters,
+  ]);
   const handlerPageChange = useCallback(
     (pageSize: number, pageIndex: number) => {
       onPageChange(pageIndex + 1);

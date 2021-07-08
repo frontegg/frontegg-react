@@ -1,6 +1,4 @@
-import { ContextOptions, ThemeOptions } from '@frontegg/react-core';
-import { AuditRowData, SortDirectionType } from '@frontegg/rest-api';
-import { Moment } from 'moment';
+import { ContextOptions, AuditRowData, SortDirectionType } from '@frontegg/rest-api';
 
 export interface DataSorting {
   sortDirection: SortDirectionType;
@@ -24,25 +22,25 @@ export interface Filter {
   value: string;
 }
 
-export interface AuditsState {
+export interface OldAuditsState {
   total: number;
   error?: { metadata?: string };
   offset: number;
   filter: string;
   sortBy: string;
-  filters: Array<Filter>;
+  filters: Filter[];
   context: ContextOptions | null;
-  rowsData: Array<AuditRowData>;
-  lastUpdated: Moment;
+  rowsData: AuditRowData[];
+  lastUpdated: Date;
   isLoading: boolean;
   totalToday: number;
-  headerProps: Array<HeaderProps>;
-  themeAudits?: ThemeOptions;
+  headerProps: HeaderProps[];
+  themeAudits?: any;
   currentPage: number;
   isFetchMore: boolean;
   sortDirection: SortDirectionType;
   severeThisWeek: number;
-  predefinedFilters: Array<{ [key: string]: string }>;
+  predefinedFilters: { [key: string]: string }[];
   isDownloadingCsv?: boolean;
   isDownloadingPdf?: boolean;
   virtualScroll?: boolean;

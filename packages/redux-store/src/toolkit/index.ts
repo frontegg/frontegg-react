@@ -11,8 +11,10 @@ import createSagaMiddleware from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import authStore from '../auth';
-import auditsStore from '../audits';
+import auditsStore, { AuditsState } from '../audits';
+import * as oldAuditsStore from '../audits/backward-compatibility';
 import connectivityStore from '../connectivity';
+import { OldAuditsState } from '../audits/backward-compatibility';
 
 export * from './redux';
 export * from './redux-saga';
@@ -61,7 +63,12 @@ export const createFronteggStore = (
   rootInitialState: InitialState,
   storeHolder?: any,
   previewMode: boolean = false,
-  authInitialState?: Partial<AuthState>
+  authInitialState?: Partial<AuthState>,
+  overrideInitialState?: Partial<{
+    auth: Partial<AuthState>;
+    auditLogs: Partial<AuditsState>;
+    audits: Partial<OldAuditsState>;
+  }>
 ): EnhancedStore => {
   const isSSR = typeof window === 'undefined';
   let holder = storeHolder;
@@ -83,24 +90,47 @@ export const createFronteggStore = (
         [authStore.storeName]: {
           ...authStore.initialState,
           ...authInitialState,
+          ...(overrideInitialState?.auth ?? {}),
           routes: {
             ...authStore.initialState.routes,
             ...(authInitialState?.routes ?? {}),
+            ...(overrideInitialState?.auth?.routes ?? {}),
           },
         },
-        [auditsStore.storeName]: auditsStore.initialState,
+        [auditsStore.storeName]: {
+          ...auditsStore.initialState,
+          ...(overrideInitialState?.auditLogs ?? {}),
+          auditLogsState: {
+            ...auditsStore.initialState.auditLogsState,
+            ...(overrideInitialState?.auditLogs?.auditLogsState ?? {}),
+          },
+          auditsMetadataState: {
+            ...auditsStore.initialState.auditsMetadataState,
+            ...(overrideInitialState?.auditLogs?.auditsMetadataState ?? {}),
+          },
+        },
+        [oldAuditsStore.storeName]: {
+          ...oldAuditsStore.initialState,
+          ...(overrideInitialState?.audits ?? {}),
+        },
         [connectivityStore.storeName]: connectivityStore.initialState,
       },
       reducer: combineReducers({
         root: rootReducer,
         [authStore.storeName]: authStore.reducer,
         [auditsStore.storeName]: auditsStore.reducer,
+        [oldAuditsStore.storeName]: oldAuditsStore.reducer,
         [connectivityStore.storeName]: connectivityStore.reducer,
       }),
     });
 
     const rootSaga = function* () {
-      yield all([call(authStore.sagas), call(auditsStore.sagas), call(connectivityStore.sagas)]);
+      yield all([
+        call(authStore.sagas),
+        call(auditsStore.sagas),
+        call(oldAuditsStore.sagas),
+        call(connectivityStore.sagas),
+      ]);
     };
 
     const rootMockSaga = function* () {
@@ -108,9 +138,9 @@ export const createFronteggStore = (
     };
 
     if (previewMode) {
-      sagaMiddleware.run(rootMockSaga);
+      holder.store.destroy = sagaMiddleware.run(rootMockSaga).cancel;
     } else {
-      sagaMiddleware.run(rootSaga);
+      holder.store.destroy = sagaMiddleware.run(rootSaga).cancel;
     }
   }
 
