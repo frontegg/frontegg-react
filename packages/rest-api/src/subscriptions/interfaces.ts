@@ -1,7 +1,16 @@
-export interface ISubscriptionPlansResponse {
+export interface IPlanResponse {
   id: string;
+  externalId: string;
   name: string;
   description: string;
+  price: IPlanResponsePriceResponse;
+}
+
+export interface IPlanResponsePriceResponse {
+  id: string;
+  externalId: string;
+  currency: string;
+  amount: number;
 }
 
 export interface ISubscriptionResponse {
@@ -14,6 +23,14 @@ export interface ISubscriptionResponse {
 export interface ISubscriptionItemResponse {
   id: string;
   planId: string;
+  price: ISubscriptionItemPriceResponse;
+}
+
+export interface ISubscriptionItemPriceResponse {
+  id: string;
+  externalId: string;
+  currency: string;
+  amount: number;
 }
 
 export * from './stripe/interfaces';
