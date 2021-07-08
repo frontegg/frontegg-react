@@ -105,7 +105,7 @@ const FeState: FC<FeProviderProps> = (props) => {
   useEffect(
     () => () => {
       try {
-        (props.store as Tas)?.destroy();
+        (props.store as any)?.destroy();
       } catch (e) {}
     },
     []
