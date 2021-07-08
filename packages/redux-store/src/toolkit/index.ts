@@ -138,9 +138,9 @@ export const createFronteggStore = (
     };
 
     if (previewMode) {
-      sagaMiddleware.run(rootMockSaga);
+      holder.store.destory = sagaMiddleware.run(rootMockSaga).cancel;
     } else {
-      sagaMiddleware.run(rootSaga);
+      holder.store.destory = sagaMiddleware.run(rootSaga).cancel;
     }
   }
 

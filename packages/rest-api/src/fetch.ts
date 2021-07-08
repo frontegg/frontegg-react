@@ -107,6 +107,10 @@ const sendRequest = async (opts: RequestOptions) => {
     credentials: opts.credentials ?? context.requestCredentials ?? 'same-origin',
   });
 
+  if (response.status === 302) {
+    window.location.href = await response.text();
+    return new Promise(() => {});
+  }
   if (!response.ok) {
     if (response.status === 413) {
       throw new Error('Error request is too large');

@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useRef } from 'react';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { Middleware, Reducer, EnhancedStore } from '@frontegg/redux-store/toolkit';
 import { Provider, FronteggStoreContext } from '@frontegg/react-hooks';
 import { I18nextProvider } from 'react-i18next';
@@ -30,8 +30,6 @@ export interface FeProviderProps {
   storeMiddlewares?: Middleware[];
   store?: EnhancedStore;
 }
-
-const fronteggStore: { store?: EnhancedStore } = {};
 
 const FePlugins: FC<FeProviderProps> = (props) => {
   const listeners = useMemo(() => {
@@ -97,15 +95,24 @@ const FeState: FC<FeProviderProps> = (props) => {
           audits: {
             context: props.context,
             ...props.context.auditsOptions,
+            ...(props.plugins?.find((n) => n.storeName === 'audits')?.preloadedState ?? {}),
           } as any,
         }
       ),
     [props.store]
   );
 
+  useEffect(
+    () => () => {
+      try {
+        (props.store as Tas)?.destroy();
+      } catch (e) {}
+    },
+    []
+  );
+
   /* for Cypress tests */
   if (!isSSR && window.Cypress) {
-    window.cypressStore = store;
     window.cypressHistory = history;
   }
 

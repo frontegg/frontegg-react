@@ -1,4 +1,4 @@
-import React, { ComponentType, useContext, useEffect } from 'react';
+import React, { ComponentType, useContext, useEffect, useRef } from 'react';
 import { ContextOptions, FronteggProvider, PluginConfig } from '@frontegg/react-core';
 import { AuthPlugin } from '@frontegg/react-auth';
 import { ConnectivityPlugin } from '@frontegg/react-connectivity';
@@ -18,16 +18,21 @@ const contextOptions: ContextOptions = {
 const plugins: PluginConfig[] = [AuthPlugin(), ConnectivityPlugin(), AuditsPlugin()];
 
 const ConnectAdminPortal = ({ children }: any) => {
+  const appRef = useRef<any>(null);
   const { store } = useContext(FronteggStoreContext);
 
   useEffect(() => {
-    initialize({
-      version: 'next',
-      contextOptions,
-      customLoader: true,
-      customLoginBox: true,
-      store,
-    });
+    appRef.current =
+      store &&
+      initialize({
+        version: 'next',
+        contextOptions,
+        customLoader: true,
+        customLoginBox: true,
+        store,
+        cdn: 'http://localhost:5000',
+        usingFronteggReactCore: true,
+      } as any);
   }, [store]);
   return <>{children}</>;
 };
