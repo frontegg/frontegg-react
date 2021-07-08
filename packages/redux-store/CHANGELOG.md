@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.9](https://github.com/frontegg/frontegg-react/compare/v2.8.8...v2.8.9) (2021-07-08)
+
+
+### Bug Fixes
+
+* **auth:** add missing callback to sso file config saga ([9c895ab](https://github.com/frontegg/frontegg-react/commit/9c895abf5bb364ef4fabbd8b2961d17722f821c7))
+
+
+
+
+
 ## [2.8.8](https://github.com/frontegg/frontegg-react/compare/v2.8.7...v2.8.8) (2021-07-06)
 
 **Note:** Version bump only for package @frontegg/redux-store
