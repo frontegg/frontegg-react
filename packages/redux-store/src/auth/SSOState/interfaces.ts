@@ -21,6 +21,7 @@ export enum SamlVendors {
 }
 
 export type SaveSSOConfigurationPayload = WithCallback<Partial<ISamlConfiguration & { samlVendor: SamlVendors }>>;
+export type SaveSSOConfigurationFilePayload = WithCallback<{ configFile: File }>;
 export type UpdateSSOAuthorizationRolesPayload = WithCallback<{
   authorizationRoles: string[];
   groups?: ISamlRolesGroup[];

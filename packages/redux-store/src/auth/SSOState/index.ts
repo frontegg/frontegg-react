@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import {
   CreateSamlGroupPayload,
   DeleteSamlGroupPayload,
+  SaveSSOConfigurationFilePayload,
   SaveSSOConfigurationPayload,
   SSOState,
   UpdateSSOAuthorizationRolesPayload,
@@ -28,9 +29,14 @@ const actions = {
     `${authStoreName}/saveSSOConfigurations`,
     (payload: SaveSSOConfigurationPayload) => ({ payload })
   ),
+  // NOTE: use withCallback in case of promise response
   saveSSOConfigurationsFile: createAction(`${authStoreName}/saveSSOConfigurationsFile`, (payload: File[]) => ({
     payload,
   })),
+  saveSSOConfigurationsFileWithCallback: createAction(
+    `${authStoreName}/saveSSOConfigurationsFileWithCallback`,
+    (payload: SaveSSOConfigurationFilePayload) => ({ payload })
+  ),
   validateSSODomain: createAction(`${authStoreName}/validateSSODomain`, (payload?: WithCallback) => ({ payload })),
   updateSSOAuthorizationRoles: createAction(
     `${authStoreName}/updateSSOAuthorizationRoles`,
@@ -51,6 +57,7 @@ type DispatchedActions = {
   loadSSOAuthorizationRoles: () => void;
   saveSSOConfigurations: (payload: SaveSSOConfigurationPayload) => void;
   saveSSOConfigurationsFile: (payload: File[]) => void;
+  saveSSOConfigurationsFileWithCallback: (payload: SaveSSOConfigurationFilePayload) => void;
   validateSSODomain: (payload?: WithCallback) => void;
   updateSSOAuthorizationRoles: (payload: UpdateSSOAuthorizationRolesPayload) => void;
   deleteSamlGroup: (payload: DeleteSamlGroupPayload) => void;
