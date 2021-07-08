@@ -1,32 +1,33 @@
-export interface Plan {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-  recurringInterval: string;
+import { Plan, Subscription } from '../general.interfaces';
+
+export interface BillingInformationState {
+  loading: boolean;
+  error: Error | null;
+  subscription?: Subscription;
+  plan?: Plan;
 }
 
-export interface Subscription {
-  id: string;
-  startDate: Date;
-  endDate: Date;
-  items: SubscriptionItem[];
+interface PaymentInformationState {
+  loading: boolean;
+  error: Error | null;
+  paymentMethod?: {};
+  billingInformation?: {};
 }
 
-export interface SubscriptionItem {
-  id: string;
-  planId: string;
+interface InvoicesState {
+  loading: boolean;
+  error: Error | null;
 }
 
 export interface BillingState {
-  subscriptions: Subscription[];
-  plans: Plan[];
+  information: BillingInformationState;
+  paymentInformation: PaymentInformationState;
+  invoices: InvoicesState;
 }
 
 export interface BillingActions {
-  loadPlans: () => void;
-  loadSubscriptions: () => void;
-  setPlans: (payload: Plan[]) => void;
-  setSubscriptions: (payload: Subscription[]) => void;
+  loadSubscription: () => void;
+  loadPaymentMethod: () => void;
+  loadBillingInformation: () => void;
+  loadInvoices: () => void;
 }

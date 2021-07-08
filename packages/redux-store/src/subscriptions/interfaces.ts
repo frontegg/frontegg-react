@@ -1,18 +1,13 @@
 import { CheckoutActions, CheckoutState } from './Checkout/interfaces';
 import { BillingActions, BillingState } from './Billing/interfaces';
-import { StripeActions, StripeState } from './Stripe/interfaces';
+import { PlansState } from './Plans/interfaces';
+import { PaymentProviderConfigState } from './Config/interfaces';
 
 export interface SubscriptionsState {
-  loading: boolean;
-  error: Error | null;
-  checkout: CheckoutState;
+  config: PaymentProviderConfigState;
   billing: BillingState;
-  stripe: StripeState;
+  plans: PlansState;
+  checkout: CheckoutState;
 }
 
-export type SubscriptionsActions = {
-  loading: (payload: boolean) => void;
-  error: (payload: Error | null) => void;
-} & BillingActions &
-  CheckoutActions &
-  StripeActions;
+export type SubscriptionsActions = BillingActions & CheckoutActions;

@@ -13,6 +13,7 @@ import { ContextHolder, ContextOptions } from '@frontegg/rest-api';
 import authStore from '../auth';
 import auditsStore from '../audits';
 import connectivityStore from '../connectivity';
+import subscriptionsStore from '../subscriptions';
 
 export * from './redux';
 export * from './redux-saga';
@@ -90,12 +91,14 @@ export const createFronteggStore = (
         },
         [auditsStore.storeName]: auditsStore.initialState,
         [connectivityStore.storeName]: connectivityStore.initialState,
+        [subscriptionsStore.storeName]: subscriptionsStore.initialState,
       },
       reducer: combineReducers({
         root: rootReducer,
         [authStore.storeName]: authStore.reducer,
         [auditsStore.storeName]: auditsStore.reducer,
         [connectivityStore.storeName]: connectivityStore.reducer,
+        [subscriptionsStore.storeName]: subscriptionsStore.reducer,
       }),
     });
 

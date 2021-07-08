@@ -1,4 +1,1 @@
-export function* checkoutSagas() {
-}
-
-function* preCheckout() {}
+export function* checkoutSagas() {}

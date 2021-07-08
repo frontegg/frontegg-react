@@ -1,39 +1,30 @@
-import { BillingState, Plan, Subscription } from './interfaces';
-import { createAction, PayloadAction } from '@reduxjs/toolkit';
-import { subscriptionsStoreName } from '../../constants';
-import { SubscriptionsState } from '../interfaces';
+import { AnyAction, combineReducers, createReducer } from '@reduxjs/toolkit';
+import { informationActions, informationReducer } from './Information';
+import { BillingState } from './interfaces';
 
 export const billingInitialState: BillingState = {
-  subscriptions: [],
-  plans: [],
-};
-
-export const billingReducer = {
-  setPlans: {
-    prepare: (payload: Plan[]) => ({ payload }),
-    reducer: (state: SubscriptionsState, action: PayloadAction<Plan[]>): SubscriptionsState => ({
-      ...state,
-      billing: {
-        ...state.billing,
-        plans: action.payload,
-      },
-    }),
+  information: {
+    loading: false,
+    error: null,
   },
-  setSubscriptions: {
-    prepare: (payload: Subscription[]) => ({ payload }),
-    reducer: (state: SubscriptionsState, action: PayloadAction<Subscription[]>): SubscriptionsState => ({
-      ...state,
-      billing: {
-        ...state.billing,
-        subscriptions: action.payload,
-      },
-    }),
+  invoices: {
+    loading: false,
+    error: null,
+  },
+  paymentInformation: {
+    loading: false,
+    error: null,
   },
 };
 
-export const billingActions = {
-  loadPlans: createAction(`${subscriptionsStoreName}/loadPlans`, (payload: boolean = false) => ({ payload })),
-  loadSubscriptions: createAction(`${subscriptionsStoreName}/loadSubscriptions`, (payload: boolean = false) => ({
-    payload,
-  })),
+const billingActions = {
+  ...informationActions,
 };
+
+const billingReducer = combineReducers<BillingState, AnyAction>({
+  information: informationReducer,
+  invoices: createReducer(billingInitialState.invoices, () => {}),
+  paymentInformation: createReducer(billingInitialState.paymentInformation, () => {}),
+});
+
+export { billingActions, billingReducer };
