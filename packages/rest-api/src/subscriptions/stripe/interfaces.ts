@@ -6,9 +6,7 @@ export interface IStripePaymentProviderConfigurationResponse {
 }
 
 export interface IStripeCustomerResponse {
-  id: string;
-  name: string;
-  email: string;
+  stripeCustomerId: string;
 }
 
 export interface ICreateStripeCustomerRequest {
