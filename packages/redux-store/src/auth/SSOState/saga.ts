@@ -2,7 +2,13 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, select, takeEvery, all } from 'redux-saga/effects';
 import { api, ISamlConfiguration, ISamlRolesGroup, IUpdateSamlConfiguration } from '@frontegg/rest-api';
 import { actions } from '../reducer';
-import { CreateSamlGroupPayload, DeleteSamlGroupPayload, SaveSSOConfigurationPayload, SSOState } from './interfaces';
+import {
+  CreateSamlGroupPayload,
+  DeleteSamlGroupPayload,
+  SaveSSOConfigurationFilePayload,
+  SaveSSOConfigurationPayload,
+  SSOState,
+} from './interfaces';
 import { WithCallback } from '../../interfaces';
 import { omitProps, readFileAsText } from '../../helpers';
 import { delay } from '../utils';
@@ -30,6 +36,23 @@ function* saveSSOConfigurationsFile({ payload: configFile }: PayloadAction<File[
     yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
   } catch (e) {
     yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, [loaderKey]: false }));
+  }
+}
+
+function* saveSSOConfigurationsFileWithCallback({ payload }: PayloadAction<SaveSSOConfigurationFilePayload>) {
+  const { configFile, callback } = payload;
+  const oldSamlConfiguration = yield select((state) => state.auth.ssoState.samlConfiguration);
+  const loaderKey: keyof SSOState = 'saving';
+  yield put(actions.setSSOState({ error: undefined, [loaderKey]: true }));
+
+  try {
+    const metadata = yield readFileAsText(configFile);
+    const newSamlConfiguration = yield call(api.auth.updateSamlVendorMetadata, { metadata });
+    yield put(actions.setSSOState({ samlConfiguration: newSamlConfiguration, error: undefined, [loaderKey]: false }));
+    callback?.(true);
+  } catch (e) {
+    yield put(actions.setSSOState({ samlConfiguration: oldSamlConfiguration, error: e.message, [loaderKey]: false }));
+    callback?.(null, e);
   }
 }
 
@@ -203,6 +226,7 @@ export function* ssoSagas() {
   yield takeEvery(actions.loadSSOConfigurations, loadSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurations, saveSSOConfigurations);
   yield takeEvery(actions.saveSSOConfigurationsFile, saveSSOConfigurationsFile);
+  yield takeEvery(actions.saveSSOConfigurationsFileWithCallback, saveSSOConfigurationsFileWithCallback);
   yield takeEvery(actions.validateSSODomain, validateSSODomain);
   yield takeEvery(actions.loadSSOAuthorizationRoles, getAuthorizationRoles);
   yield takeEvery(actions.updateSSOAuthorizationRoles, updateAuthorizationRoles);
