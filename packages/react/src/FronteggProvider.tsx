@@ -49,7 +49,7 @@ export const Connector: FC<ConnectorProps> = (props) => {
 
   useEffect(() => () => {
     try {
-      (app.store as any)?.destroy();
+      (app.store as any)?.destroy?.();
     } catch (e) {}
   });
   return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
