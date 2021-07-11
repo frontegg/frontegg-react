@@ -20,9 +20,5 @@ export type PaymentProviderConfigState = {
 };
 
 export interface PaymentProviderConfigActions {
-  setLoading: (payload: boolean) => void;
-  setError: (payload: Error | null) => void;
-
   loadPaymentConfiguration: () => void;
-  loadCustomer: () => void;
 }

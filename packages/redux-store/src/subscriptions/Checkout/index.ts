@@ -1,19 +1,29 @@
-import { CheckoutState } from './interfaces';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createModuleReducerWrapper } from '../utils';
+import { CheckoutState, CheckoutStatus } from './interfaces';
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createModuleCaseReducers } from '../utils';
+import { subscriptionsStoreName } from '../../constants';
 
 export const checkoutInitialState: CheckoutState = {
   loading: false,
   error: null,
+  status: 'init',
+  checkoutPlanId: null,
 };
 
 const reducers = {
-  ...createModuleReducerWrapper<CheckoutState>(),
-  selectPlan: {
-    prepare: (payload: string) => ({ payload }),
-    reducer: (state: CheckoutState, action: PayloadAction<string>) => ({
+  ...createModuleCaseReducers<CheckoutState>(),
+  setStatus: {
+    prepare: (payload: CheckoutStatus) => ({ payload }),
+    reducer: (state: CheckoutState, action: PayloadAction<CheckoutStatus>) => ({
       ...state,
-      selectedPlanId: action.payload,
+      status: action.payload,
+    }),
+  },
+  selectPlan: {
+    prepare: (payload: string | null) => ({ payload }),
+    reducer: (state: CheckoutState, action: PayloadAction<string | null>) => ({
+      ...state,
+      checkoutPlanId: action.payload,
     }),
   },
 };
@@ -25,6 +35,9 @@ const { actions: checkoutActions, reducer } = createSlice<CheckoutState, typeof 
 });
 
 const actions = {
+  checkoutPlan: createAction(`${subscriptionsStoreName}/checkout/checkoutPlan`, (payload: string) => ({ payload })),
+  confirmCheckout: createAction(`${subscriptionsStoreName}/checkout/confirmCheckout`),
+  cancelCheckout: createAction(`${subscriptionsStoreName}/checkout/cancelCheckout`),
   ...checkoutActions,
 };
 

@@ -2,7 +2,7 @@ import { PaymentProviderConfigState } from './interfaces';
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { subscriptionsStoreName } from '../../constants';
 import { PaymentProvider } from '../general.interfaces';
-import { createModuleReducerWrapper } from '../utils';
+import { createModuleCaseReducers } from '../utils';
 
 export const configInitialState: PaymentProviderConfigState = {
   loading: false,
@@ -13,7 +13,7 @@ export const configInitialState: PaymentProviderConfigState = {
 };
 
 const reducers = {
-  ...createModuleReducerWrapper<PaymentProviderConfigState>(),
+  ...createModuleCaseReducers<PaymentProviderConfigState>(),
   setStripePaymentProvider: {
     prepare: (payload: string) => ({ payload }),
     reducer(state: PaymentProviderConfigState, action: PayloadAction<string>) {

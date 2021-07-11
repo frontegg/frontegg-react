@@ -1,6 +1,8 @@
 import { AnyAction, combineReducers, createReducer } from '@reduxjs/toolkit';
 import { informationActions, informationReducer } from './Information';
 import { BillingState } from './interfaces';
+import { paymentInformationActions } from './PaymentInformation';
+import { invoicesActions } from './Invoices';
 
 export const billingInitialState: BillingState = {
   information: {
@@ -17,14 +19,14 @@ export const billingInitialState: BillingState = {
   },
 };
 
-const billingActions = {
-  ...informationActions,
+export const billingActions = {
+  information: informationActions,
+  paymentInformation: paymentInformationActions,
+  invoices: invoicesActions,
 };
 
-const billingReducer = combineReducers<BillingState, AnyAction>({
+export const billingReducer = combineReducers<BillingState, AnyAction>({
   information: informationReducer,
   invoices: createReducer(billingInitialState.invoices, () => {}),
   paymentInformation: createReducer(billingInitialState.paymentInformation, () => {}),
 });
-
-export { billingActions, billingReducer };

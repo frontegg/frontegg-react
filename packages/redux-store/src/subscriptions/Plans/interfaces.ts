@@ -6,4 +6,6 @@ export interface PlansState {
   plans: Plan[];
 }
 
-export interface PlansActions {}
+export interface PlansActions {
+  loadPlans: () => void;
+}

@@ -1,23 +1,6 @@
-import { Plan, Subscription } from '../general.interfaces';
-
-export interface BillingInformationState {
-  loading: boolean;
-  error: Error | null;
-  subscription?: Subscription;
-  plan?: Plan;
-}
-
-interface PaymentInformationState {
-  loading: boolean;
-  error: Error | null;
-  paymentMethod?: {};
-  billingInformation?: {};
-}
-
-interface InvoicesState {
-  loading: boolean;
-  error: Error | null;
-}
+import { BillingInformationActions, BillingInformationState } from './Information/interfaces';
+import { PaymentInformationActions, PaymentInformationState } from './PaymentInformation/interfaces';
+import { InvoicesState } from './Invoices/interfaces';
 
 export interface BillingState {
   information: BillingInformationState;
@@ -25,9 +8,12 @@ export interface BillingState {
   invoices: InvoicesState;
 }
 
-export interface BillingActions {
-  loadSubscription: () => void;
-  loadPaymentMethod: () => void;
-  loadBillingInformation: () => void;
-  loadInvoices: () => void;
-}
+export type BillingActions = {
+  information: BillingInformationActions;
+  paymentInformation: PaymentInformationActions;
+  invoices: PaymentInformationActions;
+};
+
+export * from './Information/interfaces';
+export * from './PaymentInformation/interfaces';
+export * from './Invoices/interfaces';

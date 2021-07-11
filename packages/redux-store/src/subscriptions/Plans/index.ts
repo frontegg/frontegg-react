@@ -2,7 +2,7 @@ import { PlansState } from './interfaces';
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { subscriptionsStoreName } from '../../constants';
 import { Plan } from '../general.interfaces';
-import { createModuleReducerWrapper } from '../utils';
+import { createModuleCaseReducers } from '../utils';
 
 export const plansInitialState: PlansState = {
   loading: false,
@@ -14,7 +14,7 @@ const { actions: sliceActions, reducer } = createSlice({
   name: 'plans',
   initialState: plansInitialState,
   reducers: {
-    ...createModuleReducerWrapper<PlansState>(),
+    ...createModuleCaseReducers<PlansState>(),
     setPlans: {
       prepare: (payload: Plan[]) => ({ payload }),
       reducer: (state, action: PayloadAction<Plan[]>) => ({

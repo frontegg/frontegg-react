@@ -14,10 +14,10 @@ export const initialState: SubscriptionsState = {
 };
 
 const actions = {
-  ...configActions,
-  ...billingActions,
-  ...plansActions,
-  ...checkoutActions,
+  config: configActions,
+  billing: billingActions,
+  plans: plansActions,
+  checkout: checkoutActions,
 };
 
 const reducer = combineReducers({

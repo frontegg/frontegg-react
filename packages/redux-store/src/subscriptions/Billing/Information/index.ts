@@ -1,8 +1,8 @@
-import { BillingInformationState } from '../interfaces';
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Plan, Subscription } from '../../general.interfaces';
-import { createModuleReducerWrapper } from '../../utils';
+import { createModuleCaseReducers } from '../../utils';
 import { subscriptionsStoreName } from '../../../constants';
+import { BillingInformationState } from './interfaces';
 
 const initialBillingInformation: BillingInformationState = {
   loading: false,
@@ -10,7 +10,7 @@ const initialBillingInformation: BillingInformationState = {
 };
 
 const reducers = {
-  ...createModuleReducerWrapper<BillingInformationState>(),
+  ...createModuleCaseReducers<BillingInformationState>(),
   setPlan: {
     prepare: (payload: Plan) => ({ payload }),
     reducer: (state: BillingInformationState, action: PayloadAction<Plan>): BillingInformationState => ({

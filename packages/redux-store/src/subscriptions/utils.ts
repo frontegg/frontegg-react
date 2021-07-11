@@ -1,6 +1,11 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export function createModuleReducerWrapper<State>() {
+export type ModuleCaseActions = {
+  setLoading: (payload: boolean) => void;
+  setError: (payload: Error | null) => void;
+};
+
+export function createModuleCaseReducers<State>() {
   return {
     setLoading: {
       prepare: (payload: boolean) => ({ payload }),

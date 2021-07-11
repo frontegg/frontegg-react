@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { api, IPlanResponse, ISubscriptionResponse } from '@frontegg/rest-api';
 import { informationActions } from './index';
 
-export function* subscriptionBillingInformation() {
+export function* subscriptionBillingInformationSagas() {
   yield takeEvery(informationActions.loadSubscription, loadSubscription);
 }
 

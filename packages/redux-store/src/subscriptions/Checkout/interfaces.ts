@@ -1,10 +1,14 @@
+export type CheckoutStatus = 'init' | 'open' | 'confirm' | 'error' | 'cancel';
+
 export interface CheckoutState {
   loading: boolean;
   error: Error | null;
-  selectedPlanId?: string;
+  status: CheckoutStatus;
+  checkoutPlanId: string | null;
 }
 
 export interface CheckoutActions {
-  setSelectedPlan: (planId: string)=>void;
-  setCheckoutState: (state: 'success' | 'error') => void;
+  selectPlan: (planId: string) => void;
+  confirmCheckout: () => void;
+  cancelCheckout: () => void;
 }
