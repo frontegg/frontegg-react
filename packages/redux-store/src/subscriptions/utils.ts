@@ -13,7 +13,7 @@ export function createModuleCaseReducers<State>() {
     },
     setError: {
       prepare: (payload: Error | null) => ({ payload }),
-      reducer: (state: State, action: PayloadAction<Error | null>) => ({ ...state, loading: action.payload }),
+      reducer: (state: State, action: PayloadAction<Error | null>) => ({ ...state, error: action.payload }),
     },
   };
 }
