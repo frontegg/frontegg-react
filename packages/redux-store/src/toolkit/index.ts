@@ -15,6 +15,7 @@ import auditsStore, { AuditsState } from '../audits';
 import * as oldAuditsStore from '../audits/backward-compatibility';
 import connectivityStore from '../connectivity';
 import { OldAuditsState } from '../audits/backward-compatibility';
+import subscriptionsStore from '../subscriptions';
 
 export * from './redux';
 export * from './redux-saga';
@@ -114,6 +115,7 @@ export const createFronteggStore = (
           ...(overrideInitialState?.audits ?? {}),
         },
         [connectivityStore.storeName]: connectivityStore.initialState,
+        [subscriptionsStore.storeName]: subscriptionsStore.initialState,
       },
       reducer: combineReducers({
         root: rootReducer,
@@ -121,6 +123,7 @@ export const createFronteggStore = (
         [auditsStore.storeName]: auditsStore.reducer,
         [oldAuditsStore.storeName]: oldAuditsStore.reducer,
         [connectivityStore.storeName]: connectivityStore.reducer,
+        [subscriptionsStore.storeName]: subscriptionsStore.reducer,
       }),
     });
 
@@ -130,6 +133,7 @@ export const createFronteggStore = (
         call(auditsStore.sagas),
         call(oldAuditsStore.sagas),
         call(connectivityStore.sagas),
+        call(subscriptionsStore.sagas),
       ]);
     };
 

@@ -73,6 +73,7 @@ const entryPoints = [
   'audits/backward-compatibility/index',
   'toolkit/index',
   'connectivity/index',
+  'subscriptions/index',
   // Main Entry Point
   'index',
 ];

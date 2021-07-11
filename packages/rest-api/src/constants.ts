@@ -26,3 +26,11 @@ export const IDENTITY_API_TOKENS_TENANTS_SERVICE_V2 = '/identity/resources/tenan
 export const IDENTITY_MFA_POLICY_SERVICE_V1 = '/identity/resources/configurations/v1/mfa-policy';
 export const IDENTITY_ROLES_SERVICE_URL_V1 = '/identity/resources/roles/v1';
 export const IDENTITY_PERMISSIONS_SERVICE_URL_V1 = '/identity/resources/permissions/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_SUBSCRIPTIONS_URL_V1 = '/subscriptions/resources/billing/subscriptions/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_PLANS_URL_V1 = '/subscriptions/resources/billing/plans/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_CUSTOMER_URL_V1 =
+  '/subscriptions/resources/billing/payment-providers/stripe/customers/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_PUBLIC_CONFIGURATION_URL_V1 =
+  '/subscriptions/resources/billing/payment-providers/stripe/public-configurations/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_SUBSCRIPTION_URL_V1 =
+  '/subscriptions/resources/billing/payment-providers/stripe/subscriptions/v1';

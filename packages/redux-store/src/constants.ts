@@ -4,3 +4,4 @@ export const authStoreName = 'auth';
 
 export const connectivityStoreName = 'connectivity';
 export const auditsStoreName = 'auditLogs';
+export const subscriptionsStoreName = 'subscriptions';
