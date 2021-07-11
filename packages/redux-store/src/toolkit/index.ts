@@ -133,6 +133,7 @@ export const createFronteggStore = (
         call(auditsStore.sagas),
         call(oldAuditsStore.sagas),
         call(connectivityStore.sagas),
+        call(subscriptionsStore.sagas),
       ]);
     };
 
