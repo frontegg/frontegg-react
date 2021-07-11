@@ -37,10 +37,9 @@ const useBilling = <T extends keyof BillingState>(billingKey: T): BillingState[T
 
 const useBillingActions = <T extends keyof BillingActions>(billingKey: T): BillingActions[T] => {
   const dispatch = useDispatch();
-  return useMemo(
-    () => bindActionCreators(subscriptionActions.billing[billingKey], dispatch),
-    [subscriptionActions.billing[billingKey]]
-  );
+  return useMemo(() => bindActionCreators(subscriptionActions.billing[billingKey], dispatch), [
+    subscriptionActions.billing[billingKey],
+  ]);
 };
 
 export const useBillingInformation = () => useBilling('information');

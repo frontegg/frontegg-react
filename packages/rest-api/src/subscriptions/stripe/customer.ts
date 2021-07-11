@@ -2,7 +2,6 @@ import { ICreateStripeCustomerRequest, ICreateStripeCustomerResponse, IStripeCus
 import { Get, Post } from '../../fetch';
 import { SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_CUSTOMER_URL_V1 } from '../../constants';
 
-
 /**
  * Fetch tenant mapping external stripe customer object
  */

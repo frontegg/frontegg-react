@@ -3,7 +3,6 @@ import { ISubscriptionResponse } from '../interfaces';
 import { Post } from '../../fetch';
 import { SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_SUBSCRIPTION_URL_V1 } from '../../constants';
 
-
 /**
  * Creates new stripe subscription
  * @param request

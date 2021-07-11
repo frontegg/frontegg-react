@@ -39,12 +39,9 @@ const reducers = {
       }
     },
   },
-}
+};
 
-const { actions: configActions, reducer } = createSlice<
-  PaymentProviderConfigState,
-  typeof reducers
->({
+const { actions: configActions, reducer } = createSlice<PaymentProviderConfigState, typeof reducers>({
   name: 'config',
   initialState: configInitialState,
   reducers,

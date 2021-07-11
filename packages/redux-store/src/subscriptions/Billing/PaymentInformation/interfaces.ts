@@ -1,4 +1,3 @@
-
 export interface PaymentInformationState {
   loading: boolean;
   error: Error | null;
@@ -6,5 +5,4 @@ export interface PaymentInformationState {
   billingInformation?: {};
 }
 
-export interface PaymentInformationActions{
-}
+export interface PaymentInformationActions {}

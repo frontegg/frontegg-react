@@ -28,6 +28,9 @@ export const IDENTITY_ROLES_SERVICE_URL_V1 = '/identity/resources/roles/v1';
 export const IDENTITY_PERMISSIONS_SERVICE_URL_V1 = '/identity/resources/permissions/v1';
 export const SUBSCRIPTIONS_SERVICE_BILLING_SUBSCRIPTIONS_URL_V1 = '/subscriptions/resources/billing/subscriptions/v1';
 export const SUBSCRIPTIONS_SERVICE_BILLING_PLANS_URL_V1 = '/subscriptions/resources/billing/plans/v1';
-export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_CUSTOMER_URL_V1 = '/subscriptions/resources/billing/payment-providers/stripe/customers/v1';
-export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_PUBLIC_CONFIGURATION_URL_V1 = '/subscriptions/resources/billing/payment-providers/stripe/public-configurations/v1';
-export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_SUBSCRIPTION_URL_V1 = '/subscriptions/resources/billing/payment-providers/stripe/subscriptions/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_CUSTOMER_URL_V1 =
+  '/subscriptions/resources/billing/payment-providers/stripe/customers/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_PUBLIC_CONFIGURATION_URL_V1 =
+  '/subscriptions/resources/billing/payment-providers/stripe/public-configurations/v1';
+export const SUBSCRIPTIONS_SERVICE_BILLING_STRIPE_SUBSCRIPTION_URL_V1 =
+  '/subscriptions/resources/billing/payment-providers/stripe/subscriptions/v1';

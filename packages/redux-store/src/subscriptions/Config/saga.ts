@@ -1,6 +1,11 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { configActions } from './index';
-import { api, ICreateStripeCustomerResponse, IStripeCustomerResponse, IStripePaymentProviderConfigurationResponse } from '@frontegg/rest-api';
+import {
+  api,
+  ICreateStripeCustomerResponse,
+  IStripeCustomerResponse,
+  IStripePaymentProviderConfigurationResponse,
+} from '@frontegg/rest-api';
 import { AuthState } from '../../auth';
 import { FronteggApiError } from '@frontegg/rest-api/dist/fetch';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -14,7 +19,7 @@ function* loadPaymentConfiguration() {
   yield put(configActions.setLoading(true));
   try {
     const response: IStripePaymentProviderConfigurationResponse = yield call(
-      api.subscriptions.getStripePaymentProviderConfiguration,
+      api.subscriptions.getStripePaymentProviderConfiguration
     );
     yield put(configActions.setStripePaymentProvider(response.publishableKey));
     yield put(configActions.setLoading(false));
