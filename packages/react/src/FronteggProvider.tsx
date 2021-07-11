@@ -4,7 +4,6 @@ import { FronteggProvider as ReduxProvider } from '@frontegg/react-hooks';
 import { BrowserRouter } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
-import { useOnRedirectTo } from '@frontegg/react-hooks/auth';
 
 export type FronteggProviderProps = FronteggConfigOptions;
 type ConnectorProps = FronteggProviderProps;
