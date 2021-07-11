@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useAuthUserOrNull } from '@frontegg/react-hooks';
 
 export interface AuthorizationProps {
