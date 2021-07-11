@@ -7,7 +7,7 @@ import {
   IStripePaymentProviderConfigurationResponse,
 } from '@frontegg/rest-api';
 import { AuthState } from '../../auth';
-import { FronteggApiError } from '@frontegg/rest-api/dist/fetch';
+import { fetch } from '@frontegg/rest-api';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export function* configSagas() {
@@ -36,7 +36,7 @@ function* loadStripeCustomer({ payload: tenantId }: PayloadAction<string>) {
     yield put(configActions.setStripeCustomerId(response.stripeCustomerId));
     yield put(configActions.setLoading(false));
   } catch (e) {
-    if (e instanceof FronteggApiError && e.statusCode === 404) {
+    if (e instanceof fetch.FronteggApiError && e.statusCode === 404) {
       yield createCustomer();
     } else {
       yield put(configActions.setError(e));
