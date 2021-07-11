@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, RefObject } from 'react';
 import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3';
 import { useCallback } from 'react';
 import { FFormik } from '@frontegg/react-core';
@@ -9,6 +9,7 @@ const { useField } = FFormik;
 interface IReCaptchaProps {
   action: string;
   fieldName?: string;
+  recaptchaRef: RefObject<ReCaptcha>;
 }
 
 const unload = (recaptchaSiteKey?: string) => {
@@ -26,7 +27,7 @@ const unload = (recaptchaSiteKey?: string) => {
   }
 };
 
-export const FReCaptcha: FC<IReCaptchaProps> = ({ action, fieldName = 'recaptchaToken' }) => {
+export const FReCaptcha: FC<IReCaptchaProps> = ({ action, recaptchaRef, fieldName = 'recaptchaToken' }) => {
   const { policy } = useSecurityPolicyState((state) => state.captchaPolicy);
   const [, , { setValue }] = useField(fieldName);
 
@@ -49,5 +50,5 @@ export const FReCaptcha: FC<IReCaptchaProps> = ({ action, fieldName = 'recaptcha
 
   if (!policy || !policy.enabled) return null;
 
-  return <ReCaptcha sitekey={policy?.siteKey} verifyCallback={handleCallback} action={action} />;
+  return <ReCaptcha ref={recaptchaRef} sitekey={policy?.siteKey} verifyCallback={handleCallback} action={action} />;
 };

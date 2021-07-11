@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import { useAuditsActions } from '../helpers/hooks';
-import { AuditsActions, storeName } from '../Api';
+import { OldAuditsActions, storeName } from '@frontegg/redux-store/audits/backward-compatibility';
 import { ListenerProps } from '@frontegg/react-core';
 
-export const AuditsListener: FC<ListenerProps<AuditsActions>> = (props) => {
+export const AuditsListener: FC<ListenerProps<OldAuditsActions>> = (props) => {
   const actions = useAuditsActions();
 
   useEffect(() => {

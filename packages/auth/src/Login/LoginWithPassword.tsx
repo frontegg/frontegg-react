@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC, useCallback, useEffect } from 'react';
+import React, { ComponentType, createElement, FC, RefObject, useCallback, useEffect } from 'react';
 import { LoginStep } from '@frontegg/redux-store/auth';
 import {
   validateEmail,
@@ -21,6 +21,7 @@ import {
   useForgotPasswordActions,
 } from '@frontegg/react-hooks/auth';
 import { FReCaptcha } from '../components/FReCaptcha';
+import { ReCaptcha } from 'react-recaptcha-v3';
 
 const { Formik } = FFormik;
 
@@ -90,6 +91,13 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
     </div>
   );
 
+  const recaptchaRef: RefObject<ReCaptcha> = React.createRef();
+  useEffect(() => {
+    if (recaptchaRef.current && !loading) {
+      error && recaptchaRef.current.execute();
+    }
+  }, [loading, error, recaptchaRef]);
+
   return (
     <>
       {signUpMessage}
@@ -130,7 +138,7 @@ export const LoginWithPassword: FC<LoginWithPasswordProps> = (props) => {
             </FButton>
 
             <ErrorMessage separator error={error} />
-            <FReCaptcha action='login' />
+            <FReCaptcha recaptchaRef={recaptchaRef} action='login' />
           </FForm>
         )}
       </Formik>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useT, TableProps } from '@frontegg/react-core';
 import { TableBody as MTableBody, TableRow, TableCell } from '@material-ui/core';
@@ -49,6 +49,29 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
   const { t } = useT();
   const classes = useRowStyles();
 
+  const isInfiniteScroll = pagination === 'infinite-scroll';
+  const isFirstWaypoint = useMemo(() => rows.length <= (pageSize ?? 20), [pageSize, rows.length]);
+
+  const renderWaypoint = (index: number) => {
+    const itemsAfterWaypoint = 15;
+    const itemsAfterWaypointOnFirstRender = 4;
+    const waypoint = (
+      <Waypoint
+        onEnter={({ previousPosition }) => {
+          if (!loading && previousPosition !== 'above') {
+            onInfiniteScroll?.();
+          }
+        }}
+      />
+    );
+    if (isFirstWaypoint && index === rows.length - itemsAfterWaypointOnFirstRender) {
+      return waypoint;
+    }
+    if (!isFirstWaypoint && index === rows.length - itemsAfterWaypoint) {
+      return waypoint;
+    }
+  };
+
   return (
     <>
       <MTableBody
@@ -83,19 +106,11 @@ export const TableBody: FC<TableTBodyProps<any>> = <T extends object>(props: Tab
                 row={row}
                 renderExpandedComponent={renderExpandedComponent}
               />
-              {pagination === 'infinite-scroll' && index === Math.ceil(rows.length * 0.7) && (
-                <Waypoint
-                  onEnter={({ previousPosition }) => {
-                    if (!loading && previousPosition !== 'above') {
-                      onInfiniteScroll?.();
-                    }
-                  }}
-                />
-              )}
+              {isInfiniteScroll && renderWaypoint(index)}
             </React.Fragment>
           );
         })}
-        {pagination === 'infinite-scroll' && loading && rows.length !== 0 && (
+        {isInfiniteScroll && loading && rows.length !== 0 && (
           <TableRow>
             <TableCell align='center'>
               <Loader size={20} />

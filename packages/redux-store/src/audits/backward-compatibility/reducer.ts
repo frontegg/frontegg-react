@@ -1,7 +1,6 @@
 import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
 import { LoadAudits, Filter, DataSorting } from './interfaces';
-import moment from 'moment';
 
 export const defaultItemsPerPage = 20;
 
@@ -58,7 +57,7 @@ const { name: storeName, actions: lifeCycleActions, reducer } = createSlice({
     loadAuditsSuccess: (state, { payload }) => {
       state.error = {};
       state.rowsData = payload.rowsData;
-      state.lastUpdated = moment();
+      state.lastUpdated = new Date();
       state.total = payload.total;
     },
     fetchMoreSuccess: (state, { payload }) => {
@@ -111,7 +110,7 @@ export const actions = {
   deleteAudits: createAction<Filter>(`${storeName}/deleteAudits`),
 };
 
-export type AuditsActions = typeof actions;
+export type OldAuditsActions = typeof actions;
 
 export type ReducerType = ReturnType<typeof reducer>;
 export type LoadAuditsProps = ReturnType<typeof actions.loadAudits>;

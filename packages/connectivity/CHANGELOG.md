@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.10](https://github.com/frontegg/frontegg-react/compare/v2.8.9...v2.8.10) (2021-07-08)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+## [2.8.9](https://github.com/frontegg/frontegg-react/compare/v2.8.8...v2.8.9) (2021-07-08)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
+## [2.8.8](https://github.com/frontegg/frontegg-react/compare/v2.8.7...v2.8.8) (2021-07-06)
+
+**Note:** Version bump only for package @frontegg/react-connectivity
+
+
+
+
+
 ## [2.8.7](https://github.com/frontegg/frontegg-react/compare/v2.8.6...v2.8.7) (2021-07-01)
 
 **Note:** Version bump only for package @frontegg/react-connectivity
