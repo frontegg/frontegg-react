@@ -6,12 +6,12 @@ import {
   PlansActions,
   PlansState,
   subscriptionActions,
+  subscriptionsStoreName,
 } from '@frontegg/redux-store/subscriptions';
 import { bindActionCreators } from '@frontegg/redux-store/toolkit';
 import { useDispatch, useSelector } from '../FronteggStoreContext';
 import { shallowEqual } from 'react-redux';
 import { useMemo } from 'react';
-import { subscriptionsStoreName } from '@frontegg/redux-store/constants';
 
 export const usePlans = (): PlansState => {
   return useSelector((state: any) => state[subscriptionsStoreName]['plans'], shallowEqual);

@@ -11,7 +11,7 @@ export {
   reducer as subscriptionReducers,
   actions as subscriptionActions,
   initialState as subscriptionInitialState,
-  storeName as subscriptionStoreName,
+  storeName as subscriptionsStoreName,
 };
 
 // export store
