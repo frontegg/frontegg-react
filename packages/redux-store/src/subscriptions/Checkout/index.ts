@@ -2,7 +2,6 @@ import { CheckoutState, CheckoutStatus } from './interfaces';
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createModuleCaseReducers } from '../utils';
 import { subscriptionsStoreName } from '../../constants';
-import { PaymentProvider } from '../general.interfaces';
 
 export const checkoutInitialState: CheckoutState = {
   loading: false,
@@ -43,14 +42,15 @@ const { actions: checkoutActions, reducer } = createSlice<CheckoutState, typeof 
 });
 
 const actions = {
-  loadCheckoutSecret: createAction(
-    `${subscriptionsStoreName}/checkout/loadCheckoutSecret`,
-    (payload: PaymentProvider) => ({ payload })
-  ),
+  loadCheckoutSecret: createAction(`${subscriptionsStoreName}/checkout/loadCheckoutSecret`),
   checkoutPlan: createAction(`${subscriptionsStoreName}/checkout/checkoutPlan`, (payload: string) => ({ payload })),
   resetCheckout: createAction(`${subscriptionsStoreName}/checkout/resetCheckout`),
   confirmCheckout: createAction(`${subscriptionsStoreName}/checkout/confirmCheckout`),
   cancelCheckout: createAction(`${subscriptionsStoreName}/checkout/cancelCheckout`),
+  submitCheckout: createAction(`${subscriptionsStoreName}/checkout/submitCheckout`),
+  errorCheckout: createAction(`${subscriptionsStoreName}/checkout/errorCheckout`, (payload: Error | null) => ({
+    payload,
+  })),
   ...checkoutActions,
 };
 

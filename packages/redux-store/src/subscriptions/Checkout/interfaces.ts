@@ -1,5 +1,3 @@
-import { PaymentProvider } from '../general.interfaces';
-
 export type CheckoutStatus = 'init' | 'open' | 'confirm' | 'error' | 'cancel';
 
 export interface CheckoutState {
@@ -11,9 +9,11 @@ export interface CheckoutState {
 }
 
 export interface CheckoutActions {
-  loadCheckoutSecret: (paymentProvider: PaymentProvider) => void;
+  loadCheckoutSecret: () => void;
   checkoutPlan: (planId: string) => void;
   resetCheckout: () => void;
   confirmCheckout: () => void;
   cancelCheckout: () => void;
+  submitCheckout: () => void;
+  errorCheckout: (error: Error | null) => void;
 }

@@ -4,6 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { CheckoutState } from './interfaces';
 import { api, ICreateSubscriptionResponse } from '@frontegg/rest-api';
 import { PaymentProvider } from '../general.interfaces';
+import { PaymentProviderConfigState } from '../Config/interfaces';
 
 export function* checkoutSagas() {
   yield takeEvery(checkoutActions.loadCheckoutSecret, loadCheckoutSecret);
@@ -11,6 +12,8 @@ export function* checkoutSagas() {
   yield takeEvery(checkoutActions.resetCheckout, resetCheckout);
   yield takeEvery(checkoutActions.confirmCheckout, confirmPlan);
   yield takeEvery(checkoutActions.cancelCheckout, cancelPlan);
+  yield takeEvery(checkoutActions.submitCheckout, submitCheckout);
+  yield takeEvery(checkoutActions.errorCheckout, errorCheckout);
 }
 
 function* checkoutPlan({ payload: planId }: PayloadAction<string>) {
@@ -45,8 +48,9 @@ function* cancelPlan() {
   }
 }
 
-function* loadCheckoutSecret({ payload: paymentProvider }: PayloadAction<PaymentProvider>) {
-  if (paymentProvider === PaymentProvider.STRIPE) {
+function* loadCheckoutSecret() {
+  const { config }: PaymentProviderConfigState = yield select((state) => state.subscription.config);
+  if (config.paymentProvider === PaymentProvider.STRIPE) {
     yield put(checkoutActions.setLoading(true));
     const { checkoutPlanId }: CheckoutState = yield select((state) => state.subscription.checkout);
     if (checkoutPlanId) {
@@ -62,4 +66,19 @@ function* loadCheckoutSecret({ payload: paymentProvider }: PayloadAction<Payment
       }
     }
   }
+}
+
+/**
+ * Based on payment provider type
+ */
+function* submitCheckout() {
+  const { config }: PaymentProviderConfigState = yield select((state) => state.subscription.config);
+  if (config.paymentProvider === PaymentProvider.STRIPE) {
+    yield put(checkoutActions.setLoading(true));
+  }
+}
+
+function* errorCheckout({ payload: error }: PayloadAction<Error | null>) {
+  yield put(checkoutActions.setStatus('error'));
+  yield put(checkoutActions.setError(error));
 }
