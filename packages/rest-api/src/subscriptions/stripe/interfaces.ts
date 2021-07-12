@@ -22,3 +22,8 @@ export interface ICreateStripeCustomerResponse {
 export interface ICreateStripeSubscriptionRequest {
   stripePlanId: string;
 }
+
+export interface ICreateSubscriptionResponse {
+  subscriptionId: string;
+  subscriptionSecret: string;
+}

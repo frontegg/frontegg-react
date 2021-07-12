@@ -31,14 +31,6 @@ const reducers = {
       }
     },
   },
-  setStripeClientSecret: {
-    prepare: (payload: string) => ({ payload }),
-    reducer(state: PaymentProviderConfigState, action: PayloadAction<string>) {
-      if (state.config.paymentProvider === PaymentProvider.STRIPE) {
-        state.config.clientSecret = action.payload;
-      }
-    },
-  },
 };
 
 const { actions: configActions, reducer } = createSlice<PaymentProviderConfigState, typeof reducers>({

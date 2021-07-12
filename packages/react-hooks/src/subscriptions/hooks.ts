@@ -3,6 +3,8 @@ import {
   BillingState,
   CheckoutActions,
   CheckoutState,
+  PaymentProviderConfigActions,
+  PaymentProviderConfigState,
   PlansActions,
   PlansState,
   subscriptionActions,
@@ -12,6 +14,15 @@ import { bindActionCreators } from '@frontegg/redux-store/toolkit';
 import { useDispatch, useSelector } from '../FronteggStoreContext';
 import { shallowEqual } from 'react-redux';
 import { useMemo } from 'react';
+
+export const usePaymentProvider = (): PaymentProviderConfigState => {
+  return useSelector((state: any) => state[subscriptionsStoreName]['config'], shallowEqual);
+};
+
+export const usePaymentProviderActions = (): PaymentProviderConfigActions => {
+  const dispatch = useDispatch();
+  return useMemo(() => bindActionCreators(subscriptionActions.config, dispatch), [subscriptionActions.config]);
+};
 
 export const usePlans = (): PlansState => {
   return useSelector((state: any) => state[subscriptionsStoreName]['plans'], shallowEqual);
