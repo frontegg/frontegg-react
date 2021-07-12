@@ -41,9 +41,6 @@ const { actions: configActions, reducer } = createSlice<PaymentProviderConfigSta
 
 const actions = {
   loadPaymentConfiguration: createAction(`${subscriptionsStoreName}/config/loadPaymentConfiguration`),
-  loadStripeCustomer: createAction(`${subscriptionsStoreName}/config/loadStripeCustomer`, (payload: string) => ({
-    payload,
-  })),
   ...configActions,
 };
 

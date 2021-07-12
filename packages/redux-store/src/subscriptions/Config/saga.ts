@@ -2,22 +2,24 @@ import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { configActions } from './index';
 import {
   api,
+  fetch,
   ICreateStripeCustomerResponse,
   IStripeCustomerResponse,
   IStripePaymentProviderConfigurationResponse,
 } from '@frontegg/rest-api';
-import { AuthState } from '../../auth';
-import { fetch } from '@frontegg/rest-api';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { AuthState, ProfileState } from '../../auth';
 
 export function* configSagas() {
   yield takeEvery(configActions.loadPaymentConfiguration, loadPaymentConfiguration);
-  yield takeEvery(configActions.loadStripeCustomer, loadStripeCustomer);
 }
 
 function* loadPaymentConfiguration() {
+  const { profile }: ProfileState = yield select((state) => state.auth?.profileState);
   yield put(configActions.setLoading(true));
   try {
+    if (profile) {
+      yield loadStripeCustomer(profile.tenantId);
+    }
     const response: IStripePaymentProviderConfigurationResponse = yield call(
       api.subscriptions.getStripePaymentProviderConfiguration
     );
@@ -28,7 +30,7 @@ function* loadPaymentConfiguration() {
   }
 }
 
-function* loadStripeCustomer({ payload: tenantId }: PayloadAction<string>) {
+function* loadStripeCustomer(tenantId: string) {
   yield put(configActions.setLoading(true));
 
   try {
