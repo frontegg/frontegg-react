@@ -18,6 +18,5 @@ export const initialState: OldAuditsState = {
   severeThisWeek: 0,
   predefinedFilters: [],
   isDownloadingCsv: false,
-  isDownloadingPdf: false,
   virtualScroll: false,
 };

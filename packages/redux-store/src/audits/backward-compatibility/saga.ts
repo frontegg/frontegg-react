@@ -136,32 +136,6 @@ function* exportCsvFunction() {
   }
 }
 
-function* exportPdfFunction() {
-  const { filters, sortBy, sortDirection, filter, headerProps } = yield select();
-  const f2o = filterToObject(filters);
-
-  yield put(actions.startDownloadingPdf());
-
-  const outputFileName = `audits.pdf`;
-
-  try {
-    yield api.audits.exportAudits({
-      endpoint: 'pdf',
-      headerProps,
-      sortDirection,
-      sortBy,
-      filter,
-      ...f2o,
-      offset: 0,
-      outputFileName,
-    });
-  } catch (e) {
-    console.error('failed to export audits - ', e);
-  } finally {
-    yield put(actions.stopDownloadingPdf());
-  }
-}
-
 export function* sagas() {
   yield takeLatest(actions.initData, initDataFunction);
   yield takeLatest(actions.removeFilter, removeFilterFunction);
@@ -171,5 +145,4 @@ export function* sagas() {
     loadAuditsFunction({ payload: { appendMode: false }, type: '' })
   );
   yield takeLatest(actions.exportCSV, exportCsvFunction);
-  yield takeLatest(actions.exportPDF, exportPdfFunction);
 }

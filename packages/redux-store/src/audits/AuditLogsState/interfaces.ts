@@ -17,7 +17,6 @@ export interface AuditLogsState {
   logs: AuditRowData[];
 
   isDownloadingCsv: boolean;
-  isDownloadingPdf: boolean;
 
   pageOffset: number;
   pageSize: number;

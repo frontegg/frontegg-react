@@ -37,33 +37,6 @@ function* exportAuditsCsv() {
   yield put(actions.setAuditLogsState({ isDownloadingCsv: false }));
 }
 
-function* exportAuditsPdf() {
-  const state: AuditLogsState = yield select();
-  const { columns }: AuditsMetadataState = yield selectMetadata();
-
-  try {
-    const filter = state.filter;
-    const sort = state.sort;
-
-    const sortParams = sort.reduce((p, n) => ({ ...p, sortBy: n.id, sortDirection: n.desc ? 'desc' : 'asc' }), {});
-    const filterParams = filter.reduce((p, n) => ({ ...p, [n.id]: encodeURIComponent(n.value) }), {});
-
-    yield put(actions.setAuditLogsState({ isDownloadingPdf: true }));
-    const outputFileName = `audits.pdf`;
-    yield api.audits.exportAudits({
-      endpoint: 'pdf',
-      headerProps: columns,
-      offset: 0,
-      outputFileName,
-      ...sortParams,
-      ...filterParams,
-    } as any);
-  } catch (e) {
-    console.error('failed to export audits - ', e);
-  }
-  yield put(actions.setAuditLogsState({ isDownloadingPdf: false }));
-}
-
 function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
   yield put(actions.setAuditLogsState({ loading: !payload?.silentLoading, error: null }));
   const state: AuditLogsState = yield select();
@@ -112,7 +85,6 @@ function* loadAuditLogs({ payload }: PayloadAction<LoadAuditLogsPayload>) {
 
 export function* auditLogsSagas() {
   yield takeEvery(actions.exportAuditsCsv, exportAuditsCsv);
-  yield takeEvery(actions.exportAuditsPdf, exportAuditsPdf);
   yield takeEvery(actions.loadAuditLogs, loadAuditLogs);
 }
 
