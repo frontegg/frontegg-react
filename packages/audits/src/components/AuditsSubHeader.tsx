@@ -11,7 +11,6 @@ export interface IAuditsSubHeader {
   onDownloadPDF: () => void;
   onDownloadCSV: () => void;
   isDownloadingCsv: boolean;
-  isDownloadingPdf: boolean;
 }
 
 export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {

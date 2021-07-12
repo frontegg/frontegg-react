@@ -42,7 +42,6 @@ export interface OldAuditsState {
   severeThisWeek: number;
   predefinedFilters: { [key: string]: string }[];
   isDownloadingCsv?: boolean;
-  isDownloadingPdf?: boolean;
   virtualScroll?: boolean;
 }
 
