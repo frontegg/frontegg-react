@@ -23,14 +23,6 @@ const reducers = {
       }
     },
   },
-  setStripeCustomerId: {
-    prepare: (payload: string) => ({ payload }),
-    reducer(state: PaymentProviderConfigState, action: PayloadAction<string>) {
-      if (state.config.paymentProvider === PaymentProvider.STRIPE) {
-        state.config.customerId = action.payload;
-      }
-    },
-  },
 };
 
 const { actions: configActions, reducer } = createSlice<PaymentProviderConfigState, typeof reducers>({

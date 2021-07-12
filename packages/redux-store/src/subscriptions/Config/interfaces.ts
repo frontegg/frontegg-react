@@ -7,7 +7,6 @@ interface DefaultPaymentProviderConfig {
 interface StripePaymentProviderConfig {
   paymentProvider: PaymentProvider.STRIPE;
   apiKey: string;
-  customerId?: string;
 }
 
 type PaymentProviderCustomConfig = StripePaymentProviderConfig | DefaultPaymentProviderConfig;
