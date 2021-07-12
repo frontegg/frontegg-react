@@ -153,7 +153,6 @@ function* saveProfileMock({
 function* changePasswordMock({ payload }: PayloadAction<WithCallback<IChangePassword>>) {
   yield put(actions.setProfileState({ loading: true }));
   yield delay();
-  yield put(actions.changePassword(payload));
   yield put(actions.setProfileState({ loading: false, error: undefined }));
   payload.callback?.(true);
 }
