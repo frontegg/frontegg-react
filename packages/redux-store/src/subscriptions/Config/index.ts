@@ -23,22 +23,6 @@ const reducers = {
       }
     },
   },
-  setStripeCustomerId: {
-    prepare: (payload: string) => ({ payload }),
-    reducer(state: PaymentProviderConfigState, action: PayloadAction<string>) {
-      if (state.config.paymentProvider === PaymentProvider.STRIPE) {
-        state.config.customerId = action.payload;
-      }
-    },
-  },
-  setStripeClientSecret: {
-    prepare: (payload: string) => ({ payload }),
-    reducer(state: PaymentProviderConfigState, action: PayloadAction<string>) {
-      if (state.config.paymentProvider === PaymentProvider.STRIPE) {
-        state.config.clientSecret = action.payload;
-      }
-    },
-  },
 };
 
 const { actions: configActions, reducer } = createSlice<PaymentProviderConfigState, typeof reducers>({
@@ -49,9 +33,6 @@ const { actions: configActions, reducer } = createSlice<PaymentProviderConfigSta
 
 const actions = {
   loadPaymentConfiguration: createAction(`${subscriptionsStoreName}/config/loadPaymentConfiguration`),
-  loadStripeCustomer: createAction(`${subscriptionsStoreName}/config/loadStripeCustomer`, (payload: string) => ({
-    payload,
-  })),
   ...configActions,
 };
 

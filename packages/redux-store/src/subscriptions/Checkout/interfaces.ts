@@ -5,10 +5,15 @@ export interface CheckoutState {
   error: Error | null;
   status: CheckoutStatus;
   checkoutPlanId: string | null;
+  checkoutClientSecret: string | null;
 }
 
 export interface CheckoutActions {
-  selectPlan: (planId: string) => void;
+  loadCheckoutSecret: () => void;
+  checkoutPlan: (planId: string) => void;
+  resetCheckout: () => void;
   confirmCheckout: () => void;
   cancelCheckout: () => void;
+  submitCheckout: () => void;
+  errorCheckout: (error: Error | null) => void;
 }

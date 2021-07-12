@@ -8,6 +8,7 @@ export const checkoutInitialState: CheckoutState = {
   error: null,
   status: 'init',
   checkoutPlanId: null,
+  checkoutClientSecret: null,
 };
 
 const reducers = {
@@ -26,6 +27,12 @@ const reducers = {
       checkoutPlanId: action.payload,
     }),
   },
+  setStripeClientSecret: {
+    prepare: (payload: string | null) => ({ payload }),
+    reducer(state: CheckoutState, action: PayloadAction<string | null>) {
+      state.checkoutClientSecret = action.payload;
+    },
+  },
 };
 
 const { actions: checkoutActions, reducer } = createSlice<CheckoutState, typeof reducers>({
@@ -35,9 +42,15 @@ const { actions: checkoutActions, reducer } = createSlice<CheckoutState, typeof 
 });
 
 const actions = {
+  loadCheckoutSecret: createAction(`${subscriptionsStoreName}/checkout/loadCheckoutSecret`),
   checkoutPlan: createAction(`${subscriptionsStoreName}/checkout/checkoutPlan`, (payload: string) => ({ payload })),
+  resetCheckout: createAction(`${subscriptionsStoreName}/checkout/resetCheckout`),
   confirmCheckout: createAction(`${subscriptionsStoreName}/checkout/confirmCheckout`),
   cancelCheckout: createAction(`${subscriptionsStoreName}/checkout/cancelCheckout`),
+  submitCheckout: createAction(`${subscriptionsStoreName}/checkout/submitCheckout`),
+  errorCheckout: createAction(`${subscriptionsStoreName}/checkout/errorCheckout`, (payload: Error | null) => ({
+    payload,
+  })),
   ...checkoutActions,
 };
 
