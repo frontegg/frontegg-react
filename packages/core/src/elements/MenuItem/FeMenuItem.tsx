@@ -15,6 +15,7 @@ export const FeMenuItem: FC<MenuItemProps> = (props) => {
 
   return (
     <div
+    {...props}
       onClick={(e: any) => onClick?.(e, props)}
       className={classNames('fe-menu-item', className, { 'fe-menu-item__with-icons': withIcons })}
     >

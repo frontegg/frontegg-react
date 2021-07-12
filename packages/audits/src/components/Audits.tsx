@@ -12,7 +12,7 @@ export const AuditsPage: FC = () => {
   const { setVirtualScroll } = useAuditsActions();
 
   useEffect(() => {
-    const context = ContextHolder.getContext();
+    const context: any = ContextHolder.getContext();
     setVirtualScroll(!!context?.auditsOptions?.virtualScroll);
   }, [setVirtualScroll]);
 

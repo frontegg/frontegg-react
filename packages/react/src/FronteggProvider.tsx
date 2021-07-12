@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { FronteggConfigOptions, initialize } from '@frontegg/admin-portal';
 import { FronteggProvider as ReduxProvider } from '@frontegg/react-hooks';
 import { BrowserRouter } from 'react-router-dom';
@@ -17,6 +17,7 @@ export const Connector: FC<ConnectorProps> = (props) => {
   const history = useHistory();
   const isSSR = typeof window === 'undefined';
   const baseName = getBasename(history);
+
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
     let path = _path;
     if (path.startsWith(baseName)) {
@@ -44,8 +45,15 @@ export const Connector: FC<ConnectorProps> = (props) => {
       onRedirectTo,
     });
   }, []);
+
+  useEffect(() => () => {
+    try {
+      (app.store as any)?.destroy?.();
+    } catch (e) {}
+  });
   return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
 };
+
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   const history = useHistory();
 

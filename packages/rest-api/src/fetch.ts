@@ -92,6 +92,19 @@ async function getAdditionalHeaders(context: ContextOptions): Promise<KeyValuePa
   return output;
 }
 
+export class FronteggApiError extends Error {
+  private readonly _statusCode: number;
+
+  constructor(message: string, statusCode: number) {
+    super(message);
+    this._statusCode = statusCode;
+  }
+
+  get statusCode(): number {
+    return this._statusCode;
+  }
+}
+
 const sendRequest = async (opts: RequestOptions) => {
   const context = ContextHolder.getContext();
   const headers = await buildRequestHeaders(context, opts.contentType);
@@ -107,6 +120,10 @@ const sendRequest = async (opts: RequestOptions) => {
     credentials: opts.credentials ?? context.requestCredentials ?? 'same-origin',
   });
 
+  if (response.status === 302) {
+    window.location.href = await response.text();
+    return new Promise(() => {});
+  }
   if (!response.ok) {
     if (response.status === 413) {
       throw new Error('Error request is too large');
@@ -126,7 +143,7 @@ const sendRequest = async (opts: RequestOptions) => {
       console.warn(errorMessage);
     else if (response.status === 500 && ['warn', 'error'].includes(context.logLevel ?? '')) console.error(errorMessage);
 
-    throw new Error(errorMessage);
+    throw new FronteggApiError(errorMessage, response.status);
   }
 
   if (!opts.responseType || opts.responseType === 'json') {

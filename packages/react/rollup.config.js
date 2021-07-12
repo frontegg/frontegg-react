@@ -104,7 +104,7 @@ const isExternal = (id) => {
   //   return true;
   // }
 
-  return id !== './FronteggProvider';
+  return id !== './FronteggProvider' && id !== './AuthorizedContent';
 };
 
 export default [

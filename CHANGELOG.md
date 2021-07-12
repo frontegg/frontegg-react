@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.11](https://github.com/frontegg/frontegg-react/compare/v2.8.10...v2.8.11) (2021-07-11)
+
+**Note:** Version bump only for package @fronteg/react
+
+
+
+
+
+## [2.8.10](https://github.com/frontegg/frontegg-react/compare/v2.8.9...v2.8.10) (2021-07-08)
+
+
+### Bug Fixes
+
+* **audits:** fix store conflict between old audits and new auditlogs state ([5e493fe](https://github.com/frontegg/frontegg-react/commit/5e493fec79dd73198186a6b2a94e8833e4600102))
+* **core:** add destroy store on unmount ([c117bf9](https://github.com/frontegg/frontegg-react/commit/c117bf9c853f0ecfbb3e6c4098dfac8e91dfd9b7))
+
+
+
+
+
+## [2.8.9](https://github.com/frontegg/frontegg-react/compare/v2.8.8...v2.8.9) (2021-07-08)
+
+
+### Bug Fixes
+
+* **auth:** add missing callback to sso file config saga ([9c895ab](https://github.com/frontegg/frontegg-react/commit/9c895abf5bb364ef4fabbd8b2961d17722f821c7))
+
+
+
+
+
+## [2.8.8](https://github.com/frontegg/frontegg-react/compare/v2.8.7...v2.8.8) (2021-07-06)
+
+
+### Bug Fixes
+
+* **auth:** reload captcha after failed login ([f12be57](https://github.com/frontegg/frontegg-react/commit/f12be57a299de748adb991ad6cdc7d17c226903e))
+
+
+
+
+
 ## [2.8.7](https://github.com/frontegg/frontegg-react/compare/v2.8.6...v2.8.7) (2021-07-01)
 
 **Note:** Version bump only for package @fronteg/react

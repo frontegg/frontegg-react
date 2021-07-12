@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
+import { AdminPortal } from '@frontegg/admin-portal';
 import {
   ProtectedRoute,
   Profile,
@@ -28,6 +29,7 @@ import {
   WebhookComponent,
 } from '@frontegg/react-connectivity';
 import { Icons } from 'pages/Icons';
+import { Button } from '@frontegg/react-core';
 
 const TestPage: FC = () => {
   const user = useAuthUser();
@@ -92,6 +94,8 @@ class App extends React.Component<any> {
                     </div>
                   )
               )}
+
+              <Button onClick={() => AdminPortal.show()}>Open Admin Portal</Button>
             </div>
           </Route>
           {menus.map(({ to, component, children, exact }, idx) => (

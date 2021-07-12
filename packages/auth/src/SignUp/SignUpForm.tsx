@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, useCallback } from 'react';
+import React, { ComponentType, FC, RefObject, useCallback, useEffect } from 'react';
 import {
   FForm,
   FFormik,
@@ -23,6 +23,7 @@ import {
 import { FReCaptcha } from '../components/FReCaptcha';
 import { SignUpCheckbox } from './SignUp';
 import { SocialLoginActionWrapperProps } from '../SocialLogins';
+import { ReCaptcha } from 'react-recaptcha-v3';
 
 const { Formik } = FFormik;
 
@@ -62,6 +63,12 @@ export const SignUpForm: FC<SignUpFormProps> = ({
 
   const signUpConsentDetails = getCheckboxDetails(signUpConsent);
   const marketingMaterialConsentDetails = getCheckboxDetails(marketingMaterialConsent);
+  const recaptchaRef: RefObject<ReCaptcha> = React.createRef();
+  useEffect(() => {
+    if (recaptchaRef.current && !loading) {
+      error && recaptchaRef.current.execute();
+    }
+  }, [loading, error, recaptchaRef]);
 
   return (
     <>
@@ -165,7 +172,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
               </Button>
 
               <ErrorMessage error={error} />
-              <FReCaptcha action='sign_up' />
+              <FReCaptcha recaptchaRef={recaptchaRef} action='sign_up' />
               <SocialLogins
                 isValid={() => {
                   setFieldTouched('acceptedTermsOfService', true, true);

@@ -1,6 +1,4 @@
-import { Logger } from '@frontegg/react-core';
 import { api } from '@frontegg/rest-api';
-import { takeLatest, select as sagaSelect, put, all, call } from '@frontegg/redux-store/toolkit';
 import { Filter } from './interfaces';
 import {
   defaultItemsPerPage,
@@ -10,10 +8,9 @@ import {
   actions,
   storeName,
 } from './reducer';
+import { all, call, put, takeLatest, select as sagaSelect } from 'redux-saga/effects';
 
 const select = () => sagaSelect((_) => _[storeName]);
-
-const logger = Logger.from('Audits');
 
 function* loadStats() {
   const { sortBy, sortDirection } = yield select();
@@ -29,7 +26,7 @@ function* loadStats() {
       name: 'stats',
       error: e,
     };
-    logger.error('failed to load stats - ', e);
+    console.error('failed to load stats - ', e);
     yield put(actions.loadItemFailedAction(errorMessage));
   }
 }
@@ -43,12 +40,12 @@ function* loadMetadata() {
       name: 'metadata',
       error: e,
     };
-    logger.error('failed to load metadata - ', e);
+    console.error('failed to load metadata - ', e);
     yield put(actions.loadItemFailedAction(errorMessage));
   }
 }
 
-const filterToObject = (arr: Array<Filter>) =>
+const filterToObject = (arr: Filter[]) =>
   arr.reduce((res: Record<string, string>, curr) => {
     res[curr.key] = curr.value;
     return res;
@@ -67,7 +64,7 @@ function* loadAuditsFunction({ payload }: LoadAuditsProps) {
       sortBy,
       filter,
       ...f2o,
-      //TODO: refactor once api become V2 with query field for virtual scroll
+      // TODO: refactor once api become V2 with query field for virtual scroll
       offset: virtualScroll ? rowsData.length + incomeOffset || rowsData.length + offset : incomeOffset || offset,
       count: defaultItemsPerPage,
     });
@@ -78,7 +75,7 @@ function* loadAuditsFunction({ payload }: LoadAuditsProps) {
       name: 'audits',
       error: e,
     };
-    logger.error('failed to load audits - ', e);
+    console.error('failed to load audits - ', e);
     yield put(actions.loadItemFailedAction(errorMessage));
   }
 }
@@ -103,7 +100,7 @@ function* removeFilterFunction({ payload }: RemoveFilterProps) {
 
 function* filterDataFunction({ payload }: FilterDataProps) {
   const { filters: allFilters } = yield select();
-  let filterIndex = allFilters.findIndex((item: Filter) => item.key == payload.key);
+  let filterIndex = allFilters.findIndex((item: Filter) => item.key === payload.key);
 
   if (filterIndex < 0) {
     filterIndex = allFilters.length;
@@ -133,9 +130,8 @@ function* exportCsvFunction() {
       outputFileName,
     });
   } catch (e) {
-    logger.error('failed to export audits - ', e);
+    console.error('failed to export audits - ', e);
   } finally {
-    logger.info(`stop downloading`);
     yield put(actions.stopDownloadingCsv());
   }
 }
@@ -144,17 +140,7 @@ export function* sagas() {
   yield takeLatest(actions.initData, initDataFunction);
   yield takeLatest(actions.removeFilter, removeFilterFunction);
   yield takeLatest(actions.filterData, filterDataFunction);
-  yield takeLatest(
-    [
-      actions.loadAudits,
-      actions.textSearch,
-      actions.onPageChange,
-      // actions.setFilterData,
-      // actions.setDataSorting,
-      // actions.startRefresh,
-    ],
-    loadAuditsFunction
-  );
+  yield takeLatest([actions.loadAudits, actions.textSearch, actions.onPageChange], loadAuditsFunction);
   yield takeLatest([actions.setFilterData, actions.setDataSorting, actions.startRefresh], () =>
     loadAuditsFunction({ payload: { appendMode: false }, type: '' })
   );

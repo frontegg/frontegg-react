@@ -1,10 +1,12 @@
-import { AuditsActions } from './../Api/reducer';
-/* istanbul ignore file */
-
 import { useMemo } from 'react';
 import { useDispatch, useSelector, memoEqual } from '@frontegg/react-core';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { actions, AuditsState, storeName } from '../Api';
+import {
+  actions,
+  OldAuditsState as AuditsState,
+  OldAuditsActions as AuditsActions,
+  storeName,
+} from '@frontegg/redux-store/audits/backward-compatibility';
 
 export type AuditsStateMapper<S extends object> = (state: AuditsState) => S;
 const defaultAuditsStateMapper: any = (state: AuditsState) => ({ ...state });

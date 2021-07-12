@@ -1,10 +1,9 @@
-import { PayloadAction } from '../../toolkit/redux';
+import { createAction, PayloadAction } from '@reduxjs/toolkit';
 import { IConnectivityState, TPlatform, TPostData } from '../interfaces';
-import { createAction } from '@reduxjs/toolkit';
 import { connectivityStoreName } from '../../constants';
 import { IWebhookTest } from '@frontegg/rest-api';
 
-export const initialState: IConnectivityState = {
+const initialState: IConnectivityState = {
   isLoading: false,
   isSaving: false,
   list: [],
@@ -16,7 +15,7 @@ export const initialState: IConnectivityState = {
 
 const reducers = {
   initData: () => ({ ...initialState }),
-  //deprecated use initData instead;
+  // Deprecated: use initData instead;
   // cleanData: () => ({ ...initialState }),
   setConnectivityState: (state: IConnectivityState, { payload }: PayloadAction<Partial<IConnectivityState>>) => ({
     ...state,

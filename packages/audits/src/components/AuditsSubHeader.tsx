@@ -33,7 +33,7 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
   const [search, setSearch] = useState('');
   const searchValue = useDebounce(search, 500);
 
-  const filterOnly = useMemo(() => filters?.filter((f) => f.key !== 'filter') ?? [], [filters]);
+  const filterOnly = useMemo(() => filters?.filter((f: any) => f.key !== 'filter') ?? [], [filters]);
   const handlerOnSetFilter = useCallback(
     (values) => {
       (onSetFilter ?? setFilterData)(values);
@@ -67,7 +67,7 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
   );
 
   const handlerCleanAll = useCallback(() => {
-    handlerOnSetFilter(filters?.filter((f) => f.key === 'filter') ?? []);
+    handlerOnSetFilter(filters?.filter((f: any) => f.key === 'filter') ?? []);
   }, [handlerOnSetFilter, filters]);
 
   return (
@@ -84,13 +84,13 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
       </div>
       {filters && !!filters.length && (
         <div className={`${prefixCls}__subHeader-filters`}>
-          {filterOnly.map((f, idx) => (
+          {filterOnly.map((f: any, idx: number) => (
             <Tag key={idx} className={`${prefixCls}__subHeader-tag`} variant='primary'>
               <b>{getFilterName(f)}:</b> {getFilterValue(f)}
               <Icon
                 name='delete'
                 size='small'
-                onClick={() => handlerOnSetFilter(filters.filter((filter) => f.key !== filter.key))}
+                onClick={() => handlerOnSetFilter(filters.filter((filter: any) => f.key !== filter.key))}
               />
             </Tag>
           ))}
