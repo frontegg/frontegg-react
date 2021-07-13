@@ -21,7 +21,7 @@ export const usePaymentProvider = (): PaymentProviderConfigState => {
 
 export const usePaymentProviderActions = (): PaymentProviderConfigActions => {
   const dispatch = useDispatch();
-  return useMemo(() => bindActionCreators(subscriptionActions.config, dispatch), [subscriptionActions.config]);
+  return useMemo(() => bindActionCreators(subscriptionActions.config, dispatch), [dispatch]);
 };
 
 export const usePlans = (): PlansState => {
@@ -30,7 +30,7 @@ export const usePlans = (): PlansState => {
 
 export const usePlansActions = (): PlansActions => {
   const dispatch = useDispatch();
-  return useMemo(() => bindActionCreators(subscriptionActions.plans, dispatch), [subscriptionActions.plans]);
+  return useMemo(() => bindActionCreators(subscriptionActions.plans, dispatch), [dispatch]);
 };
 
 export const useCheckout = (): CheckoutState => {
@@ -39,7 +39,7 @@ export const useCheckout = (): CheckoutState => {
 
 export const useCheckoutActions = (): CheckoutActions => {
   const dispatch = useDispatch();
-  return useMemo(() => bindActionCreators(subscriptionActions.checkout, dispatch), [subscriptionActions.checkout]);
+  return useMemo(() => bindActionCreators(subscriptionActions.checkout, dispatch), [dispatch]);
 };
 
 const useBilling = <T extends keyof BillingState>(billingKey: T): BillingState[T] => {
@@ -48,9 +48,7 @@ const useBilling = <T extends keyof BillingState>(billingKey: T): BillingState[T
 
 const useBillingActions = <T extends keyof BillingActions>(billingKey: T): BillingActions[T] => {
   const dispatch = useDispatch();
-  return useMemo(() => bindActionCreators(subscriptionActions.billing[billingKey], dispatch), [
-    subscriptionActions.billing[billingKey],
-  ]);
+  return useMemo(() => bindActionCreators(subscriptionActions.billing[billingKey], dispatch), [billingKey, dispatch]);
 };
 
 export const useBillingInformation = () => useBilling('information');
