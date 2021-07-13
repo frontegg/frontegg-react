@@ -47,7 +47,7 @@ function* loadPlan(planId: string) {
         id: planResponse.id,
         name: planResponse.name,
         description: planResponse.description,
-        price: (planResponse.price && planResponse.price.amount / 100) || 0,
+        price: (((planResponse.price && planResponse.price.amount) || 0) / 100).toFixed(2),
         currency: (planResponse.price && planResponse.price.currency) || 'usd',
         recurringInterval: 'month',
       })

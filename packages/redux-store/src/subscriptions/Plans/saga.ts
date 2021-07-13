@@ -17,7 +17,7 @@ function* loadPlans() {
           id: item.id,
           name: item.name,
           description: item.description,
-          price: ((item.price && item.price.amount) || 0) / 100,
+          price: (((item.price && item.price.amount) || 0) / 100).toFixed(2),
           currency: (item.price && item.price.currency) || 'usd',
           recurringInterval: 'month',
         }))
