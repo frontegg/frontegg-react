@@ -62,7 +62,7 @@ function* loadCheckoutSecret() {
         yield put(checkoutActions.setStripeClientSecret(response.subscriptionSecret));
         yield put(checkoutActions.setLoading(false));
       } catch (e) {
-        yield put(checkoutActions.setError(e));
+        yield put(checkoutActions.setError(e.message));
       }
     }
   }
@@ -78,7 +78,7 @@ function* submitCheckout() {
   }
 }
 
-function* errorCheckout({ payload: error }: PayloadAction<Error | null>) {
+function* errorCheckout({ payload: e }: PayloadAction<string>) {
   yield put(checkoutActions.setStatus('error'));
-  yield put(checkoutActions.setError(error));
+  yield put(checkoutActions.setError(e));
 }

@@ -48,7 +48,7 @@ const actions = {
   confirmCheckout: createAction(`${subscriptionsStoreName}/checkout/confirmCheckout`),
   cancelCheckout: createAction(`${subscriptionsStoreName}/checkout/cancelCheckout`),
   submitCheckout: createAction(`${subscriptionsStoreName}/checkout/submitCheckout`),
-  errorCheckout: createAction(`${subscriptionsStoreName}/checkout/errorCheckout`, (payload: Error | null) => ({
+  errorCheckout: createAction(`${subscriptionsStoreName}/checkout/errorCheckout`, (payload: string) => ({
     payload,
   })),
   ...checkoutActions,

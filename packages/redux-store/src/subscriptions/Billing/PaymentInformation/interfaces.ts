@@ -1,6 +1,6 @@
 export interface PaymentInformationState {
   loading: boolean;
-  error: Error | null;
+  error: string | null;
   paymentMethod?: {};
   billingInformation?: {};
 }

@@ -15,5 +15,5 @@ export interface CheckoutActions {
   confirmCheckout: () => void;
   cancelCheckout: () => void;
   submitCheckout: () => void;
-  errorCheckout: (error: Error | null) => void;
+  errorCheckout: (error: Error) => void;
 }

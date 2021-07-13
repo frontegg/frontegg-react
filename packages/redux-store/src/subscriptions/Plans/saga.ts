@@ -17,14 +17,14 @@ function* loadPlans() {
           id: item.id,
           name: item.name,
           description: item.description,
-          price: item.price.amount / 100,
-          currency: item.price.currency,
+          price: ((item.price && item.price.amount) || 0) / 100,
+          currency: (item.price && item.price.currency) || 'usd',
           recurringInterval: 'month',
         }))
       )
     );
     yield put(plansActions.setLoading(false));
   } catch (e) {
-    yield put(plansActions.setError(e));
+    yield put(plansActions.setError(e.message));
   }
 }

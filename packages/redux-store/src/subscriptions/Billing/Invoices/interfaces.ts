@@ -1,6 +1,6 @@
 export interface InvoicesState {
   loading: boolean;
-  error: Error | null;
+  error: string | null;
 }
 
 export interface InvoicesActions {}
