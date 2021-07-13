@@ -25,14 +25,14 @@ const reducers = {
   },
 };
 
-const { actions: configActions, reducer } = createSlice<PaymentProviderConfigState, typeof reducers>({
-  name: 'config',
+const { actions: configActions, reducer, name } = createSlice<PaymentProviderConfigState, typeof reducers>({
+  name: `${subscriptionsStoreName}/config`,
   initialState: configInitialState,
   reducers,
 });
 
 const actions = {
-  loadPaymentConfiguration: createAction(`${subscriptionsStoreName}/config/loadPaymentConfiguration`),
+  loadPaymentConfiguration: createAction(`${name}/loadPaymentConfiguration`),
   ...configActions,
 };
 
