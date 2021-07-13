@@ -124,9 +124,6 @@ test-unit: ##@3 Tests unit test with jest
 
 build: ##@4 Build build all packages
 	${MAKE} build-cli
-	${MAKE} build-rest-api
-	${MAKE} build-redux-store
-	${MAKE} build-react-hooks
 	${MAKE} build-react
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
