@@ -7,7 +7,7 @@ export interface Plan {
   id: string;
   name: string;
   description: string;
-  price: string;
+  price: number;
   currency: string;
   recurringInterval: string;
 }
