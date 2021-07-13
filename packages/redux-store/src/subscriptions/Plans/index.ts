@@ -19,10 +19,7 @@ const { actions: sliceActions, reducer } = createSlice({
       prepare: (payload: Plan[]) => ({ payload }),
       reducer: (state, action: PayloadAction<Plan[]>) => ({
         ...state,
-        plans: {
-          ...state.plans,
-          plans: action.payload,
-        },
+        plans: action.payload,
       }),
     },
   },

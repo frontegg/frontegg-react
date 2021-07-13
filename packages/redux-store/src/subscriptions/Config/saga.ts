@@ -22,7 +22,7 @@ function* loadPaymentConfiguration() {
     yield loadStripeCustomer();
     yield put(configActions.setLoading(false));
   } catch (e) {
-    yield put(configActions.setError(e));
+    yield put(configActions.setError(e.message));
   }
 }
 
@@ -40,7 +40,7 @@ function* loadStripeCustomer() {
     if (e instanceof fetch.FronteggApiError && e.statusCode === 404) {
       yield createCustomer(profile);
     } else {
-      yield put(configActions.setError(e));
+      yield put(configActions.setError(e.message));
     }
   }
 }
@@ -52,6 +52,6 @@ function* createCustomer(profile: IUserProfile) {
       email: profile.email,
     });
   } catch (e) {
-    yield put(configActions.setError(e));
+    yield put(configActions.setError(e.message));
   }
 }

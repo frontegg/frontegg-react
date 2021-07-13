@@ -32,7 +32,7 @@ function* loadSubscription() {
     }
     yield put(informationActions.setLoading(false));
   } catch (e) {
-    yield put(informationActions.setError(e));
+    yield put(informationActions.setError(e.message));
   }
 }
 
@@ -47,13 +47,13 @@ function* loadPlan(planId: string) {
         id: planResponse.id,
         name: planResponse.name,
         description: planResponse.description,
-        price: planResponse.price.amount / 100,
-        currency: planResponse.price.currency,
+        price: +((planResponse.price?.amount || 0) / 100).toFixed(2),
+        currency: planResponse.price?.currency || 'usd',
         recurringInterval: 'month',
       })
     );
     yield put(informationActions.setLoading(false));
   } catch (e) {
-    yield put(informationActions.setError(e));
+    yield put(informationActions.setError(e.message));
   }
 }

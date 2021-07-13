@@ -13,7 +13,7 @@ type PaymentProviderCustomConfig = StripePaymentProviderConfig | DefaultPaymentP
 
 export type PaymentProviderConfigState = {
   loading: boolean;
-  error: Error | null;
+  error: string | null;
   config: PaymentProviderCustomConfig;
 };
 

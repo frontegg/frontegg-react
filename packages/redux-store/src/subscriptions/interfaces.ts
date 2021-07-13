@@ -17,6 +17,7 @@ export type SubscriptionsActions = {
   checkout: CheckoutActions;
 };
 
+export * from './general.interfaces';
 export * from './Checkout/interfaces';
 export * from './Billing/interfaces';
 export * from './Plans/interfaces';
