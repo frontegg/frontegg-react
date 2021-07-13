@@ -29,7 +29,7 @@ function* resetCheckout() {
 }
 
 function* confirmPlan() {
-  const checkout: CheckoutState = yield select((state) => state.subscription.checkout);
+  const checkout: CheckoutState = yield select((state) => state.subscriptions.checkout);
   if (checkout.status === 'open') {
     yield put(checkoutActions.setLoading(true));
     yield put(checkoutActions.selectPlan(null));
@@ -39,7 +39,7 @@ function* confirmPlan() {
 }
 
 function* cancelPlan() {
-  const checkout: CheckoutState = yield select((state) => state.subscription.checkout);
+  const checkout: CheckoutState = yield select((state) => state.subscriptions.checkout);
   if (checkout.status === 'open') {
     yield put(checkoutActions.setLoading(true));
     yield put(checkoutActions.selectPlan(null));
@@ -49,10 +49,10 @@ function* cancelPlan() {
 }
 
 function* loadCheckoutSecret() {
-  const { config }: PaymentProviderConfigState = yield select((state) => state.subscription.config);
+  const { config }: PaymentProviderConfigState = yield select((state) => state.subscriptions.config);
   if (config.paymentProvider === PaymentProvider.STRIPE) {
     yield put(checkoutActions.setLoading(true));
-    const { checkoutPlanId }: CheckoutState = yield select((state) => state.subscription.checkout);
+    const { checkoutPlanId }: CheckoutState = yield select((state) => state.subscriptions.checkout);
     if (checkoutPlanId) {
       try {
         const response: ICreateSubscriptionResponse = yield call(api.subscriptions.createSubscription, {
@@ -72,7 +72,7 @@ function* loadCheckoutSecret() {
  * Based on payment provider type
  */
 function* submitCheckout() {
-  const { config }: PaymentProviderConfigState = yield select((state) => state.subscription.config);
+  const { config }: PaymentProviderConfigState = yield select((state) => state.subscriptions.config);
   if (config.paymentProvider === PaymentProvider.STRIPE) {
     yield put(checkoutActions.setLoading(true));
   }

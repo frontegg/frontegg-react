@@ -27,14 +27,14 @@ const reducers = {
   },
 };
 
-const { reducer, actions: informationActions } = createSlice({
-  name: 'information',
+const { reducer, actions: informationActions, name } = createSlice({
+  name: `${subscriptionsStoreName}/billing/information`,
   initialState: initialBillingInformation,
   reducers,
 });
 
 const actions = {
-  loadSubscription: createAction(`${subscriptionsStoreName}/billing/information/loadSubscription`),
+  loadSubscription: createAction(`${name}/loadSubscription`),
   ...informationActions,
 };
 

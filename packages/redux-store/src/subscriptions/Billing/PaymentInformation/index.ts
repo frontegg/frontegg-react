@@ -12,14 +12,14 @@ const reducers = {
   ...createModuleCaseReducers<PaymentInformationState>(),
 };
 
-const { reducer, actions: paymentInformationActions } = createSlice({
-  name: 'paymentInformation',
+const { reducer, actions: paymentInformationActions, name } = createSlice({
+  name: `${subscriptionsStoreName}/billing/paymentInformation`,
   initialState: initialPaymentInformation,
   reducers,
 });
 
 const actions = {
-  loadPaymentInformation: createAction(`${subscriptionsStoreName}/billing/paymentInformation/loadPaymentInformation`),
+  loadPaymentInformation: createAction(`${name}/loadPaymentInformation`),
   ...paymentInformationActions,
 };
 

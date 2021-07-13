@@ -10,8 +10,8 @@ export const plansInitialState: PlansState = {
   plans: [],
 };
 
-const { actions: sliceActions, reducer } = createSlice({
-  name: 'plans',
+const { actions: sliceActions, reducer, name } = createSlice({
+  name: `${subscriptionsStoreName}/plans`,
   initialState: plansInitialState,
   reducers: {
     ...createModuleCaseReducers<PlansState>(),
@@ -26,7 +26,7 @@ const { actions: sliceActions, reducer } = createSlice({
 });
 
 const actions = {
-  loadPlans: createAction(`${subscriptionsStoreName}/loadPlans`),
+  loadPlans: createAction(`${name}/loadPlans`),
   ...sliceActions,
 };
 

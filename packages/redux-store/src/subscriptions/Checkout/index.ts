@@ -35,20 +35,20 @@ const reducers = {
   },
 };
 
-const { actions: checkoutActions, reducer } = createSlice<CheckoutState, typeof reducers>({
-  name: 'checkout',
+const { actions: checkoutActions, reducer, name } = createSlice<CheckoutState, typeof reducers>({
+  name: `${subscriptionsStoreName}/checkout`,
   initialState: checkoutInitialState,
   reducers,
 });
 
 const actions = {
-  loadCheckoutSecret: createAction(`${subscriptionsStoreName}/checkout/loadCheckoutSecret`),
-  checkoutPlan: createAction(`${subscriptionsStoreName}/checkout/checkoutPlan`, (payload: string) => ({ payload })),
-  resetCheckout: createAction(`${subscriptionsStoreName}/checkout/resetCheckout`),
-  confirmCheckout: createAction(`${subscriptionsStoreName}/checkout/confirmCheckout`),
-  cancelCheckout: createAction(`${subscriptionsStoreName}/checkout/cancelCheckout`),
-  submitCheckout: createAction(`${subscriptionsStoreName}/checkout/submitCheckout`),
-  errorCheckout: createAction(`${subscriptionsStoreName}/checkout/errorCheckout`, (payload: string) => ({
+  loadCheckoutSecret: createAction(`${name}/loadCheckoutSecret`),
+  checkoutPlan: createAction(`${name}/checkoutPlan`, (payload: string) => ({ payload })),
+  resetCheckout: createAction(`${name}/resetCheckout`),
+  confirmCheckout: createAction(`${name}/confirmCheckout`),
+  cancelCheckout: createAction(`${name}/cancelCheckout`),
+  submitCheckout: createAction(`${name}/submitCheckout`),
+  errorCheckout: createAction(`${name}/errorCheckout`, (payload: string) => ({
     payload,
   })),
   ...checkoutActions,
