@@ -168,6 +168,7 @@ function* saveSecurityPolicyMfaMock({
   };
   yield delay();
   yield put(actions.setSecurityPolicyMfaState({ policy, saving: false }));
+  callback?.(policy);
 }
 
 function* loadSecurityPolicyLockoutMock() {
