@@ -78,7 +78,7 @@ function* submitCheckout() {
   }
 }
 
-function* errorCheckout({ payload: e }: PayloadAction<string>) {
+function* errorCheckout({ payload }: PayloadAction<string>) {
   yield put(checkoutActions.setStatus('error'));
-  yield put(checkoutActions.setError(e));
+  yield put(checkoutActions.setError(payload));
 }

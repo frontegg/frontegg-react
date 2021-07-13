@@ -2,7 +2,7 @@ import { Plan } from '../general.interfaces';
 
 export interface PlansState {
   loading: boolean;
-  error: Error | null;
+  error: string | null;
   plans: Plan[];
 }
 

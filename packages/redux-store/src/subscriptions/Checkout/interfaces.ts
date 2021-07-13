@@ -2,7 +2,7 @@ export type CheckoutStatus = 'init' | 'open' | 'confirm' | 'error' | 'cancel';
 
 export interface CheckoutState {
   loading: boolean;
-  error: Error | null;
+  error: string | null;
   status: CheckoutStatus;
   checkoutPlanId: string | null;
   checkoutClientSecret: string | null;
@@ -15,5 +15,5 @@ export interface CheckoutActions {
   confirmCheckout: () => void;
   cancelCheckout: () => void;
   submitCheckout: () => void;
-  errorCheckout: (error: Error) => void;
+  errorCheckout: (error: string) => void;
 }
