@@ -27,7 +27,7 @@ function* loadSubscription() {
       );
 
       if (subscriptionResponse.items.length > 0) {
-        yield loadPlan(subscriptionResponse.items[0].id);
+        yield loadPlan(subscriptionResponse.items[0].planId);
       }
     }
     yield put(informationActions.setLoading(false));
