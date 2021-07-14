@@ -72,37 +72,8 @@ const entryPoints = [
   // Main Entry Point
   'index',
 ];
-// const nodeModules = [
-//   // 'tslib',
-//   'react',
-//   '@frontegg/rest-api',
-//   '@frontegg/redux-store',
-//   '@frontegg/redux-store/auth',
-//   '@frontegg/redux-store/audits',
-//   '/node_modules/',
-// ];
 
 const isExternal = (id) => {
-  // if (
-  //   // !!nodeModules.find((t) => id.indexOf(t) !== -1)
-  //   // && id !== 'react-redux'
-  //   // && id !== 'prop-types'
-  //   id === 'react' ||
-  //   id === 'react-is' ||
-  //   id === 'react-dom' ||
-  //   id === 'hoist-non-react-statics' ||
-  //   id === 'prop-types' ||
-  //   id === '@frontegg/rest-api' ||
-  //   id === '@frontegg/redux-store' ||
-  //   id === '@frontegg/redux-store/auth' ||
-  //   id === '@frontegg/redux-store/audits'
-  //   // && id !== 'react-redux'
-  //   // && id !== 'hoist-non-react-statics'
-  //   // && id !== 'prop-types'
-  //   // && id !== 'react-is'
-  // ) {
-  //   return true;
-  // }
 
   return id !== './FronteggProvider' && id !== './AuthorizedContent';
 };
