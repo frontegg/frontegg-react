@@ -5,7 +5,7 @@ import { AuditLogsState, LoadAuditLogsPayload } from './interfaces';
 import { auditsStoreName } from '../../constants';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AuditsMetadataState } from '../AuditsMetadataState/interfaces';
-import { auditLogsDataDemo } from '../dummy';
+import { auditLogsDataDemo, auditsLogsFilterAndSort } from '../dummy';
 
 const select = () => sagaSelect((_) => _[auditsStoreName].auditLogsState);
 const selectMetadata = () => sagaSelect((_) => _[auditsStoreName].auditsMetadataState);
@@ -142,9 +142,7 @@ function* loadAuditLogsMock({ payload }: PayloadAction<LoadAuditLogsPayload>) {
     if (!columns) {
       yield put(actions.loadAuditsMetadata());
     }
-
-    const { data, total } = auditLogsDataDemo;
-
+    const { data, total } = auditsLogsFilterAndSort(filter, sort);
     yield put(
       actions.setAuditLogsState({
         loading: false,
