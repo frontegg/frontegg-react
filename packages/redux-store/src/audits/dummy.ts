@@ -1,3 +1,5 @@
+import { QueryFilter, QuerySort } from '@frontegg/rest-api';
+
 const dummyUsersData = [
   { user: 'Dianne Deck', email: 'dianne@frontegg.com' },
   { user: 'Betty Martin', email: 'betty@frontegg.com' },
@@ -11,6 +13,32 @@ const dummyUsersData = [
 const randomUser = () => {
   const random = Math.floor(Math.random() * dummyUsersData.length);
   return dummyUsersData[random];
+};
+
+const sortMethodBasedOnOrder = (sortBy: string, desc: boolean) => (a: any, b: any) => {
+  if (a[sortBy] > b[sortBy]) {
+    return desc ? -1 : 1;
+  }
+  if (b[sortBy] > a[sortBy]) {
+    return desc ? 1 : -1;
+  }
+  return 0;
+};
+const filterAuditsByQuery = (filterOptions: QueryFilter[]) => (log: any) =>
+  filterOptions
+    .filter(filterOutTimeFilterForDummyMode)
+    .every((filterItem: QueryFilter) => log[filterItem.id].includes(filterItem.value));
+
+const filterOutTimeFilterForDummyMode = (filterItem: QueryFilter) => filterItem.id !== 'createdAt';
+
+export const auditsLogsFilterAndSort = (filterOptions: QueryFilter[], sortOptions: QuerySort[]) => {
+  const { data } = auditLogsDataDemo;
+  let dataByQuery = data.filter(filterAuditsByQuery(filterOptions));
+  if (sortOptions.length) {
+    const { id, desc = false } = sortOptions[0];
+    dataByQuery = dataByQuery.sort(sortMethodBasedOnOrder(id, desc));
+  }
+  return { data: dataByQuery, total: dataByQuery.length };
 };
 
 const randomAction = () => {
