@@ -20,12 +20,13 @@ function* checkoutPlan({ payload: planId }: PayloadAction<string>) {
   yield put(checkoutActions.setLoading(true));
   yield put(checkoutActions.selectPlan(planId));
   yield put(checkoutActions.setStatus('open'));
-  yield put(checkoutActions.setLoading(false));
+  yield put(checkoutActions.setError(null));
 }
 
 function* resetCheckout() {
   yield put(checkoutActions.selectPlan(null));
   yield put(checkoutActions.setStatus('init'));
+  yield put(checkoutActions.setError(null));
 }
 
 function* confirmPlan() {
@@ -34,7 +35,7 @@ function* confirmPlan() {
     yield put(checkoutActions.setLoading(true));
     yield put(checkoutActions.selectPlan(null));
     yield put(checkoutActions.setStatus('confirm'));
-    yield put(checkoutActions.setLoading(false));
+    yield put(checkoutActions.setError(null));
   }
 }
 
@@ -44,7 +45,7 @@ function* cancelPlan() {
     yield put(checkoutActions.setLoading(true));
     yield put(checkoutActions.selectPlan(null));
     yield put(checkoutActions.setStatus('cancel'));
-    yield put(checkoutActions.setLoading(false));
+    yield put(checkoutActions.setError(null));
   }
 }
 
