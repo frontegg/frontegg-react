@@ -66,9 +66,7 @@ install: ##@1 Global yarn install all packages
   		| sed 's|^./packages/||' \
   		| xargs -I '{}' sh -c '$(MAKE) add-dist-folders-{}'
 	@echo "${YELLOW}Running lerna bootstrap${RESET}"
-	@./node_modules/.bin/lerna bootstrap --ignore redux-store
-	@rm "${DIR}/node_modules/@frontegg/redux-store"
-	@ln -s "${DIR}/packages/redux-store/dist" "${DIR}/node_modules/@frontegg/redux-store"
+	@./node_modules/.bin/lerna bootstrap
 
 add-dist-folders-%:
 	@mkdir -p ./packages/${*}/dist
@@ -124,9 +122,6 @@ test-unit: ##@3 Tests unit test with jest
 
 build: ##@4 Build build all packages
 	${MAKE} build-cli
-	${MAKE} build-rest-api
-	${MAKE} build-redux-store
-	${MAKE} build-react-hooks
 	${MAKE} build-react
 	${MAKE} build-core
 	${MAKE} build-elements-semantic

@@ -14,9 +14,6 @@ function updatePreReleaseVersion(packagePath, nextVersion) {
   lernaJSON.version = nextVersion;
 
   [
-    '@frontegg/rest-api',
-    '@frontegg/redux-store',
-    '@frontegg/react-hooks',
     '@frontegg/react-core',
     '@frontegg/react-auth',
     '@frontegg/react-audits',

@@ -3000,6 +3000,28 @@
   resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.26.tgz#771c96da1f930d732d5d286ed1067697c7e239eb"
   integrity sha512-Y0a2QKihNi7l4jdT5mez7ecIEZCaKW5ga+RzpD5JvrpX5N6ZM7bsSCaKoyAXJgMdU1mWy/2ZNjp9vY8Z2OQdKA==
 
+"@frontegg/react-hooks@^2.8.10":
+  version "2.8.10"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-2.8.10.tgz#439b430ef7e73aa84e9a4811aa94e7bad79c57b5"
+  integrity sha512-9Oet0lTpD7U4Gts2BK7nk3vXM+gaMFvYHiCZeedaJuNsA9sYME6MOdlbl0CDX68lPmGl31/IBebckwlzu9ugIA==
+  dependencies:
+    "@frontegg/redux-store" "^2.8.10"
+    react-redux "^7.x"
+
+"@frontegg/redux-store@^2.8.10":
+  version "2.8.10"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-2.8.10.tgz#d1b1e95f3138dab20166b2b12b93fa7e83b387ae"
+  integrity sha512-hy5k8zwOYZIKHtJd5Isc4B/oidwJYi6FlBVDOSYYIn4y77CnXCffwA5jKtxLWGLXGuaU4pIXGZudkEpGVempUQ==
+  dependencies:
+    "@frontegg/rest-api" "^2.8.10"
+    "@reduxjs/toolkit" "^1.5.0"
+    redux-saga "^1.1.0"
+
+"@frontegg/rest-api@^2.8.10":
+  version "2.8.10"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-2.8.10.tgz#d2fa47747642f278881cf657f1eece489c4e04ef"
+  integrity sha512-TxTnWV7lPXufymDo7Go6j0KdyOsOzQ20vjbuLPFApQlkFf6UKYcpzyyDvZz17FGXFeVfAs15WKazwaFpYuq4Zg==
+
 "@googlemaps/js-api-loader@^1.7.0":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.1.tgz#b7f02c04d8d8602fb4bd873b03685fccefce1c6f"
