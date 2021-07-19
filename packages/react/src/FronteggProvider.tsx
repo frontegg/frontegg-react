@@ -5,18 +5,39 @@ import { BrowserRouter } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
-export type FronteggProviderProps = FronteggConfigOptions;
-type ConnectorProps = FronteggProviderProps;
+export type FronteggProviderProps = FronteggConfigOptions & {
+  overrideHistory?: {
+    push: (path: string) => void;
+    replace: (path: string) => void;
+  };
+};
+type ConnectorProps = Omit<FronteggProviderProps, 'overrideHistory'> & {
+  history: {
+    push: (path: string) => void;
+    replace: (path: string) => void;
+  };
+};
 
 const getBasename = (history: any) => {
-  const basename = history.createHref({ pathname: '/extract' });
+  let basename = '';
+  if (history.createHref) {
+    basename = history.createHref({ pathname: '/extract' });
+  } else {
+    basename = history.createPath(history.parsePath('/extract'));
+  }
   return basename.substring(0, basename.length - '/extract'.length);
 };
 
-export const Connector: FC<ConnectorProps> = (props) => {
+export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
   const history = useHistory();
+  return <Connector history={history} {...props} />;
+};
+
+export const Connector: FC<ConnectorProps> = ({ history, ...props }) => {
   const isSSR = typeof window === 'undefined';
-  const baseName = getBasename(history);
+
+  // v6 or v5
+  const baseName = props.basename ?? getBasename(history);
 
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
     let path = _path;
@@ -57,13 +78,17 @@ export const Connector: FC<ConnectorProps> = (props) => {
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   const history = useHistory();
 
-  if (!history) {
+  if (props.overrideHistory || history) {
     return (
-      <BrowserRouter>
-        <Connector {...props}>{props.children}</Connector>
-      </BrowserRouter>
+      <Connector history={props.overrideHistory || history} {...props}>
+        {props.children}
+      </Connector>
     );
-  } else {
-    return <Connector {...props}>{props.children}</Connector>;
   }
+
+  return (
+    <BrowserRouter>
+      <ConnectorHistory {...props}>{props.children}</ConnectorHistory>
+    </BrowserRouter>
+  );
 };
