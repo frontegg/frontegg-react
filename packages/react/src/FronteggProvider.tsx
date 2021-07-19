@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 export type FronteggProviderProps = FronteggConfigOptions & {
-  overrideHistory?: {
+  history?: {
     push: (path: string) => void;
     replace: (path: string) => void;
   };
@@ -78,9 +78,9 @@ export const Connector: FC<ConnectorProps> = ({ history, ...props }) => {
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   const history = useHistory();
 
-  if (props.overrideHistory || history) {
+  if (props.history || history) {
     return (
-      <Connector history={props.overrideHistory || history} {...props}>
+      <Connector history={props.history || history} {...props}>
         {props.children}
       </Connector>
     );
