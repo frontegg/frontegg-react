@@ -21,11 +21,11 @@ type ConnectorProps = Omit<FronteggProviderProps, 'overrideHistory'> & {
 const getBasename = (history: any) => {
   let basename = '';
   if (history.createHref) {
-    basename = history.createHref({ pathname: '/extract' });
+    basename = history.createHref({ pathname: '/url' });
   } else {
-    basename = history.createPath(history.parsePath('/extract'));
+    basename = history.createPath(history.parsePath('/url'));
   }
-  return basename.substring(0, basename.length - '/extract'.length);
+  return basename.substring(0, basename.length - '/url'.length);
 };
 
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
