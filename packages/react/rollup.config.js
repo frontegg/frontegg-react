@@ -74,7 +74,6 @@ const entryPoints = [
 ];
 
 const isExternal = (id) => {
-
   return id !== './FronteggProvider' && id !== './AuthorizedContent';
 };
 
