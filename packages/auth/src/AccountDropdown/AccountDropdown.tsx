@@ -7,7 +7,9 @@ import { AccountPopupSectionProps } from './AccountPopupSection';
 
 type AccountDropdownProps = {
   getSections?: (defaultSections: AccountPopupSectionProps[], closePopup: () => void) => AccountPopupSectionProps[];
+  trigger?: JSX.Element;
 };
+
 export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
   const { t } = useT();
   const onRedirectTo = useOnRedirectTo();
@@ -45,7 +47,7 @@ export const AccountDropdown: FC<AccountDropdownProps> = (props) => {
         action='click'
         open={popupOpen}
         position={{ vertical: 'bottom', horizontal: 'right' }}
-        trigger={trigger}
+        trigger={props.trigger ?? trigger}
         content={<AccountPopup closePopup={handleClose} getSections={props.getSections} />}
       />
     </>
