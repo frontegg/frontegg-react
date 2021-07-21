@@ -2987,7 +2987,7 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal@^1.3.6":
+"@frontegg/admin-portal@1.3.9":
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-1.3.9.tgz#330ce574b2c5129edb52c3bd33fe0757b57b8c67"
   integrity sha512-8jPAV0FQo4zzOh7OcFWk9pQ+CXNEPg2kHCXP1nIF8EGeuKhw+mhYb8yo66yvDmWlwKNKbyNUxY36wB6rOiszKw==
@@ -3000,7 +3000,7 @@
   resolved "https://registry.yarnpkg.com/@frontegg/injector/-/injector-0.0.26.tgz#771c96da1f930d732d5d286ed1067697c7e239eb"
   integrity sha512-Y0a2QKihNi7l4jdT5mez7ecIEZCaKW5ga+RzpD5JvrpX5N6ZM7bsSCaKoyAXJgMdU1mWy/2ZNjp9vY8Z2OQdKA==
 
-"@frontegg/react-hooks@^2.8.10":
+"@frontegg/react-hooks@2.8.10", "@frontegg/react-hooks@^2.8.10":
   version "2.8.10"
   resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-2.8.10.tgz#439b430ef7e73aa84e9a4811aa94e7bad79c57b5"
   integrity sha512-9Oet0lTpD7U4Gts2BK7nk3vXM+gaMFvYHiCZeedaJuNsA9sYME6MOdlbl0CDX68lPmGl31/IBebckwlzu9ugIA==
