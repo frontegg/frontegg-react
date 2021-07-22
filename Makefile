@@ -176,4 +176,28 @@ pretty:
 	@yarn prettier-hook
 
 demo:
-	cd ./packages/demo-saas && yarn start
+	@cd ./packages/demo-saas && yarn start
+
+publish-packages-next:
+	@make publish-package-next-react
+	@make publish-package-next-core
+	@make publish-package-next-auth
+	@make publish-package-next-audits
+	@make publish-package-next-connectivity
+
+publish-package-next-%:
+	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
+	@cp ./.npmignore "./packages/${*}/dist/.npmignore"
+	@cd "./packages/${*}/dist" && npm publish --tag next
+
+publish-packages:
+	@make publish-package-next-react
+	@make publish-package-next-core
+	@make publish-package-next-auth
+	@make publish-package-next-audits
+	@make publish-package-next-connectivity
+
+publish-package-%:
+	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
+	@cp ./.npmignore "./packages/${*}/dist/.npmignore"
+	@cd "./packages/${*}/dist" && npm publish

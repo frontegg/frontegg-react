@@ -4,8 +4,7 @@ const fs = require('fs');
 function movePackageJson(packagePath) {
   if (packagePath.indexOf('demo-saas') !== -1
     || packagePath.endsWith('/react-hooks')
-    || packagePath.endsWith('/redux-store')
-    || packagePath.endsWith('/react')) {
+    || packagePath.endsWith('/redux-store')) {
     console.log('skip packagePath:', packagePath);
     return;
   }
