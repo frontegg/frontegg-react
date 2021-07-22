@@ -34,8 +34,12 @@ const Parser = new UAParser(undefined, { browser: ownRegexp });
 
 const UserAgent: CellComponent = ({ value }: { value: string }) => {
   const browser = useMemo(() => {
-    const browser = value ? Parser.setUA(value).getBrowser().name : '';
-    return browser && browsers.includes(browser?.toLowerCase() ?? '') ? browser : 'Web';
+    try {
+      const browser = value ? Parser.setUA(value).getBrowser().name : '';
+      return browser && browsers.includes(browser?.toLowerCase() ?? '') ? browser : 'Web';
+    } catch (e) {
+      return 'Web';
+    }
   }, [value]);
 
   const triggerElement = useMemo(() => {
