@@ -1,13 +1,10 @@
 name: Publish Pre-Release to NPM
 on:
   # When standard Pull Request is merged
-#  pull_request:
-#    branches:
-#      - master
-#    types: [ closed ]
-  push:
+  pull_request:
     branches:
-      - 'fix-pipeline'
+      - master
+    types: [ closed ]
 jobs:
   createReleasePullRequest:
     if: "!contains(join(github.event.pull_request.labels.*.name, ','), 'Release') && github.event.pull_request.merged == true"
