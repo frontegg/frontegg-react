@@ -200,4 +200,4 @@ publish-packages:
 publish-package-%:
 	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
 	@cp ./.npmignore "./packages/${*}/dist/.npmignore"
-	@cd "./packages/${*}/dist" && npm publish
+	@cd "./packages/${*}/dist" && npm publish --tag latest
