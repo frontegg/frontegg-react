@@ -47,7 +47,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Commit Version UP
         run: |
-          yarn lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes --no-push
+          yarn lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes --no-push --force-publish
           yarn prettier-hook
           git add . && git commit -m "chore(release): publish `node -p 'require("./lerna.json").version'`"
       - name: Set current CHANGELOG to output

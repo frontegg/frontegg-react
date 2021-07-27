@@ -191,13 +191,13 @@ publish-package-next-%:
 	@cd "./packages/${*}/dist" && npm publish --tag next
 
 publish-packages:
-	@make publish-package-next-react
-	@make publish-package-next-core
-	@make publish-package-next-auth
-	@make publish-package-next-audits
-	@make publish-package-next-connectivity
+	@make publish-package-latest-react
+	@make publish-package-latest-core
+	@make publish-package-latest-auth
+	@make publish-package-latest-audits
+	@make publish-package-latest-connectivity
 
-publish-package-%:
+publish-package-latest-%:
 	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
 	@cp ./.npmignore "./packages/${*}/dist/.npmignore"
 	@cd "./packages/${*}/dist" && npm publish --tag latest
