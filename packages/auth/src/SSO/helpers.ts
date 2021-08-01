@@ -82,8 +82,8 @@ export const ssoConfigureIdpFormSubmit = ({
     saveSSOConfigurations?.({
       oidcClientId,
       oidcSecret,
-      samlVendor,
-    });
+      samlVendor: SamlVendors.Oidc,
+    } as any);
   } else {
     saveSSOConfigurations?.({
       ssoEndpoint,
