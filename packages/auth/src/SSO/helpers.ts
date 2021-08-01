@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { validateUrl, validateRequired, validateSchemaSync } from '@frontegg/react-core';
+import { validateRequired, validateSchemaSync, validateUrl } from '@frontegg/react-core';
 import { SSOActions } from '@frontegg/redux-store/auth';
 import { useSSOActions, useSSOState } from '@frontegg/react-hooks/auth';
 import { SamlVendors } from './SSOConfigureIDPPage/SSOVendors';
@@ -39,14 +39,14 @@ export const ssoConfigureIdpFormValidation = ({
   samlVendor,
   t,
 }: IssoConfigureIdpFormValidation) => {
-  if (configSaml === 'auto' && samlVendor !== 'Oidc') {
+  if (configSaml === 'auto' && samlVendor !== SamlVendors.Oidc) {
     return validateSchemaSync(
       {
         configFile: validateRequired(t('auth.sso.form.metadata-file'), t),
       },
       { configFile }
     );
-  } else if (samlVendor === 'Oidc') {
+  } else if (samlVendor === SamlVendors.Oidc) {
     return validateSchemaSync(
       {
         oidcClientId: validateRequired(t('common.clientId'), t),
@@ -78,7 +78,7 @@ export const ssoConfigureIdpFormSubmit = ({
 }: IssoConfigureIdpFormSubmit) => {
   if (configSaml === 'auto') {
     saveSSOConfigurationsFile?.(configFile!);
-  } else if (samlVendor === 'Oidc') {
+  } else if (samlVendor === SamlVendors.Oidc) {
     saveSSOConfigurations?.({
       oidcClientId,
       oidcSecret,
