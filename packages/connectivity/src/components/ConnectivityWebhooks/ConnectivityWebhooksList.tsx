@@ -216,9 +216,7 @@ export const ConnectivityWebhooksList: FC = () => {
                     data-test-id='acceptBtn'
                     variant='danger'
                     loading={isSaving}
-                    onClick={() => {
-                      deleteWebhookConfigAction(remove._id);
-                    }}
+                    onClick={() => deleteWebhookConfigAction({ webhookId: remove._id })}
                   >
                     Accept
                   </Button>
