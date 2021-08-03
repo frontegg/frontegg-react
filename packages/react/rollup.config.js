@@ -12,7 +12,6 @@ function movePackageJson() {
     name: 'move-package-json',
     buildEnd() {
       let enhancedPkg = pkg;
-      enhancedPkg.dep;
       enhancedPkg.main = enhancedPkg.main.replace('dist/', '');
       enhancedPkg.module = enhancedPkg.module.replace('dist/', '');
       enhancedPkg.types = enhancedPkg.types.replace('dist/', '');
