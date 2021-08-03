@@ -7,9 +7,10 @@ function movePackageJson(packagePath) {
     return;
   }
 
+  const distFolder = `${packagePath}/dist`;
+  const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, { encoding: 'utf8' }));
+
   if (!packagePath.endsWith('/react')) {
-    const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, { encoding: 'utf8' }));
-    const distFolder = `${packagePath}/dist`;
 
     const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
     newPkg.main = 'index.js';
