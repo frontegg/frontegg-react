@@ -36,10 +36,11 @@ const cjsPlugins = [
   movePackageJson(),
   ts({
     tsconfig: `${__dirname}/tsconfig.json`,
-    useTsconfigDeclarationDir: false,
+    useTsconfigDeclarationDir: true,
     tsconfigOverride: {
       compilerOptions: {
-        declaration: false,
+        declaration: true,
+        declarationDir: distFolder,
         target: 'ES5',
         module: 'ES6',
       },
@@ -57,7 +58,7 @@ export default [
     plugins: cjsPlugins,
     external: isExternal,
     output: {
-      file: path.join(distFolder, 'index.cjs.js'),
+      file: path.join(distFolder, 'index.js'),
       sourcemap: true,
       format: 'cjs',
     },
