@@ -13,7 +13,9 @@ function movePackageJson() {
     buildEnd() {
       let enhancedPkg = pkg;
       enhancedPkg.main = enhancedPkg.main.replace('dist/', '');
-      enhancedPkg.module = enhancedPkg.module.replace('dist/', '');
+      if (enhancedPkg.module) {
+        enhancedPkg.module = enhancedPkg.module.replace('dist/', '');
+      }
       enhancedPkg.types = enhancedPkg.types.replace('dist/', '');
       fs.mkdirSync(distFolder, { recursive: true });
       fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), {
