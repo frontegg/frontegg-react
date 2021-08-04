@@ -25,34 +25,13 @@ function movePackageJson() {
   };
 }
 
-const commonPlugins = [
+const cjsPlugins = [
   resolve({
     browser: false,
     preferBuiltins: false,
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   }),
-  // progress(),
   movePackageJson(),
-];
-
-const esmPlugins = [
-  ...commonPlugins,
-  ts({
-    tsconfig: `${__dirname}/tsconfig.json`,
-    useTsconfigDeclarationDir: true,
-    tsconfigOverride: {
-      compilerOptions: {
-        declaration: true,
-        declarationDir: distFolder,
-        target: 'es5',
-        module: 'es6',
-      },
-    },
-  }),
-];
-
-const cjsPlugins = [
-  ...commonPlugins,
   ts({
     tsconfig: `${__dirname}/tsconfig.json`,
     useTsconfigDeclarationDir: false,
@@ -65,29 +44,12 @@ const cjsPlugins = [
     },
   }),
 ];
-const entryPoints = [
-  // 'auth/index',
-  // 'audits/index',
-  // Main Entry Point
-  'index',
-];
 
 const isExternal = (id) => {
   return id !== './FronteggProvider' && id !== './AuthorizedContent';
 };
 
 export default [
-  {
-    input: entryPoints.reduce((p, n) => ({ ...p, [n]: `./src/${n}` }), {}),
-    plugins: esmPlugins,
-    external: isExternal,
-    output: {
-      dir: distFolder,
-      entryFileNames: '[name].js',
-      sourcemap: true,
-      format: 'es',
-    },
-  },
   {
     input: './src/index.ts',
     plugins: cjsPlugins,

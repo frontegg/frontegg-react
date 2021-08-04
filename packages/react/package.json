@@ -3,8 +3,7 @@
   "libName": "FronteggReact",
   "version": "2.8.17",
   "author": "Frontegg LTD",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
