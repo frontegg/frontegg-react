@@ -1,0 +1,25 @@
+{
+  "name": "@frontegg/nextjs",
+  "libName": "FronteggNextJs",
+  "version": "2.8.17",
+  "author": "Frontegg LTD",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
+    "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js",
+    "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
+  },
+  "dependencies": {
+    "@frontegg/admin-portal": "3.10.0",
+    "@frontegg/react-hooks": "3.10.0"
+  },
+  "devDependencies": {
+    "next": ">10.0.0"
+  },
+  "peerDependencies": {
+    "next": ">10.0.0",
+    "react": ">16.9.0",
+    "react-dom": ">16.9.0"
+  }
+}
