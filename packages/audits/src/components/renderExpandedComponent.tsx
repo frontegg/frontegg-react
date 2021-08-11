@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { Grid } from '@frontegg/react-core';
-import { HeaderProps } from '@frontegg/redux-store/audits/backward-compatibility';
+import { HeaderProps } from '@frontegg/redux-store';
 import { AuditRowData } from '@frontegg/rest-api';
 import classNames from 'classnames';
 import { AuditsTableIpCell } from './AuditsTableIpCell';

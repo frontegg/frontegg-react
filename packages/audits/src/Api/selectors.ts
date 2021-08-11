@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { OldAuditsState as AuditsState } from '@frontegg/redux-store/audits/backward-compatibility';
+import { OldAuditsState as AuditsState } from '@frontegg/redux-store';
 
 const filters = (state: AuditsState) => state.filters;
 const headerProps = (state: AuditsState) => state.headerProps;

@@ -6,7 +6,7 @@ import {
   OldAuditsState as AuditsState,
   OldAuditsActions as AuditsActions,
   storeName,
-} from '@frontegg/redux-store/audits/backward-compatibility';
+} from '@frontegg/redux-store';
 
 export type AuditsStateMapper<S extends object> = (state: AuditsState) => S;
 const defaultAuditsStateMapper: any = (state: AuditsState) => ({ ...state });

@@ -6,16 +6,10 @@ import { AuditsHeader } from './components/AuditsHeader';
 import { AuditsSubHeader } from './components/AuditsSubHeader';
 import { AuditsTable } from './components/AuditsTable';
 import { AuditsRawTable } from './components/AuditsRawTable';
-import {
-  OldAuditsActions as AuditsActions,
-  initialState,
-  reducer,
-  sagas,
-  storeName,
-} from '@frontegg/redux-store/audits/backward-compatibility';
+import { OldAuditsActions as AuditsActions, initialState, reducer, sagas, storeName } from '@frontegg/redux-store/';
 
 export type { AuditsActions };
-export * from '@frontegg/redux-store/audits/backward-compatibility';
+export * from '@frontegg/redux-store/';
 
 export const AuditsPlugin = (): PluginConfig => ({
   storeName,
