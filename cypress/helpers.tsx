@@ -8,6 +8,7 @@ import { auditsData, auditsDataDescName, auditsMetadata, auditsStats } from './c
 export const METADATA_SERVICE = 'http://localhost:8080/frontegg/metadata';
 export const IDENTITY_SERVICE = 'http://localhost:8080/frontegg/identity';
 export const AUDITS_SERVICE = 'http://localhost:8080/frontegg/audits';
+export const TEAM_SERVICE = 'http://localhost:8080/frontegg/team';
 
 const contextOptions: ContextOptions = {
   baseUrl: `http://localhost:8080`,
@@ -104,20 +105,21 @@ export const mockAuthApi = (
   if (saml) {
     cy.route({
       method: 'GET',
-      url: `${METADATA_SERVICE}?entityName=saml`,
+      url: `${TEAM_SERVICE}/resources/sso/v2/configurations/public`,
       status: 200,
       delay: 200,
       response: {
-        rows: [{ isActive: true }],
+        isActive: true,
       },
     }).as('metadata');
   } else {
     cy.route({
       method: 'GET',
-      url: `${METADATA_SERVICE}?entityName=saml`,
+      url: `${TEAM_SERVICE}/resources/sso/v2/configurations/public`,
       status: 200,
+      delay: 200,
       response: {
-        rows: [],
+        isActive: false,
       },
     }).as('metadata');
   }
