@@ -59,7 +59,7 @@ export const Select: FC<SelectProps> = (props) => {
       return renderOption ? (
         <React.Fragment key={index}>{renderOption(option, state)}</React.Fragment>
       ) : (
-        <Chip size={size} disabled={true} label={option.label} {...getTagProps({ index })} />
+        <Chip size={size} disabled={true} label={option?.label} {...getTagProps({ index })} />
       );
     },
     [renderOption]
