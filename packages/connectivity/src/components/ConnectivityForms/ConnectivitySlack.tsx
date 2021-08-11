@@ -114,6 +114,7 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   const { loadSlackActions, cleanSlackData, postDataAction } = useConnectivityActions();
 
   useEffect(() => {
+    console.log('Load');
     loadSlackActions();
     return () => {
       cleanSlackData();
@@ -140,7 +141,8 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   });
 
   const saveData = useCallback(
-    (data?: ISlackTableData[]) => {
+    ({ data }: { data?: ISlackTableData[] }) => {
+      console.log('Saving data');
       if (!slack || !data) return;
       const { id } = slack;
       const newData: ISlackConfigurations = {
@@ -173,9 +175,9 @@ export const ConnectivitySlack: FC<IConnectivityComponent> = () => {
   }
 
   return (
-    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={(val) => saveData(val.data)} enableReinitialize>
+    <FFormik.Formik initialValues={{ data: tablesData }} onSubmit={saveData} enableReinitialize>
       <FFormik.Form>
-        <FormikAutoSave isSaving={isSaving} debounceMs={0} />
+        <FormikAutoSave isSaving={isSaving} debounceMs={50} />
         {Search}
         {filterTableData.map(({ id, events, index }, idx) => (
           <Table

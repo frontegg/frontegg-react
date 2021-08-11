@@ -18,8 +18,8 @@ export const FormikAutoSave: FC<IFormikAutoSave> = ({ debounceMs = 500, isSaving
   }, []);
 
   useEffect(() => {
-    isValid && submitForm();
-  }, [saveData, submitForm, isValid]);
+    isValid && JSON.stringify(initialValues) !== JSON.stringify(saveData) && submitForm();
+  }, [saveData, submitForm, isValid, initialValues]);
 
   useEffect(() => {
     !isSaving && setSubmitting(false);
