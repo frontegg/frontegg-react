@@ -103,7 +103,6 @@ test-component: ##@3 Tests component test with cypress
 	@echo "${YELLOW}Component Test Cypress${RESET}"
 	${MAKE} test-component-auth
 	${MAKE} test-component-audits
-	#${MAKE} test-component-core
 
 test-component-%:
 	@echo "${YELLOW}Component Test Cypress [${*}]${RESET}"
@@ -123,6 +122,7 @@ test-unit: ##@3 Tests unit test with jest
 build: ##@4 Build build all packages
 	${MAKE} build-cli
 	${MAKE} build-react
+	${MAKE} build-nextjs
 	${MAKE} build-core
 	${MAKE} build-elements-semantic
 	${MAKE} build-elements-material-ui
@@ -180,6 +180,7 @@ demo:
 
 publish-packages-next:
 	@make publish-package-next-react
+	@make publish-package-next-nextjs
 	@make publish-package-next-core
 	@make publish-package-next-auth
 	@make publish-package-next-audits
@@ -192,6 +193,7 @@ publish-package-next-%:
 
 publish-packages:
 	@make publish-package-latest-react
+	@make publish-package-latest-nextjs
 	@make publish-package-latest-core
 	@make publish-package-latest-auth
 	@make publish-package-latest-audits
