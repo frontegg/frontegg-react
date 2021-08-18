@@ -70,8 +70,9 @@ export const Connector: FC<ConnectorProps> = ({ history, ...props }) => {
   useEffect(() => () => {
     try {
       (app.store as any)?.destroy?.();
-    } catch (e) {}
-  });
+    } catch (e) {
+    }
+  }, []);
   return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
 };
 
