@@ -17,7 +17,7 @@ npm install @frontegg/nextjs
 
 ## Configuration
 
-Wrap your application with `Frontegg Provider`:
+Wrap your application in `_app.js` with `Frontegg Provider`:
 
 ```js
 import { FronteggProvider } from '@frontegg/nextjs'
@@ -26,9 +26,9 @@ const contextOptions = {
   baseUrl: 'https://{HOST}.frontegg.com',// Your backend base URL (frontegg will direct the requests to it)
 }
 
-export const App = () => {
+export const App = ({ Component, pageProps }) => {
   return <FronteggProvider contextOptions={contextOptions}>
-    {/*...*/}
+    <Component {...pageProps}/>
   </FronteggProvider>
 }
 
