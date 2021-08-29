@@ -4,7 +4,11 @@ import { SSOStep } from './SSOStep';
 import { HideOption } from '../../interfaces';
 import { useSSOState } from '@frontegg/react-hooks/auth';
 
-export const SSOSteps: FC<HideOption> = (props) => {
+export interface SSOStepsProps extends HideOption {
+  authorizationStep?: boolean;
+}
+
+export const SSOSteps: FC<SSOStepsProps> = (props) => {
   const { t } = useT();
   const rootPath = checkRootPath('SSOSteps should be rendered inside SSO component');
   const { samlConfiguration, loading, roles, authorizationRoles } = useSSOState(
@@ -52,15 +56,17 @@ export const SSOSteps: FC<HideOption> = (props) => {
         subtitle={idpValue}
         configured={isIdpValidated}
       />
-      <SSOStep
-        num={3}
-        t={t}
-        optional
-        to={`${rootPath}/authorization`}
-        title={t('auth.sso.overview.manage-authorization')}
-        subtitle={!!authorizationRoles?.length && authorizationValue ? `${authorizationValue}...` : ''}
-        configured={isAuthorizationValidated}
-      />
+      {props.authorizationStep && (
+        <SSOStep
+          num={3}
+          t={t}
+          optional
+          to={`${rootPath}/authorization`}
+          title={t('auth.sso.overview.manage-authorization')}
+          subtitle={!!authorizationRoles?.length && authorizationValue ? `${authorizationValue}...` : ''}
+          configured={isAuthorizationValidated}
+        />
+      )}
     </div>
   );
 };
