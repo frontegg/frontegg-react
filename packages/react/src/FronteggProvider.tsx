@@ -1,11 +1,12 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
-import { FronteggConfigOptions, initialize } from '@frontegg/admin-portal';
-import { FronteggProvider as ReduxProvider } from '@frontegg/react-hooks';
+import { initialize } from '@frontegg/admin-portal';
+import { FronteggAppOptions } from '@frontegg/types';
+import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
-export type FronteggProviderProps = FronteggConfigOptions & {
+export type FronteggProviderProps = FronteggAppOptions & {
   history?: {
     push: (path: string) => void;
     replace: (path: string) => void;
@@ -59,6 +60,7 @@ export const Connector: FC<ConnectorProps> = ({ history, ...props }) => {
     ContextHolder.setOnRedirectTo(onRedirectTo);
     return initialize({
       ...props,
+      basename: props.basename ?? baseName,
       contextOptions: {
         requestCredentials: 'include',
         ...props.contextOptions,
@@ -71,11 +73,12 @@ export const Connector: FC<ConnectorProps> = ({ history, ...props }) => {
     () => () => {
       try {
         (app.store as any)?.destroy?.();
-      } catch (e) {}
+      } catch (e) {
+      }
     },
-    []
+    [],
   );
-  return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
+  return <FronteggStoreProvider {...{ app } as any}>{props.children}</FronteggStoreProvider>;
 };
 
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
