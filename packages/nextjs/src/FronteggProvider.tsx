@@ -1,10 +1,11 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
-import { FronteggConfigOptions, initialize } from '@frontegg/admin-portal';
-import { FronteggProvider as ReduxProvider } from '@frontegg/react-hooks';
+import { initialize } from '@frontegg/admin-portal-light';
+import { FronteggAppOptions } from '@frontegg/types';
+import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { NextRouter, useRouter } from 'next/router';
 
-type ConnectorProps = FronteggConfigOptions & {
+type ConnectorProps = FronteggAppOptions & {
   router: NextRouter;
 };
 
@@ -50,10 +51,10 @@ export const Connector: FC<ConnectorProps> = ({ router, ...props }) => {
       (app.store as any)?.destroy?.();
     } catch (e) {}
   });
-  return <ReduxProvider app={app}>{props.children}</ReduxProvider>;
+  return <FronteggStoreProvider {...({ app } as any)}>{props.children}</FronteggStoreProvider>;
 };
 
-export const FronteggProvider: FC<FronteggConfigOptions> = (props) => {
+export const FronteggProvider: FC<FronteggAppOptions> = (props) => {
   const router = useRouter();
   return (
     <Connector {...props} router={router}>

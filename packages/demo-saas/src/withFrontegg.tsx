@@ -5,7 +5,7 @@ import { ConnectivityPlugin } from '@frontegg/react-connectivity';
 import { AuditsPlugin } from '@frontegg/react-audits';
 import { uiLibrary } from '@frontegg/react-elements-material-ui';
 import { FronteggStoreContext } from '@frontegg/react-hooks';
-import { initialize } from '@frontegg/admin-portal';
+import { initialize } from '@frontegg/admin-portal-light';
 
 const contextOptions: ContextOptions = {
   baseUrl: `https://david.frontegg.com`,
