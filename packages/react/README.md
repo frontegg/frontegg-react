@@ -25,7 +25,7 @@ Wrap your application with `Frontegg Provider`:
 import { FronteggProvider } from '@frontegg/react'
 
 const contextOptions = {
-  baseUrl: 'https://{HOST}.frontegg.com',                             // You backend base URL (frontegg will direct the requests to it)
+  baseUrl: 'https://{HOST}.frontegg.com', // Your backend base URL (frontegg will direct the requests to it)
 }
 
 export const App = () => {
