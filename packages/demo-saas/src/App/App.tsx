@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { AdminPortal } from '@frontegg/admin-portal';
+import { AdminPortal } from '@frontegg/admin-portal-light';
 import {
   ProtectedRoute,
   Profile,
