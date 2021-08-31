@@ -51,7 +51,7 @@ export const Connector: FC<ConnectorProps> = ({ router, ...props }) => {
       (app.store as any)?.destroy?.();
     } catch (e) {}
   });
-  return <FronteggStoreProvider {...{ app } as any}>{props.children}</FronteggStoreProvider>;
+  return <FronteggStoreProvider {...({ app } as any)}>{props.children}</FronteggStoreProvider>;
 };
 
 export const FronteggProvider: FC<FronteggAppOptions> = (props) => {
