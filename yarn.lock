@@ -2998,12 +2998,12 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal-light@4.3.0":
+"@frontegg/admin-portal@4.3.0":
   version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal-light/-/admin-portal-light-4.3.0.tgz#49d3d807e626fe62b1333e1351f606a0e092b21a"
-  integrity sha512-gEVYvxdQPzaDSl/arY77YbeZsFh+BJc5IztFkwxrMy3I7+DvBiLEmZQ5VLhiZAUFmfHR2oenXsPx6rDQJdjz4Q==
+  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-4.3.0.tgz#e581c28c2c72f7eb3b0a758bc6726484630773b9"
+  integrity sha512-NeWstFK6C1muoVgksAwNDaFR6aNnF8RAqcc5OEvYySfUWAraxdFroqs+FYrdHmY8AZyfZOOT2DO96PJw8+nGBA==
   dependencies:
-    "@frontegg/react-hooks" "4.3.0"
+    "@frontegg/redux-store" "4.3.0"
     "@frontegg/types" "4.3.0"
 
 "@frontegg/react-hooks@4.3.0":
