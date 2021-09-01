@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@frontegg/react-hooks": "4.3.0",
-    "@frontegg/admin-portal-light": "4.3.0"
+    "@frontegg/admin-portal": "4.3.0"
   },
   "devDependencies": {
     "next": ">10.0.0"
