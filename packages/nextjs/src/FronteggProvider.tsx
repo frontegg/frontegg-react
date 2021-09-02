@@ -36,22 +36,24 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
     if (typeof window === 'undefined') {
       return { store: null };
     }
-    return initialize({
-      ...props,
-      contextOptions: {
-        requestCredentials: 'include',
-        ...props.contextOptions,
+    return initialize(
+      {
+        ...props,
+        contextOptions: {
+          requestCredentials: 'include',
+          ...props.contextOptions,
+        },
+        onRedirectTo,
       },
-      onRedirectTo,
-    }, appName ?? 'default');
+      appName ?? 'default'
+    );
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
   useEffect(() => () => {
     try {
       (app.store as any)?.destroy?.();
-    } catch (e) {
-    }
+    } catch (e) {}
   });
   return <FronteggStoreProvider {...({ app } as any)}>{props.children}</FronteggStoreProvider>;
 };

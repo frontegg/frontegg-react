@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 export type FronteggProviderProps = FronteggAppOptions & {
-  appName?:string;
+  appName?: string;
   history?: {
     push: (path: string) => void;
     replace: (path: string) => void;
@@ -35,7 +35,7 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   return <Connector history={history} {...props} />;
 };
 
-export const Connector: FC<ConnectorProps> = ({ history, appName,...props }) => {
+export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) => {
   const isSSR = typeof window === 'undefined';
 
   // v6 or v5
@@ -58,17 +58,20 @@ export const Connector: FC<ConnectorProps> = ({ history, appName,...props }) => 
   }, []);
 
   const app = useMemo(() => {
-    ContextHolder.setOnRedirectTo(onRedirectTo);
-    return initialize({
-      ...props,
-      basename: props.basename ?? baseName,
-      contextOptions: {
-        requestCredentials: 'include',
-        ...props.contextOptions,
+    return initialize(
+      {
+        ...props,
+        basename: props.basename ?? baseName,
+        contextOptions: {
+          requestCredentials: 'include',
+          ...props.contextOptions,
+        },
+        onRedirectTo,
       },
-      onRedirectTo,
-    }, appName ?? 'default');
+      appName ?? 'default'
+    );
   }, []);
+  ContextHolder.setOnRedirectTo(onRedirectTo);
 
   useEffect(
     () => () => {
