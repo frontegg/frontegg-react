@@ -36,7 +36,6 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
     if (typeof window === 'undefined') {
       return { store: null };
     }
-    ContextHolder.setOnRedirectTo(onRedirectTo);
     return initialize({
       ...props,
       contextOptions: {
@@ -46,6 +45,7 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
       onRedirectTo,
     }, appName ?? 'default');
   }, []);
+  ContextHolder.setOnRedirectTo(onRedirectTo);
 
   useEffect(() => () => {
     try {
