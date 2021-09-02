@@ -7,9 +7,10 @@ import { NextRouter, useRouter } from 'next/router';
 
 type ConnectorProps = FronteggAppOptions & {
   router: NextRouter;
+  appName?: string;
 };
 
-export const Connector: FC<ConnectorProps> = ({ router, ...props }) => {
+export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => {
   const isSSR = typeof window === 'undefined';
 
   // v6 or v5
@@ -43,13 +44,14 @@ export const Connector: FC<ConnectorProps> = ({ router, ...props }) => {
         ...props.contextOptions,
       },
       onRedirectTo,
-    });
+    }, appName ?? 'default');
   }, []);
 
   useEffect(() => () => {
     try {
       (app.store as any)?.destroy?.();
-    } catch (e) {}
+    } catch (e) {
+    }
   });
   return <FronteggStoreProvider {...({ app } as any)}>{props.children}</FronteggStoreProvider>;
 };
