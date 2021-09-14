@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import { Button, Dialog, Grid, Table, TableColumnProps, useT } from '@frontegg/react-core';
+import { Button, Dialog, Grid, Icon, Table, TableColumnProps, useT } from '@frontegg/react-core';
 import { IWebhookLocationState } from './interfaces';
 import { IWebhookLog } from '@frontegg/rest-api';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
@@ -29,7 +29,7 @@ export const ConnectivityWebhooksLog: FC = () => {
   const [moreInfo, setMoreInfo] = useState<IWebhookData | null>(null);
 
   const { webhookLogs } = useConnectivityState();
-  const { loadWebhookLogsAction, cleanWebhookLogsData } = useConnectivityActions();
+  const { loadWebhookLogsAction, cleanWebhookLogsData, postWebhookRetryAction } = useConnectivityActions();
 
   const data = useMemo(
     () =>
@@ -40,6 +40,13 @@ export const ConnectivityWebhooksLog: FC = () => {
       })) ?? [],
     [webhookLogs]
   );
+
+  const retryHandler = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const { id } = e.currentTarget?.dataset;
+    if (id) {
+      postWebhookRetryAction(id);
+    }
+  }, []);
 
   const columns: TableColumnProps<IWebhookData>[] = useMemo(
     () => [
@@ -70,8 +77,23 @@ export const ConnectivityWebhooksLog: FC = () => {
         ),
         maxWidth: 50,
       },
+      {
+        accessor: 'action',
+        Cell: ({ row }) => (
+          <Button
+            data-test-id='retryBtn'
+            transparent
+            className='fe-connectivity-webhook-retry'
+            onClick={retryHandler}
+            data-id={row.original.id}
+          >
+            <Icon name='refresh' />
+          </Button>
+        ),
+        maxWidth: 25,
+      },
     ],
-    [t, setMoreInfo]
+    [t, setMoreInfo, retryHandler]
   );
 
   const { isLoading, count } = useMemo(() => webhookLogs ?? { isLoading: true, count: 0 }, [webhookLogs]);
