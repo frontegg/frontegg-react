@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-elements-material-ui",
   "libName": "FronteggElementsMaterialUi",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
