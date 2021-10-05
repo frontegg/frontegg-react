@@ -81,7 +81,7 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
     },
     []
   );
-  return <FronteggStoreProvider {...({ app } as any)}>{props.children}</FronteggStoreProvider>;
+  return <FronteggStoreProvider {...({ ...props, app } as any)} />;
 };
 
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
