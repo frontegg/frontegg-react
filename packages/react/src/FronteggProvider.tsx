@@ -86,18 +86,18 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
 
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   const history = useHistory();
-
-  if (props.history || history) {
+  const { children, history: providedHistory } = props;
+  if (providedHistory || history) {
     return (
-      <Connector history={props.history || history} {...props}>
-        {props.children}
+      <Connector history={providedHistory || history} {...props}>
+        {children}
       </Connector>
     );
   }
 
   return (
     <BrowserRouter>
-      <ConnectorHistory {...props}>{props.children}</ConnectorHistory>
+      <ConnectorHistory {...props}>{children}</ConnectorHistory>
     </BrowserRouter>
   );
 };
