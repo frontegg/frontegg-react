@@ -33,9 +33,6 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
   }, []);
 
   const app = useMemo(() => {
-    if (typeof window === 'undefined') {
-      return { store: null };
-    }
     return initialize(
       {
         ...props,
@@ -47,15 +44,18 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
       },
       appName ?? 'default'
     );
-  }, []);
+  }, [onRedirectTo]);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
-  useEffect(() => () => {
-    try {
-      (app.store as any)?.destroy?.();
-    } catch (e) {}
-  });
-  return <FronteggStoreProvider {...({ app } as any)}>{props.children}</FronteggStoreProvider>;
+  useEffect(
+    () => () => {
+      try {
+        (app.store as any)?.destroy?.();
+      } catch (e) {}
+    },
+    []
+  );
+  return <FronteggStoreProvider {...({ ...props, app } as any)}>{props.children}</FronteggStoreProvider>;
 };
 
 export const FronteggProvider: FC<FronteggAppOptions> = (props) => {
