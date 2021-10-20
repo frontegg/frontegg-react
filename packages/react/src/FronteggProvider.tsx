@@ -96,7 +96,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={props.basename}>
       <ConnectorHistory {...props}>{props.children}</ConnectorHistory>
     </BrowserRouter>
   );
