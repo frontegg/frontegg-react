@@ -3,6 +3,13 @@
     position: relative;
   }
 
+  &-logs {
+    &__retry-icon {
+      margin-left: 0.85rem;
+      width: 1rem !important;
+    }
+  }
+
   &-add,
   &-add.MuiButtonBase-root {
     position: absolute;
