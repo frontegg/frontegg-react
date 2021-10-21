@@ -6,10 +6,15 @@ import { IWebhookLocationState } from './interfaces';
 import { IWebhookLog } from '@frontegg/rest-api';
 import { useConnectivityActions, useConnectivityState } from '@frontegg/react-hooks';
 
+enum TriggerType {
+  RETRY = 'RETRY',
+  EVENT = 'EVENT',
+}
 interface IWebhookData extends IWebhookLog {
   now: string;
   date: string;
   status: JSX.Element;
+  triggerType: TriggerType;
 }
 
 const defaultPageSize = 7;
@@ -53,6 +58,17 @@ export const ConnectivityWebhooksLog: FC = () => {
       {
         accessor: 'now',
         Header: t('common.createdAt') || '',
+        Cell: ({ row }) => {
+          const isEventRetry = row.original?.triggerType === TriggerType.RETRY;
+          return (
+            <>
+              {row.original?.now}{' '}
+              {isEventRetry && (
+                <Icon className='fe-connectivity-webhook-logs__retry-icon' size='small' name='refresh' />
+              )}
+            </>
+          );
+        },
         maxWidth: 50,
       },
       {
