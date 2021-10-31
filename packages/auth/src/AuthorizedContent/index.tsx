@@ -13,9 +13,9 @@ const logger = Logger.from('AuthorizedContent');
 
 export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
   let isAuthorized = true; // Initially
-  const user = useAuthUserOrNull() as User & { superUser?: boolean };
+  const user = useAuthUserOrNull();
 
-  if (!user.superUser) {
+  if (!user?.superUser) {
     if (props.requiredPermissions) {
       if (!user?.permissions || user?.permissions.length === 0) {
         logger.info('No permissions for user. Required permissions are - ', props.requiredPermissions);
