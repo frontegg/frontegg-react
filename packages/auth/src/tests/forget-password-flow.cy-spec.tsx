@@ -53,7 +53,7 @@ describe('Forgot Password Tests', () => {
     mockAuthApi(false, true);
     cy.route({
       method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      url: `${IDENTITY_SERVICE}/resources/auth/v2/user/sso/prelogin`,
       status: 400,
       response: { address: null },
       delay: 200,
