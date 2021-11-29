@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/nextjs",
   "libName": "FronteggNextJs",
-  "version": "3.0.21",
+  "version": "4.0.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,8 +11,8 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/admin-portal": "4.43.0",
-    "@frontegg/react-hooks": "4.43.0"
+    "@frontegg/admin-portal": "5.3.0",
+    "@frontegg/react-hooks": "5.3.0"
   },
   "devDependencies": {
     "next": ">10.0.0"

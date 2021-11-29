@@ -157,7 +157,7 @@ describe('Login Tests', () => {
     mockAuthMe();
     cy.route({
       method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      url: `${IDENTITY_SERVICE}/resources/auth/v2/user/sso/prelogin`,
       status: 400,
       response: { address: null },
       delay: 200,
@@ -231,7 +231,7 @@ describe('Login Tests', () => {
     mockAuthApi(false, true);
     cy.route({
       method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      url: `${IDENTITY_SERVICE}/resources/auth/v2/user/sso/prelogin`,
       status: 200,
       response: { address: SSO_PATH },
       delay: 200,
@@ -272,7 +272,7 @@ describe('Login Tests', () => {
     mockAuthApi(false, true);
     cy.route({
       method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      url: `${IDENTITY_SERVICE}/resources/auth/v2/user/sso/prelogin`,
       status: 200,
       response: { address: SSO_PATH },
       delay: 200,
@@ -542,7 +542,7 @@ describe('Login Tests', () => {
     mockAuthApi(false, false, true);
     cy.route({
       method: 'POST',
-      url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+      url: `${IDENTITY_SERVICE}/resources/auth/v2/user/sso/prelogin`,
       status: 200,
       response: { address: SSO_PATH },
       delay: 200,
@@ -602,7 +602,7 @@ describe('Login Tests', () => {
   //   mockAuthApi(false, false, true);
   //   cy.route({
   //     method: 'POST',
-  //     url: `${IDENTITY_SERVICE}/resources/auth/v1/user/saml/prelogin`,
+  //     url: `${IDENTITY_SERVICE}/resources/auth/v2/user/sso/prelogin`,
   //     status: 200,
   //     response: { address: SSO_PATH },
   //     delay: 200,
