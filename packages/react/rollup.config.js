@@ -49,7 +49,7 @@ const cjsPlugins = [
 ];
 
 const isExternal = (id) => {
-  return id !== './FronteggProvider' && id !== './AuthorizedContent';
+  return id !== './FronteggProvider' && id !== './AuthorizedContent' && id !== './routerProxy';
 };
 
 export default [
