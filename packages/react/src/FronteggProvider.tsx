@@ -2,8 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { initialize } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
-import { BrowserRouter } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { BrowserRouter, useHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 export type FronteggProviderProps = FronteggAppOptions & {
@@ -20,16 +19,6 @@ type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
   };
 };
 
-const getBasename = (history: any) => {
-  let basename = '';
-  if (history.createHref) {
-    basename = history.createHref({ pathname: '/url' });
-  } else {
-    basename = history.createPath(history.parsePath('/url'));
-  }
-  return basename.substring(0, basename.length - '/url'.length);
-};
-
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
   const history = useHistory();
   return <Connector history={history} {...props} />;
@@ -39,11 +28,12 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   const isSSR = typeof window === 'undefined';
 
   // v6 or v5
-  const baseName = props.basename ?? getBasename(history);
+  const baseName = props.basename ?? '';
 
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
     let path = _path;
-    if (path.startsWith(baseName)) {
+    // noinspection SuspiciousTypeOfGuard
+    if (baseName && typeof baseName === 'string' && baseName.length > 0 && path.startsWith(baseName)) {
       path = path.substring(baseName.length);
     }
     if (opts?.preserveQueryParams) {
