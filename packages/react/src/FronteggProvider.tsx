@@ -4,6 +4,7 @@ import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { AppHolder } from '@frontegg/admin-portal/AppHolder';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -45,18 +46,22 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   }, []);
 
   const app = useMemo(() => {
-    return initialize(
-      {
-        ...props,
-        basename: props.basename ?? baseName,
-        contextOptions: {
-          requestCredentials: 'include',
-          ...props.contextOptions,
+    try {
+      return AppHolder.getInstance(appName ?? 'default');
+    } catch (e) {
+      return initialize(
+        {
+          ...props,
+          basename: props.basename ?? baseName,
+          contextOptions: {
+            requestCredentials: 'include',
+            ...props.contextOptions,
+          },
+          onRedirectTo,
         },
-        onRedirectTo,
-      },
-      appName ?? 'default'
-    );
+        appName ?? 'default'
+      );
+    }
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
