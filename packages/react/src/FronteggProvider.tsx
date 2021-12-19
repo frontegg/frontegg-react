@@ -2,15 +2,12 @@ import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { initialize } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
-import { BrowserRouter, useHistory } from './routerProxy';
+import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
-  history?: {
-    push: (path: string) => void;
-    replace: (path: string) => void;
-  };
+  history?: UseHistory;
 };
 type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
   history: {
