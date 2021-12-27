@@ -578,7 +578,7 @@ describe('Login Tests', () => {
         url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
         status: 200,
         response: {
-          accessToken: '',
+          accessToken: '123',
           refreshToken: '',
         },
       }).as('refreshToken');
