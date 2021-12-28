@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'cypress-react-unit-test';
 import { AuthPlugin, LoginStep } from '../index';
-import { FRONTEGG_AFTER_AUTH_REDIRECT_URL } from '../constants';
+import { FRONTEGG_AFTER_AUTH_REDIRECT_URL, refreshTokenResponse } from '../constants';
 import {
   checkEmailValidation,
   EMAIL_1,
@@ -577,17 +577,14 @@ describe('Login Tests', () => {
         method: 'POST',
         url: `${IDENTITY_SERVICE}/resources/auth/v1/user/token/refresh`,
         status: 200,
-        response: {
-          accessToken: '',
-          refreshToken: '',
-        },
+        response: refreshTokenResponse,
       }).as('refreshToken');
 
       mockAuthMe();
       navigateTo(defaultAuthPlugin.routes.socialLoginCallbackUrl + GOOGLE_AUTH_RESPONSE);
 
       cy.get('.loader').should('not.be.visible');
-      cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants']);
+      cy.wait(['@submitSocialLogin', '@refreshToken', '@meTenants', '@me']);
 
       cy.wait(1000);
 
