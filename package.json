@@ -118,8 +118,5 @@
   },
   "workspaces": [
     "packages/*"
-  ],
-  "dependencies": {
-    "jwt-encode": "^1.0.1"
-  }
+  ]
 }
