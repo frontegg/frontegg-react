@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -14,18 +14,18 @@
   },
   "dependencies": {
     "clipboard-copy": "^3.1.0",
+    "jwt-encode": "1.0.1",
     "react-dropzone": "^9.0.0",
     "react-recaptcha-v3": "^2.0.1",
-    "uuid": "^8.3.2",
-    "jwt-encode": "1.0.1"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^4.0.2",
+    "@frontegg/react-core": "^4.0.3",
+    "@types/jwt-encode": "1.0.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
     "@types/react-recaptcha-v3": "^1.1.1",
-    "@types/uuid": "^8.3.0",
-    "@types/jwt-encode": "1.0.0"
+    "@types/uuid": "^8.3.0"
   },
   "peerDependencies": {
     "react": ">16.8.6",
