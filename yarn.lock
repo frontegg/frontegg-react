@@ -2991,27 +2991,27 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@frontegg/admin-portal@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-5.12.0.tgz#60353b0dcb0286971eeee75e9753dd262ff80369"
-  integrity sha512-0t9tpLOaRt8e8DEYnyeu2+ZTawdtBj4nrRwoHtX2Kfd49SCyDLAYKNv0IFug7fprZnULlFSv7FBhiko6NNBSFQ==
+"@frontegg/admin-portal@5.13.0":
+  version "5.13.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/admin-portal/-/admin-portal-5.13.0.tgz#0f4e192b876be24e930e4cea8ccd096bbc2a0a2b"
+  integrity sha512-ePmGuzHB7mUl5w0xoyg/6NfB2pTcUBmKyBpncxCOR4yBEfXorykulR5d35b8+/3Bg4s4RixnjG21R8UctzAftw==
   dependencies:
-    "@frontegg/react-hooks" "5.12.0"
-    "@frontegg/types" "5.12.0"
+    "@frontegg/react-hooks" "5.13.0"
+    "@frontegg/types" "5.13.0"
     uuid "^8.3.2"
 
-"@frontegg/react-hooks@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-5.12.0.tgz#bcb6bd30467e28f89b43de1ba429eb3f1a37eeea"
-  integrity sha512-TvIavL9OgusVndfrWFC7J1KGIlZJ9XEu31nzP4ozY7/dpDNsjG+1M5c0xOt4vk4pbUVF5ukTDsrLnkhNpZzbCg==
+"@frontegg/react-hooks@5.13.0":
+  version "5.13.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-5.13.0.tgz#725eba497bfd1fd0be57db8c1e69c3c023135db9"
+  integrity sha512-OAk+qKBZHBeuC4VwDWioxiavpSnew0f2Lvl+MG+ShrcfWwtLmzzNBZDm6LhJt2k3C1FPuZNebeETxu5Cctng7Q==
   dependencies:
-    "@frontegg/redux-store" "5.12.0"
+    "@frontegg/redux-store" "5.13.0"
     react-redux "^7.x"
 
-"@frontegg/redux-store@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-5.12.0.tgz#2ee7ac8941d355a272ed48ccd07f3ffa88268918"
-  integrity sha512-gLxh0poRrhdYFWBaX6nx5ITBpd1m3uFmLnMSzIMNdZ8NYOCBvBFy5QUk4inqGYc6huX9A6cPNMvPZR3jcINBVA==
+"@frontegg/redux-store@5.13.0":
+  version "5.13.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-5.13.0.tgz#22734f21356007cebd4caf476adf470c5c20506e"
+  integrity sha512-Z136UOO2LfmTWMLezxQVFsNDpE6A4/WiU999z8uSDxIgutmDUZOrNvMgpZ7+Wvai4CzFPt7tG01luDTJvVnGDA==
   dependencies:
     "@frontegg/rest-api" "2.10.50"
     "@reduxjs/toolkit" "^1.5.0"
@@ -3024,10 +3024,10 @@
   resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-2.10.50.tgz#590bec109b10d9d6f513f57e3be17eac213989b6"
   integrity sha512-xVAxEPyjaR9W/WLwkhKMi/ZE5Q4DZW3+v32Y6ZznKcD5+bsKpO/vSpd9k2b6VZ0L9Lx+Ki2VWFSAG1gYNntWpA==
 
-"@frontegg/types@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-5.12.0.tgz#8ba123440760dd6a2ea2c21aec6c939ca3a683cc"
-  integrity sha512-lLRelOLDU7sJIawUK7qw/0lLAqtuxkvzfiQ9Kijvjr+B70Ivqcxh2tC8Bb6Zgal3MNbvWFEEG3JZVl0jOOq9qQ==
+"@frontegg/types@5.13.0":
+  version "5.13.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-5.13.0.tgz#1160a6129a0b31573a220c31f24ef5b54f4d4af3"
+  integrity sha512-EhYB3MVGetvR/h910hBdaYIEUNfDM7JQaw4FF+r2plhj0XyFKwQeRfzKL5a3YDtgJPDJu30W3QYpf6dEn8F6MA==
   dependencies:
     csstype "^3.0.9"
 
@@ -4993,6 +4993,11 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/jwt-encode@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/jwt-encode/-/jwt-encode-1.0.0.tgz#ba2755bf970888fa7db9308a81d1efcff733f5c2"
+  integrity sha512-DXsCDp3CwN7S+f4TjLs+EN9Gf7AqdO3PqQYITQrIMHORlEbdW7nSY3W2VS5eo8dAku9/Si8/CXYxL4IS3FH2jg==
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -13781,6 +13786,13 @@ jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3, jsx-ast-utils@^2.4.1:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
 
+jwt-encode@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jwt-encode/-/jwt-encode-1.0.1.tgz#6602a0475f757c7d5d559a7e923f3d3d5ecd938c"
+  integrity sha512-QrGiNhynbAYyFdbC1GbjborzenSFs5Ga+2nE0uBokGXsH11xrgd1AX55HR7P+wGQyyZOn6LUO5iKlh74dlhBkA==
+  dependencies:
+    ts.cryptojs256 "^1.0.1"
+
 keyboard-key@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.1.0.tgz#6f2e8e37fa11475bb1f1d65d5174f1b35653f5b7"
@@ -20641,6 +20653,11 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
+
+ts.cryptojs256@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ts.cryptojs256/-/ts.cryptojs256-1.0.1.tgz#56a3d3a3bc022ad358b3e62cd8dae3224d9384f1"
+  integrity sha1-VqPTo7wCKtNYs+Ys2NrjIk2ThPE=
 
 tsconfig-paths@^3.9.0:
   version "3.9.0"
