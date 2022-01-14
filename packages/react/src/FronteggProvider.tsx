@@ -5,6 +5,7 @@ import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/admin-portal/AppHolder';
+import { useQueryKeeper } from './queryKeeper';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -64,6 +65,11 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
     }
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
+
+  //If you want to handle exact routes you can pass it like in example below
+  // const routesShouldKeepQuery = {signUpUrl: "/account/sign-up"}
+  // useQueryKeeper({routes: routesShouldKeepQuery});
+  useQueryKeeper({ routes: app.store.getState().auth.routes });
 
   useEffect(
     () => () => {
