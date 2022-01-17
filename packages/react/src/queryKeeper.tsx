@@ -35,9 +35,9 @@ export const useQueryKeeper = ({ routes }: useQueryKeeperProps): void => {
 
     const shouldKeepQuery = !!Object.values(routes).find((route) => route === prevPathname.current);
 
-    if (!history.location.search && !!queryParams.current && shouldKeepQuery) {
+    if (!listener.search && !!queryParams.current && shouldKeepQuery) {
       const query = removeRedirectUrlFromQuery(queryParams.current);
-      history.push(history.location.pathname + `?${query}`);
+      history.push(listener.pathname + `?${query}`);
       queryParams.current = '';
       prevPathname.current = '';
     }
