@@ -66,10 +66,8 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
-  //If you want to handle exact routes you can pass it like in example below
-  // const routesShouldKeepQuery = {signUpUrl: "/account/sign-up"}
-  // useQueryKeeper({routes: routesShouldKeepQuery});
-  useQueryKeeper({ routes: app.store.getState().auth.routes });
+  const signUpUrl = app.store.getState().auth.routes.signUpUrl;
+  useQueryKeeper({ routes: { signUpUrl }, history });
 
   useEffect(
     () => () => {

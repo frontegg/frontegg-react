@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { UseHistory } from './routerProxy';
 
 interface useQueryKeeperProps {
+  history: UseHistory;
   routes: {
     [key: string]: string;
   };
@@ -15,28 +17,26 @@ const removeRedirectUrlFromQuery = (query: string) => {
   return cleanedQuery;
 };
 
-export const useQueryKeeper = ({ routes }: useQueryKeeperProps): void => {
+export const useQueryKeeper = ({ routes, history }: useQueryKeeperProps): void => {
   const queryParams = useRef<string>();
   const prevPathname = useRef<string>();
-
-  const history = useHistory();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
-    if (!!history.location.search) {
-      queryParams.current = history.location.search;
-      prevPathname.current = history.location.pathname;
+    if (!!search) {
+      queryParams.current = search;
+      prevPathname.current = pathname;
     }
   }, []);
 
-  history.listen((listener) => {
+  useEffect(() => {
     const shouldKeepQuery = !!Object.values(routes).find((route) => route === prevPathname.current);
 
-    if (!listener.search && !!queryParams.current && shouldKeepQuery) {
+    if (!search && !!queryParams.current && shouldKeepQuery) {
       const query = removeRedirectUrlFromQuery(queryParams.current);
-      history.push(listener.pathname + `?${query}`);
-      queryParams.current = '';
+      history.push(pathname + `?${query}`);
     }
 
-    prevPathname.current = listener.pathname;
-  });
+    prevPathname.current = pathname;
+  }, [pathname, search, routes]);
 };
