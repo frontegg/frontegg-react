@@ -49,6 +49,9 @@ const Registerer: FC<{ app: FronteggAppInstance; themeKey: string }> = (props) =
 
 export const CustomComponentRegister: FC<{ app: FronteggAppInstance; themeOptions: any }> = ({ app, themeOptions }) => {
   const keys = useMemo(() => {
+    if (!themeOptions || !themeOptions.loginBox) {
+      return [];
+    }
     const loop = (key: string, obj: any, keyPath: string): string[] => {
       if (typeof obj !== 'object' && typeof obj !== 'function') {
         return [];
