@@ -6,6 +6,7 @@ import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/admin-portal/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
+import { CustomComponentRegister } from './CustomComponentHolder';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
