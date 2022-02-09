@@ -13,7 +13,7 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir . && echo DONE"
   },
   "dependencies": {
-    "@frontegg/react-hooks": "5.20.1",
+    "@frontegg/react-hooks": "5.21.0",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "history": "^4.9.0",
