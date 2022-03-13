@@ -14,25 +14,19 @@ export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
 
   if (!user?.superUser) {
     if (props.requiredPermissions) {
-      if (!user?.permissions || user?.permissions.length === 0) {
-        isAuthorized = false;
-      }
-
+      isAuthorized = false; // Reset - we are going to check that the user has at least one matching permission
       for (const permission of props.requiredPermissions) {
-        if (!user?.permissions?.find(({ key }) => key === permission)) {
-          isAuthorized = false;
+        if (user?.permissions?.find(({ key }) => key === permission)) {
+          isAuthorized = true;
         }
       }
     }
 
     if (props.requiredRoles) {
-      if (!user?.roles || user?.roles.length === 0) {
-        isAuthorized = false;
-      }
-
+      isAuthorized = false; // Reset - we are going to check that the user has at least one matching role
       for (const role of props.requiredRoles) {
-        if (!user?.roles?.find(({ key }) => key === role)) {
-          isAuthorized = false;
+        if (user?.roles?.find(({ key }) => key === role)) {
+          isAuthorized = true;
         }
       }
     }
