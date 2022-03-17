@@ -44,7 +44,7 @@ export const ConnectivityForm: FC<IConnectivityForm> = ({ form }) => {
                 .filter((e) => !!e)
                 .some(
                   (e) =>
-                    !(form === 'email' ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(e) : /^\+?\d{12}$/.test(e))
+                    !(form === 'email' ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e) : /^\+?\d{12}$/.test(e))
                 )
             ) {
               return {
