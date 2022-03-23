@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
-import { initialize } from '@frontegg/admin-portal';
+import { initialize, AppHolder } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
@@ -33,17 +33,22 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
   }, []);
 
   const app = useMemo(() => {
-    return initialize(
-      {
-        ...props,
-        contextOptions: {
-          requestCredentials: 'include',
-          ...props.contextOptions,
+    try {
+      return AppHolder.getInstance(appName ?? 'default');
+    } catch (e) {
+      return initialize(
+        {
+          ...props,
+          basename: props.basename ?? baseName,
+          contextOptions: {
+            requestCredentials: 'include',
+            ...props.contextOptions,
+          },
+          onRedirectTo,
         },
-        onRedirectTo,
-      },
-      appName ?? 'default'
-    );
+        appName ?? 'default'
+      );
+    }
   }, [onRedirectTo]);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
@@ -60,6 +65,7 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
 
 export const FronteggProvider: FC<FronteggAppOptions> = (props) => {
   const router = useRouter();
+
   return (
     <Connector {...props} router={router}>
       {props.children}
