@@ -30,7 +30,6 @@ const ConnectAdminPortal = ({ children }: any) => {
         customLoader: true,
         customLoginBox: true,
         store,
-        cdn: 'http://localhost:5000',
         usingFronteggReactCore: true,
       } as any);
   }, [store]);
@@ -41,5 +40,12 @@ export const withFrontegg = (Component: ComponentType<any>) => () => (
     <ConnectAdminPortal>
       <Component />
     </ConnectAdminPortal>
+  </FronteggProvider>
+);
+
+// const oldAppPlugins = [ConnectivityPlugin(), AuditsPlugin()]
+export const withOldFrontegg = (Component: ComponentType<any>) => () => (
+  <FronteggProvider debugMode context={contextOptions} plugins={plugins}>
+    <Component />
   </FronteggProvider>
 );

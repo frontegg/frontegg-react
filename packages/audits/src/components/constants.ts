@@ -1,4 +1,4 @@
-import { browserIcons, TBrowserIcons } from './BrowserIcons';
+import { browserIcons } from './BrowserIcons';
 
 export const prefixCls = 'fe-audits';
 

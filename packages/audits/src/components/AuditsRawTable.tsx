@@ -2,7 +2,7 @@ import { Loader, Table, TableColumnProps, TableProps } from '@frontegg/react-cor
 import { AuditRowData } from '@frontegg/rest-api';
 import React, { FC, useCallback, useMemo } from 'react';
 import { defaultItemsPerPage, HeaderProps } from '@frontegg/redux-store';
-import { getAuditsTableCells } from './AuditsTableCell';
+import { getAuditsTableCells, getMinWidthTableCell } from './AuditsTableCell';
 import { Filter } from './Filter';
 import { renderExpandedComponent } from './renderExpandedComponent';
 import { str2bool } from '../helpers/str2bool';
@@ -28,6 +28,7 @@ export const AuditsRawTable: FC<IAuditsRawTable> = React.memo(({ headerProps, da
           Header: header.displayName,
           sortable: header.sortable,
           Cell: getAuditsTableCells(header.name),
+          minWidth: getMinWidthTableCell(header.name),
           Filter: header.filterable
             ? ({ value, setFilterValue, closePopup }) => (
                 <Filter

@@ -2,5 +2,10 @@ import React, { FC } from 'react';
 import { Audits } from '@frontegg/react-audits';
 
 export const AuditsExample: FC = () => {
-  return <Audits.Page />;
+  return (
+    <div>
+      <Audits.TableHeader />
+      <Audits.Table />
+    </div>
+  );
 };
