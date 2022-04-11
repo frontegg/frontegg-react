@@ -105,6 +105,7 @@
 
     &-menuIcon {
       fill: var(--color-primary);
+
       .fe-loader__inner {
         left: 0;
       }
@@ -113,10 +114,12 @@
     &-top {
       display: flex;
       justify-content: space-between;
+
       input {
         min-width: 31rem;
       }
     }
+
     &-filters {
       margin-top: 2rem;
       text-align: left;
@@ -126,9 +129,11 @@
       b {
         margin-right: 0.25rem;
       }
+
       .MuiChip-label {
         display: flex;
       }
+
       svg {
         width: 15px;
         height: 15px;
@@ -136,16 +141,19 @@
         margin-right: 0 !important;
         cursor: pointer;
       }
+
       margin-right: 0.875rem;
     }
   }
 
   &__filter {
     min-width: 16rem;
+
     &-buttons {
       display: flex;
       justify-content: space-between;
     }
+
     &-title {
       color: #3c4a5a;
       background-color: var(--color-gray-0);
@@ -156,12 +164,15 @@
       border-radius: 4px;
       margin: -1rem -1rem 1rem -1rem;
     }
+
     &-main {
       margin-bottom: 1rem;
+
       .MuiAutocomplete-clearIndicator {
         display: none;
       }
     }
+
     &-border {
       border: none;
       border-top: 1px solid #ebedf2;
@@ -169,33 +180,57 @@
     }
   }
 
+  &__time-filter-container {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    overflow: hidden;
+    flex-wrap: wrap;
+
+    > .fe-button-primary {
+      color: var(--color-primary);
+      display: block;
+      flex: 1;
+      min-width: 50%;
+      text-align: left;
+      height: initial;
+      padding: 4px 8px;
+    }
+  }
+
   &__ipCell {
     display: flex;
+
     &-countryFlag,
     &-ipAddress {
       display: inline-block;
     }
+
     &-countryFlag {
       color: #3c4a5a;
       min-width: 1.2rem;
       margin-right: 0.5rem;
       display: inline-flex;
       align-items: center;
+
       .fe-icon {
         width: 1rem;
         height: 1rem;
       }
     }
+
     &-ipAddress {
       cursor: pointer;
       color: #9699a3;
       text-decoration: underline;
     }
+
     &-window {
       &-container {
         display: flex;
         min-width: 25rem;
       }
+
       &-title {
         display: flex;
         justify-content: space-between;
@@ -208,6 +243,7 @@
         border-radius: 4px;
         margin-bottom: 1rem;
         font-weight: 500;
+
         .fe-icon {
           padding-left: 0.5rem;
           height: 1rem;
@@ -215,10 +251,12 @@
           cursor: pointer;
         }
       }
+
       &-map {
         width: 15.75rem;
         height: 10.4375rem;
       }
+
       &-info {
         padding-left: 1rem;
       }
@@ -233,6 +271,7 @@
         margin-top: 0;
         margin-bottom: 0.4rem;
       }
+
       &-desc {
         margin-bottom: 1rem;
         font-size: 0.875rem;
@@ -311,6 +350,7 @@
       color: rgba(112, 112, 112, 0.5);
       text-overflow: ellipsis;
       overflow: hidden;
+
       &:hover {
         white-space: normal;
         word-break: break-word;
@@ -341,6 +381,7 @@
     &-info {
       color: var(--color-info);
       background-color: var(--background-info);
+
       span {
         background-color: var(--color-info);
       }
@@ -349,6 +390,7 @@
     &-useragent {
       margin-left: auto;
       margin-right: auto;
+
       > span {
         cursor: pointer;
       }
@@ -358,6 +400,7 @@
     &-error {
       color: var(--color-danger);
       background-color: var(--color-danger-light);
+
       span {
         background-color: var(--color-danger);
       }
@@ -367,6 +410,7 @@
     &-attention {
       color: var(--color-warning);
       background-color: var(--background-warning);
+
       span {
         background-color: var(--color-warning);
       }

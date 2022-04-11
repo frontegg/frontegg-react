@@ -18,7 +18,7 @@ export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: 
       case 'IpAddress':
         return <AuditsTableIpCell value={data} />;
       case 'Timestamp':
-        return moment(data).format('LLLL');
+        return moment(data).format('dddd, LL H:mm');
       default:
         return data;
     }

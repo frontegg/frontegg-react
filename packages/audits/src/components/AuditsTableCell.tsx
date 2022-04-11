@@ -100,7 +100,7 @@ export const getMinWidthTableCell = (column: string): number | undefined => {
     case 'json':
       return 240;
     case 'userAgent':
-      return 160;
+      return 200;
     default:
       return 240;
   }

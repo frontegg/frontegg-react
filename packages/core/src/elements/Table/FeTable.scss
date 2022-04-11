@@ -101,11 +101,11 @@
 
     &.fe-table__thead-sortable {
       &-asc {
-        border-top: 3px solid var(--color-gray-3);
+        border-top: 2px solid var(--color-gray-3);
       }
 
       &-desc {
-        border-bottom: 3px solid var(--color-gray-3);
+        border-bottom: 2px solid var(--color-gray-3);
       }
     }
   }

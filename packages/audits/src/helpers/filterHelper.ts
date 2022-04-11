@@ -14,7 +14,23 @@ export const getFilterType = (type: string): 'input' | 'select' => {
 
 export const getFilterTime = (time: TimeValues) => {
   let value;
+
+  if (typeof time === 'object' && new Date(time.from).toString() !== 'Invalid Date') {
+    if (new Date(time.to).toString() !== 'Invalid Date') {
+      return { $gt: time.from.toISOString(), $lt: time.to.toISOString() };
+    }
+    return { $gt: time.from.toISOString() };
+  }
   switch (time) {
+    case 'last_hour':
+      value = moment().utc().subtract(1, 'hours').toISOString();
+      break;
+    case 'last_4_hours':
+      value = moment().utc().subtract(4, 'hours').toISOString();
+      break;
+    case 'last_12_hours':
+      value = moment().utc().subtract(12, 'hours').toISOString();
+      break;
     case 'last_day':
       value = moment().utc().subtract(1, 'days').toISOString();
       break;
@@ -34,6 +50,7 @@ export const getFilterTime = (time: TimeValues) => {
 };
 
 const capitalize = (s: string) => {
+  // noinspection SuspiciousTypeOfGuard
   if (typeof s !== 'string') return `${s}`;
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
@@ -56,26 +73,45 @@ export const getTimeDiff = (time: any) => {
 
 export const getFilterValue = (filter: any) => {
   if (filter.key === 'createdAt') {
-    return moment(filter.value.$gt).format('DD/MM/YYYY h:mm A');
+    let value = moment(filter.value.$gt).format('DD/MM/YYYY H:mm');
+    if (filter.value.$lt) {
+      value += ` - ${moment(filter.value.$lt).format('DD/MM/YYYY H:mm')}`;
+    }
+    return value;
   }
   return filter.value;
 };
 
-export const timeOptions: Array<TimeOptions> = [
-  { label: 'Last Day', value: 'last_day' },
-  { label: 'Last Week', value: 'last_week' },
-  { label: 'Last Month', value: 'last_month' },
-  { label: 'Last Year', value: 'last_year' },
+export const timeOptions: TimeOptions[] = [
+  { label: 'Last hour', value: 'last_hour' },
+  { label: 'Last 4 hours', value: 'last_4_hours' },
+  { label: 'Last 12 hours', value: 'last_12_hours' },
+  { label: 'Last day', value: 'last_day' },
+  { label: 'Last week', value: 'last_week' },
+  { label: 'Last month', value: 'last_month' },
+  { label: 'Last year', value: 'last_year' },
 ];
 
-export const severityOptions: Array<SeverityOptions> = [
+export const severityOptions: SeverityOptions[] = [
   { label: 'Info', value: 'Info' },
   { label: 'Attention', value: 'Attention' },
   { label: 'Error', value: 'Error' },
 ];
 
-export type TimeValues = 'last_day' | 'last_week' | 'last_month' | 'last_year';
+export type TimeValues =
+  | 'last_hour'
+  | 'last_4_hours'
+  | 'last_12_hours'
+  | 'last_day'
+  | 'last_week'
+  | 'last_month'
+  | 'last_year'
+  | {
+      from: Date;
+      to: Date;
+    };
 type SeverityValues = 'Info' | 'Error' | 'Attention';
+
 export interface TimeOptions {
   label: string;
   value: TimeValues;
@@ -87,6 +123,9 @@ export interface SeverityOptions {
 }
 
 export interface FProps {
-  value: string;
-  onChange: (val: string) => void;
+  value: any;
+  onChange: (val: any) => void;
+  setFilterValue: (val: any) => void;
+  onSubmit: (e?: any) => void;
+  closePopup?: () => void;
 }

@@ -81,7 +81,7 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
         />
         <Menu trigger={<Button size='small'>Download</Button>} items={downloadItems} />
       </div>
-      {filters && !!filters.length && (
+      {filterOnly && !!filterOnly.length && (
         <div className={`${prefixCls}__subHeader-filters`}>
           {filterOnly.map((f: any, idx: number) => (
             <Tag key={idx} className={`${prefixCls}__subHeader-tag`} variant='primary'>
@@ -89,7 +89,7 @@ export const AuditsSubHeader: FC<IAuditsSubHeader | {}> = (props) => {
               <Icon
                 name='delete'
                 size='small'
-                onClick={() => handlerOnSetFilter(filters.filter((filter: any) => f.key !== filter.key))}
+                onClick={() => handlerOnSetFilter(filterOnly.filter((filter: any) => f.key !== filter.key))}
               />
             </Tag>
           ))}
