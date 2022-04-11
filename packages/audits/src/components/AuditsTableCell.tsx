@@ -86,3 +86,22 @@ export const getAuditsTableCells = (column: string): CellComponent => {
       return TableCells.Description;
   }
 };
+
+export const getMinWidthTableCell = (column: string): number | undefined => {
+  switch (column) {
+    case 'user':
+      return 240;
+    case 'createdAt':
+      return 330;
+    case 'severity':
+      return 160;
+    case 'ip':
+      return 280;
+    case 'json':
+      return 240;
+    case 'userAgent':
+      return 200;
+    default:
+      return 240;
+  }
+};

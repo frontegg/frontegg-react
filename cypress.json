@@ -4,5 +4,7 @@
   "experimentalSourceRewriting": true,
   "componentFolder": "packages",
   "testFiles": "**/*.cy-spec.*",
-  "projectId": "odcj7u"
+  "projectId": "odcj7u",
+  "viewportHeight": 800,
+  "viewportWidth": 1440
 }

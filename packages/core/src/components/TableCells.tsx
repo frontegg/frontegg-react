@@ -19,7 +19,7 @@ export const TableCells: TableCellsType = {
   DateAgo: ({ value }) => {
     return (
       <div className='fe-table-cell__date-ago'>
-        <div>{value ? moment.utc(value).local().format('LLLL') : 'N/A'}</div>
+        <div>{value ? moment.utc(value).local().format('dddd, LL H:mm') : 'N/A'}</div>
         {value && <div>{moment.utc(value).local().fromNow()}</div>}
       </div>
     );

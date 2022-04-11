@@ -47,7 +47,6 @@ export const AuthRoutes: FC<AuthPageProps> = (props) => {
       try {
         return new URL(acsUrl).pathname;
       } catch (e) {
-        logger.error('failed to parse acsUrl', acsUrl);
         return null;
       }
     }

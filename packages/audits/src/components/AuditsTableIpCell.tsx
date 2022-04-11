@@ -42,20 +42,44 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
     },
   });
 
-  useEffect(() => {
-    loadIpAddressMetadata();
-  }, []);
-
   const loadIpAddressMetadata = async () => {
     try {
       setState({ ...state, loading: true });
-      const data = await api.metadata.getIpAdressMetadata(props.value);
-      setState({ data, loading: false });
+      // @ts-ignore
+      if (!window.cacheIps) {
+        // @ts-ignore
+        window.cacheIps = {};
+      }
+      // @ts-ignore
+      let data: any = window.cacheIps?.[props.value];
+      if (data) {
+        setState({ data, loading: false });
+        return;
+      }
+      const ipData = await api.metadata.getIpAdressMetadata(props.value);
+      // @ts-ignore
+      window.cacheIps[props.value] = ipData;
+      setState({ data: ipData, loading: false });
     } catch (e) {
       console.log('failed to load metadata for ip address - ', e);
+      setState({
+        data: {
+          latitude: 0,
+          longitude: 0,
+          city: null,
+          country_name: null,
+          country_code: null,
+          zip: null,
+          location: { country_flag: undefined, country_flag_emoji: undefined },
+        },
+        loading: false,
+      });
     }
   };
 
+  useEffect(() => {
+    loadIpAddressMetadata();
+  }, []);
   const { data, loading } = state;
 
   const renderItems = (key: string) => {
