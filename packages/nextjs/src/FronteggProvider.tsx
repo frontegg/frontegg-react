@@ -1,13 +1,18 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, ReactNode, useCallback, useMemo } from 'react';
 import { initialize, AppHolder } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { NextRouter, useRouter } from 'next/router';
 
+export type FronteggProviderProps = FronteggAppOptions & {
+  children?: ReactNode;
+};
+
 type ConnectorProps = FronteggAppOptions & {
   router: NextRouter;
   appName?: string;
+  children?: ReactNode;
 };
 
 export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => {
@@ -52,18 +57,10 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
   }, [onRedirectTo]);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
-  useEffect(
-    () => () => {
-      try {
-        (app.store as any)?.destroy?.();
-      } catch (e) {}
-    },
-    []
-  );
   return <FronteggStoreProvider {...({ ...props, app } as any)}>{props.children}</FronteggStoreProvider>;
 };
 
-export const FronteggProvider: FC<FronteggAppOptions> = (props) => {
+export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
   const router = useRouter();
 
   return (
