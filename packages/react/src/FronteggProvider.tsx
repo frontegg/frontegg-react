@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, ReactNode, useCallback, useMemo } from 'react';
 import { initialize } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
@@ -10,6 +10,7 @@ import { useQueryKeeper } from './queryKeeper';
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
   history?: UseHistory;
+  children?: ReactNode;
 };
 type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
   history: {
@@ -69,14 +70,6 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   const signUpUrl = app.store.getState().auth.routes.signUpUrl;
   useQueryKeeper({ routes: { signUpUrl }, history });
 
-  useEffect(
-    () => () => {
-      try {
-        (app.store as any)?.destroy?.();
-      } catch (e) {}
-    },
-    []
-  );
   return <FronteggStoreProvider {...({ ...props, app } as any)} />;
 };
 

@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useAuthUserOrNull } from '@frontegg/react-hooks';
-import { User } from '@frontegg/redux-store';
 
 export interface AuthorizationProps {
   requiredRoles?: string[];
   requiredPermissions?: string[];
   render?: (isAuthorized: boolean) => React.ReactNode | null;
+  children?: ReactNode;
 }
 
 export const AuthorizedContent: FC<AuthorizationProps> = (props) => {
