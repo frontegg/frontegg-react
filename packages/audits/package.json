@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-audits",
   "libName": "FronteggAudits",
-  "version": "4.0.14",
+  "version": "4.0.15",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -18,7 +18,7 @@
     "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^4.0.14",
+    "@frontegg/react-core": "^4.0.15",
     "@types/google-map-react": "^2.1.0",
     "@types/react-datepicker": "^4.4.0",
     "@types/ua-parser-js": "^0.7.35"
