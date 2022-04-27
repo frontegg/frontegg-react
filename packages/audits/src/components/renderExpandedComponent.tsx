@@ -10,7 +10,7 @@ import { prefixCls } from './constants';
 
 export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: AuditRowData) => {
   const getValue = (type: string, data: any) => {
-    if (!data) return 'unknown';
+    if (!data) return 'N/A';
 
     switch (type) {
       case 'Json':
@@ -27,7 +27,7 @@ export const renderExpandedComponent = (headersToShow: HeaderProps[]) => (data: 
   return (
     <Grid container className={`${prefixCls}__expand-content`}>
       {headersToShow
-        .filter((_) => data.hasOwnProperty(_.name))
+        .filter((_) => data.hasOwnProperty(_.name) && data[_.name] !== undefined)
         .map((header) => (
           <Grid key={header.name} item xs={3} className={`${prefixCls}__property`}>
             <span
