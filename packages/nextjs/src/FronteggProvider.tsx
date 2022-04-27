@@ -1,24 +1,30 @@
-import React, { FC, ReactNode, useCallback, useMemo } from 'react';
+import React, { FC, ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { initialize, AppHolder } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { NextRouter, useRouter } from 'next/router';
+import { authApiRoutes } from './consts';
+import { FronteggNextJSSession } from './types';
 
-export type FronteggProviderProps = FronteggAppOptions & {
+export type FronteggProviderProps = Omit<FronteggAppOptions, 'contextOptions'> & {
   children?: ReactNode;
+  session?: FronteggNextJSSession;
+  contextOptions: Omit<FronteggAppOptions['contextOptions'], 'baseUrl'> & {
+    envAppUrl: string;
+    envBaseUrl: string;
+    envClientId: string;
+  };
 };
 
-type ConnectorProps = FronteggAppOptions & {
+type ConnectorProps = FronteggProviderProps & {
   router: NextRouter;
   appName?: string;
-  children?: ReactNode;
 };
 
 export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => {
   const isSSR = typeof window === 'undefined';
 
-  // v6 or v5
   const baseName = props.basename ?? router.basePath;
 
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
@@ -37,26 +43,46 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
     }
   }, []);
 
+  const contextOptions = useMemo(
+    () => ({
+      baseUrl: (path: string) => {
+        if (authApiRoutes.indexOf(path) !== -1) {
+          return `${props.contextOptions.envAppUrl}/api`;
+        } else {
+          return props.contextOptions.envBaseUrl;
+        }
+      },
+      clientId: props.contextOptions.clientId,
+    }),
+    [props.contextOptions]
+  );
+
   const app = useMemo(() => {
+    let createdApp;
     try {
-      return AppHolder.getInstance(appName ?? 'default');
+      createdApp = AppHolder.getInstance(appName ?? 'default');
     } catch (e) {
-      return initialize(
+      createdApp = initialize(
         {
           ...props,
           basename: props.basename ?? baseName,
           contextOptions: {
             requestCredentials: 'include',
             ...props.contextOptions,
+            ...contextOptions,
           },
           onRedirectTo,
         },
         appName ?? 'default'
       );
     }
+    return createdApp;
   }, [onRedirectTo]);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
+  useEffect(() => {
+    app.store.dispatch({ type: 'auth/requestAuthorizeSSR', payload: props.session?.accessToken });
+  }, [app]);
   return <FronteggStoreProvider {...({ ...props, app } as any)}>{props.children}</FronteggStoreProvider>;
 };
 

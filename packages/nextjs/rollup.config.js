@@ -49,7 +49,13 @@ const cjsPlugins = [
 ];
 
 const isExternal = (id) => {
-  return id !== './FronteggProvider' && id !== './AuthorizedContent';
+  return (
+    id !== './FronteggProvider' &&
+    id !== './AuthorizedContent' &&
+    id !== './consts' &&
+    id !== './types' &&
+    id !== './FronteggConfig'
+  );
 };
 
 export default [
@@ -58,7 +64,7 @@ export default [
     plugins: cjsPlugins,
     external: isExternal,
     output: {
-      file: path.join(distFolder, 'index.js'),
+      dir: distFolder,
       sourcemap: true,
       format: 'cjs',
     },
