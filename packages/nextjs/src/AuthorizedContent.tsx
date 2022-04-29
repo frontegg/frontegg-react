@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { useAuthUserOrNull } from '@frontegg/react-hooks/auth';
+import { useAuthUserOrNull } from '@frontegg/react-hooks';
 
 export interface AuthorizationProps {
   requiredRoles?: string[];

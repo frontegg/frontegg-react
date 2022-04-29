@@ -1,12 +1,13 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import cookie from 'cookie';
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult, PreviewData } from 'next';
 import { IronSessionData, sealData, unsealData } from 'iron-session';
 import fronteggConfig from './FronteggConfig';
 import { decodeJwt, jwtVerify } from 'jose';
 import { NextApiRequest, NextPageContext } from 'next/dist/shared/lib/utils';
 import { refreshTokenUrl } from './consts';
 import { FronteggNextJSSession } from './types';
+import { ParsedUrlQuery } from 'querystring';
 
 function rewriteCookieProperty(header: string | string[], config: any, property: string): string | string[] {
   if (Array.isArray(header)) {
@@ -61,7 +62,7 @@ export async function refreshToken(ctx: NextPageContext): Promise<FronteggNextJS
         if (!session) {
           return null;
         }
-        const isSecured = new URL(fronteggConfig.appUrl).protocol !== 'http:';
+        const isSecured = new URL(fronteggConfig.appUrl).protocol === 'https:';
         const cookieValue = cookie.serialize(fronteggConfig.cookieName, session, {
           expires: new Date(decodedJwt.exp * 1000),
           httpOnly: true,
@@ -152,18 +153,47 @@ export async function getSession(req: IncomingMessage): Promise<FronteggNextJSSe
   }
 }
 
-export function withSSRSession<P extends { [key: string]: unknown } = { [key: string]: unknown }>(
-  handler: (context: GetServerSidePropsContext) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>
+export function withSSRSession<
+  P extends { [key: string]: any } = { [key: string]: any },
+  Q extends ParsedUrlQuery = ParsedUrlQuery,
+  D extends PreviewData = PreviewData
+>(
+  handler: (
+    context: GetServerSidePropsContext<Q>,
+    session: FronteggNextJSSession
+  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>
 ) {
-  return async (context: any) => {
-    const { req } = context;
-    const sealFromCookies = cookie.parse(req.headers.cookie || '')[fronteggConfig.cookieName];
-
-    const session =
-      sealFromCookies === undefined
-        ? {}
-        : await unsealData<IronSessionData>(sealFromCookies, {
-            password: fronteggConfig.passwordsAsMap,
-          });
+  return async (context: GetServerSidePropsContext<Q>): Promise<GetServerSidePropsResult<P>> => {
+    const session = await getSession(context.req);
+    if (session) {
+      return handler(context, session);
+    } else {
+      return {
+        redirect: {
+          permanent: false,
+          destination: `/account/login?redirectUrl=${encodeURIComponent(context.req.url!)}`,
+        },
+        props: {},
+      } as GetServerSidePropsResult<P>;
+    }
   };
 }
+
+export const modifySetCookieIfUnsecure = (
+  setCookieValue: string[] | undefined,
+  isSecured: boolean
+): string[] | undefined => {
+  if (!setCookieValue) {
+    return setCookieValue;
+  }
+  if (setCookieValue.length > 0) {
+    return setCookieValue.map((c) => {
+      const cookie = c.split('; ');
+      if (isSecured) {
+        return c;
+      }
+      return cookie.filter((property) => property !== 'Secure' && property !== 'SameSite=None').join('; ');
+    });
+  }
+  return setCookieValue;
+};

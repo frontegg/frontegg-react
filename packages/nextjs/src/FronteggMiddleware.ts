@@ -2,7 +2,7 @@ import httpProxy from 'http-proxy';
 import { NextApiRequest, NextApiResponse } from 'next';
 import fronteggConfig from './FronteggConfig';
 import cookie from 'cookie';
-import { addToCookies, createSessionFromAccessToken, removeCookies } from './helpers';
+import { addToCookies, createSessionFromAccessToken, modifySetCookieIfUnsecure, removeCookies } from './helpers';
 import { authApiRoutes } from './consts';
 import FronteggConfig from './FronteggConfig';
 
@@ -61,8 +61,8 @@ export function fronteggMiddleware(req: NextApiRequest, res: NextApiResponse): P
   return new Promise((resolve, reject) => {
     const pathRewrite = [
       {
-        patternStr: '^/api',
-        replaceStr: '',
+        patternStr: '^/api/',
+        replaceStr: '/',
       },
     ];
     if (pathRewrite) {
@@ -72,7 +72,7 @@ export function fronteggMiddleware(req: NextApiRequest, res: NextApiResponse): P
     if (hasRequestBodyMethods.indexOf(req.method as string) >= 0 && typeof req.body === 'object') {
       req.body = JSON.stringify(req.body);
     }
-    const isSecured = new URL(FronteggConfig.appUrl).protocol !== 'http:';
+    const isSecured = new URL(FronteggConfig.appUrl).protocol === 'https:';
 
     proxy
       .once('proxyReq', (proxyReq: any, req: any): void => {
@@ -82,18 +82,9 @@ export function fronteggMiddleware(req: NextApiRequest, res: NextApiResponse): P
         }
       })
       .once('proxyRes', (proxyRes, req, serverResponse) => {
-        if (proxyRes.headers['set-cookie']) {
-          proxyRes.headers['set-cookie'] = proxyRes.headers['set-cookie'].map((c) => {
-            const cookie = c.split('; ');
-            if (isSecured) {
-              return c;
-            }
-            return cookie.filter((property) => property !== 'Secure' && property !== 'SameSite=None').join('; ');
-          });
-        }
+        proxyRes.headers['set-cookie'] = modifySetCookieIfUnsecure(proxyRes.headers['set-cookie'], isSecured);
         const _end = res.end;
         let buffer = new Buffer('');
-
         proxyRes
           .on('data', (chunk) => {
             buffer = Buffer.concat([buffer, chunk]);
@@ -128,10 +119,9 @@ export function fronteggMiddleware(req: NextApiRequest, res: NextApiResponse): P
             _end.apply(res, [output]);
           });
 
-        // @ts-ignore
-        serverResponse.write = () => {};
-        // @ts-ignore
-        serverResponse.end = () => {};
+        // disable default behavior to read jwt
+        serverResponse.write = () => false;
+        serverResponse.end = () => false;
       })
       .once('error', reject)
       .web(req, res, {
