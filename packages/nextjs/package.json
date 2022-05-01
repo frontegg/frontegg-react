@@ -11,8 +11,8 @@
     "test": "jest --runInBand --passWithNoTests -c ../../scripts/jest.config.json --rootDir ."
   },
   "dependencies": {
-    "@frontegg/admin-portal": "5.45.2",
-    "@frontegg/react-hooks": "5.45.2"
+    "@frontegg/admin-portal": "5.46.0",
+    "@frontegg/react-hooks": "5.46.0"
   },
   "devDependencies": {
     "next": ">10.0.0"
