@@ -445,6 +445,7 @@
       #{$class}__property-value {
         color: var(--color-gray-5);
         font-size: var(--element-font-size);
+        word-break: break-word;
       }
 
       #{$class}__severity-text {
