@@ -38,6 +38,7 @@ function rewriteCookieProperty(header: string | string[], config: any, property:
 export async function refreshToken(ctx: NextPageContext): Promise<FronteggNextJSSession | null> {
   try {
     const request = ctx.req!;
+    const headers = request.headers as Record<string, string>;
     const cookies = (request as NextApiRequest).cookies;
     const refreshTokenKey = `fe_refresh_${fronteggConfig.clientId}`.replace(/-/g, '');
     const cookieKey = Object.keys(cookies).find((cookie) => {
@@ -49,7 +50,13 @@ export async function refreshToken(ctx: NextPageContext): Promise<FronteggNextJS
         credentials: 'include',
         body: '{}',
         headers: {
-          cookie: request.headers.cookie as string,
+          'accept-encoding': headers['accept-encoding'],
+          'accept-language': headers['accept-language'],
+          cookie: headers.cookie,
+          accept: headers.accept,
+          'user-agent': headers['user-agent'],
+          connection: headers.connection,
+          'cache-control': headers['cache-control'],
         },
       });
       if (response.ok) {
@@ -110,7 +117,7 @@ export function removeCookies(cookieName: string, isSecured: boolean, cookieDoma
     httpOnly: true,
     domain: cookieDomain,
     path: '/',
-    sameSite: isSecured ? 'none' : 'lax',
+    sameSite: isSecured ? 'none' : undefined,
     secure: isSecured,
   });
   let existingSetCookie = (res.getHeader('set-cookie') as string[] | string) ?? [];
@@ -121,62 +128,17 @@ export function removeCookies(cookieName: string, isSecured: boolean, cookieDoma
 }
 
 export async function createSessionFromAccessToken(output: string): Promise<[string, any] | []> {
-  const { accessToken } = JSON.parse(output);
-  const decodedJwt: any = decodeJwt(accessToken);
-  const session = await sealData(accessToken, {
-    password: fronteggConfig.passwordsAsMap,
-    ttl: decodedJwt.exp,
-  });
-  return [session, decodedJwt];
-}
-
-export async function getSession(req: IncomingMessage): Promise<FronteggNextJSSession | undefined> {
   try {
-    const sealFromCookies = cookie.parse(req.headers.cookie || '')[fronteggConfig.cookieName];
-    if (!sealFromCookies) {
-      return undefined;
-    }
-    const jwt: string = await unsealData(sealFromCookies, { password: fronteggConfig.passwordsAsMap });
-    const publicKey = await fronteggConfig.getJwtPublicKey();
-    const { payload }: any = await jwtVerify(jwt, publicKey);
-    const session: FronteggNextJSSession = {
-      accessToken: jwt,
-      user: payload,
-    };
-    if (session.user.exp * 1000 < Date.now()) {
-      return undefined;
-    }
-    return session;
+    const { accessToken } = JSON.parse(output);
+    const decodedJwt: any = decodeJwt(accessToken);
+    const session = await sealData(accessToken, {
+      password: fronteggConfig.passwordsAsMap,
+      ttl: decodedJwt.exp,
+    });
+    return [session, decodedJwt];
   } catch (e) {
-    console.error(e);
-    return undefined;
+    return [];
   }
-}
-
-export function withSSRSession<
-  P extends { [key: string]: any } = { [key: string]: any },
-  Q extends ParsedUrlQuery = ParsedUrlQuery,
-  D extends PreviewData = PreviewData
->(
-  handler: (
-    context: GetServerSidePropsContext<Q>,
-    session: FronteggNextJSSession
-  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>
-) {
-  return async (context: GetServerSidePropsContext<Q>): Promise<GetServerSidePropsResult<P>> => {
-    const session = await getSession(context.req);
-    if (session) {
-      return handler(context, session);
-    } else {
-      return {
-        redirect: {
-          permanent: false,
-          destination: `/account/login?redirectUrl=${encodeURIComponent(context.req.url!)}`,
-        },
-        props: {},
-      } as GetServerSidePropsResult<P>;
-    }
-  };
 }
 
 export const modifySetCookieIfUnsecure = (

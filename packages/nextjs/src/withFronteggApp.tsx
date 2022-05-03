@@ -1,10 +1,10 @@
 import type { AppInitialProps, AppType } from 'next/dist/shared/lib/utils';
-import { refreshToken } from './helpers';
 import { AppContext } from 'next/app';
 import { AppContextType, AppPropsType, NextComponentType } from 'next/dist/shared/lib/utils';
 import { FronteggNextJSSession } from './types';
+import { refreshToken } from './helpers';
 
-const withFronteggApp = (
+export const withFronteggApp = (
   app: AppType
 ): NextComponentType<AppContextType & { session: FronteggNextJSSession | null }, AppInitialProps, AppPropsType> => {
   type GetInitialProps = NextComponentType<
@@ -49,4 +49,3 @@ const withFronteggApp = (
 
   return app;
 };
-export default withFronteggApp;

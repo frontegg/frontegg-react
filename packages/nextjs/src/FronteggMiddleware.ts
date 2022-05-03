@@ -122,8 +122,9 @@ export function fronteggMiddleware(req: NextApiRequest, res: NextApiResponse): P
           });
 
         // disable default behavior to read jwt
-        serverResponse.write = () => false;
-        serverResponse.end = () => false;
+        // @ts-ignore
+        serverResponse.write = () => undefined;
+        serverResponse.end = () => undefined;
       })
       .once('error', reject)
       .web(req, res, {

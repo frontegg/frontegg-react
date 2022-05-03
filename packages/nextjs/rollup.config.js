@@ -50,13 +50,14 @@ const cjsPlugins = [
 
 const isExternal = (id) => {
   return (
-    id !== 'AuthorizedContent' &&
-    id !== 'FronteggConfig' &&
-    id !== 'FronteggMiddleware' &&
-    id !== 'FronteggProvider' &&
-    id !== 'helpers' &&
-    id !== 'types' &&
-    id !== 'withFronteggApp'
+    id !== './AuthorizedContent' &&
+    id !== './FronteggConfig' &&
+    id !== './FronteggMiddleware' &&
+    id !== './FronteggProvider' &&
+    id !== './helpers' &&
+    id !== './types' &&
+    id !== './session' &&
+    id !== './withFronteggApp'
   );
 };
 

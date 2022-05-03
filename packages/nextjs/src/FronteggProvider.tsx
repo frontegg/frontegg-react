@@ -9,11 +9,10 @@ import { FronteggNextJSSession } from './types';
 export type FronteggProviderProps = Omit<FronteggAppOptions, 'contextOptions'> & {
   children?: ReactNode;
   session?: FronteggNextJSSession;
-  contextOptions: Omit<FronteggAppOptions['contextOptions'], 'baseUrl'> & {
-    envAppUrl: string;
-    envBaseUrl: string;
-    envClientId: string;
-  };
+  envAppUrl: string;
+  envBaseUrl: string;
+  envClientId: string;
+  contextOptions?: Omit<FronteggAppOptions['contextOptions'], 'baseUrl'>;
 };
 
 type ConnectorProps = FronteggProviderProps & {
@@ -46,12 +45,12 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
     () => ({
       baseUrl: (path: string) => {
         if (fronteggAuthApiRoutes.indexOf(path) !== -1) {
-          return `${props.contextOptions.envAppUrl}/api`;
+          return `${props.envAppUrl}/api`;
         } else {
-          return props.contextOptions.envBaseUrl;
+          return props.envBaseUrl;
         }
       },
-      clientId: props.contextOptions.clientId,
+      clientId: props.envClientId,
     }),
     [props.contextOptions]
   );
@@ -85,12 +84,20 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
   return <FronteggStoreProvider {...({ ...props, app } as any)}>{props.children}</FronteggStoreProvider>;
 };
 
-export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
+const FronteggNextJSProvider: FC<FronteggProviderProps> = (props) => {
   const router = useRouter();
 
   return (
     <Connector {...props} router={router}>
       {props.children}
     </Connector>
+  );
+};
+
+export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
+  return (
+    <FronteggNextJSProvider {...props} framework={'nextjs'}>
+      {props.children}
+    </FronteggNextJSProvider>
   );
 };
