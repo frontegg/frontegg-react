@@ -2,9 +2,8 @@ import React, { FC, ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { initialize, AppHolder } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
-import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { ContextHolder, RedirectOptions, fronteggAuthApiRoutes } from '@frontegg/rest-api';
 import { NextRouter, useRouter } from 'next/router';
-import { authApiRoutes } from './consts';
 import { FronteggNextJSSession } from './types';
 
 export type FronteggProviderProps = Omit<FronteggAppOptions, 'contextOptions'> & {
@@ -46,7 +45,7 @@ export const Connector: FC<ConnectorProps> = ({ router, appName, ...props }) => 
   const contextOptions = useMemo(
     () => ({
       baseUrl: (path: string) => {
-        if (authApiRoutes.indexOf(path) !== -1) {
+        if (fronteggAuthApiRoutes.indexOf(path) !== -1) {
           return `${props.contextOptions.envAppUrl}/api`;
         } else {
           return props.contextOptions.envBaseUrl;

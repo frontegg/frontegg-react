@@ -1,13 +1,13 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import cookie from 'cookie';
 import { GetServerSidePropsContext, GetServerSidePropsResult, PreviewData } from 'next';
-import { IronSessionData, sealData, unsealData } from 'iron-session';
+import { sealData, unsealData } from 'iron-session';
 import fronteggConfig from './FronteggConfig';
 import { decodeJwt, jwtVerify } from 'jose';
 import { NextApiRequest, NextPageContext } from 'next/dist/shared/lib/utils';
-import { refreshTokenUrl } from './consts';
 import { FronteggNextJSSession } from './types';
 import { ParsedUrlQuery } from 'querystring';
+import { fronteggRefreshTokenUrl } from '@frontegg/rest-api';
 
 function rewriteCookieProperty(header: string | string[], config: any, property: string): string | string[] {
   if (Array.isArray(header)) {
@@ -44,7 +44,7 @@ export async function refreshToken(ctx: NextPageContext): Promise<FronteggNextJS
       return cookie.replace(/-/g, '') === refreshTokenKey;
     });
     if (cookieKey) {
-      const response = await fetch(`${process.env.FRONTEGG_BASE_URL}/frontegg${refreshTokenUrl}`, {
+      const response = await fetch(`${process.env.FRONTEGG_BASE_URL}/frontegg${fronteggRefreshTokenUrl}`, {
         method: 'POST',
         credentials: 'include',
         body: '{}',

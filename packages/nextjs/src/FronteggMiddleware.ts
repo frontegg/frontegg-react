@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import fronteggConfig from './FronteggConfig';
 import cookie from 'cookie';
 import { addToCookies, createSessionFromAccessToken, modifySetCookieIfUnsecure, removeCookies } from './helpers';
-import { authApiRoutes } from './consts';
 import FronteggConfig from './FronteggConfig';
+import { fronteggAuthApiRoutes } from '@frontegg/rest-api';
 
 /**
  * @see https://www.npmjs.com/package/http-proxy
@@ -91,7 +91,9 @@ export function fronteggMiddleware(req: NextApiRequest, res: NextApiResponse): P
           })
           .on('end', async () => {
             const output = buffer.toString('utf-8');
-            const isLogout = req?.url?.endsWith(authApiRoutes.find((path) => path.endsWith('/logout')) ?? '/logout');
+            const isLogout = req?.url?.endsWith(
+              fronteggAuthApiRoutes.find((path) => path.endsWith('/logout')) ?? '/logout'
+            );
             if (isLogout) {
               removeCookies(fronteggConfig.cookieName, isSecured, fronteggConfig.cookieDomain, serverResponse);
             } else {
