@@ -7,7 +7,15 @@ interface CheckoutDialogState {
   success: boolean;
 }
 
-export const useCheckoutDialog = (plan: string) => {
+export interface CheckoutDialogHook {
+  showDialog: () => void;
+  hideDialog: () => void;
+  open: boolean;
+  error: string | null;
+  success: boolean;
+}
+
+export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
   const [{ open, error, success }, setState] = useState<CheckoutDialogState>({
     open: false,
     error: null,
