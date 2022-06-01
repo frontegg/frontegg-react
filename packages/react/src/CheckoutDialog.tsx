@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CheckoutDialog } from '@frontegg/admin-portal';
+import { useCheckout } from '@frontegg/react-hooks';
 
 interface CheckoutDialogState {
   open: boolean;
@@ -13,6 +14,7 @@ export interface CheckoutDialogHook {
   open: boolean;
   error: string | null;
   success: boolean;
+  loading: boolean;
 }
 
 export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
@@ -21,6 +23,7 @@ export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
     error: null,
     success: false,
   });
+  const { loading } = useCheckout();
 
   const handleError = useCallback((error: string) => {
     setState({
@@ -32,7 +35,7 @@ export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
 
   const handleSuccess = useCallback(() => {
     setState({
-      open: true,
+      open: false,
       success: true,
       error: null,
     });
@@ -67,11 +70,19 @@ export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
     }
   }, [open]);
 
-  return {
+  return useMemo(() => ({
     open,
     showDialog,
     hideDialog,
     error,
     success,
-  };
+    loading,
+  }), [
+    open,
+    showDialog,
+    hideDialog,
+    error,
+    success,
+    loading,
+  ]);
 };
