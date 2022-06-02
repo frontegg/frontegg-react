@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { CheckoutDialog } from '@frontegg/admin-portal';
-import { useCheckout } from '@frontegg/react-hooks';
 
 interface CheckoutDialogState {
   open: boolean;
@@ -9,21 +8,19 @@ interface CheckoutDialogState {
 }
 
 export interface CheckoutDialogHook {
-  showDialog: () => void;
+  showDialog: (plan: string) => void;
   hideDialog: () => void;
   open: boolean;
   error: string | null;
   success: boolean;
-  loading: boolean;
 }
 
-export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
+export const useCheckoutDialog = (): CheckoutDialogHook => {
   const [{ open, error, success }, setState] = useState<CheckoutDialogState>({
     open: false,
     error: null,
     success: false,
   });
-  const { loading } = useCheckout();
 
   const handleError = useCallback((error: string) => {
     setState({
@@ -41,7 +38,13 @@ export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
     });
   }, []);
 
-  const showDialog = useCallback(() => {
+  const showDialog = useCallback((plan: string) => {
+    CheckoutDialog.show({
+      plan,
+      onClose: hideDialog,
+      onError: handleError,
+      onSuccess: handleSuccess,
+    });
     setState({
       open: true,
       success: false,
@@ -50,6 +53,7 @@ export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
   }, []);
 
   const hideDialog = useCallback(() => {
+    CheckoutDialog.hide();
     setState({
       open: false,
       error: null,
@@ -57,32 +61,14 @@ export const useCheckoutDialog = (plan: string): CheckoutDialogHook => {
     });
   }, []);
 
-  useEffect(() => {
-    if (open) {
-      CheckoutDialog.show({
-        plan,
-        onClose: hideDialog,
-        onError: handleError,
-        onSuccess: handleSuccess,
-      });
-    } else {
-      CheckoutDialog.hide();
-    }
-  }, [open]);
-
-  return useMemo(() => ({
-    open,
-    showDialog,
-    hideDialog,
-    error,
-    success,
-    loading,
-  }), [
-    open,
-    showDialog,
-    hideDialog,
-    error,
-    success,
-    loading,
-  ]);
+  return useMemo(
+    () => ({
+      open,
+      showDialog,
+      hideDialog,
+      error,
+      success,
+    }),
+    [open, showDialog, hideDialog, error, success]
+  );
 };
