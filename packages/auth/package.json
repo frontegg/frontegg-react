@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react-auth",
   "libName": "FronteggAuth",
-  "version": "4.0.17",
+  "version": "4.0.18",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -20,7 +20,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@frontegg/react-core": "^4.0.17",
+    "@frontegg/react-core": "^4.0.18",
     "@types/jwt-encode": "1.0.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.8",
