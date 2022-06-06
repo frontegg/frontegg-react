@@ -26,7 +26,6 @@ export const DialogExample = () => {
           <FForm>
             <FInput name='name' label='Name' />
             <FInput name='email' label='Email' />
-
             <div className='fe-dialog__footer'>
               <Grid container>
                 <Grid xs item>
