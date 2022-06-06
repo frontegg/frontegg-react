@@ -106,8 +106,8 @@ jobs:
           SLACK_CHANNEL: Production
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://avatars.githubusercontent.com/u/67857107?s=40&v=4
-          SLACK_MESSAGE: '${{ github.actor }} has deployed ${{ inputs.repository_name }} version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }} :rocket:'
-          SLACK_TITLE: '${{ inputs.repository_name }} version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }} has been successfully published'
+          SLACK_MESSAGE: '${{ github.actor }} has deployed @frontegg/react version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }} :rocket:'
+          SLACK_TITLE: '@frontegg/react version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }} has been successfully published'
           SLACK_USERNAME: ${{ github.actor }}
           SLACK_WEBHOOK:  ${{ secrets.SLACK_PRODUCTION_TOKEN }}
           MSG_MINIMAL: Commit,actions url
