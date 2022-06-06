@@ -100,6 +100,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      - name: Notify Slack on deployment
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: Production
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON: https://avatars.githubusercontent.com/u/67857107?s=40&v=4
+          SLACK_MESSAGE: '${{ github.actor }} has deployed ${{ inputs.repository_name }} version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }} :rocket:'
+          SLACK_TITLE: '${{ inputs.repository_name }} version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }} has been successfully published'
+          SLACK_USERNAME: ${{ github.actor }}
+          SLACK_WEBHOOK:  ${{ secrets.SLACK_PRODUCTION_TOKEN }}
+          MSG_MINIMAL: Commit,actions url
       - uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
