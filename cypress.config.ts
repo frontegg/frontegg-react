@@ -9,5 +9,6 @@ export default defineConfig({
 
   e2e: {
     specPattern: 'packages/**/*.cy-spec.*',
+    supportFile: false
   },
 });
