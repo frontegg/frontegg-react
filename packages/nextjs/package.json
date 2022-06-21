@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/nextjs",
   "libName": "FronteggNextJs",
-  "version": "4.0.19",
+  "version": "4.0.20",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
