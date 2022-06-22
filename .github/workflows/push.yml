@@ -14,9 +14,13 @@ jobs:
     container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
+      - name : Read .nvmrc
+        run : echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id : nvm
+      - name : Use Node.js (.nvmrc)
+        uses : actions/setup-node@v1
+        with :
+          node-version : "${{ steps.nvm.outputs.NVMRC }}"
       - run: make clean
       - run: make install
       - run: make build
