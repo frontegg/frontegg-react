@@ -4,7 +4,7 @@ import { api } from '@frontegg/rest-api';
 import GoogleMapReact from 'google-map-react';
 import { CellComponent, Popup, Loader, Icon } from '@frontegg/react-core';
 
-export interface AuditsTableIpAdressState {
+export interface AuditsTableIpAddressState {
   loading: boolean;
   data: {
     latitude: number;
@@ -29,7 +29,7 @@ const MapMark = () => <div className={`${prefixCls}__ipCell-mapMark`} />;
 
 export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
   const popupRef = useRef<any>(null);
-  const [state, setState] = useState<AuditsTableIpAdressState>({
+  const [state, setState] = useState<AuditsTableIpAddressState>({
     loading: false,
     data: {
       latitude: 0,
@@ -51,7 +51,7 @@ export const AuditsTableIpCell: FC<CellComponent | any> = (props) => {
         window.cacheIps = {};
       }
       // @ts-ignore
-      let data: any = window.cacheIps?.[props.value];
+      const data: any = window.cacheIps?.[props.value];
       if (data) {
         setState({ data, loading: false });
         return;

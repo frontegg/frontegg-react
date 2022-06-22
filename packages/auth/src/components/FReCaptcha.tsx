@@ -20,7 +20,7 @@ const unload = (recaptchaSiteKey?: string) => {
   if (nodeBadge && nodeBadge.parentNode) {
     document.body.removeChild(nodeBadge.parentNode);
   }
-  const scriptSelector = "script[src='https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey + "']";
+  const scriptSelector = `script[src="https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}"]`;
   const script = document.querySelector(scriptSelector);
   if (script) {
     script.remove();

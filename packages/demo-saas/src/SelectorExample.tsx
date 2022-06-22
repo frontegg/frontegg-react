@@ -13,7 +13,7 @@ const top100Films = [
   { label: 'The Godfather: Part II', value: '1974' },
   { label: 'The Dark Knight', value: '2008' },
   { label: '12 Angry Men', value: '1957' },
-  { label: "Schindler's List", value: '1993' },
+  { label: 'Schindler\'s List', value: '1993' },
   { label: 'Pulp Fiction', value: '19924' },
   { label: 'The Lord of the Rings: The Return of the King', value: '2003' },
   { label: 'The Good, the Bad and the Ugly', value: '1966' },
@@ -23,7 +23,7 @@ const top100Films = [
   { label: 'Forrest Gump', value: '43223' },
   { label: 'Inception', value: '2010' },
   { label: 'The Lord of the Rings: The Two Towers', value: '2002' },
-  { label: "One Flew Over the Cuckoo's Nest", value: '1975' },
+  { label: 'One Flew Over the Cuckoo\'s Nest', value: '1975' },
   { label: 'Goodfellas', value: '1990' },
   { label: 'The Matrix', value: '19991' },
 ];
@@ -54,7 +54,7 @@ export const SelectorExample: FC = () => {
   //   return <span style={{ background: 'pink' }}>{option.label}</span>;
   // };
 
-  const onChange = useCallback((_e, newValue: Array<any>) => {
+  const onChange = useCallback((_e, newValue: any[]) => {
     setValue(newValue);
   }, []);
 

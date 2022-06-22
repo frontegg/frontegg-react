@@ -296,7 +296,7 @@ export default {
         },
         deleteDialog: {
           title: 'Delete team member',
-          message: "You are about to remove '{{email}}' from this account. Are you sure?",
+          message: 'You are about to remove \'{{email}}\' from this account. Are you sure?',
         },
       },
       'social-logins': {

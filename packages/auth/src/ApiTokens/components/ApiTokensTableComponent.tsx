@@ -29,7 +29,7 @@ export const ApiTokensTableComponent: FC = () => {
       createdByUserIdColumn,
     })
   );
-  const [data, setData] = useState<Array<ITenantApiTokensData | IUserApiTokensData> | undefined>(undefined);
+  const [data, setData] = useState<ITenantApiTokensData[] | IUserApiTokensData[] | undefined>(undefined);
   const { t } = useT();
 
   useEffect(() => {

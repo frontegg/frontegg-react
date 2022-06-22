@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'cypress-react-unit-test';
+import { mount } from '@cypress/react';
 import { AuthPlugin, LoginStep } from '../index';
 import { FRONTEGG_AFTER_AUTH_REDIRECT_URL, refreshTokenResponse } from '../constants';
 import {
