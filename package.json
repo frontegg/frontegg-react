@@ -102,7 +102,6 @@
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "tslib": "^2.0.1",
-    "tslint": "^6.1.0",
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
     "yargs": "^15.4.1"
