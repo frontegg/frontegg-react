@@ -10,7 +10,7 @@ export const MFAEnrollDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
   const { setMfaState } = useMfaActions();
 
-  const dialogProps = omitProps(props, ['children']);
+  const dialogProps = omitProps<Omit<DialogProps, 'children'>>(props, ['children']);
   useEffect(() => {
     props.open && setMfaState({ step: MFAStep.verify, loading: true, qrCode: null });
   }, [props.open]);

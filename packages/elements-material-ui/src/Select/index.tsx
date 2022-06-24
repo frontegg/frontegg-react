@@ -4,7 +4,7 @@ import { TextField, Chip, CircularProgress, makeStyles } from '@material-ui/core
 import { Autocomplete, AutocompleteProps as MaterialSelectProps } from '@material-ui/lab';
 import classNames from 'classnames';
 
-const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectProps<true, true, false, true> => {
+const mapper = ({ multiselect, theme, ...rest }: SelectProps): MaterialSelectProps<any, true, false, true> => {
   const restProps: any = rest;
   const color = theme === 'danger' || theme === 'secondary' ? 'secondary' : 'primary';
 

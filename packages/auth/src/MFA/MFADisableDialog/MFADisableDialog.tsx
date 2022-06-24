@@ -23,7 +23,7 @@ export const MFADisableDialog: FC<MFADialogProps> = (props) => {
   const { t } = useT();
   const { resetMfaState, disableMfa } = useMfaActions();
 
-  const dialogProps = omitProps(props, ['children']);
+  const dialogProps = omitProps<Omit<DialogProps, 'children'>>(props, ['children']);
   useEffect(() => {
     props.open && resetMfaState();
   }, [props.open]);

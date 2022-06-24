@@ -4,6 +4,7 @@ import { ContextOptions } from '../interfaces';
 export function* getContext() {
   let result;
   do {
+    // @ts-ignore
     const availableContext = yield select(({ root: { context } }) => context);
     if (!availableContext) {
       yield delay(50);
