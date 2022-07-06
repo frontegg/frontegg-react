@@ -81,6 +81,9 @@ export const mockAuthApi = (
     allowOverridePasswordComplexity: false,
     allowOverridePasswordExpiration: false,
     allowSignups: false,
+  },
+  publicAuthStrategyConfigurations = {
+   secondaryAuthStrategies: []
   }
 ) => {
   if (authenticated) {
@@ -155,6 +158,13 @@ export const mockAuthApi = (
     delay: 200,
     response: publicConfigurations,
   }).as('publicConfigurations');
+  cy.route({
+    method: 'GET',
+    url: `${IDENTITY_SERVICE}/resources/configurations/v1/auth-strategies/public`,
+    status: 200,
+    delay: 200,
+    response: publicAuthStrategyConfigurations,
+  }).as('publicAuthStrategyConfigurations');
 };
 
 export const mockAuditsApi = () => {
