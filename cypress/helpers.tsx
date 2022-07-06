@@ -160,7 +160,7 @@ export const mockAuthApi = (
   }).as('publicConfigurations');
   cy.route({
     method: 'GET',
-    url: `${IDENTITY_SERVICE}/resources/configurations/v1/auth-strategies/public`,
+    url: `${IDENTITY_SERVICE}/resources/configurations/v1/auth/strategies/public`,
     status: 200,
     delay: 200,
     response: publicAuthStrategyConfigurations,
