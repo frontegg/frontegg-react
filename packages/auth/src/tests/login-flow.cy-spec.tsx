@@ -554,7 +554,7 @@ describe('Login Tests', () => {
     });
 
     navigateTo(defaultAuthPlugin.routes.loginUrl);
-    cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations']);
+    cy.wait(['@refreshToken', '@metadata', '@socialLogin', '@publicConfigurations', '@publicAuthStrategyConfigurations']);
     cy.get('.loader').should('not.be.visible');
 
     cy.location('origin').then((origin) => {
