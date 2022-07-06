@@ -15,7 +15,7 @@ export interface CheckoutDialogHook {
   success: boolean;
 }
 
-export const useCheckoutDialog = (): CheckoutDialogHook => {
+export const useCheckoutDialog = (appName = 'default'): CheckoutDialogHook => {
   const [{ open, error, success }, setState] = useState<CheckoutDialogState>({
     open: false,
     error: null,
@@ -38,28 +38,34 @@ export const useCheckoutDialog = (): CheckoutDialogHook => {
     });
   }, []);
 
-  const showDialog = useCallback((plan: string) => {
-    CheckoutDialog.show({
-      plan,
-      onClose: hideDialog,
-      onError: handleError,
-      onSuccess: handleSuccess,
-    });
-    setState({
-      open: true,
-      success: false,
-      error: null,
-    });
-  }, []);
+  const showDialog = useCallback(
+    (plan: string) => {
+      CheckoutDialog.show(
+        {
+          plan,
+          onClose: hideDialog,
+          onError: handleError,
+          onSuccess: handleSuccess,
+        },
+        appName
+      );
+      setState({
+        open: true,
+        success: false,
+        error: null,
+      });
+    },
+    [appName]
+  );
 
   const hideDialog = useCallback(() => {
-    CheckoutDialog.hide();
+    CheckoutDialog.hide(appName);
     setState({
       open: false,
       error: null,
       success: false,
     });
-  }, []);
+  }, [appName]);
 
   return useMemo(
     () => ({
