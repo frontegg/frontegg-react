@@ -83,7 +83,7 @@ export const mockAuthApi = (
     allowSignups: false,
   },
   publicAuthStrategyConfigurations = {
-   secondaryAuthStrategies: []
+    secondaryAuthStrategies: [],
   }
 ) => {
   if (authenticated) {

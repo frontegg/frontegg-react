@@ -22,8 +22,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: Install Dependencies and Build Packages
         run: make init
-      - name: Run Components Test
-        run: make test-component
       - name: Git Identity
         run: |
           git config --global user.name 'frontegg'

@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 const webpack = require('@cypress/webpack-preprocessor');
 const webpackOptions = {
   mode: 'development',
@@ -33,15 +32,6 @@ const webpackOptions = {
             'istanbul',
           ],
         },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.scss$/,
-        exclude: [/node_modules/],
-        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },

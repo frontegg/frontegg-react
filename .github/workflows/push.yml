@@ -20,7 +20,6 @@ jobs:
       - run: make clean
       - run: make install
       - run: make build
-      - run: make test-component
       - uses: actions/upload-artifact@v1
         if: failure()
         with:

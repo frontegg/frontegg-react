@@ -73,20 +73,6 @@ add-dist-folders-%:
 
 ########################################################################################################################
 #
-# PACKAGES
-#
-########################################################################################################################
-
-lint: ##@2 Linting run lint on all packages
-	@echo "${YELLOW}Running tslint on all packages${RESET}"
-	@./node_modules/.bin/tslint "./packages/*/{src,tests}/**/*.{ts,tsx}"
-
-lint-%: ##@2 Linting run lint on specific packages
-	@echo "${YELLOW}Running tslint on package ${WHITE}${SERVICE_NAME}-${*}${RESET}"
-	@./node_modules/.bin/tslint ./packages/${*}/{src}/**/*.ts
-
-########################################################################################################################
-#
 # TEST Operations
 #
 ########################################################################################################################
@@ -99,19 +85,6 @@ test-integration: ##@3 Tests integration test with cypress
 	@echo "Start Cypress tests on port 3000"
 	@start-server-and-test 'cd ./packages/demo-saas && serve -l 3000 -s build' 3000 'cypress run --headless --config baseUrl=http://localhost:3000'
 
-test-component: ##@3 Tests component test with cypress
-	@echo "${YELLOW}Component Test Cypress${RESET}"
-	${MAKE} test-component-auth
-	${MAKE} test-component-audits
-
-test-component-%:
-	@echo "${YELLOW}Component Test Cypress [${*}]${RESET}"
-	@./node_modules/.bin/cypress run --headed --spec "packages/${*}/**/*"
-
-test-unit: ##@3 Tests unit test with jest
-	@echo "${YELLOW}Unit Test Jest${RESET}"
-	@./node_modules/.bin/lerna run test --parallel
-
 
 ########################################################################################################################
 #
@@ -120,15 +93,7 @@ test-unit: ##@3 Tests unit test with jest
 ########################################################################################################################
 
 build: ##@4 Build build all packages
-	${MAKE} build-cli
 	${MAKE} build-react
-	${MAKE} build-nextjs
-	${MAKE} build-core
-	${MAKE} build-elements-semantic
-	${MAKE} build-elements-material-ui
-	${MAKE} build-auth
-	${MAKE} build-connectivity
-	${MAKE} build-audits
 
 build-%: ##@4 Build build a specific package
 	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
@@ -147,12 +112,6 @@ bw-%: ##@2 Build build:watch specific package
 #
 ########################################################################################################################
 
-commit-changes:
-	@git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-	@git config user.name "${GITHUB_ACTOR}"
-	@git add .
-	@git commit -m "Add generated files" || true
-
 move-package-json-to-dist:
 	@find ./packages -type d -maxdepth 1 ! -path ./packages \
 		| sed 's|^./packages/||' \
@@ -169,9 +128,6 @@ prerelease-version-upgrade-%:
 #
 ########################################################################################################################
 
-commit:
-	@node ./scripts/commit.js
-
 pretty:
 	@yarn prettier-hook
 
@@ -180,11 +136,6 @@ demo:
 
 publish-packages-next:
 	@make publish-package-next-react
-	@make publish-package-next-nextjs
-	@make publish-package-next-core
-	@make publish-package-next-auth
-	@make publish-package-next-audits
-	@make publish-package-next-connectivity
 
 publish-package-next-%:
 	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
@@ -193,11 +144,6 @@ publish-package-next-%:
 
 publish-packages:
 	@make publish-package-latest-react
-	@make publish-package-latest-nextjs
-	@make publish-package-latest-core
-	@make publish-package-latest-auth
-	@make publish-package-latest-audits
-	@make publish-package-latest-connectivity
 
 publish-package-latest-%:
 	@cp ./.npmrc "./packages/${*}/dist/.npmrc"

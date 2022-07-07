@@ -11,18 +11,12 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
-    "@frontegg/react-auth": "^4.0.22",
-    "@frontegg/react-core": "^4.0.22",
-    "classnames": "^2.2.6",
+    "@frontegg/react": "4.0.22",
     "react": ">16.8.6",
     "react-dom": ">16.8.6",
-    "react-redux": "^7.1.1",
-    "react-router-dom": "^5.1.2",
-    "redux-saga": "^1.1.3"
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "@types/react": "^16.9.19",
-    "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.3"
   },

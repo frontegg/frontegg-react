@@ -27,7 +27,6 @@ After cloning FronteggReact, run `make init` to initialize your. Then, you can r
 
 **Tests:**
 - `make test-integration` to run cypress integration tests
-- `make test-component` to run cypress component tests
 - `make test-unit` to run cypress unit tests
 
 
@@ -45,7 +44,6 @@ Make sure your changes does not break build flow, make sure to run these command
    ```
     make install
     make build
-    make test-component
    ```
 **The commit message should be structured as follows:**
 

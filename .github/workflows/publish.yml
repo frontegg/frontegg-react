@@ -33,8 +33,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Dependencies and Build Packages
         run: make init
-      - name: Run Components Test
-        run: make test-component
       - name: Set Current Version
         id: set_current_version
         if: startsWith(github.event.pull_request.title, 'v')

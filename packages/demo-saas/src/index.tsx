@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-// import { App } from './App';
-import OldApp from './OldApp';
-import {
-  // withFrontegg,
-  withOldFrontegg,
-} from './withFrontegg';
 import { BrowserRouter } from 'react-router-dom';
-
-// const AppWithFrontegg = withFrontegg(App);
-const AuditLogsConnectivityApp = withOldFrontegg(OldApp);
+import { FronteggProvider } from '@frontegg/react';
+import { App } from './App';
 
 ReactDOM.render(
   <BrowserRouter>
-    {/*<AppWithFrontegg />*/}
-    <AuditLogsConnectivityApp />
+    <FronteggProvider
+      contextOptions={{
+        baseUrl: `https://david.frontegg.com`,
+      }}
+    >
+      <App />
+    </FronteggProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
