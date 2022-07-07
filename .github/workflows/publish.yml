@@ -19,11 +19,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: "0"
-      - name: Setup Node.js
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
         uses: actions/setup-node@v1
         with:
-          node-version: 12
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
       - name: Git Identity
         run: |
           git config --global user.name 'github-actions[bot]'
