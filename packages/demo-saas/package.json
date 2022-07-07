@@ -12,13 +12,13 @@
   },
   "dependencies": {
     "@frontegg/react": "4.0.22",
-    "react": ">16.8.6",
-    "react-dom": ">16.8.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^5.0.1"
   },
   "browserslist": {
     "production": [

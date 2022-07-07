@@ -73,21 +73,6 @@ add-dist-folders-%:
 
 ########################################################################################################################
 #
-# TEST Operations
-#
-########################################################################################################################
-#
-
-test-integration: ##@3 Tests integration test with cypress
-	@echo "${YELLOW}Integration Test Cypress${RESET}"
-	@echo "Building DemoSaaS project"
-	@cd ./packages/demo-saas && yarn build
-	@echo "Start Cypress tests on port 3000"
-	@start-server-and-test 'cd ./packages/demo-saas && serve -l 3000 -s build' 3000 'cypress run --headless --config baseUrl=http://localhost:3000'
-
-
-########################################################################################################################
-#
 # BUILD Operations
 #
 ########################################################################################################################

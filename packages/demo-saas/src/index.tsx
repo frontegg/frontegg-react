@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
 import { BrowserRouter } from 'react-router-dom';
 import { FronteggProvider } from '@frontegg/react';
 import { App } from './App';
