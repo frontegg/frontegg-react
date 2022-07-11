@@ -5,7 +5,6 @@
   "author": "Frontegg LTD",
   "scripts": {
     "start": "react-scripts start",
-    "cy-start": "OPEN_BROWSER=false && react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "build:watch": "echo 'No build:watch script'",
     "test": "echo 'No Unit Tests'"
