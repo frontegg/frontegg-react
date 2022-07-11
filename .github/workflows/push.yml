@@ -11,7 +11,6 @@ jobs:
   init:
     name: 'Install, Build and Test'
     runs-on: ubuntu-latest
-    container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - uses: actions/checkout@v2
       - name: Read .nvmrc
@@ -24,13 +23,3 @@ jobs:
       - run: make clean
       - run: make install
       - run: make build
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-videos
-          path: cypress/videos
