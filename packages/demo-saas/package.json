@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/demo-saas",
-  "version": "4.0.26",
+  "version": "4.0.27",
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "echo 'No Unit Tests'"
   },
   "dependencies": {
-    "@frontegg/react": "^4.0.26",
+    "@frontegg/react": "^4.0.27",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.1.2"
