@@ -1,4 +1,4 @@
-name: Push Workflow
+name: Test Workflow
 on:
   # When after commit pushed to branches not master nad release/next
   push:
