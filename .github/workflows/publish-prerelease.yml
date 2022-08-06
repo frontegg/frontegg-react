@@ -80,6 +80,7 @@ jobs:
           branch: "release/next"
 
       - name: Publish Pre-Release version to NPM
+        id: publish_pre_release_version
         run: |
           version=$(node -p 'require("./lerna.json").version')
           echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
@@ -91,7 +92,6 @@ jobs:
           make publish-packages-next
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-          ALPHA_VERSION: ${version}-alpha.${{ github.run_id }}
 
       - name : Notify Slack on alpha version deployment
         uses : rtCamp/action-slack-notify@v2
@@ -99,7 +99,7 @@ jobs:
           SLACK_CHANNEL : frontegg-alpha-versions
           SLACK_COLOR : ${{ job.status }}
           SLACK_ICON : https://avatars.githubusercontent.com/u/67857107?s=40&v=4
-          SLACK_MESSAGE : '${{ env.ALPHA_VERSION }} has been released :rocket:'
+          SLACK_MESSAGE : '${{ steps.publish_pre_release_version.outputs.version }}-alpha.${{ github.run_id }} has been released :rocket:'
           SLACK_TITLE : 'A new @frontegg/react alpha version!'
           SLACK_USERNAME : ${{ github.actor }}
           SLACK_WEBHOOK : ${{ secrets.ROTEM_SLACK_WEBHOOK }}
