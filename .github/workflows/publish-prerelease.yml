@@ -99,8 +99,8 @@ jobs:
           SLACK_CHANNEL : frontegg-alpha-versions
           SLACK_COLOR : ${{ job.status }}
           SLACK_ICON : https://avatars.githubusercontent.com/u/67857107?s=40&v=4
-          SLACK_MESSAGE : 'An alpha version ${ALPHA_VERSION}-alpha.${{ github.run_id }} has been released :rocket:'
-          SLACK_TITLE : '@frontegg/react alpha version ${ALPHA_VERSION}-alpha.${{ github.run_id }} has been successfully published'
+          SLACK_MESSAGE : '$ALPHA_VERSION has been released :rocket:'
+          SLACK_TITLE : 'New @frontegg/react alpha version!'
           SLACK_USERNAME : ${{ github.actor }}
           SLACK_WEBHOOK : ${{ secrets.ROTEM_SLACK_WEBHOOK }}
           MSG_MINIMAL : Commit,actions url
