@@ -83,8 +83,8 @@ jobs:
         id: publish_pre_release_version
         run: |
           version=$(node -p 'require("./lerna.json").version')
-          echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
           echo "::set-output name=LIB_VERSION::${version}"
+          echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
           make move-package-json-to-dist
           make prerelease-version-upgrade-${version}-alpha.${{ github.run_id }}
           make pretty
@@ -104,4 +104,4 @@ jobs:
           SLACK_TITLE : 'A new @frontegg/react alpha version!'
           SLACK_USERNAME : ${{ github.actor }}
           SLACK_WEBHOOK : ${{ secrets.ROTEM_SLACK_WEBHOOK }}
-          MSG_MINIMAL : Commit,actions url
+          MSG_MINIMAL : true
