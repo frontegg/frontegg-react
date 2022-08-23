@@ -120,17 +120,16 @@ demo:
 	@cd ./packages/demo-saas && yarn start
 
 publish-packages-next:
-	@make publish-package-next-react
+	@cp ./.npmrc "./packages/react/dist/.npmrc"
+	@cp ./.npmignore "./packages/react/dist/.npmignore"
+	@cd "./packages/react/dist" && npm publish --tag next
 
-publish-package-next-%:
-	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
-	@cp ./.npmignore "./packages/${*}/dist/.npmignore"
-	@cd "./packages/${*}/dist" && npm publish --tag next
+publish-packages-alpha:
+	@cp ./.npmrc "./packages/react/dist/.npmrc"
+	@cp ./.npmignore "./packages/react/dist/.npmignore"
+	@cd "./packages/react/dist" && npm publish --tag alpha
 
-publish-packages:
-	@make publish-package-latest-react
-
-publish-package-latest-%:
-	@cp ./.npmrc "./packages/${*}/dist/.npmrc"
-	@cp ./.npmignore "./packages/${*}/dist/.npmignore"
-	@cd "./packages/${*}/dist" && npm publish --tag latest
+publish-packages-latest:
+	@cp ./.npmrc "./packages/react/dist/.npmrc"
+	@cp ./.npmignore "./packages/react/dist/.npmignore"
+	@cd "./packages/react/dist" && npm publish --tag latest
