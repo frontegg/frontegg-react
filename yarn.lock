@@ -1458,13 +1458,13 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@frontegg/js@6.0.3-alpha.4":
-  version "6.0.3-alpha.4"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.0.3-alpha.4.tgz#d8899991ee69e15e18bb030251b6113cb97648fc"
-  integrity sha512-IY23f73sdCmiNgFzwKQ9JPTxqzSuYYSb0nBXPg51GL2PVV+pIDYodTGCnFWmhLFdjwrRUkcSpEpsrgoGXbkFuA==
+"@frontegg/js@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.1.0.tgz#4aa1b1fa17673fdbeb3fa5b79bede8bd2e7a8702"
+  integrity sha512-o+07smszVFog4/dUOki/ZZv+wTPfc/N1NF81/SK+p2syh/8F9e2xXgFAEXfdLKoBTV6a8HjxXTQMUJp40eyNxw==
   dependencies:
     "@babel/runtime" "^7.17.2"
-    "@frontegg/types" "6.0.3-alpha.4"
+    "@frontegg/types" "6.1.0"
 
 "@frontegg/react-hooks@6.1.0":
   version "6.1.0"
@@ -1494,16 +1494,6 @@
   integrity sha512-GHFG8fNvpP0uYxJvpj1ZKN4qyCqPf8hnkcoSmdebttNqXv2j+/I8iNeDGrDUlflNoWMFImq0Lw6wTGy3Y+4Pbw==
   dependencies:
     "@babel/runtime" "^7.17.2"
-
-"@frontegg/types@6.0.3-alpha.4":
-  version "6.0.3-alpha.4"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.0.3-alpha.4.tgz#d6ba5ec94eaa820456381e917e64b8c4f9c1ea6c"
-  integrity sha512-PJyo1Bcf30+MU2gI/kL7vSEOAURx5zjUBCEqzm4hjJzAIZbmMr8Uk7L6IO0fP3nQengEUNFbrqJestlUCcQssA==
-  dependencies:
-    "@babel/runtime" "^7.17.2"
-    "@frontegg/redux-store" "6.0.3-alpha.4"
-    csstype "^3.0.9"
-    deepmerge "^4.2.2"
 
 "@frontegg/types@6.1.0":
   version "6.1.0"
