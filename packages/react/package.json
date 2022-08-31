@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@frontegg/admin-portal": "5.80.2",
-    "@frontegg/react-hooks": "5.80.2"
+    "@frontegg/react-hooks": "6.1.0"
   },
   "peerDependencies": {
     "react": ">16.9.0",
