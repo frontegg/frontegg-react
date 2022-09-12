@@ -27,7 +27,7 @@ jobs:
         run : echo "##[set-output name=VERSION;]$(node -e require('./package.json').version)"
         id : lib_version
   callE2E:
-    uses: frontegg/e2e-system-tests/.github/workflows/onPush.yml@main
+    uses: frontegg/e2e-system-tests/.github/workflows/onPush.yaml@main
     with:
       lib_version: "${{ steps.lib_version.outputs.VERSION }}"
 
