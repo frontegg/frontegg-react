@@ -38,5 +38,8 @@ jobs:
               owner: 'frontegg',
               repo: 'e2e-system-tests',
               workflow_id: 'react.yaml',
-              ref: 'master'
+              ref: 'master',
+              inputs: {
+                lib_version: ${{ steps.lib_version.outputs.VERSION }}
+              }
             })
