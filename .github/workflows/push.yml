@@ -24,7 +24,7 @@ jobs:
       - run: make install
       - run: make build
       - name : Read Version
-        run : echo "##[set-output name=VERSION;]$(node -e require('./package.json').version)"
+        run : echo "##[set-output name=VERSION;]$(node -e require\('./package.json'\).version)"
         id : lib_version
   callE2E:
     name : 'Dispatch action on E2E'
