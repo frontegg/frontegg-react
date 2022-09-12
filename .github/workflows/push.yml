@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
+        env:
+          LIB_VERSION: ${{ steps.lib_version.outputs.VERSION }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -40,6 +42,6 @@ jobs:
               workflow_id: 'react.yaml',
               ref: 'master',
               inputs: {
-                lib_version: ${{ steps.lib_version.outputs.VERSION }}
+                lib_version: process.env.LIB_VERSION
               }
             })
