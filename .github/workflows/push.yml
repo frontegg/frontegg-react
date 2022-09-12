@@ -27,7 +27,16 @@ jobs:
         run : echo "##[set-output name=VERSION;]$(node -e require('./package.json').version)"
         id : lib_version
   callE2E:
-    uses: frontegg/e2e-system-tests/.github/workflows/onPush.yaml@main
-    with:
-      lib_version: "${{ steps.lib_version.outputs.VERSION }}"
-
+    name : 'Dispatch action on E2E'
+    runs-on : ubuntu-latest
+    steps:
+      - uses : actions/github-script@v6
+        with :
+          github-token : ${{ secrets.PAT_TOKEN }}
+          script : |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'frontegg',
+              repo: 'e2e-system-tests',
+              workflow_id: 'react.yml',
+              ref: 'master'
+            })
