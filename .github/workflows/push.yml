@@ -23,17 +23,17 @@ jobs:
       - run: make clean
       - run: make install
       - run: make build
-      - name : Read Version
-        run : echo "##[set-output name=VERSION;]$(node -e require\('./package.json'\).version)"
-        id : lib_version
-  callE2E:
-    name : 'Dispatch action on E2E'
-    runs-on : ubuntu-latest
+      - name: Read Version
+        run: echo "##[set-output name=VERSION;]$(node -e require\('./package.json'\).version)"
+        id: lib_version
+  updateE2EWrapper:
+    name: 'Dispatch action on E2E'
+    runs-on: ubuntu-latest
     steps:
-      - uses : actions/github-script@v6
-        with :
-          github-token : ${{ secrets.PAT_TOKEN }}
-          script : |
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'frontegg',
               repo: 'e2e-system-tests',
