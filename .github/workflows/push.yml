@@ -23,3 +23,11 @@ jobs:
       - run: make clean
       - run: make install
       - run: make build
+      - name : Read Version
+        run : echo "##[set-output name=VERSION;]$(node -e require('./package.json').version)"
+        id : lib_version
+  callE2E:
+    uses: frontegg/e2e-system-tests/.github/workflows/onPush.yml@main
+    with:
+      lib_version: "${{ steps.lib_version.outputs.VERSION }}"
+
