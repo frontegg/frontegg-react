@@ -37,6 +37,6 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: 'frontegg',
               repo: 'e2e-system-tests',
-              workflow_id: 'react.yml',
+              workflow_id: 'react.yaml',
               ref: 'master'
             })
