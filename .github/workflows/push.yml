@@ -38,6 +38,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            console.log(secrets)
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: 'e2e-system-tests',
