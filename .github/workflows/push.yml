@@ -32,19 +32,6 @@ jobs:
     name: 'Dispatch action on E2E'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v6
-        env:
-          LIB_VERSION: ${{ steps.lib_version.outputs.VERSION }}
+      - uses: frontegg/e2e-system-tests/.github/workflows/react.yaml@master
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            console.log(secrets)
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: 'e2e-system-tests',
-              workflow_id: 'react.yaml',
-              ref: 'master',
-              inputs: {
-                lib_version: process.env.LIB_VERSION
-              }
-            })
+          lib_version: ${{ steps.lib_version.outputs.VERSION }}
