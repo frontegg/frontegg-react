@@ -29,9 +29,7 @@ jobs:
         run: echo "##[set-output name=VERSION;]$(node -e require\('./package.json'\).version)"
         id: lib_version
   updateE2EWrapper:
-    name: 'Dispatch action on E2E'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: frontegg/e2e-system-tests/.github/workflows/react.yaml@master
-        with:
-          lib_version: ${{ steps.lib_version.outputs.VERSION }}
+    name: 'Build E2E Test Wrapper action'
+    uses: frontegg/e2e-system-tests/.github/workflows/react.yaml@master
+    with:
+     lib_version: ${{ steps.lib_version.outputs.VERSION }}
