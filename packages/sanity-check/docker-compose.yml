@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  test:
+    build:
+      context: .
+    environment:
+      - CI=true
+    command: npm test
