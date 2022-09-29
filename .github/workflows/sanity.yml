@@ -1,0 +1,23 @@
+name: Sanity Check
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  CI: true
+jobs:
+  sanity :
+    name : 'Sanity check'
+    runs-on : ubuntu-latest
+    steps :
+      - uses : actions/checkout@v2
+      - name : Read .nvmrc
+        run : echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id : nvm
+      - name : Use Node.js (.nvmrc)
+        uses : actions/setup-node@v1
+        with :
+          node-version : "${{ steps.nvm.outputs.NVMRC }}"
+      - run : cd packages/sanity-check && yarn run build && yarn run test
+
+
