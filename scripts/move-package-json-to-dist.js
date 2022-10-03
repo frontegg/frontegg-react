@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 function movePackageJson(packagePath) {
-  if (packagePath.indexOf('demo-saas') !== -1) {
+  if (packagePath.indexOf('demo-saas') !== -1 || packagePath.indexOf('sanity-check') !== -1) {
     console.log('skip packagePath:', packagePath);
     return;
   }
@@ -51,8 +51,8 @@ function movePackageJson(packagePath) {
 
 
     fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(newPkg, null, 2), { encoding: 'utf8' });
-
   }
+
   if (fs.existsSync(`${packagePath}/README.md`)) {
     fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(`${packagePath}/README.md`), { encoding: 'utf8' });
   } else if (packagePath.indexOf('/core') !== -1) {
