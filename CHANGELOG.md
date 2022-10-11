@@ -1,7 +1,12 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## [5.0.8](https://github.com/frontegg/frontegg-react/compare/v5.0.7...v5.0.8) (2022-10-09)
+
+**Note:** Version bump only for package @fronteg/react
+
+
+
+
 
 ## [2.8.14](https://github.com/frontegg/frontegg-react/compare/v2.8.13...v2.8.14) (2021-07-27)
 

@@ -20,6 +20,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: "Copy changelog from admin-portal branch"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const generateChangeLog = require('./scripts/generate-chanelog.js');
+            const fs = require("fs");
+            generateChangeLog({context, github, core})
       - run: make clean
       - run: make install
       - run: make build
