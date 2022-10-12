@@ -1,4 +1,4 @@
-export default async ({context, github, core}) => {
+export default async ({context, github, version}) => {
   const {default: fs} = await import('fs');
   let changelog = fs.readFileSync('./CHANGELOG.md', {encoding: 'utf8'});
 
@@ -14,8 +14,9 @@ export default async ({context, github, core}) => {
   let changelogStr = ''
 
   const mergedPulls = pullsData.filter(pull => pull.merged_at != null);
-  const lastRelease = mergedPulls.findIndex(pull => pull.head.ref === 'release/next')
-  const pullsFromLastRelease = mergedPulls.slice(0, lastRelease);
+  const lastReleaseIndex = mergedPulls.findIndex(pull => pull.head.ref === 'release/next')
+  const lastRelease = mergedPulls[lastReleaseIndex]
+  const pullsFromLastRelease = mergedPulls.slice(0, lastReleaseIndex);
 
   const reactChanges = pullsFromLastRelease.filter(pull => pull.head.ref !== 'upgrade-admin-portal')
   const adminPortalChanges = pullsFromLastRelease.filter(pull => pull.head.ref === 'upgrade-admin-portal')
@@ -31,6 +32,13 @@ export default async ({context, github, core}) => {
   adminPortalChanges.forEach(pull => {
     changelogStr += `${pull.body}\n`
   });
-  console.log(changelogStr);
+
+  changelog = changelog.replace(/# Change Log\n/g, '');
+  const dateNow = new Date();
+  const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`
+  let newChangelog = `# Change Log\n\n## [${version}](https://github.com/frontegg/frontegg-react/compare/v${lastRelease.title}...v${version}) (${date})\n\n`
+  newChangelog += changelogStr
+  newChangelog += changelog.replace(/# Change Log\n/g, '');
+  console.log(newChangelog);
   return changelogStr;
 }
