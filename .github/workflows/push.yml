@@ -24,7 +24,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const generateChangeLog = require('./scripts/generate-chanelog.js');
+            const { default: generateChangeLog } = await import(`${{ github.workspace }}/scripts/generate-changelog.js`);
             const fs = require("fs");
             generateChangeLog({context, github, core})
       - run: make clean

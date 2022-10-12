@@ -52,7 +52,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const checkNpmVersions = require('./scripts/generate-chanelog.js');
+            const checkNpmVersions = require('./scripts/generate-changelog.js');
             const fs = require("fs");
             const npmIgnore = fs.readFileSync('./.npmignore', { encoding:"utf-8" })
             const npmrc = fs.readFileSync('./.npmrc', { encoding:"utf-8" })
