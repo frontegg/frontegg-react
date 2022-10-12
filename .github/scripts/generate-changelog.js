@@ -38,7 +38,7 @@ export default async ({context, github, version}) => {
   const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`
   let newChangelog = `# Change Log\n\n## [${version}](https://github.com/frontegg/frontegg-react/compare/v${lastRelease.title}...v${version}) (${date})\n\n`
   newChangelog += changelogStr
-  newChangelog += changelog.replace(/# Change Log\n/g, '');
+  newChangelog += changelog.replace(/# Change Log\n/g, '\n');
   console.log(newChangelog);
   return changelogStr;
 }
