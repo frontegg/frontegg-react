@@ -21,15 +21,15 @@ export default async ({context, github, core}) => {
   const adminPortalChanges = pullsFromLastRelease.filter(pull => pull.head.ref === 'upgrade-admin-portal')
 
   if (reactChanges.length > 0) {
-    changelogStr += "## @frontegg/react changes:"
+    changelogStr += "## @frontegg/react changes:\n\n"
   }
   reactChanges.forEach(pull => {
-    changelogStr += ` - ${pull.title}\n`
+    changelogStr += `- ${pull.title}\n`
   });
   changelogStr += '\n';
 
   if (adminPortalChanges.length > 0) {
-    changelogStr += "## @frontegg/js changes:"
+    changelogStr += "## @frontegg/js changes:\n\n"
   }
   adminPortalChanges.forEach(pull => {
     changelogStr += `${pull.body}\n`
