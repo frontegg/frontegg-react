@@ -12,17 +12,22 @@ export default async ({context, github, core}) => {
   });
 
   let changelogStr = ''
-  const reactChanges = pullsData.filter(pull => pull.head.ref !== 'upgrade-admin-portal')
-  const adminPortalChanges = pullsData.find(pull => pull.head.ref === 'upgrade-admin-portal')
+
+  const mergedPulls = pullsData.filter(pull => pull.merged_at != null);
+  const lastRelease = mergedPulls.findIndex(pull => pull.head.ref === 'release/next')
+  const pullsFromLastRelease = mergedPulls.slice(0, lastRelease);
+
+  const reactChanges = pullsFromLastRelease.filter(pull => pull.head.ref !== 'upgrade-admin-portal')
+  const adminPortalChanges = pullsFromLastRelease.filter(pull => pull.head.ref === 'upgrade-admin-portal')
 
   reactChanges.forEach(pull => {
     changelogStr += ` - ${pull.title}\n`
   });
   changelogStr += '\n';
 
-  if (adminPortalChanges != null) {
-    changelogStr += adminPortalChanges.body;
-  }
+  adminPortalChanges.forEach(pull => {
+    changelogStr += `${pull.body}\n`
+  });
   console.log(changelogStr);
   // // changelog = changelog.substring(changelog.indexOf('# ['));
   // // changelog = changelog.substring(changelog.indexOf('\n')).trim();
