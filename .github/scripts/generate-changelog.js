@@ -1,6 +1,7 @@
-export default async ({context, github, version}) => {
+export default async ({context, github}) => {
   const {default: fs} = await import('fs');
   let changelog = fs.readFileSync('./CHANGELOG.md', {encoding: 'utf8'});
+  const version = await import("./lerna.json").version;
 
   const {data: pullsData} = await github.rest.pulls.list({
     owner: context.repo.owner,
