@@ -8,11 +8,11 @@ function movePackageJson(packagePath) {
   }
 
   const distFolder = `${packagePath}/dist`;
-  const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, { encoding: 'utf8' }));
+  const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, {encoding: 'utf8'}));
 
   if (!packagePath.endsWith('/react')) {
 
-    const { scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg } = pkg;
+    const {scripts, main, typings, devDependencies, jest, prettier, standard, ...newPkg} = pkg;
     newPkg.main = 'index.js';
     newPkg.module = 'index.esm.js';
     newPkg.es2015 = 'index.es.js';
@@ -39,8 +39,8 @@ function movePackageJson(packagePath) {
     newPkg.peerDependencies = {
       ...(newPkg.peerDependencies || {}),
       ...(peerDeps
-        .map(dep => newPkg.dependencies && newPkg.dependencies[dep] ? { [dep]: newPkg.dependencies[dep] } : {})
-        .reduce((p, n) => ({ ...p, ...n }), {})),
+        .map(dep => newPkg.dependencies && newPkg.dependencies[dep] ? {[dep]: newPkg.dependencies[dep]} : {})
+        .reduce((p, n) => ({...p, ...n}), {})),
     };
 
     peerDeps.forEach(dep => {
@@ -50,13 +50,15 @@ function movePackageJson(packagePath) {
     });
 
 
-    fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(newPkg, null, 2), { encoding: 'utf8' });
+    fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(newPkg, null, 2), {encoding: 'utf8'});
   }
-
-  if (fs.existsSync(`${packagePath}/README.md`)) {
-    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(`${packagePath}/README.md`), { encoding: 'utf8' });
-  } else if (packagePath.indexOf('/core') !== -1) {
-    fs.writeFileSync(path.join(distFolder, 'README.md'), fs.readFileSync(path.join(__dirname, `../README.md`)), { encoding: 'utf8' });
+  const readMePath = path.join(__dirname, `../README.md`);
+  const changelogPath = path.join(__dirname, `../CHANGELOG.md`);
+  if (fs.existsSync(readMePath)) {
+    fs.writeFileSync(path.join(distFolder, `./README.md`), fs.readFileSync(readMePath), {encoding: 'utf8'});
+  }
+  if (fs.existsSync(changelogPath)) {
+    fs.writeFileSync(path.join(distFolder, `./CHANGELOG.md`), fs.readFileSync(changelogPath), {encoding: 'utf8'});
   }
 }
 
