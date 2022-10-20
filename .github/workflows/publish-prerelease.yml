@@ -54,7 +54,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const { generateChangeLog } = await import(`${{ github.workspace }}/.github/scripts/index.js`);
+            const { generateChangeLog } = await import(`${process.env.GITHUB_WORKSPACE}/.github/scripts/index.js`);
             return generateChangeLog({context, github, core})
       - name: "Set incremented version"
         uses: actions/github-script@v6
