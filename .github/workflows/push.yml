@@ -28,8 +28,23 @@ jobs:
       - name: Read Version
         run: echo "##[set-output name=VERSION;]$(node -e require\('./package.json'\).version)"
         id: lib_version
-  updateE2EWrapper:
+  update-e2e-wrapper:
     name: 'Build E2E Test Wrapper action'
-    uses: frontegg/e2e-system-tests/.github/workflows/react.yaml@master
-    with:
-     lib_version: ${{ steps.lib_version.outputs.VERSION }}
+    runs-on: ubuntu-latest
+    needs: init
+    steps:
+      - name: Checkout e2e
+        uses: actions/checkout@v3
+        with:
+          repository: frontegg/e2e-system-tests
+          path: e2e
+      - name: Run E2E tests
+        uses: ./e2e/.github/workflows/react
+        with: 
+          lib_version: $${{ steps.lib_version.outputs.VERSION }}
+
+
+    
+    
+
+    
