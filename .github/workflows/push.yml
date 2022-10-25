@@ -36,15 +36,15 @@ jobs:
       - name: Checkout e2e
         uses: actions/checkout@v3
         with:
-          repository: frontegg/e2e-system-tests
+          repository: frontegg/e2e-system-tests@master
           path: e2e
       - name: Run E2E tests
         uses: ./e2e/.github/workflows/react
-        with: 
+        with:
           lib_version: $${{ steps.lib_version.outputs.VERSION }}
 
 
-    
-    
 
-    
+
+
+
