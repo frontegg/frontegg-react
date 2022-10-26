@@ -33,18 +33,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: init
     steps:
-      - name: Checkout e2e
+      - name: Checkout E2E
         uses: actions/checkout@v3
         with:
-          repository: frontegg/e2e-system-tests@c55a18bf8e18373bfe9f07df7400714be1ae2a89
+          repository: frontegg/e2e-system-tests
+          ref: c55a18bf8e18373bfe9f07df7400714be1ae2a89
           path: e2e
       - name: Run E2E tests
         uses: ./e2e/.github/workflows/react
         with:
           lib_version: $${{ steps.lib_version.outputs.VERSION }}
-
-
-
-
-
-
