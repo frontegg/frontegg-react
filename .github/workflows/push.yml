@@ -36,7 +36,7 @@ jobs:
       - name: Checkout e2e
         uses: actions/checkout@v3
         with:
-          repository: frontegg/e2e-system-tests@master
+          repository: frontegg/e2e-system-tests@c55a18bf8e18373bfe9f07df7400714be1ae2a89
           path: e2e
       - name: Run E2E tests
         uses: ./e2e/.github/workflows/react
