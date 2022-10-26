@@ -38,6 +38,7 @@ jobs:
         with:
           repository: frontegg/e2e-system-tests
           path: e2e
+          fetch-depth: 0
       - name: Run E2E tests
         uses: ./e2e/.github/workflows/react
         with:
