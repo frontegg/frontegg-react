@@ -7,8 +7,8 @@ on:
       - 'release/next'
 env:
   CI: true
-permissions :
-  actions: write
+#permissions :
+#  actions: write
 jobs:
   init:
     name: 'Install, Build and Test'
