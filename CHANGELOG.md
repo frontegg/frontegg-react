@@ -1,5 +1,22 @@
 # Change Log
 
+## [5.0.10](https://github.com/frontegg/frontegg-react/compare/v5.0.9...v5.0.10) (2022-11-10)
+
+- FR-9186 - support ssr with session and refresh token
+- FR-9614 - Add support for innerThemeProvider for admin portal pages and tabs
+- FR-9186 - fix pipeline
+null
+### AdminPortal 6.36.0:
+- 
+
+### AdminPortal 6.35.0:
+- 
+### AdminPortal 6.34.0:
+- 
+
+### React Wrapper 5.0.10:
+- FR-9186 - Fix changelog
+
 ## [5.0.9](https://github.com/frontegg/frontegg-react/compare/v5.0.8...v5.0.9) (2022-10-26)
 
 ### AdminPortal 6.34.0:
