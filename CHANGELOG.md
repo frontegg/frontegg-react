@@ -2,46 +2,10 @@
 
 ## [5.0.10](https://github.com/frontegg/frontegg-react/compare/v5.0.9...v5.0.10) (2022-11-10)
 
-- FR-9186 - support ssr with session and refresh token
-- FR-9614 - Add support for innerThemeProvider for admin portal pages and tabs
-- FR-9186 - fix pipeline
-null
-### AdminPortal 6.36.0:
-- 
-
-### AdminPortal 6.35.0:
-- 
-### AdminPortal 6.34.0:
-- 
-
-### React Wrapper 5.0.10:
-- FR-9186 - Fix changelog
-
-## [5.0.9](https://github.com/frontegg/frontegg-react/compare/v5.0.8...v5.0.9) (2022-10-26)
-
-### AdminPortal 6.34.0:
-- 
-### AdminPortal 6.33.0:
-- 
-### AdminPortal 6.32.0:
-- [FR-8900](https://frontegg.atlassian.net/browse/FR-8900) - add customization tests - [a0021c08](https://github.com/frontegg/admin-box/pulls?q=a0021c08)
-- [FR-9007](https://frontegg.atlassian.net/browse/FR-9007) - move all related tests - [e1afb64c](https://github.com/frontegg/admin-box/pulls?q=e1afb64c)
-- [FR-9066](https://frontegg.atlassian.net/browse/FR-9066) - prettify login tests - [4ff8d19b](https://github.com/frontegg/admin-box/pulls?q=4ff8d19b)
-- [FR-9043](https://frontegg.atlassian.net/browse/FR-9043) - accept invitation test - [f30ac345](https://github.com/frontegg/admin-box/pulls?q=f30ac345)
-- [FR-9065](https://frontegg.atlassian.net/browse/FR-9065) - add test activate account custom theme - [b1e50e85](https://github.com/frontegg/admin-box/pulls?q=b1e50e85)
-- [FR-9044](https://frontegg.atlassian.net/browse/FR-9044) - reset password tests - [048d742a](https://github.com/frontegg/admin-box/pulls?q=048d742a)
-- [FR-9070](https://frontegg.atlassian.net/browse/FR-9070) - add test to reset phone number custom components - [b9dc5bd6](https://github.com/frontegg/admin-box/pulls?q=b9dc5bd6)
-- [FR-9010](https://frontegg.atlassian.net/browse/FR-9010) - login page customization tests - [7f09f217](https://github.com/frontegg/admin-box/pulls?q=7f09f217)
-- [FR-9040](https://frontegg.atlassian.net/browse/FR-9040) - forgot password tests - [9a81115a](https://github.com/frontegg/admin-box/pulls?q=9a81115a)
-- [FR-9009](https://frontegg.atlassian.net/browse/FR-9009) -add signup testing - [d604b197](https://github.com/frontegg/admin-box/pulls?q=d604b197)
-- [FR-9007](https://frontegg.atlassian.net/browse/FR-9007) - login page customization testing - [caa3a96f](https://github.com/frontegg/admin-box/pulls?q=caa3a96f)
+- Add support for overriding customzation for admin portal pages and tabs
 
 ### React Wrapper 5.0.9:
-- FR-9186 - Fix changelog
-- FR-9186 - remove duplicated npmignore copy from pipeline
-- FR-9186 - fix changelog script
 - FR-9186 - Add changelog
-- FR-9186 - Exclude sanity-check repo from scripts
 
 ## [5.0.8](https://github.com/frontegg/frontegg-react/compare/v5.0.7...v5.0.8) (2022-10-09)
 
