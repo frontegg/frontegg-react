@@ -5,3 +5,4 @@ export * from './CheckoutDialog';
 export { AdminPortal, CheckoutDialog } from '@frontegg/js';
 export * from '@frontegg/react-hooks';
 export * from '@frontegg/types';
+export * from '@frontegg/rest-api';
