@@ -103,6 +103,8 @@ function App() {
 export default App;
 ```
 
+## Integrate Admin Portal
+
 Opening the Admin Portal is available via the following code snippet.
 
 ```js
