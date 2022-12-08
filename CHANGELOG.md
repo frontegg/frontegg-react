@@ -1,5 +1,21 @@
 # Change Log
 
+## [5.0.13](https://github.com/frontegg/frontegg-react/compare/v5.0.12...v5.0.13) (2022-12-8)
+
+- FR-9969 - fix getBaseUrl never returns context prefix
+- FR-9927 - fix validation invite with bulk
+- FR-9914 - Move initial api calls to NextJS server-side before the first render
+- FR-9887 - OTC digits are not visible on mobile devices
+- FR-9860 - mfa devices management
+- FR-9418 - invite email bulk
+- FR-9852 - copy invite link fix
+- FR-9858 - fix - appearance and settings should be optional for invite user customization
+
+- FR-9852 - Support copy invite link for dynamic base URL as well (mainly for Next.js)
+- FR-9742 - login with mfa
+- FR-9520 - FR-9504 - fonts improvements
+
+
 ## [5.0.12](https://github.com/frontegg/frontegg-react/compare/v5.0.11...v5.0.12) (2022-11-28)
 
 - FR-9750 - change api according to the new names security tabs
