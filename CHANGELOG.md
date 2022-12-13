@@ -1,5 +1,21 @@
 # Change Log
 
+## [5.0.14](https://github.com/frontegg/frontegg-react/compare/v5.0.13...v5.0.14) (2022-12-13)
+
+- FR-10010 - mfa fixes
+- FR-9932 - Subscriptions billing collection
+- FR-9526 - remove adding class to body when frontegg loading on nextjs
+- FR-9977 - change validations + color in autofill mode
+- FR-9971 - otc mobile fix
+- FR-9821 - SCIM
+- FR-9969 - fix getBaseUrl never returns context prefix
+- FR-9927 - fix validation invite with bulk
+- FR-9914 - Move initial api calls to NextJS server-side before the first render
+- FR-9887 - OTC digits are not visible on mobile devices
+- FR-9860 - mfa devices management
+- FR-9418 - invite email bulk
+
+
 ## [5.0.13](https://github.com/frontegg/frontegg-react/compare/v5.0.12...v5.0.13) (2022-12-8)
 
 - Fixed ignoring `urlPrefix` issue
