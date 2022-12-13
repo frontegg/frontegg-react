@@ -1,5 +1,13 @@
 # Change Log
 
+## [5.0.14](https://github.com/frontegg/frontegg-react/compare/v5.0.13...v5.0.14) (2022-12-13)
+
+- Fixed MFA flow issues
+- Added support for subscriptions billing collection
+- Fixed the issue of the OTC screen submit button being disabled on mobile devices
+- Added SCIM section in admin portal under FF
+
+
 ## [5.0.13](https://github.com/frontegg/frontegg-react/compare/v5.0.12...v5.0.13) (2022-12-8)
 
 - Fixed ignoring `urlPrefix` issue
