@@ -1,5 +1,16 @@
 # Change Log
 
+## [5.0.15](https://github.com/frontegg/frontegg-react/compare/v5.0.14...v5.0.15) (2022-12-20)
+
+- Fixed mfa input on mobile 
+- Enabled scim without roles
+- Fixed menu component for dark theme
+- Added api navigation icon
+- Added tests for mfa
+- Added apple social login types
+- Added support for Hiding Invoices
+
+
 ## [5.0.14](https://github.com/frontegg/frontegg-react/compare/v5.0.13...v5.0.14) (2022-12-13)
 
 - Fixed MFA flow issues
