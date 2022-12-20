@@ -2,16 +2,13 @@
 
 ## [5.0.15](https://github.com/frontegg/frontegg-react/compare/v5.0.14...v5.0.15) (2022-12-20)
 
-- FR-10024 - fix bulk
-- FR-10072 - mobile fixes for mfa
-- FR-9821 - enable scim without roles
-- FR-10010 - mfa fixes
-- FR-10028 - fix menu for dark
-- FR-10010 - card list item on click fix
-- FR-10020 - add api navigation icon
-- FR-10016 - mfa tests
-- FR-9731 - add apple social login types
-- FR-9936 - Hide Invoices on FronteggAppOptions
+- Fixed mfa input on mobile 
+- Enabled scim without roles
+- Fixed menu component for dark theme
+- Added api navigation icon
+- Added tests for mfa
+- Added apple social login types
+- Added support for Hiding Invoices
 
 
 ## [5.0.14](https://github.com/frontegg/frontegg-react/compare/v5.0.13...v5.0.14) (2022-12-13)
