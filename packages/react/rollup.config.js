@@ -54,6 +54,7 @@ const isExternal = (id) => {
     id !== './AuthorizedContent' &&
     id !== './routerProxy' &&
     id !== './queryKeeper' &&
+    id !== './CustomComponentHolder' &&
     id !== './CheckoutDialog'
   );
 };

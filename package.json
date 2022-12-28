@@ -12,6 +12,7 @@
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@types/history": "^4.7.7",
     "@types/node": "^13.9.1",
+    "@types/react-is": "^17.0.3",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.17.0",
     "history": "^4.9.0",
