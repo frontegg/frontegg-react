@@ -1,10 +1,10 @@
 import React, { FC, ReactNode, useCallback, useMemo } from 'react';
-import { initialize } from '@frontegg/admin-portal';
+import { initialize } from '@frontegg/js';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
-import { AppHolder } from '@frontegg/admin-portal/AppHolder';
+import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
 

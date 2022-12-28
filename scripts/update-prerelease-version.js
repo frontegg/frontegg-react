@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 function updatePreReleaseVersion(packagePath, nextVersion) {
-  if (packagePath.indexOf('demo-saas') !== -1) {
+  if (packagePath.indexOf('demo-saas') !== -1 || packagePath.indexOf('sanity-check') !== -1) {
     return;
   }
   const pkg = JSON.parse(fs.readFileSync(`${packagePath}/package.json`, { encoding: 'utf8' }));

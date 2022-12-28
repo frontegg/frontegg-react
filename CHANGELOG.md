@@ -1,7 +1,81 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## [5.0.16](https://github.com/frontegg/frontegg-react/compare/v5.0.15...v5.0.16) (2022-12-22)
+
+- Few bug fixes
+
+
+## [5.0.15](https://github.com/frontegg/frontegg-react/compare/v5.0.14...v5.0.15) (2022-12-20)
+
+- Fixed mfa input on mobile 
+- Enabled scim without roles
+- Fixed menu component for dark theme
+- Added api navigation icon
+- Added tests for mfa
+- Added apple social login types
+- Added support for Hiding Invoices
+
+
+## [5.0.14](https://github.com/frontegg/frontegg-react/compare/v5.0.13...v5.0.14) (2022-12-13)
+
+- Fixed MFA flow issues
+- Added support for subscriptions billing collection
+- Fixed the issue of the OTC screen submit button being disabled on mobile devices
+- Added SCIM section in admin portal under FF
+
+
+## [5.0.13](https://github.com/frontegg/frontegg-react/compare/v5.0.12...v5.0.13) (2022-12-8)
+
+- Fixed ignoring `urlPrefix` issue
+- Added the ability to Invite a user by bulk API in the admin portal
+- Fixed OTC digits are not visible on mobile devices
+- Added MFA devices management section in the admin portal under FF
+- Fixed the ability to copy invite link for dynamic base URL as well
+- Added new abilities to MFA flows under FF
+- Added support for providing an external CDN to load fonts in Frontegg components
+
+
+## [5.0.12](https://github.com/frontegg/frontegg-react/compare/v5.0.11...v5.0.12) (2022-11-28)
+
+- FR-9750 - change api according to the new names security tabs
+- FR-9717 - update rest api to have optional name in add user payload - and make sure to not send name if not exist
+- FR-9826 - fix table header in dark theme
+- FR-9237 - Max length for secret fields increased to 100 
+- FR-9742 - enroll mfa list
+- FR-9772 - Send NULL on profilePictureUrl rather than null
+- FR-9717 - Invite user customize form API
+- FR-9597 - Webhooks - missing validation error on UI when added not allowed URL
+
+
+## [5.0.11](https://github.com/frontegg/frontegg-react/compare/v5.0.10...v5.0.11) (2022-11-23)
+
+- Added support for admin portal pre-defined theme options (dark, vivid, modern, and classic themes)
+- Added support for customizing admin portal navigation hover color
+- Fixed typo of Andorra country in countries dropdown
+- Fixed select popup alignment issue
+- Changed no local authentication feature to also hide the sign-up form when there is no local authentication option (use only social logins and SSO for signing up)
+- Added mock for feature flags API for admin portal preview mode
+- Fixed resend invitation and activate your account API calls
+- Fixed creating custom webhook on the Admin Portal is sent with the event ID and not with the event Key
+- Added support for customizing fields and tabs in the admin portal
+
+### React Wrapper 5.0.11:
+- Updated README.md with the current integration guide
+
+## [5.0.10](https://github.com/frontegg/frontegg-react/compare/v5.0.9...v5.0.10) (2022-11-10)
+
+- Add support for overriding customzation for admin portal pages and tabs
+
+### React Wrapper 5.0.9:
+- FR-9186 - Add changelog
+
+## [5.0.8](https://github.com/frontegg/frontegg-react/compare/v5.0.7...v5.0.8) (2022-10-09)
+
+**Note:** Version bump only for package @fronteg/react
+
+
+
+
 
 ## [2.8.14](https://github.com/frontegg/frontegg-react/compare/v2.8.13...v2.8.14) (2021-07-27)
 
