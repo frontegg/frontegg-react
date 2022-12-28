@@ -71,7 +71,12 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   const signUpUrl = app.store.getState().auth.routes.signUpUrl;
   useQueryKeeper({ routes: { signUpUrl }, history });
 
-  return <FronteggStoreProvider {...({ ...props, app } as any)} />;
+  return (
+    <>
+      <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
+      <FronteggStoreProvider {...({ ...props, app } as any)} />
+    </>
+  );
 };
 
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
