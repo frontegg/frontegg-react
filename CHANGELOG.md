@@ -1,5 +1,10 @@
 # Change Log
 
+## [5.0.16](https://github.com/frontegg/frontegg-react/compare/v5.0.15...v5.0.16) (2022-12-22)
+
+- Few bug fixes
+
+
 ## [5.0.15](https://github.com/frontegg/frontegg-react/compare/v5.0.14...v5.0.15) (2022-12-20)
 
 - Fixed mfa input on mobile 

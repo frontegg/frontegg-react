@@ -6,6 +6,7 @@ import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
+import { CustomComponentRegister } from './CustomComponentHolder';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -70,7 +71,12 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   const signUpUrl = app.store.getState().auth.routes.signUpUrl;
   useQueryKeeper({ routes: { signUpUrl }, history });
 
-  return <FronteggStoreProvider {...({ ...props, app } as any)} />;
+  return (
+    <>
+      <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
+      <FronteggStoreProvider {...({ ...props, app } as any)} />
+    </>
+  );
 };
 
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
