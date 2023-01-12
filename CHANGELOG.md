@@ -2,29 +2,18 @@
 
 ## [5.0.17](https://github.com/frontegg/frontegg-react/compare/v5.0.16...v5.0.17) (2023-1-11)
 
-- FR-10248 - add spacing to mfa
-- FR-10256 - replace apple button redirect url
-- FR-10248 - add tooltip for card list item
-- FR-10246 - Add impersonation indication in login session table
-- FR-10275 - Avoid calling conditioned hook in Google onetap code
-- FR-9413 - fix main login validation for on boarding
-- FR-10241 - added support for redirectUrl on prelogin
-- FR-10240 - remove linkedin from inactive providers
-- FR-9983 - make sure that OTC fields are in one column with submit button
-- FR-9642 - Logout on OAuth service on Hosted Login
-- FR-8022 - support linkedin
-- FR-10212 - hide disabled cards from mfa list
-- FR-10162 - added support for google one tap
-- FR-9983 - Improve digits component
-- FR-9987 - fix social btns UI
-- FR-9413 - Login, unified behaviour 
-- FR-10047 - fix bad UI webhook
-- FR-9993 - Add custom event to add user by bulk
-- FR-10118 - fix apple logo color change when font color changes
-- FR-9976 - refactor otc
-
-### React Wrapper 5.0.17:
-- FR-5607 - use CustomComponentRegister
+- Fix apple button redirect url
+- Added for card list item
+- Added impersonation indication in login session table
+- Added support for redirectUrl on prelogin
+- Fixed logout on Hosted Login
+- Added support for login with linkedin
+- Hide disabled cards from MFA list
+- Added support for google one tap
+- Improve digits component
+- Login, unified behavior
+- Fix apple logo color and match to font color
+- Added support for hooks in custom components
 
 ## [5.0.16](https://github.com/frontegg/frontegg-react/compare/v5.0.15...v5.0.16) (2022-12-22)
 
