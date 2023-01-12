@@ -2,18 +2,15 @@
 
 ## [5.0.17](https://github.com/frontegg/frontegg-react/compare/v5.0.16...v5.0.17) (2023-1-11)
 
-- Fix apple button redirect url
-- Added for card list item
+- Fixed login with apple redirect URL
 - Added impersonation indication in login session table
-- Added support for redirectUrl on prelogin
-- Fixed logout on Hosted Login
-- Added support for login with linkedin
-- Hide disabled cards from MFA list
-- Added support for google one tap
-- Improve digits component
-- Login, unified behavior
+- Added support for session expired logout on Hosted Login
+- Added support for login with Linkedin
+- Added support for Google one tap
+- Improve insert OTC screen UI
+- Improve UX of authentication forms
 - Fix apple logo color and match to font color
-- Added support for hooks in custom components
+- Added support for customization of Custom React hooks component
 
 ## [5.0.16](https://github.com/frontegg/frontegg-react/compare/v5.0.15...v5.0.16) (2022-12-22)
 
