@@ -2,46 +2,8 @@
 
 ## [5.0.18](https://github.com/frontegg/frontegg-react/compare/v5.0.17...v5.0.18) (2023-1-16)
 
-- FR-10261 - fix sign up position in dark theme
-- FR-10369 - change mfa ff name
-- FR-8329 - roles mock
-- FR-10141 - Added support for logout on hosted login in nextjs
-- FR-9816 - Add Snyk to PR check whitelist
-- FR-10345 - add margin login error
-
-- FR-10330 - fixes for bulk
-- FR-9816 - Fix branch selection
-
-- 
-
-- FR-10112 - update admin box pipeline angular
-- FR-10141 - update rest-api
-
-- FR-9816 - fix version
-- FR-10248 - add spacing to mfa
-- FR-10256 - replace apple button redirect url
-- FR-10248 - add tooltip for card list item
-- FR-10246 - Add impersonation indication in login session table
-- FR-10275 - Avoid calling conditioned hook in Google onetap code
-- FR-9413 - fix main login validation for on boarding
-- FR-10241 - added support for redirectUrl on prelogin
-- FR-10240 - remove linkedin from inactive providers
-- FR-9983 - make sure that OTC fields are in one column with submit button
-- FR-9642 - Logout on OAuth service on Hosted Login
-- FR-8022 - support linkedin
-- FR-10212 - hide disabled cards from mfa list
-- FR-10162 - added support for google one tap
-- FR-9983 - Improve digits component
-- FR-9987 - fix social btns UI
-- FR-9413 - Login, unified behaviour 
-- FR-10047 - fix bad UI webhook
-- FR-9993 - Add custom event to add user by bulk
-- FR-10118 - fix apple logo color change when font color changes
-- FR-9976 - refactor otc
-
-### React Wrapper 5.0.18:
-- FR-5607 - use CustomComponentRegister
-# Change Log
+- Fixed sign up position in dark theme
+- Added margin to login error
 
 ## [5.0.17](https://github.com/frontegg/frontegg-react/compare/v5.0.16...v5.0.17) (2023-1-11)
 
