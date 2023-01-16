@@ -6,6 +6,7 @@
 - Added margin to login error
 - Added support for built-in authenticators, security keys, and SMS as MFA methods
 
+
 ## [5.0.17](https://github.com/frontegg/frontegg-react/compare/v5.0.16...v5.0.17) (2023-1-11)
 
 - Fixed login with apple redirect URL
