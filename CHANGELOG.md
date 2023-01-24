@@ -1,5 +1,28 @@
 # Change Log
 
+## [5.0.19](https://github.com/frontegg/frontegg-react/compare/v5.0.18...v5.0.19) (2023-1-24)
+
+- FR-10485 - Update `@frontegg/rest-api` version
+- FR-10017 - Add `type="email"` to all email HTML inputs
+- FR-10501 - Expand LoginBox width in mobile devices
+- FR-10196 - Fix scroll in privacy page
+- FR-10489 - UI enhancements in SCIM
+- FR-10483 - Added the option to customize forget password button
+- FR-10374 - UI enhancements in split mode
+- FR-10184 - Add access tokens screen
+- FR-9995 - UI enhancements for Invitation text and icon
+- FR-10448 - add prettier pre-commit check 
+- FR-10443 - Fix impersonation
+- FR-10282 - fix otc login for mobile
+- FR-10410 - fix policies mock
+- FR-10371 - sync vendor security policies
+- FR-10302 - Add impersonation indication for audit logs
+- FR-10281 - Impersonation
+- FR-10261 - fix sign up position in dark theme
+- FR-10369 - change mfa ff name
+
+# Change Log
+
 ## [5.0.18](https://github.com/frontegg/frontegg-react/compare/v5.0.17...v5.0.18) (2023-1-16)
 
 - Fixed sign up position in dark theme
