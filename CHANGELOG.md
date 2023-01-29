@@ -1,5 +1,10 @@
 # Change Log
 
+## [5.0.20](https://github.com/frontegg/frontegg-react/compare/v5.0.19...v5.0.20) (2023-1-29)
+
+- Fixed error message position in login with SMS screen
+- Fixed missing client ID after creating API token
+
 ## [5.0.19](https://github.com/frontegg/frontegg-react/compare/v5.0.18...v5.0.19) (2023-1-24)
 
 - FR-10485 - Update `@frontegg/rest-api` version
