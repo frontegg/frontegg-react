@@ -2,19 +2,8 @@
 
 ## [5.0.20](https://github.com/frontegg/frontegg-react/compare/v5.0.19...v5.0.20) (2023-1-29)
 
-- FR-10549 - fix error login with sms
-- FR-10437 - select color
-- FR-10518 - fix client id not show in model
-- FR-10485 - Update `@frontegg/rest-api` version
-- FR-10017 - Add `type="email"` to all email HTML inputs
-- FR-10501 - Expand LoginBox width in mobile devices
-- FR-10196 - Fix scroll in privacy page
-- FR-10489 - UI enhancements in SCIM
-- FR-10483 - Added the option to customize forget password button
-- FR-10374 - UI enhancements in split mode
-- FR-10184 - Add access tokens screen
-- FR-9995 - UI enhancements for Invitation text and icon
-
+- Fixed error message position in login with SMS screen
+- Fixed missing client ID after creating API token
 
 ## [5.0.19](https://github.com/frontegg/frontegg-react/compare/v5.0.18...v5.0.19) (2023-1-24)
 
