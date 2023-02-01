@@ -55,7 +55,8 @@ const isExternal = (id) => {
     id !== './routerProxy' &&
     id !== './queryKeeper' &&
     id !== './CustomComponentHolder' &&
-    id !== './CheckoutDialog'
+    id !== './CheckoutDialog' &&
+    id !== 'tslib'
   );
 };
 
