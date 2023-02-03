@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.0.21](https://github.com/frontegg/frontegg-react/compare/v5.0.20...v5.0.21) (2023-2-1)
+
+
+### React Wrapper 5.0.21:
+- FR-10625 - Export HostedLogin class from @frontegg/js library
+# Change Log
+
 ## [5.0.20](https://github.com/frontegg/frontegg-react/compare/v5.0.19...v5.0.20) (2023-1-29)
 
 - Fixed error message position in login with SMS screen
