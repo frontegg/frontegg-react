@@ -2,14 +2,14 @@
 
 ## [5.0.22](https://github.com/frontegg/frontegg-react/compare/v5.0.21...v5.0.22) (2023-2-7)
 
-- FR-10662 - fix sign up message
-- FR-10431 - input component for adding members
-- FR-10414 - fix filter SSO providers according to the vendor choice
-- FR-10430 - user groups card header
-- FR-9271 - hosted login improvements
+- Fixed go-to-sign-up message position in speedy login layout
+- Added an input component to the library for adding members to a tenant
+- Fix filtering SSO providers according to the vendor selection
+- Added user groups card header component to the library
+- Improved the admin portal and login box performance and bundle size
 
 ### React Wrapper 5.0.22:
-- FR-10626 - Add tslib to frontegg react bundle to prevent ts version conflicts
+- Added TSlib to Frontegg react bundle to prevent TS version conflicts
 
 ## [5.0.21](https://github.com/frontegg/frontegg-react/compare/v5.0.20...v5.0.21) (2023-2-1)
 
