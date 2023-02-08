@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react",
   "libName": "FronteggReact",
-  "version": "5.0.22",
+  "version": "5.0.23",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
