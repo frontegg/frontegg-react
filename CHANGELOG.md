@@ -2,13 +2,7 @@
 
 ## [5.0.23](https://github.com/frontegg/frontegg-react/compare/v5.0.22...v5.0.23) (2023-2-8)
 
-- FR-10682 - change m2m strategy to be from identity
-- FR-10660 - ui for prompt passkeys
-- FR-10662 - fix sign up message
-- FR-10431 - input component for adding members
-- FR-10414 - fix filter SSO providers according to the vendor choice
-- FR-10430 - user groups card header
-- FR-9271 - hosted login improvements
+- Updated M2M tokens to reflect the vendor choice
 
 # Change Log
 
