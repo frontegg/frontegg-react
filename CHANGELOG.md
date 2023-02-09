@@ -1,5 +1,11 @@
 # Change Log
 
+## [5.0.23](https://github.com/frontegg/frontegg-react/compare/v5.0.22...v5.0.23) (2023-2-8)
+
+- Updated M2M tokens to reflect the vendor choice
+
+# Change Log
+
 ## [5.0.22](https://github.com/frontegg/frontegg-react/compare/v5.0.21...v5.0.22) (2023-2-7)
 
 - Fixed go-to-sign-up message position in speedy login layout
