@@ -1,5 +1,16 @@
 # Change Log
 
+## [5.0.26](https://github.com/frontegg/frontegg-react/compare/v5.0.25...v5.0.26) (2023-3-16)
+- Fixed use permission regex issue to accept a wild card
+- User groups design fixes
+- Fixed passkeys loading mode and login flow with MFA
+- Update dependencies between passkeys and MFA on the privacy page
+- Added support to reset Idle session timeout by post messages from the client iFrame
+- Added an option to enforce redirect URLs to the same site only to avoid security issues
+- Added support for customized social login providers
+
+# Change Log
+
 ## [5.0.25](https://github.com/frontegg/frontegg-react/compare/v5.0.24...v5.0.25) (2023-3-10)
 
 - Fixed resend OTC with reCaptcha
