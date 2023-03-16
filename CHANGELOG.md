@@ -1,5 +1,28 @@
 # Change Log
 
+## [5.0.26](https://github.com/frontegg/frontegg-react/compare/v5.0.25...v5.0.26) (2023-3-16)
+
+- FR-10976 - Remove idle session export from default items
+- FR-11120 - fix use permission
+- FR-10976 - idle session missing script for local exmaple
+- FR-11109 - fix groups design
+- FR-10530 - fix passkeys loading mode in login flow
+- FR-11065 - fix login flow with prompt for mfa
+- FR-10530 - update dependencies between passkeys and mfa
+- FR-10976 - Idle session timeout will be reset on a post message from the client iFrame
+- FR-10150 - add option to enforce redirect to same site only to avoid security issues
+- FR-9469 - Added support for customized social login providers
+- FR-9524 - Add missing RecaptchaTokens, Fix first load recaptcha
+- FR-9524 - Update packages folder path in nextjs project
+- FR-11009 - fix auth url default value for preview mode
+- FR-11009 - add check for social config authorization url validity
+- FR-10428 - fix rest-api imports
+- FR-11022 - groups feature bugfix
+- FR-9524 - Fix Recaptcha
+- FR-10945 - add passkeys privacy page
+
+# Change Log
+
 ## [5.0.25](https://github.com/frontegg/frontegg-react/compare/v5.0.24...v5.0.25) (2023-3-10)
 
 - Fixed resend OTC with reCaptcha
