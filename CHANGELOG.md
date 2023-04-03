@@ -1,5 +1,36 @@
 # Change Log
 
+## [5.0.27](https://github.com/frontegg/frontegg-react/compare/v5.0.26...v5.0.27) (2023-3-27)
+
+- FR-11247 - fix version branch 6.82
+- FR-11065 - add passkeys mock ff
+- FR-11189 - mfa authenticator app change input type
+- FR-10821 - fix table color
+- FR-11204 - add unit testing with jest
+- FR-11139 - fix groups
+- FR-11039 - fix groups dummy
+- FR-11039 - ff groups
+- FR-10530 - fix ff store name
+- FR-11067 - error handling on profile image upload
+- FR-11039 - extend users table with groups column
+
+- FR-10530 - fix ff
+- FR-10654 - Fix OIDC loading screen
+- FR-10530 - fix ff store name
+- FR-10530 - fix ff store name
+- FR-10530 - change ff behavior  
+- FR-10976 - Remove idle session export from default items
+- FR-11120 - fix use permission
+- FR-10976 - idle session missing script for local exmaple
+- FR-11109 - fix groups design
+- FR-10530 - fix passkeys loading mode in login flow
+- FR-11065 - fix login flow with prompt for mfa
+- FR-10530 - update dependencies between passkeys and mfa
+- FR-10976 - Idle session timeout will be reset on a post message from the client iFrame
+- FR-10150 - add option to enforce redirect to same site only to avoid security issues
+
+# Change Log
+
 ## [5.0.26](https://github.com/frontegg/frontegg-react/compare/v5.0.25...v5.0.26) (2023-3-16)
 - Fixed use permission regex issue to accept a wild card
 - User groups design fixes
