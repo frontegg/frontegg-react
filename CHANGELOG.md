@@ -1,19 +1,10 @@
 # Change Log
 
 ## [5.0.28](https://github.com/frontegg/frontegg-react/compare/v5.0.27...v5.0.28) (2023-4-3)
-
-- FR-11333 - fix tooltips
-- FR-11335 - remove autofill
-- FR-11106 - fix bug preview
-- FR-11283 - fix passkeys autofill
-- FR-11232 - tests groups
-- FR-11283 - add passkeys autofill
-- FR-11096 - SCIM groups
-- FR-11240 - passkeys text and style changes
-- FR-11042 - Fixing text across login-box - grammar and terminology
-- FR-10734 - Show impersonator that they're in an impersonation session
-- FR-11247 - fix version branch 6.82
-
+- Added support for SCIM groups
+- Updated texts across login box - grammar and terminology
+- Added impersonation indicator to show impersonator that they're in an impersonation session
+- Added passkeys feature
 
 ## [5.0.27](https://github.com/frontegg/frontegg-react/compare/v5.0.26...v5.0.27) (2023-3-27)
 
