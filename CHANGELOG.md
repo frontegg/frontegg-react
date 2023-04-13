@@ -2,8 +2,7 @@
 
 ## [5.0.29](https://github.com/frontegg/frontegg-react/compare/v5.0.28...v5.0.29) (2023-4-13)
 
-- FR-11248 - add the option to separate first and last name in sign up form
-- FR-11354 - allaccounts components
+- Added support to separate first and last name in sign up form by customization option for embedded mode
 
 # Change Log
 
