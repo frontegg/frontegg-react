@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.0.29](https://github.com/frontegg/frontegg-react/compare/v5.0.28...v5.0.29) (2023-4-13)
+
+- FR-11248 - add the option to separate first and last name in sign up form
+- FR-11354 - allaccounts components
+
+# Change Log
+
 ## [5.0.28](https://github.com/frontegg/frontegg-react/compare/v5.0.27...v5.0.28) (2023-4-3)
 - Added support for SCIM groups
 - Updated texts across login box - grammar and terminology
