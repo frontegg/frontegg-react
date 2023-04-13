@@ -1,5 +1,11 @@
 # Change Log
 
+## [5.0.28](https://github.com/frontegg/frontegg-react/compare/v5.0.27...v5.0.28) (2023-4-3)
+- Added support for SCIM groups
+- Updated texts across login box - grammar and terminology
+- Added impersonation indicator to show impersonator that they're in an impersonation session
+- Added passkeys feature
+
 ## [5.0.27](https://github.com/frontegg/frontegg-react/compare/v5.0.26...v5.0.27) (2023-3-27)
 
 - FR-11247 - fix version branch 6.82
