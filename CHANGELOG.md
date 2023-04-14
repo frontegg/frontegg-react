@@ -1,5 +1,153 @@
 # Change Log
 
+## [5.0.29](https://github.com/frontegg/frontegg-react/compare/v5.0.28...v5.0.29) (2023-4-13)
+
+- Added support to separate first and last name in sign up form by customization option for embedded mode
+
+# Change Log
+
+## [5.0.28](https://github.com/frontegg/frontegg-react/compare/v5.0.27...v5.0.28) (2023-4-3)
+- Added support for SCIM groups
+- Updated texts across login box - grammar and terminology
+- Added impersonation indicator to show impersonator that they're in an impersonation session
+- Added passkeys feature
+
+## [5.0.27](https://github.com/frontegg/frontegg-react/compare/v5.0.26...v5.0.27) (2023-3-27)
+
+- FR-11247 - fix version branch 6.82
+- FR-11065 - add passkeys mock ff
+- FR-11189 - mfa authenticator app change input type
+- FR-10821 - fix table color
+- FR-11204 - add unit testing with jest
+- FR-11139 - fix groups
+- FR-11039 - fix groups dummy
+- FR-11039 - ff groups
+- FR-10530 - fix ff store name
+- FR-11067 - error handling on profile image upload
+- FR-11039 - extend users table with groups column
+
+- FR-10530 - fix ff
+- FR-10654 - Fix OIDC loading screen
+- FR-10530 - fix ff store name
+- FR-10530 - fix ff store name
+- FR-10530 - change ff behavior  
+- FR-10976 - Remove idle session export from default items
+- FR-11120 - fix use permission
+- FR-10976 - idle session missing script for local exmaple
+- FR-11109 - fix groups design
+- FR-10530 - fix passkeys loading mode in login flow
+- FR-11065 - fix login flow with prompt for mfa
+- FR-10530 - update dependencies between passkeys and mfa
+- FR-10976 - Idle session timeout will be reset on a post message from the client iFrame
+- FR-10150 - add option to enforce redirect to same site only to avoid security issues
+
+# Change Log
+
+## [5.0.26](https://github.com/frontegg/frontegg-react/compare/v5.0.25...v5.0.26) (2023-3-16)
+- Fixed use permission regex issue to accept a wild card
+- User groups design fixes
+- Fixed passkeys loading mode and login flow with MFA
+- Update dependencies between passkeys and MFA on the privacy page
+- Added support to reset Idle session timeout by post messages from the client iFrame
+- Added an option to enforce redirect URLs to the same site only to avoid security issues
+- Added support for customized social login providers
+
+# Change Log
+
+## [5.0.25](https://github.com/frontegg/frontegg-react/compare/v5.0.24...v5.0.25) (2023-3-10)
+
+- Fixed resend OTC with reCaptcha
+- Added  support to let tenants create a manage user groups in the admin portal under a FF
+- Added support to login with passkeys and manage passkeys in the admin portal under a FF
+- Fixed invite users issue when the vendor is not forcing roles and permissions
+- Support auth strategy and social logins for login per tenants
+- Refactored feature flag mechanism to be based on rest-api package
+- Fixed validation for postcode in admin portal forms
+- Fixed SMS code input to have input type number
+- Improved auth screens form UX 
+
+# Change Log
+
+## [5.0.24](https://github.com/frontegg/frontegg-react/compare/v5.0.23...v5.0.24) (2023-2-21)
+
+- Fixed Admin portal SSO provider's options to be correlated with the vendor choice
+- Fixed background for table pivot column
+- Fixed impersonation by removing unnecessary redirects and add a refresh call
+- Fixed style reorder bug when using @emotion/react and Frontegg Next.JS 
+
+# Change Log
+
+## [5.0.23](https://github.com/frontegg/frontegg-react/compare/v5.0.22...v5.0.23) (2023-2-8)
+
+- Updated M2M tokens to reflect the vendor choice
+
+# Change Log
+
+## [5.0.22](https://github.com/frontegg/frontegg-react/compare/v5.0.21...v5.0.22) (2023-2-7)
+
+- Fixed go-to-sign-up message position in speedy login layout
+- Added an input component to the library for adding members to a tenant
+- Fix filtering SSO providers according to the vendor selection
+- Added user groups card header component to the library
+- Improved the admin portal and login box performance and bundle size
+
+### React Wrapper 5.0.22:
+- Added TSlib to Frontegg react bundle to prevent TS version conflicts
+
+## [5.0.21](https://github.com/frontegg/frontegg-react/compare/v5.0.20...v5.0.21) (2023-2-1)
+
+
+### React Wrapper 5.0.21:
+- FR-10625 - Export HostedLogin class from @frontegg/js library
+# Change Log
+
+## [5.0.20](https://github.com/frontegg/frontegg-react/compare/v5.0.19...v5.0.20) (2023-1-29)
+
+- Fixed error message position in login with SMS screen
+- Fixed missing client ID after creating API token
+
+## [5.0.19](https://github.com/frontegg/frontegg-react/compare/v5.0.18...v5.0.19) (2023-1-24)
+
+- FR-10485 - Update `@frontegg/rest-api` version
+- FR-10017 - Add `type="email"` to all email HTML inputs
+- FR-10501 - Expand LoginBox width in mobile devices
+- FR-10196 - Fix scroll in privacy page
+- FR-10489 - UI enhancements in SCIM
+- FR-10483 - Added the option to customize forget password button
+- FR-10374 - UI enhancements in split mode
+- FR-10184 - Add access tokens screen
+- FR-9995 - UI enhancements for Invitation text and icon
+- FR-10448 - add prettier pre-commit check 
+- FR-10443 - Fix impersonation
+- FR-10282 - fix otc login for mobile
+- FR-10410 - fix policies mock
+- FR-10371 - sync vendor security policies
+- FR-10302 - Add impersonation indication for audit logs
+- FR-10281 - Impersonation
+- FR-10261 - fix sign up position in dark theme
+- FR-10369 - change mfa ff name
+
+# Change Log
+
+## [5.0.18](https://github.com/frontegg/frontegg-react/compare/v5.0.17...v5.0.18) (2023-1-16)
+
+- Fixed sign up position in dark theme
+- Added margin to login error
+- Added support for built-in authenticators, security keys, and SMS as MFA methods
+
+
+## [5.0.17](https://github.com/frontegg/frontegg-react/compare/v5.0.16...v5.0.17) (2023-1-11)
+
+- Fixed login with apple redirect URL
+- Added impersonation indication in login session table
+- Added support for session expired logout on Hosted Login
+- Added support for login with Linkedin
+- Added support for Google one tap
+- Improve insert OTC screen UI
+- Improve UX of authentication forms
+- Fix apple logo color and match to font color
+- Added support for customization of Custom React hooks component
+
 ## [5.0.16](https://github.com/frontegg/frontegg-react/compare/v5.0.15...v5.0.16) (2022-12-22)
 
 - Few bug fixes
