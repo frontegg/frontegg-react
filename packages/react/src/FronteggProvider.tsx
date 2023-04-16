@@ -7,6 +7,7 @@ import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
+import { isAuthRoute } from '@frontegg/redux-store';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -37,7 +38,7 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
     if (baseName && typeof baseName === 'string' && baseName.length > 0 && path.startsWith(baseName)) {
       path = path.substring(baseName.length);
     }
-    if (opts?.preserveQueryParams) {
+    if (opts?.preserveQueryParams || isAuthRoute(path, props.authOptions?.routes)) {
       path = `${path}${window.location.search}`;
     }
     if (opts?.refresh && !isSSR) {
