@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useCallback, useMemo } from 'react';
+import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { initialize } from '@frontegg/js';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
@@ -7,6 +7,7 @@ import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
+import { isAuthRoute } from '@frontegg/redux-store';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -30,6 +31,11 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
 
   // v6 or v5
   const baseName = props.basename ?? '';
+  const isAuthRouteRef = useRef<(path: string) => boolean>(() => false);
+
+  useEffect(() => {
+    isAuthRouteRef.current = (path) => isAuthRoute(path, props.authOptions?.routes);
+  }, [props.authOptions?.routes]);
 
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
     let path = _path;
@@ -37,7 +43,7 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
     if (baseName && typeof baseName === 'string' && baseName.length > 0 && path.startsWith(baseName)) {
       path = path.substring(baseName.length);
     }
-    if (opts?.preserveQueryParams) {
+    if (opts?.preserveQueryParams || isAuthRouteRef.current(path)) {
       path = `${path}${window.location.search}`;
     }
     if (opts?.refresh && !isSSR) {
