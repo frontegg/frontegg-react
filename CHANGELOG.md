@@ -2,14 +2,10 @@
 
 ## [5.0.30](https://github.com/frontegg/frontegg-react/compare/v5.0.29...v5.0.30) (2023-4-17)
 
-- FR-11393 - Extract customization options from App.tsx for better usage
-- FR-11063 - add tests for passkeys
-- FR-11351 - preserve query params for login per tenant
-- FR-11389 - Fix activate account button disable/loading state
-- FR-11389 - Add js-sha256 library to test suites
-- FR-11389 - Add support for generate code challenge in non-secure domains [HostedLogin Mode]
-- FR-9359 - cannot update sso group name
-- FR-11076 - Add live SSO integration guide
+- Added support to preserve query params between all auth routes
+- Added support for generating a code challenge in non-secure domains [HostedLogin Mode]
+- Fixed issue with updating SSO group name in the admin portal
+- Added live SSO integration guide
 
 # Change Log
 
