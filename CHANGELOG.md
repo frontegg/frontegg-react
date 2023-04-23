@@ -1,5 +1,14 @@
 # Change Log
 
+## [5.0.30](https://github.com/frontegg/frontegg-react/compare/v5.0.29...v5.0.30) (2023-4-17)
+
+- Added support to preserve query params between all auth routes
+- Added support for generating a code challenge in non-secure domains [HostedLogin Mode]
+- Fixed issue with updating SSO group name in the admin portal
+- Added live SSO integration guide
+
+# Change Log
+
 ## [5.0.29](https://github.com/frontegg/frontegg-react/compare/v5.0.28...v5.0.29) (2023-4-13)
 
 - Added support to separate first and last name in sign up form by customization option for embedded mode
