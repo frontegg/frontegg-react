@@ -1465,34 +1465,33 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@frontegg/js@6.88.0":
-  version "6.88.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.88.0.tgz#ea26e026536289884bb581da8e4b897b90bd5ff0"
-  integrity sha512-plR6PHFDJ/mSTQq5IYCkIKmqTpB812QGQBa6Q8IlIsXS76pfUCufezA5L3+dBMoY02UtHsO4XhJ1XXf7vXlWyA==
+"@frontegg/js@6.89.0":
+  version "6.89.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.89.0.tgz#f378e52278a65eb45fd9bf8d767e8e61a6e5cebe"
+  integrity sha512-AgR9z7DewJw77f2hXoG5tEoYBPbqWchE1mHu4rl50NXZUW96BU4dSke4Hlub1owl17t0WhAwReF0dTcwWB/eAg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "6.88.0"
+    "@frontegg/types" "6.89.0"
 
-"@frontegg/react-hooks@6.88.0":
-  version "6.88.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.88.0.tgz#3c3761b5a2c921e16cf05280ed69ac64f6fd0baa"
-  integrity sha512-wL01lKFUc1XbTCQDmXZrts744cobv2iF2ezKWXkb19nEC4MftSxgsA+ASRpuWe0x2Ozy5hwnf5Os/3BXsf/d7g==
+"@frontegg/react-hooks@6.89.0":
+  version "6.89.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.89.0.tgz#ba0f6b94bfd647169b38e90c43da7ba52eeb5f0d"
+  integrity sha512-vXxDTE1pVapo6d6DD1y6u6l73Iv79dE7AvbR8LruPpAs3o/JR63bubLYTO6Pw6m/NMgvAxSvhumolC/QIpKO7w==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.88.0"
-    "@frontegg/types" "6.88.0"
+    "@frontegg/redux-store" "6.89.0"
+    "@frontegg/types" "6.89.0"
     "@types/react" "*"
     react-redux "^7.x"
 
-"@frontegg/redux-store@6.88.0":
-  version "6.88.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.88.0.tgz#fa8b3f5356131d63f67756c48830b8fcf494a677"
-  integrity sha512-j1tMsyQT9wbOlox60nWndwPLpYHNOfx7F0Qx5aLdu7BYh/hWwNqr6D/HC+72ecHveRYH7IoHCQ/V/wIIuTk9Nw==
+"@frontegg/redux-store@6.89.0":
+  version "6.89.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.89.0.tgz#152d6508a912f9eb38d558e77aac1edf57320da1"
+  integrity sha512-SJ+arhwAtF5j+W6L88sdIIhDgUcJYigQ5zacItLu4lcjEaPWI3WaxxJtxKa4beyw2/GkXaLrLjZf1N8hBUH7Kw==
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/rest-api" "^3.0.95"
-    "@reduxjs/toolkit" "^1.8.5"
-    js-sha256 "0.9.0"
+    "@reduxjs/toolkit" "1.8.5"
     redux-saga "^1.2.1"
     uuid "^8.3.2"
 
@@ -1503,13 +1502,13 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@frontegg/types@6.88.0":
-  version "6.88.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.88.0.tgz#0a49cfdc11c6aa377647a0c0e17e86e385bab032"
-  integrity sha512-Utamkki4tUFvNUEglWXq6Rap8UJWgfmx3ktoX78ZXoOVUsj4qnoW7gk9ayYpktq7dV4tdCbwAo5N3jXso7GoEw==
+"@frontegg/types@6.89.0":
+  version "6.89.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.89.0.tgz#5a9ba5f9d4d7a49a9b15e51dc224d26488919b0d"
+  integrity sha512-xI4wIpWAqS1xdfvVbK1koIP+YNKoOXoAlMM0uhgA/CVNmrIFjlBNwdip/GNu0S/SMAIp8hYdwiWg6hswaG74Yw==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.88.0"
+    "@frontegg/redux-store" "6.89.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
@@ -2860,7 +2859,7 @@
   resolved "https://registry.yarnpkg.com/@redux-saga/types/-/types-1.2.1.tgz#9403f51c17cae37edf870c6bc0c81c1ece5ccef8"
   integrity sha512-1dgmkh+3so0+LlBWRhGA33ua4MYr7tUOj+a9Si28vUi0IUFNbff1T3sgpeDJI/LaC75bBYnQ0A3wXjn0OrRNBA==
 
-"@reduxjs/toolkit@^1.8.5":
+"@reduxjs/toolkit@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.5.tgz#c14bece03ee08be88467f22dc0ecf9cf875527cd"
   integrity sha512-f4D5EXO7A7Xq35T0zRbWq5kJQyXzzscnHKmjnu2+37B3rwHU6mX9PYlbfXdnxcY6P/7zfmjhgan0Z+yuOfeBmA==
@@ -9219,11 +9218,6 @@ jest@^27.4.3:
     "@jest/core" "^27.5.1"
     import-local "^3.0.2"
     jest-cli "^27.5.1"
-
-js-sha256@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/js-sha256/-/js-sha256-0.9.0.tgz#0b89ac166583e91ef9123644bd3c5334ce9d0966"
-  integrity sha512-sga3MHh9sgQN2+pJ9VYZ+1LPwXOxuBJBA5nrR5/ofPfuiJBE2hnjsaN8se8JznOmGLN2p49Pe5U/ttafcs/apA==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
