@@ -2,17 +2,13 @@
 
 ## [5.0.31](https://github.com/frontegg/frontegg-react/compare/v5.0.30...v5.0.31) (2023-4-23)
 
-- FR-11419 - Lock reduxjs/toolkit version to be compatible in vite types plugin
-- FR-11447 - Fix password placeholder in the login
-- FR-11437 - Login Box - Fix social buttons order
-- FR-11389 - Fix Vite js-sha256 warning
-- FR-11420 - fix company name error in split mode sign up
-- FR-11338 - fix phone number dropdown theming
-- FR-11375 - a11y add aria labels
-- FR-11393 - Extract customization options from App.tsx for better usage
-- FR-11063 - add tests for passkeys
-- FR-11351 - preserve query params for login per tenant
-- FR-11389 - Fix activate account button disable/loading state
+- Lock reduxjs/toolkit version to be compatible in Vite types plugin
+- Fixed password input placeholder text in the login box
+- Fixed social login buttons order
+- Fix Vite js-sha256 warning
+- Fixed company name error in split mode sign up
+- Fixed phone number dropdown theming
+- Added aria labels to buttons
 
 # Change Log
 
