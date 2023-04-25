@@ -2,8 +2,8 @@
 
 ## [5.0.32](https://github.com/frontegg/frontegg-react/compare/v5.0.31...v5.0.32) (2023-4-25)
 
-- FR-11479 - Passkeys button style should be the same configuration as "social login button" style
-- FR-11375 - fix a11y login-box second part
+- Fix Passkeys button style 
+- Support a11y accessibility for login box
 
 # Change Log
 
