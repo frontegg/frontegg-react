@@ -3,7 +3,7 @@
 ## [5.0.32](https://github.com/frontegg/frontegg-react/compare/v5.0.31...v5.0.32) (2023-4-25)
 
 - Fix Passkeys button style 
-- Support a11y accessibility for login box
+- Support login per tenant with search param
 
 # Change Log
 
