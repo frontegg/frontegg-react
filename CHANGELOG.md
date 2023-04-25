@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.0.32](https://github.com/frontegg/frontegg-react/compare/v5.0.31...v5.0.32) (2023-4-25)
+
+- FR-11479 - Passkeys button style should be the same configuration as "social login button" style
+- FR-11375 - fix a11y login-box second part
+
+# Change Log
+
 ## [5.0.31](https://github.com/frontegg/frontegg-react/compare/v5.0.30...v5.0.31) (2023-4-23)
 
 - Lock reduxjs/toolkit version to be compatible in Vite types plugin
