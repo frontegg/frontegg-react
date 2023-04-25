@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.0.32](https://github.com/frontegg/frontegg-react/compare/v5.0.31...v5.0.32) (2023-4-25)
+
+- Fix Passkeys button style 
+- Support login per tenant with search param
+
+# Change Log
+
 ## [5.0.31](https://github.com/frontegg/frontegg-react/compare/v5.0.30...v5.0.31) (2023-4-23)
 
 - Lock reduxjs/toolkit version to be compatible in Vite types plugin
