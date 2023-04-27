@@ -1,5 +1,14 @@
 # Change Log
 
+## [5.0.34](https://github.com/frontegg/frontegg-react/compare/v5.0.33...v5.0.34) (2023-4-27)
+
+- Fixed passkeys issue with reCaptcha
+- Removed feature flag from passkeys button
+- Enable loading Frontegg helper scripts by providing query params to Frontegg external source
+- Security upgrade webpack from 5.74.0 to 5.76.0
+
+# Change Log
+
 ## [5.0.33](https://github.com/frontegg/frontegg-react/compare/v5.0.32...v5.0.33) (2023-4-27)
 
 - Fixed input hover issue on suffix icon
