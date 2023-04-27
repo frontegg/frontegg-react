@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.0.33](https://github.com/frontegg/frontegg-react/compare/v5.0.32...v5.0.33) (2023-4-27)
+
+- Fixed input hover issue on suffix icon
+- A11y improvements 
+
+# Change Log
+
 ## [5.0.32](https://github.com/frontegg/frontegg-react/compare/v5.0.31...v5.0.32) (2023-4-25)
 
 - Fix Passkeys button style 
