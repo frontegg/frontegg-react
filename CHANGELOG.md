@@ -2,8 +2,8 @@
 
 ## [5.0.33](https://github.com/frontegg/frontegg-react/compare/v5.0.32...v5.0.33) (2023-4-27)
 
-- FR-11551 - fix hover input eye icon button
-- FR-11547 - fix a11y second part
+- Fixed input hover issue on suffix icon
+- A11y improvements 
 
 # Change Log
 
