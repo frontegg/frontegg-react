@@ -1,5 +1,11 @@
 # Change Log
 
+## [5.0.35](https://github.com/frontegg/frontegg-react/compare/v5.0.34...v5.0.35) (2023-4-28)
+
+- FR-11564 - Social login button shouldn't inherit from secondary color
+
+# Change Log
+
 ## [5.0.34](https://github.com/frontegg/frontegg-react/compare/v5.0.33...v5.0.34) (2023-4-27)
 
 - Fixed passkeys issue with reCaptcha
