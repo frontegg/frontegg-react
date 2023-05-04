@@ -1,5 +1,10 @@
 # Change Log
 
+## [5.0.36](https://github.com/frontegg/frontegg-react/compare/v5.0.35...v5.0.36) (2023-5-4)
+
+- FR-11581 - fix a11y login-box onEnter event for links
+- FR-11353 - add new tree graph component
+
 ## [5.0.35](https://github.com/frontegg/frontegg-react/compare/v5.0.34...v5.0.35) (2023-4-28)
 
 - FR-11564 - Social login button shouldn't inherit from secondary color
