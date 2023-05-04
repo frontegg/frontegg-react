@@ -2,12 +2,8 @@
 
 ## [5.0.36](https://github.com/frontegg/frontegg-react/compare/v5.0.35...v5.0.36) (2023-5-4)
 
-- FR-11632 - update code owners
-- FR-11581 - a11y login box onenter event
-- FR-11353 - all accounts tree graph component
-
-### React Wrapper 5.0.36:
-- FR-11632 - update CODEOWNERS.md
+- FR-11581 - fix a11y login-box onEnter event for links
+- FR-11353 - add new tree graph component
 
 ## [5.0.35](https://github.com/frontegg/frontegg-react/compare/v5.0.34...v5.0.35) (2023-4-28)
 
