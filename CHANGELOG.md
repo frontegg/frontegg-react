@@ -1,5 +1,14 @@
 # Change Log
 
+## [5.0.36](https://github.com/frontegg/frontegg-react/compare/v5.0.35...v5.0.36) (2023-5-4)
+
+- FR-11632 - update code owners
+- FR-11581 - a11y login box onenter event
+- FR-11353 - all accounts tree graph component
+
+### React Wrapper 5.0.36:
+- FR-11632 - update CODEOWNERS.md
+
 ## [5.0.35](https://github.com/frontegg/frontegg-react/compare/v5.0.34...v5.0.35) (2023-4-28)
 
 - FR-11564 - Social login button shouldn't inherit from secondary color
