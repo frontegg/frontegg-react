@@ -1465,50 +1465,51 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@frontegg/js@6.96.0":
-  version "6.96.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.96.0.tgz#849d9d67bd345f94644aea8e3559cf62f8a3f4ca"
-  integrity sha512-2VRmf9cFu+WIwdcALgJxjdB/BXFWaUjCZwW3TJo6vQafS9jZRLzfQdIN1ev+lRgDpJ+9nZR5yYOnz+6kNNGPbg==
+"@frontegg/js@6.97.0":
+  version "6.97.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.97.0.tgz#17ba6626b16d3ecf7f3d7dc059134144b4dec941"
+  integrity sha512-yfNCoEnBT4u0Kp5YVllo7b/j5fxN6nugVsHbnoLUYrNm8Bh0pgGddLb+Mg9vFA8SIuN8oMVmIxIMVEYTas6gNQ==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "6.96.0"
+    "@frontegg/types" "6.97.0"
 
-"@frontegg/react-hooks@6.96.0":
-  version "6.96.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.96.0.tgz#d957ea1f00fdbfa396b4f237ea9b686020cd63e2"
-  integrity sha512-jOJVQ3JdS0VbZKD7DNp5hNJDJ8IVF12wqevVMDjoavDaGLpUgvto5cROLHzZvhxPIysnloWQn1E0Quxuaf5URg==
+"@frontegg/react-hooks@6.97.0":
+  version "6.97.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.97.0.tgz#69978e4afbf9137a8ac5fd05a7b77be5036ef805"
+  integrity sha512-TuzqY6ZZx0LSGyD0MeRCxvN0VMh6drCNNyDZicJXwmv/i7gk+oxwBpnuhoN4+RzFAU62uk1m7HZW3u9NlZuRMg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.96.0"
-    "@frontegg/types" "6.96.0"
+    "@frontegg/redux-store" "6.97.0"
+    "@frontegg/types" "6.97.0"
     "@types/react" "*"
+    get-value "^3.0.1"
     react-redux "^7.x"
 
-"@frontegg/redux-store@6.96.0":
-  version "6.96.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.96.0.tgz#e641de5d99bed7f0ea082d87ee35f645721b1a6a"
-  integrity sha512-vF6sCr7oahE20qnQVQYn2XjbDtgrm77JRAClL0nOaGGyl85oTP+/5obE/XKSJ74+SI1rW89R9iE0UStwnV6Ccg==
+"@frontegg/redux-store@6.97.0":
+  version "6.97.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.97.0.tgz#16ea026e2683f4d1b7d5d261d1d97ea259005054"
+  integrity sha512-XR7VcfOWki6sEW0r38wYV8UAAELBXtRCytAT8JYFMKuL83i9w7ywevrbV5zxRLx4RXnCsrLTOgsyqEP/Y0SpbQ==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/rest-api" "^3.0.98"
+    "@frontegg/rest-api" "^3.0.101"
     "@reduxjs/toolkit" "1.8.5"
     redux-saga "^1.2.1"
     uuid "^8.3.2"
 
-"@frontegg/rest-api@^3.0.98":
-  version "3.0.100"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.0.100.tgz#fbb6112ccb52c4d2b944a766c75517dcf4374a3d"
-  integrity sha512-vLl5fBmHbl8A7GJQyqwUPXcRWslQ65FJX4jpeTUxKHma8Nta5KtVvhQwnUF6Ws9UCn+QPal0sRSJ7NOMJnP6Lw==
+"@frontegg/rest-api@^3.0.101":
+  version "3.0.101"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.0.101.tgz#67141b77cd571ab47515d71fb84b46937026e2dd"
+  integrity sha512-/UnNXlPDpsDtOlOeJNlROYuJqLO0XTW19ku2Qyy96bJ0b6miuz17VRNsG+jUBuPc4TDkfrJxoVUMGHDIJgaXDQ==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@frontegg/types@6.96.0":
-  version "6.96.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.96.0.tgz#2669e458e40d03adaa8a9f78b18cbec4d8518936"
-  integrity sha512-swHiies8IPfkase4zPJYHDaWt7kUkKZIws470MjmiGmld6WZhJlRy/GKPTyzgajeLwzONaHefKeVhZ0iVETW0Q==
+"@frontegg/types@6.97.0":
+  version "6.97.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.97.0.tgz#b542fcdea4a2bbaf2c6067f6169f8c1dbb4666b0"
+  integrity sha512-l4WTK5mh1Cpjd+D3R5mPs7I10OF+91lVf2YWDeCkS7I/NsXYE9TN1w2YnkpODxtQ9cLdkOrhsckUQi/Twx+B8w==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.96.0"
+    "@frontegg/redux-store" "6.97.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
@@ -7563,6 +7564,13 @@ get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
+
+get-value@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/get-value/-/get-value-3.0.1.tgz#5efd2a157f1d6a516d7524e124ac52d0a39ef5a8"
+  integrity sha512-mKZj9JLQrwMBtj5wxi6MH8Z5eSKaERpAwjg43dPtlGI1ZVEgH/qC7T8/6R2OBSUA+zzHBZgICsVJaEIV2tKTDA==
+  dependencies:
+    isobject "^3.0.1"
 
 git-raw-commits@^2.0.8:
   version "2.0.11"
