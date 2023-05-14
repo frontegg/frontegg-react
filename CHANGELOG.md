@@ -1,5 +1,20 @@
 # Change Log
 
+## [5.0.37](https://github.com/frontegg/frontegg-react/compare/v5.0.36...v5.0.37) (2023-5-12)
+
+- FR-11442 - Removed admin portal provisioning feature flag
+- FR-11723 - Fixed refresh token when computer clock is set to a future time
+- FR-11735 - Added support for customizing login per tenant in the admin portal
+- FR-11442 - Removed legacy SSO tab code
+- FR-11718 - Fix users' table UI issues
+- FR-11113 - Fixed Frontegg logo overlapping navigation
+- FR-11442 - Extract the provisioning tab to a separated page in the admin portal
+- FR-11617 - Fixed a11y enter key press issue
+- FR-11352 - Added support for nested table
+- [Snyk] Security upgrade @azure/storage-blob from 12.11.0 to 12.13.0
+
+# Change Log
+
 ## [5.0.36](https://github.com/frontegg/frontegg-react/compare/v5.0.35...v5.0.36) (2023-5-4)
 
 - FR-11581 - fix a11y login-box onEnter event for links
