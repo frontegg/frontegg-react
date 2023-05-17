@@ -47,6 +47,7 @@ jobs:
       - name: Commit Version UP
         run: |
           yarn lerna version patch --no-git-tag-version --yes --no-push --force-publish
+          yarn update-version
           yarn prettier-hook
       - name: "Set Generated changelog"
         uses: actions/github-script@v6

@@ -8,6 +8,7 @@ import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
 import { isAuthRoute } from '@frontegg/redux-store';
+import sdkVersion from './sdkVersion';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -28,6 +29,7 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
 
 export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) => {
   const isSSR = typeof window === 'undefined';
+  const version = `@frontegg/react@${sdkVersion.version}`;
 
   // v6 or v5
   const baseName = props.basename ?? '';
@@ -64,6 +66,8 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
           basename: props.basename ?? baseName,
           contextOptions: {
             requestCredentials: 'include',
+            //         framework={'react'}
+            //         version={version}
             ...props.contextOptions,
           },
           onRedirectTo,
