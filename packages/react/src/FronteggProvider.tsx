@@ -66,8 +66,10 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
           basename: props.basename ?? baseName,
           contextOptions: {
             requestCredentials: 'include',
-            //         framework={'react'}
-            //         version={version}
+            metaDataHeaders: {
+              framework: 'react',
+              version: version,
+            },
             ...props.contextOptions,
           },
           onRedirectTo,

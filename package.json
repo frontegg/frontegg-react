@@ -7,7 +7,7 @@
     "prettier-hook": "prettier --config ./.prettierrc.json --write .",
     "prettier-check-hook": "prettier --config ./.prettierrc.json --check .",
     "prepublishOnly": "make move-package-json-to-dist",
-    "update-version": "yarn update-entry"
+    "update-version": "make update-entry"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^8.0.1",
