@@ -66,7 +66,7 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
           basename: props.basename ?? baseName,
           contextOptions: {
             requestCredentials: 'include',
-            metaDataHeaders: {
+            metadataHeaders: {
               framework: 'react',
               version: version,
             },
