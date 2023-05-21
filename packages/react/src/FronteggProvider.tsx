@@ -3,7 +3,7 @@ import { initialize } from '@frontegg/js';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
-import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
@@ -67,8 +67,8 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
           contextOptions: {
             requestCredentials: 'include',
             metadataHeaders: {
-              framework: 'react',
-              version: version,
+              framework: FronteggFrameworks.React,
+              fronteggSdkVersion: version,
             },
             ...props.contextOptions,
           },
