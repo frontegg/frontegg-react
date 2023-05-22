@@ -1,5 +1,24 @@
 # Change Log
 
+## [5.0.38](https://github.com/frontegg/frontegg-react/compare/v5.0.37...v5.0.38) (2023-5-22)
+
+- FR-11529 - fix bug white borders dark mode
+- FR-11769 - add meta data to context
+- FR-11769 - change source to enum
+- FR-11769 - add source header to request
+- FR-11658 - create mock login preview for login per tenant self service mock
+- FR-11652 - SSO Guides enhancements
+- [Snyk] Security upgrade babel-plugin-module-resolver from 4.1.0 to 5.0.0
+- FR-11735 - login per tenant self service dependence fix
+- FR-11442 - remove admin provisioning feature flag
+- FR-11723 - bump rest api version
+- FR-11735 - login per tenant self service input logo upload and fixes
+
+### React Wrapper 5.0.38:
+- FR-11599 - add sdkVersion to rollup
+- FR-11599 - report framework and version
+# Change Log
+
 ## [5.0.37](https://github.com/frontegg/frontegg-react/compare/v5.0.36...v5.0.37) (2023-5-12)
 
 - FR-11442 - Removed admin portal provisioning feature flag
