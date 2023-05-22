@@ -52,6 +52,7 @@ const isExternal = (id) => {
   return (
     id !== './FronteggProvider' &&
     id !== './AuthorizedContent' &&
+    id !== './sdkVersion' &&
     id !== './routerProxy' &&
     id !== './queryKeeper' &&
     id !== './CustomComponentHolder' &&
