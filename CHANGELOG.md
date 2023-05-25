@@ -1,5 +1,23 @@
 # Change Log
 
+## [5.0.38](https://github.com/frontegg/frontegg-react/compare/v5.0.37...v5.0.38) (2023-5-22)
+
+# v5.0.38
+
+- Fix the issue with unnecessary white borders on the dark mode theme
+- Add metadataHeaders type to contextOptions
+- Aadded source header to all admin portal and login box requests
+- Added login per tenant per service
+- SSO Guides enhancements
+- [Snyk] Security upgrade babel-plugin-module-resolver from 4.1.0 to 5.0.0
+- Remove admin provisioning feature flag
+
+### React Wrapper 5.0.38:
+- FR-11599 - add sdkVersion to rollup
+- FR-11599 - report framework and version
+
+# Change Log
+
 ## [5.0.37](https://github.com/frontegg/frontegg-react/compare/v5.0.36...v5.0.37) (2023-5-12)
 
 - FR-11442 - Removed admin portal provisioning feature flag
