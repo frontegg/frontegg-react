@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import { UseHistory } from './routerProxy';
 
 interface UseQueryKeeperProps {
@@ -18,7 +17,8 @@ const removeRedirectUrlFromQuery = (query: string) => {
 export const useQueryKeeper = ({ routes, history }: UseQueryKeeperProps): void => {
   const queryParams = useRef<string>();
   const prevPathname = useRef<string>();
-  const { pathname, search } = useLocation();
+  const pathname = window.location.pathname;
+  const search = window.location.search;
 
   useEffect(() => {
     if (!!search) {

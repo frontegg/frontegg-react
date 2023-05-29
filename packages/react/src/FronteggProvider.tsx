@@ -13,10 +13,6 @@ import sdkVersion from './sdkVersion';
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
   history?: UseHistory;
-  navigate?: {
-    push: (path: string) => void;
-    replace: (path: string) => void;
-  };
   children?: ReactNode;
 };
 type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
@@ -31,12 +27,9 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   return <Connector history={history} {...props} />;
 };
 
-export const Connector: FC<ConnectorProps> = ({ history, appName, navigate, ...props }) => {
+export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) => {
   const isSSR = typeof window === 'undefined';
   const version = `@frontegg/react@${sdkVersion.version}`;
-
-  const navigatePushMethod = useMemo(() => navigate?.push ?? history.push, [navigate, history]);
-  const navigateReplaceMethod = useMemo(() => navigate?.replace ?? history.replace, [navigate, history]);
 
   // v6 or v5
   const baseName = props.basename ?? '';
@@ -57,9 +50,9 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, navigate, ...p
     }
     if (opts?.refresh && !isSSR) {
       // @ts-ignore
-      window.Cypress ? navigatePushMethod(path) : (window.location.href = path);
+      window.Cypress ? history.push(path) : (window.location.href = path);
     } else {
-      opts?.replace ? navigateReplaceMethod(path) : navigatePushMethod(path);
+      opts?.replace ? history.replace(path) : history.push(path);
     }
   }, []);
 
@@ -107,10 +100,6 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
         {props.children}
       </Connector>
     );
-  }
-
-  if (props.navigate) {
-    return <ConnectorHistory {...props}>{props.children}</ConnectorHistory>;
   }
 
   return (
