@@ -20,6 +20,7 @@ type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
     push: (path: string) => void;
     replace: (path: string) => void;
   };
+  isExternalHistory?: boolean;
 };
 
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
@@ -27,7 +28,13 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   return <Connector history={history} {...props} />;
 };
 
-export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) => {
+export const QueryKeeperWrapper: FC<any> = ({ app, history }) => {
+  const signUpUrl = app.store.getState().auth.routes.signUpUrl;
+  useQueryKeeper({ routes: { signUpUrl }, history });
+  return <></>;
+};
+
+export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHistory = false, ...props }) => {
   const isSSR = typeof window === 'undefined';
   const version = `@frontegg/react@${sdkVersion.version}`;
 
@@ -80,11 +87,15 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) =>
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
-  const signUpUrl = app.store.getState().auth.routes.signUpUrl;
-  useQueryKeeper({ routes: { signUpUrl }, history });
-
-  return (
+  return isExternalHistory ? (
     <>
+      {' '}
+      <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
+      <FronteggStoreProvider {...({ ...props, app } as any)} />
+    </>
+  ) : (
+    <>
+      <QueryKeeperWrapper app={app} history={history} />
       <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
       <FronteggStoreProvider {...({ ...props, app } as any)} />
     </>
@@ -96,7 +107,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
 
   if (props.history || history) {
     return (
-      <Connector history={props.history || history} {...props}>
+      <Connector history={props.history || history} isExternalHistory={!!props.history} {...props}>
         {props.children}
       </Connector>
     );
