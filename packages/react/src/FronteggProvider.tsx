@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { initialize } from '@frontegg/js';
 import { FronteggAppOptions } from '@frontegg/types';
-import { FronteggStoreProvider } from '@frontegg/react-hooks';
+import { FronteggStoreProvider, useAuthRoutes } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
@@ -9,7 +9,6 @@ import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
 import { isAuthRoute } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
-import { FronteggApp } from '@frontegg/js/FronteggApp';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -29,7 +28,6 @@ type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
 
 type QueryKeeperWrapperProps = {
   history: HistoryObject;
-  app: FronteggApp;
 };
 
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
@@ -37,8 +35,8 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   return <Connector history={history} {...props} />;
 };
 
-export const QueryKeeperWrapper: FC<QueryKeeperWrapperProps> = ({ app, history }) => {
-  const signUpUrl = app.store.getState().auth.routes.signUpUrl;
+export const QueryKeeperWrapper: FC<QueryKeeperWrapperProps> = ({ history }) => {
+  const { signUpUrl } = useAuthRoutes();
   useQueryKeeper({ routes: { signUpUrl }, history });
   return <></>;
 };
@@ -98,7 +96,6 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
 
   return (
     <>
-      {!isExternalHistory && <QueryKeeperWrapper app={app} history={history} />}
       <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
       <FronteggStoreProvider {...({ ...props, app } as any)} />
     </>
@@ -110,7 +107,8 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
 
   if (props.history || history) {
     return (
-      <Connector history={props.history || history} isExternalHistory={!!props.history} {...props}>
+      <Connector history={props.history || history} {...props}>
+        {!props.history && <QueryKeeperWrapper history={history} />}
         {props.children}
       </Connector>
     );
