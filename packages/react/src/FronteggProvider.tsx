@@ -9,6 +9,7 @@ import { useQueryKeeper } from './queryKeeper';
 import { CustomComponentRegister } from './CustomComponentHolder';
 import { isAuthRoute } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
+import { FronteggApp } from '@frontegg/js/FronteggApp';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -23,12 +24,20 @@ type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
   isExternalHistory?: boolean;
 };
 
+type QueryKeeperWrapperProps = {
+  history: {
+    push: (path: string) => void;
+    replace: (path: string) => void;
+  };
+  app: FronteggApp;
+};
+
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
   const history = useHistory();
   return <Connector history={history} {...props} />;
 };
 
-export const QueryKeeperWrapper: FC<any> = ({ app, history }) => {
+export const QueryKeeperWrapper: FC<QueryKeeperWrapperProps> = ({ app, history }) => {
   const signUpUrl = app.store.getState().auth.routes.signUpUrl;
   useQueryKeeper({ routes: { signUpUrl }, history });
   return <></>;
@@ -87,15 +96,9 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
-  return isExternalHistory ? (
+  return (
     <>
-      {' '}
-      <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
-      <FronteggStoreProvider {...({ ...props, app } as any)} />
-    </>
-  ) : (
-    <>
-      <QueryKeeperWrapper app={app} history={history} />
+      {isExternalHistory && <QueryKeeperWrapper app={app} history={history} />}
       <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
       <FronteggStoreProvider {...({ ...props, app } as any)} />
     </>
