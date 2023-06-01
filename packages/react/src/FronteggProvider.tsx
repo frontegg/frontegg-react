@@ -16,19 +16,19 @@ export type FronteggProviderProps = FronteggAppOptions & {
   history?: UseHistory;
   children?: ReactNode;
 };
+
+type HistoryObject = {
+  push: (path: string) => void;
+  replace: (path: string) => void;
+};
+
 type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
-  history: {
-    push: (path: string) => void;
-    replace: (path: string) => void;
-  };
+  history: HistoryObject;
   isExternalHistory?: boolean;
 };
 
 type QueryKeeperWrapperProps = {
-  history: {
-    push: (path: string) => void;
-    replace: (path: string) => void;
-  };
+  history: HistoryObject;
   app: FronteggApp;
 };
 
@@ -98,7 +98,7 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
 
   return (
     <>
-      {isExternalHistory && <QueryKeeperWrapper app={app} history={history} />}
+      {!isExternalHistory && <QueryKeeperWrapper app={app} history={history} />}
       <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
       <FronteggStoreProvider {...({ ...props, app } as any)} />
     </>
