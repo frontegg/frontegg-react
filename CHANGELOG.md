@@ -1,5 +1,14 @@
 # Change Log
 
+## [5.0.39](https://github.com/frontegg/frontegg-react/compare/v5.0.38...v5.0.39) (2023-5-28)
+
+- Fixed hosted login with hash 
+- Support login per tenant self service
+- Added Cyprus phone area code 2 fa screen
+- Added option to upload metadata file instead of metadata url
+
+# Change Log
+
 ## [5.0.38](https://github.com/frontegg/frontegg-react/compare/v5.0.37...v5.0.38) (2023-5-22)
 
 # v5.0.38
