@@ -59,7 +59,7 @@ export const CustomComponentRegister: FC<{ app: FronteggAppInstance; themeOption
       if (typeof obj === 'function') {
         try {
           obj = React.createElement(obj);
-          if (isValidElement(obj) || isElement(obj)) {
+          if (isValidElement(obj) || isElement(obj) || obj === null) {
             const generatedKey = `${keyPath}.${key}`;
             CustomComponentHolder.set(generatedKey, obj);
             return [generatedKey];
