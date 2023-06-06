@@ -1,12 +1,11 @@
 import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { initialize } from '@frontegg/js';
 import { FronteggAppOptions } from '@frontegg/types';
-import { FronteggStoreProvider, useAuthRoutes } from '@frontegg/react-hooks';
+import { FronteggStoreProvider, useAuthRoutes, CustomComponentRegister } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
-import { CustomComponentRegister } from './CustomComponentHolder';
 import { isAuthRoute } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
 
