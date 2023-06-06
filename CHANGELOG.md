@@ -1,5 +1,26 @@
 # Change Log
 
+## [5.0.40](https://github.com/frontegg/frontegg-react/compare/v5.0.39...v5.0.40) (2023-6-6)
+
+- FR-11482 - add CustomComponentRegister to admin box to prevent duplicated code in react and next js
+- FR-10891 - fix space in input component
+- FR-11734 - MSP - all accounts main page
+- FR-11941 - Tests for login per tenant self service
+- FR-11658 - create iframe login preview for login per tenant self service
+- FR-11887 - bump rest api
+- FR-11887 - entitlements load and hook
+- FR-11600 - better error handling for login fixes
+- FR-10891 - add required to fields in invite user modal
+- FR-11985 - SSO Guides fixes
+- FR-11600 - better error handling for login
+- FR-11651 - msp all accounts state
+- FR-11887 - Revert Entitlements SDK - Load entitlements list & make the data accessible for the wrappers"
+
+### React Wrapper 5.0.40:
+- FR-11482 - support null for custom component again
+- FR-11929 - Remove using react router directly in case the history object is customized
+# Change Log
+
 ## [5.0.39](https://github.com/frontegg/frontegg-react/compare/v5.0.38...v5.0.39) (2023-5-28)
 
 - Fixed hosted login with hash 
