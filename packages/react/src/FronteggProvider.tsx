@@ -94,10 +94,10 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
   return (
-    <>
-      <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
-      <FronteggStoreProvider {...({ ...props, app } as any)} />
-    </>
+    <FronteggStoreProvider
+      {...({ ...props, app } as any)}
+      alwaysVisibleChildren={<CustomComponentRegister app={app} themeOptions={props.themeOptions} />}
+    />
   );
 };
 
