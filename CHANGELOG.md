@@ -1,5 +1,17 @@
 # Change Log
 
+## [5.0.40](https://github.com/frontegg/frontegg-react/compare/v5.0.39...v5.0.40) (2023-6-6)
+
+- Change iframe login preview for login per tenant self service
+- add required to fields in invite user modal
+- Improve error handling for login 
+- Added MSP - all accounts main page and state
+
+### React Wrapper 5.0.40:
+- Added support null for custom component
+
+# Change Log
+
 ## [5.0.39](https://github.com/frontegg/frontegg-react/compare/v5.0.38...v5.0.39) (2023-5-28)
 
 - Fixed hosted login with hash 
