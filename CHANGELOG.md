@@ -2,34 +2,14 @@
 
 ## [5.0.41](https://github.com/frontegg/frontegg-react/compare/v5.0.40...v5.0.41) (2023-6-19)
 
-- FR-11555 - Add support to load cdn component with the new vite version
-- 
-- FR-12257 - msp give access permission fix
-- FR-12257 - MSP bugfix, improvements
-- FR-12236 - fix new sso guide dark theme
-- FR-12159 - msp bug fix
-- FR-12221 - support both null and props for custom components
-
-- FR-12159 - msp all accounts bugfix
-- FR-12115 - sso guides crash unless acs url is specified
-- FR-12225 - fix appearance saml and OIDC according to vendor configuration
-- FR-12221 - support props and frontegg hooks in custom components
-- FR-12146 - bugfix msp all accounts
-- FR-12201 - dont send redirect uri on OIDC callback
-- FR-12187 - FR-12188 - fix login per tenant embedded with sub domain logout route
-- FR-11842 - navigation metadata msp
-- FR-11887 - load ff before entitlements and prevent load for logged out users
-- FR-11842 - msp single account view
-- FR-11971 - implement breached password ui
-- FR-11482 - add CustomComponentRegister to admin box to prevent duplicated code in react and next js
-- FR-10891 - fix space in input component
-- FR-11734 - MSP - all accounts main page
-- FR-11941 - Tests for login per tenant self service
-- FR-11658 - create iframe login preview for login per tenant self service
+- Add support to load cdn component with the new vite version
+- Fix for new sso guide dark theme
+- Fix for login per tenant embedded with sub domain logout route
+- Create MSP all accounts main page
 
 ### React Wrapper 5.0.41:
-- FR-12250 - add a support to frontegg hooks inside custom components
-- FR-11482 - support null for custom component again
+- add a support to frontegg hooks inside custom components
+  
 # Change Log
 
 ## [5.0.40](https://github.com/frontegg/frontegg-react/compare/v5.0.39...v5.0.40) (2023-6-6)
