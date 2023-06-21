@@ -1,5 +1,17 @@
 # Change Log
 
+## [5.0.41](https://github.com/frontegg/frontegg-react/compare/v5.0.40...v5.0.41) (2023-6-19)
+
+- Add support to load cdn component with the new vite version
+- Fix for new sso guide dark theme
+- Fix for login per tenant embedded with sub domain logout route
+- Create MSP all accounts main page
+
+### React Wrapper 5.0.41:
+- add a support to frontegg hooks inside custom components
+  
+# Change Log
+
 ## [5.0.40](https://github.com/frontegg/frontegg-react/compare/v5.0.39...v5.0.40) (2023-6-6)
 
 - Change iframe login preview for login per tenant self service
