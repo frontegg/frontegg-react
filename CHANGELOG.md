@@ -2,15 +2,10 @@
 
 ## [5.0.42](https://github.com/frontegg/frontegg-react/compare/v5.0.41...v5.0.42) (2023-6-22)
 
-- FR-12313 - update load tenants to new version
-- FR-12161 - msp bugfix, improvements
-- FR-12313 - Update rest api
-- FR-12277 - Refactor admin portal to use active tenant
-- FR-11555 - Add support to load cdn component with the new vite version
-- 
-- FR-12257 - msp give access permission fix
-- FR-12257 - MSP bugfix, improvements
-- FR-12236 - fix new sso guide dark theme
+- Update load tenants to new version
+- MSP bugfix, improvements
+- Add support to load cdn component with the new vite version
+- Fix new sso guide dark theme
 
 # Change Log
 
