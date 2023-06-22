@@ -1,5 +1,14 @@
 # Change Log
 
+## [5.0.42](https://github.com/frontegg/frontegg-react/compare/v5.0.41...v5.0.42) (2023-6-22)
+
+- Update load tenants to new version
+- MSP bugfix, improvements
+- Add support to load cdn component with the new vite version
+- Fix new sso guide dark theme
+
+# Change Log
+
 ## [5.0.41](https://github.com/frontegg/frontegg-react/compare/v5.0.40...v5.0.41) (2023-6-19)
 
 - Add support to load cdn component with the new vite version
