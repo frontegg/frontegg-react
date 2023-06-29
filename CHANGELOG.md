@@ -1,5 +1,13 @@
 # Change Log
 
+## [5.0.43](https://github.com/frontegg/frontegg-react/compare/v5.0.42...v5.0.43) (2023-6-28)
+
+- FR-12277 - Extended tenants state with the active tenant to support MSP sub-accounts
+- FR-12405 - MSP bug fixes
+- FR-12381 - Migrated users table to load users by users V2 API
+
+# Change Log
+
 ## [5.0.42](https://github.com/frontegg/frontegg-react/compare/v5.0.41...v5.0.42) (2023-6-22)
 
 - Update load tenants to new version
