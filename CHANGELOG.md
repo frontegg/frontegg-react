@@ -2,15 +2,9 @@
 
 ## [5.0.43](https://github.com/frontegg/frontegg-react/compare/v5.0.42...v5.0.43) (2023-6-28)
 
-- FR-12277 - active tenant gap fix
-- FR-12405 - msp bugfix, improvements
-- FR-12381 - users table v2 msp bugfix
-- FR-12313 - remove useWorkspace from lerna.json
-- FR-12313 - fix cdn
-- FR-12313 - add logs to wait-for-cdn script
-- FR-12287 - msp bugfix 
-- FR-12313 - update load tenants to new version
-- FR-12161 - msp bugfix, improvements
+- FR-12277 - Extended tenants state with the active tenant to support MSP sub-accounts
+- FR-12405 - MSP bug fixes
+- FR-12381 - Migrated users table to load users by users V2 API
 
 # Change Log
 
