@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.0.44](https://github.com/frontegg/frontegg-react/compare/v5.0.43...v5.0.44) (2023-6-30)
+
+- MSP update visibility, bugfix
+- add security login flows
+
+# Change Log
+
 ## [5.0.43](https://github.com/frontegg/frontegg-react/compare/v5.0.42...v5.0.43) (2023-6-28)
 
 - FR-12277 - Extended tenants state with the active tenant to support MSP sub-accounts
