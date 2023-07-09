@@ -2,13 +2,12 @@
 
 ## [5.0.45](https://github.com/frontegg/frontegg-react/compare/v5.0.44...v5.0.45) (2023-7-9)
 
-- FR-12586 - Fix pipeline
-- [FR-12581 - add support for custom inline html and script]
-- [FR-12343 - admin box implement sso per tenant]
-- [FR-12488 - users page load users support v1 and v2]
--  [FR-12164 - MSP bulk user invitation]
-- [FR-12479 - msp fix warning dialog issue]
-- [FR-12408 - entitlements redesign]
+- FR-12581 - Added support for custom inline html and script
+- FR-12343 - Added support for SSO per tenant
+- FR-12488 - Backward compatible support for loadUsersV1
+- FR-12164 - Added support for MSP bulk user invitation
+- FR-12479 - Fixed MSP warning dialog issue
+- FR-12408 - Redesigned Entitlements structure
 
 # Change Log
 
