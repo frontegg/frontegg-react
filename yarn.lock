@@ -1465,51 +1465,52 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@frontegg/js@6.116.0":
-  version "6.116.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.116.0.tgz#6aa1e3d2db43f75fb2c710414b9d7a5ef847e214"
-  integrity sha512-NR3+j34TZkMRCJHW52EKcc+iVQy78vuaqvlMz6coEjwVLoypLywa1dSdC518g5Aayk0xvKxj9JH5YYmgDCKaoA==
+"@frontegg/js@6.118.0":
+  version "6.118.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.118.0.tgz#d4fc49a83781efdb87389acad3d53882b49ed458"
+  integrity sha512-IKvWUw1dEr747SYMK5GuBt0pGWWLpPMmnzixmlb/Lme/03i+TTSFFfD9dqWwOR6KiFfBLl+3XPfjbH0EI/ElCw==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "6.116.0"
+    "@frontegg/types" "6.118.0"
 
-"@frontegg/react-hooks@6.116.0":
-  version "6.116.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.116.0.tgz#5ee7cf9ea0153027d3d78c5547e921c383c5084a"
-  integrity sha512-7FRpZieSO+bazEM/FC7Fi3ovYMVHENbThpz6CLB+P1+ISu+HOvJk91EnMBzg1UHS5sIsx/NtT9h2XE7HwdQNig==
+"@frontegg/react-hooks@6.118.0":
+  version "6.118.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.118.0.tgz#b3db8b7c4873498cf4acc4604b0f934e17f27adf"
+  integrity sha512-Wnh6hHlsTrrYdQ0al/MYrqHH5dXdfcX3BqFIj5to+dEGHZW82+LYqut8pqK+3CioXkD73Bee+mvdEbMB6aWdyQ==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.116.0"
-    "@frontegg/types" "6.116.0"
+    "@frontegg/redux-store" "6.118.0"
+    "@frontegg/types" "6.118.0"
     "@types/react" "*"
     get-value "^3.0.1"
     react-redux "^7.x"
 
-"@frontegg/redux-store@6.116.0":
-  version "6.116.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.116.0.tgz#c1c750bcbe712c2280962d695069ca02710bf36a"
-  integrity sha512-OGlf9JITbjpgg39MFr82lbi4tJDXcV/DzbcVRAW4+tSCHO7jDGslNxNqvXxpCNrG7UObbsqyf/hHCrEkT2pxpQ==
+"@frontegg/redux-store@6.118.0":
+  version "6.118.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.118.0.tgz#5bbfbf8e87153807e6f62f277d8525cd38d4b4a0"
+  integrity sha512-t937Qri/eG4mqATZWtHsxuXFcIwjNRhS7P6fF1qloeL+JGr09DchpLJHWpPurIdztyRkQIQmN8wMMefpHEaUVg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/rest-api" "3.0.127"
+    "@frontegg/rest-api" "3.0.136"
     "@reduxjs/toolkit" "1.8.5"
+    fast-deep-equal "3.1.3"
     redux-saga "^1.2.1"
     uuid "^8.3.2"
 
-"@frontegg/rest-api@3.0.127":
-  version "3.0.127"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.0.127.tgz#44c75ad68f3adcb35975d2628c09f5caedcf70e8"
-  integrity sha512-YArJB29W66MXzI0Z1ttzJnuldrTWPdlsCe3IsW9Fc4I4DDxKPNz/e3aJjWXLNlWn1DMuRvg1NoQ/RubVnas39A==
+"@frontegg/rest-api@3.0.136":
+  version "3.0.136"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.0.136.tgz#45c0758ea03fd45123cf2be4a6dd14eb587185c5"
+  integrity sha512-Cvr5v36XUrm15XIJ0YptBKSCo1W0INX+UDznjgZfqrWJsbX2xB5ue13yrGPINxvBpixL7D3IlNPtafq/1bnBGA==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@frontegg/types@6.116.0":
-  version "6.116.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.116.0.tgz#6c8f1e069c1d58ff34a7a995518ef1db92814dbf"
-  integrity sha512-IsYvaAtS8+Yfdpgxv8CaKbcdFoNqvInlJudzRWwjAMYWTCGVJovbxJS6nZA+baP8hnqyaDyrTHfgnkvk+OY9Wg==
+"@frontegg/types@6.118.0":
+  version "6.118.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.118.0.tgz#4cdcfd8044081746a15d0ae1722c24b3e4d1970b"
+  integrity sha512-IJYhVT4ea0eMvftAgmjv2z+kBcG134mi4SMhW+Gp1PuxRC/2XDqMHSus/7w+b7Hb9T3NPpRSLcyOUeP7oDQstA==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.116.0"
+    "@frontegg/redux-store" "6.118.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
@@ -7083,7 +7084,7 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
+fast-deep-equal@3.1.3, fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
