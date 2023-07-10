@@ -1,5 +1,16 @@
 # Change Log
 
+## [5.0.45](https://github.com/frontegg/frontegg-react/compare/v5.0.44...v5.0.45) (2023-7-9)
+
+- FR-12581 - Added support for custom inline html and script
+- FR-12343 - Added support for SSO per tenant
+- FR-12488 - Backward compatible support for loadUsersV1
+- FR-12164 - Added support for MSP bulk user invitation
+- FR-12479 - Fixed MSP warning dialog issue
+- FR-12408 - Redesigned Entitlements structure
+
+# Change Log
+
 ## [5.0.44](https://github.com/frontegg/frontegg-react/compare/v5.0.43...v5.0.44) (2023-6-30)
 
 - MSP update visibility, bugfix
