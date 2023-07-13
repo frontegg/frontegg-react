@@ -1,5 +1,23 @@
 # Change Log
 
+## [5.0.46](https://github.com/frontegg/frontegg-react/compare/v5.0.45...v5.0.46) (2023-7-13)
+
+- FR-12114 - Shouldn't show inactive custom social login provider
+- FR-12098 - FR-12020 - admin portal user status update if email verification is off + blinking workspace title in admin portal vivid theme
+- FR-12660 - implement sagas for security center admin portal
+- FR-12664 - Rename redux-saga file to prevent loop imports by webpack
+- FR-12652 - init new security page. wrap with ff
+
+- FR-12628 - fix custom login with hosted oauth in URL 
+- FR-12536 - check up card component
+- FR-12535 - security severity badge component
+- FR-12543 - msp fix bulk users invitation
+- FR-12575 - change remember my device default value
+- FR-12550 - Align all auth methods to get login response of me and tenants from auth APIs
+- FR-12313 - fix cdn nextjs alpha version
+
+# Change Log
+
 ## [5.0.45](https://github.com/frontegg/frontegg-react/compare/v5.0.44...v5.0.45) (2023-7-9)
 
 - FR-12581 - Added support for custom inline html and script
