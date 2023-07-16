@@ -23,9 +23,8 @@ export default async ({context, github}) => {
   const reactChanges = pullsFromLastRelease.filter(pull => pull.head.ref !== 'upgrade-admin-portal')
   const adminPortalChanges = pullsFromLastRelease.filter(pull => pull.head.ref === 'upgrade-admin-portal')
 
-
   adminPortalChanges.forEach(pull => {
-    changelogStr += `${pull.body}\n`
+    changelogStr += `${formatAdminPortalChangeLog(pull.body)}\n`
   });
   changelogStr += '\n';
   if (reactChanges.length > 0) {
@@ -44,4 +43,11 @@ export default async ({context, github}) => {
 
   fs.writeFileSync('./CHANGELOG.md', newChangelog, {encoding: 'utf8'});
   return changelogStr;
+}
+
+function formatAdminPortalChangeLog(body) {
+  if (body?.split('\n')?.[0]?.includes('### Change Log')) {
+    return body.split('\n').slice(1).join('\n');
+  }
+  return body;
 }
