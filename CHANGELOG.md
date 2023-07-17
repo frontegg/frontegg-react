@@ -1,5 +1,17 @@
 # Change Log
 
+## [5.0.46](https://github.com/frontegg/frontegg-react/compare/v5.0.45...v5.0.46) (2023-7-13)
+
+• FR-12550 - Align all auth methods to get the right login response type
+• FR-12664 - Rename redux-saga file to prevent loop imports by webpack
+• FR-12098 - Updated Admin portal user status to the correct one if email verification is off
+• FR-12020 - Fixed blinking workspace title in admin portal vivid theme
+• FR-12114 - Fixed custom social login provider shouldn't be shown if not active
+• FR-12628 - Fixed custom login with hosted Oauth in URL
+• FR-12575 - Changed remember my device value to be true by default
+
+# Change Log
+
 ## [5.0.45](https://github.com/frontegg/frontegg-react/compare/v5.0.44...v5.0.45) (2023-7-9)
 
 - FR-12581 - Added support for custom inline html and script
