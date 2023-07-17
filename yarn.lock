@@ -1465,52 +1465,52 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@frontegg/js@6.120.0":
-  version "6.120.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.120.0.tgz#b39a4dca5b8e53d4ffb1933445a4034f966e02a8"
-  integrity sha512-Z56dnDvu7BW6A+KsZVDexPrxDZHqWRmSRol48y7iAFuxwy/CvMMIvkPyvzvot66LB7r6LV2rOArCpm26QHkP5Q==
+"@frontegg/js@6.123.0":
+  version "6.123.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.123.0.tgz#c5fdeb901d5ba7e0aefbef165330bfbb7c969c43"
+  integrity sha512-bRwyulwPrg8K123CjuXbsSTqimRoAZ9xD34DIOqJuC58BGHFn0qALdNG1+5aeU1cI7sVUT5lM+4cq0+hMEWBwQ==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "6.120.0"
+    "@frontegg/types" "6.123.0"
 
-"@frontegg/react-hooks@6.120.0":
-  version "6.120.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.120.0.tgz#51b119a4a9cfd773567f9495d747220f81fd01ad"
-  integrity sha512-VX3yKHc/2jVddgAfEdYWBiZd9a2N43kvMME8hZ5PhQaBW6J1UjGjMTYIq7f4bqwY8i8fywJCQNA1day26iL4Ew==
+"@frontegg/react-hooks@6.123.0":
+  version "6.123.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.123.0.tgz#19abc93a6eb38a5947af3437e788fd2c4e53cf1b"
+  integrity sha512-GKkyhMujIa0Ef6B6nJ8IV4jwQCZuSLDnTyw74VMZpujjdEweuoEJRe5B/Enim4OZGn8baGTb9rop0zNehBM+FA==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.120.0"
-    "@frontegg/types" "6.120.0"
+    "@frontegg/redux-store" "6.123.0"
+    "@frontegg/types" "6.123.0"
     "@types/react" "*"
     get-value "^3.0.1"
     react-redux "^7.x"
 
-"@frontegg/redux-store@6.120.0":
-  version "6.120.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.120.0.tgz#cb9498bee01f2c2844de6f6a4768431727fd23cb"
-  integrity sha512-lMTbPddt/vMs0httbZsbm1I3sBSF7Vk8l2Iz66GkO+9EQOuy4wg5JOhEubwBo18jzt2WqKjSBu/v8MSz1bTRrw==
+"@frontegg/redux-store@6.123.0":
+  version "6.123.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.123.0.tgz#d5030744cd6887867511fa6045fbe48c6c455b44"
+  integrity sha512-WZgRhXmbOgifnC2pcUevVy7q8CPRmrJXGxK52GDdNzK1cxbqIIYEY9wvuS726Lesp6td55coD6Aecs4+8uT9iA==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/rest-api" "3.0.140"
+    "@frontegg/rest-api" "3.1.5"
     "@reduxjs/toolkit" "1.8.5"
     fast-deep-equal "3.1.3"
     redux-saga "^1.2.1"
     uuid "^8.3.2"
 
-"@frontegg/rest-api@3.0.140":
-  version "3.0.140"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.0.140.tgz#2bdca4b7f3062c7d05c07d8b92f0600e52368c39"
-  integrity sha512-HVxlJlMrTPZo7BYkaaKx6mrat/LIVgtduU6qWwgzyyrIrElpaM+GI9bqwod/EjrDcJ9qmqf5dvTbncFV4Bm63Q==
+"@frontegg/rest-api@3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.5.tgz#8938923659540a34b66f19a1ac1f2717d310d3ea"
+  integrity sha512-4laNfirbpDxIlXsBKad8InaG0bd8LHn3KP8SVkmSyKzsKPve6lOv1yTYMQdFNCamxP9cw8NDMSoEUrKd9UlsTw==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@frontegg/types@6.120.0":
-  version "6.120.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.120.0.tgz#a3c60ceb80c17abf64960aece93638920fc90816"
-  integrity sha512-aLbJTaVEEAsB4tUvb0mz48fGYxkWS0TGW5tWo+DBZuub+0AlAuVqjfEPd2kr0vDtrJaJBjzz37PxNNtglGhNrg==
+"@frontegg/types@6.123.0":
+  version "6.123.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.123.0.tgz#b9368fa71db783801ca197ef6132d6595132c58b"
+  integrity sha512-/HWSjCsgegwGkjNzCMxkEvV9OjwqGADpkav7ujBklclRWa8MpH2t3E/QKWdNsu3WoJI4mzSfYbE1CGDhnieGyw==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.120.0"
+    "@frontegg/redux-store" "6.123.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
