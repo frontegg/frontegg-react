@@ -1,5 +1,32 @@
 # Change Log
 
+## [5.0.47](https://github.com/frontegg/frontegg-react/compare/v5.0.46...v5.0.47) (2023-7-24)
+
+- FR-12828 - entitlements api response change
+- FR-12224 - support custom login for authenticated users without a tenant alias
+- FR-12780 - Entitlements Vanilla JS improvements
+- FR-12539 - security score component
+- FR-12699 - implement mfa inner page for security center
+- FR-12224 - replace admin portal public endpoint
+
+- FR-12701 - revert change settings list
+- FR-12696 - Entitlements load on demand fix
+- FR-12701 - implememt sessions inner page
+
+- FR-12696 - Entitlements redesign
+- FR-12537 - recomendations component
+- FR-12675 - add security center context holder and mappers for recommendations&#x2F;insights
+
+
+- FR-12703 - Make sure to update correctly the change log in wrappers
+
+
+- FR-12688 - Make Admin box compatible with the updated type of IUserProfile
+- FR-12649 - Added a skeleton for the new security center page
+
+
+# Change Log
+
 ## [5.0.46](https://github.com/frontegg/frontegg-react/compare/v5.0.45...v5.0.46) (2023-7-13)
 
 • FR-12550 - Align all auth methods to get the right login response type
