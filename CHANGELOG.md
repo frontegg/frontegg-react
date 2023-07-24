@@ -1,5 +1,14 @@
 # Change Log
 
+## [5.0.47](https://github.com/frontegg/frontegg-react/compare/v5.0.46...v5.0.47) (2023-7-24)
+
+- FR-12828 - Entitlements api response change
+- FR-12224 - Support custom login for authenticated users without a tenant alias
+- FR-12688 - Make Admin box compatible with the updated type of IUserProfile
+
+
+# Change Log
+
 ## [5.0.46](https://github.com/frontegg/frontegg-react/compare/v5.0.45...v5.0.46) (2023-7-13)
 
 • FR-12550 - Align all auth methods to get the right login response type
