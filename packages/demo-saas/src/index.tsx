@@ -8,7 +8,7 @@ ReactDOM.render(
   <BrowserRouter>
     <FronteggProvider
       contextOptions={{
-        baseUrl: `https://david.frontegg.com`,
+        baseUrl: `https://app-805df42q0nrm.stg.frontegg.com`,
       }}
     >
       <App />
