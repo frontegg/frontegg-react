@@ -8,6 +8,7 @@ import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { isAuthRoute } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
+import ReactPkg from 'react/package.json'
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -80,7 +81,9 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
           contextOptions: {
             requestCredentials: 'include',
             metadataHeaders: {
-              framework: FronteggFrameworks.React,
+              //TODO: remove this ts-ignore after updating rest-api context options type to accept string.
+              //@ts-ignore
+              framework: `${FronteggFrameworks.React}@${ReactPkg.version}`,
               fronteggSdkVersion: version,
             },
             ...props.contextOptions,
