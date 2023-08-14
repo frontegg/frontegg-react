@@ -8,7 +8,7 @@ import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { isAuthRoute } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
-import ReactPkg from 'react/package.json';
+import ReactPkg from 'react/package.json'
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
