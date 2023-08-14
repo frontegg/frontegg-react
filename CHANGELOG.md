@@ -1,5 +1,37 @@
 # Change Log
 
+## [5.0.48](https://github.com/frontegg/frontegg-react/compare/v5.0.47...v5.0.48) (2023-8-14)
+
+- 
+- FR-11857 - Added new support for hosted login to load user on load
+
+
+- 
+
+- FR-12855 - add sso recommendation
+- FR-12942 - Fix next-js build with middleware file
+- FR-12291 - msp change text
+
+- FR-12818 - Handle permissions in the security center inner pages and modified the security center main page
+- FR-12859 - Pipeline - fixed lerna version for the set alpha version step in the pipeline
+
+- FR-12828 - entitlements api response change
+- FR-12224 - support custom login for authenticated users without a tenant alias
+- FR-12780 - Entitlements Vanilla JS improvements
+- FR-12539 - security score component
+- FR-12699 - implement mfa inner page for security center
+- FR-12224 - replace admin portal public endpoint
+
+- FR-12701 - revert change settings list
+- FR-12696 - Entitlements load on demand fix
+- FR-12701 - implememt sessions inner page
+
+
+### React Wrapper 5.0.48:
+- FR-13086 - prettier fix
+- FR-12986 - report React version
+# Change Log
+
 ## [5.0.47](https://github.com/frontegg/frontegg-react/compare/v5.0.46...v5.0.47) (2023-7-24)
 
 - FR-12828 - Entitlements api response change
