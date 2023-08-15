@@ -1,5 +1,18 @@
 # Change Log
 
+## [5.0.48](https://github.com/frontegg/frontegg-react/compare/v5.0.47...v5.0.48) (2023-8-14)
+
+# v5.0.48 
+- FR-11857 - Added new support for hosted login to load user on load
+- FR-12828 - entitlements API response change
+- FR-12224 - support custom login for authenticated users without a tenant alias
+- FR-12780 - Entitlements Vanilla JS improvements
+
+### React Wrapper 5.0.48:
+- FR-12986 - Added support of reporting React version header
+
+# Change Log
+
 ## [5.0.47](https://github.com/frontegg/frontegg-react/compare/v5.0.46...v5.0.47) (2023-7-24)
 
 - FR-12828 - Entitlements api response change
