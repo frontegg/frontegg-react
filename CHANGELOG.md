@@ -9,7 +9,6 @@
 - FR-12974 - Fixed the issue with permissions and roles granted from user groups on User context
 - FR-12322 - Change redirect to SSO text
 - FR-12979 - Fixed MFA options save button to be disabled if the user has no security write permission
-- 
 
 ### React Wrapper 5.0.49:
 - FR-13086 - prettier fix
