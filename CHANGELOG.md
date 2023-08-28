@@ -10,8 +10,6 @@
 - FR-12322 - Change redirect to SSO text
 - FR-12979 - Fixed MFA options save button to be disabled if the user has no security write permission
 
-### React Wrapper 5.0.49:
-- FR-13086 - prettier fix
 # Change Log
 
 ## [5.0.48](https://github.com/frontegg/frontegg-react/compare/v5.0.47...v5.0.48) (2023-8-14)
