@@ -2,7 +2,7 @@
 
 ## [5.0.50](https://github.com/frontegg/frontegg-react/compare/v5.0.49...v5.0.50) (2023-9-5)
 
-- Releasing the new Security Center Page, which will replace the current Security Page. Currently exposed on Early Access with limited availability by a feature flag. 
+- Releasing the new Security Center Page, which will replace the current Security Page. Currently exposed on Early Access with limited availability by a feature flag.
 
 
 # Change Log
