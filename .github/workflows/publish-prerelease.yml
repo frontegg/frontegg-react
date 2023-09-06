@@ -137,7 +137,8 @@ jobs:
               ref: process.env.PR_REF,
               inputs: {
                 version: process.env.PR_VERSION,
-                dispatch_id: `${repo}/${sha}`,
+                repo,
+                sha
               }
             });
       - name : Notify Slack on alpha version deployment
