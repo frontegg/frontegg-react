@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.0.1](https://github.com/frontegg/frontegg-react/compare/v5.0.50...v6.0.1) (2023-9-27)
+
+- Introduction of our new security page in the admin portal replacing the current security page.
+- FR-13509 - Added GTM integration
+
+#### Note: no migration is needed to upgrade between versions 5 to 6.
+
+# Change Log
+
 ## [5.0.50](https://github.com/frontegg/frontegg-react/compare/v5.0.49...v5.0.50) (2023-9-5)
 
 - Releasing the new Security Center Page, which will replace the current Security Page. Currently exposed on Early Access with limited availability by a feature flag.
