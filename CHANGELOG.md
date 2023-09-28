@@ -2,18 +2,16 @@
 
 ## [6.0.2](https://github.com/frontegg/frontegg-react/compare/v6.0.1...v6.0.2) (2023-9-28)
 
-null
-
 ### React Wrapper 6.0.2:
-- FR-13647 - release major in wrappers
+
+- Revamped the security page in the Admin Portal
+#### Note: no migration is needed to upgrade between versions 5 to 6.
+
 # Change Log
 
 ## [6.0.1](https://github.com/frontegg/frontegg-react/compare/v5.0.50...v6.0.1) (2023-9-27)
 
-- Introduction of our new security page in the admin portal replacing the current security page.
 - FR-13509 - Added GTM integration
-
-#### Note: no migration is needed to upgrade between versions 5 to 6.
 
 # Change Log
 
