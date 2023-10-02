@@ -1,5 +1,13 @@
 # Change Log
 
+## [6.0.3](https://github.com/frontegg/frontegg-react/compare/v6.0.2...v6.0.3) (2023-10-2)
+
+- FR-13455 - Fixed impersonation with custom login on embedded initial blank screen
+- FR-13649 - Fixed testimonial quote layout for split signup mode
+
+
+# Change Log
+
 ## [6.0.2](https://github.com/frontegg/frontegg-react/compare/v6.0.1...v6.0.2) (2023-9-28)
 
 ### React Wrapper 6.0.2:
