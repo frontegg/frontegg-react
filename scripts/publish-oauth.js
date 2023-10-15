@@ -192,15 +192,14 @@ function getCurrentVersion() {
 }
 
 function getCurrentChangeLog() {
-  return fs.readFileSync(path.join(__dirname, '../CHANGELOG.md'), { encoding: 'utf8' }).split('# Change Log')
+  return fs.readFileSync(path.join(__dirname, '../CHANGELOG.md'), { encoding: 'utf8' }).split('# Change Log')?.[1]
 }
 
 async function publishFronteggReact() {
   const version = getCurrentVersion();
   console.log(`Publishing Frontegg React version ${version}`);
   const changelog = getCurrentChangeLog();
-  console.log('Changelog.length:', changelog.length);
-  console.log('Changelog.length:', changelog.length);
+  console.log('Changelog.length:', changelog);
   // await triggerBuildForFrameworks(version, changelog);
 }
 
