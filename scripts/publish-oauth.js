@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const generateChangelog = require('./generate-changelog');
+// const generateChangelog = require('../.github/scripts/generate-changelog');
 const { execSync } = require('child_process');
 const { Octokit } = require('@octokit/core');
 
@@ -198,8 +198,8 @@ function getCurrentChangeLog() {
 async function publishFronteggReact() {
   const version = getCurrentVersion();
   console.log(`Publishing Frontegg React version ${version}`);
-  const changelog = generateChangelog();
-  console.log('Changelog:', changelog);
+  // const changelog = generateChangelog();
+  // console.log('Changelog:', changelog);
   // await triggerBuildForFrameworks(version, changelog);
 }
 
