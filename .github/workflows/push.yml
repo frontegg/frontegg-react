@@ -22,10 +22,11 @@ jobs:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
       - run: make clean
       - run: make install
+      - name : 'Bump Frontegg version in oauth service'
+          run : yarn publish-oauth "${GH_ACCESS_TOKEN}" "${GH_USERNAME}"
+          env :
+            GH_ACCESS_TOKEN : ${{ secrets.GH_ACCESS_TOKEN }}
+            GH_USERNAME : ${{ secrets.GH_USERNAME }}
+            NODE_AUTH_TOKEN : ${{ secrets.NPM_PUBLISH_TOKEN }}
       - run: make build
-      - name: 'Bump Frontegg version in oauth service'
-        run: yarn publish-oauth "${GH_ACCESS_TOKEN}" "${GH_USERNAME}"
-        env:
-          GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+

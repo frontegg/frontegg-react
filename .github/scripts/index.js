@@ -1,1 +1,1 @@
-export {default as generateChangeLog} from './generate-changelog.js'
+export {default as generateChangeLog} from '../../scripts/generate-changelog.js'
