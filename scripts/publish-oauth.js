@@ -199,8 +199,7 @@ async function publishFronteggReact() {
   const version = getCurrentVersion();
   console.log(`Publishing Frontegg React version ${version}`);
   const changelog = getCurrentChangeLog();
-  console.log('Changelog.length:', changelog);
-  // await triggerBuildForFrameworks(version, changelog);
+  await triggerBuildForFrameworks(version, changelog);
 }
 
 publishFronteggReact();
