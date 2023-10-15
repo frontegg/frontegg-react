@@ -192,14 +192,14 @@ function getCurrentVersion() {
 }
 
 function getCurrentChangeLog() {
-  return fs.readFileSync(path.join(__dirname, '../merged-pulls.txt'), { encoding: 'utf8' });
+  return fs.readFileSync(path.join(__dirname, '../CHANGELOG.md'), { encoding: 'utf8' })?.split("# Change Log")?.[0];
 }
 
 async function publishFronteggReact() {
   const version = getCurrentVersion();
   console.log(`Publishing Frontegg React version ${version}`);
-  // const changelog = generateChangelog();
-  // console.log('Changelog:', changelog);
+  const changelog = getCurrentChangeLog();
+  console.log('Changelog:', changelog);
   // await triggerBuildForFrameworks(version, changelog);
 }
 
