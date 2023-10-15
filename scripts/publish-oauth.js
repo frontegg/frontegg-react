@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const generateChangelog = require('./generate-changelog');
+const generateChangelog = require('../.github/scripts/generate-changelog');
 const { execSync } = require('child_process');
 const { Octokit } = require('@octokit/core');
 
