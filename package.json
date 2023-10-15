@@ -7,7 +7,8 @@
     "prettier-hook": "pretty-quick",
     "prettier-check-hook": "pretty-quick --check",
     "prepublishOnly": "make move-package-json-to-dist",
-    "update-version": "make update-entry"
+    "update-version": "make update-entry",
+    "publish-oauth": "node scripts/publish-oauth.js"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^8.0.1",
