@@ -192,7 +192,8 @@ function getCurrentVersion() {
 }
 
 function getCurrentChangeLog() {
-  return fs.readFileSync(path.join(__dirname, '../CHANGELOG.md'), { encoding: 'utf8' })?.split("# Change Log")?.[0];
+  return fs.readFileSync(path.join(__dirname, '../CHANGELOG.md'), { encoding: 'utf8' });
+  //?.split("# Change Log")?.[0]
 }
 
 async function publishFronteggReact() {
