@@ -2,11 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-// const generateChangelog = require('../.github/scripts/generate-changelog');
 const { execSync } = require('child_process');
 const { Octokit } = require('@octokit/core');
 
-const GH_TOKEN = process.argv[2] ? process.argv[2] : process.env.GH_ACCESS_TOKEN;
+const GH_TOKEN = process.argv[2] ? process.argv[2] : process.env.GITHUB_TOKEN;
 const GH_USER = process.argv[3] ? process.argv[3] : 'x-access-token';
 
 const githubApi = new Octokit({ auth: GH_TOKEN });
@@ -21,6 +20,9 @@ async function cloneRepo(TAG, repoName, destinationFolder) {
     fs.mkdirSync(destinationFolder, { recursive: true });
   } catch (e) {
   }
+
+  console.log("GH_USER:", GH_USER)
+  console.log("GH_TOKEN:", GH_TOKEN)
 
   console.log(chalk.cyan(TAG), 'Cloning...');
   execSync(`git clone https://${GH_USER}:${GH_TOKEN}@github.com/frontegg/${repoName}.git ${destinationFolder}`);
