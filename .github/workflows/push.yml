@@ -24,8 +24,8 @@ jobs:
       - run: make install
       - run: make build
       - name: 'Bump Frontegg version in oauth service'
-        run: yarn publish-oauth "${GH_ACCESS_TOKEN}" "${GH_USERNAME}"
+        run: yarn publish-oauth "${GITHUB_TOKEN}" "${GH_USERNAME}"
         env:
-          GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USERNAME: ${{ secrets.GH_REPOSITORY_ADMIN_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
