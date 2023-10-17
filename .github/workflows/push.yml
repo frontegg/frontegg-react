@@ -26,6 +26,6 @@ jobs:
       - name: 'Bump Frontegg version in oauth service'
         run: yarn publish-oauth "${GITHUB_TOKEN}" "${GH_USERNAME}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.OAUTH_SERVICE_TOKEN }}
           GH_USERNAME: ${{ secrets.GH_REPOSITORY_ADMIN_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
