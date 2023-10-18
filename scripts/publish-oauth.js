@@ -21,11 +21,8 @@ async function cloneRepo(TAG, repoName, destinationFolder) {
   } catch (e) {
   }
 
-  console.log("GH_USER:", GH_USER)
-  console.log("GH_TOKEN:", GH_TOKEN)
-
   console.log(chalk.cyan(TAG), 'Cloning...');
-  execSync(`git clone https://${GH_USER}:${GH_TOKEN}@github.com/frontegg/${repoName}.git ${destinationFolder}`);
+  execSync(`git clone https://${GH_TOKEN}@github.com/frontegg/${repoName}.git ${destinationFolder}`);
   console.log(chalk.cyan(TAG), 'Cloned to ', destinationFolder);
 }
 
@@ -86,7 +83,7 @@ async function commitChanges(TAG, frameworkDir, fronteggVersion, repoName) {
 
   execSync(`git config --global user.name 'frontegg'`, { cwd: frameworkDir });
   execSync(`git config --global user.email 'frontegg@users.noreply.github.com'`, { cwd: frameworkDir });
-  execSync(`git remote set-url origin https://${GH_USER}:${GH_TOKEN}@github.com/frontegg/${repoName}.git`, { cwd: frameworkDir });
+  execSync(`git remote set-url origin https://${GH_TOKEN}@github.com/frontegg/${repoName}.git`, { cwd: frameworkDir });
   execSync(`git add .`, { cwd: frameworkDir });
   execSync(`git commit -m "update admin-portal ${fronteggVersion}"`, { cwd: frameworkDir });
 
