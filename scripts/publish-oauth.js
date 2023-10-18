@@ -6,7 +6,7 @@ const { execSync } = require('child_process');
 const { Octokit } = require('@octokit/core');
 
 const GH_TOKEN = process.argv[2] ? process.argv[2] : process.env.OAUTH_SERVICE_TOKEN;
-const GH_USER = process.argv[3] ? process.argv[3] : 'x-access-token';
+//const GH_USER = process.argv[3] ? process.argv[3] : 'x-access-token';
 
 const githubApi = new Octokit({ auth: GH_TOKEN });
 const branchName = 'upgrade-frontegg-react';
