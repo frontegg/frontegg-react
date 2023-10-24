@@ -2,8 +2,6 @@
 
 ## [6.0.6](https://github.com/frontegg/frontegg-react/compare/v6.0.5...v6.0.6) (2023-10-24)
 
-- FR-13923 - upgrade rest api no entitlements v2
-- FR-13508 - Mobile native module bridge
 - FR-13772 - Fixed issue on edit user roles modal - at least 1 role is required
 - FR-13808 - Support Login with SMS
 - FR-13786 - Support tab per tenant
