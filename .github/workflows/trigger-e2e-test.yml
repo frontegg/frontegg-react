@@ -21,7 +21,7 @@ jobs:
           version: ${{ inputs.version }}
           dispatch_id: ${{ inputs.dispatch_id }}
         with:
-          github-token: ${{ secrets.GH_REPOSITORY_ADMIN_TOKEN }}
+          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
           script: |
             const {repo, sha, version} = process.env;
             const owner = context.payload.repository.organization

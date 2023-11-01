@@ -109,7 +109,7 @@ jobs:
           PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
           PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
         with:
-          github-token: ${{ secrets.GH_REPOSITORY_ADMIN_TOKEN }}
+          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
           script: |
             const sha = process.env.PR_REF;
             const repo = context.payload.repository.name
