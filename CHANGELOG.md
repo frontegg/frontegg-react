@@ -2,13 +2,8 @@
 
 ## [6.0.7](https://github.com/frontegg/frontegg-react/compare/v6.0.6...v6.0.7) (2023-11-1)
 
-- FR-14000 - Fix time zone
-- FR-13834 - rule based entitlements - upgrade entitlements lib
-- FR-13327 - update modern theme grey palette
-
+- FR-13327 - Update modern theme grey palette
 - FR-13834 - Added Rule based entitlements
-
-- FR-13923 - upgrade rest api no entitlements v2
 - FR-13508 - Mobile native module bridge
 - FR-13772 - Fixed issue on edit user roles modal - at least 1 role is required
 - FR-13808 - Support Login with SMS
