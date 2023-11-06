@@ -8,7 +8,7 @@ import { AppHolder } from '@frontegg/js/AppHolder';
 import { useQueryKeeper } from './queryKeeper';
 import { isAuthRoute } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
-import ReactPkg from 'react/package.json'
+import ReactPkg from 'react/package.json';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -99,7 +99,12 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
   return (
     <FronteggStoreProvider
       {...({ ...props, app } as any)}
-      alwaysVisibleChildren={<CustomComponentRegister app={app} themeOptions={props.themeOptions} />}
+      alwaysVisibleChildren={
+        <>
+          <CustomComponentRegister app={app} themeOptions={props.themeOptions} />
+          {!isExternalHistory && <QueryKeeperWrapper history={history} />}
+        </>
+      }
     />
   );
 };
@@ -109,8 +114,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
 
   if (props.history || history) {
     return (
-      <Connector history={props.history || history} {...props}>
-        {!props.history && <QueryKeeperWrapper history={history} />}
+      <Connector history={props.history || history} isExternalHistory={!!props.history} {...props}>
         {props.children}
       </Connector>
     );
