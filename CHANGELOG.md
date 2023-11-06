@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.8](https://github.com/frontegg/frontegg-react/compare/v6.0.7...v6.0.8) (2023-11-6)
+
+- FR-14102 - Fixed entitlements Frontegg user-id attribute usage 
+- FR-13123 - Added support to provide scopes for social logins
+
+# Change Log
+
 ## [6.0.7](https://github.com/frontegg/frontegg-react/compare/v6.0.6...v6.0.7) (2023-11-1)
 
 - FR-13327 - Update modern theme grey palette
@@ -9,9 +16,6 @@
 - FR-13808 - Support Login with SMS
 - FR-13786 - Support tab per tenant
 
-
-### React Wrapper 6.0.7:
-- FR-13416 - Fix trigger e2e workflow token
 # Change Log
 
 ## [6.0.6](https://github.com/frontegg/frontegg-react/compare/v6.0.5...v6.0.6) (2023-10-24)
