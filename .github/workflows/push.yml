@@ -23,3 +23,4 @@ jobs:
       - run: make clean
       - run: make install
       - run: make build
+      - run: yarn test

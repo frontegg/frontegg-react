@@ -33,6 +33,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "types": []
+    "types": ["jest"]
   }
 }

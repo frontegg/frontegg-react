@@ -2,11 +2,13 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "isolatedModules": false,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": ["jest"]
+
   },
   "include": [
     "./src/**/*.ts"
-  ],
+, "src/QueeryKeeper.spec.tsx"  ],
   "exclude": [
     "node_modules",
     "dist",
