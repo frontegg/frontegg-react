@@ -1,6 +1,9 @@
 name: "(▶) Publish Alpha Version"
 on:
-  workflow_dispatch:
+  # When after commit pushed to branches not master nad release/next
+  push:
+    branches-ignore:
+      - 'master'
 jobs:
   createAlphaVersion:
     runs-on: ubuntu-latest
