@@ -6,8 +6,11 @@ on:
       version:
         description: 'Version'
         required: true
-      dispatch_id:
-        description: 'Dispatch Id (repo/sha)'
+      repo:
+        description: 'Repository name'
+        required: true
+      sha:
+        description: 'Commit SHA'
         required: true
 
 jobs:
@@ -19,7 +22,8 @@ jobs:
         uses: actions/github-script@v5
         env:
           version: ${{ inputs.version }}
-          dispatch_id: ${{ inputs.dispatch_id }}
+          repo: ${{ inputs.repo }}
+          sha: ${{ inputs.sha }}
         with:
           github-token: ${{ secrets.GH_REPOSITORY_ADMIN_TOKEN }}
           script: |
@@ -29,12 +33,6 @@ jobs:
             const workflow_id = 'frontegg-react-e2e-tests.yml'
             const context = `${owner}/${e2eRepo}`
             const dispatch_id = `${repo}/${sha}`
-
-            const res = await github.rest.repos.createCommitStatus({
-              context, owner, repo, sha,
-              state: 'pending',
-              description: 'Dispatching E2E tests...',
-            });
 
             const data = await github.rest.actions.createWorkflowDispatch({
               owner, 
