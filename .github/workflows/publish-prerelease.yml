@@ -103,7 +103,19 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
-      - name: Trigger E2E test workflow
+      - name: Notify Slack on alpha version deployment
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: frontegg-alpha-versions
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON: https://avatars.githubusercontent.com/u/67857107?s=40&v=4
+          SLACK_MESSAGE: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }} has been released :rocket:'
+          SLACK_TITLE: 'A new @frontegg/react alpha version!'
+          SLACK_USERNAME: ${{ github.actor }}
+          SLACK_WEBHOOK: ${{ secrets.ROTEM_SLACK_WEBHOOK }}
+          MSG_MINIMAL: true
+
+      - name: Prepare E2E test workflow
         uses: actions/github-script@v5
         env:
           PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
@@ -114,25 +126,37 @@ jobs:
             const repo = context.payload.repository.name
             const owner = context.payload.repository.organization
             
+            const res = await github.rest.repos.createCommitStatus({
+              context, owner, repo, sha,
+              state: 'pending',
+              description: 'Dispatching E2E tests...',
+            });
+      - name: "Trigger E2E tests"
+        uses: actions/github-script@v5
+        env:
+          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
+          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
+        with:
+          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
+          script: |
+            const version = process.env.PR_VERSION;
+            const sha = process.env.PR_REF;
+            const repo = context.payload.repository.name
+            
+            const owner = context.payload.repository.organization
+            const e2eRepo = 'e2e-system-tests'
+            const workflow_id = 'frontegg-react-e2e-tests.yml'
+            const context = `${owner}/${e2eRepo}`
+            const dispatch_id = `${repo}/${sha}`
+
             const data = await github.rest.actions.createWorkflowDispatch({
-              owner: context.payload.repository.organization,
-              repo: context.payload.repository.name,
-              workflow_id: 'trigger-e2e-test.yml',
-              ref: process.env.PR_REF,
+              owner, 
+              repo:e2eRepo,
+              workflow_id,
+              ref: 'main',
               inputs: {
-                version: process.env.PR_VERSION,
-                repo,
-                sha
+                version,
+                dispatch_id,
               }
             });
-      - name : Notify Slack on alpha version deployment
-        uses : rtCamp/action-slack-notify@v2
-        env :
-          SLACK_CHANNEL : frontegg-alpha-versions
-          SLACK_COLOR : ${{ job.status }}
-          SLACK_ICON : https://avatars.githubusercontent.com/u/67857107?s=40&v=4
-          SLACK_MESSAGE : '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }} has been released :rocket:'
-          SLACK_TITLE : 'A new @frontegg/react alpha version!'
-          SLACK_USERNAME : ${{ github.actor }}
-          SLACK_WEBHOOK : ${{ secrets.ROTEM_SLACK_WEBHOOK }}
-          MSG_MINIMAL : true
+      
