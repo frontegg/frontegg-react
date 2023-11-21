@@ -1,5 +1,22 @@
 # Change Log
 
+## [6.0.9](https://github.com/frontegg/frontegg-react/compare/v6.0.8...v6.0.9) (2023-11-21)
+
+- FR-14201 - Fixed login with SMS resend code action
+
+- FR-13913 - Let tenants&#x2F;users set expiry on client credentials API tokens
+- FR-14099 - Fix load custom login routes only when necessary
+- FR-13605 - Support adding phone number field to signup page and control his required state
+
+- FR-14102 - Fixed entitlements Frontegg user-id attribute usage 
+- FR-13123 - Added support to provide scopes for social logins
+
+
+### React Wrapper 6.0.9:
+- Tigger E2E workflows on pre-release pipeline
+- FR-13417 - Fixed include query param after signup
+# Change Log
+
 ## [6.0.8](https://github.com/frontegg/frontegg-react/compare/v6.0.7...v6.0.8) (2023-11-6)
 
 - FR-14102 - Fixed entitlements Frontegg user-id attribute usage 
