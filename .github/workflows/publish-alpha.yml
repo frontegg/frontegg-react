@@ -62,8 +62,6 @@ jobs:
           make move-package-json-to-dist
           make prerelease-version-upgrade-${version}-alpha.${{ github.run_id }}
           make pretty
-          git add .
-          git commit -m "chore: prelrease version"
           make publish-packages-next
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
