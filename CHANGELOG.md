@@ -1,5 +1,21 @@
 # Change Log
 
+## [6.0.10](https://github.com/frontegg/frontegg-react/compare/v6.0.9...v6.0.10) (2023-11-23)
+
+- FR-14237 - Fix direct action with basename
+- FR-14324 - Fixed Hosted login race condition in Angular and supported prompt login with silent refresh
+
+- FR-14201 - Fixed login with SMS resend code action
+
+- FR-13913 - Let tenants&#x2F;users set expiry on client credentials API tokens
+- FR-14099 - Fix load custom login routes only when necessary
+- FR-13605 - Support adding phone number field to signup page and control his required state
+
+
+### React Wrapper 6.0.10:
+- Tigger E2E workflows on pre-release pipeline
+- FR-13990 - allow creating alpha version manually
+
 ## [6.0.9](https://github.com/frontegg/frontegg-react/compare/v6.0.8...v6.0.9) (2023-11-21)
 
 - FR-14201 - Fixed login with SMS resend code action
