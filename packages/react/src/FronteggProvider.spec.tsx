@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as QueryKeeper from './queryKeeper';
 import 'whatwg-fetch';
 
-describe('Query keeper', () => {
+describe('FronteggProvider', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
