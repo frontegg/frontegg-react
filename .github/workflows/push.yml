@@ -30,7 +30,7 @@ jobs:
           github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
           script: |
             const {repo, sha} = process.env;
-            const fe_react_version= '${{ env.NEW_VERSION }}'
+            const fe_react_version= '6.0.9'
             const owner = context.payload.repository.organization
             const oauthServiceRepo = 'oauth-service'
             const workflow_id = 'update-react-dependency.yaml'
