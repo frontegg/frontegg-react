@@ -27,7 +27,7 @@ jobs:
       - name: "Trigger Oauth Service Pipeline Workflow"
         uses: actions/github-script@v5
         with:
-          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
+          github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
             const {repo, sha} = process.env;
             const fe_react_version= '6.0.9'
