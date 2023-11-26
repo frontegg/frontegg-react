@@ -6,6 +6,7 @@ const delay = () => new Promise(resolve => setTimeout(() => resolve(), 1000));
 module.exports = async (github, packages, version) => {
   let timeout = 60;
 
+
   const checkPackages = async () => {
     if (timeout === 0) {
       throw Error('TIMEOUT: Some packages does not appear in NPM registry');
@@ -14,8 +15,10 @@ module.exports = async (github, packages, version) => {
     let allPackagesIndexed = true;
 
     for (let i in packages) {
+      console.log(`Waiting for publish of version ${version} of ${packages[i]}`)
       try {
         const result = JSON.parse(execSync(`npm show ${packages[i]} --json dist-tags`).toString('utf8').trim());
+        console.log("Found versions: ", result)
         allPackagesIndexed = allPackagesIndexed && (result.alpha === version || result.latest === version);
       } catch (e) {
         console.error('Failed to check version for', packages[i], e);
