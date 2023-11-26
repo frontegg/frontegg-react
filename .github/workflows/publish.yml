@@ -113,7 +113,6 @@ jobs:
           with :
             github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
             script : |
-              const {repo, sha} = process.env;
               const fe_react_version= process.env.PR_VERSION;
               const owner = context.payload.repository.organization
               const oauthServiceRepo = 'oauth-service'
