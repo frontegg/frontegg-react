@@ -19,7 +19,7 @@ module.exports = async (github, packages, version) => {
       try {
         const result = JSON.parse(execSync(`npm show ${packages[i]} --json dist-tags`).toString('utf8').trim());
         console.log("Found versions: ", result)
-        allPackagesIndexed = allPackagesIndexed && (result.alpha === version || result.latest === version);
+        allPackagesIndexed = allPackagesIndexed && (result.alpha === version || result.next === version || result.latest === version);
       } catch (e) {
         console.error('Failed to check version for', packages[i], e);
         allPackagesIndexed = false;
