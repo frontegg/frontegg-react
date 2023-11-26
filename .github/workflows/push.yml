@@ -29,18 +29,16 @@ jobs:
         with:
           github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
-            const {repo, sha} = process.env;
-            const fe_react_version= '6.0.9'
+            const fe_react_version= '6.0.4'
             const owner = context.payload.repository.organization
             const oauthServiceRepo = 'oauth-service'
             const workflow_id = 'update-react-dependency.yaml'
-            const dispatch_id = `${repo}/${sha}`
 
             const data = await github.rest.actions.createWorkflowDispatch({
               owner,
               repo:oauthServiceRepo,
               workflow_id,
-              ref: 'main',
+              ref: 'master',
               inputs: {
                 fe_react_version,
               }

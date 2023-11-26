@@ -109,26 +109,23 @@ jobs:
       - name : "Trigger Oauth Service Pipeline Workflow"
           uses : actions/github-script@v5
           env :
-            PR_REF : '${{ steps.cpr.outputs.pull-request-head-sha }}'
             PR_VERSION : '${{ steps.set_current_version.outputs.CURRENT_VERSION }}'
           with :
-            github-token : ${{ secrets.E2E_WORKFLOW_TOKEN }} #TODO: get the token from Guy
+            github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
             script : |
-              const {repo, sha, version} = process.env;
+              const {repo, sha} = process.env;
+              const fe_react_version= process.env.PR_VERSION;
               const owner = context.payload.repository.organization
               const oauthServiceRepo = 'oauth-service'
               const workflow_id = 'update-react-dependency.yaml'
-              const context = `${owner}/${oauthServiceRepo}`
-              const dispatch_id = `${repo}/${sha}`
 
               const data = await github.rest.actions.createWorkflowDispatch({
                 owner,
-                repo:oauthServiceRepo,
+                repo: oauthServiceRepo,
                 workflow_id,
-                ref: 'main',
+                ref: 'master',
                 inputs: {
-                  version,
-                  dispatch_id,
+                  fe_react_version,
                 }
               });
       - name: Notify Slack on deployment
