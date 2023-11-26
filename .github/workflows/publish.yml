@@ -99,6 +99,38 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      - name : Wait until NPM registry finished indexing the new version
+          uses : actions/github-script@v6
+          with :
+            script : |
+              const checkingVersion = '${{ steps.set_current_version.outputs.CURRENT_VERSION }}';
+              const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
+              await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
+      - name : "Trigger Oauth Service Pipeline Workflow"
+          uses : actions/github-script@v5
+          env :
+            PR_REF : '${{ steps.cpr.outputs.pull-request-head-sha }}'
+            PR_VERSION : '${{ steps.set_current_version.outputs.CURRENT_VERSION }}'
+          with :
+            github-token : ${{ secrets.E2E_WORKFLOW_TOKEN }} #TODO: get the token from Guy
+            script : |
+              const {repo, sha, version} = process.env;
+              const owner = context.payload.repository.organization
+              const oauthServiceRepo = 'oauth-service'
+              const workflow_id = 'update-react-dependency.yaml'
+              const context = `${owner}/${oauthServiceRepo}`
+              const dispatch_id = `${repo}/${sha}`
+
+              const data = await github.rest.actions.createWorkflowDispatch({
+                owner,
+                repo:oauthServiceRepo,
+                workflow_id,
+                ref: 'main',
+                inputs: {
+                  version,
+                  dispatch_id,
+                }
+              });
       - name: Notify Slack on deployment
         uses: rtCamp/action-slack-notify@v2
         env:
