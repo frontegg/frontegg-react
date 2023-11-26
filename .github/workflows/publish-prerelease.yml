@@ -114,23 +114,6 @@ jobs:
           SLACK_USERNAME: ${{ github.actor }}
           SLACK_WEBHOOK: ${{ secrets.ROTEM_SLACK_WEBHOOK }}
           MSG_MINIMAL: true
-
-      - name: Prepare E2E test workflow
-        uses: actions/github-script@v5
-        env:
-          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
-          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
-        with:
-          script: |
-            const sha = process.env.PR_REF;
-            const repo = context.payload.repository.name
-            const owner = context.payload.repository.organization
-
-            const res = await github.rest.repos.createCommitStatus({
-              context, owner, repo, sha,
-              state: 'pending',
-              description: 'Dispatching E2E tests...',
-            });
       - name: Wait until NPM registry finished indexing the new version
         uses: actions/github-script@v6
         with:
@@ -138,6 +121,7 @@ jobs:
             const checkingVersion = '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}';
             const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
             await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
+
       - name: "Trigger Oauth Service Pipeline Workflow"
         uses: actions/github-script@v5
         env:
@@ -158,6 +142,23 @@ jobs:
               inputs: {
                 fe_react_version,
               }
+            });
+
+      - name: Prepare E2E test workflow
+        uses: actions/github-script@v5
+        env:
+          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
+          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
+        with:
+          script: |
+            const sha = process.env.PR_REF;
+            const repo = context.payload.repository.name
+            const owner = context.payload.repository.organization
+
+            const res = await github.rest.repos.createCommitStatus({
+              context, owner, repo, sha,
+              state: 'pending',
+              description: 'Dispatching E2E tests...',
             });
       - name: "Trigger E2E tests"
         uses: actions/github-script@v5
