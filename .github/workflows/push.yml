@@ -34,7 +34,6 @@ jobs:
             const owner = context.payload.repository.organization
             const oauthServiceRepo = 'oauth-service'
             const workflow_id = 'update-react-dependency.yaml'
-#            const context = `${owner}/${oauthServiceRepo}`
             const dispatch_id = `${repo}/${sha}`
 
             const data = await github.rest.actions.createWorkflowDispatch({
