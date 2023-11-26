@@ -10,17 +10,19 @@ describe('FronteggProvider', () => {
     jest.clearAllMocks();
   });
 
-  test('Should call useQueryKeeper when no external history is provided ', async () => {
-    const mockUseQueryKeeper = jest.spyOn(QueryKeeper, 'useQueryKeeper');
-    render(<FronteggProvider contextOptions={{ baseUrl: 'mock-base-url' }} />, { wrapper: BrowserRouter as any });
-    expect(mockUseQueryKeeper).toHaveBeenCalled();
-  });
-
-  test('Should not call useQueryKeeper when external history is provided ', async () => {
-    const mockUseQueryKeeper = jest.spyOn(QueryKeeper, 'useQueryKeeper');
-    render(<FronteggProvider contextOptions={{ baseUrl: 'mock-base-url' }} history={true as any} />, {
-      wrapper: BrowserRouter as any,
+  describe('Query keeper', () => {
+    test('Should call useQueryKeeper when no external history is provided ', async () => {
+      const mockUseQueryKeeper = jest.spyOn(QueryKeeper, 'useQueryKeeper');
+      render(<FronteggProvider contextOptions={{ baseUrl: 'mock-base-url' }} />, { wrapper: BrowserRouter as any });
+      expect(mockUseQueryKeeper).toHaveBeenCalled();
     });
-    expect(mockUseQueryKeeper).not.toHaveBeenCalled();
+
+    test('Should not call useQueryKeeper when external history is provided ', async () => {
+      const mockUseQueryKeeper = jest.spyOn(QueryKeeper, 'useQueryKeeper');
+      render(<FronteggProvider contextOptions={{ baseUrl: 'mock-base-url' }} history={true as any} />, {
+        wrapper: BrowserRouter as any,
+      });
+      expect(mockUseQueryKeeper).not.toHaveBeenCalled();
+    });
   });
 });
