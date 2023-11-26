@@ -30,11 +30,11 @@ jobs:
           github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
           script: |
             const {repo, sha} = process.env;
-            fe_react_version= '${{ env.NEW_VERSION }}'
+            const fe_react_version= '${{ env.NEW_VERSION }}'
             const owner = context.payload.repository.organization
             const oauthServiceRepo = 'oauth-service'
             const workflow_id = 'update-react-dependency.yaml'
-            const context = `${owner}/${oauthServiceRepo}`
+#            const context = `${owner}/${oauthServiceRepo}`
             const dispatch_id = `${repo}/${sha}`
 
             const data = await github.rest.actions.createWorkflowDispatch({
