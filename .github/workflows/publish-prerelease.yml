@@ -18,12 +18,9 @@ jobs:
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
             const fe_react_version = "test-alpha.${{ github.run_id }}";
-            const owner = context.payload.repository.organization;
+            const owner = 'frontegg';
             const oauthServiceRepo = 'oauth-service';
             const workflow_id = 'update-react-dependency.yaml';
-
-            console.log(owner);
-            console.log(JSON.stringify(context));
             
             const data = await github.rest.actions.createWorkflowDispatch({
               owner,
