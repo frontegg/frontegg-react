@@ -13,20 +13,20 @@ jobs:
       - name: "Trigger Oauth Service Pipeline Workflow"
         uses: actions/github-script@v7
         env:
-          PR_VERSION: 'test-alpha.${{ github.run_id }}'
+          PR_VERSION: ''
         with:
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
-            const fe_react_version= process.env.PR_VERSION;
-            const owner = context.payload.repository.organization
-            const oauthServiceRepo = 'oauth-service'
-            const workflow_id = 'update-react-dependency.yaml'
+            const fe_react_version = "test-alpha.${{ github.run_id }}";
+            const owner = context.payload.repository.organization;
+            const oauthServiceRepo = 'oauth-service';
+            const workflow_id = 'update-react-dependency.yaml';
 
             const data = await github.rest.actions.createWorkflowDispatch({
               owner,
               repo: oauthServiceRepo,
               workflow_id,
-              ref: 'master',
+              ref: "master",
               inputs: {
                 fe_react_version,
               }
