@@ -19,7 +19,7 @@ jobs:
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
             const fe_react_version= process.env.NEW_VERSION;
-            console.log("fe_react_version", fe_react_version
+            console.log("fe_react_version", fe_react_version);
             const owner = context.payload.repository.organization;
             console.log("owner", owner)
             const oauthServiceRepo = 'oauth-service'
