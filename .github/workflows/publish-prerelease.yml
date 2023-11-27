@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - master
-    types: [ closed ]
+  
 jobs:
   createReleasePullRequest:
     runs-on: ubuntu-latest
