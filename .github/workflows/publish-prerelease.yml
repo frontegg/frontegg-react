@@ -130,7 +130,7 @@ jobs:
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
             const fe_react_version= process.env.PR_VERSION;
-            const owner = context.payload.repository.organization
+            const owner = 'frontegg';
             const oauthServiceRepo = 'oauth-service'
             const workflow_id = 'update-react-dependency.yaml'
 
