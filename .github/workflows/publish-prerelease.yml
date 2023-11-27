@@ -7,125 +7,13 @@ on:
     types: [ closed ]
 jobs:
   createReleasePullRequest:
-    if: "!contains(join(github.event.pull_request.labels.*.name, ','), 'Release') && github.event.pull_request.merged == true"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: "0"
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
-      - name: Use Node.js (.nvmrc)
-        uses: actions/setup-node@v1
-        with:
-          node-version: "${{ steps.nvm.outputs.NVMRC }}"
-      - name: Install Dependencies and Build Packages
-        run: make init
-      - name: Git Identity
-        run: |
-          git config --global user.name 'frontegg'
-          git config --global user.email 'frontegg@users.noreply.github.com'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Authenticate with Registry
-        run: |
-          yarn logout
-          echo "init-author-name=Frontegg LTD" > .npmrc
-          echo "init-author-email=hello@frontegg.com" >> .npmrc
-          echo "init-author-url=https://frontegg.com" >> .npmrc
-          echo "init-license=MIT" >> .npmrc
-          echo "always-auth=true" >> .npmrc
-          echo "registry=https://registry.npmjs.org" >> .npmrc
-          echo "_authToken=$NPM_TOKEN" >> .npmrc
-          echo "@frontegg:registry=https://registry.npmjs.org" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-          npm whoami
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-      - name: Commit Version UP
-        run: |
-          yarn lerna version patch --no-git-tag-version --yes --no-push --force-publish
-          yarn update-version
-          yarn prettier-hook
-      - name: "Set Generated changelog"
-        uses: actions/github-script@v6
-        id: 'generated-changelog'
-        with:
-          result-encoding: string
-          script: |
-            const { generateChangeLog } = await import(`${process.env.GITHUB_WORKSPACE}/.github/scripts/index.js`);
-            return generateChangeLog({context, github, core})
-      - name: "Set incremented version"
-        uses: actions/github-script@v6
-        id: 'incremented-version'
-        with:
-          result-encoding: string
-          script: |
-            const {default: fs} = await import('fs');
-            const {version} = JSON.parse(fs.readFileSync('./lerna.json', {encoding: "utf-8"}));
-            return version;
-      - name: Commit changes
-        shell: bash -ex {0}
-        run: |
-          git add . && git commit -m "chore(release): publish ${{ steps.incremented-version.outputs.result }}"
-      - name: Create Release Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3.5.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: ${{ secrets.GITHUB_WORKSPACE }}
-          commit-message: "Update v${{ steps.incremented-version.outputs.result }}"
-          committer: GitHub <noreply@github.com>
-          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
-          title: 'v${{ steps.incremented-version.outputs.result }}'
-          body: |
-            # v${{ steps.incremented-version.outputs.result }}
-
-            ${{steps.generated-changelog.outputs.result}}
-
-          labels: "Type: Release"
-          branch: "release/next"
-
-      - name: Publish Pre-Release version to NPM
-        id: publish_pre_release_version
-        run: |
-          version=$(node -p 'require("./lerna.json").version')
-          echo "::set-output name=LIB_VERSION::${version}"
-          echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
-          make move-package-json-to-dist
-          make prerelease-version-upgrade-${version}-alpha.${{ github.run_id }}
-          make pretty
-          git add .
-          git commit -m "chore: prelrease version"
-          make publish-packages-next
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-
-      - name: Notify Slack on alpha version deployment
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: frontegg-alpha-versions
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_ICON: https://avatars.githubusercontent.com/u/67857107?s=40&v=4
-          SLACK_MESSAGE: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }} has been released :rocket:'
-          SLACK_TITLE: 'A new @frontegg/react alpha version!'
-          SLACK_USERNAME: ${{ github.actor }}
-          SLACK_WEBHOOK: ${{ secrets.ROTEM_SLACK_WEBHOOK }}
-          MSG_MINIMAL: true
-      - name: Wait until NPM registry finished indexing the new version
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const checkingVersion = '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}';
-            const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
-            await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
 
       - name: "Trigger Oauth Service Pipeline Workflow"
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         env:
-          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
+          PR_VERSION: 'test-alpha.${{ github.run_id }}'
         with:
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
@@ -144,48 +32,4 @@ jobs:
               }
             });
 
-      - name: Prepare E2E test workflow
-        uses: actions/github-script@v5
-        env:
-          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
-          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
-        with:
-          script: |
-            const sha = process.env.PR_REF;
-            const repo = context.payload.repository.name
-            const owner = context.payload.repository.organization
-
-            const res = await github.rest.repos.createCommitStatus({
-              context, owner, repo, sha,
-              state: 'pending',
-              description: 'Dispatching E2E tests...',
-            });
-      - name: "Trigger E2E tests"
-        uses: actions/github-script@v5
-        env:
-          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
-          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
-        with:
-          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
-          script: |
-            const version = process.env.PR_VERSION;
-            const sha = process.env.PR_REF;
-            const repo = context.payload.repository.name
-
-            const owner = context.payload.repository.organization
-            const e2eRepo = 'e2e-system-tests'
-            const workflow_id = 'frontegg-react-e2e-tests.yml'
-            const context = `${owner}/${e2eRepo}`
-            const dispatch_id = `${repo}/${sha}`
-
-            const data = await github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo:e2eRepo,
-              workflow_id,
-              ref: 'main',
-              inputs: {
-                version,
-                dispatch_id,
-              }
-            });
-
+  
