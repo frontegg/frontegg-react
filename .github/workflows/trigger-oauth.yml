@@ -1,0 +1,36 @@
+name: Trigger Oauth Service Pipeline Workflow To Upgrade Frontegg
+
+on:
+  workflow_dispatch:
+    inputs:
+      fe_react_version:
+        description: 'Version of @frontegg/react to use'
+        required: true
+
+jobs:
+  trigger-oauth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Trigger Oauth Service Pipeline Workflow"
+        uses: actions/github-script@v5
+        env:
+          NEW_VERSION : ${{ github.event.inputs.fe_react_version }}
+        with:
+          github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
+          script: |
+            const fe_react_version= process.env.NEW_VERSION;
+            console.log("fe_react_version", fe_react_version
+            const owner = context.payload.repository.organization;
+            console.log("owner", owner)
+            const oauthServiceRepo = 'oauth-service'
+            const workflow_id = 'update-react-dependency.yaml'
+
+            const data = await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo: oauthServiceRepo,
+              workflow_id,
+              ref: 'master',
+              inputs: {
+                fe_react_version,
+              }
+            });
