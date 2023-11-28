@@ -115,31 +115,25 @@ jobs:
           script : |
             const fe_react_version= process.env.PR_VERSION;
             const owner = 'frontegg';
-            const oauthServiceRepo = 'oauth-service';
-            const dashboardServiceRepo = 'dashboard';
-            const oauth_workflow_id = 'update-react-dependency.yaml';
-            const dashboard_workflow_id = 'update-frontegg-react-dependency.yaml';
-
-            const [oauthDispatchData, dashboardDispatchData] = Promise.all[
-              github.rest.actions.createWorkflowDispatch({
-                owner,
-                repo: oauthServiceRepo,
-                workflow_id: oauth_workflow_id,
-                ref: 'master',
-                inputs: {
-                  fe_react_version,
-                }
-              }),
-              github.rest.actions.createWorkflowDispatch({
-                owner,
-                repo: dashboardServiceRepo,
-                workflow_id: dashboard_workflow_id,
-                ref: 'master',
-                inputs: {
-                  fe_react_version,
-                }
-              })
+            const dispatchActionsData = [
+              {
+                repo: 'oauth-service',
+                workflow_id: 'update-react-dependency.yaml'
+              },
+              {
+                repo: 'dashboard',
+                workflow_id: 'update-frontegg-react-dependency.yaml'
+              }
             ];
+            const [oauthDispatchData, dashboardDispatchData] = Promise.all(dispatchActionsData.map(({ repo, workflow_id }) => github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id,
+              ref: 'master',
+              inputs: {
+                fe_react_version,
+              }}))
+            );
       - name: Notify Slack on deployment
         uses: rtCamp/action-slack-notify@v2
         env:
