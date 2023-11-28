@@ -14,29 +14,6 @@ module.exports = async (github, packages, version) => {
 
     let allPackagesIndexed = true;
 
-
-    const fe_react_version = process.env.PR_VERSION;
-    const owner = 'frontegg';
-    const dispatchActionsData = [
-      {
-        repo: 'oauth-service',
-        workflow_id: 'update-react-dependency.yaml'
-      },
-      {
-        repo: 'dashboard',
-        workflow_id: 'update-frontegg-react-dependency.yaml'
-      }
-    ];
-    const [oauthDispatchData, dashboardDispatchData] = await Promise.all(dispatchActionsData.map(({ repo, workflow_id }) => github.rest.actions.createWorkflowDispatch({
-      owner,
-      repo,
-      workflow_id,
-      ref: 'master',
-      inputs: {
-        fe_react_version,
-      }}))
-    );
-
     for (let i in packages) {
       console.log(`Waiting for publish of version ${version} of ${packages[i]}`)
       try {
