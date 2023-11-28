@@ -132,7 +132,7 @@ jobs:
               }),
               github.rest.actions.createWorkflowDispatch({
                 owner,
-                repo: oauthServiceRepo,
+                repo: dashboardServiceRepo,
                 workflow_id: dashboard_workflow_id,
                 ref: 'master',
                 inputs: {
