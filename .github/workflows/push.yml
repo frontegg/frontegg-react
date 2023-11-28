@@ -23,7 +23,7 @@ jobs:
       - name : "Trigger Oauth and Dashboard Services Pipeline Workflow"
         uses : actions/github-script@v5
         env :
-          PR_VERSION : '6.0.5'
+          PR_VERSION : '6.0.1'
         with :
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script : |
