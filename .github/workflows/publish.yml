@@ -106,27 +106,25 @@ jobs:
             const checkingVersion = '${{ steps.set_current_version.outputs.CURRENT_VERSION }}';
             const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
             await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
-      - name : "Trigger Oauth Service Pipeline Workflow"
+      - name : "Trigger Oauth and Dashboard Services Pipeline Workflow"
         uses : actions/github-script@v5
         env :
           PR_VERSION : '${{ steps.set_current_version.outputs.CURRENT_VERSION }}'
         with :
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script : |
-            const fe_react_version= process.env.PR_VERSION;
+            const fe_react_version = process.env.PR_VERSION;
             const owner = 'frontegg';
-            const oauthServiceRepo = 'oauth-service'
-            const workflow_id = 'update-react-dependency.yaml'
-
-            const data = await github.rest.actions.createWorkflowDispatch({
+            const dispatchActionsData = [{ repo: 'oauth-service', workflow_id: 'update-react-dependency.yaml' }, { repo: 'dashboard', workflow_id: 'update-frontegg-react-dependency.yaml' }];
+            await Promise.all(dispatchActionsData.map(({ repo, workflow_id }) => github.rest.actions.createWorkflowDispatch({
               owner,
-              repo: oauthServiceRepo,
+              repo,
               workflow_id,
               ref: 'master',
               inputs: {
                 fe_react_version,
-              }
-            });
+              }}))
+            );
       - name: Notify Slack on deployment
         uses: rtCamp/action-slack-notify@v2
         env:
