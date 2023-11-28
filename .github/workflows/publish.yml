@@ -113,19 +113,10 @@ jobs:
         with :
           github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script : |
-            const fe_react_version= process.env.PR_VERSION;
+            const fe_react_version = process.env.PR_VERSION;
             const owner = 'frontegg';
-            const dispatchActionsData = [
-              {
-                repo: 'oauth-service',
-                workflow_id: 'update-react-dependency.yaml'
-              },
-              {
-                repo: 'dashboard',
-                workflow_id: 'update-frontegg-react-dependency.yaml'
-              }
-            ];
-            const [oauthDispatchData, dashboardDispatchData] = Promise.all(dispatchActionsData.map(({ repo, workflow_id }) => github.rest.actions.createWorkflowDispatch({
+            const dispatchActionsData = [{ repo: 'oauth-service', workflow_id: 'update-react-dependency.yaml' }, { repo: 'dashboard', workflow_id: 'update-frontegg-react-dependency.yaml' }];
+            const [oauthDispatchData, dashboardDispatchData] = await Promise.all(dispatchActionsData.map(({ repo, workflow_id }) => github.rest.actions.createWorkflowDispatch({
               owner,
               repo,
               workflow_id,
