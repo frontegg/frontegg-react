@@ -1,5 +1,9 @@
 # Change Log
 
+## [6.0.11](https://github.com/frontegg/frontegg-react/compare/v6.0.10...v6.0.11) (2023-11-29)
+
+- FR-13527 - Added a11y support for admin portal pages: SSO, security, profile, personal tokens, users, groups, provisioning, audit logs, API tokens, webhooks, and account details.
+
 ## [6.0.10](https://github.com/frontegg/frontegg-react/compare/v6.0.9...v6.0.10) (2023-11-23)
 
 - FR-14237 - Fix direct action with basename
