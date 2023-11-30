@@ -2,22 +2,7 @@
 
 ## [6.0.11](https://github.com/frontegg/frontegg-react/compare/v6.0.10...v6.0.11) (2023-11-29)
 
-- FR-13527 - Added a11y support for admin portal pages: sso, security, profile, personal tokens, users, groups, provisioning, audit logs, api tokens, webhooks, account details.
-
-- FR-14237 - Fix direct action with basename
-- FR-14324 - Fixed Hosted login race condition in Angular and supported prompt login with silent refresh
-
-
-### React Wrapper 6.0.11:
-- FR-14363 - Trigger also dashboard update frontegg version pipeline on publish
-- FR-14363 - remove oauth trigger workflow from pre-release
-- FR-14363 - Fix workflow trigger OAuth
-- FR-14363 - Adding another option for checking the npm registry
-- FR-14304 - Adding logs to understand the timeout
-- FR-14304 - Relocated script file
-- FR-14304 - Re-order pre release steps
-- FR-14304 - Fix syntax on yaml
-- FR-14304 - Trigger Oauth pipeline after publish
+- FR-13527 - Added a11y support for admin portal pages: SSO, security, profile, personal tokens, users, groups, provisioning, audit logs, API tokens, webhooks, and account details.
 
 ## [6.0.10](https://github.com/frontegg/frontegg-react/compare/v6.0.9...v6.0.10) (2023-11-23)
 
