@@ -2,20 +2,8 @@
 
 ## [6.0.12](https://github.com/frontegg/frontegg-react/compare/v6.0.11...v6.0.12) (2023-11-30)
 
-- FR-14308 - Fixed alignment issue with icon in custom social login button
+- FR-14308 - Fixed alignment issue with the icon in the custom social login button
 
-- FR-13527 - Added a11y support for admin portal pages: sso, security, profile, personal tokens, users, groups, provisioning, audit logs, api tokens, webhooks, account details.
-
-
-### React Wrapper 6.0.12:
-- FR-14363 - Trigger also dashboard update frontegg version pipeline on publish
-- FR-14363 - remove oauth trigger workflow from pre-release
-- FR-14363 - Fix workflow trigger OAuth
-- FR-14363 - Adding another option for checking the npm registry
-- FR-14304 - Adding logs to understand the timeout
-- FR-14304 - Relocated script file
-- FR-14304 - Re-order pre release steps
-- FR-14304 - Fix syntax on yaml
 # Change Log
 
 ## [6.0.11](https://github.com/frontegg/frontegg-react/compare/v6.0.10...v6.0.11) (2023-11-29)
