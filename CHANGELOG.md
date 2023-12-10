@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.13](https://github.com/frontegg/frontegg-react/compare/v6.0.12...v6.0.13) (2023-12-10)
+
+- FR-14287 - Fix grammar of 1 day expiry of api tokens
+
+
+# Change Log
+
 ## [6.0.12](https://github.com/frontegg/frontegg-react/compare/v6.0.11...v6.0.12) (2023-11-30)
 
 - FR-14308 - Fixed alignment issue with the icon in the custom social login button
