@@ -47,6 +47,14 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
     if (opts?.preserveQueryParams || isAuthRouteRef.current(path)) {
       path = `${path}${window.location.search}`;
     }
+
+    const stepUpUrl = props.authOptions?.routes?.stepUpUrl;
+    if (stepUpUrl && path.startsWith(stepUpUrl)) {
+      // when user app includes a fallback route, we need to avoid using the react router
+      window?.history?.pushState(null, '', path);
+      return;
+    }
+
     if (opts?.refresh && !isSSR) {
       // @ts-ignore
       window.Cypress ? history.push(path) : (window.location.href = path);
