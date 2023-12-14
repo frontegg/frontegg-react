@@ -2405,19 +2405,16 @@
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/entitlements-javascript-commons" "1.0.1"
-    "@frontegg/rest-api" "3.1.49"
+    "@frontegg/rest-api" "3.1.48"
     "@reduxjs/toolkit" "1.8.5"
     fast-deep-equal "3.1.3"
     redux-saga "^1.2.1"
     uuid "^8.3.2"
 
-"@frontegg/rest-api@3.1.49":
-  version "3.1.49"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.49.tgz#a89ab2cf67e954f81d597139e381eadce39dbb10"
-  integrity sha512-OyN18cDMQsqu5D9jPg9wHN1J4B4B5Ulx174j9Pmqo3fMyk5KRZuFjj8LFXk1bhEvUluVrALfpciQea3B0JMuEA==
-  dependencies:
-    "@babel/runtime" "^7.17.2"
-    "@frontegg/entitlements-javascript-commons" "1.0.1"
+"@frontegg/rest-api@3.1.48":
+  version "3.1.48"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.48.tgz#78947faa40dca6a7aac27928e7ef3a62a8f29159"
+  integrity sha512-/fcBufYuGL1zOeC9q2dGvXaNPxwff4Ppol7aHZDR3cYSTli6iaOAk+h1qNBTYWR3s20oRGMRR4UR8epROGyU/g==
 
 "@frontegg/types@6.160.0":
   version "6.160.0"
