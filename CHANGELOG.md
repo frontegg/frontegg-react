@@ -1,5 +1,10 @@
 # Change Log
 
+## [6.0.14](https://github.com/frontegg/frontegg-react/compare/v6.0.13...v6.0.14) (2023-12-12)
+
+- FR-14324 - Fix android native module and add option for direct social login
+
+
 ## [6.0.13](https://github.com/frontegg/frontegg-react/compare/v6.0.12...v6.0.13) (2023-12-10)
 
 - FR-14287 - Fix grammar of 1 day expiry of api tokens
