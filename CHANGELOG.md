@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.15](https://github.com/frontegg/frontegg-react/compare/v6.0.14...v6.0.15) (2023-12-17)
+
+- FR-10692 - Remove the ability to select a full category on webhooks page
+
+
+
 ## [6.0.14](https://github.com/frontegg/frontegg-react/compare/v6.0.13...v6.0.14) (2023-12-12)
 
 - FR-14324 - Fix android native module and add option for direct social login
