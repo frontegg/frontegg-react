@@ -1,5 +1,13 @@
 # Change Log
 
+## [6.0.16](https://github.com/frontegg/frontegg-react/compare/v6.0.15...v6.0.16) (2023-12-20)
+
+- FR-14219 - Step up - Embedded flow
+
+- FR-14324 - Fix direct login custom social login
+
+
+
 ## [6.0.15](https://github.com/frontegg/frontegg-react/compare/v6.0.14...v6.0.15) (2023-12-17)
 
 - FR-10692 - Remove the ability to select a full category on webhooks page
