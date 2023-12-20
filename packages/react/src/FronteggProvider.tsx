@@ -5,7 +5,7 @@ import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
-import { isAuthRoute } from '@frontegg/redux-store';
+import { isAuthRoute, AuthPageRoutes } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
 import ReactPkg from 'react/package.json';
 import { AlwaysRenderInProvider, HistoryObject } from './AlwaysRenderInProvider';
@@ -25,6 +25,16 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   const history = useHistory();
   return <Connector history={history} {...props} />;
 };
+
+/**
+ * @param path path to check
+ * @param routes frontegg auth routes
+ * @returns true when should bypass react router
+ */
+function isBypassReactRoute(path: string, routes?: Partial<AuthPageRoutes>) {
+  const stepUpUrl = routes?.stepUpUrl;
+  return stepUpUrl && path.startsWith(stepUpUrl);
+}
 
 export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHistory = false, ...props }) => {
   const isSSR = typeof window === 'undefined';
@@ -47,6 +57,13 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
     if (opts?.preserveQueryParams || isAuthRouteRef.current(path)) {
       path = `${path}${window.location.search}`;
     }
+
+    if (isBypassReactRoute(path, props.authOptions?.routes)) {
+      // when user app includes a fallback route, we need to avoid using the react router
+      window?.history?.pushState(null, '', path);
+      return;
+    }
+
     if (opts?.refresh && !isSSR) {
       // @ts-ignore
       window.Cypress ? history.push(path) : (window.location.href = path);
