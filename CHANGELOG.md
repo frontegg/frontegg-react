@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.17](https://github.com/frontegg/frontegg-react/compare/v6.0.16...v6.0.17) (2023-12-21)
+
+- FR-14644 - Fixed enroll authenticator app missing error message when code is wrong
+
+
+
 ## [6.0.16](https://github.com/frontegg/frontegg-react/compare/v6.0.15...v6.0.16) (2023-12-20)
 
 - FR-14219 - Step up - Embedded flow
