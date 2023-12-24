@@ -11,14 +11,18 @@ export interface SteppedUpProps {
 /**
  * Stepped up content component that shows the wrapped content only when the user is stepped up
  * The component triggers the step up flow if the user is not stepped up
- * @param maxAge maximum time in second that the login is valid
- * @param render render function to be called when user is stepped up
- * @param children to be shown when user is stepped up (only if render not provided)
+ * @param props.maxAge maximum time in second that the login is valid
+ * @param props.render render function to be called when user is stepped up
+ * @param props.children to be shown when user is stepped up (only if render not provided)
  */
-export const SteppedUpContent: React.FC<SteppedUpProps> = ({ maxAge, render, children }) => {
+export const SteppedUpContent: React.FC<SteppedUpProps> = (props) => {
   const isAuthenticated = useIsAuthenticated();
   if (!isAuthenticated) return null;
 
+  return <SteppedUpContentInternal {...props} />;
+};
+
+const SteppedUpContentInternal: React.FC<SteppedUpProps> = ({ maxAge, render, children }) => {
   const isSteppedUp = useIsSteppedUp({ maxAge });
   const stepUp = useStepUp();
   const isStepUpCalled = useRef(false);
