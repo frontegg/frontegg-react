@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 
-import { useStepUp, useIsSteppedUp } from '@frontegg/react';
+import { useStepUp, useIsSteppedUp, useIsAuthenticated } from '@frontegg/react-hooks';
 
 export interface SteppedUpProps {
   maxAge?: number;
@@ -16,6 +16,9 @@ export interface SteppedUpProps {
  * @param children to be shown when user is stepped up (only if render not provided)
  */
 export const SteppedUpContent: React.FC<SteppedUpProps> = ({ maxAge, render, children }) => {
+  const isAuthenticated = useIsAuthenticated();
+  if (!isAuthenticated) return null;
+
   const isSteppedUp = useIsSteppedUp({ maxAge });
   const stepUp = useStepUp();
   const isStepUpCalled = useRef(false);
