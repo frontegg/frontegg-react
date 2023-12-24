@@ -32,7 +32,7 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
  * @returns true when should bypass react router
  */
 function isBypassReactRoute(path: string, routes?: Partial<AuthPageRoutes>) {
-  const stepUpUrl = routes?.stepUpUrl;
+  const stepUpUrl = routes?.stepUpUrl || '/account/step-up';
   return stepUpUrl && path.startsWith(stepUpUrl);
 }
 
