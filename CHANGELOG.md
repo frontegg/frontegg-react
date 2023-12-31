@@ -1,5 +1,16 @@
 # Change Log
 
+## [6.0.18](https://github.com/frontegg/frontegg-react/compare/v6.0.17...v6.0.18) (2023-12-31)
+
+- FR-14228 - Added Step Up feature to allow a second layer of authentication for sensitive actions
+
+
+- FR-14578 - Fixed custom login without tenant alias
+- FR-14638 - Missing exp on user interface
+- FR-14560 - added temporary users feature
+
+
+
 ## [6.0.17](https://github.com/frontegg/frontegg-react/compare/v6.0.16...v6.0.17) (2023-12-21)
 
 - FR-14644 - Fixed enroll authenticator app missing error message when code is wrong
