@@ -2378,54 +2378,54 @@
   resolved "https://registry.yarnpkg.com/@frontegg/entitlements-javascript-commons/-/entitlements-javascript-commons-1.0.1.tgz#038a5b86166bd00cfd3afa942de361434c34ea04"
   integrity sha512-Ny9M9wLcA6/p9OD09plK3ETy5zyTWpgFoIorAYYYxk4J3S6ardsUOai2MlBmXqbG9J1uxD66rdFF5qr4bwqgyw==
 
-"@frontegg/js@6.164.0":
-  version "6.164.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.164.0.tgz#49910a65c1ec1181a74a4f20c404ddf5a777aa45"
-  integrity sha512-6f7aV95ig1titWjiWzKBMrElLmyWQ0WFULZrjY2v7OSe21e4PEv5sVFWE8j/QsnX5yJ+HaUF/jvwlKv4rWcGdg==
+"@frontegg/js@6.166.0":
+  version "6.166.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-6.166.0.tgz#be1b31ae25e707b89619370c9ee67ed08fb87d5a"
+  integrity sha512-ZNE4y5u3JWaZc6QnaPsnN44AQATwbnQk9OcoVB/SD4ZRUQ+kJWiLLjNfbfgjS9U2iy6WguBqS8+6SMXef4XKDw==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "6.164.0"
+    "@frontegg/types" "6.166.0"
 
-"@frontegg/react-hooks@6.164.0":
-  version "6.164.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.164.0.tgz#816cf5045f385d1773c180cc560f613657ee6c89"
-  integrity sha512-SUaUQ45xnGERZzm83yhhsDgXEM/icD7SLNrDbo1T4nzK7TD5P5Usp6gHBGopA02DRil9yd0vlbl5KW4ysYX23g==
+"@frontegg/react-hooks@6.166.0":
+  version "6.166.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-6.166.0.tgz#98da00fa1cf7974ac6cf4d561a8039793ae440ac"
+  integrity sha512-8f+oEv4F9/s9XPz5VNIzvW/6UIsRpWT9dxLK+CYATLhgJcQ3+qCjoU1n6ZLEh2iru0Wkuy7npVvrYS50Pw2aVA==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.164.0"
-    "@frontegg/types" "6.164.0"
+    "@frontegg/redux-store" "6.166.0"
+    "@frontegg/types" "6.166.0"
     "@types/react" "*"
     get-value "^3.0.1"
     react-redux "^7.x"
 
-"@frontegg/redux-store@6.164.0":
-  version "6.164.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.164.0.tgz#daa30e11ff027c67aab277fbb9c7f7193d229ab1"
-  integrity sha512-L2V4+zXu0cvFYXLDKDA6KilZKnR7qy9Pb3hH5LeUdidUYfVFREnIFXKtttlqan8UnWMK34+VgRqpNYoT0AzjKA==
+"@frontegg/redux-store@6.166.0":
+  version "6.166.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-6.166.0.tgz#e195e21d5d48c4e08e4d2d4a5a6b65cc1e01e945"
+  integrity sha512-28Jf0aGRgzUluOc4wkmiNasbogpj5LIHUhMeMn46PcN7FxdQcsmboxEFRyf7DXmS+VZ9/GTJJJtpW/Y/6SJn6w==
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/entitlements-javascript-commons" "1.0.1"
-    "@frontegg/rest-api" "3.1.53"
+    "@frontegg/rest-api" "3.1.56"
     "@reduxjs/toolkit" "1.8.5"
     fast-deep-equal "3.1.3"
     redux-saga "^1.2.1"
     uuid "^8.3.2"
 
-"@frontegg/rest-api@3.1.53":
-  version "3.1.53"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.53.tgz#c45ac6daf8fae53c2332a71abdc4e705318da075"
-  integrity sha512-1UY+vaqgKNbjsK1w0aCw0bBju7ACNl34LsrFqK44F10AUzM+1u03tZNQfM/3JM0y9zlEpiwhap/SddrBGu1U6g==
+"@frontegg/rest-api@3.1.56":
+  version "3.1.56"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.56.tgz#e03a23f48d2782257595ef0544fe9281d20be06e"
+  integrity sha512-Nu2alTWrBPEhy80v7HPRECXlbJOY80SitGh8GrA/lvf5CQ3L+HC6aSM7Cone3XaSNJt7Uopz3hJkkBUtiA08rg==
   dependencies:
     "@babel/runtime" "^7.17.2"
     "@frontegg/entitlements-javascript-commons" "1.0.1"
 
-"@frontegg/types@6.164.0":
-  version "6.164.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.164.0.tgz#6f7804e6b0a3a6aae902b1818247b012faf12073"
-  integrity sha512-esvTosH4mpg2bm1eF7sEICnzxTLvgrtIUVSl2Pa/JSns8rpNy83b9y5fbiOUEyaaMYmobDbVdvYozGSNr/+vRg==
+"@frontegg/types@6.166.0":
+  version "6.166.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-6.166.0.tgz#313ed9ff3b1f0250eab03dcaef8efdeac0783e3a"
+  integrity sha512-luYWWBDFDs6lrYq4L5XpAJ8GgLI7AvbDTcxEqSfVGa7lggH+a6nEYW07n3LvO+OU94qocJC30gEx6jeGNbydhQ==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "6.164.0"
+    "@frontegg/redux-store" "6.166.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
