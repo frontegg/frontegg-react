@@ -5,7 +5,7 @@ import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
-import { isAuthRoute, AuthPageRoutes } from '@frontegg/redux-store';
+import { isAuthRoute, AuthPageRoutes, defaultFronteggRoutes } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
 import ReactPkg from 'react/package.json';
 import { AlwaysRenderInProvider, HistoryObject } from './AlwaysRenderInProvider';
@@ -32,7 +32,7 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
  * @returns true when should bypass react router
  */
 function isBypassReactRoute(path: string, routes?: Partial<AuthPageRoutes>) {
-  const stepUpUrl = routes?.stepUpUrl;
+  const stepUpUrl = routes?.stepUpUrl || defaultFronteggRoutes.stepUpUrl;
   return stepUpUrl && path.startsWith(stepUpUrl);
 }
 
