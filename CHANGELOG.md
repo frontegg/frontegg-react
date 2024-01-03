@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.19](https://github.com/frontegg/frontegg-react/compare/v6.0.18...v6.0.19) (2024-1-3)
+
+- FR-14753 - Fixed step up key removing when user does not finish step up flow
+
+
+
 ## [6.0.18](https://github.com/frontegg/frontegg-react/compare/v6.0.17...v6.0.18) (2023-12-31)
 
 - FR-14228 - Added Step Up feature to allow a second layer of authentication for sensitive actions
