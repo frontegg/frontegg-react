@@ -46,7 +46,7 @@ jobs:
          repo: ${{ inputs.repo }}
          sha: ${{ inputs.sha }}
        with:
-         github-token: ${{ steps.create_bot_token.outputs.BOT_TOKEN }}
+         github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
          script: |
            const {repo, sha, version} = process.env;
            const owner = 'frontegg'
