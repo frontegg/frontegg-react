@@ -25,7 +25,7 @@ jobs:
           repo: ${{ inputs.repo }}
           sha: ${{ inputs.sha }}
         with:
-          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
+          github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
           script: |
             const {repo, sha, version} = process.env;
             const owner = context.payload.repository.organization
@@ -34,13 +34,13 @@ jobs:
             const context = `${owner}/${e2eRepo}`
             const dispatch_id = `${repo}/${sha}`
 
-            const data = await github.rest.actions.createWorkflowDispatch({
-              owner, 
-              repo:e2eRepo,
+            github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo: e2eRepo,
               workflow_id,
-              ref: 'main',
+              ref: 'master',
               inputs: {
                 version,
                 dispatch_id,
               }
-            });
+            })
