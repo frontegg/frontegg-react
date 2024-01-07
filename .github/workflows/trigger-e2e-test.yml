@@ -37,8 +37,8 @@ jobs:
        name: Create bot token
        uses: wow-actions/use-app-token@v2
        with:
-         appId: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
-         privateKey: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
+         app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
+         private_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
      - name: "Trigger E2E tests"
        uses: actions/github-script@v5
        env:
