@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.20](https://github.com/frontegg/frontegg-react/compare/v6.0.19...v6.0.20) (2024-1-7)
+
+- FR-14807 - Fixed step up double call to generate step up session
+
+
+# Change Log
+
 ## [6.0.19](https://github.com/frontegg/frontegg-react/compare/v6.0.18...v6.0.19) (2024-1-3)
 
 - FR-14753 - Fixed step up key removing when user does not finish step up flow
