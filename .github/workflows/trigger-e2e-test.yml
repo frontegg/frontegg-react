@@ -18,6 +18,7 @@ jobs:
     name: Build and publish version image
     uses: frontegg/e2e-system-tests/.github/workflows/frontegg-react-e2e-tests.yml@master
     with:
+      github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
       version: ${{ inputs.version }}
       dispatch_id: "${{ inputs.repo }}/${{ inputs.sha }}"
     secrets: inherit
