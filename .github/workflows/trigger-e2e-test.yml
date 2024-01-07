@@ -14,32 +14,39 @@ on:
         required: true
 
 jobs:
-  trigger_e2e_tests:
-    name: "Trigger E2E tests Workflow"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Trigger E2E tests"
-        uses: actions/github-script@v5
-        env:
-          version: ${{ inputs.version }}
-          repo: ${{ inputs.repo }}
-          sha: ${{ inputs.sha }}
-        with:
-          github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
-          script: |
-            const {repo, sha, version} = process.env;
-            const owner = 'frontegg'
-            const e2eRepo = 'e2e-system-tests'
-            const workflow_id = 'frontegg-react-e2e-tests.yml'
-            const dispatch_id = `${repo}/${sha}`
-
-            github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo: e2eRepo,
-              workflow_id,
-              ref: 'master',
-              inputs: {
-                version,
-                dispatch_id,
-              }
-            })
+  full-test:
+    name: Build and publish version image
+    uses: frontegg/e2e-system-tests/.github/workflows/frontegg-react-e2e-tests.yml@master
+    with:
+      version: ${{ inputs.version }}
+      dispatch_id: "${{ inputs.repo }}/${{ inputs.sha }}"
+    secrets: inherit
+#  trigger_e2e_tests:
+#    name: "Trigger E2E tests Workflow"
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: "Trigger E2E tests"
+#        uses: actions/github-script@v5
+#        env:
+#          version: ${{ inputs.version }}
+#          repo: ${{ inputs.repo }}
+#          sha: ${{ inputs.sha }}
+#        with:
+#          github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
+#          script: |
+#            const {repo, sha, version} = process.env;
+#            const owner = 'frontegg'
+#            const e2eRepo = 'e2e-system-tests'
+#            const workflow_id = 'frontegg-react-e2e-tests.yml'
+#            const dispatch_id = `${repo}/${sha}`
+#
+#            github.rest.actions.createWorkflowDispatch({
+#              owner,
+#              repo: e2eRepo,
+#              workflow_id,
+#              ref: 'master',
+#              inputs: {
+#                version,
+#                dispatch_id,
+#              }
+#            })
