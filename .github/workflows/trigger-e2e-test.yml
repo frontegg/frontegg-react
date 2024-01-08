@@ -58,7 +58,7 @@ jobs:
              owner,
              repo: e2eRepo,
              workflow_id,
-             ref: 'master',
+             ref: 'FR-13416-fix-e2e-trigger',
              inputs: {
                version,
                dispatch_id,
