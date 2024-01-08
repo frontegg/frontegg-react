@@ -14,21 +14,6 @@ on:
         required: true
 
 jobs:
-  # direct-test:
-  #   name: Build and publish version image
-  #   uses: frontegg/workflows/.github/workflows/full-test-suite.yaml@master
-  #   with:
-  #     ref: master
-  #     tests_tag: master
-  #   secrets: inherit
-  # e2e-test:
-  #   name: Build and publish version image
-  #   uses: frontegg/e2e-system-tests/.github/workflows/frontegg-react-e2e-tests.yml@master
-  #   with:
-  #     github-token: ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
-  #     version: ${{ inputs.version }}
-  #     dispatch_id: "${{ inputs.repo }}/${{ inputs.sha }}"
-  #   secrets: inherit
  trigger_e2e_tests:
    name: "Trigger E2E tests Workflow"
    runs-on: ubuntu-latest
