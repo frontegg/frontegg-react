@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.22](https://github.com/frontegg/frontegg-react/compare/v6.0.21...v6.0.22) (2024-1-10)
+
+- FR-14813 - Add support for open app page with basename
+
+
+
 ## [6.0.21](https://github.com/frontegg/frontegg-react/compare/v6.0.20...v6.0.21) (2024-1-10)
 
 - FR-14813 - Fix texts in open app
