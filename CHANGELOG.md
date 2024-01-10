@@ -1,5 +1,13 @@
 # Change Log
 
+## [6.0.21](https://github.com/frontegg/frontegg-react/compare/v6.0.20...v6.0.21) (2024-1-10)
+
+- FR-14813 - Fix texts in open app
+
+- FR-14813 - Support mobile deep link redirect page
+
+
+
 ## [6.0.20](https://github.com/frontegg/frontegg-react/compare/v6.0.19...v6.0.20) (2024-1-7)
 
 - FR-14807 - Fixed step up double call to generate step up session
