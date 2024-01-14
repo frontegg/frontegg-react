@@ -51,7 +51,9 @@ const cjsPlugins = [
 const isExternal = (id) => {
   return (
     id !== './FronteggProvider' &&
+    id !== './AlwaysRenderInProvider' &&
     id !== './AuthorizedContent' &&
+    id !== './SteppedUpContent' &&
     id !== './sdkVersion' &&
     id !== './routerProxy' &&
     id !== './queryKeeper' &&

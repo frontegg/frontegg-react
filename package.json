@@ -4,23 +4,33 @@
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
-    "prettier-hook": "prettier --config ./.prettierrc.json --write .",
-    "prettier-check-hook": "prettier --config ./.prettierrc.json --check .",
+    "prettier-hook": "pretty-quick",
+    "prettier-check-hook": "pretty-quick --check",
     "prepublishOnly": "make move-package-json-to-dist",
-    "update-version": "make update-entry"
+    "update-version": "make update-entry",
+    "test": "jest --env=jsdom"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@rollup/plugin-node-resolve": "^8.0.1",
+    "@testing-library/react": "12.1.2",
     "@types/history": "^4.7.7",
+    "@types/jest": "^29.5.8 ",
     "@types/node": "^13.9.1",
     "@types/react-is": "^17.0.3",
+    "babel-jest": "^29.7.0",
     "eslint": "^7.0.0",
     "eslint-plugin-react": "^7.17.0",
     "history": "^4.9.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lerna": "5.1.8",
     "path": "^0.12.7",
     "pre-commit": "^1.2.2",
-    "prettier": "2.1.1",
+    "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "@types/react": "^17.0.1",
@@ -43,5 +53,10 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "jest": {
+    "transformIgnorePatterns": [
+      "!node_modules/"
+    ]
+  }
 }

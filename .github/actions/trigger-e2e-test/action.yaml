@@ -1,0 +1,51 @@
+name: Trigger E2E Action
+description: Trigger E2E workflow for a specific version
+
+inputs:
+  version:
+    description: 'Version'
+    required: true
+  sha:
+    description: 'Commit SHA'
+    required: true
+  bot_app_id:
+    description: 'Bot App Id'
+    required: true
+  bot_app_key:
+    description: 'Bot App Key'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: create_bot_token
+      name: Create bot token
+      uses: wow-actions/use-app-token@v2
+      with:
+        app_id: ${{ inputs.bot_app_id }}
+        private_key: ${{ inputs.bot_app_key }}
+    - name: "Trigger E2E tests"
+      uses: actions/github-script@v5
+      env:
+        version: ${{ inputs.version }}
+        sha: ${{ inputs.sha }}
+      with:
+        github-token: ${{ steps.create_bot_token.outputs.BOT_TOKEN }}
+        script: |
+          const {sha, version} = process.env;
+          const repo = 'frontegg-react'
+          const owner = 'frontegg'
+          const e2eRepo = 'e2e-system-tests'
+          const workflow_id = 'frontegg-react-e2e-tests.yml'
+          const dispatch_id = `${repo}/${sha}`
+          
+          github.rest.actions.createWorkflowDispatch({
+            owner,
+            repo: e2eRepo,
+            workflow_id,
+            ref: 'master',
+            inputs: {
+              version,
+              dispatch_id,
+            }
+          })
