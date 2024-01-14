@@ -5,6 +5,15 @@
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frontegg/frontegg-react.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/frontegg/frontegg-react/issues"
+  },
   "scripts": {
     "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
     "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js"
