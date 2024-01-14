@@ -71,6 +71,7 @@ jobs:
         id: 'cpr_commit_sha'
         run: |
           git add . && git commit -m "chore(release): publish ${{ steps.incremented-version.outputs.result }}"
+          echo "sha=$(git rev-parse HEAD)\n" >> $GITHUB_OUTPUT
       - name: Create Release Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3.5.1
@@ -123,19 +124,10 @@ jobs:
             const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
             await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
 
-      - name: Prepare E2E test workflow
-        uses: actions/github-script@v5
-        env:
-          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
-          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
+      - name: "Call trigger-e2e-test action"
+        uses: ./.github/actions/trigger-e2e-test
         with:
-          script: |
-            const sha = process.env.PR_REF;
-            const repo = context.payload.repository.name
-            const owner = context.payload.repository.organization
-
-            const res = await github.rest.repos.createCommitStatus({
-              context, owner, repo, sha,
-              state: 'pending',
-              description: 'Dispatching E2E tests...',
-            });
+          version: ${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}
+          sha: ${{ steps.cpr_commit_sha.outputs.sha }}
+          bot_app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
+          bot_app_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}

@@ -1,58 +1,33 @@
-name: Trigger E2E tests Workflow
+name: "(▶) Trigger E2E tests Workflow"
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches:
-      - 'master'
-
-concurrency:
-  group: ci-trigger-e2e-test-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+      sha:
+        description: 'Commit SHA'
+        required: true
 
 jobs:
   trigger_e2e_tests:
-    if: ${{ github.event.pull_request.head.ref == 'release/next' }}
     name: "Trigger E2E tests Workflow"
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@v4
-      - id: create_bot_token
-        name: Create bot token
-        uses: wow-actions/use-app-token@v2
+
+      - name: "Print inputs"
+        run: |
+          echo "Received test request for @frontegg/react@${{ inputs.version }}"
+          echo "From: ${{ inputs.dispatch_id }}"
+
+      - name: "Call trigger-e2e-test action"
+        uses: ./.github/actions/trigger-e2e-test
         with:
-          app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
-          private_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
-      - name: "get test version"
-        uses: actions/github-script@v6
-        id: 'react_version'
-        with:
-          result-encoding: string
-          script: |
-            const {default: fs} = await import('fs');
-            const {version} = JSON.parse(fs.readFileSync('./lerna.json', {encoding: "utf-8"}));
-            return version;
-      - name: "Trigger E2E tests on ${{ steps.react_version.outputs.result }}"
-        uses: actions/github-script@v5
-        env:
-          version: ${{ steps.react_version.outputs.result }}
-          sha: ${{ github.event.pull_request.head.sha }}
-        with:
-          github-token: ${{ steps.create_bot_token.outputs.BOT_TOKEN }}
-          script: |
-            const { sha, version} = process.env;
-            const owner = 'frontegg'
-            const e2eRepo = 'e2e-system-tests'
-            const workflow_id = 'frontegg-react-e2e-tests.yml'
-            const dispatch_id = `frontegg-react/${sha}`
-            
-            github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo: e2eRepo,
-              workflow_id,
-              ref: 'master',
-              inputs: {
-                version,
-                dispatch_id,
-              }
-            })
+          version: ${{ inputs.version }}
+          sha: ${{ inputs.sha }}
+          bot_app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
+          bot_app_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
+
+
