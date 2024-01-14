@@ -138,32 +138,3 @@ jobs:
               state: 'pending',
               description: 'Dispatching E2E tests...',
             });
-      - name: "Trigger E2E tests"
-        uses: actions/github-script@v5
-        env:
-          PR_REF: '${{ steps.cpr.outputs.pull-request-head-sha }}'
-          PR_VERSION: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}'
-        with:
-          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
-          script: |
-            const version = process.env.PR_VERSION;
-            const sha = process.env.PR_REF;
-            const repo = context.payload.repository.name
-
-            const owner = context.payload.repository.organization
-            const e2eRepo = 'e2e-system-tests'
-            const workflow_id = 'frontegg-react-e2e-tests.yml'
-            const context = `${owner}/${e2eRepo}`
-            const dispatch_id = `${repo}/${sha}`
-
-            const data = await github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo:e2eRepo,
-              workflow_id,
-              ref: 'main',
-              inputs: {
-                version,
-                dispatch_id,
-              }
-            });
-
