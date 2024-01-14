@@ -1,5 +1,272 @@
 # Change Log
 
+## [6.0.23](https://github.com/frontegg/frontegg-react/compare/v6.0.22...v6.0.23) (2024-1-14)
+
+- FR-14855 - Add support for social login consent, by default it&#39;s false.
+
+
+### React Wrapper 6.0.23:
+- FR-13416 - add push trigger for e2e workflow
+
+## [6.0.22](https://github.com/frontegg/frontegg-react/compare/v6.0.21...v6.0.22) (2024-1-10)
+
+- FR-14813 - Add support for open app page with basename
+
+
+
+## [6.0.21](https://github.com/frontegg/frontegg-react/compare/v6.0.20...v6.0.21) (2024-1-10)
+
+- FR-14813 - Fix texts in open app
+
+- FR-14813 - Support mobile deep link redirect page
+
+
+
+## [6.0.20](https://github.com/frontegg/frontegg-react/compare/v6.0.19...v6.0.20) (2024-1-7)
+
+- FR-14807 - Fixed step up double call to generate step up session
+
+
+# Change Log
+
+## [6.0.19](https://github.com/frontegg/frontegg-react/compare/v6.0.18...v6.0.19) (2024-1-3)
+
+- FR-14753 - Fixed step up key removing when user does not finish step up flow
+
+
+
+## [6.0.18](https://github.com/frontegg/frontegg-react/compare/v6.0.17...v6.0.18) (2023-12-31)
+
+- FR-14228 - Added Step Up feature to allow a second layer of authentication for sensitive actions
+
+
+- FR-14578 - Fixed custom login without tenant alias
+- FR-14638 - Missing exp on user interface
+- FR-14560 - added temporary users feature
+
+
+
+## [6.0.17](https://github.com/frontegg/frontegg-react/compare/v6.0.16...v6.0.17) (2023-12-21)
+
+- FR-14644 - Fixed enroll authenticator app missing error message when code is wrong
+
+
+
+## [6.0.16](https://github.com/frontegg/frontegg-react/compare/v6.0.15...v6.0.16) (2023-12-20)
+
+- FR-14219 - Step up - Embedded flow
+
+- FR-14324 - Fix direct login custom social login
+
+
+
+## [6.0.15](https://github.com/frontegg/frontegg-react/compare/v6.0.14...v6.0.15) (2023-12-17)
+
+- FR-10692 - Remove the ability to select a full category on webhooks page
+
+
+
+## [6.0.14](https://github.com/frontegg/frontegg-react/compare/v6.0.13...v6.0.14) (2023-12-12)
+
+- FR-14324 - Fix android native module and add option for direct social login
+
+
+## [6.0.13](https://github.com/frontegg/frontegg-react/compare/v6.0.12...v6.0.13) (2023-12-10)
+
+- FR-14287 - Fix grammar of 1 day expiry of api tokens
+
+
+# Change Log
+
+## [6.0.12](https://github.com/frontegg/frontegg-react/compare/v6.0.11...v6.0.12) (2023-11-30)
+
+- FR-14308 - Fixed alignment issue with the icon in the custom social login button
+
+# Change Log
+
+## [6.0.11](https://github.com/frontegg/frontegg-react/compare/v6.0.10...v6.0.11) (2023-11-29)
+
+- FR-13527 - Added a11y support for admin portal pages: SSO, security, profile, personal tokens, users, groups, provisioning, audit logs, API tokens, webhooks, and account details.
+
+## [6.0.10](https://github.com/frontegg/frontegg-react/compare/v6.0.9...v6.0.10) (2023-11-23)
+
+- FR-14237 - Fix direct action with basename
+- FR-14324 - Fixed Hosted login race condition in Angular and supported prompt login with silent refresh
+
+- FR-14201 - Fixed login with SMS resend code action
+
+- FR-13913 - Let tenants&#x2F;users set expiry on client credentials API tokens
+- FR-14099 - Fix load custom login routes only when necessary
+- FR-13605 - Support adding phone number field to signup page and control his required state
+
+
+### React Wrapper 6.0.10:
+- Tigger E2E workflows on pre-release pipeline
+- FR-13990 - allow creating alpha version manually
+
+## [6.0.9](https://github.com/frontegg/frontegg-react/compare/v6.0.8...v6.0.9) (2023-11-21)
+
+- FR-14201 - Fixed login with SMS resend code action
+
+- FR-13913 - Let tenants&#x2F;users set expiry on client credentials API tokens
+- FR-14099 - Fix load custom login routes only when necessary
+- FR-13605 - Support adding phone number field to signup page and control his required state
+
+- FR-14102 - Fixed entitlements Frontegg user-id attribute usage 
+- FR-13123 - Added support to provide scopes for social logins
+
+
+### React Wrapper 6.0.9:
+- Tigger E2E workflows on pre-release pipeline
+- FR-13417 - Fixed include query param after signup
+# Change Log
+
+## [6.0.8](https://github.com/frontegg/frontegg-react/compare/v6.0.7...v6.0.8) (2023-11-6)
+
+- FR-14102 - Fixed entitlements Frontegg user-id attribute usage 
+- FR-13123 - Added support to provide scopes for social logins
+
+# Change Log
+
+## [6.0.7](https://github.com/frontegg/frontegg-react/compare/v6.0.6...v6.0.7) (2023-11-1)
+
+- FR-13327 - Update modern theme grey palette
+- FR-13834 - Added Rule based entitlements
+- FR-13508 - Mobile native module bridge
+- FR-13772 - Fixed issue on edit user roles modal - at least 1 role is required
+- FR-13808 - Support Login with SMS
+- FR-13786 - Support tab per tenant
+
+# Change Log
+
+## [6.0.6](https://github.com/frontegg/frontegg-react/compare/v6.0.5...v6.0.6) (2023-10-24)
+
+- FR-13772 - Fixed issue on edit user roles modal - at least 1 role is required
+- FR-13808 - Support Login with SMS
+- FR-13786 - Support tab per tenant
+
+
+### React Wrapper 6.0.6:
+- Remove duplicated step in trigger e2e test
+- trigger e2e pipeline test
+# Change Log
+
+## [6.0.5](https://github.com/frontegg/frontegg-react/compare/v6.0.4...v6.0.5) (2023-10-11)
+
+- FR-13798 - Added support for login with SMS
+- FR-13364 - Improved validations text for sign-in form
+- 
+# Change Log
+
+## [6.0.4](https://github.com/frontegg/frontegg-react/compare/v6.0.3...v6.0.4) (2023-10-4)
+
+- FR-13364 - Improved validations text for sign in form
+- FR-13737 - Changed breached password page to be shown just for block breached password policy
+- FR-13665 - Enhance hasPermission with inEntitled in admin portal in case entitlements is enabled
+
+
+## [6.0.3](https://github.com/frontegg/frontegg-react/compare/v6.0.2...v6.0.3) (2023-10-2)
+
+- FR-13455 - Fixed impersonation with custom login on embedded initial blank screen
+- FR-13649 - Fixed testimonial quote layout for split signup mode
+
+
+# Change Log
+
+## [6.0.2](https://github.com/frontegg/frontegg-react/compare/v6.0.1...v6.0.2) (2023-9-28)
+
+### React Wrapper 6.0.2:
+
+- Revamped the security page in the Admin Portal
+#### Note: no migration is needed to upgrade between versions 5 to 6.
+
+# Change Log
+
+## [6.0.1](https://github.com/frontegg/frontegg-react/compare/v5.0.50...v6.0.1) (2023-9-27)
+
+- FR-13509 - Added GTM integration
+
+# Change Log
+
+## [5.0.50](https://github.com/frontegg/frontegg-react/compare/v5.0.49...v5.0.50) (2023-9-5)
+
+- Releasing the new Security Center Page, which will replace the current Security Page. Currently exposed on Early Access with limited availability by a feature flag.
+
+
+# Change Log
+
+## [5.0.49](https://github.com/frontegg/frontegg-react/compare/v5.0.48...v5.0.49) (2023-8-28)
+
+- FR-13142 - Support setRootAccountData action for all account feature 
+- FR-12321 - Added max validations to session management fields 
+
+
+- FR-12974 - Fixed the issue with permissions and roles granted from user groups on User context
+- FR-12322 - Change redirect to SSO text
+- FR-12979 - Fixed MFA options save button to be disabled if the user has no security write permission
+
+# Change Log
+
+## [5.0.48](https://github.com/frontegg/frontegg-react/compare/v5.0.47...v5.0.48) (2023-8-14)
+
+# v5.0.48 
+- FR-11857 - Added new support for hosted login to load user on load
+- FR-12828 - entitlements API response change
+- FR-12224 - support custom login for authenticated users without a tenant alias
+- FR-12780 - Entitlements Vanilla JS improvements
+
+### React Wrapper 5.0.48:
+- FR-12986 - Added support of reporting React version header
+
+# Change Log
+
+## [5.0.47](https://github.com/frontegg/frontegg-react/compare/v5.0.46...v5.0.47) (2023-7-24)
+
+- FR-12828 - Entitlements api response change
+- FR-12224 - Support custom login for authenticated users without a tenant alias
+- FR-12688 - Make Admin box compatible with the updated type of IUserProfile
+
+
+# Change Log
+
+## [5.0.46](https://github.com/frontegg/frontegg-react/compare/v5.0.45...v5.0.46) (2023-7-13)
+
+• FR-12550 - Align all auth methods to get the right login response type
+• FR-12664 - Rename redux-saga file to prevent loop imports by webpack
+• FR-12098 - Updated Admin portal user status to the correct one if email verification is off
+• FR-12020 - Fixed blinking workspace title in admin portal vivid theme
+• FR-12114 - Fixed custom social login provider shouldn't be shown if not active
+• FR-12628 - Fixed custom login with hosted Oauth in URL
+• FR-12575 - Changed remember my device value to be true by default
+
+# Change Log
+
+## [5.0.45](https://github.com/frontegg/frontegg-react/compare/v5.0.44...v5.0.45) (2023-7-9)
+
+- FR-12581 - Added support for custom inline html and script
+- FR-12343 - Added support for SSO per tenant
+- FR-12488 - Backward compatible support for loadUsersV1
+- FR-12164 - Added support for MSP bulk user invitation
+- FR-12479 - Fixed MSP warning dialog issue
+- FR-12408 - Redesigned Entitlements structure
+
+# Change Log
+
+## [5.0.44](https://github.com/frontegg/frontegg-react/compare/v5.0.43...v5.0.44) (2023-6-30)
+
+- MSP update visibility, bugfix
+- add security login flows
+
+# Change Log
+
+## [5.0.43](https://github.com/frontegg/frontegg-react/compare/v5.0.42...v5.0.43) (2023-6-28)
+
+- FR-12277 - Extended tenants state with the active tenant to support MSP sub-accounts
+- FR-12405 - MSP bug fixes
+- FR-12381 - Migrated users table to load users by users V2 API
+
+# Change Log
+
 ## [5.0.42](https://github.com/frontegg/frontegg-react/compare/v5.0.41...v5.0.42) (2023-6-22)
 
 - Update load tenants to new version

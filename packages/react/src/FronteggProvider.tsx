@@ -1,13 +1,14 @@
 import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { initialize } from '@frontegg/js';
 import { FronteggAppOptions } from '@frontegg/types';
-import { FronteggStoreProvider, useAuthRoutes, CustomComponentRegister } from '@frontegg/react-hooks';
+import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
 import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
 import { AppHolder } from '@frontegg/js/AppHolder';
-import { useQueryKeeper } from './queryKeeper';
-import { isAuthRoute } from '@frontegg/redux-store';
+import { isAuthRoute, AuthPageRoutes, defaultFronteggRoutes } from '@frontegg/redux-store';
 import sdkVersion from './sdkVersion';
+import ReactPkg from 'react/package.json';
+import { AlwaysRenderInProvider, HistoryObject } from './AlwaysRenderInProvider';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
@@ -15,18 +16,9 @@ export type FronteggProviderProps = FronteggAppOptions & {
   children?: ReactNode;
 };
 
-type HistoryObject = {
-  push: (path: string) => void;
-  replace: (path: string) => void;
-};
-
 type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
   history: HistoryObject;
   isExternalHistory?: boolean;
-};
-
-type QueryKeeperWrapperProps = {
-  history: HistoryObject;
 };
 
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
@@ -34,11 +26,15 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   return <Connector history={history} {...props} />;
 };
 
-export const QueryKeeperWrapper: FC<QueryKeeperWrapperProps> = ({ history }) => {
-  const { signUpUrl } = useAuthRoutes();
-  useQueryKeeper({ routes: { signUpUrl }, history });
-  return <></>;
-};
+/**
+ * @param path path to check
+ * @param routes frontegg auth routes
+ * @returns true when should bypass react router
+ */
+function isBypassReactRoute(path: string, routes?: Partial<AuthPageRoutes>) {
+  const stepUpUrl = routes?.stepUpUrl || defaultFronteggRoutes.stepUpUrl;
+  return stepUpUrl && path.startsWith(stepUpUrl);
+}
 
 export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHistory = false, ...props }) => {
   const isSSR = typeof window === 'undefined';
@@ -61,6 +57,13 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
     if (opts?.preserveQueryParams || isAuthRouteRef.current(path)) {
       path = `${path}${window.location.search}`;
     }
+
+    if (isBypassReactRoute(path, props.authOptions?.routes)) {
+      // when user app includes a fallback route, we need to avoid using the react router
+      window?.history?.pushState(null, '', path);
+      return;
+    }
+
     if (opts?.refresh && !isSSR) {
       // @ts-ignore
       window.Cypress ? history.push(path) : (window.location.href = path);
@@ -80,7 +83,9 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
           contextOptions: {
             requestCredentials: 'include',
             metadataHeaders: {
-              framework: FronteggFrameworks.React,
+              //TODO: remove this ts-ignore after updating rest-api context options type to accept string.
+              //@ts-ignore
+              framework: `${FronteggFrameworks.React}@${ReactPkg.version}`,
               fronteggSdkVersion: version,
             },
             ...props.contextOptions,
@@ -96,7 +101,14 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
   return (
     <FronteggStoreProvider
       {...({ ...props, app } as any)}
-      alwaysVisibleChildren={<CustomComponentRegister app={app} themeOptions={props.themeOptions} />}
+      alwaysVisibleChildren={
+        <AlwaysRenderInProvider
+          app={app}
+          themeOptions={props.themeOptions}
+          history={history}
+          isExternalHistory={isExternalHistory}
+        />
+      }
     />
   );
 };
@@ -106,8 +118,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
 
   if (props.history || history) {
     return (
-      <Connector history={props.history || history} {...props}>
-        {!props.history && <QueryKeeperWrapper history={history} />}
+      <Connector history={props.history || history} isExternalHistory={!!props.history} {...props}>
         {props.children}
       </Connector>
     );
