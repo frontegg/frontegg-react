@@ -71,7 +71,7 @@ jobs:
         id: 'cpr_commit_sha'
         run: |
           git add . && git commit -m "chore(release): publish ${{ steps.incremented-version.outputs.result }}"
-          echo "sha=$(git rev-parse HEAD)\n" >> $GITHUB_OUTPUT
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
       - name: Create Release Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3.5.1
