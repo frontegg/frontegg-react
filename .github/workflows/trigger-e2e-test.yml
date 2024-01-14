@@ -1,11 +1,17 @@
 name: Trigger E2E tests Workflow
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - 'master'
+
   push:
     branches:
       - 'release/next'
 jobs:
   trigger_e2e_tests:
+    if: ${{ github.event.pull_request.head.ref == 'release/next' }}
     name: "Trigger E2E tests Workflow"
     runs-on: ubuntu-latest
     steps:
