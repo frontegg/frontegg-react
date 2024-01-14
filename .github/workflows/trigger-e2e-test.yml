@@ -6,15 +6,17 @@ on:
     branches:
       - 'master'
 
-  push:
-    branches:
-      - 'release/next'
+concurrency:
+  group: ci-trigger-e2e-test-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   trigger_e2e_tests:
     if: ${{ github.event.pull_request.head.ref == 'release/next' }}
     name: "Trigger E2E tests Workflow"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - id: create_bot_token
         name: Create bot token
         uses: wow-actions/use-app-token@v2
