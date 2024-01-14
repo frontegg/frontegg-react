@@ -14,33 +14,38 @@ on:
         required: true
 
 jobs:
-  trigger_e2e_tests:
-    name: "Trigger E2E tests Workflow"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Trigger E2E tests"
-        uses: actions/github-script@v5
-        env:
-          version: ${{ inputs.version }}
-          repo: ${{ inputs.repo }}
-          sha: ${{ inputs.sha }}
-        with:
-          github-token: ${{ secrets.E2E_WORKFLOW_TOKEN }}
-          script: |
-            const {repo, sha, version} = process.env;
-            const owner = context.payload.repository.organization
-            const e2eRepo = 'e2e-system-tests'
-            const workflow_id = 'frontegg-react-e2e-tests.yml'
-            const context = `${owner}/${e2eRepo}`
-            const dispatch_id = `${repo}/${sha}`
+ trigger_e2e_tests:
+   name: "Trigger E2E tests Workflow"
+   runs-on: ubuntu-latest
+   steps:
+     - id: create_bot_token
+       name: Create bot token
+       uses: wow-actions/use-app-token@v2
+       with:
+         app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
+         private_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
+     - name: "Trigger E2E tests"
+       uses: actions/github-script@v5
+       env:
+         version: ${{ inputs.version }}
+         repo: ${{ inputs.repo }}
+         sha: ${{ inputs.sha }}
+       with:
+         github-token: ${{ steps.create_bot_token.outputs.BOT_TOKEN }}
+         script: |
+           const {repo, sha, version} = process.env;
+           const owner = 'frontegg'
+           const e2eRepo = 'e2e-system-tests'
+           const workflow_id = 'frontegg-react-e2e-tests.yml'
+           const dispatch_id = `${repo}/${sha}`
 
-            const data = await github.rest.actions.createWorkflowDispatch({
-              owner, 
-              repo:e2eRepo,
-              workflow_id,
-              ref: 'main',
-              inputs: {
-                version,
-                dispatch_id,
-              }
-            });
+           github.rest.actions.createWorkflowDispatch({
+             owner,
+             repo: e2eRepo,
+             workflow_id,
+             ref: 'master',
+             inputs: {
+               version,
+               dispatch_id,
+             }
+           })
