@@ -36,7 +36,7 @@ jobs:
         uses: actions/github-script@v5
         env:
           version: ${{ steps.react_version.outputs.result }}
-          sha: ${{ github.sha }}
+          sha: ${{ github.event.pull_request.head.sha }}
         with:
           github-token: ${{ steps.create_bot_token.outputs.BOT_TOKEN }}
           script: |
