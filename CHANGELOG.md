@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.0.25](https://github.com/frontegg/frontegg-react/compare/v6.0.24...v6.0.25) (2024-1-28)
+
+- FR-14910 - Fixed handling entitlements errors 
+- FR-14740 - Send tenant alias for hosted custom login auth user
+- FR-14197 - Added Canada to MFA sms list of countries
+- FR-14859 - fix roles filtering for MSP
+
+
+
 ## [6.0.24](https://github.com/frontegg/frontegg-react/compare/v6.0.23...v6.0.24) (2024-1-17)
 
 - FR-14197 - Added Canada to MFA sms list of countries
