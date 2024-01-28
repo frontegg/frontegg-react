@@ -5,7 +5,7 @@
 - FR-14910 - Fixed handling entitlements errors 
 - FR-14740 - Send tenant alias for hosted custom login auth user
 - FR-14197 - Added Canada to MFA sms list of countries
-- FR-14859 - fix roles filtering for MSP
+- FR-14859 - Fixed roles filtering for MSP
 
 
 
