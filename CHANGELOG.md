@@ -4,9 +4,6 @@
 
 - FR-14910 - Fixed handling entitlements errors 
 - FR-14740 - Send tenant alias for hosted custom login auth user
-- FR-14197 - Added Canada to MFA sms list of countries
-- FR-14859 - Fixed roles filtering for MSP
-
 
 
 ## [6.0.24](https://github.com/frontegg/frontegg-react/compare/v6.0.23...v6.0.24) (2024-1-17)
@@ -20,7 +17,7 @@
 
 ## [6.0.23](https://github.com/frontegg/frontegg-react/compare/v6.0.22...v6.0.23) (2024-1-14)
 
-- FR-14855 - Add support for social login consent, by default it&#39;s false.
+- FR-14855 - Add support for social login consent, by default it is false.
 
 
 ### React Wrapper 6.0.23:
