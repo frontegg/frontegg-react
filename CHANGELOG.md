@@ -1,5 +1,13 @@
 # Change Log
 
+## [6.0.26](https://github.com/frontegg/frontegg-react/compare/v6.0.25...v6.0.26) (2024-2-1)
+
+- FR-15087 - Added oidc support for linkedin
+- FR-14997 - Fixed invite user dialog UI issues
+
+
+# Change Log
+
 ## [6.0.25](https://github.com/frontegg/frontegg-react/compare/v6.0.24...v6.0.25) (2024-1-28)
 
 - FR-14910 - Fixed handling entitlements errors 
