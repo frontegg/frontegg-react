@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.27](https://github.com/frontegg/frontegg-react/compare/v6.0.26...v6.0.27) (2024-2-4)
+
+- FR-15100 - Fix Apple custom SSO scopes
+
+
+
 ## [6.0.26](https://github.com/frontegg/frontegg-react/compare/v6.0.25...v6.0.26) (2024-2-1)
 
 - FR-15087 - Added oidc support for linkedin
