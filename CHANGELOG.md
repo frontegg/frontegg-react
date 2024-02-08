@@ -4,11 +4,6 @@
 
 - **FR-14855**: Added an option to enable `promptConsent` within `authOptions`.
 - **FR-14855**: Fixed the Microsoft social login prompt value for custom configurations.
-- **FR-15126**: Resolved issues with the MSP invite user dialog.
-- **FR-15015**: Introduced a search bar for roles.
-- **FR-12954**: Enabled Storybook publishing to CDN by branch and version, set up Storybook controls, and implemented infrastructure changes.
-- **FR-11923**: Expanded the Jest unit testing environment and added more tests.
-
 
 
 ## [6.0.27](https://github.com/frontegg/frontegg-react/compare/v6.0.26...v6.0.27) (2024-2-4)
