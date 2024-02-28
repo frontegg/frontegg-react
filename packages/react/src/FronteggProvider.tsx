@@ -65,8 +65,10 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
     }
 
     if (opts?.refresh && !isSSR) {
+      // When running in hostedRuntime (oauth) we need to do full reload when running cypress tests. window.Cypress intended to be only for internal use
+      // We don't remove the condition to avoid customer breaking changes for embedded mode
       // @ts-ignore
-      window.Cypress ? history.push(path) : (window.location.href = path);
+      window.Cypress && !props.hostedRuntime ? history.push(path) : (window.location.href = path);
     } else {
       opts?.replace ? history.replace(path) : history.push(path);
     }
