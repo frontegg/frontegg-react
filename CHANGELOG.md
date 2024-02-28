@@ -1,5 +1,16 @@
 # Change Log
 
+## [6.0.29](https://github.com/frontegg/frontegg-react/compare/v6.0.28...v6.0.29) (2024-2-28)
+
+- FR-15305 - Fixed changed fields sent on edit group to support SCIM group update
+- FR-15219 - Fixed missing row actions in users table when using MSP
+
+
+### React Wrapper 6.0.29:
+- FR-15342 - Fixed Cypress testing support for custom SSO
+- Update CHANGELOG.md
+# Change Log
+
 ## [6.0.28](https://github.com/frontegg/frontegg-react/compare/v6.0.27...v6.0.28) (2024-2-7)
 
 - **FR-14855**: Added an option to enable `promptConsent` within `authOptions`.
