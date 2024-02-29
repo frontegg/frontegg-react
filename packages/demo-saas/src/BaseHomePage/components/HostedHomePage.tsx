@@ -10,8 +10,7 @@ import {
 import Box from '@mui/material/Box';
 import { BaseHomePageProps } from '../interfaces';
 import { DemoButton } from '../../DemoButton';
-import { AdminBoxButton } from './AdminBoxButton';
-import { CheckoutDialogButton } from './CheckoutDialogButton';
+import { AdminPortalButton } from './AdminPortalButton';
 import { ChildrenRenderer } from './ChildrenRenderer';
 import { Links } from './Links';
 import { User } from './User';
@@ -32,8 +31,7 @@ export const HostedBasedHomePage: FC<BaseHomePageProps> = ({ children, wrapperSt
   return (
     <>
       <Box>
-        <AdminBoxButton />
-        <CheckoutDialogButton />
+        <AdminPortalButton />
 
         {!isAuthenticated && (
           <>

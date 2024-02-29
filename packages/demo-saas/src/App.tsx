@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Loader from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { FronteggProvider } from './FronteggProvider';
+import { FronteggProvider } from '@frontegg/react';
 import { FronteggAppOptions } from '@frontegg/types';
 import { authOptions } from './customizationOptions/authOptions';
 import HomePage from './HomePage';
@@ -16,6 +16,7 @@ import EntitlementsPage from './entitlements/EntitlementsPage';
 import Fallback from './Fallback';
 import NotAFronteggPage from './NotAFronteggPage';
 import { DEFAULT_BASE_URL } from './consts';
+import { ROUTE_PATHS } from './BaseHomePage/components/Links';
 
 const IS_HOSTED_LOGIN = true;
 
@@ -24,8 +25,8 @@ const fronteggOptions: FronteggAppOptions =
   window.CYPRESS_CONFIG ||
   ({
     contextOptions: {
-      baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
-      clientId: process.env.REACT_APP_CLIENT_ID,
+      // baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
+      // clientId: process.env.REACT_APP_CLIENT_ID,
     },
 
     // guidesCdnUrl: 'https://assets.frontegg.com/admin-box/embedded-guides/1.0.0',
@@ -43,19 +44,16 @@ export const App: FC = () => {
         customLoader={setLoading}
         entitlementsOptions={{ enabled: true }}
         hostedLoginBox={IS_HOSTED_LOGIN} // don't remove it! change the flag above
-        overrideFeatureFlags={{
-          'sso-guides': 'on',
-        }}
       >
         <Switch>
-          <Route path={'/'} exact render={HomePage} />
-          <Route path={'/entitlements'} exact render={EntitlementsPage} />
-          <Route path={'/step-up-high-max-age'} exact render={SimpleStepUpButtonPage} />
-          <Route path={'/step-up-small-max-age'} exact render={SmallMaxAgeStepUpPage} />
-          <Route path={'/step-up-no-max-age'} exact render={NoMaxAgeStepUpPage} />
-          <Route path={'/step-up-modals'} exact render={ModalsStepUpPage} />
-          <Route path={'/step-up-hoc'} exact render={HOCStepUpPage} />
-          <Route path={'/step-up-transfer'} exact render={TransferStepUpPage} />
+          <Route path={ROUTE_PATHS.HOME_PAGE} exact render={HomePage} />
+          <Route path={ROUTE_PATHS.ENTITLEMENTS} exact render={EntitlementsPage} />
+          <Route path={ROUTE_PATHS.STEP_UP_HIGH_MAX_AGE} exact render={SimpleStepUpButtonPage} />
+          <Route path={ROUTE_PATHS.STEP_UP_SMALL_MAX_AGE} exact render={SmallMaxAgeStepUpPage} />
+          <Route path={ROUTE_PATHS.STEP_UP_NO_MAX_AGE} exact render={NoMaxAgeStepUpPage} />
+          <Route path={ROUTE_PATHS.STEP_UP_MODALS} exact render={ModalsStepUpPage} />
+          <Route path={ROUTE_PATHS.STEP_UP_HOC} exact render={HOCStepUpPage} />
+          <Route path={ROUTE_PATHS.STEP_UP_TRANSFER} exact render={TransferStepUpPage} />
           {/* For tests that use someurl as the authenticated-url */}
           <Route path={'/someurl'} exact render={NotAFronteggPage} />
           <Route

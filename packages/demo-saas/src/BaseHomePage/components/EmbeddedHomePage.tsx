@@ -4,8 +4,7 @@ import { useAuthUser, useAuthActions, useIsAuthenticated } from '@frontegg/react
 import Box from '@mui/material/Box';
 import { BaseHomePageProps } from '../interfaces';
 import { DemoButton } from '../../DemoButton';
-import { AdminBoxButton } from './AdminBoxButton';
-import { CheckoutDialogButton } from './CheckoutDialogButton';
+import { AdminPortalButton } from './AdminPortalButton';
 import { ChildrenRenderer } from './ChildrenRenderer';
 import { Links } from './Links';
 import { User } from './User';
@@ -19,8 +18,7 @@ export const EmbeddedBasedHomePage: FC<BaseHomePageProps> = ({ children, wrapper
   return (
     <Box display='flex' flexDirection='column' alignItems='center' mt={2} lineHeight='2em'>
       <Box>
-        <AdminBoxButton />
-        <CheckoutDialogButton />
+        <AdminPortalButton />
 
         <DemoButton data-test-id='logout-embedded' onClick={() => logout()}>
           Logout

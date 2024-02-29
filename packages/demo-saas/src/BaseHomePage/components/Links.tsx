@@ -14,17 +14,30 @@ const linkStyle = {
   borderRadius: '4px',
 };
 
+export const ROUTE_PATHS = {
+  HOME_PAGE: '/',
+  ENTITLEMENTS: '/entitlements',
+  STEP_UP_HIGH_MAX_AGE: '/step-up-high-max-age',
+  STEP_UP_SMALL_MAX_AGE: '/step-up-small-max-age',
+  STEP_UP_NO_MAX_AGE: '/step-up-no-max-age',
+  STEP_UP_MODALS: '/step-up-modals',
+  STEP_UP_HOC: '/step-up-hoc',
+  STEP_UP_TRANSFER: '/step-up-transfer',
+  UNKNOWN_ROUTE: '/unknown-route',
+  TEST: '/test',
+};
+
 const links = [
-  { route: '/', label: 'Home page' },
-  { route: '/entitlements', label: 'Entitlements' },
-  { route: '/step-up-high-max-age', label: 'Step up high max age' },
-  { route: '/step-up-small-max-age', label: 'Step up small max age' },
-  { route: '/step-up-no-max-age', label: 'Step up no nax age' },
-  { route: '/step-up-modals', label: 'Step up modals' },
-  { route: '/step-up-hoc', label: 'Step up HOC' },
-  { route: '/step-up-transfer', label: 'Step up transfer' },
-  { route: '/unknown-route', label: 'Fallback route' },
-  { route: '/test', label: 'Old test' },
+  { route: ROUTE_PATHS.HOME_PAGE, label: 'Home page' },
+  { route: ROUTE_PATHS.ENTITLEMENTS, label: 'Entitlements' },
+  { route: ROUTE_PATHS.STEP_UP_HIGH_MAX_AGE, label: 'Step up high max age' },
+  { route: ROUTE_PATHS.STEP_UP_SMALL_MAX_AGE, label: 'Step up small max age' },
+  { route: ROUTE_PATHS.STEP_UP_NO_MAX_AGE, label: 'Step up no nax age' },
+  { route: ROUTE_PATHS.STEP_UP_MODALS, label: 'Step up modals' },
+  { route: ROUTE_PATHS.STEP_UP_HOC, label: 'Step up HOC' },
+  { route: ROUTE_PATHS.STEP_UP_TRANSFER, label: 'Step up transfer' },
+  { route: ROUTE_PATHS.UNKNOWN_ROUTE, label: 'Fallback route' },
+  { route: ROUTE_PATHS.TEST, label: 'Old test' },
 ];
 
 export const Links = () => (

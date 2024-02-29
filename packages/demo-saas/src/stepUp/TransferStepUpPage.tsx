@@ -70,7 +70,7 @@ const HomePage = () => {
           <MaxAge maxAge={MAX_AGE} />
 
           <div>
-            Your Amazon balance is <b style={{ color: '#1665c0' }}>{balance}</b>!
+            Your Frontegg balance is <b style={{ color: '#1665c0' }}>{balance}</b>!
           </div>
 
           {isDuringTransfer ? (
