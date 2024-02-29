@@ -1,0 +1,51 @@
+.App-logo {
+  height: 15vmin;
+  pointer-events: none;
+}
+
+.Frontegg-logo {
+  height: 10vmin;
+  pointer-events: none;
+}
+
+.App-logo-separator {
+  font-size: 80px;
+  margin-right: 40px;
+}
+
+.App-logo-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1.5vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
