@@ -1,0 +1,38 @@
+.entitlement-item {
+  width: 400px;
+  height: 100px;
+  animation: fadeIn 5s;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.entitlement-item-entitled {
+  background-color: lightgreen;
+}
+
+.entitlement-item-not-entitled {
+  background-color: pink;
+}
+
+.entitlement-item-not-entitled i {
+  padding-top: 15px;
+}
+
+.load-entitlement-btn {
+  width: 200px;
+  height: 40px;
+  font-size: 15px;
+}
