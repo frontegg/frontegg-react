@@ -25,11 +25,9 @@ const fronteggOptions: FronteggAppOptions =
   window.CYPRESS_CONFIG ||
   ({
     contextOptions: {
-      // baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
-      // clientId: process.env.REACT_APP_CLIENT_ID,
+      baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
+      clientId: process.env.REACT_APP_CLIENT_ID,
     },
-
-    // guidesCdnUrl: 'https://assets.frontegg.com/admin-box/embedded-guides/1.0.0',
     ...authOptions,
     enableOpenAppRoute: true,
   } as FronteggAppOptions);
