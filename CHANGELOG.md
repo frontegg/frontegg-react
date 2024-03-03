@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.0.31](https://github.com/frontegg/frontegg-react/compare/v6.0.30...v6.0.31) (2024-3-3)
+
+- FR-15270 - Added new roles page to the Admin Portal
+- FR-15395 - Fixed tab tenant not cleared after logout
+
+
+### React Wrapper 6.0.31:
+- FR-15371 - Example app makeover
+
 ## [6.0.30](https://github.com/frontegg/frontegg-react/compare/v6.0.29...v6.0.30) (2024-2-28)
 
 - FR-15376 - fixed null group description exception
