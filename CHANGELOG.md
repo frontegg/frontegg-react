@@ -1,5 +1,16 @@
 # Change Log
 
+## [6.0.32](https://github.com/frontegg/frontegg-react/compare/v6.0.31...v6.0.32) (2024-3-11)
+
+- FR-13828 - Add option to specify prompt consent from loginDirectAction
+- FR-15315 - Added sort for role selections in Admin Portal 
+
+- FR-15270 - Added new roles page to the Admin Portal
+- FR-15395 - Fixed tab tenant not cleared after logout
+
+
+# Change Log
+
 ## [6.0.31](https://github.com/frontegg/frontegg-react/compare/v6.0.30...v6.0.31) (2024-3-3)
 
 - FR-15270 - Added new roles page to the Admin Portal
