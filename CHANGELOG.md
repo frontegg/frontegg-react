@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.33](https://github.com/frontegg/frontegg-react/compare/v6.0.32...v6.0.33) (2024-3-20)
+
+- FR-15233 - Fixed autocomplete popper
+
+
+
 ## [6.0.32](https://github.com/frontegg/frontegg-react/compare/v6.0.31...v6.0.32) (2024-3-11)
 
 - FR-13828 - Add option to specify prompt consent from loginDirectAction
