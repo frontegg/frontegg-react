@@ -1,5 +1,13 @@
 # Change Log
 
+## [6.0.34](https://github.com/frontegg/frontegg-react/compare/v6.0.33...v6.0.34) (2024-4-2)
+
+- FR-15863 - Improved chip list design in admin portal
+
+- FR-15367 - Fixed user logo upload for SCIM users
+- FR-15111 - Fixed impersonation embedded redirection
+
+
 ## [6.0.33](https://github.com/frontegg/frontegg-react/compare/v6.0.32...v6.0.33) (2024-3-20)
 
 - FR-15233 - Fixed autocomplete popper
