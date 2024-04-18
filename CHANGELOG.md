@@ -2,12 +2,8 @@
 
 ## [6.0.35](https://github.com/frontegg/frontegg-react/compare/v6.0.34...v6.0.35) (2024-4-18)
 
-- FR-16088 - Hosted portal from frontegg app (supoport angular and vanilla)
-- FR-15863 - Improved chip list design in admin portal
-
-
-### React Wrapper 6.0.35:
-- Update Frontegg AdminPortal to 6.188.0
+- FR-16088 - Support hosted admin portal
+- FR-FR-15124 - Support multi-apps 
 
 ## [6.0.34](https://github.com/frontegg/frontegg-react/compare/v6.0.33...v6.0.34) (2024-4-2)
 
