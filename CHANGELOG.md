@@ -5,8 +5,6 @@
 - FR-15737 - Added an option for accounts to open sub-account management for their sub-accounts
 - FR-15603 - Support embedded SCIM guides
 
-- FR-16088 - Hosted portal from frontegg app (supoport angular and vanilla)
-
 # Change Log
 
 ## [6.0.35](https://github.com/frontegg/frontegg-react/compare/v6.0.34...v6.0.35) (2024-4-18)
