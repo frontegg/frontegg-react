@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.0.37](https://github.com/frontegg/frontegg-react/compare/v6.0.36...v6.0.37) (2024-5-2)
+
+- FR-15124 - Store redirectUri before social-login as oauth2 state and restore it after successfully redirect
+- FR-16117 - avoid showing apps without name in users table
+
+- FR-16165 - Added switch tenant functionality for VanillaJS SDK
+
+# Change Log
+
 ## [6.0.36](https://github.com/frontegg/frontegg-react/compare/v6.0.35...v6.0.36) (2024-4-21)
 
 - FR-15737 - Added an option for accounts to open sub-account management for their sub-accounts
