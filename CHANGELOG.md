@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.38](https://github.com/frontegg/frontegg-react/compare/v6.0.37...v6.0.38) (2024-5-27)
+
+- FR-16463 - Removed domain restrictions validation when invite user from All Accounts page
+- FR-16421 - Fixed error handling in edit phone number dialog
+
+
 ## [6.0.37](https://github.com/frontegg/frontegg-react/compare/v6.0.36...v6.0.37) (2024-5-2)
 
 - FR-15124 - Store redirectUri before social-login as oauth2 state and restore it after successfully redirect
