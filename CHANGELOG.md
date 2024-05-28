@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.39](https://github.com/frontegg/frontegg-react/compare/v6.0.38...v6.0.39) (2024-5-28)
+
+- FR-16341 - Support hiding columns in admin portal users table
+
+
+
 ## [6.0.38](https://github.com/frontegg/frontegg-react/compare/v6.0.37...v6.0.38) (2024-5-27)
 
 - FR-16463 - Removed domain restrictions validation when invite user from All Accounts page
