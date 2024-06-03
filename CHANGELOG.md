@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.40](https://github.com/frontegg/frontegg-react/compare/v6.0.39...v6.0.40) (2024-6-3)
+
+- FR-16513 - Show client id on all tokens in API tokens table 
+
+
+
 ## [6.0.39](https://github.com/frontegg/frontegg-react/compare/v6.0.38...v6.0.39) (2024-5-28)
 
 - FR-16341 - Support hiding columns in admin portal users table
