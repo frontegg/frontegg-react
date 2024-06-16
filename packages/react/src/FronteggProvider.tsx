@@ -36,7 +36,12 @@ function isBypassReactRoute(path: string, routes?: Partial<AuthPageRoutes>) {
   return stepUpUrl && path.startsWith(stepUpUrl);
 }
 
-export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHistory = false, ...props }) => {
+export const Connector: FC<ConnectorProps> = ({
+  history,
+  appName = 'default',
+  isExternalHistory = false,
+  ...props
+}) => {
   const isSSR = typeof window === 'undefined';
   const version = `@frontegg/react@${sdkVersion.version}`;
 
@@ -76,7 +81,7 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
 
   const app = useMemo(() => {
     try {
-      return AppHolder.getInstance(appName ?? 'default');
+      return AppHolder.getInstance(appName);
     } catch (e) {
       return initialize(
         {
@@ -85,8 +90,8 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
           contextOptions: {
             requestCredentials: 'include',
             metadataHeaders: {
-              //TODO: remove this ts-ignore after updating rest-api context options type to accept string.
-              //@ts-ignore
+              // TODO: remove this ts-ignore after updating rest-api context options type to accept string.
+              // @ts-ignore
               framework: `${FronteggFrameworks.React}@${ReactPkg.version}`,
               fronteggSdkVersion: version,
             },
@@ -94,11 +99,11 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
           },
           onRedirectTo,
         },
-        appName ?? 'default'
+        appName
       );
     }
   }, []);
-  ContextHolder.setOnRedirectTo(onRedirectTo);
+  ContextHolder.for(appName).setOnRedirectTo(onRedirectTo);
 
   return (
     <FronteggStoreProvider
