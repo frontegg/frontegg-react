@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.41](https://github.com/frontegg/frontegg-react/compare/v6.0.40...v6.0.41) (2024-6-30)
+
+FR-15484 - Fix update tenant state after account settings change
+FR-16613 - Add automatic sub-account access in MSP
+
+
+
 ## [6.0.40](https://github.com/frontegg/frontegg-react/compare/v6.0.39...v6.0.40) (2024-6-3)
 
 - FR-16513 - Show client id on all tokens in API tokens table 
