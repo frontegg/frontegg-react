@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.42](https://github.com/frontegg/frontegg-react/compare/v6.0.41...v6.0.42) (2024-7-2)
+
+- FR-16704 - fix password meter unsuspended async component
+
+
+
 ## [6.0.41](https://github.com/frontegg/frontegg-react/compare/v6.0.40...v6.0.41) (2024-6-30)
 
 FR-15484 - Fix update tenant state after account settings change
