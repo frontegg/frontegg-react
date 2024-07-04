@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.43](https://github.com/frontegg/frontegg-react/compare/v6.0.42...v6.0.43) (2024-7-4)
+
+- FR-16881 - Fixed hosted login redirect url when using basename
+- FR-16812 - Fixed dark theme disabled input palette
+
+
+
 ## [6.0.42](https://github.com/frontegg/frontegg-react/compare/v6.0.41...v6.0.42) (2024-7-2)
 
 - FR-16704 - fix password meter unsuspended async component
