@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.44](https://github.com/frontegg/frontegg-react/compare/v6.0.43...v6.0.44) (2024-7-9)
+
+- FR-16737 - Allow terms and conditions checkbox on sign up form being optional
+
+
+# Change Log
+
 ## [6.0.43](https://github.com/frontegg/frontegg-react/compare/v6.0.42...v6.0.43) (2024-7-4)
 
 - FR-16881 - Fixed hosted login redirect url when using basename
