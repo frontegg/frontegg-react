@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.0.45](https://github.com/frontegg/frontegg-react/compare/v6.0.44...v6.0.45) (2024-7-10)
+
+- FR-16987 - Add additional params to vanilla js loginWithRedircet
+- FR-16960 - Fix typography color in SSO guides dark mode
+
+
+
 ## [6.0.44](https://github.com/frontegg/frontegg-react/compare/v6.0.43...v6.0.44) (2024-7-9)
 
 - FR-16737 - Allow terms and conditions checkbox on sign up form being optional
