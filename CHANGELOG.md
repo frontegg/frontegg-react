@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.46](https://github.com/frontegg/frontegg-react/compare/v6.0.45...v6.0.46) (2024-7-15)
+
+* FR-17055 - Fix SSO redirect race condition
+
+
+
 ## [6.0.45](https://github.com/frontegg/frontegg-react/compare/v6.0.44...v6.0.45) (2024-7-10)
 
 - FR-16987 - Add additional params to vanilla js loginWithRedircet
