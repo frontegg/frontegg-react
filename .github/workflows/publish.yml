@@ -57,7 +57,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Git Tag
         if: steps.tag_check.outputs.exists_tag == 'false'
-        uses: azu/action-package-version-to-git-tag@v1
+        uses: pkgdeps/git-tag-action@v2
         with:
           version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
