@@ -2,7 +2,7 @@
 
 ## [6.0.47](https://github.com/frontegg/frontegg-react/compare/v6.0.46...v6.0.47) (2024-7-18)
 
-- FR-17009 - Add the option to disable&#x2F;enable users from users table
+- FR-17009 - Add the option to disable/enable users from users table
 
 ## [6.0.46](https://github.com/frontegg/frontegg-react/compare/v6.0.45...v6.0.46) (2024-7-15)
 
