@@ -4,10 +4,6 @@
 
 - FR-17009 - Add the option to disable&#x2F;enable users from users table
 
-
-### React Wrapper 6.0.47:
-- FR-17008 - fix pipeline release version
-
 ## [6.0.46](https://github.com/frontegg/frontegg-react/compare/v6.0.45...v6.0.46) (2024-7-15)
 
 * FR-17055 - Fix SSO redirect race condition
