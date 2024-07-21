@@ -1,5 +1,55 @@
 # Change Log
 
+## [6.0.47](https://github.com/frontegg/frontegg-react/compare/v6.0.46...v6.0.47) (2024-7-18)
+
+- FR-17009 - Add the option to disable/enable users from users table
+
+## [6.0.46](https://github.com/frontegg/frontegg-react/compare/v6.0.45...v6.0.46) (2024-7-15)
+
+* FR-17055 - Fix SSO redirect race condition
+
+
+
+## [6.0.45](https://github.com/frontegg/frontegg-react/compare/v6.0.44...v6.0.45) (2024-7-10)
+
+- FR-16987 - Add additional params to vanilla js loginWithRedircet
+- FR-16960 - Fix typography color in SSO guides dark mode
+
+
+
+## [6.0.44](https://github.com/frontegg/frontegg-react/compare/v6.0.43...v6.0.44) (2024-7-9)
+
+- FR-16737 - Allow terms and conditions checkbox on sign up form being optional
+
+
+# Change Log
+
+## [6.0.43](https://github.com/frontegg/frontegg-react/compare/v6.0.42...v6.0.43) (2024-7-4)
+
+- FR-16881 - Fixed hosted login redirect url when using basename
+- FR-16812 - Fixed dark theme disabled input palette
+
+
+
+## [6.0.42](https://github.com/frontegg/frontegg-react/compare/v6.0.41...v6.0.42) (2024-7-2)
+
+- FR-16704 - Fixed password meter unsuspended async component
+
+
+
+## [6.0.41](https://github.com/frontegg/frontegg-react/compare/v6.0.40...v6.0.41) (2024-6-30)
+
+- FR-15484 - Fixed update tenant state after account settings change
+- FR-16613 - Added automatic sub-account access in MSP
+
+
+
+## [6.0.40](https://github.com/frontegg/frontegg-react/compare/v6.0.39...v6.0.40) (2024-6-3)
+
+- FR-16513 - Show client id on all tokens in API tokens table 
+
+
+
 ## [6.0.39](https://github.com/frontegg/frontegg-react/compare/v6.0.38...v6.0.39) (2024-5-28)
 
 - FR-16341 - Support hiding columns in admin portal users table

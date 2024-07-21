@@ -2514,54 +2514,53 @@
   resolved "https://registry.yarnpkg.com/@frontegg/entitlements-javascript-commons/-/entitlements-javascript-commons-1.1.2.tgz#8c771cac0796fde5bbc05abe750cb6b8677ec2c6"
   integrity sha512-vwCFxj9KSIKHXinOH0HbBf4DhKRbUWhjCnL14+JfQnwuEl/zKtSGZoZecrXcPajWUypdi0uT+8q3GGcqnCW13Q==
 
-"@frontegg/js@7.0.0-alpha.4":
-  version "7.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-7.0.0-alpha.4.tgz#10f1ac054f970abc4cf9b4ceadbfc1e661e40d2e"
-  integrity sha512-+Me1HXW8uRCrDG4cP2XYrx0/61vIt0lnOB4RsXUeOlTVVdLzFzqiyOaWF4CmLxZqtCL5t96s7cb0wn1CIoVh+Q==
+"@frontegg/js@7.0.0-alpha.8":
+  version "7.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-7.0.0-alpha.8.tgz#f81152208afd51647cb59860134f0b089281f027"
+  integrity sha512-97AlrFBqhAqNiaUcZp4bLZ5zrK/bmeC7UVZnNTRkeME5NsU5azxXzXWHuirdb6MQ7/I94Dft70zTIJ/d9kwJ1Q==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "7.0.0-alpha.4"
+    "@frontegg/types" "7.0.0-alpha.8"
 
-"@frontegg/react-hooks@7.0.0-alpha.4":
-  version "7.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-7.0.0-alpha.4.tgz#9bac2a83aef29bcb464a51b40f7479ab09db1dcb"
-  integrity sha512-stD8NjkltAdNAy+uZQwYvf7vBVTEzlYejO1HWAL/zdZfLNbxBXni87WOf+vS9UfuHV/Zp1FVmeuBP+j0tvCAtQ==
+"@frontegg/react-hooks@7.0.0-alpha.8":
+  version "7.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-7.0.0-alpha.8.tgz#948f9344ccb7c5c8965d3646607dceacd61af348"
+  integrity sha512-/k1bmT0rC8a/CwRQ0r1IP/PdqqwIloyPl9tAJ2mxy8DCb+s4ONTdybLLWpPJ38BtuULxlkiH7szmFpbTzqd1HQ==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "7.0.0-alpha.4"
-    "@frontegg/types" "7.0.0-alpha.4"
+    "@frontegg/redux-store" "7.0.0-alpha.8"
+    "@frontegg/types" "7.0.0-alpha.8"
     "@types/react" "*"
     get-value "^3.0.1"
-    react-redux "^7.x"
 
-"@frontegg/redux-store@7.0.0-alpha.4":
-  version "7.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-7.0.0-alpha.4.tgz#48a3136cfbc24aabc7ba11f33ee543fffbc8a049"
-  integrity sha512-cemyPN7dcbpO6K2beKD0A2Egrt7u7OlPvHM2N+FHhLA5hm1O5zcW5sH5VkJXcunXgIYsid2HYMxfne84RsB6kA==
+"@frontegg/redux-store@7.0.0-alpha.8":
+  version "7.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-7.0.0-alpha.8.tgz#5d1c6cb9d9c0b5ceaf5b3b00ce6133f9e1f0d870"
+  integrity sha512-6M0H2FyFvZJOYsuYbA6L2u1DkacC4z6savaZLci4XN39HV/6iMEj2T2S7j9kiRKd1eqOWXku28fGcl1+m8L+xA==
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/entitlements-javascript-commons" "1.1.2"
-    "@frontegg/rest-api" "3.1.73"
+    "@frontegg/rest-api" "3.1.79-alpha.10029056154"
     fast-deep-equal "3.1.3"
     set-value "^4.1.0"
     uuid "^8.3.2"
     valtio "^1.13.0"
 
-"@frontegg/rest-api@3.1.73":
-  version "3.1.73"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.73.tgz#d47ee29ea94ee060ce803e5a4ad622a18706d4a5"
-  integrity sha512-qJTbapwjaOp/wubR6axI0Wye+UQylN4h1Fi1DI7ESKrGt68Pru3WK0VrOJkdL4d2cBLOfKHb7mvrn8vgCUKkAg==
+"@frontegg/rest-api@3.1.79-alpha.10029056154":
+  version "3.1.79-alpha.10029056154"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-3.1.79-alpha.10029056154.tgz#18fd970c270d405caeae1283e290fa8bb524574f"
+  integrity sha512-BuaWboxVOj4bNjPLhtvZJ6+SrY3sX748Qa7AEvvvz56X6iBL58xngYFu7sK0CMy7K6ou1NkrHhPqI/tehMPw9A==
   dependencies:
     "@babel/runtime" "^7.17.2"
     "@frontegg/entitlements-javascript-commons" "1.1.2"
 
-"@frontegg/types@7.0.0-alpha.4":
-  version "7.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-7.0.0-alpha.4.tgz#3c9ef6a5486cc7b83dcb1318d1339c3e16098d72"
-  integrity sha512-G1no+YLfXEdfwQCvnXFYHyLgSqYJ70+ZIxl8Ez5N6FbHi2M+/khcCWUZNj1CrRgb11KLLSLvsC1jy7kQxSf1eA==
+"@frontegg/types@7.0.0-alpha.8":
+  version "7.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-7.0.0-alpha.8.tgz#108f5362e8eeddd6f71b843a3eeb43c5a1329284"
+  integrity sha512-WQZzOWul7LVd3v3+R5G3WY5QQot4XG3Sj2SGYWNI9IK1B9Tl8lWW60Ah4d3bXFxxlOgAUuZ903AWxLSV4gZgRg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "7.0.0-alpha.4"
+    "@frontegg/redux-store" "7.0.0-alpha.8"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
@@ -4580,14 +4579,6 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.7.tgz#613957d900fab9ff84c8dfb24fa3eef0c2a40896"
   integrity sha512-2xtoL22/3Mv6a70i4+4RB7VgbDDORoWwjcqeNysojZA0R7NK17RbY5Gof/2QiFfJgX+KkWghbwJ+d/2SB8Ndzg==
 
-"@types/hoist-non-react-statics@^3.3.0":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
-  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
-  dependencies:
-    "@types/react" "*"
-    hoist-non-react-statics "^3.3.0"
-
 "@types/html-minifier-terser@^6.0.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz#4fc33a00c1d0c16987b1a20cf92d20614c55ac35"
@@ -4739,16 +4730,6 @@
   integrity sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==
   dependencies:
     "@types/react" "*"
-
-"@types/react-redux@^7.1.16":
-  version "7.1.16"
-  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.16.tgz#0fbd04c2500c12105494c83d4a3e45c084e3cb21"
-  integrity sha512-f/FKzIrZwZk7YEO9E1yoxIuDNRiDducxkFlkw/GNMGEnK9n4K8wJzlJBghpSuOVDgEUHoDkDF7Gi9lHNQR4siw==
-  dependencies:
-    "@types/hoist-non-react-statics" "^3.3.0"
-    "@types/react" "*"
-    hoist-non-react-statics "^3.3.0"
-    redux "^4.0.0"
 
 "@types/react-router-dom@^5.3.3":
   version "5.3.3"
@@ -8775,7 +8756,7 @@ history@^4.9.0:
     tiny-warning "^1.0.0"
     value-equal "^1.0.1"
 
-hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1, hoist-non-react-statics@^3.3.2:
+hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.1, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -13178,18 +13159,6 @@ react-is@^18.0.0, react-is@^18.2.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-redux@^7.x:
-  version "7.2.4"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
-  integrity sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==
-  dependencies:
-    "@babel/runtime" "^7.12.1"
-    "@types/react-redux" "^7.1.16"
-    hoist-non-react-statics "^3.3.2"
-    loose-envify "^1.4.0"
-    prop-types "^15.7.2"
-    react-is "^16.13.1"
-
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
@@ -13448,14 +13417,6 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
-
-redux@^4.0.0:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
-  integrity sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==
-  dependencies:
-    loose-envify "^1.4.0"
-    symbol-observable "^1.2.0"
 
 regenerate-unicode-properties@^10.0.1:
   version "10.0.1"
@@ -14659,11 +14620,6 @@ svgo@^2.7.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
-
-symbol-observable@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
-  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
