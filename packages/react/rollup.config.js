@@ -21,7 +21,9 @@ function movePackageJson() {
       fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), {
         encoding: 'utf8',
       });
-      fs.rmdirSync(nodeModulesPath, { recursive: true });
+      if (fs.existsSync(nodeModulesPath)) {
+        fs.rmSync(nodeModulesPath, { recursive: true });
+      }
       fs.symlinkSync(distFolder, nodeModulesPath, 'dir');
     },
   };
