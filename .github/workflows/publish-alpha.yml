@@ -33,7 +33,6 @@ jobs:
           echo "init-license=MIT" >> .npmrc
           echo "always-auth=true" >> .npmrc
           echo "registry=https://registry.npmjs.org" >> .npmrc
-          echo "_authToken=$NPM_TOKEN" >> .npmrc
           echo "@frontegg:registry=https://registry.npmjs.org" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
