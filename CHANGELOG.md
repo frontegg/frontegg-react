@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.0.48](https://github.com/frontegg/frontegg-react/compare/v6.0.47...v6.0.48) (2024-7-22)
+
+- FR-16990 - Fixed social logins container styling
+- FR-17117 - Added URL validation to direct login action
+
+
+
+# Change Log
+
 ## [6.0.47](https://github.com/frontegg/frontegg-react/compare/v6.0.46...v6.0.47) (2024-7-18)
 
 - FR-17009 - Add the option to disable/enable users from users table
