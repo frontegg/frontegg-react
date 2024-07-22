@@ -5,7 +5,6 @@
 - FR-16990 - Fixed social logins container styling
 - FR-17117 - Added URL validation to direct login action
 
-- FR-17009 - Add the option to disable&#x2F;enable users from users table
 
 
 # Change Log
