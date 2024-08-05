@@ -1,5 +1,10 @@
 # Change Log
 
+## [7.0.1](https://github.com/frontegg/frontegg-react/compare/v6.0.48...v7.0.1) (2024-8-5)
+
+
+# Change Log
+
 ## [6.0.48](https://github.com/frontegg/frontegg-react/compare/v6.0.47...v6.0.48) (2024-7-22)
 
 - FR-16990 - Fixed social logins container styling
