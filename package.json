@@ -8,7 +8,10 @@
     "prettier-check-hook": "pretty-quick --check",
     "prepublishOnly": "make move-package-json-to-dist",
     "update-version": "make update-entry",
-    "test": "jest --env=jsdom"
+    "test": "jest --env=jsdom",
+    "dev": "NODE_ENV=development lerna run build:watch --parallel",
+    "demo": "cd ./packages/demo-saas && yarn start",
+    "prettier": "pretty-quick"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.23.3",
@@ -18,7 +21,7 @@
     "@testing-library/react": "12.1.2",
     "@types/history": "^4.7.7",
     "@types/jest": "^29.5.8 ",
-    "@types/node": "^13.9.1",
+    "@types/node": "^18.18.0",
     "@types/react-is": "^17.0.3",
     "babel-jest": "^29.7.0",
     "eslint": "^7.0.0",
