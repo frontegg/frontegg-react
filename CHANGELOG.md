@@ -1,6 +1,6 @@
 # Change Log
 
-## [7.0.0](https://github.com/frontegg/frontegg-react/compare/v6.0.48...v7.0.1) (2024-8-5)
+## [7.0.0](https://github.com/frontegg/frontegg-react/compare/v6.0.48...v7.0.0) (2024-8-5)
 
 ### 🚀 Major Changes
 - **Store Management:**
