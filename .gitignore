@@ -43,3 +43,4 @@ cypress/videos
 .nyc_output
 cypress/screenshots
 .idea
+packages/demo-saas/build

@@ -1,7 +1,7 @@
 {
   "name": "@frontegg/react",
   "libName": "FronteggReact",
-  "version": "7.0.1",
+  "version": "7.0.0",
   "author": "Frontegg LTD",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,8 +19,8 @@
     "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js"
   },
   "dependencies": {
-    "@frontegg/js": "7.0.0-alpha.9",
-    "@frontegg/react-hooks": "7.0.0-alpha.9"
+    "@frontegg/js": "7.2.0-alpha.3",
+    "@frontegg/react-hooks": "7.2.0-alpha.3"
   },
   "peerDependencies": {
     "react": ">16.9.0",
