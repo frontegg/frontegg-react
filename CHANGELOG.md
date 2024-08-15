@@ -1,12 +1,5 @@
 # Change Log
 
-## [7.0.1](https://github.com/frontegg/frontegg-react/compare/v7.0.0...v7.0.1) (2024-8-15)
-
-
-### React Wrapper 7.0.1:
-- FR-17462: fix auth token
-# Change Log
-
 ## [7.0.0](https://github.com/frontegg/frontegg-react/compare/v6.0.48...v7.0.0) (2024-8-5)
 
 ### 🚀 Major Changes
