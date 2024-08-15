@@ -1,5 +1,44 @@
 # Change Log
 
+## [7.0.0](https://github.com/frontegg/frontegg-react/compare/v6.0.48...v7.0.0) (2024-8-5)
+
+### 🚀 Major Changes
+- **Store Management:**
+    - Replaced the existing Redux store with Valtio. This change significantly reduces the bundle size, removes the boilerplate code associated with generator functions, and enables actions to be `async/await`. The new approach provides better stack traces and allows actions to be awaited directly, eliminating the need for callback functions.
+
+### 🔧 Upgrades
+- **TypeScript:**
+    - Upgraded TypeScript from version `v3.9.7` to `v5.5.4`. This update ensures compatibility with the latest TypeScript features and improves overall type-checking and developer experience.
+
+- **Testing Framework:**
+    - Upgraded Jest to version `v29`. This upgrade includes performance improvements, new features, and bug fixes, ensuring more reliable and faster tests.
+
+- **UI Dependencies:**
+    - Upgraded Material UI, Emotion, and Stylis to their latest versions, enhancing UI component performance, styling flexibility, and overall user experience.
+
+- **Node.js:**
+    - Upgraded Node.js from version `16` to `18.18`, ensuring compatibility with the latest features and security updates.
+
+### 🛠 Enhancements
+- **Refactor:**
+    - Refactored code to use nested imports in Material UI, which helps reduce bundle size.
+
+- **MFA (Multi-Factor Authentication):**
+    - Changed the MFA code input to auto-submit upon completion for a smoother user experience.
+
+- **Dependencies:**
+    - Incremented various dependencies, Node.js, and TypeScript to align with the latest standards and ensure better performance and security.
+
+- **New Feature:**
+    - Added a "Resend Invitation Email" action to the users table on the "All Accounts" page, improving user management capabilities.
+
+### ⚠️ Breaking Changes
+- **Permissions & Privacy Page:**
+    - Removed permissions from the privacy page. The user privacy page will now be displayed for all users in the admin portal.
+
+
+# Change Log
+
 ## [6.0.48](https://github.com/frontegg/frontegg-react/compare/v6.0.47...v6.0.48) (2024-7-22)
 
 - FR-16990 - Fixed social logins container styling
