@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.0.1](https://github.com/frontegg/frontegg-react/compare/v7.0.0...v7.0.1) (2024-8-18)
+
+- FR-17169 - Added support in send unlock account email
+
+
+# Change Log
+
 ## [7.0.0](https://github.com/frontegg/frontegg-react/compare/v6.0.48...v7.0.0) (2024-8-5)
 
 ### 🚀 Major Changes
