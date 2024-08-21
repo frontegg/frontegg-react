@@ -2514,39 +2514,40 @@
   resolved "https://registry.yarnpkg.com/@frontegg/entitlements-javascript-commons/-/entitlements-javascript-commons-1.1.2.tgz#8c771cac0796fde5bbc05abe750cb6b8677ec2c6"
   integrity sha512-vwCFxj9KSIKHXinOH0HbBf4DhKRbUWhjCnL14+JfQnwuEl/zKtSGZoZecrXcPajWUypdi0uT+8q3GGcqnCW13Q==
 
-"@frontegg/js@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-7.3.0.tgz#50939cf91b14f74330dbcc4b4834a9546f0a5d6d"
-  integrity sha512-Xy+PHMv1sTiwtXd6LqsmP3XVFekndOUl0YvvncU3gm5Dv3xCCCrk+6twq+aDl2RIM+8kaJUlSwsbGkCRJ/azrg==
+"@frontegg/js@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-7.4.0.tgz#9aed4e7b6ed12d63b6ad18af63624978a4f1a6cb"
+  integrity sha512-eCYo369q3h/73x9tTz1g+CatdOjzeItn691KReObQLQS4302QJVqCTWXHDIsFcKby35DlmxZw9wzjdoWsUE60Q==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "7.3.0"
+    "@frontegg/types" "7.4.0"
 
-"@frontegg/react-hooks@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-7.3.0.tgz#f2c78cd46e364b85fab456e3e48fba1c74f0adc9"
-  integrity sha512-2XtjMMUffv3zfvXSguH12jU9Sjv9LRDNeRNQtkqRyUphRmxRTJ0DUYgmQLwQ+z54lGN81i1/uPsV1kDmkxVK6Q==
+"@frontegg/react-hooks@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-7.4.0.tgz#ad94311b229c33f42d82cb7a4f385f8afefbd33f"
+  integrity sha512-b1fHBbJEyhj8h238Y1My/BCweGQpUGwrg5BOR3TkkiNoI75aTTInPmYPWOcGWqL7ZFshfdfkQKov1PKVflXSDg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "7.3.0"
-    "@frontegg/types" "7.3.0"
+    "@frontegg/redux-store" "7.4.0"
+    "@frontegg/types" "7.4.0"
     "@types/react" "*"
     "@types/react-is" "^17.0.7"
     get-value "^3.0.1"
     react-is "^17.0.2"
+    use-sync-external-store "^1.2.2"
 
-"@frontegg/redux-store@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-7.3.0.tgz#d6c30372cd24101f45eaad44f1fca722340a1be1"
-  integrity sha512-aT8dzrcbs3q1R5x8jA/Xq8EyTdDLsH1a+O+uWcyfhowuItiTFEE197FE7LhkusffmSqhKxXxuw0dORkVBUx2Ug==
+"@frontegg/redux-store@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-7.4.0.tgz#3f3e959e27705bd60302ea57305ff7333eeb6a94"
+  integrity sha512-TRoCgK20KPoO72l3eLevynI1e/Qgkx56rz6a81x4q/Vsy4eq3OfXtt9qdz8zH4usrPTGPmNkLSSHqcZ9tHMEzw==
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/entitlements-javascript-commons" "1.1.2"
     "@frontegg/rest-api" "3.2.1"
     fast-deep-equal "3.1.3"
+    proxy-compare "^3.0.0"
     set-value "^4.1.0"
     uuid "^10.0.0"
-    valtio "1.13.2"
 
 "@frontegg/rest-api@3.2.1":
   version "3.2.1"
@@ -2556,13 +2557,13 @@
     "@babel/runtime" "^7.17.2"
     "@frontegg/entitlements-javascript-commons" "1.1.2"
 
-"@frontegg/types@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-7.3.0.tgz#6b3732bea03f74d02a32f3b9730667fb5c35f895"
-  integrity sha512-oIR3CTv/6Oqdr/L7hrzaaRQfZmKnXJVNObm5O6c3c1FRVHzRPaH+CJzrcEnPVrFh65udzrdBgMRjarIavDm1jQ==
+"@frontegg/types@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-7.4.0.tgz#b669069e3e38b7bc8e0cf3a47edef981bfbdc7a3"
+  integrity sha512-TOsWg2wYnFG8/H2x66VkDZPgI3j0H0rK2hZbFyoLOoIukQqSBg3u0nEmxD6ZGIYGgHFNfbu/UVW000Nwr6+9bg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "7.3.0"
+    "@frontegg/redux-store" "7.4.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
@@ -7111,11 +7112,6 @@ deprecation@^2.0.0, deprecation@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/deprecation/-/deprecation-2.3.1.tgz#6368cbdb40abf3373b525ac87e4a260c3a700919"
   integrity sha512-xmHIy4F3scKVwMsQ4WnVaS8bHOx0DmVwRywosKhaILI0ywMDWPtBSku2HNxRvF7jtwDRsoEwYQSfbxj8b7RlJQ==
-
-derive-valtio@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/derive-valtio/-/derive-valtio-0.1.0.tgz#4b9fb393dfefccfef15fcbbddd745dd22d5d63d7"
-  integrity sha512-OCg2UsLbXK7GmmpzMXhYkdO64vhJ1ROUUGaTFyHjVwEdMEcTTRj7W1TxLbSBxdY8QLBPCcp66MTyaSy0RpO17A==
 
 destroy@1.2.0:
   version "1.2.0"
@@ -13010,10 +13006,10 @@ proxy-addr@~2.0.7:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
 
-proxy-compare@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/proxy-compare/-/proxy-compare-2.6.0.tgz#5e8c8b5c3af7e7f17e839bf6cf1435bcc4d315b0"
-  integrity sha512-8xuCeM3l8yqdmbPoYeLbrAXCBWu19XEYc5/F28f5qOaoAIMyfmBUkl5axiK+x9olUvRlcekvnm98AP9RDngOIw==
+proxy-compare@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/proxy-compare/-/proxy-compare-3.0.0.tgz#d99d719393c2fa1f1f29e4ba9e120b46bbcbc1fc"
+  integrity sha512-y44MCkgtZUCT9tZGuE278fB7PWVf7fRYy0vbRXAts2o5F0EfC4fIQrvQQGBJo1WJbFcVLXzApOscyJuZqHQc1w==
 
 pseudomap@^1.0.2:
   version "1.0.2"
@@ -15210,10 +15206,10 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
-use-sync-external-store@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
-  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
+use-sync-external-store@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz#c3b6390f3a30eba13200d2302dcdf1e7b57b2ef9"
+  integrity sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
@@ -15301,15 +15297,6 @@ validate-npm-package-name@^4.0.0:
   integrity sha512-mzR0L8ZDktZjpX4OB46KT+56MAhl4EIazWP/+G/HPGuvfdaqg4YsCdtOm6U9+LOFyYDoh4dpnpxZRB9MQQns5Q==
   dependencies:
     builtins "^5.0.0"
-
-valtio@1.13.2:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/valtio/-/valtio-1.13.2.tgz#e31d452d5da3550935417670aafd34d832dc7241"
-  integrity sha512-Qik0o+DSy741TmkqmRfjq+0xpZBXi/Y6+fXZLn0xNF1z/waFMbE3rkivv5Zcf9RrMUp6zswf2J7sbh2KBlba5A==
-  dependencies:
-    derive-valtio "0.1.0"
-    proxy-compare "2.6.0"
-    use-sync-external-store "1.2.0"
 
 value-equal@^1.0.1:
   version "1.0.1"
