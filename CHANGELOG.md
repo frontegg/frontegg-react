@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.0.2](https://github.com/frontegg/frontegg-react/compare/v7.0.1...v7.0.2) (2024-8-21)
+
+- FR-17531 - Prevent loading embedded views while hosted login is true
+
+
+
 ## [7.0.1](https://github.com/frontegg/frontegg-react/compare/v7.0.0...v7.0.1) (2024-8-18)
 
 - FR-17169 - Added support in send unlock account email
