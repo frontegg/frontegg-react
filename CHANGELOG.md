@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.0.4](https://github.com/frontegg/frontegg-react/compare/v7.0.3...v7.0.4) (2024-8-28)
+
+- FR-17626 - Fix clientId on request authorize for multi-apps
+- FR-17182 - Fix copy invite user link in hosted admin portal
+
+
+# Change Log
+
 ## [7.0.3](https://github.com/frontegg/frontegg-react/compare/v7.0.2...v7.0.3) (2024-8-26)
 
 
