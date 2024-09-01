@@ -1,5 +1,10 @@
 # Change Log
 
+## [7.0.5](https://github.com/frontegg/frontegg-react/compare/v7.0.4...v7.0.5) (2024-9-1)
+
+- FR-17443 - Fix infinite loader when using direct login action
+
+
 ## [7.0.4](https://github.com/frontegg/frontegg-react/compare/v7.0.3...v7.0.4) (2024-8-28)
 
 - FR-17626 - Fix clientId on request authorize for multi-apps
