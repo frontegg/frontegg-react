@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.0.6](https://github.com/frontegg/frontegg-react/compare/v7.0.5...v7.0.6) (2024-9-3)
+
+
+- FR-17649 - Fix autofill sms code iOS SDK
+- FR-17650 - Fix auto capitalize email input in login page
+
+
+
+
 ## [7.0.5](https://github.com/frontegg/frontegg-react/compare/v7.0.4...v7.0.5) (2024-9-1)
 
 - FR-17443 - Fix infinite loader when using direct login action
