@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.0.7](https://github.com/frontegg/frontegg-react/compare/v7.0.6...v7.0.7) (2024-9-5)
+
+- FR-17760 - Fix empty lastSeen column on expanded user info 
+- FR-17762 - Fix tree component using mui&#x2F;x-tree-view
+- FR-17517 - Fix login direct action race condition
+
+
+
 ## [7.0.6](https://github.com/frontegg/frontegg-react/compare/v7.0.5...v7.0.6) (2024-9-3)
 
 
