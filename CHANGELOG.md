@@ -1,5 +1,19 @@
 # Change Log
 
+## [7.0.8](https://github.com/frontegg/frontegg-react/compare/v7.0.7...v7.0.8) (2024-10-10)
+
+- FR-18217 - Fix impersonation on embedded
+- FR-18167 - Fix back to login on magic link
+- FR-8030 - fix website dialog cancel button typeography
+
+
+- FR-17822 - Fix Vanilla JS
+
+
+- FR-17770 - Fix valtio reset state bug
+
+
+
 ## [7.0.7](https://github.com/frontegg/frontegg-react/compare/v7.0.6...v7.0.7) (2024-9-5)
 
 - FR-17760 - Fix empty lastSeen column on expanded user info 
