@@ -2,15 +2,9 @@
 
 ## [7.0.8](https://github.com/frontegg/frontegg-react/compare/v7.0.7...v7.0.8) (2024-10-10)
 
-- FR-18217 - Fix impersonation on embedded
-- FR-18167 - Fix back to login on magic link
-- FR-8030 - fix website dialog cancel button typeography
-
-
-- FR-17822 - Fix Vanilla JS
-
-
-- FR-17770 - Fix valtio reset state bug
+- FR-18217 - Fixed impersonation on embedded
+- FR-18167 - Fixed back to login on magic link
+- FR-8030 - Fixed website dialog cancel button typeography
 
 
 
