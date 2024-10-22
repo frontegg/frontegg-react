@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.0.9](https://github.com/frontegg/frontegg-react/compare/v7.0.8...v7.0.9) (2024-10-22)
+
+- FR-18356 - Fixed validations localization override type
+
+
+# Change Log
+
 ## [7.0.8](https://github.com/frontegg/frontegg-react/compare/v7.0.7...v7.0.8) (2024-10-10)
 
 - FR-18217 - Fixed impersonation on embedded
