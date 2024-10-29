@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.0.10](https://github.com/frontegg/frontegg-react/compare/v7.0.9...v7.0.10) (2024-10-28)
+
+- FR-18427 - Added Support for triggering MFA after native passkeys &#x2F; iOS apple login
+- FR-18211 - Fixed email overlapping roles field
+
+
+
 ## [7.0.9](https://github.com/frontegg/frontegg-react/compare/v7.0.8...v7.0.9) (2024-10-22)
 
 - FR-18356 - Fixed validations localization override type
