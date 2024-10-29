@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.0.11](https://github.com/frontegg/frontegg-react/compare/v7.0.10...v7.0.11) (2024-10-29)
+
+- FR-17943 - Added code pages
+
+
+
 ## [7.0.10](https://github.com/frontegg/frontegg-react/compare/v7.0.9...v7.0.10) (2024-10-28)
 
 - FR-18427 - Added Support for triggering MFA after native passkeys &#x2F; iOS apple login
