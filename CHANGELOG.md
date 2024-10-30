@@ -1,5 +1,18 @@
 # Change Log
 
+## [7.0.12](https://github.com/frontegg/frontegg-react/compare/v7.0.11...v7.0.12) (2024-10-30)
+
+- FR-18476 - Added url for beforeRequestInterceptor function
+
+
+- FR-18476 - Added request interceptor
+- FR-18472 - Fixed Google one tap login stuck after unmounting login&#x2F;signup unmounted
+
+
+- FR-18436 - Fixed activate account with empty redirect bug
+
+
+
 ## [7.0.11](https://github.com/frontegg/frontegg-react/compare/v7.0.10...v7.0.11) (2024-10-29)
 
 - FR-17943 - Added code pages
