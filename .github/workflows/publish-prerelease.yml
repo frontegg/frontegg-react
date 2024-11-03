@@ -16,9 +16,8 @@ jobs:
           fetch-depth: "0"
       - name: Print Pull Request Labels
         run: |
-          echo "Labels on this PR: ${{ toJson(github.event.pull_request.labels) }}"
-          echo "Labels on this PR: ${{ join(github.event.pull_request.labels.*.name, ',') }}"
-          echo "Labels on this PR: ${{ toJson(github.event.pull_request) }}"
+          echo "Pull Request Title: ${{ github.event.pull_request.title }}"
+          
       - name: Read .nvmrc
         run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
         id: nvm
