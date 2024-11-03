@@ -51,7 +51,7 @@ jobs:
 
       - name: Set Minor Type
         id: version_type_minor
-        if: contains(join(github.event.pull_request.labels.*.name, ','), 'Release')
+        if: contains(join(github.event.pull_request.labels.*.name, ','), 'Minor')
         run: |
             echo "VERSION_TYPE=minor" >> $GITHUB_ENV
 
