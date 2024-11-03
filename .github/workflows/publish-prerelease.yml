@@ -1,10 +1,10 @@
 name: Publish Pre-Release to NPM
 on:
-  # When standard Pull Request is merged
-  pull_request:
-    branches:
-      - master
-    types: [ closed ]
+  # When after commit pushed to branches not master nad release/next
+  push:
+    branches-ignore:
+      - 'master'
+      - 'release/next'
 jobs:
   createReleasePullRequest:
     if: "!contains(join(github.event.pull_request.labels.*.name, ','), 'Release') && github.event.pull_request.merged == true"
