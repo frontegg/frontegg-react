@@ -30,9 +30,10 @@ jobs:
           git config --global user.email 'frontegg@users.noreply.github.com'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Print Pull Request Labels
-        run: |
-          echo "Pull Request Title: ${{ github.event.pull_request.title }}"
+      - name: Debug Event Payload
+        env:
+          EVENT_PAYLOAD: ${{ toJson(github.event) }}
+        run: echo "$EVENT_PAYLOAD"
       
       - name: Authenticate with Registry
         run: |
