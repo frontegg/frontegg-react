@@ -44,15 +44,16 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
-      - name: Set Version Type
-        id: version_type
+      - name: set patch Type
+        id: version_type_patch
         run: |
-          echo "${{ join(github.event.pull_request.labels.*.name, ',') }}"
-          if [[ "${{ contains(join(github.event.pull_request.labels.*.name, ','), 'Minor') }}" == "true" ]]; then
-            echo "VERSION_TYPE=minor" >> $GITHUB_ENV
-          else
             echo "VERSION_TYPE=patch" >> $GITHUB_ENV
-          fi
+
+      - name: Set Minor Type
+        id: version_type_minor
+        if: "contains(join(github.event.pull_request.labels.*.name, ','), 'Minor'"
+        run: |
+            echo "VERSION_TYPE=minor" >> $GITHUB_ENV
 
       # - name: Commit Version UP
       #   run: |
