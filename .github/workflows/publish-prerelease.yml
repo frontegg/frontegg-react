@@ -44,6 +44,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
+      - name: Print Pull Request Labels
+        run: |
+          echo "Labels on this PR: ${{ toJson(github.event.pull_request.labels) }}"
       - name: set patch Type
         id: version_type_patch
         run: |
