@@ -32,7 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Debug Event Payload
         env:
-          EVENT_PAYLOAD: ${{ toJson(github.event) }}
+          EVENT_PAYLOAD: ${{ toJson(github.event.pu) }}
         run: echo "$EVENT_PAYLOAD"
       
       - name: Authenticate with Registry
