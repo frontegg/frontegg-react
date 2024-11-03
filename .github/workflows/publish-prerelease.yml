@@ -21,8 +21,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
-      - name: Install Dependencies and Build Packages
-        run: make init
+      # - name: Install Dependencies and Build Packages
+      #   run: make init
       - name: Git Identity
         run: |
           git config --global user.name 'frontegg'
@@ -47,96 +47,97 @@ jobs:
       - name: Set Version Type
         id: version_type
         run: |
+          echo join(github.event.pull_request.labels.*.name, ',')
           if [[ "${{ contains(join(github.event.pull_request.labels.*.name, ','), 'Minor') }}" == "true" ]]; then
             echo "VERSION_TYPE=minor" >> $GITHUB_ENV
           else
             echo "VERSION_TYPE=patch" >> $GITHUB_ENV
           fi
 
-      - name: Commit Version UP
-        run: |
-          yarn lerna version $VERSION_TYPE --no-git-tag-version --yes --no-push --force-publish
-          yarn update-version
-          yarn prettier-hook
-      - name: "Set Generated changelog"
-        uses: actions/github-script@v6
-        id: 'generated-changelog'
-        with:
-          result-encoding: string
-          script: |
-            const { generateChangeLog } = await import(`${process.env.GITHUB_WORKSPACE}/.github/scripts/index.js`);
-            return generateChangeLog({context, github, core})
-      - name: "Set incremented version"
-        uses: actions/github-script@v6
-        id: 'incremented-version'
-        with:
-          result-encoding: string
-          script: |
-            const {default: fs} = await import('fs');
-            const {version} = JSON.parse(fs.readFileSync('./lerna.json', {encoding: "utf-8"}));
-            return version;
-      - name: Commit changes
-        shell: bash -ex {0}
-        id: 'cpr_commit_sha'
-        run: |
-          git add . && git commit -m "chore(release): publish ${{ steps.incremented-version.outputs.result }}"
-          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-      - name: Create Release Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3.5.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: ${{ secrets.GITHUB_WORKSPACE }}
-          commit-message: "Update v${{ steps.incremented-version.outputs.result }}"
-          committer: GitHub <noreply@github.com>
-          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
-          title: 'v${{ steps.incremented-version.outputs.result }}'
-          body: |
-            # v${{ steps.incremented-version.outputs.result }}
+      # - name: Commit Version UP
+      #   run: |
+      #     yarn lerna version $VERSION_TYPE --no-git-tag-version --yes --no-push --force-publish
+      #     yarn update-version
+      #     yarn prettier-hook
+      # - name: "Set Generated changelog"
+      #   uses: actions/github-script@v6
+      #   id: 'generated-changelog'
+      #   with:
+      #     result-encoding: string
+      #     script: |
+      #       const { generateChangeLog } = await import(`${process.env.GITHUB_WORKSPACE}/.github/scripts/index.js`);
+      #       return generateChangeLog({context, github, core})
+      # - name: "Set incremented version"
+      #   uses: actions/github-script@v6
+      #   id: 'incremented-version'
+      #   with:
+      #     result-encoding: string
+      #     script: |
+      #       const {default: fs} = await import('fs');
+      #       const {version} = JSON.parse(fs.readFileSync('./lerna.json', {encoding: "utf-8"}));
+      #       return version;
+      # - name: Commit changes
+      #   shell: bash -ex {0}
+      #   id: 'cpr_commit_sha'
+      #   run: |
+      #     git add . && git commit -m "chore(release): publish ${{ steps.incremented-version.outputs.result }}"
+      #     echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      # - name: Create Release Pull Request
+      #   id: cpr
+      #   uses: peter-evans/create-pull-request@v3.5.1
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     path: ${{ secrets.GITHUB_WORKSPACE }}
+      #     commit-message: "Update v${{ steps.incremented-version.outputs.result }}"
+      #     committer: GitHub <noreply@github.com>
+      #     author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+      #     title: 'v${{ steps.incremented-version.outputs.result }}'
+      #     body: |
+      #       # v${{ steps.incremented-version.outputs.result }}
 
-            ${{steps.generated-changelog.outputs.result}}
+      #       ${{steps.generated-changelog.outputs.result}}
 
-          labels: "Type: Release"
-          branch: "release/next"
+      #     labels: "Type: Release"
+      #     branch: "release/next"
 
-      - name: Publish Pre-Release version to NPM
-        id: publish_pre_release_version
-        run: |
-          version=$(node -p 'require("./lerna.json").version')
-          echo "::set-output name=LIB_VERSION::${version}"
-          echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
-          make move-package-json-to-dist
-          make prerelease-version-upgrade-${version}-alpha.${{ github.run_id }}
-          make pretty
-          git add .
-          git commit -m "chore: prelrease version"
-          make publish-packages-next
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      # - name: Publish Pre-Release version to NPM
+      #   id: publish_pre_release_version
+      #   run: |
+      #     version=$(node -p 'require("./lerna.json").version')
+      #     echo "::set-output name=LIB_VERSION::${version}"
+      #     echo "Publishing DEV version - v${version}-alpha.${{ github.run_id }}"
+      #     make move-package-json-to-dist
+      #     make prerelease-version-upgrade-${version}-alpha.${{ github.run_id }}
+      #     make pretty
+      #     git add .
+      #     git commit -m "chore: prelrease version"
+      #     make publish-packages-next
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
-      - name: Notify Slack on alpha version deployment
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: frontegg-alpha-versions
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_ICON: https://avatars.githubusercontent.com/u/67857107?s=40&v=4
-          SLACK_MESSAGE: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }} has been released :rocket:'
-          SLACK_TITLE: 'A new @frontegg/react alpha version!'
-          SLACK_USERNAME: ${{ github.actor }}
-          SLACK_WEBHOOK: ${{ secrets.ROTEM_SLACK_WEBHOOK }}
-          MSG_MINIMAL: true
-      - name: Wait until NPM registry finished indexing the new version
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const checkingVersion = '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}';
-            const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
-            await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
+      # - name: Notify Slack on alpha version deployment
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_CHANNEL: frontegg-alpha-versions
+      #     SLACK_COLOR: ${{ job.status }}
+      #     SLACK_ICON: https://avatars.githubusercontent.com/u/67857107?s=40&v=4
+      #     SLACK_MESSAGE: '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }} has been released :rocket:'
+      #     SLACK_TITLE: 'A new @frontegg/react alpha version!'
+      #     SLACK_USERNAME: ${{ github.actor }}
+      #     SLACK_WEBHOOK: ${{ secrets.ROTEM_SLACK_WEBHOOK }}
+      #     MSG_MINIMAL: true
+      # - name: Wait until NPM registry finished indexing the new version
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       const checkingVersion = '${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}';
+      #       const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
+      #       await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
 
-      - name: "Call trigger-e2e-test action"
-        uses: ./.github/actions/trigger-e2e-test
-        with:
-          version: ${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}
-          sha: ${{ steps.cpr_commit_sha.outputs.sha }}
-          bot_app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
-          bot_app_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
+      # - name: "Call trigger-e2e-test action"
+      #   uses: ./.github/actions/trigger-e2e-test
+      #   with:
+      #     version: ${{ steps.publish_pre_release_version.outputs.LIB_VERSION }}-alpha.${{ github.run_id }}
+      #     sha: ${{ steps.cpr_commit_sha.outputs.sha }}
+      #     bot_app_id: ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
+      #     bot_app_key: ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
