@@ -47,6 +47,8 @@ jobs:
       - name: Print Pull Request Labels
         run: |
           echo "Labels on this PR: ${{ toJson(github.event.pull_request.labels) }}"
+          echo "Labels on this PR: ${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          echo "Labels on this PR: ${{ toJson(github.event.pull_request) }}"
       - name: set patch Type
         id: version_type_patch
         run: |

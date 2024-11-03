@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - 'master'
+      - 'STAM'
       - 'release/next'
 env:
   CI: true
