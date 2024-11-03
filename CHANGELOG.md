@@ -1,5 +1,9 @@
 # Change Log
 
+## [7.0.12](https://github.com/frontegg/frontegg-react/compare/v7.0.12...v7.0.12) (2024-11-3)
+
+
+
 ## [7.0.12](https://github.com/frontegg/frontegg-react/compare/v7.0.11...v7.0.12) (2024-10-30)
 
 - FR-18476 - Added url for beforeRequestInterceptor function
