@@ -54,7 +54,6 @@ jobs:
           fi
 
       - name: Commit Version UP
-        if: "contains(join(github.event.pull_request.labels.*.name, ','), 'Minor')"
         run: |
           yarn lerna version $VERSION_TYPE --no-git-tag-version --yes --no-push --force-publish
           yarn update-version
