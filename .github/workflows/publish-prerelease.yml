@@ -43,9 +43,22 @@ jobs:
           npm whoami
         env:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+  
+      - name: set Patch release
+        id: version_type_patch
+        run: |
+            echo "VERSION_TYPE=patch" >> $GITHUB_ENV
+
+      - name: Set Minor release
+        id: version_type_minor
+        if: contains(join(github.event.pull_request.labels.*.name, ','), 'Minor')
+        run: |
+            echo "VERSION_TYPE=minor" >> $GITHUB_ENV
+
       - name: Commit Version UP
         run: |
-          yarn lerna version patch --no-git-tag-version --yes --no-push --force-publish
+          yarn lerna version $VERSION_TYPE --no-git-tag-version --yes --no-push --force-publish
           yarn update-version
           yarn prettier-hook
       - name: "Set Generated changelog"
