@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.0.14](https://github.com/frontegg/frontegg-react/compare/v7.0.13...v7.0.14) (2024-11-10)
+
+- FR-18561 - Fixed get ip metadata when app name is provided
+- FR-17091 - Fixed long name in groups and roles
+
+
+### React Wrapper 7.0.14:
+- FR-18540: support minor versions
+
 ## [7.0.13](https://github.com/frontegg/frontegg-react/compare/v7.0.12...v7.0.13) (2024-11-5)
 
 - FR-18529 - Fixed empty roles field bug when appName is provided
