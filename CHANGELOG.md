@@ -1,5 +1,18 @@
 # Change Log
 
+## [7.0.15](https://github.com/frontegg/frontegg-react/compare/v7.0.14...v7.0.15) (2024-11-12)
+
+- FR-18594 - Fixed blinking bug On IP and domain page
+- FR-18499 - Fixed otc page blink
+- FR-18005 - Fixed search api tokens with null descriptions 
+- FR-18499 - Fixed activate with code and password
+- FR-18582 - Fixed loader size and wrong massage
+
+- FR-18561 - Fixed get ip metadata when app name is provided
+- FR-17091 - Fixed long name in groups and roles
+
+
+
 ## [7.0.14](https://github.com/frontegg/frontegg-react/compare/v7.0.13...v7.0.14) (2024-11-10)
 
 - FR-18561 - Fixed get ip metadata when app name is provided
