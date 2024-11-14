@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.0.16](https://github.com/frontegg/frontegg-react/compare/v7.0.15...v7.0.16) (2024-11-14)
+
+- FR-18646 - Fixed missing permissions with wildcard on custom roles
+- FR-18341 - Fixed Google Chrome Translate feature causes a crash
+- FR-16902 - Fixed login box scroll on mobile browsers
+
+
+
 ## [7.0.15](https://github.com/frontegg/frontegg-react/compare/v7.0.14...v7.0.15) (2024-11-12)
 
 - FR-18594 - Fixed blinking bug On IP and domain page
