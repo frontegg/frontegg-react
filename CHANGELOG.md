@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.0.17](https://github.com/frontegg/frontegg-react/compare/v7.0.16...v7.0.17) (2024-11-19)
+
+- FR-18341 - Fixed social login button size
+- FR-12722 - Fixed Incorrect order of social logins display
+
+
 ## [7.0.16](https://github.com/frontegg/frontegg-react/compare/v7.0.15...v7.0.16) (2024-11-14)
 
 - FR-18646 - Fixed missing permissions with wildcard on custom roles
