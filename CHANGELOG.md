@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.2.0](https://github.com/frontegg/frontegg-react/compare/v7.1.0...v7.2.0) (2024-11-28)
+
+- FR-18838 - Added MFA with email code
+- FR-17593 - Fixed SAML enable with non SSO user try to login not throwing an error
+
+
+
 ## [7.1.0](https://github.com/frontegg/frontegg-react/compare/v7.0.17...v7.1.0) (2024-11-21)
 
 - FR-18699 - Removed entitlements automatic 30 seconds refresh mechanism
