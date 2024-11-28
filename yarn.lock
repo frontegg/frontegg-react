@@ -2514,57 +2514,57 @@
   resolved "https://registry.yarnpkg.com/@frontegg/entitlements-javascript-commons/-/entitlements-javascript-commons-1.1.2.tgz#8c771cac0796fde5bbc05abe750cb6b8677ec2c6"
   integrity sha512-vwCFxj9KSIKHXinOH0HbBf4DhKRbUWhjCnL14+JfQnwuEl/zKtSGZoZecrXcPajWUypdi0uT+8q3GGcqnCW13Q==
 
-"@frontegg/js@7.33.0":
-  version "7.33.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-7.33.0.tgz#d706a3fa0ae62b2587c9db9a0cdb25e547a4e28f"
-  integrity sha512-v4TRhpW5qe6I2lJF5Unsks6uxIy15US9PgQ8RlJSk1cSV4cegZC95ULl5LH99vWny5BNBs14XrPOHn9KDlATwQ==
+"@frontegg/js@7.34.0":
+  version "7.34.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/js/-/js-7.34.0.tgz#850254bcec7975d28673174a87711750920891e4"
+  integrity sha512-VFDG7S9ZxtYRMx8D62VWmjaLQMcUds2htAfaEhvlZlO7dq4muC8D4FZMaGtoM2TlXa5I85mCg5KoUg85T1pWTA==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/types" "7.33.0"
+    "@frontegg/types" "7.34.0"
 
-"@frontegg/react-hooks@7.33.0":
-  version "7.33.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-7.33.0.tgz#bb61eca2aa6c942e2c01a5696f9afca42a48f98e"
-  integrity sha512-H+LTM2K9Ds/txadRjfSuBSLi0bd/tMhT6bmqnGKaHbHyCZaKnLKnNHpkxCB+GrYVq+U6PdTqUNOc4ZUCcQgcxw==
+"@frontegg/react-hooks@7.34.0":
+  version "7.34.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/react-hooks/-/react-hooks-7.34.0.tgz#3cec286d4593a452d9d13d990a6456da1a33d112"
+  integrity sha512-X+mx3HqOQ6QzSVDWT4B/yRylT1SiHhsZxlAMu/eN2hyJl9C31JWCCFVGc3ASmb0B8grAgJytuE2nm8QNfaeHMA==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "7.33.0"
-    "@frontegg/types" "7.33.0"
+    "@frontegg/redux-store" "7.34.0"
+    "@frontegg/types" "7.34.0"
     "@types/react" "*"
     "@types/react-is" "^17.0.7"
     get-value "^3.0.1"
     react-is "^17.0.2"
     use-sync-external-store "^1.2.2"
 
-"@frontegg/redux-store@7.33.0":
-  version "7.33.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-7.33.0.tgz#f3bcaf9f75b0925706be408932278a36ccc6d7cb"
-  integrity sha512-JsQy6JrVq/G1qaoCpH20F+zaejP7cI1ddrSIodaB3G8ppTQp+UpRb5Z78nLcIzt5PLzWYiFzxenpQYUhwTec/w==
+"@frontegg/redux-store@7.34.0":
+  version "7.34.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/redux-store/-/redux-store-7.34.0.tgz#693eb9a0f60c71063b2767adae6cd15342394623"
+  integrity sha512-M8/891YNmu1cDFnRYcL4wBAz7UGXnRN+3CxMoiZ2vsuDhU+B4g60tcvjYe25Tm1jmpeo+3psUltNaMIMuce5lA==
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/entitlements-javascript-commons" "1.1.2"
-    "@frontegg/rest-api" "7.33.0"
+    "@frontegg/rest-api" "7.34.0"
     fast-deep-equal "3.1.3"
     get-value "^3.0.1"
     proxy-compare "^3.0.0"
     set-value "^4.1.0"
     uuid "^10.0.0"
 
-"@frontegg/rest-api@7.33.0":
-  version "7.33.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-7.33.0.tgz#749c3c797fbab50bb3edf6e98cae1a4e6cff6e84"
-  integrity sha512-2bVYu2uWavRciNHANXylI3scznT62s/B55XxB0VoryIHK8YESO7gqwHdRR+7Snx2rZOXGXt1LPt4P9Y2zi3Oag==
+"@frontegg/rest-api@7.34.0":
+  version "7.34.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/rest-api/-/rest-api-7.34.0.tgz#520457845033b20fe152a81d2d3399b51461a9e6"
+  integrity sha512-1OWEWMluoTEV5EP7f+zrmDiYG9KpVBRLc9arVBnDOHm5DFkHUR4ZFH9H2pAbNj91hLUGRRXWZYpgZyc/nRJJnA==
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@frontegg/entitlements-javascript-commons" "1.1.2"
 
-"@frontegg/types@7.33.0":
-  version "7.33.0"
-  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-7.33.0.tgz#ad2f40b380d9f8465fd72e562f07de2f4a3b4139"
-  integrity sha512-CHm/fErdgmR56oGLyuUxaY2RhWcNxs2LvVqyGhP4Jh8LtZhRKcZ9gderChqoaysuFN/la99Z5YqGbeI2UYEuPw==
+"@frontegg/types@7.34.0":
+  version "7.34.0"
+  resolved "https://registry.yarnpkg.com/@frontegg/types/-/types-7.34.0.tgz#21d6e4cdef2a805dac0302c7e39aabef8969e208"
+  integrity sha512-I4zpO66sdzUrHYoOcqpIxilpa1OkYA/Gcqd4kxxParQsLGoUgLC12mSvkft+XIfkci3f/7Ax7uo6Pmh4yBhWcg==
   dependencies:
     "@babel/runtime" "^7.18.6"
-    "@frontegg/redux-store" "7.33.0"
+    "@frontegg/redux-store" "7.34.0"
     csstype "^3.0.9"
     deepmerge "^4.2.2"
 
