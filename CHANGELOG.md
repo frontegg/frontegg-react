@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.2.1](https://github.com/frontegg/frontegg-react/compare/v7.2.0...v7.2.1) (2024-12-3)
+
+- FR-18925 - Fixed wrong ip presented in Audit logs table IP column
+
+
+- FR-18682 - Changed country flags image
+
+
 ## [7.2.0](https://github.com/frontegg/frontegg-react/compare/v7.1.0...v7.2.0) (2024-11-28)
 
 - FR-18838 - Added MFA with email code
