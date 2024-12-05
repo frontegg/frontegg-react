@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.2.2](https://github.com/frontegg/frontegg-react/compare/v7.2.1...v7.2.2) (2024-12-5)
+
+- FR-18954 - Fixed MFA with email active state, step and missing erros
+- FR-18973 - Added login to show error page only for 5xx errors
+
+
+
 ## [7.2.1](https://github.com/frontegg/frontegg-react/compare/v7.2.0...v7.2.1) (2024-12-3)
 
 - FR-18925 - Fixed wrong ip presented in Audit logs table IP column
