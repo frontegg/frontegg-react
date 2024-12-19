@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.3.1](https://github.com/frontegg/frontegg-react/compare/v7.3.0...v7.3.1) (2024-12-19)
+
+- FR-18683 - Changed phone number selector input
+
+
+
 ## [7.3.0](https://github.com/frontegg/frontegg-react/compare/v7.2.2...v7.3.0) (2024-12-15)
 
 - FR-18941 - Fixed permissions evaluation without permissions in JWT
