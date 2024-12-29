@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.4.2](https://github.com/frontegg/frontegg-react/compare/v7.4.1...v7.4.2) (2024-12-29)
+
+- FR-19191 - Fixed infinite loop on get ip metadata
+
+
+
 ## [7.4.1](https://github.com/frontegg/frontegg-react/compare/v7.4.0...v7.4.1) (2024-12-24)
 
 - FR-19079 - Added Suggest Save password in mobile sdk
