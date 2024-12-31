@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.4.3](https://github.com/frontegg/frontegg-react/compare/v7.4.2...v7.4.3) (2024-12-31)
+
+- FR-19220 - Fixed roles selection for MSP users
+- FR-19205 - Added filter country code by country calling code
+- FR-18963 - Added SMS enhancements
+
+
+
 ## [7.4.2](https://github.com/frontegg/frontegg-react/compare/v7.4.1...v7.4.2) (2024-12-29)
 
 - FR-19191 - Fixed infinite loop on get ip metadata
