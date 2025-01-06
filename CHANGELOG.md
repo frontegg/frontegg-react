@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.4.4](https://github.com/frontegg/frontegg-react/compare/v7.4.3...v7.4.4) (2025-1-6)
+
+- FR-19272 - Fixed sso input
+
+
+- FR-19068 - Fixed MFA error appears after reset
+
+
 ## [7.4.3](https://github.com/frontegg/frontegg-react/compare/v7.4.2...v7.4.3) (2024-12-31)
 
 - FR-19220 - Fixed roles selection for MSP users
