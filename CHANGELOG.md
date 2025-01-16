@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.4.6](https://github.com/frontegg/frontegg-react/compare/v7.4.5...v7.4.6) (2025-1-16)
+
+- FR-19387 - Fixed login with apple in iOS devices
+- FR-18450 - Changed permissions tree components
+
+
+
 ## [7.4.5](https://github.com/frontegg/frontegg-react/compare/v7.4.4...v7.4.5) (2025-1-14)
 
 - FR-19236 - Fixed error handling on OIDC failure
