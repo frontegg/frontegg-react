@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.4.8](https://github.com/frontegg/frontegg-react/compare/v7.4.7...v7.4.8) (2025-2-2)
+
+- FR-19573 - Fixed redundant required asterisk on optional field
+- FR-19566 - Fixed navbar route title appearing without items
+- FR-19351 - Fixed SMS input calling code replace
+
+
+
 ## [7.4.7](https://github.com/frontegg/frontegg-react/compare/v7.4.6...v7.4.7) (2025-1-26)
 
 - FR-19351 - Fixed MFA with SMS error and inital state bugs
