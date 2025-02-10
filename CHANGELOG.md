@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.5.0](https://github.com/frontegg/frontegg-react/compare/v7.4.9...v7.5.0) (2025-2-10)
+
+- FR-19547 - Added prestep support for auth flows
+- FR-19048 - Changed sign-up with 6 digit code flow
+- FR-19626 - Added support for social login eventually style
+- FR-9045 - Fixed login form placeholder color
+
+
+
 ## [7.4.9](https://github.com/frontegg/frontegg-react/compare/v7.4.8...v7.4.9) (2025-2-5)
 
 - FR-19618 - Fixed FRONTEGG_AFTER_AUTH_REDIRECT_URL usage on custom login
