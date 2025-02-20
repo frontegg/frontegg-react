@@ -1,5 +1,17 @@
 # Change Log
 
+## [7.6.0](https://github.com/frontegg/frontegg-react/compare/v7.5.1...v7.6.0) (2025-2-20)
+
+- FR-18630 - Fixed input transparent autofill for vite
+- FR-15942 - Changed titles in SSO configuration guides
+- FR-19747 - Added a pre step toggler to the dashboard that enables a confirmation mechanism on relevant emails, to prevent automated scanners from invalidating magic links
+
+
+- FR-19677 - Added hebrew translations for the pre step screens
+- FR-19547 - Changed pre step titles
+
+
+
 ## [7.5.1](https://github.com/frontegg/frontegg-react/compare/v7.5.0...v7.5.1) (2025-2-10)
 
 - FR-19547 - Changed prestep component to get t instead of texts
