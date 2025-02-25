@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.1](https://github.com/frontegg/frontegg-react/compare/v7.6.0...v7.6.1) (2025-2-25)
+
+- FR-19037 - Added an option to skip user load
+
+
+
 ## [7.6.0](https://github.com/frontegg/frontegg-react/compare/v7.5.1...v7.6.0) (2025-2-20)
 
 - FR-18630 - Fixed input transparent autofill for vite
