@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.2](https://github.com/frontegg/frontegg-react/compare/v7.6.1...v7.6.2) (2025-2-26)
+
+- FR-19037 - Added fallback for skip user load
+- FR-19648 - Added password expiration to login box
+
+
 ## [7.6.1](https://github.com/frontegg/frontegg-react/compare/v7.6.0...v7.6.1) (2025-2-25)
 
 - FR-19037 - Added an option to skip user load
