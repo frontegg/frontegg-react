@@ -12,7 +12,7 @@
     "directory": "packages/react"
   },
   "bugs": {
-    "url": "https://github.com/frontegg/frontegg-react/issues"
+    "url": "https://github.com/frontegg/frontegg-react/issues/"
   },
   "scripts": {
     "build": "rm -rf dist && mkdir dist && rollup -c ./rollup.config.js",
