@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.4](https://github.com/frontegg/frontegg-react/compare/v7.6.3...v7.6.4) (2025-3-5)
+
+- FR-19452 - Added a &quot;silent refresh&quot; to switchTenant
+
+
+
 ## [7.6.3](https://github.com/frontegg/frontegg-react/compare/v7.6.2...v7.6.3) (2025-3-4)
 
 - FR-19752 - Fixed error not shown in custom role creation
