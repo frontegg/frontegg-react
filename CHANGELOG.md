@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.6.3](https://github.com/frontegg/frontegg-react/compare/v7.6.2...v7.6.3) (2025-3-4)
+
+- FR-19752 - Fixed error not shown in custom role creation
+- FR-18568 - Added password rotation support
+
+
+
 ## [7.6.2](https://github.com/frontegg/frontegg-react/compare/v7.6.1...v7.6.2) (2025-2-26)
 
 - FR-19037 - Added fallback for skip user load
