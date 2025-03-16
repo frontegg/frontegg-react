@@ -1,5 +1,15 @@
 # Change Log
 
+## [7.6.5](https://github.com/frontegg/frontegg-react/compare/v7.6.4...v7.6.5) (2025-3-16)
+
+- FR-20068 - Added password config custom tests
+
+- FR-13869 - Fixed autocomplete overrides input theme
+- FR-19956 - Fixed missing email for unenreolled MFA users
+- FR-20037 - Fixed input focus on user invite dialog
+
+
+
 ## [7.6.4](https://github.com/frontegg/frontegg-react/compare/v7.6.3...v7.6.4) (2025-3-5)
 
 - FR-19452 - Added a &quot;silent refresh&quot; to switchTenant
