@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.6.6](https://github.com/frontegg/frontegg-react/compare/v7.6.5...v7.6.6) (2025-3-23)
+
+- FR-19299 - Fixed Hebrew translation of password rotation
+- FR-17951 - Changed the api routes of  profile page&#39;s phone number
+
+- FR-20068 - Added password config custom tests
+
+
+
 ## [7.6.5](https://github.com/frontegg/frontegg-react/compare/v7.6.4...v7.6.5) (2025-3-16)
 
 - FR-20068 - Added password config custom tests
