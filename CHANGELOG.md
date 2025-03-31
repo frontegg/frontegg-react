@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.6.7](https://github.com/frontegg/frontegg-react/compare/v7.6.6...v7.6.7) (2025-3-31)
+
+- FR-20267 - Added support for direction by metadata
+- FR-20250 - Fixed min optional tests on password strength
+- FR-19976 - Fixed pre step shouldn&#39;t appear when shouldSetPassword is not false
+
+
+
 ## [7.6.6](https://github.com/frontegg/frontegg-react/compare/v7.6.5...v7.6.6) (2025-3-23)
 
 - FR-19299 - Fixed Hebrew translation of password rotation
