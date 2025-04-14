@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.7.0](https://github.com/frontegg/frontegg-react/compare/v7.6.7...v7.7.0) (2025-4-14)
+
+- FR-18986 - Added tooltip functionality for individual chips in GroupsChipsList component
+- FR-20385 - Fixed user impersonation with identifiers
+- FR-20254 - Added localizations for activate with social logins
+- FR-20280 - Added support for signup with phone number
+
+
+
 ## [7.6.7](https://github.com/frontegg/frontegg-react/compare/v7.6.6...v7.6.7) (2025-3-31)
 
 - FR-20267 - Added support for direction by metadata
