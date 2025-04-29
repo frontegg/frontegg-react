@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.7.1](https://github.com/frontegg/frontegg-react/compare/v7.7.0...v7.7.1) (2025-4-29)
+
+- FR-20482 - Added one of validation method to yup boolean interface
+- FR-19402 - Fixed UI delete all checkbox
+- FR-20398 - Added delete all option to SCIM deletion
+- FR-20047 - Added Custom Signup Fields
+
+
+
 ## [7.7.0](https://github.com/frontegg/frontegg-react/compare/v7.6.7...v7.7.0) (2025-4-14)
 
 - FR-18986 - Added tooltip functionality for individual chips in GroupsChipsList component
