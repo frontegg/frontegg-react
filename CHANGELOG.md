@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.7.2](https://github.com/frontegg/frontegg-react/compare/v7.7.1...v7.7.2) (2025-5-4)
+
+- FR-20047 - Added support for overrideSignupFields as string js code
+- FR-19797 - Fixed bug duplicate request on double click
+- FR-20479 - Added type error validation method to yup interfaces
+
+
+
 ## [7.7.1](https://github.com/frontegg/frontegg-react/compare/v7.7.0...v7.7.1) (2025-4-29)
 
 - FR-20482 - Added one of validation method to yup boolean interface
