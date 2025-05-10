@@ -128,6 +128,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
 
   return (
     <BrowserRouter basename={props.basename}>
+      Hey, it's Dors test
       <ConnectorHistory {...props}>{props.children}</ConnectorHistory>
     </BrowserRouter>
   );
