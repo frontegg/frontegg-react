@@ -6,11 +6,13 @@ import { useSnapshot } from '@frontegg/react-hooks';
 
 export const useUsersTable = (id?: string): UsersTableContextData => {
   const app = AppHolder.getInstance('default');
-  const [store, setStore] = useState<UsersTableContextData>(createProxy({
-    onSearch: () => { },
-    searchQuery: '',
-    searching: false,
-  }));
+  const [store, setStore] = useState<UsersTableContextData>(
+    createProxy({
+      onSearch: () => {},
+      searchQuery: '',
+      searching: false,
+    })
+  );
 
   React.useLayoutEffect(() => {
     app
