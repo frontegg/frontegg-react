@@ -51,17 +51,21 @@ const cjsPlugins = [
 ];
 
 const isExternal = (id) => {
-  return (
-    id !== './FronteggProvider' &&
-    id !== './AlwaysRenderInProvider' &&
-    id !== './AuthorizedContent' &&
-    id !== './SteppedUpContent' &&
-    id !== './sdkVersion' &&
-    id !== './routerProxy' &&
-    id !== './queryKeeper' &&
-    id !== './CheckoutDialog' &&
-    id !== 'tslib'
-  );
+  return ![
+    './FronteggProvider',
+    './AlwaysRenderInProvider',
+    './AuthorizedContent',
+    './SteppedUpContent',
+    './sdkVersion',
+    './routerProxy',
+    './queryKeeper',
+    './CheckoutDialog',
+    'tslib',
+    './cmc-base',
+    './cmc-components',
+    './cmc-hooks',
+    './cmc',
+  ].includes(id);
 };
 
 export default [

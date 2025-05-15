@@ -25,6 +25,7 @@ export const ROUTE_PATHS = {
   STEP_UP_TRANSFER: '/step-up-transfer',
   UNKNOWN_ROUTE: '/unknown-route',
   TEST: '/test',
+  CMC: '/cmc',
 };
 
 const links = [
@@ -38,6 +39,7 @@ const links = [
   { route: ROUTE_PATHS.STEP_UP_TRANSFER, label: 'Step up transfer' },
   { route: ROUTE_PATHS.UNKNOWN_ROUTE, label: 'Fallback route' },
   { route: ROUTE_PATHS.TEST, label: 'Old test' },
+  { route: ROUTE_PATHS.CMC, label: 'CMC' },
 ];
 
 export const Links = () => (
