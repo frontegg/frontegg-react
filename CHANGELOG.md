@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.7.3](https://github.com/frontegg/frontegg-react/compare/v7.7.2...v7.7.3) (2025-5-15)
+
+- FR-19738 - Added support for CMC components
+
+
+
 ## [7.7.2](https://github.com/frontegg/frontegg-react/compare/v7.7.1...v7.7.2) (2025-5-4)
 
 - FR-20047 - Added support for overrideSignupFields as string js code
