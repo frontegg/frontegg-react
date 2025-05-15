@@ -6,6 +6,7 @@ import { FronteggProvider } from '@frontegg/react';
 import { FronteggAppOptions } from '@frontegg/types';
 import { authOptions } from './customizationOptions/authOptions';
 import HomePage from './HomePage';
+import CMCPage from './cmc/CMCPage';
 import ModalsStepUpPage from './stepUp/ModalsStepUpPage';
 import HOCStepUpPage from './stepUp/HOCStepUpPage';
 import SimpleStepUpButtonPage from './stepUp/SimpleStepUpButtonPage';
@@ -52,6 +53,7 @@ export const App: FC = () => {
           <Route path={ROUTE_PATHS.STEP_UP_MODALS} exact render={ModalsStepUpPage} />
           <Route path={ROUTE_PATHS.STEP_UP_HOC} exact render={HOCStepUpPage} />
           <Route path={ROUTE_PATHS.STEP_UP_TRANSFER} exact render={TransferStepUpPage} />
+          <Route path={ROUTE_PATHS.CMC} exact render={CMCPage} />
           {/* For tests that use someurl as the authenticated-url */}
           <Route path={'/someurl'} exact render={NotAFronteggPage} />
           <Route
