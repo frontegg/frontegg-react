@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.7.4](https://github.com/frontegg/frontegg-react/compare/v7.7.3...v7.7.4) (2025-5-20)
+
+- FR-20337 - Fixed errors not displayed on submit
+
+
+
 ## [7.7.3](https://github.com/frontegg/frontegg-react/compare/v7.7.2...v7.7.3) (2025-5-15)
 
 - FR-19738 - Added support for CMC components
