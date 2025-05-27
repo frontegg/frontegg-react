@@ -1,5 +1,17 @@
 # Change Log
 
+## [7.8.0](https://github.com/frontegg/frontegg-react/compare/v7.7.4...v7.8.0) (2025-5-27)
+
+- FR-20899 - Changed logout user session button
+- FR-20901 - Fixed select actions menu item
+- FR-20871 - Added support for default language
+- FR-20894 - Added support regex in string input
+
+
+- FR-19718 - Added username strategies
+
+
+
 ## [7.7.4](https://github.com/frontegg/frontegg-react/compare/v7.7.3...v7.7.4) (2025-5-20)
 
 - FR-20337 - Fixed errors not displayed on submit
