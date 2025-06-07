@@ -1,5 +1,16 @@
 # Change Log
 
+## [7.9.0](https://github.com/frontegg/frontegg-react/compare/v7.8.0...v7.9.0) (2025-6-7)
+
+- FR-21024 - Added callback to reset password cmc
+- FR-20953 - Added Display specific countries for phone number
+- FR-20733 - Fixed Screen flickering after forget password success
+- FR-20104 - Fixed Issue with search term persistence in the Personal and non-Personal API Tokens modals
+- FR-20811 - Fixed optional localizations deep partial type
+- FR-20407 - Added localization support for 25 languages
+
+
+
 ## [7.8.0](https://github.com/frontegg/frontegg-react/compare/v7.7.4...v7.8.0) (2025-5-27)
 
 - FR-20899 - Changed logout user session button
