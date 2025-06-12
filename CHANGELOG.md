@@ -1,5 +1,20 @@
 # Change Log
 
+## [7.10.0](https://github.com/frontegg/frontegg-react/compare/v7.9.0...v7.10.0) (2025-6-12)
+
+- FR-20862 - Fixed useLoginHint and add tests to simulate hosted prelogin flow
+- FR-21121 - Added reset password with email&#x2F;sms actions and a Forgot password sms otc page 
+- FR-21097 - Added suspense to renderCMCComponent
+- FR-21120 - Added BaseOTC component and use it in login otc flows
+- FR-21112 - Added password recovery selector and a determinePasswordRecoveryStrategy function
+- FR-21118 - Fixed default language handle
+- FR-20838 - Added search functionality to roles popper
+- FR-20178 - Added generic IdentifierField and used it in login and forgot password flows
+- FR-20945 - Added username in profile
+- FR-20868 - Added usernames
+
+
+
 ## [7.9.0](https://github.com/frontegg/frontegg-react/compare/v7.8.0...v7.9.0) (2025-6-7)
 
 - FR-21024 - Added callback to reset password cmc
