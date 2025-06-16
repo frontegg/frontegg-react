@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.10.1](https://github.com/frontegg/frontegg-react/compare/v7.10.0...v7.10.1) (2025-6-16)
+
+- FR-0000 - Fixed node version
+- FR-21160 - Removed exclusion of set user email policy state
+
+
 ## [7.10.0](https://github.com/frontegg/frontegg-react/compare/v7.9.0...v7.10.0) (2025-6-12)
 
 - FR-20862 - Fixed useLoginHint and add tests to simulate hosted prelogin flow
