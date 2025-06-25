@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.10.3](https://github.com/frontegg/frontegg-react/compare/v7.10.2...v7.10.3) (2025-6-25)
+
+- FR-21242 - Added customization for select phone number country codes
+
+
+
 ## [7.10.2](https://github.com/frontegg/frontegg-react/compare/v7.10.1...v7.10.2) (2025-6-23)
 
 - FR-20838 - Added search for role in the edit roles dialog of users page
