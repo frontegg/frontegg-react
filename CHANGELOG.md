@@ -1,5 +1,14 @@
 # Change Log
 
+## [7.11.0](https://github.com/frontegg/frontegg-react/compare/v7.10.3...v7.11.0) (2025-7-17)
+
+- FR-21360 - Fixed CMCComponents React19 compatibility 
+- FR-20601 - Fixed metadata sync when using custom signup fields
+- FR-20601 - Fixed custom signup fields visiblity
+- FR-21194 - Fixed translations options to have all supported languages
+
+
+
 ## [7.10.3](https://github.com/frontegg/frontegg-react/compare/v7.10.2...v7.10.3) (2025-6-25)
 
 - FR-21242 - Added customization for select phone number country codes
