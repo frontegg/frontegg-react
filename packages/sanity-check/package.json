@@ -1,7 +1,7 @@
 {
   "name": "frontegg-react-sanity-check",
   "private": true,
-  "version": "7.11.0",
+  "version": "7.12.0",
   "scripts": {
     "build": "docker-compose build test",
     "build:dev": "docker-compose build test --no-cache",
