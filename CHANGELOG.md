@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.12.0](https://github.com/frontegg/frontegg-react/compare/v7.11.0...v7.12.0) (2025-7-29)
+
+- FR-21351 - Changed user loading methods to use the new V3 API
+- FR-21350 - Added usage for tenant-application access types in hosted Admin box
+
+
+
 ## [7.11.0](https://github.com/frontegg/frontegg-react/compare/v7.10.3...v7.11.0) (2025-7-17)
 
 - FR-21360 - Fixed CMCComponents React19 compatibility 
