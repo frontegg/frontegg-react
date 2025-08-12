@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.12.1](https://github.com/frontegg/frontegg-react/compare/v7.12.0...v7.12.1) (2025-8-12)
+
+- FR-21734 - Added the applications that are free-access for this tenant to the user&#39;s application list
+- FR-21350 - Added FREE-ACCESS application tenant to the user&#39;s application list
+- FR-21495 - Changed Georgia phone country code as requested
+
+
+
 ## [7.12.0](https://github.com/frontegg/frontegg-react/compare/v7.11.0...v7.12.0) (2025-7-29)
 
 - FR-21351 - Changed user loading methods to use the new V3 API
