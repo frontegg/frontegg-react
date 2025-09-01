@@ -19,8 +19,8 @@
     "build:watch": "rm -rf dist && mkdir dist && rollup -w -c ./rollup.config.js"
   },
   "dependencies": {
-    "@frontegg/js": "7.82.0",
-    "@frontegg/react-hooks": "7.82.0"
+    "@frontegg/js": "7.83.0",
+    "@frontegg/react-hooks": "7.83.0"
   },
   "peerDependencies": {
     "react": ">16.9.0",
