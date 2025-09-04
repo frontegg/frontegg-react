@@ -1,5 +1,18 @@
 # Change Log
 
+## [7.12.3](https://github.com/frontegg/frontegg-react/compare/v7.12.2...v7.12.3) (2025-9-4)
+
+- FR-22006 - Fixed signup login direct action with basename
+
+- FR-21916 - Added username field to InviteUserForm with validation
+- FR-21330 - Fixed empty names
+- FR-22047 - Fixed user invite initial dialog to use inviteByEmailEnable...
+- FR-21924 - Added roles to invitation link flow
+- FR-21914 - Added smart navigation for invite dialog based on enabled …
+- FR-21913 - Added dialog step management enum and logic for enhanced invite user modal
+
+
+
 ## [7.12.2](https://github.com/frontegg/frontegg-react/compare/v7.12.1...v7.12.2) (2025-9-3)
 
 - FR-21916 - Added username field to InviteUserForm with validation
