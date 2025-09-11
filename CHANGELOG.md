@@ -1,5 +1,10 @@
 # Change Log
 
+## [7.12.4](https://github.com/frontegg/frontegg-react/compare/v7.12.3...v7.12.4) (2025-9-10)
+
+- FR-22001 - Added Embedded Social Login in MobileSDK
+
+
 ## [7.12.3](https://github.com/frontegg/frontegg-react/compare/v7.12.2...v7.12.3) (2025-9-4)
 
 - FR-22006 - Fixed signup login direct action with basename
