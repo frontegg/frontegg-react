@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.12.5](https://github.com/frontegg/frontegg-react/compare/v7.12.4...v7.12.5) (2025-9-14)
+
+- FR-22130 - Removed autoFocus from invite user&#39;s email field 
+
+
+
 ## [7.12.4](https://github.com/frontegg/frontegg-react/compare/v7.12.3...v7.12.4) (2025-9-10)
 
 - FR-22001 - Added Embedded Social Login in MobileSDK
