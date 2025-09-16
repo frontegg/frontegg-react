@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.12.6](https://github.com/frontegg/frontegg-react/compare/v7.12.5...v7.12.6) (2025-9-16)
+
+- FR-22185 - Added support for whitelisting direct login action with metadataOverrides
+
+
+
 ## [7.12.5](https://github.com/frontegg/frontegg-react/compare/v7.12.4...v7.12.5) (2025-9-14)
 
 - FR-22130 - Removed autoFocus from invite user&#39;s email field 
