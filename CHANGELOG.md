@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.12.7](https://github.com/frontegg/frontegg-react/compare/v7.12.6...v7.12.7) (2025-9-16)
+
+- FR-22185 - Fixed running afterAuthRedirect in social login callback
+- FR-22201 - Added invitation user form state preservation for enhanced…
+
+
+
 ## [7.12.6](https://github.com/frontegg/frontegg-react/compare/v7.12.5...v7.12.6) (2025-9-16)
 
 - FR-22185 - Added support for whitelisting direct login action with metadataOverrides
