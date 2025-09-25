@@ -1,6 +1,6 @@
 {
   "name": "@frontegg/demo-saas",
-  "version": "7.12.7",
+  "version": "7.12.8",
   "private": true,
   "author": "Frontegg LTD",
   "scripts": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@frontegg/react": "^7.12.7",
+    "@frontegg/react": "^7.12.8",
     "@mui/icons-material": "5.11.0",
     "@mui/material": "5.0.3",
     "react": "^17.0.1",
