@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.12.8](https://github.com/frontegg/frontegg-react/compare/v7.12.7...v7.12.8) (2025-9-25)
+
+- FR-22238 - Added a &#39;Back&#39; button when both link and form invitations …
+- FR-22167 - Fixed username field to be hidden by default in the invite…
+
+
+
 ## [7.12.7](https://github.com/frontegg/frontegg-react/compare/v7.12.6...v7.12.7) (2025-9-16)
 
 - FR-22185 - Fixed running afterAuthRedirect in social login callback
