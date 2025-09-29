@@ -1,5 +1,23 @@
 # Change Log
 
+## [7.12.9](https://github.com/frontegg/frontegg-react/compare/v7.12.8...v7.12.9) (2025-9-29)
+
+- FR-22258 - Added approval flow
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Update Frontegg React dependencies to 7.91.0 and refresh lockfile.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` to `7.91.0` in `packages/react/package.json`.
+>   - Update `yarn.lock` to `7.91.0` for related Frontegg packages: `@frontegg/js`, `@frontegg/react-hooks`, `@frontegg/redux-store`, `@frontegg/rest-api`, `@frontegg/types`.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 90adfd1541652322631a92f6c5893ae1bd1dc1dc. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.8](https://github.com/frontegg/frontegg-react/compare/v7.12.7...v7.12.8) (2025-9-25)
 
 - FR-22238 - Added a &#39;Back&#39; button when both link and form invitations …
