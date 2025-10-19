@@ -1,5 +1,26 @@
 # Change Log
 
+## [7.12.10](https://github.com/frontegg/frontegg-react/compare/v7.12.9...v7.12.10) (2025-10-19)
+
+- FR-22210 - Added Netherlands
+- FR-22239 - Fixed share link design and texts
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Bumps Frontegg React dependencies to 7.92.0 and aligns related packages.
+> 
+> - **Dependencies**:
+>   - Update in `packages/react/package.json`:
+>     - `@frontegg/js` 7.91.0 → 7.92.0
+>     - `@frontegg/react-hooks` 7.91.0 → 7.92.0
+>   - Align transitive Frontegg packages to 7.92.0 (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 55679109aef6611ac7b08b49d521c74f809e238c. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.9](https://github.com/frontegg/frontegg-react/compare/v7.12.8...v7.12.9) (2025-9-29)
 
 - FR-22258 - Added approval flow
