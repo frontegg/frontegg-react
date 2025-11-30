@@ -1,5 +1,23 @@
 # Change Log
 
+## [7.12.11](https://github.com/frontegg/frontegg-react/compare/v7.12.10...v7.12.11) (2025-11-30)
+
+- FR-22193 - Added admin portal support for searching by username, email, name, etc. in the users table
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Upgrade Frontegg React dependencies to 7.93.0 with corresponding yarn.lock updates.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` to `7.93.0` in `packages/react/package.json`.
+>   - Update `yarn.lock` resolutions, cascading to `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api` at `7.93.0`.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit d0f2997c7cd70efb1460efedf2eb02d1a7abcb13. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.10](https://github.com/frontegg/frontegg-react/compare/v7.12.9...v7.12.10) (2025-10-19)
 
 - FR-22210 - Added Netherlands
