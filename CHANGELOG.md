@@ -1,5 +1,23 @@
 # Change Log
 
+## [7.12.13](https://github.com/frontegg/frontegg-react/compare/v7.12.12...v7.12.13) (2025-12-11)
+
+- FR-21830 - Fixed IP location
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Upgrade Frontegg dependencies to 7.95.0 and update lockfile/transitives accordingly.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` to `7.95.0` in `packages/react/package.json`.
+>   - Update `yarn.lock` to reflect `7.95.0` across transitive packages: `@frontegg/redux-store`, `@frontegg/rest-api`, `@frontegg/types`.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit cac26563c989c32a9a6bfa828cc6de832f9f3517. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.12](https://github.com/frontegg/frontegg-react/compare/v7.12.11...v7.12.12) (2025-12-7)
 
 - FR-22289 - Added support new columns in users table
