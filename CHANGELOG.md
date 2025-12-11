@@ -1,5 +1,23 @@
 # Change Log
 
+## [7.12.12](https://github.com/frontegg/frontegg-react/compare/v7.12.11...v7.12.12) (2025-12-7)
+
+- FR-22289 - Added support new columns in users table
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Updates `@frontegg/js` and `@frontegg/react-hooks` to 7.94.0 with corresponding lockfile updates for related Frontegg packages.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` from `7.93.0` → `7.94.0`.
+>   - Update transitive Frontegg packages in `yarn.lock` to `7.94.0` (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 99002cc3f0eca18303d736f7e3ab4b00f59a716b. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.11](https://github.com/frontegg/frontegg-react/compare/v7.12.10...v7.12.11) (2025-11-30)
 
 - FR-22193 - Added admin portal support for searching by username, email, name, etc. in the users table
