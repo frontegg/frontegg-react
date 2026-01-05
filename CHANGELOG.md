@@ -1,5 +1,24 @@
 # Change Log
 
+## [7.12.14](https://github.com/frontegg/frontegg-react/compare/v7.12.13...v7.12.14) (2026-1-5)
+
+- FR-17084 - Fixed loader
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Upgrades Frontegg dependencies to the latest minor version.
+> 
+> - Bumps `@frontegg/js` and `@frontegg/react-hooks` to `7.96.0` in `packages/react/package.json`
+> - Updates `yarn.lock` to align transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) to `7.96.0`
+> 
+> No application/source code changes; dependency versions only.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 6601f1aa7ae52e18ccc5e740e48db84332e68a48. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.13](https://github.com/frontegg/frontegg-react/compare/v7.12.12...v7.12.13) (2025-12-11)
 
 - FR-21830 - Fixed IP location
