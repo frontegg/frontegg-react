@@ -1,5 +1,22 @@
 # Change Log
 
+## [7.12.15](https://github.com/frontegg/frontegg-react/compare/v7.12.14...v7.12.15) (2026-1-14)
+
+- FR-23141 - Added username edit config
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Updates Frontegg dependencies across React package and lockfile.
+> 
+> - Bumps `@frontegg/js` and `@frontegg/react-hooks` to `7.97.0` in `packages/react/package.json`
+> - Refreshes `yarn.lock` to align transitive Frontegg packages (`redux-store`, `rest-api`, `types`) to `7.97.0`
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 651de40e846e34f524c75a7364b43ec4a86eb3f5. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.14](https://github.com/frontegg/frontegg-react/compare/v7.12.13...v7.12.14) (2026-1-5)
 
 - FR-17084 - Fixed loader
