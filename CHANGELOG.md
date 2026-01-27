@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.12.16](https://github.com/frontegg/frontegg-react/compare/v7.12.15...v7.12.16) (2026-1-27)
+
+- FR-22263 - Fixed publish
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Updates Frontegg dependencies to the latest minor release.
+> 
+> - Bumps `@frontegg/js` and `@frontegg/react-hooks` from `7.97.0` to `7.99.0` in `packages/react/package.json`
+> - Refreshes `yarn.lock` to align transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) to `7.99.0`
+> 
+> **Scope/Risk**
+> - No source code changes; dependency-only update.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 2cb0f6beb46b051fcd0aeec7ba89066b6e51dd7a. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.15](https://github.com/frontegg/frontegg-react/compare/v7.12.14...v7.12.15) (2026-1-14)
 
 - FR-23141 - Added username edit config
