@@ -27,10 +27,8 @@ const fronteggOptions: FronteggAppOptions =
   window.CYPRESS_CONFIG ||
   ({
     contextOptions: {
-      // baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
-      // clientId: process.env.REACT_APP_CLIENT_ID,
-      baseUrl: 'https://lo79zr4y62rl7ajdx1cw1l.stg.frontegg.com',
-      clientId: '4d6c894a-2b28-496f-aec8-143f6c31766f',
+      baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
+      clientId: process.env.REACT_APP_CLIENT_ID,
     },
     ...authOptions,
     enableOpenAppRoute: true,

@@ -5,11 +5,15 @@ import { FC } from 'react';
 
 export type RenderableFronteggComponent = keyof Pick<
   FronteggApp,
-  'renderChangePasswordForm' | 'renderInviteUserDialog' | 'renderProfilePage' | 'renderUsersTable' | 'renderSsoGuideDialog'
+  | 'renderChangePasswordForm'
+  | 'renderInviteUserDialog'
+  | 'renderProfilePage'
+  | 'renderUsersTable'
+  | 'renderSsoGuideDialog'
 >;
 export type FronteggCMCComponentProps<K extends CMCComponentProps> = Pick<
   K,
-  'themeOptions' | 'props' | 'localizations' | 'hostStyle' | 'containerStyle' 
+  'themeOptions' | 'props' | 'localizations' | 'hostStyle' | 'containerStyle'
 >;
 
 export const CMCComponent: FC<
@@ -34,7 +38,7 @@ export const CMCComponent: FC<
       app[renderComponent](ref.current, props, {
         themeOptions,
         localizations,
-        containerStyle
+        containerStyle,
       }).then((root) => (rootRendered = root));
     }, []);
 

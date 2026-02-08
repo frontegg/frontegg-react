@@ -1,4 +1,10 @@
-import { ChangePasswordFormProps, InviteUserDialogProps, ProfilePageProps, SsoGuideDialogProps, UsersTableProps } from '@frontegg/types';
+import {
+  ChangePasswordFormProps,
+  InviteUserDialogProps,
+  ProfilePageProps,
+  SsoGuideDialogProps,
+  UsersTableProps,
+} from '@frontegg/types';
 import React, { FC } from 'react';
 import { CMCComponent, FronteggCMCComponentProps, RenderableFronteggComponent } from './cmc-base';
 
