@@ -7,6 +7,7 @@ import { FronteggAppOptions } from '@frontegg/types';
 import { authOptions } from './customizationOptions/authOptions';
 import HomePage from './HomePage';
 import CMCPage from './cmc/CMCPage';
+import CMCSsoPage from './cmc/CMCSsoPage';
 import ModalsStepUpPage from './stepUp/ModalsStepUpPage';
 import HOCStepUpPage from './stepUp/HOCStepUpPage';
 import SimpleStepUpButtonPage from './stepUp/SimpleStepUpButtonPage';
@@ -26,8 +27,10 @@ const fronteggOptions: FronteggAppOptions =
   window.CYPRESS_CONFIG ||
   ({
     contextOptions: {
-      baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
-      clientId: process.env.REACT_APP_CLIENT_ID,
+      // baseUrl: process.env.PUBLIC_URL || process.env.REACT_APP_BASE_URL || DEFAULT_BASE_URL,
+      // clientId: process.env.REACT_APP_CLIENT_ID,
+      baseUrl: 'https://lo79zr4y62rl7ajdx1cw1l.stg.frontegg.com',
+      clientId: '4d6c894a-2b28-496f-aec8-143f6c31766f',
     },
     ...authOptions,
     enableOpenAppRoute: true,
@@ -54,6 +57,7 @@ export const App: FC = () => {
           <Route path={ROUTE_PATHS.STEP_UP_HOC} exact render={HOCStepUpPage} />
           <Route path={ROUTE_PATHS.STEP_UP_TRANSFER} exact render={TransferStepUpPage} />
           <Route path={ROUTE_PATHS.CMC} exact render={CMCPage} />
+          <Route path={ROUTE_PATHS.CMC_SSO} exact render={CMCSsoPage} />
           {/* For tests that use someurl as the authenticated-url */}
           <Route path={'/someurl'} exact render={NotAFronteggPage} />
           <Route
