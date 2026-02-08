@@ -26,6 +26,7 @@ export const ROUTE_PATHS = {
   UNKNOWN_ROUTE: '/unknown-route',
   TEST: '/test',
   CMC: '/cmc',
+  CMC_SSO: '/cmc-sso',
 };
 
 const links = [
@@ -40,6 +41,7 @@ const links = [
   { route: ROUTE_PATHS.UNKNOWN_ROUTE, label: 'Fallback route' },
   { route: ROUTE_PATHS.TEST, label: 'Old test' },
   { route: ROUTE_PATHS.CMC, label: 'CMC' },
+  { route: ROUTE_PATHS.CMC_SSO, label: 'CMC SSO' },
 ];
 
 export const Links = () => (
