@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.12.17](https://github.com/frontegg/frontegg-react/compare/v7.12.16...v7.12.17) (2026-2-10)
+
+- FR-23484 - Added an option to render SSO guides outside of admin box
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Lockfile-only dependency bump with no application code changes; risk is limited to behavior changes introduced by the updated upstream Frontegg packages.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.100.0` (from `7.99.0`).
+> 
+> Refreshes `yarn.lock` accordingly, pulling in the `7.100.0` versions of Frontegg transitive packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 28f2aa9a6f81391244e8b9928f8cafac3da023c0. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.16](https://github.com/frontegg/frontegg-react/compare/v7.12.15...v7.12.16) (2026-1-27)
 
 - FR-22263 - Fixed publish
