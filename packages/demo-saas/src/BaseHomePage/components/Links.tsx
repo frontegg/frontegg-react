@@ -27,6 +27,7 @@ export const ROUTE_PATHS = {
   TEST: '/test',
   CMC: '/cmc',
   CMC_SSO: '/cmc-sso',
+  CMC_SCIM: '/cmc-scim',
 };
 
 const links = [
@@ -42,6 +43,7 @@ const links = [
   { route: ROUTE_PATHS.TEST, label: 'Old test' },
   { route: ROUTE_PATHS.CMC, label: 'CMC' },
   { route: ROUTE_PATHS.CMC_SSO, label: 'CMC SSO' },
+  { route: ROUTE_PATHS.CMC_SCIM, label: 'CMC SCIM' },
 ];
 
 export const Links = () => (

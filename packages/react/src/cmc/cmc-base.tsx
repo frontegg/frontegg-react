@@ -10,6 +10,7 @@ export type RenderableFronteggComponent = keyof Pick<
   | 'renderProfilePage'
   | 'renderUsersTable'
   | 'renderSsoGuideDialog'
+  | 'renderScimGuideDialog'
 >;
 export type FronteggCMCComponentProps<K extends CMCComponentProps> = Pick<
   K,

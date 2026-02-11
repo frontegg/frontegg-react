@@ -1,24 +1,20 @@
-import React, { useCallback, useEffect } from 'react';
-import { SsoGuideDialog, useAuthActions } from '@frontegg/react';
+import React, { useCallback } from 'react';
+import { ScimGuideDialog } from '@frontegg/react';
 import { wrapWithBaseHomePage } from '../BaseHomePage/BaseHomePage';
 
 const Page = () => {
   const handleGuideClose = useCallback((result: any) => {
-    console.log('Guide closed with result:', result);
+    console.log('SCIM Guide closed with result:', result);
   }, []);
-  const { loadSSOConfigurationsV2 } = useAuthActions();
-  useEffect(() => {
-    loadSSOConfigurationsV2();
-  }, [loadSSOConfigurationsV2]);
 
   return (
     <div style={{ width: '500px' }}>
-      <h1>SSO Guide Dialog</h1>
-      <SsoGuideDialog
+      <h1>SCIM Guide Dialog</h1>
+      <ScimGuideDialog
         props={{
-          id: 'sso-guide-dialog',
+          id: 'scim-guide-dialog',
           onClose: handleGuideClose,
-          showSelector: true,
+          getConnectionName: (provider: any) => `${provider.name} - ${provider.id}`,
         }}
         themeOptions={{}}
         containerStyle={{

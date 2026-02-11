@@ -2,6 +2,7 @@ import {
   ChangePasswordFormProps,
   InviteUserDialogProps,
   ProfilePageProps,
+  ScimGuideDialogProps,
   SsoGuideDialogProps,
   UsersTableProps,
 } from '@frontegg/types';
@@ -26,4 +27,8 @@ export const ProfilePage: FC<FronteggCMCComponentProps<ProfilePageProps>> = (pro
 
 export const SsoGuideDialog: FC<FronteggCMCComponentProps<SsoGuideDialogProps>> = (props) => {
   return <CMCComponent renderComponent='renderSsoGuideDialog' {...props} />;
+};
+
+export const ScimGuideDialog: FC<FronteggCMCComponentProps<ScimGuideDialogProps>> = (props) => {
+  return <CMCComponent renderComponent='renderScimGuideDialog' {...props} />;
 };

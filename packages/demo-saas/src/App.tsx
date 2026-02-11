@@ -8,6 +8,7 @@ import { authOptions } from './customizationOptions/authOptions';
 import HomePage from './HomePage';
 import CMCPage from './cmc/CMCPage';
 import CMCSsoPage from './cmc/CMCSsoPage';
+import CMCScimPage from './cmc/CMCScimPage';
 import ModalsStepUpPage from './stepUp/ModalsStepUpPage';
 import HOCStepUpPage from './stepUp/HOCStepUpPage';
 import SimpleStepUpButtonPage from './stepUp/SimpleStepUpButtonPage';
@@ -56,6 +57,7 @@ export const App: FC = () => {
           <Route path={ROUTE_PATHS.STEP_UP_TRANSFER} exact render={TransferStepUpPage} />
           <Route path={ROUTE_PATHS.CMC} exact render={CMCPage} />
           <Route path={ROUTE_PATHS.CMC_SSO} exact render={CMCSsoPage} />
+          <Route path={ROUTE_PATHS.CMC_SCIM} exact render={CMCScimPage} />
           {/* For tests that use someurl as the authenticated-url */}
           <Route path={'/someurl'} exact render={NotAFronteggPage} />
           <Route
