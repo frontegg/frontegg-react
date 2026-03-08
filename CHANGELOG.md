@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.12.19](https://github.com/frontegg/frontegg-react/compare/v7.12.18...v7.12.19) (2026-3-8)
+
+- FR-22979 - Changed callback in InviteUserForm to handle errors and reset form state
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk dependency-only update (no source changes), but behavior may shift due to updated Frontegg SDK transitive packages.
+> 
+> **Overview**
+> Updates `packages/react/package.json` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.102.0` (from `7.101.0`).
+> 
+> Regenerates `yarn.lock` to pull in the corresponding `7.102.0` releases and transitive bumps (notably `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 37257c84d3616d1134cc172f49641eed44147c00. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.18](https://github.com/frontegg/frontegg-react/compare/v7.12.17...v7.12.18) (2026-2-16)
 
 - FR-22346 - Fixed enable session per tenant data mismatch between user jwt and sdk    
