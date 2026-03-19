@@ -1,5 +1,26 @@
 # Change Log
 
+## [7.12.20](https://github.com/frontegg/frontegg-react/compare/v7.12.19...v7.12.20) (2026-3-19)
+
+- FR-23610 - Added login completed GTM
+- FR-23421 - Added support for CMC SCIM guide dialog and fix SSO guide
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk: this PR only updates dependency versions and lockfile entries, with no direct source code changes. Any behavior change would come from the upstream `@frontegg/*` packages.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.103.0` (from `7.102.0`).
+> 
+> Refreshes `yarn.lock` to pull in the corresponding `7.103.0` releases for transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 3d8629989a92e6a191d29e8a8b1702c67eac0095. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.19](https://github.com/frontegg/frontegg-react/compare/v7.12.18...v7.12.19) (2026-3-8)
 
 - FR-22979 - Changed callback in InviteUserForm to handle errors and reset form state
