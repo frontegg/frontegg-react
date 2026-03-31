@@ -1,1 +1,1 @@
-export default { version: '7.12.20' };
+export default { version: '7.12.21' };
