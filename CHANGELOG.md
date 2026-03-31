@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.12.21](https://github.com/frontegg/frontegg-react/compare/v7.12.20...v7.12.21) (2026-3-31)
+
+- FR-23900 - Added validation for reset password token and improved user feedback for expired links
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk dependency-only bump; behavior changes (if any) come from upstream `@frontegg/*` packages rather than local code changes.
+> 
+> **Overview**
+> Updates `@frontegg/react` dependencies to `@frontegg/js` and `@frontegg/react-hooks` `7.104.0` (from `7.103.0`).
+> 
+> Refreshes `yarn.lock` to pull the corresponding `7.104.0` transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 0545b689269403c0a7af825229a20f1b5889e19b. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.12.20](https://github.com/frontegg/frontegg-react/compare/v7.12.19...v7.12.20) (2026-3-19)
 
 - FR-23610 - Added login completed GTM
