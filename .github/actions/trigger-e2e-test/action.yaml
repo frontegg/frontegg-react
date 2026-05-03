@@ -24,6 +24,8 @@ runs:
       with:
         app-id: ${{ inputs.bot_app_id }}
         private-key: ${{ inputs.bot_app_key }}
+        owner: frontegg
+        repositories: e2e-system-tests
     - name: "Trigger E2E tests"
       uses: actions/github-script@v7
       env:
