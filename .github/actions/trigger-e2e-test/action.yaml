@@ -20,17 +20,19 @@ runs:
   steps:
     - id: create_bot_token
       name: Create bot token
-      uses: wow-actions/use-app-token@v2
+      uses: actions/create-github-app-token@v1
       with:
-        app_id: ${{ inputs.bot_app_id }}
-        private_key: ${{ inputs.bot_app_key }}
+        app-id: ${{ inputs.bot_app_id }}
+        private-key: ${{ inputs.bot_app_key }}
+        owner: frontegg
+        repositories: e2e-system-tests
     - name: "Trigger E2E tests"
-      uses: actions/github-script@v5
+      uses: actions/github-script@v7
       env:
         version: ${{ inputs.version }}
         sha: ${{ inputs.sha }}
       with:
-        github-token: ${{ steps.create_bot_token.outputs.BOT_TOKEN }}
+        github-token: ${{ steps.create_bot_token.outputs.token }}
         script: |
           const {sha, version} = process.env;
           const repo = 'frontegg-react'
