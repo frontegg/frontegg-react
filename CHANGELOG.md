@@ -1,5 +1,45 @@
 # Change Log
 
+## [7.12.22](https://github.com/frontegg/frontegg-react/compare/v7.12.21...v7.12.22) (2026-5-5)
+
+- FR-24187 - Fixed CPU issues
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk: this PR only updates dependency versions and lockfile entries, with no in-repo logic changes. Behavior changes, if any, come from the upstream Frontegg packages.
+> 
+> **Overview**
+> Updates `packages/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.106.0` (from `7.105.0`).
+> 
+> Regenerates `yarn.lock` to pull the matching `7.106.0` versions of transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 64810cd988f72146c20dc7e4c9069f2c1f07a991. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-23435 - Added country restriction features to Security Center
+- FR-23515 - Fixed wrong audit log tooltips
+- FR-23524 - Added guidesCdnUrl to SSOPage
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk lockfile/dependency-only update; behavior changes are limited to whatever is introduced in upstream `@frontegg/*` packages.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.105.0` (from `7.104.0`).
+> 
+> Regenerates `yarn.lock` to pull the `7.105.0` Frontegg dependency chain (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) with updated resolved artifacts and integrity hashes.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 25ced5838bb38eb844ac71bafd62158ed19e7500. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.12.22:
+- fix - e2e trigger
+
 ## [7.12.21](https://github.com/frontegg/frontegg-react/compare/v7.12.20...v7.12.21) (2026-3-31)
 
 - FR-23900 - Added validation for reset password token and improved user feedback for expired links
