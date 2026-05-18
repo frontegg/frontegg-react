@@ -1,5 +1,45 @@
 # Change Log
 
+## [7.13.0](https://github.com/frontegg/frontegg-react/compare/v7.12.22...v7.13.0) (2026-5-17)
+
+- FR-24663 - Fixed country restriction dark theme input
+- FR-24664 - Fixed country field background in modern theme
+- FR-24693 - Fixed country restriction admin portal not full list of countries display for allow deny lists
+- FR-24661 - Fixed country restriction tip counter updates
+- FR-24667 - Added country restriction admin portal current country is not added to the list after enabling the counter restriction toggle
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Updates core Frontegg runtime dependencies, which could change Admin Portal behavior at runtime despite being a small diff. Risk is limited to upstream package changes and lockfile resolution.
+> 
+> **Overview**
+> Bumps `@frontegg/react`'s Frontegg dependencies to `7.107.0` by updating `@frontegg/js` and `@frontegg/react-hooks`, along with the corresponding transitive packages in `yarn.lock` (e.g., `@frontegg/redux-store`, `@frontegg/rest-api`, `@frontegg/types`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 0219802f3bad61bcc72c9dfa1b2ac7c424031aaf. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-24187 - Fixed CPU issues
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk: this PR only updates dependency versions and lockfile entries, with no in-repo logic changes. Behavior changes, if any, come from the upstream Frontegg packages.
+> 
+> **Overview**
+> Updates `packages/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.106.0` (from `7.105.0`).
+> 
+> Regenerates `yarn.lock` to pull the matching `7.106.0` versions of transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 64810cd988f72146c20dc7e4c9069f2c1f07a991. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.13.0:
+- fix - e2e trigger
+
 ## [7.12.22](https://github.com/frontegg/frontegg-react/compare/v7.12.21...v7.12.22) (2026-5-5)
 
 - FR-24187 - Fixed CPU issues
