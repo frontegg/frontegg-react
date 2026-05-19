@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.13.1](https://github.com/frontegg/frontegg-react/compare/v7.13.0...v7.13.1) (2026-5-19)
+
+- FR-23507 - Fixed custom login box favicon not displaying pulls from main login box instead
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Updates core Frontegg SDK dependencies, so behavior changes come from upstream library code and could affect authentication/AdminPortal flows at runtime despite the small diff.
+> 
+> **Overview**
+> Updates `packages/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.108.0` (from `7.107.0`).
+> 
+> Regenerates `yarn.lock` to pull the corresponding `7.108.0` Frontegg transitive packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 81cc59e22c86c4a0f2788d40a78481e6e941d04b. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.0](https://github.com/frontegg/frontegg-react/compare/v7.12.22...v7.13.0) (2026-5-17)
 
 - FR-24663 - Fixed country restriction dark theme input
