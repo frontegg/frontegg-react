@@ -1,5 +1,23 @@
 # Change Log
 
+## [7.13.2](https://github.com/frontegg/frontegg-react/compare/v7.13.1...v7.13.2) (2026-6-1)
+
+- FR-25022 - Changed phone validations
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Validation behavior for phone numbers changes in a vendor auth/admin package, which can affect signup or profile flows without local code to review in this PR.
+> 
+> **Overview**
+> Bumps **`@frontegg/js`** and **`@frontegg/react-hooks`** in `packages/react` from **7.108.0** to **7.109.0**, with **`yarn.lock`** updated for the matching **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** versions. There are **no application source changes** in this repo—the Admin Portal behavior (including **FR-25022** phone validation updates noted in the PR description) comes from the upgraded Frontegg packages.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit ba67d54dd118e133862c20cdffc7fc4935065d49. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.1](https://github.com/frontegg/frontegg-react/compare/v7.13.0...v7.13.1) (2026-5-19)
 
 - FR-23507 - Fixed custom login box favicon not displaying pulls from main login box instead
