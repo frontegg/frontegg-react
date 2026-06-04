@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.13.3](https://github.com/frontegg/frontegg-react/compare/v7.13.2...v7.13.3) (2026-6-4)
+
+- FR-25111 - Fixed tenant regex
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no local code changes; risk is limited to upstream 7.110.0 behavior in auth/admin flows.
+> 
+> **Overview**
+> Bumps the embedded Frontegg Admin Portal stack from **7.109.0** to **7.110.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` and refreshing `yarn.lock` for the related `@frontegg/*` packages.
+> 
+> There are no application source changes in this repo; behavior updates (including the **tenant regex** fix noted in FR-25111) come from the upgraded published packages.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit e036f6948f8a1b49c443a3026c9ab66aac74a545. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.2](https://github.com/frontegg/frontegg-react/compare/v7.13.1...v7.13.2) (2026-6-1)
 
 - FR-25022 - Changed phone validations
