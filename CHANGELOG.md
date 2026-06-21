@@ -1,5 +1,29 @@
 # Change Log
 
+## [7.13.4](https://github.com/frontegg/frontegg-react/compare/v7.13.3...v7.13.4) (2026-6-21)
+
+- FR-24579 - Added native token bridge for the admin portal (no second login)
+- FR-20973 - Fixed sso with username
+- FR-20975 - Fixed description username login with magic code
+- FR-22194 - Fixed error massage of username already exists missing from UI
+- FR-20977 - Fixed resend with username in magic link
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Auth and admin-portal behavior shifts with the SDK bump even though this diff is only lockfile/package versions; regression risk is in login, SSO, and magic-link flows.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned Frontegg SDK from **7.110.0** to **7.111.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json`, with matching **`yarn.lock`** entries for `@frontegg/js`, `@frontegg/react-hooks`, `@frontegg/redux-store`, `@frontegg/rest-api`, and `@frontegg/types`.
+> 
+> No application source in this repo changes; consumers pick up **7.111.0** Admin Portal / auth behavior from the upstream packages (e.g. admin portal native token bridge and username/SSO/magic-link fixes noted in the PR description).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 29129cb8fc4d3d3dd756a5c545f6d64e2cff23b5. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.3](https://github.com/frontegg/frontegg-react/compare/v7.13.2...v7.13.3) (2026-6-4)
 
 - FR-25111 - Fixed tenant regex
