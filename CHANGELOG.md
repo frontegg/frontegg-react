@@ -1,5 +1,26 @@
 # Change Log
 
+## [7.13.5](https://github.com/frontegg/frontegg-react/compare/v7.13.4...v7.13.5) (2026-6-22)
+
+- FR-24579 - Fixed admin-portal redirect race on native auth handoff
+- FR-24579 - Fixed admin-portal mobile bridge capability gating and stuck loading
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Lockfile and dependency version pins only; no application code changes in this repository.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.111.0** to **7.112.0**: `@frontegg/js` and `@frontegg/react-hooks`, with **`yarn.lock`** updated for the full `@frontegg/*` tree (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> This release line includes Admin Portal fixes referenced in **FR-24579** (redirect race on native auth handoff, mobile bridge capability gating / stuck loading); those changes live in the published packages, not in this repo’s source.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit e008404ff704c75ca374a83fe38b756b680c773d. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.4](https://github.com/frontegg/frontegg-react/compare/v7.13.3...v7.13.4) (2026-6-21)
 
 - FR-24579 - Added native token bridge for the admin portal (no second login)
