@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.13.6](https://github.com/frontegg/frontegg-react/compare/v7.13.5...v7.13.6) (2026-6-22)
+
+- FR-24579 - Fixed admin-portal white screen in mobile SDK by refreshing session from native tokens
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Touches core auth/session packages without local code review in this diff; risk is mainly regression in admin portal or mobile SDK session handling from the upstream release.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.112.0** to **7.113.0**: `@frontegg/js` and `@frontegg/react-hooks`, with **`yarn.lock`** updated for the matching transitive **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** packages.
+> 
+> No application source changes in this PR—the update pulls in upstream **7.113.0** behavior, including the fix noted for **FR-24579** (admin portal white screen on mobile SDK by refreshing session from native tokens).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 455cb010cf87711c59f26aa901b9a897333966f3. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.5](https://github.com/frontegg/frontegg-react/compare/v7.13.4...v7.13.5) (2026-6-22)
 
 - FR-24579 - Fixed admin-portal redirect race on native auth handoff
