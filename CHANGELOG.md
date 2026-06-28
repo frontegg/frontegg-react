@@ -1,5 +1,26 @@
 # Change Log
 
+## [7.13.7](https://github.com/frontegg/frontegg-react/compare/v7.13.6...v7.13.7) (2026-6-25)
+
+- FR-24988 - Fixed hosted login box accessibility issues
+- FR-25494 - fixed stale frontegg oauth stale
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no local code changes; risk is limited to behavior changes inside the 7.114.0 SDK packages.
+> 
+> **Overview**
+> Updates **`@frontegg/react`** to consume **Frontegg SDK 7.114.0** by bumping **`@frontegg/js`** and **`@frontegg/react-hooks`** from `7.113.0` to `7.114.0`, with matching lockfile entries for the transitive **`@frontegg/types`**, **`@frontegg/redux-store`**, and **`@frontegg/rest-api`** packages.
+> 
+> No application source in this repo changes; consumers get upstream fixes from that release (per PR notes: hosted login box accessibility and Frontegg OAuth stale-session handling).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 7fa66ce0d59280ce82830e924242df4039f5882c. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.6](https://github.com/frontegg/frontegg-react/compare/v7.13.5...v7.13.6) (2026-6-22)
 
 - FR-24579 - Fixed admin-portal white screen in mobile SDK by refreshing session from native tokens
