@@ -1,5 +1,26 @@
 # Change Log
 
+## [7.13.8](https://github.com/frontegg/frontegg-react/compare/v7.13.7...v7.13.8) (2026-7-6)
+
+- FR-24939 - Fixed step-up gate ignoring max_age when the token has no auth_time
+- FR-24939 - Fixed mobile SDK step-up looping to a blank&#x2F;error page instead of the MFA challenge
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Changes upstream step-up and MFA behavior used by the React SDK; low diff size but auth-flow impact warrants careful regression on step-up and mobile MFA.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s pinned `@frontegg/js` and `@frontegg/react-hooks` from **7.114.0** to **7.115.0**, with matching `yarn.lock` entries for the related `@frontegg/*` packages.
+> 
+> This pulls in upstream **7.115.0** fixes (FR-24939): step-up now respects **max_age** when the token lacks `auth_time`, and mobile SDK step-up no longer loops to a blank/error page instead of the MFA challenge.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 3ef175aa79d86b01eda9e240b54f80a2cc26ab8b. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.7](https://github.com/frontegg/frontegg-react/compare/v7.13.6...v7.13.7) (2026-6-25)
 
 - FR-24988 - Fixed hosted login box accessibility issues
