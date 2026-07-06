@@ -1,5 +1,27 @@
 # Change Log
 
+## [7.13.9](https://github.com/frontegg/frontegg-react/compare/v7.13.8...v7.13.9) (2026-7-6)
+
+- FR-23757 - Fixed the actor of system audit logs to not be unknown
+
+- FR-25580 - Fixed token refresh resilience with retry backoff
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Touches auth-related upstream behavior (token refresh); scope is limited to version pins with no local code edits.
+> 
+> **Overview**
+> Bumps **`@frontegg/js`** and **`@frontegg/react-hooks`** in `packages/react` from **7.115.0** to **7.117.0**, with **`yarn.lock`** updated for the aligned **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** versions.
+> 
+> This pulls in upstream AdminPortal/SDK fixes noted in the PR: **system audit logs** should show a proper actor instead of *unknown* (FR-23757), and **token refresh** is more resilient via retry backoff (FR-25580). No local React package source changes—only dependency pins and lockfile.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 850aa02375413c5df9654f60e18a43f18bfcee33. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.8](https://github.com/frontegg/frontegg-react/compare/v7.13.7...v7.13.8) (2026-7-6)
 
 - FR-24939 - Fixed step-up gate ignoring max_age when the token has no auth_time
