@@ -105,12 +105,22 @@ jobs:
             const checkingVersion = '${{ steps.set_current_version.outputs.CURRENT_VERSION }}';
             const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
             await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
+      - name : "Create bot token for dispatch"
+        id : dispatch_bot_token
+        uses : actions/create-github-app-token@v1
+        with :
+          app-id : ${{ secrets.GH_FRONTEGG_BOT_APP_ID }}
+          private-key : ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
+          owner : frontegg
+          repositories : |
+            oauth-service
+            dashboard
       - name : "Trigger Oauth and Dashboard Services Pipeline Workflow"
         uses : actions/github-script@v5
         env :
           PR_VERSION : '${{ steps.set_current_version.outputs.CURRENT_VERSION }}'
         with :
-          github-token : ${{ secrets.DISPATCH_WORKFLOWS_TOKEN }}
+          github-token : ${{ steps.dispatch_bot_token.outputs.token }}
           script : |
             const fe_react_version = process.env.PR_VERSION;
             const owner = 'frontegg';
