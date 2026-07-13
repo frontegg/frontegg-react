@@ -1,5 +1,29 @@
 # Change Log
 
+## [7.13.10](https://github.com/frontegg/frontegg-react/compare/v7.13.9...v7.13.10) (2026-7-9)
+
+- FR-24939 - Fixed native step-up challenge not rendering in the embedded login WebView
+- FR-24853 - Removed identifiers flag
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; behavior changes come from published `@frontegg/*` packages, with no local code edits in this diff.
+> 
+> **Overview**
+> This PR **updates the React package’s Frontegg SDK dependencies** from **7.117.0** to **7.118.0**: `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json`, with matching lockfile entries for the full `@frontegg/*` tree (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> There is **no application source change** in the diff—consumers of `@frontegg/react` pick up upstream fixes described in the PR notes, including **native step-up challenge rendering in embedded login WebViews** (FR-24939) and **removal of the identifiers flag** (FR-24853).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 1f9716f8963bce14dc6f1a2cacddd2066324987f. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.13.10:
+- ci: upgrade create-github-app-token action to v3
+- ci: use GitHub App token for cross-repo dispatch instead of expiring PAT
+
 ## [7.13.9](https://github.com/frontegg/frontegg-react/compare/v7.13.8...v7.13.9) (2026-7-6)
 
 - FR-23757 - Fixed the actor of system audit logs to not be unknown
