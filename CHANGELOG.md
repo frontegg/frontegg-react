@@ -1,5 +1,44 @@
 # Change Log
 
+## [7.13.11](https://github.com/frontegg/frontegg-react/compare/v7.13.10...v7.13.11) (2026-7-23)
+
+- FR-26014 - Added admin-box addressType redux branch (external instant-nav) [7.119.x]
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Version pin and lockfile-only change; risk is limited to regressions or behavior changes in the upstream 7.119.0 Admin Portal packages.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned Frontegg Admin Portal stack from **7.118.0** to **7.119.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` and refreshing **`yarn.lock`** for the related `@frontegg/*` packages (`redux-store`, `rest-api`, `types`).
+> 
+> There is no application source change in this repo; consumers of `@frontegg/react` pick up upstream **7.119.x** behavior, including **FR-26014** (admin-box **`addressType`** redux branch for external instant navigation) as noted in the PR description.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 06addbf5b454469eb22259736809182a9f054299. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-24939 - Fixed native step-up challenge not rendering in the embedded login WebView
+- FR-24853 - Removed identifiers flag
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; behavior changes come from published `@frontegg/*` packages, with no local code edits in this diff.
+> 
+> **Overview**
+> This PR **updates the React package’s Frontegg SDK dependencies** from **7.117.0** to **7.118.0**: `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json`, with matching lockfile entries for the full `@frontegg/*` tree (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> There is **no application source change** in the diff—consumers of `@frontegg/react` pick up upstream fixes described in the PR notes, including **native step-up challenge rendering in embedded login WebViews** (FR-24939) and **removal of the identifiers flag** (FR-24853).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 1f9716f8963bce14dc6f1a2cacddd2066324987f. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.13.11:
+- ci: upgrade create-github-app-token action to v3
+
 ## [7.13.10](https://github.com/frontegg/frontegg-react/compare/v7.13.9...v7.13.10) (2026-7-9)
 
 - FR-24939 - Fixed native step-up challenge not rendering in the embedded login WebView
