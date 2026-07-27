@@ -1,5 +1,28 @@
 # Change Log
 
+## [7.14.0](https://github.com/frontegg/frontegg-react/compare/v7.13.11...v7.14.0) (2026-7-27)
+
+- FR-25731 - Fixed chooser load-error state seeding when switchable list empties after opening
+
+
+- FR-25731 - Added post-auth Choose Organization step in login-box (forward-port of #2864 to v7.120.x)
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Although this diff is only version pins, 7.121.0 changes post-authentication login-box/org-chooser flow, which can affect how users complete sign-in.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s pinned `@frontegg/js` and `@frontegg/react-hooks` from **7.119.0** to **7.121.0**, with `yarn.lock` updated for the aligned `@frontegg/*` stack (`redux-store`, `rest-api`, `types`).
+> 
+> No application source changes in this repo—the update pulls in upstream **7.121.0** login-box behavior described in the PR: a **post-auth Choose Organization** step and a fix for **chooser load-error state** when the switchable org list becomes empty after the chooser opens (FR-25731).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 6ad99258fdffdbb72a9742e2f207c1953d970bf0. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.13.11](https://github.com/frontegg/frontegg-react/compare/v7.13.10...v7.13.11) (2026-7-23)
 
 - FR-26014 - Added admin-box addressType redux branch (external instant-nav) [7.119.x]
