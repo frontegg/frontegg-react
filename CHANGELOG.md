@@ -1,5 +1,27 @@
 # Change Log
 
+## [7.15.0](https://github.com/frontegg/frontegg-react/compare/v7.14.0...v7.15.0) (2026-8-2)
+
+- FR-24113 - Added mobile-friendly authenticator setup-key enrollment UI
+- FR-24965 - Added remember last used MFA factor preference
+- FR-26112 - Fixed iOS Password AutoFill on the embedded login page
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Transitive upgrade touches MFA enrollment, MFA preference, and embedded login autofill—auth-adjacent UX with no local code review in this PR.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.121.0** to **7.122.0**: `@frontegg/js` and `@frontegg/react-hooks`, with **`yarn.lock`** updated for the matching `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api` versions.
+> 
+> There are no application code changes in this repo; consumers pick up **AdminPortal / SDK 7.122.0** behavior from those packages, including mobile-friendly authenticator setup-key enrollment, remembering the last used MFA factor, and an iOS Password AutoFill fix on the embedded login page.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 42b0c4c34075b25c9c8ff03c4175c8214e155dff. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.14.0](https://github.com/frontegg/frontegg-react/compare/v7.13.11...v7.14.0) (2026-7-27)
 
 - FR-25731 - Fixed chooser load-error state seeding when switchable list empties after opening
