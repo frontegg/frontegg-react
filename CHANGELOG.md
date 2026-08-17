@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.15.2](https://github.com/frontegg/frontegg-react/compare/v7.15.1...v7.15.2) (2026-8-17)
+
+- FR-26036 - Fixed tenant selection takes precedence over skipUserLoading
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Dependency-only change, but it alters auth/session loading behavior in upstream packages (tenant vs. skipUserLoading), which can affect multi-tenant login flows.
+> 
+> **Overview**
+> **Bumps** `@frontegg/react`’s direct dependencies from **7.123.0** to **7.124.0** (`@frontegg/js`, `@frontegg/react-hooks`) and refreshes **`yarn.lock`** so the aligned **7.124.0** tree is pinned (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> Consumers of this package pick up upstream **Admin Portal / SDK** behavior from that release, including the fix where **tenant selection takes precedence over `skipUserLoading`** (FR-26036). No application source in this repo changes beyond the version pins.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 78b7c25ebb99a2e7cd06f52ff9e5d297f077318f. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.15.1](https://github.com/frontegg/frontegg-react/compare/v7.15.0...v7.15.1) (2026-8-17)
 
 - FR-26036 - Added tenantChoicePending to fix the hosted postlogin vs tenant-chooser race
