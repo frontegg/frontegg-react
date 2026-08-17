@@ -1,5 +1,27 @@
 # Change Log
 
+## [7.15.1](https://github.com/frontegg/frontegg-react/compare/v7.15.0...v7.15.1) (2026-8-17)
+
+- FR-26036 - Added tenantChoicePending to fix the hosted postlogin vs tenant-chooser race
+- FR-26413 - Fixed the identifier field showing the default keyboard instead of the email keyboard on iOS
+- FR-23291 - Added Admin Portal users filter by role UI
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump with no local source changes; risk is limited to upstream 7.123.0 release behavior.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.122.0** to **7.123.0** (`@frontegg/js`, `@frontegg/react-hooks`) and refreshes **`yarn.lock`** for the matching `@frontegg/*` tree (`types`, `redux-store`, `rest-api`).
+> 
+> Consumers of this package pick up Admin Portal **7.123.0** behavior from upstream, including fixes for hosted post-login vs tenant-chooser timing (`tenantChoicePending`), iOS email keyboard on the identifier field, and Admin Portal users filtering by role.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 49e5ef73e5deb3e5100bf0130e5e5829b2d89819. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.15.0](https://github.com/frontegg/frontegg-react/compare/v7.14.0...v7.15.0) (2026-8-2)
 
 - FR-24113 - Added mobile-friendly authenticator setup-key enrollment UI
