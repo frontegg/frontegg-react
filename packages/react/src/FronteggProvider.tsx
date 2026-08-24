@@ -1,24 +1,22 @@
-import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
-import { initialize } from '@frontegg/js';
+import React, { FC, ReactNode, useCallback, useMemo } from 'react';
+import { initialize } from '@frontegg/admin-portal';
 import { FronteggAppOptions } from '@frontegg/types';
 import { FronteggStoreProvider } from '@frontegg/react-hooks';
 import { BrowserRouter, useHistory, UseHistory } from './routerProxy';
-import { ContextHolder, RedirectOptions, FronteggFrameworks } from '@frontegg/rest-api';
-import { AppHolder } from '@frontegg/js/AppHolder';
-import { isAuthRoute, AuthPageRoutes, defaultFronteggRoutes } from '@frontegg/redux-store';
-import sdkVersion from './sdkVersion';
-import ReactPkg from 'react/package.json';
-import { AlwaysRenderInProvider, HistoryObject } from './AlwaysRenderInProvider';
+import { ContextHolder, RedirectOptions } from '@frontegg/rest-api';
+import { AppHolder } from '@frontegg/admin-portal/AppHolder';
+import { useQueryKeeper } from './queryKeeper';
 
 export type FronteggProviderProps = FronteggAppOptions & {
   appName?: string;
   history?: UseHistory;
   children?: ReactNode;
 };
-
 type ConnectorProps = Omit<FronteggProviderProps, 'history'> & {
-  history: HistoryObject;
-  isExternalHistory?: boolean;
+  history: {
+    push: (path: string) => void;
+    replace: (path: string) => void;
+  };
 };
 
 export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => {
@@ -26,27 +24,11 @@ export const ConnectorHistory: FC<Omit<ConnectorProps, 'history'>> = (props) => 
   return <Connector history={history} {...props} />;
 };
 
-/**
- * @param path path to check
- * @param routes frontegg auth routes
- * @returns true when should bypass react router
- */
-function isBypassReactRoute(path: string, routes?: Partial<AuthPageRoutes>) {
-  const stepUpUrl = routes?.stepUpUrl || defaultFronteggRoutes.stepUpUrl;
-  return stepUpUrl && path.startsWith(stepUpUrl);
-}
-
-export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHistory = false, ...props }) => {
+export const Connector: FC<ConnectorProps> = ({ history, appName, ...props }) => {
   const isSSR = typeof window === 'undefined';
-  const version = `@frontegg/react@${sdkVersion.version}`;
 
   // v6 or v5
   const baseName = props.basename ?? '';
-  const isAuthRouteRef = useRef<(path: string) => boolean>(() => false);
-
-  useEffect(() => {
-    isAuthRouteRef.current = (path) => isAuthRoute(path, props.authOptions?.routes);
-  }, [props.authOptions?.routes]);
 
   const onRedirectTo = useCallback((_path: string, opts?: RedirectOptions) => {
     let path = _path;
@@ -54,21 +36,12 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
     if (baseName && typeof baseName === 'string' && baseName.length > 0 && path.startsWith(baseName)) {
       path = path.substring(baseName.length);
     }
-    if (opts?.preserveQueryParams || isAuthRouteRef.current(path)) {
+    if (opts?.preserveQueryParams) {
       path = `${path}${window.location.search}`;
     }
-
-    if (isBypassReactRoute(path, props.authOptions?.routes)) {
-      // when user app includes a fallback route, we need to avoid using the react router
-      window?.history?.pushState(null, '', path);
-      return;
-    }
-
     if (opts?.refresh && !isSSR) {
-      // When running in hostedRuntime (oauth) we need to do full reload when running cypress tests. window.Cypress intended to be only for internal use
-      // We don't remove the condition to avoid customer breaking changes for embedded mode
       // @ts-ignore
-      window.Cypress && !props.hostedRuntime ? history.push(path) : (window.location.href = path);
+      window.Cypress ? history.push(path) : (window.location.href = path);
     } else {
       opts?.replace ? history.replace(path) : history.push(path);
     }
@@ -84,12 +57,6 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
           basename: props.basename ?? baseName,
           contextOptions: {
             requestCredentials: 'include',
-            metadataHeaders: {
-              //TODO: remove this ts-ignore after updating rest-api context options type to accept string.
-              //@ts-ignore
-              framework: `${FronteggFrameworks.React}@${ReactPkg.version}`,
-              fronteggSdkVersion: version,
-            },
             ...props.contextOptions,
           },
           onRedirectTo,
@@ -100,19 +67,10 @@ export const Connector: FC<ConnectorProps> = ({ history, appName, isExternalHist
   }, []);
   ContextHolder.setOnRedirectTo(onRedirectTo);
 
-  return (
-    <FronteggStoreProvider
-      {...({ ...props, app } as any)}
-      alwaysVisibleChildren={
-        <AlwaysRenderInProvider
-          app={app}
-          themeOptions={props.themeOptions}
-          history={history}
-          isExternalHistory={isExternalHistory}
-        />
-      }
-    />
-  );
+  const signUpUrl = app.store.getState().auth.routes.signUpUrl;
+  useQueryKeeper({ routes: { signUpUrl }, history });
+
+  return <FronteggStoreProvider {...({ ...props, app } as any)} />;
 };
 
 export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
@@ -120,7 +78,7 @@ export const FronteggProvider: FC<FronteggProviderProps> = (props) => {
 
   if (props.history || history) {
     return (
-      <Connector history={props.history || history} isExternalHistory={!!props.history} {...props}>
+      <Connector history={props.history || history} {...props}>
         {props.children}
       </Connector>
     );

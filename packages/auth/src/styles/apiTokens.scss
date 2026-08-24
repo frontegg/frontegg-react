@@ -1,0 +1,71 @@
+.fe-api-tokens {
+  &__table-toolbar {
+    padding: 1rem 2rem;
+  }
+
+  &__dialog {
+    &-description {
+      margin-top: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    &-spacer {
+      height: 1.5rem;
+    }
+  }
+
+  &__dialog-add,
+  &__dialog-success {
+    .fe-dialog-body {
+      padding: 0 2rem 2rem 2rem;
+    }
+  }
+
+  &__dialog-add {
+    .fe-api-tokens__dialog-description {
+      font-weight: normal;
+    }
+  }
+
+  &__dialog-success {
+    &-input {
+      svg {
+        cursor: pointer;
+        width: 1.5rem;
+        fill: #d0d3e0;
+      }
+    }
+
+    &-tip {
+      display: flex;
+      align-items: center;
+      background-color: #ededfe;
+      padding: 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+      border-radius: 4px;
+
+      svg {
+        fill: #5a6ff5;
+      }
+
+      span {
+        max-width: 84%;
+        font-size: 0.875rem;
+        color: #5a6ff5;
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  &__dialog-delete {
+    &-message {
+      text-align: center;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__copy-icon {
+    height: 1rem;
+  }
+}

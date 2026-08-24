@@ -35,8 +35,7 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "noEmit": true,
-    "module": "esnext",
-    "noFallthroughCasesInSwitch": true
+    "module": "esnext"
   },
   "include": [
     "./src/**/*.tsx",

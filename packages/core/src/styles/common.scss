@@ -1,0 +1,25 @@
+@import './colors.scss';
+@import './shadows.scss';
+@import './semantic-overrides.scss';
+@import './elements.scss';
+@import './helpers.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+.frontegg {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-family: 'Nunito Sans', Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.4285em;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+}

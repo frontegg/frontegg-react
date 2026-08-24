@@ -1,0 +1,16 @@
+.ui.button.fe-semantic-button {
+  &__transparent {
+    border: none;
+    &:not(:hover) {
+      background: transparent;
+    }
+  }
+
+  &__icon-button {
+    text-align: center;
+
+    > .fe-icon {
+      margin: auto !important;
+    }
+  }
+}

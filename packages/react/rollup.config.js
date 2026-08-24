@@ -21,9 +21,7 @@ function movePackageJson() {
       fs.writeFileSync(path.join(distFolder, 'package.json'), JSON.stringify(enhancedPkg, null, 2), {
         encoding: 'utf8',
       });
-      if (fs.existsSync(nodeModulesPath)) {
-        fs.rmSync(nodeModulesPath, { recursive: true });
-      }
+      fs.rmdirSync(nodeModulesPath, { recursive: true });
       fs.symlinkSync(distFolder, nodeModulesPath, 'dir');
     },
   };
@@ -51,21 +49,13 @@ const cjsPlugins = [
 ];
 
 const isExternal = (id) => {
-  return ![
-    './FronteggProvider',
-    './AlwaysRenderInProvider',
-    './AuthorizedContent',
-    './SteppedUpContent',
-    './sdkVersion',
-    './routerProxy',
-    './queryKeeper',
-    './CheckoutDialog',
-    'tslib',
-    './cmc-base',
-    './cmc-components',
-    './cmc-hooks',
-    './cmc',
-  ].includes(id);
+  return (
+    id !== './FronteggProvider' &&
+    id !== './AuthorizedContent' &&
+    id !== './routerProxy' &&
+    id !== './queryKeeper' &&
+    id !== './CheckoutDialog'
+  );
 };
 
 export default [

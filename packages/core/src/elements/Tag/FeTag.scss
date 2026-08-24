@@ -1,0 +1,32 @@
+@import '../../styles/mixin.scss';
+
+.fe-tag {
+  height: var(--element-height);
+  padding: 0 var(--element-padding);
+  font-size: var(--element-font-size);
+  color: var(--color-text);
+  border: none;
+  cursor: default;
+  display: inline-flex;
+  outline: 0;
+  box-sizing: border-box;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: var(--element-border-radius);
+  vertical-align: middle;
+  justify-content: center;
+  text-decoration: none;
+  background-color: var(--color-gray-3);
+  @include with-theme;
+  @include with-clickable;
+  @include with-size;
+
+  &__icon {
+    @include with-clickable;
+  }
+
+  .fe-icon {
+    margin-right: calc(-1 * var(--element-padding-sm));
+    margin-left: var(--element-spacing);
+  }
+}

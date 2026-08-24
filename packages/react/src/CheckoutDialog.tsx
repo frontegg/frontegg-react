@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { CheckoutDialog } from '@frontegg/js';
+import { CheckoutDialog } from '@frontegg/admin-portal';
 
 interface CheckoutDialogState {
   open: boolean;

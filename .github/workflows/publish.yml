@@ -13,18 +13,17 @@ jobs:
     name: Publish
     if: "contains(join(github.event.pull_request.labels.*.name, ','), 'Release') && github.event.pull_request.merged == true"
     runs-on: ubuntu-latest
+    container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: "0"
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
-      - name: Use Node.js (.nvmrc)
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          node-version: 12
+          registry-url: 'https://npm.pkg.github.com'
       - name: Git Identity
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -34,6 +33,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Dependencies and Build Packages
         run: make init
+      - name: Run Components Test
+        run: make test-component
       - name: Set Current Version
         id: set_current_version
         if: startsWith(github.event.pull_request.title, 'v')
@@ -57,7 +58,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Git Tag
         if: steps.tag_check.outputs.exists_tag == 'false'
-        uses: pkgdeps/git-tag-action@v2
+        uses: azu/action-package-version-to-git-tag@v1
         with:
           version: ${{ steps.set_current_version.outputs.CURRENT_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -86,6 +87,7 @@ jobs:
           echo "init-license=MIT" >> .npmrc
           echo "always-auth=true" >> .npmrc
           echo "registry=https://registry.npmjs.org" >> .npmrc
+          echo "_authToken=$NPM_TOKEN" >> .npmrc
           echo "@frontegg:registry=https://registry.npmjs.org" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
@@ -94,46 +96,10 @@ jobs:
       - name: Publish
         run: |
           make move-package-json-to-dist
-          make publish-packages-latest
+          make publish-packages
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-      - name : Wait until NPM registry finished indexing the new version
-        uses : actions/github-script@v6
-        with :
-          script : |
-            const checkingVersion = '${{ steps.set_current_version.outputs.CURRENT_VERSION }}';
-            const checkNpmVersions = require('./scripts/wait-for-npm-indexing.js');
-            await checkNpmVersions(github, ['@frontegg/react'], checkingVersion);
-      - name : "Create bot token for dispatch"
-        id : dispatch_bot_token
-        uses : actions/create-github-app-token@v3
-        with :
-          client-id : ${{ secrets.GH_FRONTEGG_BOT_CLIENT_ID }}
-          private-key : ${{ secrets.GH_FRONTEGG_BOT_APP_SECRET }}
-          owner : frontegg
-          repositories : |
-            oauth-service
-            dashboard
-      - name : "Trigger Oauth and Dashboard Services Pipeline Workflow"
-        uses : actions/github-script@v5
-        env :
-          PR_VERSION : '${{ steps.set_current_version.outputs.CURRENT_VERSION }}'
-        with :
-          github-token : ${{ steps.dispatch_bot_token.outputs.token }}
-          script : |
-            const fe_react_version = process.env.PR_VERSION;
-            const owner = 'frontegg';
-            const dispatchActionsData = [{ repo: 'oauth-service', workflow_id: 'update-react-dependency.yaml' }, { repo: 'dashboard', workflow_id: 'update-frontegg-react-dependency.yaml' }];
-            await Promise.all(dispatchActionsData.map(({ repo, workflow_id }) => github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo,
-              workflow_id,
-              ref: 'master',
-              inputs: {
-                fe_react_version,
-              }}))
-            );
       - name: Notify Slack on deployment
         uses: rtCamp/action-slack-notify@v2
         env:

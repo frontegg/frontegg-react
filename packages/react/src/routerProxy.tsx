@@ -1,6 +1,4 @@
 import * as ReactRouterDom from 'react-router-dom';
-import { FC } from 'react';
-import { BrowserRouterProps } from 'react-router-dom';
 
 export type Path = string;
 
@@ -21,9 +19,7 @@ export type UseHistory = {
   replace(location: LocationDescriptor): void;
 };
 
-export const BrowserRouter: FC<BrowserRouterProps> = (ReactRouterDom.BrowserRouter as unknown) as FC<
-  BrowserRouterProps
->;
+export const BrowserRouter = ReactRouterDom.BrowserRouter;
 
 export const useHistory = (): UseHistory => {
   // @ts-ignore

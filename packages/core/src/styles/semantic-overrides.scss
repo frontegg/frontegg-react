@@ -1,0 +1,66 @@
+:root {
+  //font-smoothing: none;
+  //-webkit-font-smoothing: none;
+}
+
+/*******************************
+          Highlighting
+*******************************/
+
+::-webkit-selection {
+  background-color: highlight;
+  color: highlighttext;
+}
+
+::-moz-selection {
+  background-color: highlight;
+  color: highlighttext;
+}
+
+::selection {
+  background-color: highlight;
+  color: highlighttext;
+}
+
+/*--------------------
+      Autofilled
+---------------------*/
+
+.ui.form .field.field input:-webkit-autofill {
+  -webkit-box-shadow: inherit !important;
+  box-shadow: inherit !important;
+  border-color: inherit;
+}
+
+/* Focus */
+
+.ui.form .field.field input:-webkit-autofill:focus {
+  -webkit-box-shadow: inherit !important;
+  box-shadow: inherit !important;
+  border-color: inherit;
+}
+
+/* Error */
+.ui.form .error.error input:-webkit-autofill {
+  -webkit-box-shadow: 0px 0px 0px 100px #fffaf0 inset !important;
+  box-shadow: 0px 0px 0px 100px #fffaf0 inset !important;
+  border-color: #e0b4b4 !important;
+}
+
+.ui.form .disabled.field,
+.ui.form .disabled.fields .field,
+.ui.form .field :disabled {
+  opacity: inherit;
+}
+
+.fe-dimmer {
+  .ui.active.loader {
+    &:after {
+      border-color: var(--color-gray-6) transparent transparent;
+    }
+
+    &:before {
+      border-color: var(--color-black-10);
+    }
+  }
+}
