@@ -1,5 +1,29 @@
 # Change Log
 
+## [7.16.0](https://github.com/frontegg/frontegg-react/compare/v7.15.2...v7.16.0) (2026-9-6)
+
+- FR-26860 - Fixed lastTermsCheck missing on signup when terms are text-only
+- FR-25906 - Fixed the passkey button reading as disabled after a cancelled credential sheet
+- FR-26334 - Fixed the MFA method-selection page painting without layout on iOS
+- FR-23613 - Changed role pickers to restrict equal-level assignment
+- FR-26112 - Fixed email keyboard and passkey autofill on the login identifier
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only bump with no in-repo code changes; behavior changes are limited to the upstream 7.125.0 release.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s pinned `@frontegg/js` and `@frontegg/react-hooks` from **7.124.0** to **7.125.0**, with `yarn.lock` updated for the full 7.125.0 stack (`types`, `redux-store`, `rest-api`). No local source changes—consumers pick up the AdminPortal **7.125.0** fixes via the new packages.
+> 
+> That release includes signup terms handling when terms are text-only (`lastTermsCheck`), passkey UI after a cancelled credential sheet, MFA method-selection layout on iOS, stricter equal-level role assignment in role pickers, and login identifier email keyboard / passkey autofill behavior.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit bd93a9be3013745a8d66729ad2caa66d47e61fa1. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.15.2](https://github.com/frontegg/frontegg-react/compare/v7.15.1...v7.15.2) (2026-8-17)
 
 - FR-26036 - Fixed tenant selection takes precedence over skipUserLoading
