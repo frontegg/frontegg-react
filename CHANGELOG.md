@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.17.0](https://github.com/frontegg/frontegg-react/compare/v7.16.0...v7.17.0) (2026-9-15)
+
+- FR-27031 - Added the @frontegg&#x2F;js SDK identifier to outgoing requests
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only with no local code changes; behavior change is limited to upstream request metadata from the new SDK release.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.125.0** to **7.126.0**, with matching **`yarn.lock`** updates for the transitive **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** packages.
+> 
+> There are no source changes in this repo; apps using this package pick up **7.126.0** behavior from the upstream SDK (including **FR-27031**: adding the **`@frontegg/js`** SDK identifier on outgoing requests).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 3f427921f035b6e993c3b2ec246b5302d4c88336. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.16.0](https://github.com/frontegg/frontegg-react/compare/v7.15.2...v7.16.0) (2026-9-6)
 
 - FR-26860 - Fixed lastTermsCheck missing on signup when terms are text-only
