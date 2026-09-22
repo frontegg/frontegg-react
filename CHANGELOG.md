@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.17.1](https://github.com/frontegg/frontegg-react/compare/v7.17.0...v7.17.1) (2026-9-22)
+
+- FR-27124 - Fixed the edit account name action showing on the root account
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Lockfile and dependency version bumps only; behavior changes live in upstream packages with a targeted Admin Portal UI fix.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.126.0** to **7.127.0** in `packages/react/package.json` and refreshes **`yarn.lock`** for the full transitive `@frontegg/*` stack (`js`, `react-hooks`, `redux-store`, `rest-api`, `types`).
+> 
+> There are **no local source changes** in this repo—the update pulls in the published **7.127.0** Admin Portal bits, including **FR-27124**, which stops the **edit account name** action from appearing on the **root account**.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 0602b2408227215c42e79739516449f460590901. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.17.0](https://github.com/frontegg/frontegg-react/compare/v7.16.0...v7.17.0) (2026-9-15)
 
 - FR-27031 - Added the @frontegg&#x2F;js SDK identifier to outgoing requests
