@@ -1,5 +1,27 @@
 # Change Log
 
+## [7.18.0](https://github.com/frontegg/frontegg-react/compare/v7.17.1...v7.18.0) (2026-9-27)
+
+- FR-26965 - Added request details, title and a clearer layout to the approval flow page
+- FR-26993 - Added invite link V1 fallback stranded on next&#x2F;v7.125.x
+- FR-24962 - Changed the MFA SMS factor label to &#39;Phone number&#39; in LoginBox and the Admin Portal
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no in-repo logic changes; risk is limited to upstream 7.128.0 behavior in auth/MFA and invite flows.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.127.0** to **7.128.0**, with matching **`yarn.lock`** entries for the full **7.128.0** Frontegg JS stack (`types`, `redux-store`, `rest-api`, etc.). There are no local source changes in this repo—the React package simply ships the newer Admin Portal / LoginBox bits from upstream.
+> 
+> Consumers of **`@frontegg/react`** pick up **7.128.0** behavior described in the release notes: clearer approval-flow layout (request details/title), invite-link V1 fallback for stranded **v7.125.x** flows, and the MFA SMS factor label **“Phone number”** in LoginBox and Admin Portal.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 7f6e099515e56fa236453f7c1c2fed43f23a62be. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.17.1](https://github.com/frontegg/frontegg-react/compare/v7.17.0...v7.17.1) (2026-9-22)
 
 - FR-27124 - Fixed the edit account name action showing on the root account
