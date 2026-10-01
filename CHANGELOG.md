@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.18.1](https://github.com/frontegg/frontegg-react/compare/v7.18.0...v7.18.1) (2026-10-1)
+
+- FR-27326 - Fixed double redirect to sso
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; behavior change is limited to upstream SSO redirect fix with no local code modifications.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s bundled SDK dependencies **`@frontegg/js`** and **`@frontegg/react-hooks`** from **7.128.0** to **7.129.0**, with matching **`yarn.lock`** updates for the transitive `@frontegg/*` packages (`redux-store`, `rest-api`, `types`).
+> 
+> Consumers of this package pick up **AdminPortal / SDK 7.129.0**, including **FR-27326** (fixes a **double redirect during SSO**). No application source changes in this repo—only version alignment.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 120235ae90c5e375dd2ccbe3167775fa45fc84c2. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.18.0](https://github.com/frontegg/frontegg-react/compare/v7.17.1...v7.18.0) (2026-9-27)
 
 - FR-26965 - Added request details, title and a clearer layout to the approval flow page
