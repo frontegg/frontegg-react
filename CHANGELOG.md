@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.18.2](https://github.com/frontegg/frontegg-react/compare/v7.18.1...v7.18.2) (2026-10-6)
+
+- FR-26746 - Fixed the infinite loader on Resend invitation email failure
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only bump with no local code changes; risk is limited to upstream 7.130.0 behavior in auth/admin flows.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.129.0** to **7.130.0**, and refreshes **`yarn.lock`** for the related **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** packages at the same version.
+> 
+> There are no application or library source changes in this repo—the update pulls in upstream AdminPortal **7.130.0** behavior, including the fix for **FR-26746** (infinite loader when resend invitation email fails).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 3aa94e8c40143c0a858e41fd34fb51ecb0f527f1. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.18.1](https://github.com/frontegg/frontegg-react/compare/v7.18.0...v7.18.1) (2026-10-1)
 
 - FR-27326 - Fixed double redirect to sso
