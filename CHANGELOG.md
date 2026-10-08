@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.19.0](https://github.com/frontegg/frontegg-react/compare/v7.18.2...v7.19.0) (2026-10-8)
+
+- FR-27075 - Added SSO enforcement handling on tenant switch and token refresh
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Dependency-only change, but 7.131.0 alters auth/session flows (SSO enforcement on tenant switch and refresh), which can affect login and multi-tenant behavior.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies **`@frontegg/js`** and **`@frontegg/react-hooks`** from **7.130.0** to **7.131.0**, with **`yarn.lock`** updated for the full transitive **`@frontegg/*`** stack (types, redux-store, rest-api).
+> 
+> Consumers of this package pick up **7.131.0** AdminPortal/SDK behavior described in **FR-27075**, including **SSO enforcement when switching tenants and on token refresh**—implemented in the upgraded packages, not in new code in this repo.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit cb988da6651ec688e836ad34be0b48fee4191c6d. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.18.2](https://github.com/frontegg/frontegg-react/compare/v7.18.1...v7.18.2) (2026-10-6)
 
 - FR-26746 - Fixed the infinite loader on Resend invitation email failure
