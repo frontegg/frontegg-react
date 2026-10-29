@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.20.1](https://github.com/frontegg/frontegg-react/compare/v7.20.0...v7.20.1) (2026-10-29)
+
+- FR-28081 - Fixed the admin portal rendering before the metadata overrides load
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no changes to this repository’s application code; behavior changes come from the published Frontegg packages.
+> 
+> **Overview**
+> Aligns **`@frontegg/react`** with Admin Portal **7.133.0** by bumping pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** from **7.132.0** to **7.133.0**, with matching **`yarn.lock`** updates for the transitive **`@frontegg/*`** packages.
+> 
+> There are no local source changes in this repo; React SDK consumers pick up upstream fixes from **7.133.0**, including **FR-28081**, which prevents the admin portal from rendering before metadata overrides finish loading.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 4f70fa87d3ec04a843950f15ecf37e3d2f8c7593. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.20.0](https://github.com/frontegg/frontegg-react/compare/v7.19.0...v7.20.0) (2026-10-25)
 
 - FR-27164 - Added roleVisibility option for the Admin Portal Roles page
