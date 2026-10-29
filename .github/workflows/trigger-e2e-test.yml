@@ -18,9 +18,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Print inputs"
+        env:
+          VERSION: ${{ inputs.version }}
+          DISPATCH_ID: ${{ inputs.dispatch_id }}
         run: |
-          echo "Received test request for @frontegg/react@${{ inputs.version }}"
-          echo "From: ${{ inputs.dispatch_id }}"
+          echo "Received test request for @frontegg/react@${VERSION}"
+          echo "From: ${DISPATCH_ID}"
 
       - name: "Call trigger-e2e-test action"
         uses: ./.github/actions/trigger-e2e-test

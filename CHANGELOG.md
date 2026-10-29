@@ -1,5 +1,860 @@
 # Change Log
 
+## [7.20.0](https://github.com/frontegg/frontegg-react/compare/v7.19.0...v7.20.0) (2026-10-25)
+
+- FR-27164 - Added roleVisibility option for the Admin Portal Roles page
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; no application code changes in this repo.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.131.0** to **7.132.0**, aligning the React SDK with Admin Portal **7.132.0** (including **FR-27164**: **`roleVisibility`** on the Admin Portal Roles page via the updated packages).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit fe0d4658afa1456a02df2bae01d4264089044fab. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-27075 - Added SSO enforcement handling on tenant switch and token refresh
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Dependency-only change, but 7.131.0 alters auth/session flows (SSO enforcement on tenant switch and refresh), which can affect login and multi-tenant behavior.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies **`@frontegg/js`** and **`@frontegg/react-hooks`** from **7.130.0** to **7.131.0**, with **`yarn.lock`** updated for the full transitive **`@frontegg/*`** stack (types, redux-store, rest-api).
+> 
+> Consumers of this package pick up **7.131.0** AdminPortal/SDK behavior described in **FR-27075**, including **SSO enforcement when switching tenants and on token refresh**—implemented in the upgraded packages, not in new code in this repo.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit cb988da6651ec688e836ad34be0b48fee4191c6d. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.19.0](https://github.com/frontegg/frontegg-react/compare/v7.18.2...v7.19.0) (2026-10-8)
+
+- FR-27075 - Added SSO enforcement handling on tenant switch and token refresh
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Dependency-only change, but 7.131.0 alters auth/session flows (SSO enforcement on tenant switch and refresh), which can affect login and multi-tenant behavior.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies **`@frontegg/js`** and **`@frontegg/react-hooks`** from **7.130.0** to **7.131.0**, with **`yarn.lock`** updated for the full transitive **`@frontegg/*`** stack (types, redux-store, rest-api).
+> 
+> Consumers of this package pick up **7.131.0** AdminPortal/SDK behavior described in **FR-27075**, including **SSO enforcement when switching tenants and on token refresh**—implemented in the upgraded packages, not in new code in this repo.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit cb988da6651ec688e836ad34be0b48fee4191c6d. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.18.2](https://github.com/frontegg/frontegg-react/compare/v7.18.1...v7.18.2) (2026-10-6)
+
+- FR-26746 - Fixed the infinite loader on Resend invitation email failure
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only bump with no local code changes; risk is limited to upstream 7.130.0 behavior in auth/admin flows.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.129.0** to **7.130.0**, and refreshes **`yarn.lock`** for the related **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** packages at the same version.
+> 
+> There are no application or library source changes in this repo—the update pulls in upstream AdminPortal **7.130.0** behavior, including the fix for **FR-26746** (infinite loader when resend invitation email fails).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 3aa94e8c40143c0a858e41fd34fb51ecb0f527f1. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.18.1](https://github.com/frontegg/frontegg-react/compare/v7.18.0...v7.18.1) (2026-10-1)
+
+- FR-27326 - Fixed double redirect to sso
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; behavior change is limited to upstream SSO redirect fix with no local code modifications.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s bundled SDK dependencies **`@frontegg/js`** and **`@frontegg/react-hooks`** from **7.128.0** to **7.129.0**, with matching **`yarn.lock`** updates for the transitive `@frontegg/*` packages (`redux-store`, `rest-api`, `types`).
+> 
+> Consumers of this package pick up **AdminPortal / SDK 7.129.0**, including **FR-27326** (fixes a **double redirect during SSO**). No application source changes in this repo—only version alignment.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 120235ae90c5e375dd2ccbe3167775fa45fc84c2. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.18.0](https://github.com/frontegg/frontegg-react/compare/v7.17.1...v7.18.0) (2026-9-27)
+
+- FR-26965 - Added request details, title and a clearer layout to the approval flow page
+- FR-26993 - Added invite link V1 fallback stranded on next&#x2F;v7.125.x
+- FR-24962 - Changed the MFA SMS factor label to &#39;Phone number&#39; in LoginBox and the Admin Portal
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no in-repo logic changes; risk is limited to upstream 7.128.0 behavior in auth/MFA and invite flows.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.127.0** to **7.128.0**, with matching **`yarn.lock`** entries for the full **7.128.0** Frontegg JS stack (`types`, `redux-store`, `rest-api`, etc.). There are no local source changes in this repo—the React package simply ships the newer Admin Portal / LoginBox bits from upstream.
+> 
+> Consumers of **`@frontegg/react`** pick up **7.128.0** behavior described in the release notes: clearer approval-flow layout (request details/title), invite-link V1 fallback for stranded **v7.125.x** flows, and the MFA SMS factor label **“Phone number”** in LoginBox and Admin Portal.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 7f6e099515e56fa236453f7c1c2fed43f23a62be. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.17.1](https://github.com/frontegg/frontegg-react/compare/v7.17.0...v7.17.1) (2026-9-22)
+
+- FR-27124 - Fixed the edit account name action showing on the root account
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Lockfile and dependency version bumps only; behavior changes live in upstream packages with a targeted Admin Portal UI fix.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.126.0** to **7.127.0** in `packages/react/package.json` and refreshes **`yarn.lock`** for the full transitive `@frontegg/*` stack (`js`, `react-hooks`, `redux-store`, `rest-api`, `types`).
+> 
+> There are **no local source changes** in this repo—the update pulls in the published **7.127.0** Admin Portal bits, including **FR-27124**, which stops the **edit account name** action from appearing on the **root account**.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 0602b2408227215c42e79739516449f460590901. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.17.0](https://github.com/frontegg/frontegg-react/compare/v7.16.0...v7.17.0) (2026-9-15)
+
+- FR-27031 - Added the @frontegg&#x2F;js SDK identifier to outgoing requests
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only with no local code changes; behavior change is limited to upstream request metadata from the new SDK release.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned **`@frontegg/js`** and **`@frontegg/react-hooks`** dependencies from **7.125.0** to **7.126.0**, with matching **`yarn.lock`** updates for the transitive **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** packages.
+> 
+> There are no source changes in this repo; apps using this package pick up **7.126.0** behavior from the upstream SDK (including **FR-27031**: adding the **`@frontegg/js`** SDK identifier on outgoing requests).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 3f427921f035b6e993c3b2ec246b5302d4c88336. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.16.0](https://github.com/frontegg/frontegg-react/compare/v7.15.2...v7.16.0) (2026-9-6)
+
+- FR-26860 - Fixed lastTermsCheck missing on signup when terms are text-only
+- FR-25906 - Fixed the passkey button reading as disabled after a cancelled credential sheet
+- FR-26334 - Fixed the MFA method-selection page painting without layout on iOS
+- FR-23613 - Changed role pickers to restrict equal-level assignment
+- FR-26112 - Fixed email keyboard and passkey autofill on the login identifier
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only bump with no in-repo code changes; behavior changes are limited to the upstream 7.125.0 release.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s pinned `@frontegg/js` and `@frontegg/react-hooks` from **7.124.0** to **7.125.0**, with `yarn.lock` updated for the full 7.125.0 stack (`types`, `redux-store`, `rest-api`). No local source changes—consumers pick up the AdminPortal **7.125.0** fixes via the new packages.
+> 
+> That release includes signup terms handling when terms are text-only (`lastTermsCheck`), passkey UI after a cancelled credential sheet, MFA method-selection layout on iOS, stricter equal-level role assignment in role pickers, and login identifier email keyboard / passkey autofill behavior.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit bd93a9be3013745a8d66729ad2caa66d47e61fa1. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.15.2](https://github.com/frontegg/frontegg-react/compare/v7.15.1...v7.15.2) (2026-8-17)
+
+- FR-26036 - Fixed tenant selection takes precedence over skipUserLoading
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Dependency-only change, but it alters auth/session loading behavior in upstream packages (tenant vs. skipUserLoading), which can affect multi-tenant login flows.
+> 
+> **Overview**
+> **Bumps** `@frontegg/react`’s direct dependencies from **7.123.0** to **7.124.0** (`@frontegg/js`, `@frontegg/react-hooks`) and refreshes **`yarn.lock`** so the aligned **7.124.0** tree is pinned (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> Consumers of this package pick up upstream **Admin Portal / SDK** behavior from that release, including the fix where **tenant selection takes precedence over `skipUserLoading`** (FR-26036). No application source in this repo changes beyond the version pins.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 78b7c25ebb99a2e7cd06f52ff9e5d297f077318f. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.15.1](https://github.com/frontegg/frontegg-react/compare/v7.15.0...v7.15.1) (2026-8-17)
+
+- FR-26036 - Added tenantChoicePending to fix the hosted postlogin vs tenant-chooser race
+- FR-26413 - Fixed the identifier field showing the default keyboard instead of the email keyboard on iOS
+- FR-23291 - Added Admin Portal users filter by role UI
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump with no local source changes; risk is limited to upstream 7.123.0 release behavior.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.122.0** to **7.123.0** (`@frontegg/js`, `@frontegg/react-hooks`) and refreshes **`yarn.lock`** for the matching `@frontegg/*` tree (`types`, `redux-store`, `rest-api`).
+> 
+> Consumers of this package pick up Admin Portal **7.123.0** behavior from upstream, including fixes for hosted post-login vs tenant-chooser timing (`tenantChoicePending`), iOS email keyboard on the identifier field, and Admin Portal users filtering by role.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 49e5ef73e5deb3e5100bf0130e5e5829b2d89819. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.15.0](https://github.com/frontegg/frontegg-react/compare/v7.14.0...v7.15.0) (2026-8-2)
+
+- FR-24113 - Added mobile-friendly authenticator setup-key enrollment UI
+- FR-24965 - Added remember last used MFA factor preference
+- FR-26112 - Fixed iOS Password AutoFill on the embedded login page
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Transitive upgrade touches MFA enrollment, MFA preference, and embedded login autofill—auth-adjacent UX with no local code review in this PR.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.121.0** to **7.122.0**: `@frontegg/js` and `@frontegg/react-hooks`, with **`yarn.lock`** updated for the matching `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api` versions.
+> 
+> There are no application code changes in this repo; consumers pick up **AdminPortal / SDK 7.122.0** behavior from those packages, including mobile-friendly authenticator setup-key enrollment, remembering the last used MFA factor, and an iOS Password AutoFill fix on the embedded login page.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 42b0c4c34075b25c9c8ff03c4175c8214e155dff. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.14.0](https://github.com/frontegg/frontegg-react/compare/v7.13.11...v7.14.0) (2026-7-27)
+
+- FR-25731 - Fixed chooser load-error state seeding when switchable list empties after opening
+
+
+- FR-25731 - Added post-auth Choose Organization step in login-box (forward-port of #2864 to v7.120.x)
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Although this diff is only version pins, 7.121.0 changes post-authentication login-box/org-chooser flow, which can affect how users complete sign-in.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s pinned `@frontegg/js` and `@frontegg/react-hooks` from **7.119.0** to **7.121.0**, with `yarn.lock` updated for the aligned `@frontegg/*` stack (`redux-store`, `rest-api`, `types`).
+> 
+> No application source changes in this repo—the update pulls in upstream **7.121.0** login-box behavior described in the PR: a **post-auth Choose Organization** step and a fix for **chooser load-error state** when the switchable org list becomes empty after the chooser opens (FR-25731).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 6ad99258fdffdbb72a9742e2f207c1953d970bf0. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.11](https://github.com/frontegg/frontegg-react/compare/v7.13.10...v7.13.11) (2026-7-23)
+
+- FR-26014 - Added admin-box addressType redux branch (external instant-nav) [7.119.x]
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Version pin and lockfile-only change; risk is limited to regressions or behavior changes in the upstream 7.119.0 Admin Portal packages.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned Frontegg Admin Portal stack from **7.118.0** to **7.119.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` and refreshing **`yarn.lock`** for the related `@frontegg/*` packages (`redux-store`, `rest-api`, `types`).
+> 
+> There is no application source change in this repo; consumers of `@frontegg/react` pick up upstream **7.119.x** behavior, including **FR-26014** (admin-box **`addressType`** redux branch for external instant navigation) as noted in the PR description.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 06addbf5b454469eb22259736809182a9f054299. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-24939 - Fixed native step-up challenge not rendering in the embedded login WebView
+- FR-24853 - Removed identifiers flag
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; behavior changes come from published `@frontegg/*` packages, with no local code edits in this diff.
+> 
+> **Overview**
+> This PR **updates the React package’s Frontegg SDK dependencies** from **7.117.0** to **7.118.0**: `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json`, with matching lockfile entries for the full `@frontegg/*` tree (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> There is **no application source change** in the diff—consumers of `@frontegg/react` pick up upstream fixes described in the PR notes, including **native step-up challenge rendering in embedded login WebViews** (FR-24939) and **removal of the identifiers flag** (FR-24853).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 1f9716f8963bce14dc6f1a2cacddd2066324987f. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.13.11:
+- ci: upgrade create-github-app-token action to v3
+
+## [7.13.10](https://github.com/frontegg/frontegg-react/compare/v7.13.9...v7.13.10) (2026-7-9)
+
+- FR-24939 - Fixed native step-up challenge not rendering in the embedded login WebView
+- FR-24853 - Removed identifiers flag
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency version bump only; behavior changes come from published `@frontegg/*` packages, with no local code edits in this diff.
+> 
+> **Overview**
+> This PR **updates the React package’s Frontegg SDK dependencies** from **7.117.0** to **7.118.0**: `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json`, with matching lockfile entries for the full `@frontegg/*` tree (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> There is **no application source change** in the diff—consumers of `@frontegg/react` pick up upstream fixes described in the PR notes, including **native step-up challenge rendering in embedded login WebViews** (FR-24939) and **removal of the identifiers flag** (FR-24853).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 1f9716f8963bce14dc6f1a2cacddd2066324987f. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.13.10:
+- ci: upgrade create-github-app-token action to v3
+- ci: use GitHub App token for cross-repo dispatch instead of expiring PAT
+
+## [7.13.9](https://github.com/frontegg/frontegg-react/compare/v7.13.8...v7.13.9) (2026-7-6)
+
+- FR-23757 - Fixed the actor of system audit logs to not be unknown
+
+- FR-25580 - Fixed token refresh resilience with retry backoff
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Touches auth-related upstream behavior (token refresh); scope is limited to version pins with no local code edits.
+> 
+> **Overview**
+> Bumps **`@frontegg/js`** and **`@frontegg/react-hooks`** in `packages/react` from **7.115.0** to **7.117.0**, with **`yarn.lock`** updated for the aligned **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** versions.
+> 
+> This pulls in upstream AdminPortal/SDK fixes noted in the PR: **system audit logs** should show a proper actor instead of *unknown* (FR-23757), and **token refresh** is more resilient via retry backoff (FR-25580). No local React package source changes—only dependency pins and lockfile.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 850aa02375413c5df9654f60e18a43f18bfcee33. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.8](https://github.com/frontegg/frontegg-react/compare/v7.13.7...v7.13.8) (2026-7-6)
+
+- FR-24939 - Fixed step-up gate ignoring max_age when the token has no auth_time
+- FR-24939 - Fixed mobile SDK step-up looping to a blank&#x2F;error page instead of the MFA challenge
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Changes upstream step-up and MFA behavior used by the React SDK; low diff size but auth-flow impact warrants careful regression on step-up and mobile MFA.
+> 
+> **Overview**
+> Bumps `@frontegg/react`’s pinned `@frontegg/js` and `@frontegg/react-hooks` from **7.114.0** to **7.115.0**, with matching `yarn.lock` entries for the related `@frontegg/*` packages.
+> 
+> This pulls in upstream **7.115.0** fixes (FR-24939): step-up now respects **max_age** when the token lacks `auth_time`, and mobile SDK step-up no longer loops to a blank/error page instead of the MFA challenge.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 3ef175aa79d86b01eda9e240b54f80a2cc26ab8b. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.7](https://github.com/frontegg/frontegg-react/compare/v7.13.6...v7.13.7) (2026-6-25)
+
+- FR-24988 - Fixed hosted login box accessibility issues
+- FR-25494 - fixed stale frontegg oauth stale
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no local code changes; risk is limited to behavior changes inside the 7.114.0 SDK packages.
+> 
+> **Overview**
+> Updates **`@frontegg/react`** to consume **Frontegg SDK 7.114.0** by bumping **`@frontegg/js`** and **`@frontegg/react-hooks`** from `7.113.0` to `7.114.0`, with matching lockfile entries for the transitive **`@frontegg/types`**, **`@frontegg/redux-store`**, and **`@frontegg/rest-api`** packages.
+> 
+> No application source in this repo changes; consumers get upstream fixes from that release (per PR notes: hosted login box accessibility and Frontegg OAuth stale-session handling).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 7fa66ce0d59280ce82830e924242df4039f5882c. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.6](https://github.com/frontegg/frontegg-react/compare/v7.13.5...v7.13.6) (2026-6-22)
+
+- FR-24579 - Fixed admin-portal white screen in mobile SDK by refreshing session from native tokens
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Touches core auth/session packages without local code review in this diff; risk is mainly regression in admin portal or mobile SDK session handling from the upstream release.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.112.0** to **7.113.0**: `@frontegg/js` and `@frontegg/react-hooks`, with **`yarn.lock`** updated for the matching transitive **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** packages.
+> 
+> No application source changes in this PR—the update pulls in upstream **7.113.0** behavior, including the fix noted for **FR-24579** (admin portal white screen on mobile SDK by refreshing session from native tokens).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 455cb010cf87711c59f26aa901b9a897333966f3. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.5](https://github.com/frontegg/frontegg-react/compare/v7.13.4...v7.13.5) (2026-6-22)
+
+- FR-24579 - Fixed admin-portal redirect race on native auth handoff
+- FR-24579 - Fixed admin-portal mobile bridge capability gating and stuck loading
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Lockfile and dependency version pins only; no application code changes in this repository.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s direct dependencies from **7.111.0** to **7.112.0**: `@frontegg/js` and `@frontegg/react-hooks`, with **`yarn.lock`** updated for the full `@frontegg/*` tree (`types`, `redux-store`, `rest-api`, etc.).
+> 
+> This release line includes Admin Portal fixes referenced in **FR-24579** (redirect race on native auth handoff, mobile bridge capability gating / stuck loading); those changes live in the published packages, not in this repo’s source.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit e008404ff704c75ca374a83fe38b756b680c773d. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.4](https://github.com/frontegg/frontegg-react/compare/v7.13.3...v7.13.4) (2026-6-21)
+
+- FR-24579 - Added native token bridge for the admin portal (no second login)
+- FR-20973 - Fixed sso with username
+- FR-20975 - Fixed description username login with magic code
+- FR-22194 - Fixed error massage of username already exists missing from UI
+- FR-20977 - Fixed resend with username in magic link
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Auth and admin-portal behavior shifts with the SDK bump even though this diff is only lockfile/package versions; regression risk is in login, SSO, and magic-link flows.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s pinned Frontegg SDK from **7.110.0** to **7.111.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json`, with matching **`yarn.lock`** entries for `@frontegg/js`, `@frontegg/react-hooks`, `@frontegg/redux-store`, `@frontegg/rest-api`, and `@frontegg/types`.
+> 
+> No application source in this repo changes; consumers pick up **7.111.0** Admin Portal / auth behavior from the upstream packages (e.g. admin portal native token bridge and username/SSO/magic-link fixes noted in the PR description).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 29129cb8fc4d3d3dd756a5c545f6d64e2cff23b5. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.3](https://github.com/frontegg/frontegg-react/compare/v7.13.2...v7.13.3) (2026-6-4)
+
+- FR-25111 - Fixed tenant regex
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only version bump with no local code changes; risk is limited to upstream 7.110.0 behavior in auth/admin flows.
+> 
+> **Overview**
+> Bumps the embedded Frontegg Admin Portal stack from **7.109.0** to **7.110.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` and refreshing `yarn.lock` for the related `@frontegg/*` packages.
+> 
+> There are no application source changes in this repo; behavior updates (including the **tenant regex** fix noted in FR-25111) come from the upgraded published packages.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit e036f6948f8a1b49c443a3026c9ab66aac74a545. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.2](https://github.com/frontegg/frontegg-react/compare/v7.13.1...v7.13.2) (2026-6-1)
+
+- FR-25022 - Changed phone validations
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Validation behavior for phone numbers changes in a vendor auth/admin package, which can affect signup or profile flows without local code to review in this PR.
+> 
+> **Overview**
+> Bumps **`@frontegg/js`** and **`@frontegg/react-hooks`** in `packages/react` from **7.108.0** to **7.109.0**, with **`yarn.lock`** updated for the matching **`@frontegg/types`**, **`redux-store`**, and **`rest-api`** versions. There are **no application source changes** in this repo—the Admin Portal behavior (including **FR-25022** phone validation updates noted in the PR description) comes from the upgraded Frontegg packages.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit ba67d54dd118e133862c20cdffc7fc4935065d49. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.1](https://github.com/frontegg/frontegg-react/compare/v7.13.0...v7.13.1) (2026-5-19)
+
+- FR-23507 - Fixed custom login box favicon not displaying pulls from main login box instead
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Updates core Frontegg SDK dependencies, so behavior changes come from upstream library code and could affect authentication/AdminPortal flows at runtime despite the small diff.
+> 
+> **Overview**
+> Updates `packages/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.108.0` (from `7.107.0`).
+> 
+> Regenerates `yarn.lock` to pull the corresponding `7.108.0` Frontegg transitive packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 81cc59e22c86c4a0f2788d40a78481e6e941d04b. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.13.0](https://github.com/frontegg/frontegg-react/compare/v7.12.22...v7.13.0) (2026-5-17)
+
+- FR-24663 - Fixed country restriction dark theme input
+- FR-24664 - Fixed country field background in modern theme
+- FR-24693 - Fixed country restriction admin portal not full list of countries display for allow deny lists
+- FR-24661 - Fixed country restriction tip counter updates
+- FR-24667 - Added country restriction admin portal current country is not added to the list after enabling the counter restriction toggle
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> Updates core Frontegg runtime dependencies, which could change Admin Portal behavior at runtime despite being a small diff. Risk is limited to upstream package changes and lockfile resolution.
+> 
+> **Overview**
+> Bumps `@frontegg/react`'s Frontegg dependencies to `7.107.0` by updating `@frontegg/js` and `@frontegg/react-hooks`, along with the corresponding transitive packages in `yarn.lock` (e.g., `@frontegg/redux-store`, `@frontegg/rest-api`, `@frontegg/types`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 0219802f3bad61bcc72c9dfa1b2ac7c424031aaf. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-24187 - Fixed CPU issues
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk: this PR only updates dependency versions and lockfile entries, with no in-repo logic changes. Behavior changes, if any, come from the upstream Frontegg packages.
+> 
+> **Overview**
+> Updates `packages/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.106.0` (from `7.105.0`).
+> 
+> Regenerates `yarn.lock` to pull the matching `7.106.0` versions of transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 64810cd988f72146c20dc7e4c9069f2c1f07a991. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.13.0:
+- fix - e2e trigger
+
+## [7.12.22](https://github.com/frontegg/frontegg-react/compare/v7.12.21...v7.12.22) (2026-5-5)
+
+- FR-24187 - Fixed CPU issues
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk: this PR only updates dependency versions and lockfile entries, with no in-repo logic changes. Behavior changes, if any, come from the upstream Frontegg packages.
+> 
+> **Overview**
+> Updates `packages/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.106.0` (from `7.105.0`).
+> 
+> Regenerates `yarn.lock` to pull the matching `7.106.0` versions of transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 64810cd988f72146c20dc7e4c9069f2c1f07a991. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+- FR-23435 - Added country restriction features to Security Center
+- FR-23515 - Fixed wrong audit log tooltips
+- FR-23524 - Added guidesCdnUrl to SSOPage
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk lockfile/dependency-only update; behavior changes are limited to whatever is introduced in upstream `@frontegg/*` packages.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.105.0` (from `7.104.0`).
+> 
+> Regenerates `yarn.lock` to pull the `7.105.0` Frontegg dependency chain (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) with updated resolved artifacts and integrity hashes.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 25ced5838bb38eb844ac71bafd62158ed19e7500. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+### React Wrapper 7.12.22:
+- fix - e2e trigger
+
+## [7.12.21](https://github.com/frontegg/frontegg-react/compare/v7.12.20...v7.12.21) (2026-3-31)
+
+- FR-23900 - Added validation for reset password token and improved user feedback for expired links
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk dependency-only bump; behavior changes (if any) come from upstream `@frontegg/*` packages rather than local code changes.
+> 
+> **Overview**
+> Updates `@frontegg/react` dependencies to `@frontegg/js` and `@frontegg/react-hooks` `7.104.0` (from `7.103.0`).
+> 
+> Refreshes `yarn.lock` to pull the corresponding `7.104.0` transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 0545b689269403c0a7af825229a20f1b5889e19b. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.20](https://github.com/frontegg/frontegg-react/compare/v7.12.19...v7.12.20) (2026-3-19)
+
+- FR-23610 - Added login completed GTM
+- FR-23421 - Added support for CMC SCIM guide dialog and fix SSO guide
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk: this PR only updates dependency versions and lockfile entries, with no direct source code changes. Any behavior change would come from the upstream `@frontegg/*` packages.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.103.0` (from `7.102.0`).
+> 
+> Refreshes `yarn.lock` to pull in the corresponding `7.103.0` releases for transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 3d8629989a92e6a191d29e8a8b1702c67eac0095. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.19](https://github.com/frontegg/frontegg-react/compare/v7.12.18...v7.12.19) (2026-3-8)
+
+- FR-22979 - Changed callback in InviteUserForm to handle errors and reset form state
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Low risk dependency-only update (no source changes), but behavior may shift due to updated Frontegg SDK transitive packages.
+> 
+> **Overview**
+> Updates `packages/react/package.json` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.102.0` (from `7.101.0`).
+> 
+> Regenerates `yarn.lock` to pull in the corresponding `7.102.0` releases and transitive bumps (notably `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 37257c84d3616d1134cc172f49641eed44147c00. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.18](https://github.com/frontegg/frontegg-react/compare/v7.12.17...v7.12.18) (2026-2-16)
+
+- FR-22346 - Fixed enable session per tenant data mismatch between user jwt and sdk    
+- FR-22346 - Fixed enable session per tenant data mismatch between user jwt and sdk    
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Dependency-only bump of Frontegg SDK packages; risk is limited to upstream behavior changes/regressions in auth/session handling introduced by the new versions.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.101.0` (from `7.100.0`).
+> 
+> Refreshes `yarn.lock` to pull the `7.101.0` Frontegg dependency chain (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) with no source code changes in this repo.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 428af0c0ac5ae6afa6c4be281a3dc811657801b4. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.17](https://github.com/frontegg/frontegg-react/compare/v7.12.16...v7.12.17) (2026-2-10)
+
+- FR-23484 - Added an option to render SSO guides outside of admin box
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Lockfile-only dependency bump with no application code changes; risk is limited to behavior changes introduced by the updated upstream Frontegg packages.
+> 
+> **Overview**
+> Updates `@frontegg/react` to depend on `@frontegg/js` and `@frontegg/react-hooks` `7.100.0` (from `7.99.0`).
+> 
+> Refreshes `yarn.lock` accordingly, pulling in the `7.100.0` versions of Frontegg transitive packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 28f2aa9a6f81391244e8b9928f8cafac3da023c0. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.16](https://github.com/frontegg/frontegg-react/compare/v7.12.15...v7.12.16) (2026-1-27)
+
+- FR-22263 - Fixed publish
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Updates Frontegg dependencies to the latest minor release.
+> 
+> - Bumps `@frontegg/js` and `@frontegg/react-hooks` from `7.97.0` to `7.99.0` in `packages/react/package.json`
+> - Refreshes `yarn.lock` to align transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) to `7.99.0`
+> 
+> **Scope/Risk**
+> - No source code changes; dependency-only update.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 2cb0f6beb46b051fcd0aeec7ba89066b6e51dd7a. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.15](https://github.com/frontegg/frontegg-react/compare/v7.12.14...v7.12.15) (2026-1-14)
+
+- FR-23141 - Added username edit config
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Updates Frontegg dependencies across React package and lockfile.
+> 
+> - Bumps `@frontegg/js` and `@frontegg/react-hooks` to `7.97.0` in `packages/react/package.json`
+> - Refreshes `yarn.lock` to align transitive Frontegg packages (`redux-store`, `rest-api`, `types`) to `7.97.0`
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 651de40e846e34f524c75a7364b43ec4a86eb3f5. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.14](https://github.com/frontegg/frontegg-react/compare/v7.12.13...v7.12.14) (2026-1-5)
+
+- FR-17084 - Fixed loader
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Upgrades Frontegg dependencies to the latest minor version.
+> 
+> - Bumps `@frontegg/js` and `@frontegg/react-hooks` to `7.96.0` in `packages/react/package.json`
+> - Updates `yarn.lock` to align transitive Frontegg packages (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`) to `7.96.0`
+> 
+> No application/source code changes; dependency versions only.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 6601f1aa7ae52e18ccc5e740e48db84332e68a48. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.13](https://github.com/frontegg/frontegg-react/compare/v7.12.12...v7.12.13) (2025-12-11)
+
+- FR-21830 - Fixed IP location
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Upgrade Frontegg dependencies to 7.95.0 and update lockfile/transitives accordingly.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` to `7.95.0` in `packages/react/package.json`.
+>   - Update `yarn.lock` to reflect `7.95.0` across transitive packages: `@frontegg/redux-store`, `@frontegg/rest-api`, `@frontegg/types`.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit cac26563c989c32a9a6bfa828cc6de832f9f3517. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.12](https://github.com/frontegg/frontegg-react/compare/v7.12.11...v7.12.12) (2025-12-7)
+
+- FR-22289 - Added support new columns in users table
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Updates `@frontegg/js` and `@frontegg/react-hooks` to 7.94.0 with corresponding lockfile updates for related Frontegg packages.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` from `7.93.0` → `7.94.0`.
+>   - Update transitive Frontegg packages in `yarn.lock` to `7.94.0` (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 99002cc3f0eca18303d736f7e3ab4b00f59a716b. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.11](https://github.com/frontegg/frontegg-react/compare/v7.12.10...v7.12.11) (2025-11-30)
+
+- FR-22193 - Added admin portal support for searching by username, email, name, etc. in the users table
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Upgrade Frontegg React dependencies to 7.93.0 with corresponding yarn.lock updates.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` to `7.93.0` in `packages/react/package.json`.
+>   - Update `yarn.lock` resolutions, cascading to `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api` at `7.93.0`.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit d0f2997c7cd70efb1460efedf2eb02d1a7abcb13. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.10](https://github.com/frontegg/frontegg-react/compare/v7.12.9...v7.12.10) (2025-10-19)
+
+- FR-22210 - Added Netherlands
+- FR-22239 - Fixed share link design and texts
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Bumps Frontegg React dependencies to 7.92.0 and aligns related packages.
+> 
+> - **Dependencies**:
+>   - Update in `packages/react/package.json`:
+>     - `@frontegg/js` 7.91.0 → 7.92.0
+>     - `@frontegg/react-hooks` 7.91.0 → 7.92.0
+>   - Align transitive Frontegg packages to 7.92.0 (`@frontegg/types`, `@frontegg/redux-store`, `@frontegg/rest-api`).
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 55679109aef6611ac7b08b49d521c74f809e238c. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.9](https://github.com/frontegg/frontegg-react/compare/v7.12.8...v7.12.9) (2025-9-29)
+
+- FR-22258 - Added approval flow
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Update Frontegg React dependencies to 7.91.0 and refresh lockfile.
+> 
+> - **Dependencies**:
+>   - Bump `@frontegg/js` and `@frontegg/react-hooks` to `7.91.0` in `packages/react/package.json`.
+>   - Update `yarn.lock` to `7.91.0` for related Frontegg packages: `@frontegg/js`, `@frontegg/react-hooks`, `@frontegg/redux-store`, `@frontegg/rest-api`, `@frontegg/types`.
+> 
+> <sup>Written by [Cursor Bugbot](https://cursor.com/dashboard?tab=bugbot) for commit 90adfd1541652322631a92f6c5893ae1bd1dc1dc. This will update automatically on new commits. Configure [here](https://cursor.com/dashboard?tab=bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
+## [7.12.8](https://github.com/frontegg/frontegg-react/compare/v7.12.7...v7.12.8) (2025-9-25)
+
+- FR-22238 - Added a &#39;Back&#39; button when both link and form invitations …
+- FR-22167 - Fixed username field to be hidden by default in the invite…
+
+
+
 ## [7.12.7](https://github.com/frontegg/frontegg-react/compare/v7.12.6...v7.12.7) (2025-9-16)
 
 - FR-22185 - Fixed running afterAuthRedirect in social login callback
