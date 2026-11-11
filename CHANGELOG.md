@@ -1,5 +1,27 @@
 # Change Log
 
+## [7.20.2](https://github.com/frontegg/frontegg-react/compare/v7.20.1...v7.20.2) (2026-11-11)
+
+- FR-28071 - Fixed environment roles hidden for accounts targeted by tenant
+- FR-28071 - Fixed new environments missing until a page refresh
+- FR-28071 - Fixed the roles +N cut off for long role names
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Version-only dependency bump with no local code changes; risk is limited to upstream 7.134.0 behavior in Admin Portal.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s embedded Admin Portal stack from **7.133.0** to **7.134.0** by updating direct dependencies `@frontegg/js` and `@frontegg/react-hooks`, with matching **`yarn.lock`** entries for the transitive `@frontegg/types`, `@frontegg/redux-store`, and `@frontegg/rest-api` packages.
+> 
+> This pulls in **FR-28071** fixes in the upstream release: environment roles no longer stay hidden for tenant-targeted accounts, new environments appear without a full page refresh, and long role names no longer clip the “+N” roles indicator in Admin Portal UI.
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 8b55b1a2a4c007555b1506d91a7509d8c4063f22. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.20.1](https://github.com/frontegg/frontegg-react/compare/v7.20.0...v7.20.1) (2026-10-29)
 
 - FR-28081 - Fixed the admin portal rendering before the metadata overrides load
