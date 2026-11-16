@@ -1,5 +1,27 @@
 # Change Log
 
+## [7.20.3](https://github.com/frontegg/frontegg-react/compare/v7.20.2...v7.20.3) (2026-11-16)
+
+- FR-28071 - Added environment roles to the invite user dialog
+
+- FR-28423 - Fixed activation losing the redirect when another user is signed in (behind flag)
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Medium Risk**
+> No local source changes, but the upgrade may change invite/role and activation redirect behavior via upstream SDK releases.
+> 
+> **Overview**
+> Bumps **`@frontegg/react`**’s bundled Frontegg SDK from **7.134.0** to **7.136.0** by updating `@frontegg/js` and `@frontegg/react-hooks` in `packages/react/package.json` and refreshing `yarn.lock` for the related `@frontegg/*` packages.
+> 
+> Consumers of this package pick up upstream Admin Portal behavior from 7.136.0, including **environment roles in the invite-user dialog** (FR-28071) and a fix for **activation losing redirect when another user is signed in** (FR-28423, feature-flagged).
+> 
+> <sup>Reviewed by [Cursor Bugbot](https://cursor.com/bugbot) for commit 963434140aefd3e19cf32f32b5015181b894b051. Bugbot is set up for automated code reviews on this repo. Configure [here](https://www.cursor.com/dashboard/bugbot).</sup>
+<!-- /CURSOR_SUMMARY -->
+
+
 ## [7.20.2](https://github.com/frontegg/frontegg-react/compare/v7.20.1...v7.20.2) (2026-11-11)
 
 - FR-28071 - Fixed environment roles hidden for accounts targeted by tenant
